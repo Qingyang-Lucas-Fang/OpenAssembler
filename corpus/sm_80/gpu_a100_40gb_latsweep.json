@@ -1,0 +1,1255 @@
+{
+ "device": {
+  "name": "NVIDIA A100-SXM4-40GB",
+  "cc": "8.0",
+  "driver": 13030,
+  "sm_count": 108,
+  "clock_khz": 1410000,
+  "mem_bytes": 42429251584
+ },
+ "set": "dir:corpus/sm_80/latsweep",
+ "arch": "sm_80",
+ "trials": 3,
+ "summary": {
+  "match": 12,
+  "DIFFER": 36
+ },
+ "probes": {
+  "ptxas@p_lat_FSETP_FADD_g": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "ptxas@p_lat_ISETP_IADD3_g": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "ptxas@p_lat_ISETP_IMAD_g": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "s10@p_lat_FSETP_FADD_g": {
+   "status": "DIFFER",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 16,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "lanes": "57/96",
+   "in": [
+    "0xfffffffe",
+    "0x4d3aacf7",
+    "0x4d97b5a0",
+    "0x63101d93"
+   ],
+   "k": "0x1d",
+   "kf": "0x95cd9c5a",
+   "gpu": [
+    "0x4d3aacf7",
+    "0x4df50c1c"
+   ],
+   "emu": [
+    "0x4d3aacf7",
+    "0xfffffffe"
+   ],
+   "vs_ptx_spec": "57/96 differ"
+  },
+  "s10@p_lat_ISETP_IADD3_g": {
+   "status": "DIFFER",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 16,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "lanes": "44/96",
+   "in": [
+    "0xdec005eb",
+    "0x494e",
+    "0x3f800000",
+    "0xe2e6f48d"
+   ],
+   "k": "0x1",
+   "kf": "0xc2dcdc1",
+   "gpu": [
+    "0x494e",
+    "0x2266f48d"
+   ],
+   "emu": [
+    "0x494e",
+    "0xdec005eb"
+   ],
+   "vs_ptx_spec": "44/96 differ"
+  },
+  "s10@p_lat_ISETP_IMAD_g": {
+   "status": "DIFFER",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 16,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "lanes": "49/96",
+   "in": [
+    "0xed630f90",
+    "0x8c9a8c8f",
+    "0x75d7323",
+    "0x980bde46"
+   ],
+   "k": "0x4",
+   "kf": "0x1c7b35fd",
+   "gpu": [
+    "0x8c9a8c8f",
+    "0x54816221"
+   ],
+   "emu": [
+    "0x8c9a8c8f",
+    "0xed630f90"
+   ],
+   "vs_ptx_spec": "49/96 differ"
+  },
+  "s11@p_lat_FSETP_FADD_g": {
+   "status": "DIFFER",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 16,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "lanes": "43/96",
+   "in": [
+    "0x39282a03",
+    "0x1",
+    "0x625b0fe1",
+    "0x5f000000"
+   ],
+   "k": "0x11",
+   "kf": "0x558ac3cf",
+   "gpu": [
+    "0x1",
+    "0x625b0fe1"
+   ],
+   "emu": [
+    "0x1",
+    "0x39282a03"
+   ],
+   "vs_ptx_spec": "43/96 differ"
+  },
+  "s11@p_lat_ISETP_IADD3_g": {
+   "status": "DIFFER",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 16,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "lanes": "42/96",
+   "in": [
+    "0xd00de298",
+    "0x69b7238b",
+    "0x20",
+    "0x83c15e13"
+   ],
+   "k": "0x11",
+   "kf": "0xbda0a107",
+   "gpu": [
+    "0x69b7238b",
+    "0x83c15e33"
+   ],
+   "emu": [
+    "0x69b7238b",
+    "0xd00de298"
+   ],
+   "vs_ptx_spec": "42/96 differ"
+  },
+  "s11@p_lat_ISETP_IMAD_g": {
+   "status": "DIFFER",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 16,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "lanes": "41/96",
+   "in": [
+    "0xf494a8d3",
+    "0x80",
+    "0xc",
+    "0x12ab173e"
+   ],
+   "k": "0x12",
+   "kf": "0x7fc00000",
+   "gpu": [
+    "0x80",
+    "0xe0051768"
+   ],
+   "emu": [
+    "0x80",
+    "0xf494a8d3"
+   ],
+   "vs_ptx_spec": "41/96 differ"
+  },
+  "s12@p_lat_FSETP_FADD_g": {
+   "status": "DIFFER",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 16,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "lanes": "55/96",
+   "in": [
+    "0x6",
+    "0x2",
+    "0xffff",
+    "0x464e"
+   ],
+   "k": "0x12",
+   "kf": "0xd7621f1c",
+   "gpu": [
+    "0x2",
+    "0x10001"
+   ],
+   "emu": [
+    "0x2",
+    "0x6"
+   ],
+   "vs_ptx_spec": "55/96 differ"
+  },
+  "s12@p_lat_ISETP_IADD3_g": {
+   "status": "DIFFER",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 16,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "lanes": "49/96",
+   "in": [
+    "0xd82b693f",
+    "0x2",
+    "0xf",
+    "0x9b46f370"
+   ],
+   "k": "0x13",
+   "kf": "0x7a8e",
+   "gpu": [
+    "0x2",
+    "0x9b46f37f"
+   ],
+   "emu": [
+    "0x2",
+    "0xd82b693f"
+   ],
+   "vs_ptx_spec": "49/96 differ"
+  },
+  "s12@p_lat_ISETP_IMAD_g": {
+   "status": "DIFFER",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 16,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "lanes": "48/96",
+   "in": [
+    "0x298215bf",
+    "0x5c",
+    "0x13faa8f1",
+    "0x1f"
+   ],
+   "k": "0xe",
+   "kf": "0x24189e42",
+   "gpu": [
+    "0x5c",
+    "0x6b5a758b"
+   ],
+   "emu": [
+    "0x5c",
+    "0x298215bf"
+   ],
+   "vs_ptx_spec": "48/96 differ"
+  },
+  "s13@p_lat_FSETP_FADD_g": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 16,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "s13@p_lat_ISETP_IADD3_g": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 16,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "s13@p_lat_ISETP_IMAD_g": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 16,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "s14@p_lat_FSETP_FADD_g": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 16,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "s14@p_lat_ISETP_IADD3_g": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 16,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "s14@p_lat_ISETP_IMAD_g": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 16,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "s15@p_lat_FSETP_FADD_g": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 16,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "s15@p_lat_ISETP_IADD3_g": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 16,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "s15@p_lat_ISETP_IMAD_g": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 16,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "s1@p_lat_FSETP_FADD_g": {
+   "status": "DIFFER",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 16,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "lanes": "50/96",
+   "in": [
+    "0x4b000000",
+    "0x90841331",
+    "0x67fad6be",
+    "0x10"
+   ],
+   "k": "0x31",
+   "kf": "0xff6060c3",
+   "gpu": [
+    "0x90841331",
+    "0x67fad6be"
+   ],
+   "emu": [
+    "0x90841331",
+    "0x4b000000"
+   ],
+   "vs_ptx_spec": "50/96 differ"
+  },
+  "s1@p_lat_ISETP_IADD3_g": {
+   "status": "DIFFER",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 16,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "lanes": "45/96",
+   "in": [
+    "0x427e61b3",
+    "0x7fffff",
+    "0xdfe0d5f6",
+    "0x5f000000"
+   ],
+   "k": "0xd",
+   "kf": "0xe7c05dca",
+   "gpu": [
+    "0x7fffff",
+    "0x3ee0d5f6"
+   ],
+   "emu": [
+    "0x7fffff",
+    "0x427e61b3"
+   ],
+   "vs_ptx_spec": "45/96 differ"
+  },
+  "s1@p_lat_ISETP_IMAD_g": {
+   "status": "DIFFER",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 16,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "lanes": "47/96",
+   "in": [
+    "0xf650",
+    "0xb6",
+    "0x78828669",
+    "0xa06e0c8f"
+   ],
+   "k": "0x29",
+   "kf": "0xb432e995",
+   "gpu": [
+    "0xb6",
+    "0xd054015d"
+   ],
+   "emu": [
+    "0xb6",
+    "0xf650"
+   ],
+   "vs_ptx_spec": "47/96 differ"
+  },
+  "s2@p_lat_FSETP_FADD_g": {
+   "status": "DIFFER",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 16,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "lanes": "53/96",
+   "in": [
+    "0x7fc00000",
+    "0xfffffffe",
+    "0x80800000",
+    "0x7f800000"
+   ],
+   "k": "0x3a",
+   "kf": "0x3f800000",
+   "gpu": [
+    "0xfffffffe",
+    "0x7fffffff"
+   ],
+   "emu": [
+    "0xfffffffe",
+    "0x7fc00000"
+   ],
+   "vs_ptx_spec": "52/96 differ"
+  },
+  "s2@p_lat_ISETP_IADD3_g": {
+   "status": "DIFFER",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 16,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "lanes": "52/96",
+   "in": [
+    "0x63b12a4",
+    "0x1",
+    "0x7",
+    "0x5"
+   ],
+   "k": "0x20",
+   "kf": "0x839c47d",
+   "gpu": [
+    "0x1",
+    "0xc"
+   ],
+   "emu": [
+    "0x1",
+    "0x63b12a4"
+   ],
+   "vs_ptx_spec": "52/96 differ"
+  },
+  "s2@p_lat_ISETP_IMAD_g": {
+   "status": "DIFFER",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 16,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "lanes": "53/96",
+   "in": [
+    "0xc39ead24",
+    "0x752e216a",
+    "0xff800000",
+    "0x731ab375"
+   ],
+   "k": "0x1a",
+   "kf": "0x96fc8475",
+   "gpu": [
+    "0x752e216a",
+    "0xbaae216a"
+   ],
+   "emu": [
+    "0x752e216a",
+    "0xc39ead24"
+   ],
+   "vs_ptx_spec": "53/96 differ"
+  },
+  "s3@p_lat_FSETP_FADD_g": {
+   "status": "DIFFER",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 16,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "lanes": "40/96",
+   "in": [
+    "0xffffffff",
+    "0x6deecdd",
+    "0xa1c59d7f",
+    "0x3f51f5cf"
+   ],
+   "k": "0x13",
+   "kf": "0xc0bfced4",
+   "gpu": [
+    "0x6deecdd",
+    "0xa1c59d7f"
+   ],
+   "emu": [
+    "0x6deecdd",
+    "0xffffffff"
+   ],
+   "vs_ptx_spec": "38/96 differ"
+  },
+  "s3@p_lat_ISETP_IADD3_g": {
+   "status": "DIFFER",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 16,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "lanes": "47/96",
+   "in": [
+    "0x771f685d",
+    "0x1f",
+    "0x9b9e181b",
+    "0xf8c6dc58"
+   ],
+   "k": "0xc",
+   "kf": "0x8e649c54",
+   "gpu": [
+    "0x1f",
+    "0x9464f473"
+   ],
+   "emu": [
+    "0x1f",
+    "0x771f685d"
+   ],
+   "vs_ptx_spec": "47/96 differ"
+  },
+  "s3@p_lat_ISETP_IMAD_g": {
+   "status": "DIFFER",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 16,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "lanes": "51/96",
+   "in": [
+    "0x4a7e8ebd",
+    "0x3",
+    "0x8e5b",
+    "0x1dd48c52"
+   ],
+   "k": "0x13",
+   "kf": "0xb",
+   "gpu": [
+    "0x3",
+    "0x80635d29"
+   ],
+   "emu": [
+    "0x3",
+    "0x4a7e8ebd"
+   ],
+   "vs_ptx_spec": "51/96 differ"
+  },
+  "s4@p_lat_FSETP_FADD_g": {
+   "status": "DIFFER",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 16,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "lanes": "41/96",
+   "in": [
+    "0x3f800000",
+    "0x7f",
+    "0xa441658f",
+    "0xffddbe01"
+   ],
+   "k": "0x5",
+   "kf": "0xb5",
+   "gpu": [
+    "0x7f",
+    "0xa441658f"
+   ],
+   "emu": [
+    "0x7f",
+    "0x3f800000"
+   ],
+   "vs_ptx_spec": "41/96 differ"
+  },
+  "s4@p_lat_ISETP_IADD3_g": {
+   "status": "DIFFER",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 16,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "lanes": "44/96",
+   "in": [
+    "0xd8498afb",
+    "0x2e60c51d",
+    "0x215a9314",
+    "0x0"
+   ],
+   "k": "0x24",
+   "kf": "0x571d71bd",
+   "gpu": [
+    "0x2e60c51d",
+    "0x215a9314"
+   ],
+   "emu": [
+    "0x2e60c51d",
+    "0xd8498afb"
+   ],
+   "vs_ptx_spec": "44/96 differ"
+  },
+  "s4@p_lat_ISETP_IMAD_g": {
+   "status": "DIFFER",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 16,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "lanes": "50/96",
+   "in": [
+    "0xe829a0a6",
+    "0x831a4136",
+    "0x5388346d",
+    "0x1234"
+   ],
+   "k": "0x16",
+   "kf": "0xe4f0ece7",
+   "gpu": [
+    "0x831a4136",
+    "0xe74915a"
+   ],
+   "emu": [
+    "0x831a4136",
+    "0xe829a0a6"
+   ],
+   "vs_ptx_spec": "50/96 differ"
+  },
+  "s5@p_lat_FSETP_FADD_g": {
+   "status": "DIFFER",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 16,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "lanes": "54/96",
+   "in": [
+    "0x4b58cd26",
+    "0xae",
+    "0xdc3baaaa",
+    "0xb0146283"
+   ],
+   "k": "0x17",
+   "kf": "0x10754564",
+   "gpu": [
+    "0xae",
+    "0xdc3baaaa"
+   ],
+   "emu": [
+    "0xae",
+    "0x4b58cd26"
+   ],
+   "vs_ptx_spec": "54/96 differ"
+  },
+  "s5@p_lat_ISETP_IADD3_g": {
+   "status": "DIFFER",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 16,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "lanes": "47/96",
+   "in": [
+    "0xb4ede54b",
+    "0x11",
+    "0xdad9116f",
+    "0xff800000"
+   ],
+   "k": "0x26",
+   "kf": "0x1",
+   "gpu": [
+    "0x11",
+    "0xda59116f"
+   ],
+   "emu": [
+    "0x11",
+    "0xb4ede54b"
+   ],
+   "vs_ptx_spec": "47/96 differ"
+  },
+  "s5@p_lat_ISETP_IMAD_g": {
+   "status": "DIFFER",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 16,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "lanes": "53/96",
+   "in": [
+    "0xd11b",
+    "0x9732",
+    "0xffffffff",
+    "0x255fb477"
+   ],
+   "k": "0xe",
+   "kf": "0x7a69bdb8",
+   "gpu": [
+    "0x9732",
+    "0xdaa0e2bb"
+   ],
+   "emu": [
+    "0x9732",
+    "0xd11b"
+   ],
+   "vs_ptx_spec": "53/96 differ"
+  },
+  "s6@p_lat_FSETP_FADD_g": {
+   "status": "DIFFER",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 16,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "lanes": "53/96",
+   "in": [
+    "0x2",
+    "0xd83f2a73",
+    "0x2234f1b1",
+    "0x1f"
+   ],
+   "k": "0x2",
+   "kf": "0x5f000000",
+   "gpu": [
+    "0xd83f2a73",
+    "0xd83f2a73"
+   ],
+   "emu": [
+    "0xd83f2a73",
+    "0x2"
+   ],
+   "vs_ptx_spec": "53/96 differ"
+  },
+  "s6@p_lat_ISETP_IADD3_g": {
+   "status": "DIFFER",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 16,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "lanes": "39/96",
+   "in": [
+    "0xfee499a0",
+    "0x313b9ad6",
+    "0xbff0452c",
+    "0x929498fe"
+   ],
+   "k": "0xb",
+   "kf": "0x1",
+   "gpu": [
+    "0x313b9ad6",
+    "0x5284de2a"
+   ],
+   "emu": [
+    "0x313b9ad6",
+    "0xfee499a0"
+   ],
+   "vs_ptx_spec": "39/96 differ"
+  },
+  "s6@p_lat_ISETP_IMAD_g": {
+   "status": "DIFFER",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 16,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "lanes": "47/96",
+   "in": [
+    "0x53878687",
+    "0x12c4d6dc",
+    "0x69214cc2",
+    "0x161e"
+   ],
+   "k": "0x4",
+   "kf": "0xb5e16640",
+   "gpu": [
+    "0x12c4d6dc",
+    "0x41448198"
+   ],
+   "emu": [
+    "0x12c4d6dc",
+    "0x53878687"
+   ],
+   "vs_ptx_spec": "46/96 differ"
+  },
+  "s7@p_lat_FSETP_FADD_g": {
+   "status": "DIFFER",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 16,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "lanes": "57/96",
+   "in": [
+    "0x689546ac",
+    "0x573cfb28",
+    "0x2a6d5376",
+    "0x7a291655"
+   ],
+   "k": "0xa",
+   "kf": "0xd0ab6ddd",
+   "gpu": [
+    "0x573cfb28",
+    "0x573cfb28"
+   ],
+   "emu": [
+    "0x573cfb28",
+    "0x689546ac"
+   ],
+   "vs_ptx_spec": "57/96 differ"
+  },
+  "s7@p_lat_ISETP_IADD3_g": {
+   "status": "DIFFER",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 16,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "lanes": "47/96",
+   "in": [
+    "0xaea229e1",
+    "0x7fc00000",
+    "0x7",
+    "0xb2a91e29"
+   ],
+   "k": "0x6",
+   "kf": "0x20",
+   "gpu": [
+    "0x7fc00000",
+    "0xb2a91e30"
+   ],
+   "emu": [
+    "0x7fc00000",
+    "0xaea229e1"
+   ],
+   "vs_ptx_spec": "47/96 differ"
+  },
+  "s7@p_lat_ISETP_IMAD_g": {
+   "status": "DIFFER",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 16,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "lanes": "53/96",
+   "in": [
+    "0x7f",
+    "0x0",
+    "0x167d6c42",
+    "0xf46bb804"
+   ],
+   "k": "0x23",
+   "kf": "0x6c18860e",
+   "gpu": [
+    "0x0",
+    "0xa75b2108"
+   ],
+   "emu": [
+    "0x0",
+    "0x7f"
+   ],
+   "vs_ptx_spec": "53/96 differ"
+  },
+  "s8@p_lat_FSETP_FADD_g": {
+   "status": "DIFFER",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 16,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "lanes": "53/96",
+   "in": [
+    "0x4",
+    "0xe11dd813",
+    "0x9e41020f",
+    "0x7fc00000"
+   ],
+   "k": "0x33",
+   "kf": "0xc9c1f1e6",
+   "gpu": [
+    "0xe11dd813",
+    "0xe11dd813"
+   ],
+   "emu": [
+    "0xe11dd813",
+    "0x4"
+   ],
+   "vs_ptx_spec": "53/96 differ"
+  },
+  "s8@p_lat_ISETP_IADD3_g": {
+   "status": "DIFFER",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 16,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "lanes": "54/96",
+   "in": [
+    "0x22e0a34d",
+    "0x3",
+    "0xffffffff",
+    "0x1f"
+   ],
+   "k": "0x32",
+   "kf": "0x24e",
+   "gpu": [
+    "0x3",
+    "0x1e"
+   ],
+   "emu": [
+    "0x3",
+    "0x22e0a34d"
+   ],
+   "vs_ptx_spec": "54/96 differ"
+  },
+  "s8@p_lat_ISETP_IMAD_g": {
+   "status": "DIFFER",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 16,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "lanes": "47/96",
+   "in": [
+    "0x4535fab4",
+    "0x2395481e",
+    "0x1f",
+    "0x21"
+   ],
+   "k": "0x1",
+   "kf": "0x8a02d11d",
+   "gpu": [
+    "0x2395481e",
+    "0x23954c1d"
+   ],
+   "emu": [
+    "0x2395481e",
+    "0x4535fab4"
+   ],
+   "vs_ptx_spec": "47/96 differ"
+  },
+  "s9@p_lat_FSETP_FADD_g": {
+   "status": "DIFFER",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 16,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "lanes": "49/96",
+   "in": [
+    "0x8a77",
+    "0xc6656fe9",
+    "0x5b0125e9",
+    "0x36"
+   ],
+   "k": "0x10",
+   "kf": "0x21",
+   "gpu": [
+    "0xc6656fe9",
+    "0x5b0125e9"
+   ],
+   "emu": [
+    "0xc6656fe9",
+    "0x8a77"
+   ],
+   "vs_ptx_spec": "49/96 differ"
+  },
+  "s9@p_lat_ISETP_IADD3_g": {
+   "status": "DIFFER",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 16,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "lanes": "40/96",
+   "in": [
+    "0x8b74",
+    "0x0",
+    "0x2b8bc233",
+    "0x20"
+   ],
+   "k": "0x18",
+   "kf": "0x18a63d22",
+   "gpu": [
+    "0x0",
+    "0x2b8bc253"
+   ],
+   "emu": [
+    "0x0",
+    "0x8b74"
+   ],
+   "vs_ptx_spec": "39/96 differ"
+  },
+  "s9@p_lat_ISETP_IMAD_g": {
+   "status": "DIFFER",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 16,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "lanes": "48/96",
+   "in": [
+    "0xf077a6b4",
+    "0xb42a",
+    "0x6c362606",
+    "0x14"
+   ],
+   "k": "0x3d",
+   "kf": "0xdeac9aa3",
+   "gpu": [
+    "0xb42a",
+    "0x743baca2"
+   ],
+   "emu": [
+    "0xb42a",
+    "0xf077a6b4"
+   ],
+   "vs_ptx_spec": "48/96 differ"
+  }
+ }
+}

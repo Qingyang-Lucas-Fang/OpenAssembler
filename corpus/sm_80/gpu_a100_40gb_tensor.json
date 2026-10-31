@@ -1,0 +1,221 @@
+{
+ "device": {
+  "name": "NVIDIA A100-SXM4-40GB",
+  "cc": "8.0",
+  "driver": 13030,
+  "sm_count": 108,
+  "clock_khz": 1410000,
+  "mem_bytes": 42429251584
+ },
+ "set": "ptxas",
+ "arch": "sm_80",
+ "trials": 16,
+ "summary": {
+  "DIFFER": 5,
+  "match": 4
+ },
+ "probes": {
+  "mma.f16": {
+   "status": "DIFFER",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 16,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "ptx": "mma.sync.aligned.m16n8k16.row.col.f32.f16.f16.f32",
+   "lanes": "288/512",
+   "in": [
+    "0xada8c123",
+    "0x8df54c59",
+    "0x47154000",
+    "0x461335d6"
+   ],
+   "k": "0xa8be977a",
+   "kf": "0xaa1f8452",
+   "gpu": [
+    "0xc47d9e28",
+    "0x471bf6ac"
+   ],
+   "emu": [
+    "0xc47d9e28",
+    "0x471bf6ad"
+   ]
+  },
+  "mma.bf16": {
+   "status": "DIFFER",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 16,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "ptx": "mma.sync.aligned.m16n8k16.row.col.f32.bf16.bf16.f32",
+   "lanes": "361/512",
+   "in": [
+    "0x42043d9f",
+    "0x42c9c0c5",
+    "0x3e6cbf00",
+    "0x49b7c003"
+   ],
+   "k": "0x21",
+   "kf": "0x8b27b66e",
+   "gpu": [
+    "0x49e380ed",
+    "0x4b971fe3"
+   ],
+   "emu": [
+    "0x49e380ec",
+    "0x4b971fe2"
+   ]
+  },
+  "mma.tf32": {
+   "status": "DIFFER",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 16,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "ptx": "mma.sync.aligned.m16n8k8.row.col.f32.tf32.tf32.f32",
+   "lanes": "307/512",
+   "in": [
+    "0x40cb5ce1",
+    "0x3e8aa936",
+    "0xc24fe5a2",
+    "0x408cd422"
+   ],
+   "k": "0x96",
+   "kf": "0xe6278ee5",
+   "gpu": [
+    "0x495969ce",
+    "0x44514050"
+   ],
+   "emu": [
+    "0x495969ce",
+    "0x4451404f"
+   ]
+  },
+  "mma.s8": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 16,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "ptx": "mma.sync.aligned.m16n8k32.row.col.s32.s8.s8.s32"
+  },
+  "mma.f64": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 16,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "ptx": "mma.sync.aligned.m8n8k4.row.col.f64.f64.f64.f64"
+  },
+  "ldmatrix": {
+   "status": "DIFFER",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 4096,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 18,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "ptx": "ldmatrix.sync.aligned.m8n8.x4.shared.b16",
+   "lanes": "384/512",
+   "in": [
+    "0x459c",
+    "0x29b4ccea",
+    "0x9598",
+    "0x2"
+   ],
+   "k": "0x17",
+   "kf": "0x12",
+   "gpu": [
+    "0x8378389a",
+    "0xb8d8710b"
+   ],
+   "emu": [
+    "0x0",
+    "0x0"
+   ]
+  },
+  "ldmatrix.trans": {
+   "status": "DIFFER",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 4096,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 8,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "ptx": "ldmatrix.sync.aligned.m8n8.x2.trans.shared.b16",
+   "lanes": "512/512",
+   "in": [
+    "0xba053a6d",
+    "0x1",
+    "0x25c3e60",
+    "0xbd89ca9c"
+   ],
+   "k": "0x3d5d5ea8",
+   "kf": "0xa522fd96",
+   "gpu": [
+    "0x3c33f7e3",
+    "0x2e8d0054"
+   ],
+   "emu": [
+    "0x0",
+    "0x0"
+   ]
+  },
+  "cp.async": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 4096,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "ptx": "cp.async.cg.shared.global"
+  },
+  "cp.async.ca4": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 4096,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "ptx": "cp.async.ca.shared.global"
+  }
+ }
+}

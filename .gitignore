@@ -1,0 +1,43 @@
+# --- NVIDIA CUDA toolkit (oracle only) ---
+# ~300MB proprietary redistributable (ptxas, nvcc, nvdisasm, cuobjdump, libcudart,
+# headers), under NVIDIA's own EULA (env/cuda-12.8/LICENSE). We only use it as a
+# black-box oracle (WORKFLOW.md) and never redistribute it. Fetch it yourself with
+# env/fetch_cuda.sh (sha256-verified against NVIDIA's published redistrib manifest).
+env/cuda-12.8/
+env/cuda-*/
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+build/
+dist/
+*.egg
+
+# --- Editors / OS ---
+.DS_Store
+.vscode/
+.idea/
+*.swp
+
+# --- Harness / tooling scratch ---
+.claude/
+
+# --- Generated corpus (reproducible via tools/, see REPRODUCING.md) ---
+# Keep the small *.json / *.json.gz / *.txt evidence files STATUS.md cites as proof
+# (e.g. corpus/sm_80/gpu_a100_40gb*.json, divconst_proofs.json); ignore the bulk
+# regenerable cubin/sass/ptx/err dumps that every build/probe tool recreates.
+corpus/**/*.cubin
+corpus/**/*.sass
+corpus/**/*.ptx
+corpus/**/*.err
+corpus/**/*.bin
+corpus/.tmp/
+
+
+# --- Modal / local env ---
+.env
+.modal.toml

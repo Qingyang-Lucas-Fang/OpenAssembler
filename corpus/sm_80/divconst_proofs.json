@@ -1,0 +1,875 @@
+[
+ {
+  "case": "div.u32.2",
+  "kind": "pow2",
+  "ours": 1,
+  "ptxas": 13,
+  "ptxas_xu": 3,
+  "proof": "exhaustive",
+  "sass": [
+   "SHF.R.U32.HI R2, RZ, 0x1, R0"
+  ]
+ },
+ {
+  "case": "div.u32.3",
+  "kind": "magic",
+  "ours": 2,
+  "ptxas": 13,
+  "ptxas_xu": 3,
+  "proof": "exhaustive",
+  "sass": [
+   "IMAD.HI.U32 R2, R0, 0xaaaaaaab, RZ",
+   "SHF.R.U32.HI R3, RZ, 0x1, R2"
+  ]
+ },
+ {
+  "case": "div.u32.5",
+  "kind": "magic",
+  "ours": 2,
+  "ptxas": 13,
+  "ptxas_xu": 3,
+  "proof": "exhaustive",
+  "sass": [
+   "IMAD.HI.U32 R2, R0, 0xcccccccd, RZ",
+   "SHF.R.U32.HI R3, RZ, 0x2, R2"
+  ]
+ },
+ {
+  "case": "div.u32.6",
+  "kind": "magic",
+  "ours": 2,
+  "ptxas": 13,
+  "ptxas_xu": 3,
+  "proof": "exhaustive",
+  "sass": [
+   "IMAD.HI.U32 R2, R0, 0xaaaaaaab, RZ",
+   "SHF.R.U32.HI R3, RZ, 0x2, R2"
+  ]
+ },
+ {
+  "case": "div.u32.7",
+  "kind": "magic+add",
+  "ours": 5,
+  "ptxas": 13,
+  "ptxas_xu": 3,
+  "proof": "exhaustive",
+  "sass": [
+   "IMAD.HI.U32 R2, R0, 0x24924925, RZ",
+   "IADD3 R3, R0, -R2, RZ",
+   "SHF.R.U32.HI R3, RZ, 0x1, R3",
+   "IADD3 R3, R3, R2, RZ",
+   "SHF.R.U32.HI R4, RZ, 0x2, R3"
+  ]
+ },
+ {
+  "case": "div.u32.10",
+  "kind": "magic",
+  "ours": 2,
+  "ptxas": 13,
+  "ptxas_xu": 3,
+  "proof": "exhaustive",
+  "sass": [
+   "IMAD.HI.U32 R2, R0, 0xcccccccd, RZ",
+   "SHF.R.U32.HI R3, RZ, 0x3, R2"
+  ]
+ },
+ {
+  "case": "div.u32.16",
+  "kind": "pow2",
+  "ours": 1,
+  "ptxas": 13,
+  "ptxas_xu": 3,
+  "proof": "exhaustive",
+  "sass": [
+   "SHF.R.U32.HI R2, RZ, 0x4, R0"
+  ]
+ },
+ {
+  "case": "div.u32.25",
+  "kind": "magic",
+  "ours": 2,
+  "ptxas": 13,
+  "ptxas_xu": 3,
+  "proof": "exhaustive",
+  "sass": [
+   "IMAD.HI.U32 R2, R0, 0x51eb851f, RZ",
+   "SHF.R.U32.HI R3, RZ, 0x3, R2"
+  ]
+ },
+ {
+  "case": "div.u32.60",
+  "kind": "magic",
+  "ours": 2,
+  "ptxas": 13,
+  "ptxas_xu": 3,
+  "proof": "exhaustive",
+  "sass": [
+   "IMAD.HI.U32 R2, R0, 0x88888889, RZ",
+   "SHF.R.U32.HI R3, RZ, 0x5, R2"
+  ]
+ },
+ {
+  "case": "div.u32.100",
+  "kind": "magic",
+  "ours": 2,
+  "ptxas": 13,
+  "ptxas_xu": 3,
+  "proof": "exhaustive",
+  "sass": [
+   "IMAD.HI.U32 R2, R0, 0x51eb851f, RZ",
+   "SHF.R.U32.HI R3, RZ, 0x5, R2"
+  ]
+ },
+ {
+  "case": "div.u32.255",
+  "kind": "magic",
+  "ours": 2,
+  "ptxas": 13,
+  "ptxas_xu": 3,
+  "proof": "exhaustive",
+  "sass": [
+   "IMAD.HI.U32 R2, R0, 0x80808081, RZ",
+   "SHF.R.U32.HI R3, RZ, 0x7, R2"
+  ]
+ },
+ {
+  "case": "div.u32.641",
+  "kind": "magic",
+  "ours": 1,
+  "ptxas": 13,
+  "ptxas_xu": 3,
+  "proof": "exhaustive",
+  "sass": [
+   "IMAD.HI.U32 R2, R0, 0x663d81, RZ"
+  ]
+ },
+ {
+  "case": "div.u32.1000",
+  "kind": "magic",
+  "ours": 2,
+  "ptxas": 13,
+  "ptxas_xu": 3,
+  "proof": "exhaustive",
+  "sass": [
+   "IMAD.HI.U32 R2, R0, 0x10624dd3, RZ",
+   "SHF.R.U32.HI R3, RZ, 0x6, R2"
+  ]
+ },
+ {
+  "case": "div.u32.4660",
+  "kind": "magic",
+  "ours": 2,
+  "ptxas": 13,
+  "ptxas_xu": 3,
+  "proof": "exhaustive",
+  "sass": [
+   "IMAD.HI.U32 R2, R0, 0x38410b35, RZ",
+   "SHF.R.U32.HI R3, RZ, 0xa, R2"
+  ]
+ },
+ {
+  "case": "div.u32.65537",
+  "kind": "magic",
+  "ours": 2,
+  "ptxas": 13,
+  "ptxas_xu": 3,
+  "proof": "exhaustive",
+  "sass": [
+   "IMAD.HI.U32 R2, R0, 0xffff0001, RZ",
+   "SHF.R.U32.HI R3, RZ, 0x10, R2"
+  ]
+ },
+ {
+  "case": "div.u32.1000000007",
+  "kind": "magic+add",
+  "ours": 5,
+  "ptxas": 13,
+  "ptxas_xu": 3,
+  "proof": "exhaustive",
+  "sass": [
+   "IMAD.HI.U32 R2, R0, 0x12e0be63, RZ",
+   "IADD3 R3, R0, -R2, RZ",
+   "SHF.R.U32.HI R3, RZ, 0x1, R3",
+   "IADD3 R3, R3, R2, RZ",
+   "SHF.R.U32.HI R4, RZ, 0x1d, R3"
+  ]
+ },
+ {
+  "case": "div.u32.2147483647",
+  "kind": "magic+add",
+  "ours": 5,
+  "ptxas": 13,
+  "ptxas_xu": 3,
+  "proof": "exhaustive",
+  "sass": [
+   "IMAD.HI.U32 R2, R0, 0x3, RZ",
+   "IADD3 R3, R0, -R2, RZ",
+   "SHF.R.U32.HI R3, RZ, 0x1, R3",
+   "IADD3 R3, R3, R2, RZ",
+   "SHF.R.U32.HI R4, RZ, 0x1e, R3"
+  ]
+ },
+ {
+  "case": "div.s32.2",
+  "kind": "pow2",
+  "ours": 4,
+  "ptxas": 17,
+  "ptxas_xu": 3,
+  "proof": "exhaustive",
+  "sass": [
+   "SHF.R.S32.HI R2, RZ, 0x1f, R0",
+   "SHF.R.U32.HI R2, RZ, 0x1f, R2",
+   "IADD3 R3, R0, R2, RZ",
+   "SHF.R.S32.HI R4, RZ, 0x1, R3"
+  ]
+ },
+ {
+  "case": "div.s32.3",
+  "kind": "magic",
+  "ours": 2,
+  "ptxas": 17,
+  "ptxas_xu": 3,
+  "proof": "exhaustive",
+  "sass": [
+   "IMAD.HI R2, R0, 0x55555556, RZ",
+   "LEA.HI R3, R2, R2, RZ, 0x1"
+  ]
+ },
+ {
+  "case": "div.s32.5",
+  "kind": "magic",
+  "ours": 3,
+  "ptxas": 17,
+  "ptxas_xu": 3,
+  "proof": "exhaustive",
+  "sass": [
+   "IMAD.HI R2, R0, 0x66666667, RZ",
+   "SHF.R.S32.HI R2, RZ, 0x1, R2",
+   "LEA.HI R3, R2, R2, RZ, 0x1"
+  ]
+ },
+ {
+  "case": "div.s32.6",
+  "kind": "magic",
+  "ours": 2,
+  "ptxas": 17,
+  "ptxas_xu": 3,
+  "proof": "exhaustive",
+  "sass": [
+   "IMAD.HI R2, R0, 0x2aaaaaab, RZ",
+   "LEA.HI R3, R2, R2, RZ, 0x1"
+  ]
+ },
+ {
+  "case": "div.s32.7",
+  "kind": "magic",
+  "ours": 4,
+  "ptxas": 17,
+  "ptxas_xu": 3,
+  "proof": "exhaustive",
+  "sass": [
+   "IMAD.HI R2, R0, 0x92492493, RZ",
+   "IADD3 R2, R2, R0, RZ",
+   "SHF.R.S32.HI R2, RZ, 0x2, R2",
+   "LEA.HI R3, R2, R2, RZ, 0x1"
+  ]
+ },
+ {
+  "case": "div.s32.10",
+  "kind": "magic",
+  "ours": 3,
+  "ptxas": 17,
+  "ptxas_xu": 3,
+  "proof": "exhaustive",
+  "sass": [
+   "IMAD.HI R2, R0, 0x66666667, RZ",
+   "SHF.R.S32.HI R2, RZ, 0x2, R2",
+   "LEA.HI R3, R2, R2, RZ, 0x1"
+  ]
+ },
+ {
+  "case": "div.s32.16",
+  "kind": "pow2",
+  "ours": 4,
+  "ptxas": 17,
+  "ptxas_xu": 3,
+  "proof": "exhaustive",
+  "sass": [
+   "SHF.R.S32.HI R2, RZ, 0x1f, R0",
+   "SHF.R.U32.HI R2, RZ, 0x1c, R2",
+   "IADD3 R3, R0, R2, RZ",
+   "SHF.R.S32.HI R4, RZ, 0x4, R3"
+  ]
+ },
+ {
+  "case": "div.s32.25",
+  "kind": "magic",
+  "ours": 3,
+  "ptxas": 17,
+  "ptxas_xu": 3,
+  "proof": "exhaustive",
+  "sass": [
+   "IMAD.HI R2, R0, 0x51eb851f, RZ",
+   "SHF.R.S32.HI R2, RZ, 0x3, R2",
+   "LEA.HI R3, R2, R2, RZ, 0x1"
+  ]
+ },
+ {
+  "case": "div.s32.60",
+  "kind": "magic",
+  "ours": 4,
+  "ptxas": 17,
+  "ptxas_xu": 3,
+  "proof": "exhaustive",
+  "sass": [
+   "IMAD.HI R2, R0, 0x88888889, RZ",
+   "IADD3 R2, R2, R0, RZ",
+   "SHF.R.S32.HI R2, RZ, 0x5, R2",
+   "LEA.HI R3, R2, R2, RZ, 0x1"
+  ]
+ },
+ {
+  "case": "div.s32.100",
+  "kind": "magic",
+  "ours": 3,
+  "ptxas": 17,
+  "ptxas_xu": 3,
+  "proof": "exhaustive",
+  "sass": [
+   "IMAD.HI R2, R0, 0x51eb851f, RZ",
+   "SHF.R.S32.HI R2, RZ, 0x5, R2",
+   "LEA.HI R3, R2, R2, RZ, 0x1"
+  ]
+ },
+ {
+  "case": "div.s32.255",
+  "kind": "magic",
+  "ours": 4,
+  "ptxas": 17,
+  "ptxas_xu": 3,
+  "proof": "exhaustive",
+  "sass": [
+   "IMAD.HI R2, R0, 0x80808081, RZ",
+   "IADD3 R2, R2, R0, RZ",
+   "SHF.R.S32.HI R2, RZ, 0x7, R2",
+   "LEA.HI R3, R2, R2, RZ, 0x1"
+  ]
+ },
+ {
+  "case": "div.s32.641",
+  "kind": "magic",
+  "ours": 2,
+  "ptxas": 17,
+  "ptxas_xu": 3,
+  "proof": "exhaustive",
+  "sass": [
+   "IMAD.HI R2, R0, 0x663d81, RZ",
+   "LEA.HI R3, R2, R2, RZ, 0x1"
+  ]
+ },
+ {
+  "case": "div.s32.1000",
+  "kind": "magic",
+  "ours": 3,
+  "ptxas": 17,
+  "ptxas_xu": 3,
+  "proof": "exhaustive",
+  "sass": [
+   "IMAD.HI R2, R0, 0x10624dd3, RZ",
+   "SHF.R.S32.HI R2, RZ, 0x6, R2",
+   "LEA.HI R3, R2, R2, RZ, 0x1"
+  ]
+ },
+ {
+  "case": "div.s32.4660",
+  "kind": "magic",
+  "ours": 3,
+  "ptxas": 17,
+  "ptxas_xu": 3,
+  "proof": "exhaustive",
+  "sass": [
+   "IMAD.HI R2, R0, 0x38410b35, RZ",
+   "SHF.R.S32.HI R2, RZ, 0xa, R2",
+   "LEA.HI R3, R2, R2, RZ, 0x1"
+  ]
+ },
+ {
+  "case": "div.s32.65537",
+  "kind": "magic",
+  "ours": 3,
+  "ptxas": 17,
+  "ptxas_xu": 3,
+  "proof": "exhaustive",
+  "sass": [
+   "IMAD.HI R2, R0, 0x7fff8001, RZ",
+   "SHF.R.S32.HI R2, RZ, 0xf, R2",
+   "LEA.HI R3, R2, R2, RZ, 0x1"
+  ]
+ },
+ {
+  "case": "div.s32.1000000007",
+  "kind": "magic",
+  "ours": 3,
+  "ptxas": 17,
+  "ptxas_xu": 3,
+  "proof": "exhaustive",
+  "sass": [
+   "IMAD.HI R2, R0, 0x44b82f99, RZ",
+   "SHF.R.S32.HI R2, RZ, 0x1c, R2",
+   "LEA.HI R3, R2, R2, RZ, 0x1"
+  ]
+ },
+ {
+  "case": "rem.u32.2",
+  "kind": "pow2+rem",
+  "ours": 2,
+  "ptxas": 12,
+  "ptxas_xu": 3,
+  "proof": "exhaustive",
+  "sass": [
+   "SHF.R.U32.HI R2, RZ, 0x1, R0",
+   "IMAD R3, R2, 0xfffffffe, R0"
+  ]
+ },
+ {
+  "case": "rem.u32.3",
+  "kind": "magic+rem",
+  "ours": 3,
+  "ptxas": 12,
+  "ptxas_xu": 3,
+  "proof": "exhaustive",
+  "sass": [
+   "IMAD.HI.U32 R2, R0, 0xaaaaaaab, RZ",
+   "SHF.R.U32.HI R3, RZ, 0x1, R2",
+   "IMAD R4, R3, 0xfffffffd, R0"
+  ]
+ },
+ {
+  "case": "rem.u32.5",
+  "kind": "magic+rem",
+  "ours": 3,
+  "ptxas": 12,
+  "ptxas_xu": 3,
+  "proof": "exhaustive",
+  "sass": [
+   "IMAD.HI.U32 R2, R0, 0xcccccccd, RZ",
+   "SHF.R.U32.HI R3, RZ, 0x2, R2",
+   "IMAD R4, R3, 0xfffffffb, R0"
+  ]
+ },
+ {
+  "case": "rem.u32.6",
+  "kind": "magic+rem",
+  "ours": 3,
+  "ptxas": 12,
+  "ptxas_xu": 3,
+  "proof": "exhaustive",
+  "sass": [
+   "IMAD.HI.U32 R2, R0, 0xaaaaaaab, RZ",
+   "SHF.R.U32.HI R3, RZ, 0x2, R2",
+   "IMAD R4, R3, 0xfffffffa, R0"
+  ]
+ },
+ {
+  "case": "rem.u32.7",
+  "kind": "magic+add+rem",
+  "ours": 6,
+  "ptxas": 12,
+  "ptxas_xu": 3,
+  "proof": "exhaustive",
+  "sass": [
+   "IMAD.HI.U32 R2, R0, 0x24924925, RZ",
+   "IADD3 R3, R0, -R2, RZ",
+   "SHF.R.U32.HI R3, RZ, 0x1, R3",
+   "IADD3 R3, R3, R2, RZ",
+   "SHF.R.U32.HI R4, RZ, 0x2, R3",
+   "IMAD R5, R4, 0xfffffff9, R0"
+  ]
+ },
+ {
+  "case": "rem.u32.10",
+  "kind": "magic+rem",
+  "ours": 3,
+  "ptxas": 12,
+  "ptxas_xu": 3,
+  "proof": "exhaustive",
+  "sass": [
+   "IMAD.HI.U32 R2, R0, 0xcccccccd, RZ",
+   "SHF.R.U32.HI R3, RZ, 0x3, R2",
+   "IMAD R4, R3, 0xfffffff6, R0"
+  ]
+ },
+ {
+  "case": "rem.u32.16",
+  "kind": "pow2+rem",
+  "ours": 2,
+  "ptxas": 12,
+  "ptxas_xu": 3,
+  "proof": "exhaustive",
+  "sass": [
+   "SHF.R.U32.HI R2, RZ, 0x4, R0",
+   "IMAD R3, R2, 0xfffffff0, R0"
+  ]
+ },
+ {
+  "case": "rem.u32.25",
+  "kind": "magic+rem",
+  "ours": 3,
+  "ptxas": 12,
+  "ptxas_xu": 3,
+  "proof": "exhaustive",
+  "sass": [
+   "IMAD.HI.U32 R2, R0, 0x51eb851f, RZ",
+   "SHF.R.U32.HI R3, RZ, 0x3, R2",
+   "IMAD R4, R3, 0xffffffe7, R0"
+  ]
+ },
+ {
+  "case": "rem.u32.60",
+  "kind": "magic+rem",
+  "ours": 3,
+  "ptxas": 12,
+  "ptxas_xu": 3,
+  "proof": "exhaustive",
+  "sass": [
+   "IMAD.HI.U32 R2, R0, 0x88888889, RZ",
+   "SHF.R.U32.HI R3, RZ, 0x5, R2",
+   "IMAD R4, R3, 0xffffffc4, R0"
+  ]
+ },
+ {
+  "case": "rem.u32.100",
+  "kind": "magic+rem",
+  "ours": 3,
+  "ptxas": 12,
+  "ptxas_xu": 3,
+  "proof": "exhaustive",
+  "sass": [
+   "IMAD.HI.U32 R2, R0, 0x51eb851f, RZ",
+   "SHF.R.U32.HI R3, RZ, 0x5, R2",
+   "IMAD R4, R3, 0xffffff9c, R0"
+  ]
+ },
+ {
+  "case": "rem.u32.255",
+  "kind": "magic+rem",
+  "ours": 3,
+  "ptxas": 12,
+  "ptxas_xu": 3,
+  "proof": "exhaustive",
+  "sass": [
+   "IMAD.HI.U32 R2, R0, 0x80808081, RZ",
+   "SHF.R.U32.HI R3, RZ, 0x7, R2",
+   "IMAD R4, R3, 0xffffff01, R0"
+  ]
+ },
+ {
+  "case": "rem.u32.641",
+  "kind": "magic+rem",
+  "ours": 2,
+  "ptxas": 12,
+  "ptxas_xu": 3,
+  "proof": "exhaustive",
+  "sass": [
+   "IMAD.HI.U32 R2, R0, 0x663d81, RZ",
+   "IMAD R3, R2, 0xfffffd7f, R0"
+  ]
+ },
+ {
+  "case": "rem.u32.1000",
+  "kind": "magic+rem",
+  "ours": 3,
+  "ptxas": 12,
+  "ptxas_xu": 3,
+  "proof": "exhaustive",
+  "sass": [
+   "IMAD.HI.U32 R2, R0, 0x10624dd3, RZ",
+   "SHF.R.U32.HI R3, RZ, 0x6, R2",
+   "IMAD R4, R3, 0xfffffc18, R0"
+  ]
+ },
+ {
+  "case": "rem.u32.4660",
+  "kind": "magic+rem",
+  "ours": 3,
+  "ptxas": 12,
+  "ptxas_xu": 3,
+  "proof": "exhaustive",
+  "sass": [
+   "IMAD.HI.U32 R2, R0, 0x38410b35, RZ",
+   "SHF.R.U32.HI R3, RZ, 0xa, R2",
+   "IMAD R4, R3, 0xffffedcc, R0"
+  ]
+ },
+ {
+  "case": "rem.u32.65537",
+  "kind": "magic+rem",
+  "ours": 3,
+  "ptxas": 12,
+  "ptxas_xu": 3,
+  "proof": "exhaustive",
+  "sass": [
+   "IMAD.HI.U32 R2, R0, 0xffff0001, RZ",
+   "SHF.R.U32.HI R3, RZ, 0x10, R2",
+   "IMAD R4, R3, 0xfffeffff, R0"
+  ]
+ },
+ {
+  "case": "rem.u32.1000000007",
+  "kind": "magic+add+rem",
+  "ours": 6,
+  "ptxas": 12,
+  "ptxas_xu": 3,
+  "proof": "exhaustive",
+  "sass": [
+   "IMAD.HI.U32 R2, R0, 0x12e0be63, RZ",
+   "IADD3 R3, R0, -R2, RZ",
+   "SHF.R.U32.HI R3, RZ, 0x1, R3",
+   "IADD3 R3, R3, R2, RZ",
+   "SHF.R.U32.HI R4, RZ, 0x1d, R3",
+   "IMAD R5, R4, 0xc46535f9, R0"
+  ]
+ },
+ {
+  "case": "rem.u32.2147483647",
+  "kind": "magic+add+rem",
+  "ours": 6,
+  "ptxas": 12,
+  "ptxas_xu": 3,
+  "proof": "exhaustive",
+  "sass": [
+   "IMAD.HI.U32 R2, R0, 0x3, RZ",
+   "IADD3 R3, R0, -R2, RZ",
+   "SHF.R.U32.HI R3, RZ, 0x1, R3",
+   "IADD3 R3, R3, R2, RZ",
+   "SHF.R.U32.HI R4, RZ, 0x1e, R3",
+   "IMAD R5, R4, 0x80000001, R0"
+  ]
+ },
+ {
+  "case": "rem.s32.2",
+  "kind": "pow2+rem",
+  "ours": 5,
+  "ptxas": 15,
+  "ptxas_xu": 3,
+  "proof": "exhaustive",
+  "sass": [
+   "SHF.R.S32.HI R2, RZ, 0x1f, R0",
+   "SHF.R.U32.HI R2, RZ, 0x1f, R2",
+   "IADD3 R3, R0, R2, RZ",
+   "SHF.R.S32.HI R4, RZ, 0x1, R3",
+   "IMAD R5, R4, 0xfffffffe, R0"
+  ]
+ },
+ {
+  "case": "rem.s32.3",
+  "kind": "magic+rem",
+  "ours": 3,
+  "ptxas": 15,
+  "ptxas_xu": 3,
+  "proof": "exhaustive",
+  "sass": [
+   "IMAD.HI R2, R0, 0x55555556, RZ",
+   "LEA.HI R3, R2, R2, RZ, 0x1",
+   "IMAD R4, R3, 0xfffffffd, R0"
+  ]
+ },
+ {
+  "case": "rem.s32.5",
+  "kind": "magic+rem",
+  "ours": 4,
+  "ptxas": 15,
+  "ptxas_xu": 3,
+  "proof": "exhaustive",
+  "sass": [
+   "IMAD.HI R2, R0, 0x66666667, RZ",
+   "SHF.R.S32.HI R2, RZ, 0x1, R2",
+   "LEA.HI R3, R2, R2, RZ, 0x1",
+   "IMAD R4, R3, 0xfffffffb, R0"
+  ]
+ },
+ {
+  "case": "rem.s32.6",
+  "kind": "magic+rem",
+  "ours": 3,
+  "ptxas": 15,
+  "ptxas_xu": 3,
+  "proof": "exhaustive",
+  "sass": [
+   "IMAD.HI R2, R0, 0x2aaaaaab, RZ",
+   "LEA.HI R3, R2, R2, RZ, 0x1",
+   "IMAD R4, R3, 0xfffffffa, R0"
+  ]
+ },
+ {
+  "case": "rem.s32.7",
+  "kind": "magic+rem",
+  "ours": 5,
+  "ptxas": 15,
+  "ptxas_xu": 3,
+  "proof": "exhaustive",
+  "sass": [
+   "IMAD.HI R2, R0, 0x92492493, RZ",
+   "IADD3 R2, R2, R0, RZ",
+   "SHF.R.S32.HI R2, RZ, 0x2, R2",
+   "LEA.HI R3, R2, R2, RZ, 0x1",
+   "IMAD R4, R3, 0xfffffff9, R0"
+  ]
+ },
+ {
+  "case": "rem.s32.10",
+  "kind": "magic+rem",
+  "ours": 4,
+  "ptxas": 15,
+  "ptxas_xu": 3,
+  "proof": "exhaustive",
+  "sass": [
+   "IMAD.HI R2, R0, 0x66666667, RZ",
+   "SHF.R.S32.HI R2, RZ, 0x2, R2",
+   "LEA.HI R3, R2, R2, RZ, 0x1",
+   "IMAD R4, R3, 0xfffffff6, R0"
+  ]
+ },
+ {
+  "case": "rem.s32.16",
+  "kind": "pow2+rem",
+  "ours": 5,
+  "ptxas": 15,
+  "ptxas_xu": 3,
+  "proof": "exhaustive",
+  "sass": [
+   "SHF.R.S32.HI R2, RZ, 0x1f, R0",
+   "SHF.R.U32.HI R2, RZ, 0x1c, R2",
+   "IADD3 R3, R0, R2, RZ",
+   "SHF.R.S32.HI R4, RZ, 0x4, R3",
+   "IMAD R5, R4, 0xfffffff0, R0"
+  ]
+ },
+ {
+  "case": "rem.s32.25",
+  "kind": "magic+rem",
+  "ours": 4,
+  "ptxas": 15,
+  "ptxas_xu": 3,
+  "proof": "exhaustive",
+  "sass": [
+   "IMAD.HI R2, R0, 0x51eb851f, RZ",
+   "SHF.R.S32.HI R2, RZ, 0x3, R2",
+   "LEA.HI R3, R2, R2, RZ, 0x1",
+   "IMAD R4, R3, 0xffffffe7, R0"
+  ]
+ },
+ {
+  "case": "rem.s32.60",
+  "kind": "magic+rem",
+  "ours": 5,
+  "ptxas": 15,
+  "ptxas_xu": 3,
+  "proof": "exhaustive",
+  "sass": [
+   "IMAD.HI R2, R0, 0x88888889, RZ",
+   "IADD3 R2, R2, R0, RZ",
+   "SHF.R.S32.HI R2, RZ, 0x5, R2",
+   "LEA.HI R3, R2, R2, RZ, 0x1",
+   "IMAD R4, R3, 0xffffffc4, R0"
+  ]
+ },
+ {
+  "case": "rem.s32.100",
+  "kind": "magic+rem",
+  "ours": 4,
+  "ptxas": 15,
+  "ptxas_xu": 3,
+  "proof": "exhaustive",
+  "sass": [
+   "IMAD.HI R2, R0, 0x51eb851f, RZ",
+   "SHF.R.S32.HI R2, RZ, 0x5, R2",
+   "LEA.HI R3, R2, R2, RZ, 0x1",
+   "IMAD R4, R3, 0xffffff9c, R0"
+  ]
+ },
+ {
+  "case": "rem.s32.255",
+  "kind": "magic+rem",
+  "ours": 5,
+  "ptxas": 15,
+  "ptxas_xu": 3,
+  "proof": "exhaustive",
+  "sass": [
+   "IMAD.HI R2, R0, 0x80808081, RZ",
+   "IADD3 R2, R2, R0, RZ",
+   "SHF.R.S32.HI R2, RZ, 0x7, R2",
+   "LEA.HI R3, R2, R2, RZ, 0x1",
+   "IMAD R4, R3, 0xffffff01, R0"
+  ]
+ },
+ {
+  "case": "rem.s32.641",
+  "kind": "magic+rem",
+  "ours": 3,
+  "ptxas": 15,
+  "ptxas_xu": 3,
+  "proof": "exhaustive",
+  "sass": [
+   "IMAD.HI R2, R0, 0x663d81, RZ",
+   "LEA.HI R3, R2, R2, RZ, 0x1",
+   "IMAD R4, R3, 0xfffffd7f, R0"
+  ]
+ },
+ {
+  "case": "rem.s32.1000",
+  "kind": "magic+rem",
+  "ours": 4,
+  "ptxas": 15,
+  "ptxas_xu": 3,
+  "proof": "exhaustive",
+  "sass": [
+   "IMAD.HI R2, R0, 0x10624dd3, RZ",
+   "SHF.R.S32.HI R2, RZ, 0x6, R2",
+   "LEA.HI R3, R2, R2, RZ, 0x1",
+   "IMAD R4, R3, 0xfffffc18, R0"
+  ]
+ },
+ {
+  "case": "rem.s32.4660",
+  "kind": "magic+rem",
+  "ours": 4,
+  "ptxas": 15,
+  "ptxas_xu": 3,
+  "proof": "exhaustive",
+  "sass": [
+   "IMAD.HI R2, R0, 0x38410b35, RZ",
+   "SHF.R.S32.HI R2, RZ, 0xa, R2",
+   "LEA.HI R3, R2, R2, RZ, 0x1",
+   "IMAD R4, R3, 0xffffedcc, R0"
+  ]
+ },
+ {
+  "case": "rem.s32.65537",
+  "kind": "magic+rem",
+  "ours": 4,
+  "ptxas": 15,
+  "ptxas_xu": 3,
+  "proof": "exhaustive",
+  "sass": [
+   "IMAD.HI R2, R0, 0x7fff8001, RZ",
+   "SHF.R.S32.HI R2, RZ, 0xf, R2",
+   "LEA.HI R3, R2, R2, RZ, 0x1",
+   "IMAD R4, R3, 0xfffeffff, R0"
+  ]
+ },
+ {
+  "case": "rem.s32.1000000007",
+  "kind": "magic+rem",
+  "ours": 4,
+  "ptxas": 15,
+  "ptxas_xu": 3,
+  "proof": "exhaustive",
+  "sass": [
+   "IMAD.HI R2, R0, 0x44b82f99, RZ",
+   "SHF.R.S32.HI R2, RZ, 0x1c, R2",
+   "LEA.HI R3, R2, R2, RZ, 0x1",
+   "IMAD R4, R3, 0xc46535f9, R0"
+  ]
+ }
+]

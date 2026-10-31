@@ -1,0 +1,30 @@
+OpenAssembler
+Licensed under the Apache License, Version 2.0.
+
+This project reverse-engineers NVIDIA's SASS encoding and the behavior of
+NVIDIA's closed-source `ptxas` by black-box observation only (compiling probe
+kernels, diffing `nvdisasm`/`cuobjdump` output, bit-flip fuzzing, and
+comparing against real GPU execution). No NVIDIA source code, headers, or
+binaries are included or redistributed by this repository; `env/` only holds
+a local, gitignored, sha256-verified copy of NVIDIA's own CUDA Toolkit
+redistributable, fetched by each user under NVIDIA's own license
+(env/fetch_cuda.sh). See WORKFLOW.md for the full method.
+
+--------------------------------------------------------------------------
+
+third_party/alphatensor/ vendors files from DeepMind's AlphaTensor repository
+(https://github.com/google-deepmind/alphatensor), used here to import the
+published fast matrix-multiplication factorizations (Strassen, AlphaTensor
+rank-49 4x4x4, etc.) that specs/fastmm/schemes.json.gz is built from.
+
+  Copyright 2022 DeepMind Technologies Limited
+
+  Code is licensed under the Apache License, Version 2.0:
+    http://www.apache.org/licenses/LICENSE-2.0
+
+  Non-code materials (factorization data) are licensed under
+  Creative Commons Attribution 4.0 International (CC-BY):
+    https://creativecommons.org/licenses/by/4.0/legalcode
+
+  Source: Fawzi, A. et al. "Discovering faster matrix multiplication
+  algorithms with reinforcement learning." Nature 610 (2022).

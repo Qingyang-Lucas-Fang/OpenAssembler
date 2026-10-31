@@ -1,0 +1,23 @@
+[project]
+name = "openassembler"
+version = "0.1.0"
+description = "A from-scratch NVIDIA SASS compiler/assembler/emulator: reverse-engineered ptxas semantics, a PTX-to-SASS backend with measured-latency scheduling, and Strassen/AlphaTensor fast matmul"
+readme = "README.md"
+license = "Apache-2.0"
+requires-python = ">=3.12"
+dependencies = []
+
+[project.scripts]
+openassembler = "openassembler.cli:main"
+
+[dependency-groups]
+dev = ["pytest==8.4.2"]
+
+[build-system]
+requires = ["hatchling==1.27.0"]
+build-backend = "hatchling.build"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+markers = ["oracle: needs the NVIDIA tools via env/cuda.sh (colima VM)"]

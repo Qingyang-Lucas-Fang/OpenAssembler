@@ -1,0 +1,7305 @@
+{
+ "device": {
+  "name": "NVIDIA A100-SXM4-40GB",
+  "cc": "8.0",
+  "driver": 13030,
+  "sm_count": 108,
+  "clock_khz": 1410000,
+  "mem_bytes": 42429251584
+ },
+ "set": "ptxas",
+ "arch": "sm_80",
+ "trials": 4,
+ "summary": {
+  "match": 515,
+  "gpu-only": 12,
+  "differ-approx": 3,
+  "DIFFER": 4,
+  "differ-nondeterministic": 7
+ },
+ "probes": {
+  "add.s32.r": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "add.s32.c": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "add.s32.i": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "add.u32.r": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "add.u32.c": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "add.u32.i": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "sub.s32.r": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "sub.s32.c": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "sub.s32.i": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "mul.lo.s32.r": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "mul.lo.s32.c": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "mul.lo.s32.i": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "mul.lo.u32.r": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "mul.lo.u32.c": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "mul.lo.u32.i": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "mul.hi.s32.r": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "mul.hi.s32.c": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "mul.hi.s32.i": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "mul.hi.u32.r": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "mul.hi.u32.c": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "mul.hi.u32.i": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "min.s32.r": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "min.s32.c": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "min.s32.i": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "min.u32.r": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "min.u32.c": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "min.u32.i": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "max.s32.r": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "max.s32.c": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "max.s32.i": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "max.u32.r": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "max.u32.c": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "max.u32.i": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "and.b32.r": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "and.b32.c": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "and.b32.i": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "or.b32.r": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "or.b32.c": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "or.b32.i": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "xor.b32.r": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "xor.b32.c": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "xor.b32.i": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "shl.b32.r": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "shl.b32.c": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "shl.b32.i": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "shr.u32.r": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "shr.u32.c": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "shr.u32.i": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "shr.s32.r": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "shr.s32.c": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "shr.s32.i": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "div.s32.r": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 16,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "div.s32.c": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 16,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "div.s32.i": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "div.u32.r": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "div.u32.c": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "div.u32.i": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "rem.s32.r": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 15,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "rem.s32.c": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 16,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "rem.s32.i": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "rem.u32.r": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "rem.u32.c": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "rem.u32.i": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "mad.lo.s32.r": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "mad.hi.s32.r": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "mul.wide.s32.r": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "mad.lo.s32.c": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "mad.hi.s32.c": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "mul.wide.s32.c": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "mad.lo.s32.i": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "mad.hi.s32.i": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "mul.wide.s32.i": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "mad.lo.u32.r": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "mad.hi.u32.r": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "mul.wide.u32.r": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "mad.lo.u32.c": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "mad.hi.u32.c": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "mul.wide.u32.c": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "mad.lo.u32.i": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "mad.hi.u32.i": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "mul.wide.u32.i": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "add.s64": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "sub.s64": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "mul.lo.s64": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "min.s64": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "max.s64": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "and.b64": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "or.b64": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "xor.b64": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "shl.b64": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "shr.u64": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "shf.l": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "shf.r": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "not": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "neg": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "abs": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "popc": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "clz": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "brev": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "bfe": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "bfi": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "prmt": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "prmt.r": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "lop3": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "add.cc": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "dp4a": {
+   "status": "gpu-only",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "emu": "'IDP.4A.U8.U8 R6, R0, R9, R10' at 0x90",
+   "vs_ptx_spec": "match"
+  },
+  "sad": {
+   "status": "gpu-only",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "emu": "'VABSDIFF.U32 R6, R0, R9, R10' at 0x90",
+   "vs_ptx_spec": "match"
+  },
+  "setp.eq.s32.r": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "setp.eq.s32.c": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "setp.eq.s32.i": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "setp.eq.u32.r": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "setp.eq.u32.c": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "setp.eq.u32.i": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "setp.ne.s32.r": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "setp.ne.s32.c": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "setp.ne.s32.i": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "setp.ne.u32.r": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "setp.ne.u32.c": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "setp.ne.u32.i": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "setp.lt.s32.r": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "setp.lt.s32.c": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "setp.lt.s32.i": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "setp.lt.u32.r": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "setp.lt.u32.c": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "setp.lt.u32.i": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "setp.le.s32.r": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "setp.le.s32.c": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "setp.le.s32.i": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "setp.le.u32.r": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "setp.le.u32.c": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "setp.le.u32.i": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "setp.gt.s32.r": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "setp.gt.s32.c": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "setp.gt.s32.i": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "setp.gt.u32.r": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "setp.gt.u32.c": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "setp.gt.u32.i": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "setp.ge.s32.r": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "setp.ge.s32.c": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "setp.ge.s32.i": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "setp.ge.u32.r": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "setp.ge.u32.c": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "setp.ge.u32.i": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "setp.eq.f32.r": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "setp.eq.f32.c": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "setp.eq.f32.i": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "setp.ne.f32.r": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "setp.ne.f32.c": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "setp.ne.f32.i": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "setp.lt.f32.r": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "setp.lt.f32.c": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "setp.lt.f32.i": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "setp.le.f32.r": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "setp.le.f32.c": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "setp.le.f32.i": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "setp.gt.f32.r": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "setp.gt.f32.c": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "setp.gt.f32.i": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "setp.ge.f32.r": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "setp.ge.f32.c": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "setp.ge.f32.i": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "setp.equ.f32.r": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "setp.equ.f32.c": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "setp.equ.f32.i": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "setp.neu.f32.r": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "setp.neu.f32.c": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "setp.neu.f32.i": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "setp.ltu.f32.r": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "setp.ltu.f32.c": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "setp.ltu.f32.i": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "setp.geu.f32.r": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "setp.geu.f32.c": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "setp.geu.f32.i": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "setp.num.f32.r": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "setp.num.f32.c": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "setp.num.f32.i": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "setp.nan.f32.r": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "setp.nan.f32.c": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "setp.nan.f32.i": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "setp.lt.s64": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "setp.lt.f64": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "setp.ge.s64": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "setp.ge.f64": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "setp.ne.s64": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "setp.ne.f64": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "setp.and": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "setp.or": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "setp.xor": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "setp.2dst": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "pred.logic": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "set.u32": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "slct": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "add.f32.r": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "add.f32.c": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "add.f32.i": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "add.rn.f32.r": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "add.rn.f32.c": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "add.rn.f32.i": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "add.rz.f32.r": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "add.rz.f32.c": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "add.rz.f32.i": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "add.rm.f32.r": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "add.rm.f32.c": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "add.rm.f32.i": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "add.rp.f32.r": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "add.rp.f32.c": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "add.rp.f32.i": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "add.sat.f32.r": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "add.sat.f32.c": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "add.sat.f32.i": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "add.ftz.f32.r": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "add.ftz.f32.c": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "add.ftz.f32.i": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "sub.f32.r": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "sub.f32.c": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "sub.f32.i": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "mul.f32.r": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "mul.f32.c": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "mul.f32.i": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "mul.rz.f32.r": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "mul.rz.f32.c": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "mul.rz.f32.i": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "mul.sat.f32.r": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "mul.sat.f32.c": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "mul.sat.f32.i": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "min.f32.r": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "min.f32.c": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "min.f32.i": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "min.NaN.f32.r": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "min.NaN.f32.c": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "min.NaN.f32.i": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "max.f32.r": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "max.f32.c": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "max.f32.i": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "fma.rn.f32.r": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "fma.rn.f32.c": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "fma.rn.f32.i": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "fma.rz.f32.r": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "fma.rz.f32.c": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "fma.rz.f32.i": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "fma.rn.sat.f32.r": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "fma.rn.sat.f32.c": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "fma.rn.sat.f32.i": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "rcp.approx.f32": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "sqrt.approx.f32": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "rsqrt.approx.f32": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "ex2.approx.f32": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "lg2.approx.f32": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "sin.approx.f32": {
+   "status": "differ-approx",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "lanes": "31/128",
+   "in": [
+    "0x67ef851c",
+    "0x4",
+    "0xf5e21495",
+    "0xee0b8af8"
+   ],
+   "k": "0xd8f8",
+   "kf": "0x0",
+   "gpu": [
+    "0x0",
+    "0xee0b8af8"
+   ],
+   "emu": [
+    "0xbe215149",
+    "0xee0b8af8"
+   ],
+   "vs_ptx_spec": "match"
+  },
+  "cos.approx.f32": {
+   "status": "differ-approx",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "lanes": "23/128",
+   "in": [
+    "0x7d0a23da",
+    "0xb5",
+    "0x41bdb5b9",
+    "0xd3b07a69"
+   ],
+   "k": "0x0",
+   "kf": "0xc0900f30",
+   "gpu": [
+    "0x3f800000",
+    "0xd3b07a69"
+   ],
+   "emu": [
+    "0xbf395229",
+    "0xd3b07a69"
+   ],
+   "vs_ptx_spec": "match"
+  },
+  "tanh.approx.f32": {
+   "status": "differ-approx",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "lanes": "3/128",
+   "in": [
+    "0xbf800000",
+    "0x8",
+    "0x5310fb24",
+    "0xddd9f54b"
+   ],
+   "k": "0x4451295d",
+   "kf": "0x803a1991",
+   "gpu": [
+    "0xbf42f848",
+    "0xddd9f54b"
+   ],
+   "emu": [
+    "0xbf42f7d6",
+    "0xddd9f54b"
+   ],
+   "vs_ptx_spec": "3/128 differ"
+  },
+  "rcp.rn.f32": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 16,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "sqrt.rn.f32": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 13,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "div.rn.f32": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 18,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "div.approx.f32": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "abs.f32": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "neg.f32": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "add.f64": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "mul.f64": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "min.f64": {
+   "status": "gpu-only",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "emu": "DSETP.MIN.AND P0, P1, R2, R4, PT",
+   "vs_ptx_spec": "match"
+  },
+  "max.f64": {
+   "status": "gpu-only",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "emu": "DSETP.MAX.AND P0, P1, R2, R4, PT",
+   "vs_ptx_spec": "match"
+  },
+  "div.rn.f64": {
+   "status": "gpu-only",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 25,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "emu": "MUFU.RCP64H R9, R7",
+   "vs_ptx_spec": "2/128 differ"
+  },
+  "sqrt.rn.f64": {
+   "status": "gpu-only",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 20,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "emu": "MUFU.RSQ64H R3, R5",
+   "vs_ptx_spec": "3/128 differ"
+  },
+  "rcp.rn.f64": {
+   "status": "gpu-only",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "emu": "MUFU.RCP64H R3, R5",
+   "vs_ptx_spec": "4/128 differ"
+  },
+  "fma.f64": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "add.f16x2": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "mul.f16x2": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "min.f16x2": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "max.f16x2": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "fma.f16x2": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "min.bf16x2": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "max.bf16x2": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "fma.bf16x2": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "add.f16": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "testp": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "copysign": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "cvt.s32.s8": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "cvt.s32.u8": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "cvt.s32.s16": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "cvt.s32.u16": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "cvt.s32.s32": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "cvt.s32.u32": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "cvt.s32.s64": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "cvt.s32.u64": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "cvt.u32.s8": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "cvt.u32.u8": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "cvt.u32.s16": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "cvt.u32.u16": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "cvt.u32.s32": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "cvt.u32.u32": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "cvt.u32.s64": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "cvt.u32.u64": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "cvt.s64.s8": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "cvt.s64.u8": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "cvt.s64.s16": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "cvt.s64.u16": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "cvt.s64.s32": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "cvt.s64.u32": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "cvt.s64.s64": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 8,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "cvt.s64.u64": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 8,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "cvt.rni.s32.f32": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "cvt.rni.s32.f64": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "cvt.rni.u32.f32": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "cvt.rni.u32.f64": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "cvt.rni.s64.f32": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "cvt.rni.s64.f64": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "cvt.rzi.s32.f32": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "cvt.rzi.s32.f64": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "cvt.rzi.u32.f32": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "cvt.rzi.u32.f64": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "cvt.rzi.s64.f32": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "cvt.rzi.s64.f64": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "cvt.rmi.s32.f32": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "cvt.rmi.s32.f64": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "cvt.rmi.u32.f32": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "cvt.rmi.u32.f64": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "cvt.rmi.s64.f32": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "cvt.rmi.s64.f64": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "cvt.rpi.s32.f32": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "cvt.rpi.s32.f64": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "cvt.rpi.u32.f32": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "cvt.rpi.u32.f64": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "cvt.rpi.s64.f32": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "cvt.rpi.s64.f64": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "cvt.rn.f32.s32": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "cvt.rn.f64.s32": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "cvt.rn.f32.u32": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "cvt.rn.f64.u32": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "cvt.rn.f32.s64": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "cvt.rn.f64.s64": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "cvt.rn.f32.u64": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "cvt.rn.f64.u64": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "cvt.rz.f32.s32": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "cvt.rz.f64.s32": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "cvt.rz.f32.u32": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "cvt.rz.f64.u32": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "cvt.rz.f32.s64": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "cvt.rz.f64.s64": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "cvt.rz.f32.u64": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "cvt.rz.f64.u64": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "cvt.f64.f32": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "cvt.rn.f32.f64": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "cvt.rni.f32.f32": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "cvt.rn.f16.f32": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "cvt.f32.f16": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "cvt.rn.f16x2.f32": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "cvt.rn.bf16x2.f32": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "ld.global.u8": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "ld.global.nc.u8": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "ld.global.cg.u8": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "ld.global.cs.u8": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "ld.global.lu.u8": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "ld.global.ca.u8": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "ld.shared.u8": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 4096,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "ld.local.u8": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 64,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "ld.global.s8": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "ld.global.nc.s8": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "ld.global.cg.s8": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "ld.global.cs.s8": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "ld.global.lu.s8": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "ld.global.ca.s8": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "ld.shared.s8": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 4096,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "ld.local.s8": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 64,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "ld.global.u16": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "ld.global.nc.u16": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "ld.global.cg.u16": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "ld.global.cs.u16": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "ld.global.lu.u16": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "ld.global.ca.u16": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "ld.shared.u16": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 4096,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "ld.local.u16": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 64,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "ld.global.s16": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "ld.global.nc.s16": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "ld.global.cg.s16": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "ld.global.cs.s16": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "ld.global.lu.s16": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "ld.global.ca.s16": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "ld.shared.s16": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 4096,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "ld.local.s16": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 64,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "ld.global.b32": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "ld.global.nc.b32": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "ld.global.cg.b32": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "ld.global.cs.b32": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "ld.global.lu.b32": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "ld.global.ca.b32": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "ld.shared.b32": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 4096,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "ld.local.b32": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 64,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "ld.global.b64": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 8,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "ld.global.nc.b64": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 8,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "ld.global.cg.b64": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 8,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "ld.global.cs.b64": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 8,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "ld.global.lu.b64": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 8,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "ld.global.ca.b64": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 8,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "ld.shared.b64": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 4096,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "ld.local.b64": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 64,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "ld.global.v2.b32": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 8,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "ld.global.nc.v2.b32": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 8,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "ld.global.cg.v2.b32": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 8,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "ld.global.cs.v2.b32": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 8,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "ld.global.lu.v2.b32": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 8,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "ld.global.ca.v2.b32": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 8,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "ld.shared.v2.b32": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 4096,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "ld.local.v2.b32": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 64,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "ld.global.v4.b32": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 8,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "ld.global.nc.v4.b32": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 8,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "ld.global.cg.v4.b32": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 8,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "ld.global.cs.v4.b32": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 8,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "ld.global.lu.v4.b32": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 8,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "ld.global.ca.v4.b32": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 8,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "ld.shared.v4.b32": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 4096,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "ld.local.v4.b32": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 64,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "st.global.u8": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "st.global.u16": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "st.global.b32": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "st.shared.b32": {
+   "status": "DIFFER",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 4096,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "lanes": "128/128",
+   "in": [
+    "0x48",
+    "0x67902a24",
+    "0xc5",
+    "0x97d4a3aa"
+   ],
+   "k": "0x59471cb8",
+   "kf": "0xbafb",
+   "gpu": [
+    "0xe7cc36",
+    "0x97d4a3aa"
+   ],
+   "emu": [
+    "0x0",
+    "0x97d4a3aa"
+   ],
+   "vs_ptx_spec": "128/128 differ"
+  },
+  "st.global.b64": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "st.shared.b64": {
+   "status": "DIFFER",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 4096,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "lanes": "128/128",
+   "in": [
+    "0x7fffff",
+    "0x72647824",
+    "0x2",
+    "0x908315aa"
+   ],
+   "k": "0x261595d4",
+   "kf": "0x6e2f1dc2",
+   "gpu": [
+    "0xe7cc36",
+    "0x908315aa"
+   ],
+   "emu": [
+    "0x0",
+    "0x908315aa"
+   ],
+   "vs_ptx_spec": "128/128 differ"
+  },
+  "st.global.v2.b32": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "st.shared.v2.b32": {
+   "status": "DIFFER",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 4096,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "lanes": "128/128",
+   "in": [
+    "0x4e7f26a3",
+    "0x88",
+    "0x68f4b193",
+    "0x96e2e92d"
+   ],
+   "k": "0xc73a004",
+   "kf": "0x9d5fe73a",
+   "gpu": [
+    "0xe7cc36",
+    "0x96e2e92d"
+   ],
+   "emu": [
+    "0x0",
+    "0x96e2e92d"
+   ],
+   "vs_ptx_spec": "128/128 differ"
+  },
+  "st.global.v4.b32": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "st.shared.v4.b32": {
+   "status": "DIFFER",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 4096,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "lanes": "128/128",
+   "in": [
+    "0xff",
+    "0xa8900a7a",
+    "0x904a",
+    "0x3913d756"
+   ],
+   "k": "0x1234",
+   "kf": "0x70ee",
+   "gpu": [
+    "0xe7cc36",
+    "0x3913d756"
+   ],
+   "emu": [
+    "0x0",
+    "0x3913d756"
+   ],
+   "vs_ptx_spec": "128/128 differ"
+  },
+  "ld.const": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 64,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "atom.global.add.u32": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "atom.shared.add.u32": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 4096,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "red.global.add.u32": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "atom.global.min.s32": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "atom.shared.min.s32": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 4096,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "red.global.min.s32": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "atom.global.max.u32": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "atom.shared.max.u32": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 4096,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "red.global.max.u32": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "atom.global.inc.u32": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "atom.shared.inc.u32": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 4096,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "red.global.inc.u32": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "atom.global.dec.u32": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "atom.shared.dec.u32": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 4096,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "red.global.dec.u32": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "atom.global.and.b32": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "atom.shared.and.b32": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 4096,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "red.global.and.b32": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "atom.global.or.b32": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "atom.shared.or.b32": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 4096,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "red.global.or.b32": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "atom.global.xor.b32": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "atom.shared.xor.b32": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 4096,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "red.global.xor.b32": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "atom.global.exch.b32": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "atom.shared.exch.b32": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 4096,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "atom.cas.b32": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "atom.cas.b64": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "atom.add.u64": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "atom.add.f32": {
+   "status": "gpu-only",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "emu": "float atomics",
+   "ptx": "float atomics"
+  },
+  "atom.shared.add.f32": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 4096,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "ptx": "float atomics"
+  },
+  "atom.add.f64": {
+   "status": "gpu-only",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "emu": "float atomics",
+   "ptx": "float atomics"
+  },
+  "atom.sys": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "atom.acquire.gpu": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "atom.relaxed.gpu": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "atom.acq_rel.sys": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "fence.sc.gpu": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "fence.acq_rel.gpu": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "fence.acq_rel.sys": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "membar.cta": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "membar.gl": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "membar.sys": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "ld.volatile": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "ld.acquire": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "st.release": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "prefetch": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "cvta.shared": {
+   "status": "differ-nondeterministic",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 4096,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 8,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "lanes": "128/128",
+   "in": [
+    "0x39d520ff",
+    "0x8ff564b7",
+    "0xed43749a",
+    "0x7"
+   ],
+   "k": "0x9013bbdc",
+   "kf": "0x539ad61a",
+   "gpu": [
+    "0x17000000",
+    "0x2ac7"
+   ],
+   "emu": [
+    "0x0",
+    "0x0"
+   ],
+   "vs_ptx_spec": "128/128 differ"
+  },
+  "isspacep": {
+   "status": "gpu-only",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "emu": "'QSPC.E.S P0, RZ, [R2]' at 0x70",
+   "ptx": "isspacep.shared"
+  },
+  "shfl.idx.r": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "shfl.idx.i": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "shfl.up.r": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "shfl.up.i": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "shfl.down.r": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "shfl.down.i": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "shfl.bfly.r": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "shfl.bfly.i": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "shfl.p": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "vote.all": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "vote.any": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "vote.uni": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "vote.ballot": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "match.any": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "match.all": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "redux.add.u32": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "redux.min.s32": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "redux.max.u32": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "redux.and.b32": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "redux.or.b32": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "redux.xor.b32": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "activemask": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "bar.sync": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 4096,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "bar.sync.n": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 4096,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "bar.arrive": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "bar.red.popc": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "bar.red.and": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "bar.warp.sync": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "sreg.tid.y": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "sreg.tid.z": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "sreg.ntid.x": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "sreg.ntid.y": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "sreg.ctaid.x": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "sreg.ctaid.y": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "sreg.ctaid.z": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "sreg.nctaid.x": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "sreg.laneid": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "sreg.warpid": {
+   "status": "differ-nondeterministic",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "ptx": "read of undefined register %warpid",
+   "lanes": "96/128",
+   "in": [
+    "0xffffffff",
+    "0xc250f9f2",
+    "0x75918870",
+    "0x23530266"
+   ],
+   "k": "0x43a0e7d0",
+   "kf": "0x3",
+   "gpu": [
+    "0x2",
+    "0x23530266"
+   ],
+   "emu": [
+    "0x0",
+    "0x23530266"
+   ]
+  },
+  "sreg.nwarpid": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "ptx": "read of undefined register %nwarpid"
+  },
+  "sreg.smid": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "ptx": "read of undefined register %smid"
+  },
+  "sreg.nsmid": {
+   "status": "differ-nondeterministic",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "ptx": "read of undefined register %nsmid",
+   "lanes": "128/128",
+   "in": [
+    "0xcf000000",
+    "0x4b000000",
+    "0xe5178d10",
+    "0xbc650d07"
+   ],
+   "k": "0xbf800000",
+   "kf": "0x6",
+   "gpu": [
+    "0x6c",
+    "0xbc650d07"
+   ],
+   "emu": [
+    "0x0",
+    "0xbc650d07"
+   ]
+  },
+  "sreg.gridid": {
+   "status": "differ-nondeterministic",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "ptx": "read of undefined register %gridid",
+   "lanes": "128/128",
+   "in": [
+    "0x7fc00000",
+    "0x19",
+    "0x7a159e82",
+    "0x0"
+   ],
+   "k": "0xd70f29dd",
+   "kf": "0xbf800000",
+   "gpu": [
+    "0x17f7",
+    "0x0"
+   ],
+   "emu": [
+    "0x0",
+    "0x0"
+   ]
+  },
+  "sreg.lanemask_eq": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "sreg.lanemask_lt": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "sreg.lanemask_ge": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "sreg.clock": {
+   "status": "differ-nondeterministic",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 8,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "ptx": "read of undefined register %clock",
+   "lanes": "128/128",
+   "in": [
+    "0x70a49e52",
+    "0x5ea8de94",
+    "0x7fc00000",
+    "0x80000000"
+   ],
+   "k": "0x7a23846",
+   "kf": "0x5049d06e",
+   "gpu": [
+    "0x6af0f053",
+    "0x80000000"
+   ],
+   "emu": [
+    "0x7",
+    "0x80000000"
+   ]
+  },
+  "sreg.dynamic_smem_size": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "ptx": "read of undefined register %dynamic_smem_size"
+  },
+  "sreg.total_smem_size": {
+   "status": "gpu-only",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "emu": "special register SR_SMEMSZ",
+   "ptx": "read of undefined register %total_smem_size"
+  },
+  "sreg.clock64": {
+   "status": "differ-nondeterministic",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 8,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "ptx": "read of undefined register %clock64",
+   "lanes": "128/128",
+   "in": [
+    "0x396e",
+    "0x5",
+    "0x21",
+    "0xdd8911c3"
+   ],
+   "k": "0x50333645",
+   "kf": "0x6bdc26d2",
+   "gpu": [
+    "0x6b0baf60",
+    "0x3a31"
+   ],
+   "emu": [
+    "0x5",
+    "0x0"
+   ]
+  },
+  "sreg.globaltimer": {
+   "status": "differ-nondeterministic",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 8,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "ptx": "read of undefined register %globaltimer",
+   "lanes": "128/128",
+   "in": [
+    "0x4c",
+    "0xc9a0430f",
+    "0x3104b2a5",
+    "0x80800000"
+   ],
+   "k": "0x52206e73",
+   "kf": "0xfbe4f423",
+   "gpu": [
+    "0x1f2eb000",
+    "0x18e1c963"
+   ],
+   "emu": [
+    "0x5",
+    "0x0"
+   ]
+  },
+  "nanosleep": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "trap": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "brkpt": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "pmevent": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "if": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "ifelse": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "loop": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "loop.nested": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 15,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "divergent": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "brx": {
+   "status": "gpu-only",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "emu": "indirect branch (needs jump-table relocation info)",
+   "vs_ptx_spec": "match"
+  },
+  "early.exit": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "exit": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "mma.f16": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 16,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "ptx": "mma.sync.aligned.m16n8k16.row.col.f32.f16.f16.f32"
+  },
+  "mma.bf16": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 16,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "ptx": "mma.sync.aligned.m16n8k16.row.col.f32.bf16.bf16.f32"
+  },
+  "mma.tf32": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 16,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "ptx": "mma.sync.aligned.m16n8k8.row.col.f32.tf32.tf32.f32"
+  },
+  "mma.s8": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 16,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "ptx": "mma.sync.aligned.m16n8k32.row.col.s32.s8.s8.s32"
+  },
+  "mma.f64": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 16,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "ptx": "mma.sync.aligned.m8n8k4.row.col.f64.f64.f64.f64"
+  },
+  "ldmatrix": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 4096,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 18,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "ptx": "ldmatrix.sync.aligned.m8n8.x4.shared.b16"
+  },
+  "ldmatrix.trans": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 4096,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 15,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "ptx": "ldmatrix.sync.aligned.m8n8.x2.trans.shared.b16"
+  },
+  "cp.async": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 4096,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "ptx": "cp.async.cg.shared.global"
+  },
+  "cp.async.ca4": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 4096,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 12,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "ptx": "cp.async.ca.shared.global"
+  }
+ }
+}

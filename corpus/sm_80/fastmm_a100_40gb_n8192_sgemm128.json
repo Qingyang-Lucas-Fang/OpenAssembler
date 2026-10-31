@@ -1,0 +1,186 @@
+{
+ "device": {
+  "name": "NVIDIA A100-SXM4-40GB",
+  "cc": "8.0",
+  "driver": 13030,
+  "sm_count": 108,
+  "clock_khz": 1410000,
+  "mem_bytes": 42429251584
+ },
+ "n": 8192,
+ "plans": {
+  "gemm": {
+   "launches": 1,
+   "lincombs": 0,
+   "mul_flops": 1099511627776,
+   "buffers_MB": 768
+  },
+  "strassen_2x2x2": {
+   "launches": 21,
+   "lincombs": 14,
+   "mul_flops": 962072674304,
+   "buffers_MB": 1344
+  },
+  "strassen_2x2x2+fused": {
+   "launches": 8,
+   "lincombs": 0,
+   "mul_flops": 962072674304,
+   "buffers_MB": 960
+  },
+  "at_2x2x2": {
+   "launches": 19,
+   "lincombs": 12,
+   "mul_flops": 962072674304,
+   "buffers_MB": 1344
+  },
+  "at_2x2x2+fused": {
+   "launches": 8,
+   "lincombs": 0,
+   "mul_flops": 962072674304,
+   "buffers_MB": 960
+  },
+  "strassen2_4x4x4": {
+   "launches": 163,
+   "lincombs": 114,
+   "mul_flops": 841813590016,
+   "buffers_MB": 1584
+  },
+  "strassen2_4x4x4+fused": {
+   "launches": 50,
+   "lincombs": 0,
+   "mul_flops": 841813590016,
+   "buffers_MB": 816
+  },
+  "at_gpu_4x4x4": {
+   "launches": 174,
+   "lincombs": 125,
+   "mul_flops": 841813590016,
+   "buffers_MB": 1584
+  },
+  "at_gpu_4x4x4+fused": {
+   "launches": 243,
+   "lincombs": 193,
+   "mul_flops": 841813590016,
+   "buffers_MB": 816
+  },
+  "cublas": {
+   "launches": 1,
+   "lincombs": 0,
+   "mul_flops": 1099511627776,
+   "buffers_MB": 768
+  }
+ },
+ "results": {
+  "strassen2_4x4x4": {
+   "ours": {
+    "ms": 69.4681625366211,
+    "rel_err": 3.2379305250331504e-06,
+    "error": "not run: global budget exhausted"
+   },
+   "ptxas": {
+    "ms": 71.83360290527344,
+    "rel_err": 3.2379305250331504e-06,
+    "error": "not run: global budget exhausted"
+   }
+  },
+  "strassen_2x2x2+fused": {
+   "ours": {
+    "ms": 72.22476959228516,
+    "rel_err": 2.2965716723129443e-06,
+    "error": "not run: global budget exhausted"
+   },
+   "ptxas": {
+    "error": "not run: global budget exhausted"
+   }
+  },
+  "at_gpu_4x4x4+fused": {
+   "ours": {
+    "ms": 91.20665740966797,
+    "rel_err": 5.716968332622899e-06,
+    "error": "not run: global budget exhausted"
+   },
+   "ptxas": {
+    "ms": 84.51993560791016,
+    "rel_err": 5.716968332622899e-06,
+    "error": "not run: global budget exhausted"
+   }
+  },
+  "cublas": {
+   "-": {
+    "ms": 57.608192443847656,
+    "rel_err": 1.5656942237879513e-06,
+    "error": "not run: global budget exhausted"
+   }
+  },
+  "at_2x2x2+fused": {
+   "ours": {
+    "ms": 76.46208190917969,
+    "rel_err": 2.6528382819126743e-06,
+    "error": "not run: global budget exhausted"
+   },
+   "ptxas": {
+    "ms": 68.0417251586914,
+    "rel_err": 2.6528382819126743e-06,
+    "error": "not run: global budget exhausted"
+   }
+  },
+  "gemm": {
+   "ptxas": {
+    "ms": 62.05644989013672,
+    "rel_err": 1.5656942237879513e-06,
+    "error": "not run: global budget exhausted"
+   },
+   "ours": {
+    "ms": 60.0186882019043,
+    "rel_err": 1.5656942237879513e-06,
+    "error": "not run: global budget exhausted"
+   }
+  },
+  "at_gpu_4x4x4": {
+   "ours": {
+    "ms": 71.64927673339844,
+    "rel_err": 5.716968332622899e-06,
+    "error": "not run: global budget exhausted"
+   },
+   "ptxas": {
+    "ms": 73.98092651367188,
+    "rel_err": 5.716968332622899e-06,
+    "error": "not run: global budget exhausted"
+   }
+  },
+  "at_2x2x2": {
+   "ptxas": {
+    "ms": 60.6033935546875,
+    "rel_err": 2.6528382819126743e-06,
+    "error": "not run: global budget exhausted"
+   },
+   "ours": {
+    "ms": 58.29324722290039,
+    "rel_err": 2.6528382819126743e-06,
+    "error": "not run: global budget exhausted"
+   }
+  },
+  "strassen2_4x4x4+fused": {
+   "ours": {
+    "ms": 108.5849609375,
+    "rel_err": 3.2379305250331504e-06,
+    "error": "not run: global budget exhausted"
+   },
+   "ptxas": {
+    "ms": 93.0324478149414,
+    "rel_err": 3.2379305250331504e-06,
+    "error": "not run: global budget exhausted"
+   }
+  },
+  "strassen_2x2x2": {
+   "ours": {
+    "ms": 58.405887603759766,
+    "rel_err": 2.2965716723129443e-06,
+    "error": "not run: global budget exhausted"
+   },
+   "ptxas": {
+    "error": "not run: global budget exhausted"
+   }
+  }
+ }
+}

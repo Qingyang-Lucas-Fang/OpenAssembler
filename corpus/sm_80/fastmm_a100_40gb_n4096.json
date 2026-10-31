@@ -1,0 +1,143 @@
+{
+ "device": {
+  "name": "NVIDIA A100-SXM4-40GB",
+  "cc": "8.0",
+  "driver": 13030,
+  "sm_count": 108,
+  "clock_khz": 1410000,
+  "mem_bytes": 42429251584
+ },
+ "n": 4096,
+ "plans": {
+  "gemm": {
+   "launches": 1,
+   "lincombs": 0,
+   "mul_flops": 137438953472,
+   "buffers_MB": 192
+  },
+  "strassen_2x2x2": {
+   "launches": 21,
+   "lincombs": 14,
+   "mul_flops": 120259084288,
+   "buffers_MB": 336
+  },
+  "at_2x2x2": {
+   "launches": 19,
+   "lincombs": 12,
+   "mul_flops": 120259084288,
+   "buffers_MB": 336
+  },
+  "naive_2x2x2": {
+   "launches": 12,
+   "lincombs": 4,
+   "mul_flops": 137438953472,
+   "buffers_MB": 352
+  },
+  "strassen2_4x4x4": {
+   "launches": 163,
+   "lincombs": 114,
+   "mul_flops": 105226698752,
+   "buffers_MB": 396
+  },
+  "at_gpu_4x4x4": {
+   "launches": 174,
+   "lincombs": 125,
+   "mul_flops": 105226698752,
+   "buffers_MB": 396
+  },
+  "at_4x4x4": {
+   "launches": 186,
+   "lincombs": 137,
+   "mul_flops": 105226698752,
+   "buffers_MB": 396
+  },
+  "naive_4x4x4": {
+   "launches": 80,
+   "lincombs": 16,
+   "mul_flops": 137438953472,
+   "buffers_MB": 456
+  }
+ },
+ "results": {
+  "strassen_2x2x2": {
+   "ptxas": {
+    "ms": 9.327615737915039,
+    "rel_err": 1.6321108692914422e-06
+   },
+   "ours": {
+    "ms": 9.312255859375,
+    "rel_err": 1.6321108692914422e-06
+   }
+  },
+  "at_gpu_4x4x4": {
+   "ptxas": {
+    "ms": 12.319744110107422,
+    "rel_err": 4.4472898957943145e-06
+   },
+   "ours": {
+    "ms": 12.491776466369629,
+    "rel_err": 4.4472898957943145e-06
+   }
+  },
+  "gemm": {
+   "ptxas": {
+    "ms": 9.32044792175293,
+    "rel_err": 1.1553561821478158e-06
+   },
+   "ours": {
+    "ms": 9.308159828186035,
+    "rel_err": 1.1553561821478158e-06
+   }
+  },
+  "naive_4x4x4": {
+   "ptxas": {
+    "ms": 13.186047554016113,
+    "rel_err": 5.740501486730328e-07
+   },
+   "ours": {
+    "ms": 13.232128143310547,
+    "rel_err": 5.740501486730328e-07
+   }
+  },
+  "naive_2x2x2": {
+   "ptxas": {
+    "ms": 10.163200378417969,
+    "rel_err": 8.116810090207918e-07
+   },
+   "ours": {
+    "ms": 10.136575698852539,
+    "rel_err": 8.116810090207918e-07
+   }
+  },
+  "at_2x2x2": {
+   "ours": {
+    "ms": 9.32147216796875,
+    "rel_err": 1.8579676213416433e-06
+   },
+   "ptxas": {
+    "ms": 9.333760261535645,
+    "rel_err": 1.8579676213416433e-06
+   }
+  },
+  "strassen2_4x4x4": {
+   "ptxas": {
+    "ms": 11.751423835754395,
+    "rel_err": 2.265965760110851e-06
+   },
+   "ours": {
+    "ms": 11.883520126342773,
+    "rel_err": 2.265965760110851e-06
+   }
+  },
+  "at_4x4x4": {
+   "ptxas": {
+    "ms": 12.374015808105469,
+    "rel_err": 4.223681019586442e-06
+   },
+   "ours": {
+    "ms": 12.534784317016602,
+    "rel_err": 4.223681019586442e-06
+   }
+  }
+ }
+}

@@ -1,0 +1,107 @@
+{
+ "device": {
+  "name": "NVIDIA A100-SXM4-40GB",
+  "cc": "8.0",
+  "driver": 13030,
+  "sm_count": 108,
+  "clock_khz": 1410000,
+  "mem_bytes": 42429251584
+ },
+ "n": 2048,
+ "plans": {
+  "gemm": {
+   "launches": 1,
+   "lincombs": 0,
+   "mul_flops": 17179869184,
+   "buffers_MB": 48
+  },
+  "strassen_2x2x2": {
+   "launches": 21,
+   "lincombs": 14,
+   "mul_flops": 15032385536,
+   "buffers_MB": 84
+  },
+  "strassen_2x2x2+fused": {
+   "launches": 8,
+   "lincombs": 0,
+   "mul_flops": 15032385536,
+   "buffers_MB": 60
+  },
+  "strassen2_4x4x4": {
+   "launches": 163,
+   "lincombs": 114,
+   "mul_flops": 13153337344,
+   "buffers_MB": 99
+  },
+  "strassen2_4x4x4+fused": {
+   "launches": 50,
+   "lincombs": 0,
+   "mul_flops": 13153337344,
+   "buffers_MB": 51
+  },
+  "cublas": {
+   "launches": 1,
+   "lincombs": 0,
+   "mul_flops": 17179869184,
+   "buffers_MB": 48
+  }
+ },
+ "results": {
+  "strassen2_4x4x4": {
+   "ptxas": {
+    "ms": 8.262656211853027,
+    "rel_err": 1.5663363389473852e-06
+   },
+   "ours": {
+    "ms": 6.343679904937744,
+    "rel_err": 1.5663363389473852e-06
+   }
+  },
+  "strassen2_4x4x4+fused": {
+   "ptxas": {
+    "ms": 11.580415725708008,
+    "rel_err": 1.5663363389473852e-06
+   },
+   "ours": {
+    "ms": 11.0315523147583,
+    "rel_err": 1.5663363389473852e-06
+   }
+  },
+  "cublas": {
+   "-": {
+    "ms": 0.9850879907608032,
+    "rel_err": 7.913529109658822e-07
+   }
+  },
+  "strassen_2x2x2+fused": {
+   "ours": {
+    "ms": 2.746367931365967,
+    "rel_err": 1.1327565968515354e-06
+   },
+   "ptxas": {
+    "ms": 2.288640022277832,
+    "rel_err": 1.1327565968515354e-06
+   }
+  },
+  "strassen_2x2x2": {
+   "ours": {
+    "ms": 1.8677760362625122,
+    "rel_err": 1.1327565968515354e-06
+   },
+   "ptxas": {
+    "ms": 1.9005440473556519,
+    "rel_err": 1.1327565968515354e-06
+   }
+  },
+  "gemm": {
+   "ptxas": {
+    "ms": 1.3271039724349976,
+    "rel_err": 7.913529109658822e-07
+   },
+   "ours": {
+    "ms": 1.2810239791870117,
+    "rel_err": 7.913529109658822e-07
+   }
+  }
+ }
+}

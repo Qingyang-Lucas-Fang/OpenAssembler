@@ -1,0 +1,1032 @@
+{
+ "div.u32.2": {
+  "kind": "runtime",
+  "insns": 25,
+  "xu": 3,
+  "extra": 13
+ },
+ "div.u32.3": {
+  "kind": "runtime",
+  "insns": 25,
+  "xu": 3,
+  "extra": 13
+ },
+ "div.u32.5": {
+  "kind": "runtime",
+  "insns": 25,
+  "xu": 3,
+  "extra": 13
+ },
+ "div.u32.6": {
+  "kind": "runtime",
+  "insns": 25,
+  "xu": 3,
+  "extra": 13
+ },
+ "div.u32.7": {
+  "kind": "runtime",
+  "insns": 25,
+  "xu": 3,
+  "extra": 13
+ },
+ "div.u32.10": {
+  "kind": "runtime",
+  "insns": 25,
+  "xu": 3,
+  "extra": 13
+ },
+ "div.u32.16": {
+  "kind": "runtime",
+  "insns": 25,
+  "xu": 3,
+  "extra": 13
+ },
+ "div.u32.25": {
+  "kind": "runtime",
+  "insns": 25,
+  "xu": 3,
+  "extra": 13
+ },
+ "div.u32.60": {
+  "kind": "runtime",
+  "insns": 25,
+  "xu": 3,
+  "extra": 13
+ },
+ "div.u32.100": {
+  "kind": "runtime",
+  "insns": 25,
+  "xu": 3,
+  "extra": 13
+ },
+ "div.u32.255": {
+  "kind": "runtime",
+  "insns": 25,
+  "xu": 3,
+  "extra": 13
+ },
+ "div.u32.641": {
+  "kind": "runtime",
+  "insns": 25,
+  "xu": 3,
+  "extra": 13
+ },
+ "div.u32.1000": {
+  "kind": "runtime",
+  "insns": 25,
+  "xu": 3,
+  "extra": 13
+ },
+ "div.u32.4660": {
+  "kind": "runtime",
+  "insns": 25,
+  "xu": 3,
+  "extra": 13
+ },
+ "div.u32.65537": {
+  "kind": "runtime",
+  "insns": 25,
+  "xu": 3,
+  "extra": 13
+ },
+ "div.u32.1000000007": {
+  "kind": "runtime",
+  "insns": 25,
+  "xu": 3,
+  "extra": 13
+ },
+ "div.u32.2147483647": {
+  "kind": "runtime",
+  "insns": 25,
+  "xu": 3,
+  "extra": 13
+ },
+ "div.s32.2": {
+  "kind": "runtime",
+  "insns": 29,
+  "xu": 3,
+  "extra": 17
+ },
+ "div.s32.3": {
+  "kind": "runtime",
+  "insns": 29,
+  "xu": 3,
+  "extra": 17
+ },
+ "div.s32.5": {
+  "kind": "runtime",
+  "insns": 29,
+  "xu": 3,
+  "extra": 17
+ },
+ "div.s32.6": {
+  "kind": "runtime",
+  "insns": 29,
+  "xu": 3,
+  "extra": 17
+ },
+ "div.s32.7": {
+  "kind": "runtime",
+  "insns": 29,
+  "xu": 3,
+  "extra": 17
+ },
+ "div.s32.10": {
+  "kind": "runtime",
+  "insns": 29,
+  "xu": 3,
+  "extra": 17
+ },
+ "div.s32.16": {
+  "kind": "runtime",
+  "insns": 29,
+  "xu": 3,
+  "extra": 17
+ },
+ "div.s32.25": {
+  "kind": "runtime",
+  "insns": 29,
+  "xu": 3,
+  "extra": 17
+ },
+ "div.s32.60": {
+  "kind": "runtime",
+  "insns": 29,
+  "xu": 3,
+  "extra": 17
+ },
+ "div.s32.100": {
+  "kind": "runtime",
+  "insns": 29,
+  "xu": 3,
+  "extra": 17
+ },
+ "div.s32.255": {
+  "kind": "runtime",
+  "insns": 29,
+  "xu": 3,
+  "extra": 17
+ },
+ "div.s32.641": {
+  "kind": "runtime",
+  "insns": 29,
+  "xu": 3,
+  "extra": 17
+ },
+ "div.s32.1000": {
+  "kind": "runtime",
+  "insns": 29,
+  "xu": 3,
+  "extra": 17
+ },
+ "div.s32.4660": {
+  "kind": "runtime",
+  "insns": 29,
+  "xu": 3,
+  "extra": 17
+ },
+ "div.s32.65537": {
+  "kind": "runtime",
+  "insns": 29,
+  "xu": 3,
+  "extra": 17
+ },
+ "div.s32.1000000007": {
+  "kind": "runtime",
+  "insns": 29,
+  "xu": 3,
+  "extra": 17
+ },
+ "div.s32.2147483647": {
+  "kind": "runtime",
+  "insns": 29,
+  "xu": 3,
+  "extra": 17
+ },
+ "div.u64.2": {
+  "kind": "call",
+  "insns": 73,
+  "xu": 3,
+  "extra": 61
+ },
+ "div.u64.3": {
+  "kind": "call",
+  "insns": 73,
+  "xu": 3,
+  "extra": 61
+ },
+ "div.u64.5": {
+  "kind": "call",
+  "insns": 73,
+  "xu": 3,
+  "extra": 61
+ },
+ "div.u64.6": {
+  "kind": "call",
+  "insns": 73,
+  "xu": 3,
+  "extra": 61
+ },
+ "div.u64.7": {
+  "kind": "call",
+  "insns": 73,
+  "xu": 3,
+  "extra": 61
+ },
+ "div.u64.10": {
+  "kind": "call",
+  "insns": 73,
+  "xu": 3,
+  "extra": 61
+ },
+ "div.u64.16": {
+  "kind": "call",
+  "insns": 73,
+  "xu": 3,
+  "extra": 61
+ },
+ "div.u64.25": {
+  "kind": "call",
+  "insns": 73,
+  "xu": 3,
+  "extra": 61
+ },
+ "div.u64.60": {
+  "kind": "call",
+  "insns": 73,
+  "xu": 3,
+  "extra": 61
+ },
+ "div.u64.100": {
+  "kind": "call",
+  "insns": 73,
+  "xu": 3,
+  "extra": 61
+ },
+ "div.u64.255": {
+  "kind": "call",
+  "insns": 73,
+  "xu": 3,
+  "extra": 61
+ },
+ "div.u64.641": {
+  "kind": "call",
+  "insns": 73,
+  "xu": 3,
+  "extra": 61
+ },
+ "div.u64.1000": {
+  "kind": "call",
+  "insns": 73,
+  "xu": 3,
+  "extra": 61
+ },
+ "div.u64.4660": {
+  "kind": "call",
+  "insns": 73,
+  "xu": 3,
+  "extra": 61
+ },
+ "div.u64.65537": {
+  "kind": "call",
+  "insns": 73,
+  "xu": 3,
+  "extra": 61
+ },
+ "div.u64.1000000007": {
+  "kind": "call",
+  "insns": 73,
+  "xu": 3,
+  "extra": 61
+ },
+ "div.u64.2147483647": {
+  "kind": "call",
+  "insns": 73,
+  "xu": 3,
+  "extra": 61
+ },
+ "div.s64.2": {
+  "kind": "call",
+  "insns": 82,
+  "xu": 3,
+  "extra": 70
+ },
+ "div.s64.3": {
+  "kind": "call",
+  "insns": 82,
+  "xu": 3,
+  "extra": 70
+ },
+ "div.s64.5": {
+  "kind": "call",
+  "insns": 82,
+  "xu": 3,
+  "extra": 70
+ },
+ "div.s64.6": {
+  "kind": "call",
+  "insns": 82,
+  "xu": 3,
+  "extra": 70
+ },
+ "div.s64.7": {
+  "kind": "call",
+  "insns": 82,
+  "xu": 3,
+  "extra": 70
+ },
+ "div.s64.10": {
+  "kind": "call",
+  "insns": 82,
+  "xu": 3,
+  "extra": 70
+ },
+ "div.s64.16": {
+  "kind": "call",
+  "insns": 82,
+  "xu": 3,
+  "extra": 70
+ },
+ "div.s64.25": {
+  "kind": "call",
+  "insns": 82,
+  "xu": 3,
+  "extra": 70
+ },
+ "div.s64.60": {
+  "kind": "call",
+  "insns": 82,
+  "xu": 3,
+  "extra": 70
+ },
+ "div.s64.100": {
+  "kind": "call",
+  "insns": 82,
+  "xu": 3,
+  "extra": 70
+ },
+ "div.s64.255": {
+  "kind": "call",
+  "insns": 82,
+  "xu": 3,
+  "extra": 70
+ },
+ "div.s64.641": {
+  "kind": "call",
+  "insns": 82,
+  "xu": 3,
+  "extra": 70
+ },
+ "div.s64.1000": {
+  "kind": "call",
+  "insns": 82,
+  "xu": 3,
+  "extra": 70
+ },
+ "div.s64.4660": {
+  "kind": "call",
+  "insns": 82,
+  "xu": 3,
+  "extra": 70
+ },
+ "div.s64.65537": {
+  "kind": "call",
+  "insns": 82,
+  "xu": 3,
+  "extra": 70
+ },
+ "div.s64.1000000007": {
+  "kind": "call",
+  "insns": 82,
+  "xu": 3,
+  "extra": 70
+ },
+ "div.s64.2147483647": {
+  "kind": "call",
+  "insns": 82,
+  "xu": 3,
+  "extra": 70
+ },
+ "div.u32.2.loop": {
+  "kind": "runtime",
+  "insns": 33,
+  "xu": 3,
+  "extra": 21
+ },
+ "div.u32.3.loop": {
+  "kind": "runtime",
+  "insns": 33,
+  "xu": 3,
+  "extra": 21
+ },
+ "div.u32.5.loop": {
+  "kind": "runtime",
+  "insns": 33,
+  "xu": 3,
+  "extra": 21
+ },
+ "div.u32.6.loop": {
+  "kind": "runtime",
+  "insns": 33,
+  "xu": 3,
+  "extra": 21
+ },
+ "div.u32.7.loop": {
+  "kind": "runtime",
+  "insns": 33,
+  "xu": 3,
+  "extra": 21
+ },
+ "div.u32.10.loop": {
+  "kind": "runtime",
+  "insns": 33,
+  "xu": 3,
+  "extra": 21
+ },
+ "div.u32.16.loop": {
+  "kind": "runtime",
+  "insns": 33,
+  "xu": 3,
+  "extra": 21
+ },
+ "div.u32.25.loop": {
+  "kind": "runtime",
+  "insns": 33,
+  "xu": 3,
+  "extra": 21
+ },
+ "div.u32.60.loop": {
+  "kind": "runtime",
+  "insns": 33,
+  "xu": 3,
+  "extra": 21
+ },
+ "div.u32.100.loop": {
+  "kind": "runtime",
+  "insns": 33,
+  "xu": 3,
+  "extra": 21
+ },
+ "div.u32.255.loop": {
+  "kind": "runtime",
+  "insns": 33,
+  "xu": 3,
+  "extra": 21
+ },
+ "div.u32.641.loop": {
+  "kind": "runtime",
+  "insns": 33,
+  "xu": 3,
+  "extra": 21
+ },
+ "div.u32.1000.loop": {
+  "kind": "runtime",
+  "insns": 33,
+  "xu": 3,
+  "extra": 21
+ },
+ "div.u32.4660.loop": {
+  "kind": "runtime",
+  "insns": 33,
+  "xu": 3,
+  "extra": 21
+ },
+ "div.u32.65537.loop": {
+  "kind": "runtime",
+  "insns": 33,
+  "xu": 3,
+  "extra": 21
+ },
+ "div.u32.1000000007.loop": {
+  "kind": "runtime",
+  "insns": 33,
+  "xu": 3,
+  "extra": 21
+ },
+ "div.u32.2147483647.loop": {
+  "kind": "runtime",
+  "insns": 33,
+  "xu": 3,
+  "extra": 21
+ },
+ "rem.u32.2": {
+  "kind": "runtime",
+  "insns": 24,
+  "xu": 3,
+  "extra": 12
+ },
+ "rem.u32.3": {
+  "kind": "runtime",
+  "insns": 24,
+  "xu": 3,
+  "extra": 12
+ },
+ "rem.u32.5": {
+  "kind": "runtime",
+  "insns": 24,
+  "xu": 3,
+  "extra": 12
+ },
+ "rem.u32.6": {
+  "kind": "runtime",
+  "insns": 24,
+  "xu": 3,
+  "extra": 12
+ },
+ "rem.u32.7": {
+  "kind": "runtime",
+  "insns": 24,
+  "xu": 3,
+  "extra": 12
+ },
+ "rem.u32.10": {
+  "kind": "runtime",
+  "insns": 24,
+  "xu": 3,
+  "extra": 12
+ },
+ "rem.u32.16": {
+  "kind": "runtime",
+  "insns": 24,
+  "xu": 3,
+  "extra": 12
+ },
+ "rem.u32.25": {
+  "kind": "runtime",
+  "insns": 24,
+  "xu": 3,
+  "extra": 12
+ },
+ "rem.u32.60": {
+  "kind": "runtime",
+  "insns": 24,
+  "xu": 3,
+  "extra": 12
+ },
+ "rem.u32.100": {
+  "kind": "runtime",
+  "insns": 24,
+  "xu": 3,
+  "extra": 12
+ },
+ "rem.u32.255": {
+  "kind": "runtime",
+  "insns": 24,
+  "xu": 3,
+  "extra": 12
+ },
+ "rem.u32.641": {
+  "kind": "runtime",
+  "insns": 24,
+  "xu": 3,
+  "extra": 12
+ },
+ "rem.u32.1000": {
+  "kind": "runtime",
+  "insns": 24,
+  "xu": 3,
+  "extra": 12
+ },
+ "rem.u32.4660": {
+  "kind": "runtime",
+  "insns": 24,
+  "xu": 3,
+  "extra": 12
+ },
+ "rem.u32.65537": {
+  "kind": "runtime",
+  "insns": 24,
+  "xu": 3,
+  "extra": 12
+ },
+ "rem.u32.1000000007": {
+  "kind": "runtime",
+  "insns": 24,
+  "xu": 3,
+  "extra": 12
+ },
+ "rem.u32.2147483647": {
+  "kind": "runtime",
+  "insns": 24,
+  "xu": 3,
+  "extra": 12
+ },
+ "rem.s32.2": {
+  "kind": "runtime",
+  "insns": 27,
+  "xu": 3,
+  "extra": 15
+ },
+ "rem.s32.3": {
+  "kind": "runtime",
+  "insns": 27,
+  "xu": 3,
+  "extra": 15
+ },
+ "rem.s32.5": {
+  "kind": "runtime",
+  "insns": 27,
+  "xu": 3,
+  "extra": 15
+ },
+ "rem.s32.6": {
+  "kind": "runtime",
+  "insns": 27,
+  "xu": 3,
+  "extra": 15
+ },
+ "rem.s32.7": {
+  "kind": "runtime",
+  "insns": 27,
+  "xu": 3,
+  "extra": 15
+ },
+ "rem.s32.10": {
+  "kind": "runtime",
+  "insns": 27,
+  "xu": 3,
+  "extra": 15
+ },
+ "rem.s32.16": {
+  "kind": "runtime",
+  "insns": 27,
+  "xu": 3,
+  "extra": 15
+ },
+ "rem.s32.25": {
+  "kind": "runtime",
+  "insns": 27,
+  "xu": 3,
+  "extra": 15
+ },
+ "rem.s32.60": {
+  "kind": "runtime",
+  "insns": 27,
+  "xu": 3,
+  "extra": 15
+ },
+ "rem.s32.100": {
+  "kind": "runtime",
+  "insns": 27,
+  "xu": 3,
+  "extra": 15
+ },
+ "rem.s32.255": {
+  "kind": "runtime",
+  "insns": 27,
+  "xu": 3,
+  "extra": 15
+ },
+ "rem.s32.641": {
+  "kind": "runtime",
+  "insns": 27,
+  "xu": 3,
+  "extra": 15
+ },
+ "rem.s32.1000": {
+  "kind": "runtime",
+  "insns": 27,
+  "xu": 3,
+  "extra": 15
+ },
+ "rem.s32.4660": {
+  "kind": "runtime",
+  "insns": 27,
+  "xu": 3,
+  "extra": 15
+ },
+ "rem.s32.65537": {
+  "kind": "runtime",
+  "insns": 27,
+  "xu": 3,
+  "extra": 15
+ },
+ "rem.s32.1000000007": {
+  "kind": "runtime",
+  "insns": 27,
+  "xu": 3,
+  "extra": 15
+ },
+ "rem.s32.2147483647": {
+  "kind": "runtime",
+  "insns": 27,
+  "xu": 3,
+  "extra": 15
+ },
+ "rem.u64.2": {
+  "kind": "call",
+  "insns": 69,
+  "xu": 3,
+  "extra": 57
+ },
+ "rem.u64.3": {
+  "kind": "call",
+  "insns": 69,
+  "xu": 3,
+  "extra": 57
+ },
+ "rem.u64.5": {
+  "kind": "call",
+  "insns": 69,
+  "xu": 3,
+  "extra": 57
+ },
+ "rem.u64.6": {
+  "kind": "call",
+  "insns": 69,
+  "xu": 3,
+  "extra": 57
+ },
+ "rem.u64.7": {
+  "kind": "call",
+  "insns": 69,
+  "xu": 3,
+  "extra": 57
+ },
+ "rem.u64.10": {
+  "kind": "call",
+  "insns": 69,
+  "xu": 3,
+  "extra": 57
+ },
+ "rem.u64.16": {
+  "kind": "call",
+  "insns": 69,
+  "xu": 3,
+  "extra": 57
+ },
+ "rem.u64.25": {
+  "kind": "call",
+  "insns": 69,
+  "xu": 3,
+  "extra": 57
+ },
+ "rem.u64.60": {
+  "kind": "call",
+  "insns": 69,
+  "xu": 3,
+  "extra": 57
+ },
+ "rem.u64.100": {
+  "kind": "call",
+  "insns": 69,
+  "xu": 3,
+  "extra": 57
+ },
+ "rem.u64.255": {
+  "kind": "call",
+  "insns": 69,
+  "xu": 3,
+  "extra": 57
+ },
+ "rem.u64.641": {
+  "kind": "call",
+  "insns": 69,
+  "xu": 3,
+  "extra": 57
+ },
+ "rem.u64.1000": {
+  "kind": "call",
+  "insns": 69,
+  "xu": 3,
+  "extra": 57
+ },
+ "rem.u64.4660": {
+  "kind": "call",
+  "insns": 69,
+  "xu": 3,
+  "extra": 57
+ },
+ "rem.u64.65537": {
+  "kind": "call",
+  "insns": 69,
+  "xu": 3,
+  "extra": 57
+ },
+ "rem.u64.1000000007": {
+  "kind": "call",
+  "insns": 69,
+  "xu": 3,
+  "extra": 57
+ },
+ "rem.u64.2147483647": {
+  "kind": "call",
+  "insns": 69,
+  "xu": 3,
+  "extra": 57
+ },
+ "rem.s64.2": {
+  "kind": "call",
+  "insns": 78,
+  "xu": 3,
+  "extra": 66
+ },
+ "rem.s64.3": {
+  "kind": "call",
+  "insns": 78,
+  "xu": 3,
+  "extra": 66
+ },
+ "rem.s64.5": {
+  "kind": "call",
+  "insns": 78,
+  "xu": 3,
+  "extra": 66
+ },
+ "rem.s64.6": {
+  "kind": "call",
+  "insns": 78,
+  "xu": 3,
+  "extra": 66
+ },
+ "rem.s64.7": {
+  "kind": "call",
+  "insns": 78,
+  "xu": 3,
+  "extra": 66
+ },
+ "rem.s64.10": {
+  "kind": "call",
+  "insns": 78,
+  "xu": 3,
+  "extra": 66
+ },
+ "rem.s64.16": {
+  "kind": "call",
+  "insns": 78,
+  "xu": 3,
+  "extra": 66
+ },
+ "rem.s64.25": {
+  "kind": "call",
+  "insns": 78,
+  "xu": 3,
+  "extra": 66
+ },
+ "rem.s64.60": {
+  "kind": "call",
+  "insns": 78,
+  "xu": 3,
+  "extra": 66
+ },
+ "rem.s64.100": {
+  "kind": "call",
+  "insns": 78,
+  "xu": 3,
+  "extra": 66
+ },
+ "rem.s64.255": {
+  "kind": "call",
+  "insns": 78,
+  "xu": 3,
+  "extra": 66
+ },
+ "rem.s64.641": {
+  "kind": "call",
+  "insns": 78,
+  "xu": 3,
+  "extra": 66
+ },
+ "rem.s64.1000": {
+  "kind": "call",
+  "insns": 78,
+  "xu": 3,
+  "extra": 66
+ },
+ "rem.s64.4660": {
+  "kind": "call",
+  "insns": 78,
+  "xu": 3,
+  "extra": 66
+ },
+ "rem.s64.65537": {
+  "kind": "call",
+  "insns": 78,
+  "xu": 3,
+  "extra": 66
+ },
+ "rem.s64.1000000007": {
+  "kind": "call",
+  "insns": 78,
+  "xu": 3,
+  "extra": 66
+ },
+ "rem.s64.2147483647": {
+  "kind": "call",
+  "insns": 78,
+  "xu": 3,
+  "extra": 66
+ },
+ "rem.u32.2.loop": {
+  "kind": "runtime",
+  "insns": 32,
+  "xu": 3,
+  "extra": 20
+ },
+ "rem.u32.3.loop": {
+  "kind": "runtime",
+  "insns": 131,
+  "xu": 12,
+  "extra": 119
+ },
+ "rem.u32.5.loop": {
+  "kind": "runtime",
+  "insns": 131,
+  "xu": 12,
+  "extra": 119
+ },
+ "rem.u32.6.loop": {
+  "kind": "runtime",
+  "insns": 131,
+  "xu": 12,
+  "extra": 119
+ },
+ "rem.u32.7.loop": {
+  "kind": "runtime",
+  "insns": 131,
+  "xu": 12,
+  "extra": 119
+ },
+ "rem.u32.10.loop": {
+  "kind": "runtime",
+  "insns": 131,
+  "xu": 12,
+  "extra": 119
+ },
+ "rem.u32.16.loop": {
+  "kind": "runtime",
+  "insns": 32,
+  "xu": 3,
+  "extra": 20
+ },
+ "rem.u32.25.loop": {
+  "kind": "runtime",
+  "insns": 131,
+  "xu": 12,
+  "extra": 119
+ },
+ "rem.u32.60.loop": {
+  "kind": "runtime",
+  "insns": 131,
+  "xu": 12,
+  "extra": 119
+ },
+ "rem.u32.100.loop": {
+  "kind": "runtime",
+  "insns": 131,
+  "xu": 12,
+  "extra": 119
+ },
+ "rem.u32.255.loop": {
+  "kind": "runtime",
+  "insns": 131,
+  "xu": 12,
+  "extra": 119
+ },
+ "rem.u32.641.loop": {
+  "kind": "runtime",
+  "insns": 131,
+  "xu": 12,
+  "extra": 119
+ },
+ "rem.u32.1000.loop": {
+  "kind": "runtime",
+  "insns": 131,
+  "xu": 12,
+  "extra": 119
+ },
+ "rem.u32.4660.loop": {
+  "kind": "runtime",
+  "insns": 131,
+  "xu": 12,
+  "extra": 119
+ },
+ "rem.u32.65537.loop": {
+  "kind": "runtime",
+  "insns": 131,
+  "xu": 12,
+  "extra": 119
+ },
+ "rem.u32.1000000007.loop": {
+  "kind": "runtime",
+  "insns": 131,
+  "xu": 12,
+  "extra": 119
+ },
+ "rem.u32.2147483647.loop": {
+  "kind": "runtime",
+  "insns": 131,
+  "xu": 12,
+  "extra": 119
+ },
+ "base.u32": {
+  "kind": "shift",
+  "insns": 12,
+  "xu": 0
+ },
+ "base.u64": {
+  "kind": "shift",
+  "insns": 12,
+  "xu": 0
+ }
+}

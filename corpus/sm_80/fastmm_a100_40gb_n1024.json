@@ -1,0 +1,59 @@
+{
+ "device": {
+  "name": "NVIDIA A100-SXM4-40GB",
+  "cc": "8.0",
+  "driver": 13030,
+  "sm_count": 108,
+  "clock_khz": 1410000,
+  "mem_bytes": 42429251584
+ },
+ "n": 1024,
+ "plans": {
+  "gemm": {
+   "launches": 1,
+   "lincombs": 0,
+   "mul_flops": 2147483648,
+   "buffers_MB": 12
+  },
+  "strassen_2x2x2": {
+   "launches": 21,
+   "lincombs": 14,
+   "mul_flops": 1879048192,
+   "buffers_MB": 21
+  },
+  "cublas": {
+   "launches": 1,
+   "lincombs": 0,
+   "mul_flops": 2147483648,
+   "buffers_MB": 12
+  }
+ },
+ "results": {
+  "strassen_2x2x2": {
+   "ptxas": {
+    "ms": 0.4413439929485321,
+    "rel_err": 8.25172834308779e-07
+   },
+   "ours": {
+    "ms": 0.5529599785804749,
+    "rel_err": 8.25172834308779e-07
+   }
+  },
+  "cublas": {
+   "-": {
+    "ms": 0.18432000279426575,
+    "rel_err": 2.498851570195019e-07
+   }
+  },
+  "gemm": {
+   "ptxas": {
+    "ms": 0.2682879865169525,
+    "rel_err": 5.616129538516056e-07
+   },
+   "ours": {
+    "ms": 0.2672640085220337,
+    "rel_err": 5.616129538516056e-07
+   }
+  }
+ }
+}

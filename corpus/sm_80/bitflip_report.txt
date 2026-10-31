@@ -1,0 +1,138 @@
+0x001/4  PMTRIG 0x2                                        0=invalid 1:4=opcode 5:7=invalid 8=opcode 9:11=invalid 12:15=guard 32:47=op0 87:90=mod 91=invalid
+0x002/1  MOV R2, R4                                        0=opcode 1:2=invalid 3:4=opcode 5:7=invalid 8=opcode 9:10=invalid 11=op1 12:15=guard 16:23=op0 32:39=op1 72:75=mod 91=invalid
+0x002/4  MOV R8, 0xa                                       0=opcode 1=invalid 2:5=opcode 6=invalid 7:8=opcode 9=op1 10:11=invalid 12:15=guard 16:23=op0 32:63=op1 72:75=mod 91=invalid
+0x002/5  MOV R1, c[0x0][0x28]                              0=opcode 1:2=invalid 3:4=opcode 5:7=invalid 8=opcode 9=op1 10=invalid 11=op1 12:15=guard 16:23=op0 40:58=op1 72:75=mod 91=op1
+0x002/6  MOV R6, UR6                                       0=opcode 1:2=invalid 3:4=opcode 5:6=invalid 7:8=opcode 9:11=invalid 12:15=guard 16:23=op0 32:37=op1 72:75=mod 91=invalid
+0x005/4  CS2R.32 R2, SR_CLOCKLO                            0:5=opcode 6:11=invalid 12:15=guard 16:23=op0 72:79=op1 80=mod 91=invalid
+0x006/4  VOTE.ANY R6, PT, PT                               0:2=opcode 3=invalid 4=opcode 5:6=invalid 7=opcode 8:11=invalid 12:15=guard 16:23=op0 72:73=mod 81:83=op1 87:90=op2 91=invalid
+0x007/1  SEL R5, R10, RZ, P2                               0:1=invalid 2=opcode 3=invalid 4:5=opcode 6:10=invalid 11=op2 12:15=guard 16:23=op0 24:31=op1 32:39=op2 87:90=op3 91=invalid
+0x007/4  SEL R6, RZ, 0x1, !P0                              0:2=opcode 3=invalid 4:5=opcode 6:8=invalid 9=op2 10:11=invalid 12:15=guard 16:23=op0 24:31=op1 32:63=op2 87:90=op3 91=invalid
+0x008/1  FSEL R12, R4, R12, !P0                            0:2=opcode 3:4=invalid 5=opcode 6:7=invalid 8=opcode 9:10=invalid 11=op2 12:15=guard 16:23=op0 24:31=op1 32:39=op2 62:63=op2 72:73=op1 80=mod 87:90=op3 91=invalid
+0x008/4  FSEL R4, R4, 1, !P1                               0:2=opcode 3:4=invalid 5=opcode 6:7=invalid 8=opcode 9=op2 10:11=invalid 12:15=guard 16:23=op0 24:31=op1 32:63=op2 72:73=op1 80=mod 87:90=op3 91=invalid
+0x009/1  FMNMX R10, R8, R9, !PT                            0:1=opcode 2:3=invalid 4:5=opcode 6:7=invalid 8=opcode 9:10=invalid 11=op2 12:15=guard 16:23=op0 24:31=op1 32:39=op2 62:63=op2 72:73=op1 80:81=mod 87:90=op3 91=invalid
+0x009/4  FMNMX R6, R0, 1.5, !PT                            0:4=opcode 5:7=invalid 8=opcode 9=op2 10:11=invalid 12:15=guard 16:23=op0 24:31=op1 32:63=op2 72:73=op1 80:81=mod 87:90=op3 91=invalid
+0x009/5  FMNMX R6, R0, c[0x0][0x174], !PT                  0:1=opcode 2:3=invalid 4=opcode 5:7=invalid 8=opcode 9=op2 10=invalid 11=op2 12:15=guard 16:23=op0 24:31=op1 40:58=op2 62:63=op2 72:73=op1 80:81=mod 87:90=op3 91=op2
+0x00b/1  FSETP.NEU.FTZ.AND P0, PT, R5, R6, PT              0:1=opcode 2=invalid 3:5=opcode 6:10=invalid 11=op3 12:15=guard 24:31=op2 32:39=op3 62:63=op3 72:73=op2 74:80=mod 81:83=op0 84:86=op1 87:90=op4 91=invalid
+0x00b/4  FSETP.GEU.AND P0, PT, |R9|, 1.175494350822287508  0:1=opcode 2=invalid 3:5=opcode 6:8=invalid 9=op3 10:11=invalid 12:15=guard 24:31=op2 32:63=op3 72:73=op2 74:80=mod 81:83=op0 84:86=op1 87:90=op4 91=invalid
+0x00b/5  FSETP.NEU.AND P0, PT, R4, c[0x0][0x174], PT       0:1=opcode 2=invalid 3:5=opcode 6:8=invalid 9=op3 10=invalid 11=op3 12:15=guard 24:31=op2 40:58=op3 62:63=op3 72:73=op2 74:80=mod 81:83=op0 84:86=op1 87:90=op4 91=op3
+0x00c/1  ISETP.GE.U32.AND P0, PT, R4, R5, PT               0:1=invalid 2:3=opcode 4:10=invalid 11=op3 12:15=guard 24:31=op2 32:39=op3 72:78=mod 81:83=op0 84:86=op1 87:90=op4 91=invalid
+0x00c/4  ISETP.EQ.U32.AND P0, PT, R3, 0x1, PT              0=opcode 1=invalid 2:4=opcode 5:8=invalid 9=op3 10:11=invalid 12:15=guard 24:31=op2 32:63=op3 72:78=mod 81:83=op0 84:86=op1 87:90=op4 91=invalid
+0x00c/5  ISETP.NE.AND P2, PT, RZ, c[0x0][0x170], PT        0:1=invalid 2:3=opcode 4:8=invalid 9=op3 10=invalid 11=op3 12:15=guard 24:31=op2 40:58=op3 72:78=mod 81:83=op0 84:86=op1 87:90=op4 91=op3
+0x010/1  IADD3 R8, P0, R4, R5, RZ                          0:2=opcode 3:4=invalid 5=opcode 6:10=invalid 11=op3 12:15=guard 16:23=op0 24:31=op2 32:39=op3 63=op3 64:71=op4 72=op2 74=mod 75=op4 81:83=op1 84:86=mod 91=invalid
+0x010/4  IADD3 R6, R0, 0x1234, RZ                          0:2=opcode 3:8=invalid 9=op2 10:11=invalid 12:15=guard 16:23=op0 24:31=op1 32:63=op2 64:71=op3 72=op1 74=mod 75=op3 81:86=mod 91=invalid
+0x010/5  IADD3 R6, R0, c[0x0][0x170], RZ                   0:2=opcode 3:8=invalid 9=op2 10=invalid 11=op2 12:15=guard 16:23=op0 24:31=op1 40:58=op2 63=op2 64:71=op3 72=op1 74=mod 75=op3 81:86=mod 91=op2
+0x011/1  LEA R0, R0, R1, 0x4                               0:3=opcode 4=invalid 5=opcode 6:10=invalid 11=op2 12:15=guard 16:23=op0 24:31=op1 32:39=op2 63=op2 72=op1 73=invalid 74=mod 75:79=op3 80:83=mod 91=invalid
+0x011/4  LEA R4, R9, 0xc0800000, 0x17                      0:4=opcode 5:8=invalid 9=op2 10:11=invalid 12:15=guard 16:23=op0 24:31=op1 32:63=op2 72=op1 73=invalid 74=mod 75:79=op3 80:83=mod 91=invalid
+0x012/1  LOP3.LUT R10, R8, R9, RZ, 0xc0, !PT               0:5=opcode 6:10=invalid 11=op2 12:15=guard 16:23=op0 24:31=op1 32:39=op2 64:71=op3 72:79=op4 80:83=mod 87:90=op5 91=invalid
+0x012/4  LOP3.LUT R6, R0, 0x1234, RZ, 0xc0, !PT            0:5=opcode 6:8=invalid 9=op2 10:11=invalid 12:15=guard 16:23=op0 24:31=op1 32:63=op2 64:71=op3 72:79=op4 80:83=mod 87:90=op5 91=invalid
+0x012/5  LOP3.LUT R6, R0, c[0x0][0x170], RZ, 0xc0, !PT     0:5=opcode 6:8=invalid 9=op2 10=invalid 11=op2 12:15=guard 16:23=op0 24:31=op1 40:58=op2 64:71=op3 72:79=op4 80:83=mod 87:90=op5 91=op2
+0x013/1  IABS R6, R0                                       0:5=opcode 6:7=invalid 8=opcode 9:10=invalid 11=op1 12:15=guard 16:23=op0 32:39=op1 91=invalid
+0x013/5  IABS R11, c[0x0][0x170]                           0:4=opcode 5:7=invalid 8=opcode 9=op1 10=invalid 11=op1 12:15=guard 16:23=op0 40:58=op1 91=op1
+0x014/1  VABSDIFF.U32 R6, R0, R9, R10                      0:2=opcode 3=invalid 4:5=opcode 6:9=invalid 10=op2+3 11=op2 12:15=guard 16:23=op0 24:31=op1 32:39=op2 64:71=op3 73=mod 81:83=mod 91=invalid
+0x016/1  PRMT R6, R0, R10, R9                              0:3=opcode 4:9=invalid 10=op2+3 11=op2 12:15=guard 16:23=op0 24:31=op1 32:39=op2 64:71=op3 72:74=mod 91=invalid
+0x016/4  PRMT R10, R9, 0x7610, R8                          0:2=opcode 3=invalid 4=opcode 5:8=invalid 9=op2 10:11=invalid 12:15=guard 16:23=op0 24:31=op1 32:63=op2 64:71=op3 72:74=mod 91=invalid
+0x017/1  IMNMX R10, R8, R9, !PT                            0:5=opcode 6:10=invalid 11=op2 12:15=guard 16:23=op0 24:31=op1 32:39=op2 73=mod 87:90=op3 91=invalid
+0x017/4  IMNMX R4, R4, -0x46a00000, !PT                    0:2=opcode 3=invalid 4=opcode 5:8=invalid 9=op2 10:11=invalid 12:15=guard 16:23=op0 24:31=op1 32:63=op2 73=mod 87:90=op3 91=invalid
+0x017/5  IMNMX R6, R0, c[0x0][0x170], !PT                  0:4=opcode 5:8=invalid 9=op2 10=invalid 11=op2 12:15=guard 16:23=op0 24:31=op1 40:58=op2 73=mod 87:90=op3 91=op2
+0x019/1  SHF.R.U32.HI R9, RZ, R9, R4                       0=invalid 1:5=opcode 6:9=invalid 10=op2+3 11=op2 12:15=guard 16:23=op0 24:31=op1 32:39=op2 64:71=op3 73:76=mod 80=mod 91=invalid
+0x019/4  SHF.L.U32 R4, R9, 0x2, RZ                         0=invalid 1=opcode 2:3=invalid 4:5=opcode 6:7=invalid 8=opcode 9=op2 10:11=invalid 12:15=guard 16:23=op0 24:31=op1 32:63=op2 64:71=op3 73:76=mod 80=mod 91=invalid
+0x019/5  SHF.L.U32 R6, R0, c[0x0][0x170], RZ               0=invalid 1:2=opcode 3=invalid 4:5=opcode 6:8=invalid 9=op2 10=invalid 11=op2 12:15=guard 16:23=op0 24:31=op1 40:58=op2 64:71=op3 73:76=mod 80=mod 91=op2
+0x01a/1  SGXT.U32 R6, R9, R6                               0=opcode 1=invalid 2:5=opcode 6:10=invalid 11=op2 12:15=guard 16:23=op0 24:31=op1 32:39=op2 73=mod 75=mod 91=invalid
+0x01a/4  SGXT.U32 R6, R0, 0x7                              0=opcode 1:2=invalid 3:4=opcode 5:7=invalid 8=opcode 9=op2 10:11=invalid 12:15=guard 16:23=op0 24:31=op1 32:63=op2 73=mod 75=mod 91=invalid
+0x01b/1  BMSK R6, R9, R6                                   0:4=opcode 5:10=invalid 11=op2 12:15=guard 16:23=op0 24:31=op1 32:39=op2 75=mod 91=invalid
+0x01c/4  PLOP3.LUT P0, PT, P0, P1, PT, 0xa8, 0x0           0:2=invalid 3:4=opcode 5:6=invalid 7=opcode 8:11=invalid 12:15=guard 16:23=op6 64:66=op5 67:71=op4 72:76=op5 77:80=op3 81:83=op0 84:86=op1 87:90=op2 91=invalid
+0x020/1  FMUL R10, R9, R8                                  0=opcode 1=invalid 2:4=opcode 5:10=invalid 11=op2 12:15=guard 16:23=op0 24:31=op1 32:39=op2 62:63=op2 72:73=op1 76:80=mod 84:86=mod 91=invalid
+0x020/4  FMUL.RZ R0, R0, 0.15915493667125701904            0=invalid 1:3=opcode 4:7=invalid 8=opcode 9=op2 10:11=invalid 12:15=guard 16:23=op0 24:31=op1 32:63=op2 72:73=op1 76:80=mod 84:86=mod 91=invalid
+0x020/5  FMUL R6, R0, c[0x0][0x174]                        0:1=invalid 2:3=opcode 4:8=invalid 9=op2 10=invalid 11=op2 12:15=guard 16:23=op0 24:31=op1 40:58=op2 62:63=op2 72:73=op1 76:80=mod 84:86=mod 91=op2
+0x021/1  FADD R6, |R0|, -RZ                                0:4=opcode 5:9=invalid 10=op2 11=invalid 12:15=guard 16:23=op0 24:31=op1 32:39=op2 62:63=op2 72:73=op1 77:80=mod 91=invalid
+0x021/2  FADD R6, R0, 1.5                                  0=invalid 1=opcode 2=invalid 3:4=opcode 5:8=invalid 9=op2 10:11=invalid 12:15=guard 16:23=op0 24:31=op1 32:63=op2 72:73=op1 77:80=mod 91=invalid
+0x021/3  FADD R6, R0, c[0x0][0x174]                        0=invalid 1:4=opcode 5:8=invalid 9:10=op2 11=invalid 12:15=guard 16:23=op0 24:31=op1 40:58=op2 62:63=op2 72:73=op1 77:80=mod 91=op2
+0x023/1  FFMA R9, R0, R3, R0                               0=invalid 1:5=opcode 6:9=invalid 10=op2+3 11=op2 12:15=guard 16:23=op0 24:31=op1 32:39=op2 62:63=op2 64:71=op3 72:73=op1 74:75=op3 76:80=mod 91=invalid
+0x023/2  FFMA R3, -R5, R0, 1                               0=invalid 1=opcode 2=invalid 3:4=opcode 5:8=invalid 9=op3 10:11=invalid 12:15=guard 16:23=op0 24:31=op1 32:63=op3 64:71=op2 72:73=op1 74:75=op2 76:80=mod 91=invalid
+0x023/4  @!P0 FFMA R10, R4, 1.84467440737095516160e+19, R  0=opcode 1=invalid 2:3=opcode 4=invalid 5=opcode 6:7=invalid 8=opcode 9=op2 10:11=invalid 12:15=guard 16:23=op0 24:31=op1 32:63=op2 64:71=op3 72:73=op1 74:75=op3 76:80=mod 91=invalid
+0x023/5  FFMA R10, R8, c[0x0][0x174], R10                  0:1=invalid 2:3=opcode 4=invalid 5=opcode 6:8=invalid 9=op2 10=invalid 11=op2 12:15=guard 16:23=op0 24:31=op1 40:58=op2 62:63=op2 64:71=op3 72:73=op1 74:75=op3 76:80=mod 91=op2
+0x024/1  IMAD.MOV.U32 R3, RZ, RZ, R5                       0=mod 1:2=opcode 3=invalid 4:5=opcode 6:7=invalid 8=opcode 9=invalid 10=op2+3 11=op2 12:15=guard 16:23=op0 24:31=op1 32:39=op2 64:71=op3 73:74=mod 75=op3 91=invalid
+0x024/2  IMAD.MOV.U32 R3, RZ, RZ, 0x10                     0:3=invalid 4=opcode 5:8=invalid 9=op3 10:11=invalid 12:15=guard 16:23=op0 24:31=op1 32:63=op3 64:71=op2 73:74=mod 91=invalid
+0x024/3  IMAD.MOV.U32 R1, RZ, RZ, c[0x0][0x28]             0=mod 1:3=invalid 4=opcode 5:8=invalid 9=op3 10=op2+3 11=invalid 12:15=guard 16:23=op0 24:31=op1 40:58=op3 63=op3 64:71=op2 73:74=mod 91=mod
+0x024/4  IMAD.SHL.U32 R0, R0, 0x4, RZ                      0=mod 1=invalid 2=opcode 3:4=invalid 5=opcode 6:7=invalid 8=opcode 9=mod 10:11=invalid 12:15=guard 16:23=op0 24:31=op1 32:71=mod 73:74=mod 75=op3 91=invalid
+0x024/5  IMAD R11, R11, c[0x0][0x170], RZ                  0=mod 1:2=opcode 3:4=invalid 5=opcode 6:8=invalid 9=op2 10=invalid 11=op2 12:15=guard 16:23=op0 24:31=op1 40:58=op2 64:71=op3 73:74=mod 75=op3 91=op2
+0x025/1  IMAD.WIDE.U32 R6, R8, R10, RZ                     0:1=mod 2=opcode 3=invalid 4=opcode 5:9=invalid 10=op2+3 11=op2 12:15=guard 16:23=op0 24:31=op1 32:39=op2 64:71=op3 73:74=mod 75=op3 81:83=mod 91=invalid
+0x025/3  IMAD.WIDE.U32 R2, R4, R5, c[0x0][0x168]           0:1=mod 2=opcode 3=invalid 4=opcode 5:9=invalid 10=op2+3 11=invalid 12:15=guard 16:23=op0 24:31=op1 40:58=op3 63=op3 64:71=op2 73:74=mod 81:83=mod 91=op3
+0x025/4  IMAD.WIDE R6, R2, 0x1234, RZ                      0:1=mod 2:3=invalid 4:5=opcode 6:7=invalid 8=opcode 9=op2 10:11=invalid 12:15=guard 16:23=op0 24:31=op1 32:63=op2 64:71=op3 73:74=mod 75=op3 81:83=mod 91=invalid
+0x025/5  IMAD.WIDE R6, R2, c[0x0][0x170], RZ               0:1=mod 2:3=invalid 4=opcode 5:8=invalid 9=op2 10=invalid 11=op2 12:15=guard 16:23=op0 24:31=op1 40:58=op2 64:71=op3 73:74=mod 75=op3 81:83=mod 91=op2
+0x026/1  IDP.4A.U8.U8 R6, R0, R9, R10                      0:1=opcode 2:7=invalid 8=opcode 9:10=invalid 11=op2 12:15=guard 16:23=op0 24:31=op1 32:39=op2 64:71=op3 73:74=mod 75=op3 76=mod 77=invalid 91=invalid
+0x027/1  IMAD.HI.U32 R7, R7, R13, R6                       0=opcode 1=mod 2=opcode 3=invalid 4:5=opcode 6:9=invalid 10=op2+3 11=op2 12:15=guard 16:23=op0 24:31=op1 32:39=op2 64:71=op3 73:74=mod 75=op3 81:83=mod 91=invalid
+0x027/4  IMAD.HI R10, R8, 0x1234, R2                       0=invalid 1=mod 2=opcode 3:4=invalid 5=opcode 6:7=invalid 8=opcode 9=op2 10:11=invalid 12:15=guard 16:23=op0 24:31=op1 32:63=op2 64:71=op3 73:74=mod 75=op3 81:83=mod 91=invalid
+0x027/5  IMAD.HI R10, R8, c[0x0][0x170], R2                0=opcode 1=mod 2=opcode 3:4=invalid 5=opcode 6:8=invalid 9=op2 10=invalid 11=op2 12:15=guard 16:23=op0 24:31=op1 40:58=op2 64:71=op3 73:74=mod 75=op3 81:83=mod 91=op2
+0x028/1  DMUL R10, R4, R8                                  0:1=opcode 2=invalid 3:5=opcode 6:10=invalid 11=op2 12:15=guard 16:23=op0 24:31=op1 32:39=op2 62:63=op2 72:73=op1 78:79=mod 91=invalid
+0x028/4  @!P0 DMUL R8, R6, 8.98846567431157953865e+307     0:2=invalid 3:5=opcode 6:8=invalid 9=op2 10:11=invalid 12:15=guard 16:23=op0 24:31=op1 32:63=op2 72:73=op1 78:79=mod 91=invalid
+0x029/1  DADD R6, R2, R4                                   0:1=opcode 2=invalid 3:5=opcode 6:9=invalid 10=op2 11=invalid 12:15=guard 16:23=op0 24:31=op1 64:71=op2 72:73=op1 74:75=op2 78:79=mod 91=invalid
+0x02a/1  DSETP.NAN.AND P0, PT, R4, R4, PT                  0:1=opcode 2:3=invalid 4:5=opcode 6:9=invalid 10=op3 11=invalid 12:15=guard 24:31=op2 32:39=op3 62:63=op3 72:73=op2 74:79=mod 81:83=op0 84:86=op1 87:90=op4 91=invalid
+0x02a/2  DSETP.GTU.AND P0, PT, |R4|, +INF , PT             0=opcode 1:8=invalid 9=op3 10:11=invalid 12:15=guard 24:31=op2 32:63=op3 72:73=op2 74:79=mod 81:83=op0 84:86=op1 87:90=op4 91=invalid
+0x02b/1  DFMA R10, R10, R10, R10                           0:1=opcode 2=invalid 3=opcode 4=invalid 5=opcode 6:9=invalid 10=op3 11=op2 12:15=guard 16:23=op0 24:31=op1 32:39=op2 62:63=op2 64:71=op3 72:73=op1 74:75=op3 78:79=mod 91=invalid
+0x02b/2  DFMA R10, -R6, R8, 1                              0:1=opcode 2=invalid 3=opcode 4:8=invalid 9=op3 10:11=invalid 12:15=guard 16:23=op0 24:31=op1 32:63=op3 64:71=op2 72:73=op1 74:75=op2 78:79=mod 91=invalid
+0x02b/4  @!P2 DFMA R10, R10, 2, -R20                       0:2=invalid 3=opcode 4=invalid 5=opcode 6:8=invalid 9=op2 10:11=invalid 12:15=guard 16:23=op0 24:31=op1 32:63=op2 64:71=op3 72:73=op1 74:75=op3 78:79=mod 91=invalid
+0x030/1  HADD2 R9, R8.H0_H0, R9.H0_H0                      0:5=opcode 6:9=invalid 10=op2 11=invalid 12:15=guard 16:23=op0 24:31=op1 32:39=op2 60:63=op2 72:75=op1 77:78=mod 80=mod 91=invalid
+0x031/1  HFMA2.BF16_V2 R10, R8, R9, R10                    0:1=opcode 2=mod 3:5=opcode 6:9=invalid 10=op2+3 11=op2 12:15=guard 16:23=op0 24:31=op1 32:39=op2 60:63=op2 64:71=op3 72:75=op1 76:80=mod 81:84=op3 85=mod 91=invalid
+0x032/1  HMUL2 R10, R8, R9                                 0:1=opcode 2=invalid 3=opcode 4=invalid 5=opcode 6:10=invalid 11=op2 12:15=guard 16:23=op0 24:31=op1 32:39=op2 60:63=op2 72:75=op1 76:78=mod 80=mod 91=invalid
+0x035/1  HFMA2.MMA R10, R8, R9, R10                        0:1=opcode 2=mod 3:5=opcode 6:9=invalid 10=op2+3 11=op2 12:15=guard 16:23=op0 24:31=op1 32:39=op2 62:63=op2 64:71=op3 72:73=op1 76:77=mod 79:80=mod 83:84=op3 91=invalid
+0x035/2  HFMA2.MMA R5, -RZ, RZ, 0, 9.5367431640625e-07     0=opcode 1=invalid 2=mod 3:4=invalid 5=opcode 6:8=invalid 9=mod 10:11=invalid 12:15=guard 16:23=op0 24:31=op1 32:47=op4 48:63=op3 64:71=op2 72:73=op1 76:77=mod 79:80=mod 83:84=op2 91=invalid
+0x037/1  IMMA.16832.S8.S8 R8, R4.ROW, R4.COL, R4           0=invalid 1:5=opcode 6:11=invalid 12:15=guard 16:23=op0 24:31=op1 32:39=op2 64:71=op3 72=mod 73=op1 74=op2 75:79=mod 82:86=mod 91=invalid
+0x03b/4  LDSM.16.M88.4 R12, [R0]                           0=invalid 1=opcode 2:3=invalid 4:5=opcode 6:11=invalid 12:15=guard 16:23=op0 24:31=op1 40:63=op1 72:73=mod 75:77=invalid 78:79=mod 91=op1
+0x03c/1  HMMA.16816.F32.BF16 R8, R4, R4, R8                0:3=opcode 4:11=invalid 12:15=guard 16:23=op0 24:31=op1 32:39=op2 63=op2 64:71=op3 72=op1 73=mod 75:76=mod 78=mod 82:83=mod 91=invalid
+0x03e/1  F2FP.BF16.PACK_AB R10, R8, R9                     0:1=opcode 2:4=invalid 5=opcode 6:9=invalid 10=mod 11=op2 12:15=guard 16:23=op0 24:31=op1 32:39=op2 75:78=mod 79:80=invalid 81=mod 91=invalid
+0x03f/1  DMMA.884 R8, R4, R6, R4                           0:1=opcode 2=invalid 3=opcode 4=invalid 5=opcode 6:11=invalid 12:15=guard 16:23=op0 24:31=op1 32:39=op2 62:63=op2 64:71=op3 72:73=op1 74:75=op3 76=mod 78:79=mod 91=invalid
+0x040/1  HMNMX2.BF16_V2 R10, R8, R9, !PT                   0:10=invalid 11=op2 12:15=guard 16:23=op0 24:31=op1 32:39=op2 60:63=op2 72:75=op1 78=mod 80:81=mod 85=mod 87:90=op3 91=invalid
+0x0b9/5  ULDC.64 UR4, c[0x0][0x118]                        0:6=invalid 7=opcode 8:11=invalid 12:15=guard 16:21=op0 38:58=op1 73:75=mod 91=op1
+0x100/1  FLO.U32 R0, R0                                    0:1=opcode 2=invalid 3=opcode 4:10=invalid 11=op1 12:15=guard 16:23=op0 32:39=op1 63=op1 73:74=mod 81:83=mod 91=invalid
+0x101/1  BREV R6, R0                                       0=opcode 1:2=invalid 3=opcode 4:6=invalid 7=opcode 8:10=invalid 11=op1 12:15=guard 16:23=op0 32:39=op1 91=invalid
+0x102/1  FCHK P0, R4, R5                                   0=invalid 1:2=opcode 3:7=invalid 8=opcode 9:10=invalid 11=op2 12:15=guard 24:31=op1 32:39=op2 62:63=op2 72:73=op1 81:83=op0 91=invalid
+0x105/1  F2I.FLOOR.NTZ R6, R0                              0=invalid 1:2=opcode 3:10=invalid 11=op1 12:15=guard 16:23=op0 32:39=op1 62:63=op1 72=mod 75:80=mod 84:85=invalid 91=invalid
+0x106/1  I2F R6, R0                                        0=opcode 1=invalid 2=opcode 3:4=invalid 5=opcode 6:10=invalid 11=op1 12:15=guard 16:23=op0 32:39=op1 74:76=mod 78:79=mod 84=invalid 85=mod 91=invalid
+0x106/4  I2F.U32.RP R2, 0x1234                             0=opcode 1=invalid 2=opcode 3:4=invalid 5=opcode 6:7=invalid 8=opcode 9=op1 10:11=invalid 12:15=guard 16:23=op0 32:63=op1 74:76=mod 78:79=mod 84:85=invalid 91=invalid
+0x106/5  I2F.U32.RP R8, c[0x0][0x170]                      0=opcode 1=invalid 2=opcode 3:4=invalid 5=opcode 6:8=invalid 9=op1 10=invalid 11=op1 12:15=guard 16:23=op0 40:58=op1 74:76=mod 78:79=mod 84=invalid 85=mod 91=op1
+0x107/1  FRND R6, R0                                       0:1=opcode 2:7=invalid 8=opcode 9:10=invalid 11=op1 12:15=guard 16:23=op0 32:39=op1 62:63=op1 75:76=invalid 78:80=mod 84:85=invalid 91=invalid
+0x108/1  MUFU.COS R6, R0                                   0=opcode 1:2=invalid 3=opcode 4:7=invalid 8=opcode 9:10=invalid 11=op1 12:15=guard 16:23=op0 32:39=op1 62:63=op1 73:77=mod 91=invalid
+0x108/4  MUFU.RSQ R4, -QNAN                                0=opcode 1:2=invalid 3:4=opcode 5:7=invalid 8=opcode 9=op1 10:11=invalid 12:15=guard 16:23=op0 54:63=op1 73:77=mod 91=invalid
+0x109/1  POPC R6, R0                                       0=opcode 1:2=invalid 3=opcode 4:6=invalid 7:8=opcode 9:10=invalid 11=op1 12:15=guard 16:23=op0 32:39=op1 63=op1 91=invalid
+0x110/1  F2F.F64.F32 R6, R2                                0:1=opcode 2:3=invalid 4=opcode 5:7=invalid 8=opcode 9:10=invalid 11=op1 12:15=guard 16:23=op0 32:39=op1 62:63=op1 75:77=invalid 78:80=mod 84:85=invalid 91=invalid
+0x111/1  F2I.F64.FLOOR R6, R2                              0:1=opcode 2:3=invalid 4=opcode 5:7=invalid 8=opcode 9:10=invalid 11=op1 12:15=guard 16:23=op0 32:39=op1 62:63=op1 72=mod 75:80=mod 84:85=invalid 91=invalid
+0x112/1  I2F.S64 R6, R2                                    0:1=opcode 2:3=invalid 4=opcode 5=invalid 6=opcode 7=invalid 8=opcode 9:10=invalid 11=op1 12:15=guard 16:23=op0 32:39=op1 74:75=mod 76=invalid 78:79=mod 84:85=invalid 91=invalid
+0x118/4  NOP                                               0:1=opcode 2:3=invalid 4=opcode 5:6=invalid 7=opcode 8:11=invalid 12:15=guard 91=invalid
+0x119/4  S2R R4, SR_TID.X                                  0=opcode 1:3=invalid 4=opcode 5:7=invalid 8=opcode 9:11=invalid 12:15=guard 16:23=op0 72:79=op1 91=invalid
+0x11a/4  DEPBAR.LE SB0, 0x0                                0=invalid 1=opcode 2:6=invalid 7:8=opcode 9:11=invalid 12:15=guard 32:37=mod 38:43=op1 44:46=op0 47=mod 91=invalid
+0x11c/1  B2R.RESULT RZ, P0                                 0:11=invalid 12:15=guard 16:23=op0 78=mod 79=invalid 81:83=op1 91=invalid
+0x11d/5  BAR.ARV 0x1, 0x20                                 0:5=invalid 6:8=opcode 9=op1 10=invalid 11=op0+1 12:15=guard 42:53=op1 54:57=op0 77:78=mod 79:80=invalid 91=invalid
+0x141/4  BSYNC B0                                          0=invalid 1:3=opcode 4:5=invalid 6=opcode 7:11=invalid 12:15=guard 16:19=op0 87:90=mod 91=invalid
+0x144/4  CALL.REL.NOINC rel+0x30                           0:1=opcode 2=invalid 3:4=opcode 5:11=invalid 12:15=guard 34:81=op0 86:90=mod 91=op0
+0x145/4  BSSY B0, rel+0x80                                 0:3=opcode 4:11=invalid 12:15=guard 16:19=op0 34:63=op1 87:90=mod 91=invalid
+0x147/4  BRA rel-0x10                                      0:4=opcode 5:11=invalid 12:15=guard 32:33=mod 34:81=op0 85:91=mod
+0x149/4  BRX R6 rel-0x7c0                                  0=opcode 1=invalid 2:3=opcode 4:5=invalid 6=opcode 7:11=invalid 12:15=guard 16:84=op0 85:90=mod 91=invalid 92:104=op0
+0x14d/4  EXIT                                              0=opcode 1=invalid 2:4=opcode 5:11=invalid 12:15=guard 84:90=mod 91=invalid
+0x150/4  RET.REL.NODEC R4 rel-0x7f0                        0=invalid 1:2=opcode 3:11=invalid 12:15=guard 24:31=op0 34:81=op0 85:90=mod 91=op0
+0x15c/4  BPT.TRAP rel-0x70f                                0=opcode 1:2=invalid 3:4=opcode 5:11=invalid 12:15=guard 16:33=op0 34=mod 35:83=op0 84:86=invalid 87:90=op0 91=invalid 92:104=op0
+0x15d/4  NANOSLEEP 0x64                                    0:3=invalid 4=opcode 5=invalid 6=opcode 7:8=invalid 9=op0 10:11=invalid 12:15=guard 32:63=op0 83=mod 85:90=mod 91=invalid
+0x181/4  LDG.E R0, [R2.64]                                 0:1=opcode 2:11=invalid 12:15=guard 16:23=op0 24:31=op1 40:63=op1 64:69=mod 72:75=mod 76=op1 77:86=mod 90:91=invalid 101=op1
+0x182/5  LDC R6, c[0x2][R0]                                0:6=invalid 7=opcode 8:11=invalid 12:15=guard 16:23=op0 24:31=op1 38:58=op1 73:75=mod 78:79=mod 91=invalid
+0x183/4  LDL.64 R6, [R0]                                   0:5=invalid 6=opcode 7:11=invalid 12:15=guard 16:23=op0 24:31=op1 40:63=op1 73:75=mod 84:86=mod 91=op1
+0x184/4  LDS R2, [R7.X4]                                   0:1=invalid 2=opcode 3:11=invalid 12:15=guard 16:23=op0 24:31=op1 40:63=op1 73:75=mod 78:79=op1 91=op1
+0x186/4  STG.E.64 [R4.64], R6                              0:1=opcode 2=invalid 3=opcode 4:11=invalid 12:15=guard 24:31=op0 32:39=op1 40:63=op0 72:75=mod 76=op0 77:80=mod 84:86=mod 90:91=invalid 101=op0
+0x187/1  STL [R0], R5                                      0:1=opcode 2:6=invalid 7=opcode 8:11=invalid 12:15=guard 24:31=op0 32:39=op1 40:63=op0 73:75=mod 84:86=mod 91=invalid
+0x188/1  STS [R7.X4], R6                                   0:2=opcode 3:4=invalid 5=opcode 6=invalid 7=opcode 8:11=invalid 12:15=guard 24:31=op0 32:39=op1 40:63=op0 73:75=mod 78:79=op0 91=invalid
+0x189/2  SHFL.BFLY PT, R10, R8, R9, 0x1f                   0:11=invalid 12:15=guard 16:23=op1 24:31=op2 32:39=op3 40:52=op4 58:59=mod 81:83=op0 91=invalid
+0x189/7  SHFL.BFLY PT, R7, R6, 0x1, 0x1f                   0:11=invalid 12:15=guard 16:23=op1 24:31=op2 40:52=op4 53:57=op3 58:59=mod 81:83=op0 91=invalid
+0x18c/1  ATOMS.ADD R8, [R7.X4], R0                         0=mod 1=invalid 2=opcode 3:11=invalid 12:15=guard 16:23=op0 24:31=op1 32:39=op2 40:63=op1 73:74=mod 78:79=op1 87:90=mod 91=invalid
+0x18d/1  ATOMS.CAST.SPIN R3, [R7.X4], R2, R3               0=mod 1=invalid 2=opcode 3:11=invalid 12:15=guard 16:23=op0 24:31=op1 32:39=op2 40:63=op1 64:71=op3 73:74=mod 78:79=op1 87:88=mod 91=invalid
+0x18e/4  RED.E.ADD.STRONG.GPU [R2.64], R7                  0=invalid 1=opcode 2=invalid 3=opcode 4:11=invalid 12:15=guard 24:31=op0 32:39=op1 40:63=op0 71=op0 72:80=mod 84:89=mod 90=invalid 91=op0 101=op0
+0x18f/4  CCTL.IVALL                                        0=opcode 1:4=invalid 5=opcode 6:11=invalid 12:15=guard 24:31=invalid 78:79=mod 80=invalid 87:89=mod 90:91=invalid
+0x192/4  MEMBAR.ALL.SYS                                    0=invalid 1=opcode 2=invalid 3=opcode 4:11=invalid 12:15=guard 76:80=mod 91=invalid
+0x1a1/1  MATCH.ALL PT, R6, R0                              0:2=invalid 3=opcode 4=invalid 5=opcode 6:11=invalid 12:15=guard 16:23=op1 24:31=op2 73=mod 79=mod 81:83=op0 91=invalid
+0x1a8/4  ATOMG.E.ADD.STRONG.SYS PT, R8, [R2.64], R7        0=invalid 1=opcode 2:11=invalid 12:15=guard 16:23=op1 24:31=op2 32:39=op3 40:63=op2 70=invalid 71=op2 72:80=mod 81:83=op0 84:90=mod 91=invalid 101=op2
+0x1a9/1  ATOMG.E.CAS.STRONG.GPU PT, R6, [R2], R8, R9       0=mod 1:2=invalid 3=opcode 4=invalid 5=opcode 6:11=invalid 12:15=guard 16:23=op1 24:31=op2 32:39=op3 40:63=op2 64:71=op4 72:80=mod 81:83=op0 84:86=mod 91=invalid
+0x1aa/1  QSPC.E.S P0, RZ, [R2]                             0=invalid 1=opcode 2:4=invalid 5=opcode 6:11=invalid 12:15=guard 16:23=op1 24:31=op2 40:63=op2 72:74=mod 81:83=op0 91=invalid
+0x1ab/4  ERRBAR                                            0:1=invalid 2=opcode 3:11=invalid 12:15=guard 91=invalid
+0x1ae/7  LDGSTS.E.BYPASS.128 [R7], [R2.64]                 0:8=invalid 9=op0 10:11=invalid 12:15=guard 16:23=op0 24:43=op1 44:63=op0 70=invalid 71:75=mod 76=op1 77:82=mod 84:90=mod 91=invalid 101=op1
+0x1af/4  LDGDEPBAR                                         0:1=invalid 2=opcode 3:11=invalid 12:15=guard 91=invalid
+0x1c4/1  REDUX.SUM UR6, R0                                 0:1=invalid 2=opcode 3:11=invalid 12:15=guard 16:21=op0 24:31=op1 73=mod 78:80=mod 91=invalid
+
+136 seeds, 17408 variants -> specs/sm_80/bitflip.json; control-region (105..127) text-affecting runs: 165

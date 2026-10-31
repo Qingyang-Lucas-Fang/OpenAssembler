@@ -1,0 +1,222 @@
+{
+ "device": {
+  "name": "NVIDIA A100-SXM4-40GB",
+  "cc": "8.0",
+  "driver": 13030,
+  "sm_count": 108,
+  "clock_khz": 1410000,
+  "mem_bytes": 42429251584
+ },
+ "set": "dir:corpus/sm_80/bisect",
+ "arch": "sm_80",
+ "trials": 2,
+ "summary": {
+  "match": 15,
+  "gpu-error": 2
+ },
+ "probes": {
+  "grow@p_add_s32_r": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "grow@p_mul_lo_s32_i": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "grow@p_xor_b32_c": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "orig@p_add_s32_r": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "orig@p_mul_lo_s32_i": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "orig@p_xor_b32_c": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "ours@p_add_s32_r": {
+   "status": "gpu-error",
+   "error": "kernel execution (cuCtxSynchronize): CUDA_ERROR_ILLEGAL_INSTRUCTION (715)"
+  },
+  "ours@p_mul_lo_s32_i": {
+   "status": "gpu-error",
+   "error": "kernel execution (cuCtxSynchronize): CUDA_ERROR_ILLEGAL_INSTRUCTION (715)"
+  },
+  "reenc@p_add_s32_r": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "reenc@p_mul_lo_s32_i": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "reenc@p_xor_b32_c": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "regs@p_add_s32_r": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 40,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "regs@p_mul_lo_s32_i": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 40,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "regs@p_xor_b32_c": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 40,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "resplice@p_add_s32_r": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 14,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "resplice@p_mul_lo_s32_i": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  },
+  "resplice@p_xor_b32_c": {
+   "status": "match",
+   "attrs": {
+    "max_threads": 1024,
+    "shared_bytes": 0,
+    "const_bytes": 0,
+    "local_bytes": 0,
+    "num_regs": 10,
+    "ptx_version": 80,
+    "binary_version": 80
+   },
+   "vs_ptx_spec": "match"
+  }
+ }
+}
