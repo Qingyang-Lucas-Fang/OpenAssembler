@@ -50,35 +50,53 @@ def _run_tool(script: str, argv: list[str]) -> int:
 
 
 def cmd_compile(a: argparse.Namespace) -> int:
-    """PTX file -> cubin, using our backend (openassembler.backend.ra) instead of ptxas's
-    code generator. Needs ptxas on PATH (or via env/cuda.sh) once, to build the
-    ELF container we splice our code into -- see README.md "How it works"."""
+    """Source file -> cubin, using our backend (openassembler.backend.ra) instead of
+    ptxas's code generator. Accepts .ptx (as-is), .py (openassembler.pyfront's small
+    numeric subset), or .cu/.cpp (via nvcc --ptx, openassembler.cppfront) -- all three
+    end up as PTX text handed to the same backend. Needs ptxas on PATH (or via
+    env/cuda.sh) once, to build the ELF container we splice our code into --
+    see README.md "How it works"."""
     from openassembler import oracle
     from openassembler.backend import ra
     from openassembler.backend.compile import Out, schedule
     from openassembler.backend.sched import list_schedule
     from openassembler.backend.unroll import unroll_loops
     from openassembler.container.cubin import required_regcount, splice_text
+    from openassembler.frontend import FrontendError, to_ptx
     from openassembler.isa.encode import Encoder
     from openassembler.ptx.parse import parse_module
 
-    ptx_path = Path(a.ptx)
-    if a.base_cubin is None:
-        _require_in_repo(ptx_path, "the PTX file")
-    ptx = ptx_path.read_text()
+    src_path = Path(a.ptx)
+    suf = src_path.suffix.lower()
+    # .ptx/.cu/.cpp sources go through the oracle (ptxas directly, or nvcc for
+    # C++) which only sees this repo via the colima VM mount; .py sources are
+    # compiled by openassembler.pyfront with no VM involved, so only the
+    # scratch files *we* write (handled below, under corpus/.tmp/) need to be
+    # in-repo, not the .py file itself.
+    if suf != ".py" and (a.base_cubin is None or suf != ".ptx"):
+        _require_in_repo(src_path, "the source file")
+    try:
+        ptx, kname = to_ptx(src_path, entry=a.kernel, arch=a.arch)
+    except FrontendError as e:
+        print(f"error: {e}", file=sys.stderr)
+        return 1
+    except Exception as e:  # pyfront.NotSupported / cppfront.CppFrontendError
+        print(f"error: {type(e).__name__}: {e}", file=sys.stderr)
+        return 1
+
     module = parse_module(ptx)
-    if a.kernel:
-        if a.kernel not in module.kernels:
-            print(f"error: kernel {a.kernel!r} not found; have {list(module.kernels)}", file=sys.stderr)
-            return 1
-        kname = a.kernel
-    else:
+    if kname is None:  # .ptx with no --kernel: fall back to the single-kernel rule
         if len(module.kernels) != 1:
-            print(f"error: {ptx_path} has {len(module.kernels)} kernels, pass --kernel NAME; "
+            print(f"error: {src_path} has {len(module.kernels)} kernels, pass --kernel NAME; "
                   f"have {list(module.kernels)}", file=sys.stderr)
             return 1
         (kname,) = module.kernels
+    if kname not in module.kernels:
+        print(f"error: kernel {kname!r} not found; have {list(module.kernels)}", file=sys.stderr)
+        return 1
     kernel = module.kernels[kname]
+    if a.dump_ptx:
+        print(ptx)
 
     if a.opt_level == "safe":
         code, st = ra.compile_kernel(kernel)
@@ -114,23 +132,29 @@ def cmd_compile(a: argparse.Namespace) -> int:
     base_path = Path(a.base_cubin) if a.base_cubin else None
     if base_path is None:
         # ptxas runs inside the colima VM, which only bind-mounts this repo, so
-        # the scratch cubin has to live under ROOT (not system /tmp).
+        # all scratch files (including the PTX itself, for .py/.cu sources
+        # that didn't start as a .ptx file on disk) have to live under ROOT.
         import os
         import uuid
 
         scratch = ROOT / "corpus" / ".tmp"
         scratch.mkdir(parents=True, exist_ok=True)
-        base_path = scratch / f"base_{os.getpid()}_{uuid.uuid4().hex[:8]}.cubin"
+        tag = f"{os.getpid()}_{uuid.uuid4().hex[:8]}"
+        scratch_ptx = scratch / f"base_{tag}.ptx"
+        base_path = scratch / f"base_{tag}.cubin"
+        scratch_ptx.write_text(ptx)
         try:
-            oracle.ptxas(ptx_path, base_path, arch=a.arch)
+            oracle.ptxas(scratch_ptx, base_path, arch=a.arch)
         except Exception:
             base_path.unlink(missing_ok=True)
             raise
+        finally:
+            scratch_ptx.unlink(missing_ok=True)
     base = base_path.read_bytes()
     if a.base_cubin is None:
         base_path.unlink(missing_ok=True)
     cubin = splice_text(base, kname, words, nregs, exits)
-    out_path = Path(a.out) if a.out else ptx_path.with_suffix(".cubin")
+    out_path = Path(a.out) if a.out else src_path.with_suffix(".cubin")
     if a.verify:
         out_path = _require_in_repo(out_path, "the output cubin (needed by --verify's nvdisasm step)")
     out_path.parent.mkdir(parents=True, exist_ok=True)
@@ -138,14 +162,68 @@ def cmd_compile(a: argparse.Namespace) -> int:
     n_insns = sum(1 for t, _ in code if not t.startswith("NOP") and not t.startswith("BRA `(.L_x_0)"))
     print(f"{out_path}  ({n_insns} instructions, opt-level={a.opt_level}, regs={nregs})")
     if a.verify:
-        return cmd_verify(argparse.Namespace(cubin=str(out_path), ptx=str(ptx_path), kernel=kname, trials=a.trials))
+        return _verify_compiled(module, kname, code, labels, ptx, a.trials)
+    return 0
+
+
+_PROBE_PARAMS = (("u64", "out"), ("u64", "in"), ("u32", "k"), ("f32", "kf"))
+
+
+def _verify_compiled(module, kname: str, code, labels, ptx_text: str, trials: int) -> int:
+    """Picks the right checker for a just-compiled kernel: the original fixed
+    probe-ABI harness for probe-shaped kernels (out/in/k/kf -- the corpus this
+    repo's own tests use), or the generic one (openassembler.verify) for anything
+    else, which covers pyfront/cppfront kernels and hand-written PTX with any
+    signature."""
+    kernel = module.kernels[kname]
+    if tuple(kernel.params) == _PROBE_PARAMS:
+        import random
+
+        from openassembler.emu.probe import run_probe
+
+        sys.path.insert(0, str(TOOLS))
+        import diff_emu  # noqa: E402
+
+        from bench_build import listing  # noqa: E402
+
+        sass_text = listing(code, labels)
+        rng = random.Random(0)
+        for _ in range(trials):
+            inputs = [tuple(diff_emu.rand32(rng) for _ in range(4)) for _ in range(32)]
+            k, kf = diff_emu.rand32(rng), diff_emu.rand32(rng)
+            got = run_probe(sass_text, inputs, k, kf)
+            if run_probe(sass_text, inputs, k, kf, poison=0xDEADBEEF) != got:
+                print("FAIL: output depends on uninitialized register contents", file=sys.stderr)
+                return 1
+            exp = diff_emu.run_ptx(ptx_text, kname, inputs, k, kf)
+            for lane, (g, (e, undef, approx)) in enumerate(zip(got, exp)):
+                if not undef and not diff_emu.same("verify", g, e, approx):
+                    print(f"FAIL: lane {lane}: ours {g} vs PTX interpreter {e}", file=sys.stderr)
+                    return 1
+        print(f"OK: {trials} random trials (probe ABI), bit-exact against the PTX reference interpreter")
+        return 0
+
+    from openassembler.verify import run_and_diff
+
+    for trial in range(trials):
+        mismatches = run_and_diff(module, kname, code, labels, n_elems=64, seed=trial)
+        if mismatches:
+            m = mismatches[0]
+            print(f"FAIL: {m.param}[{m.index}]: ours {m.ours:#x} vs PTX interpreter {m.expected:#x} "
+                  f"({len(mismatches)} of {len(mismatches)} total mismatches this trial)", file=sys.stderr)
+            return 1
+    print(f"OK: {trials} random trials (generic, {kname}'s own parameters), "
+          "bit-exact against the PTX reference interpreter")
     return 0
 
 
 def cmd_verify(a: argparse.Namespace) -> int:
-    """Run a compiled cubin's SASS through the emulator and compare against the
-    PTX reference interpreter on random inputs (same check compile_check.py and
-    bench_build.py use before trusting a build)."""
+    """Run an already-built cubin's SASS through the emulator and compare
+    against the PTX reference interpreter on random inputs (same check
+    compile_check.py and bench_build.py use before trusting a build). Only
+    for kernels matching the probe corpus's fixed (out, in, k, kf) ABI --
+    for your own kernel's own signature, use `compile --verify`, which picks
+    this or the generic checker (openassembler.verify) automatically."""
     import random
 
     from openassembler import oracle
@@ -258,16 +336,19 @@ def build_parser() -> argparse.ArgumentParser:
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = p.add_subparsers(dest="cmd", required=True)
 
-    pc = sub.add_parser("compile", help="compile a PTX file to a cubin with our backend")
-    pc.add_argument("ptx")
+    pc = sub.add_parser("compile", help="compile a .ptx/.py/.cu/.cpp file to a cubin with our backend")
+    pc.add_argument("ptx", metavar="FILE", help=".ptx, .py (openassembler.pyfront), or .cu/.cpp (via nvcc)")
     pc.add_argument("-o", "--out", default=None)
-    pc.add_argument("--kernel", default=None, help="kernel name, if the module has more than one")
+    pc.add_argument("--kernel", default=None,
+                     help="kernel/function name, if the source has more than one")
     pc.add_argument("--arch", default="sm_80")
     pc.add_argument("--opt-level", choices=OPT_LEVELS, default="opt")
     pc.add_argument("--base-cubin", default=None,
                      help="ptxas-built cubin to splice into (default: build one with ptxas now)")
     pc.add_argument("--verify", action="store_true", help="check the result against the PTX interpreter")
     pc.add_argument("--trials", type=int, default=6)
+    pc.add_argument("--dump-ptx", action="store_true",
+                     help="print the PTX our frontend generated (for .py/.cu sources) before compiling it")
     pc.set_defaults(func=cmd_compile)
 
     pv = sub.add_parser("verify", help="check a compiled cubin's SASS against the PTX reference interpreter")
@@ -324,6 +405,25 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
+    raw = sys.argv[1:] if argv is None else argv
+    if not raw:
+        from openassembler.ui.repl import run as run_repl
+        return run_repl()
+
+    # First `openassembler <command>` typed directly into a given shell session
+    # shows the logo once; later commands in that same session stay quiet
+    # (openassembler/ui/session.py). The REPL shows it once at startup instead,
+    # on its own, so this only applies to one-shot invocations. Skipped when
+    # stdout isn't a terminal (scripts, CI, pipes) so output stays clean, and
+    # for -h/--help so the banner doesn't eat into `| head` / pager output.
+    if sys.stdout.isatty() and "-h" not in raw and "--help" not in raw:
+        from openassembler.ui.banner import render
+        from openassembler.ui.session import consume_show_once
+
+        if consume_show_once():
+            print(render())
+            print()
+
     parser = build_parser()
     args = parser.parse_args(argv)
     if args.cmd == "gpu" and args.gpu_cmd != "run":

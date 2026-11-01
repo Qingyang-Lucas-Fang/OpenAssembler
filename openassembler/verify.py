@@ -1,0 +1,124 @@
+"""A generic correctness check: compile a kernel with our backend, run it on
+the SASS emulator, run the same PTX on the reference interpreter, and diff
+every pointer-typed parameter's memory afterward.
+
+Unlike openassembler/emu/probe.py (the original probe harness, fixed to one
+specific 4-parameter signature), this works for any kernel the pyfront/
+cppfront frontends -- or anyone's hand-written PTX -- produce: it reads the
+kernel's own `.param` list and launch geometry instead of assuming one.
+Trade-off: it doesn't know what each array actually means (is `b` an input
+or scratch space?), so every pointer parameter is treated as length `n`
+(matching the launch's thread count) and filled with random data; a kernel
+that writes outside that bound, or whose real geometry needs more than one
+block, needs a hand-written check instead (same as the original probes'
+fixed ABI didn't generalize either).
+"""
+
+from __future__ import annotations
+
+import random
+import struct
+from dataclasses import dataclass
+
+from openassembler.emu.machine import Launch as SassLaunch
+from openassembler.emu.machine import Machine, Memory
+from openassembler.ptx.interp import Launch as InterpLaunch
+from openassembler.ptx.interp import run_kernel
+from openassembler.ptx.parse import Kernel, Module
+
+_SCALAR_FMT = {"u32": "<I", "s32": "<i", "f32": "<f", "u64": "<Q", "s64": "<q", "f64": "<d"}
+PARAM_BASE = {"sm_80": 0x160, "sm_86": 0x160, "sm_89": 0x160, "sm_90": 0x210, "sm_100": 0x380}
+
+
+@dataclass
+class Mismatch:
+    param: str
+    index: int
+    ours: int
+    expected: int
+
+
+def _rand_scalar(rng: random.Random, ptx_type: str, n_elems: int):
+    """A plausible scalar value for a parameter that isn't a pointer. Integer
+    scalars default to a SMALL bounded range (0..n_elems), not a wide random
+    range: in virtually any real kernel an integer scalar is a dimension,
+    loop bound, or index multiplier (batch size, a matrix's inner
+    dimension, ...), and a large random value here either blows the
+    emulator's step limit (a loop bounded by it) or reads/writes outside
+    the n_elems-sized buffers this checker allocates. Floats are data
+    values, not structural, so they get a wider plausible range."""
+    if ptx_type in ("f32", "f64"):
+        return rng.uniform(-8, 8)
+    return rng.randrange(1, max(1, n_elems) + 1)
+
+
+def run_and_diff(mod: Module, kname: str, sass_code, sass_labels, n_elems: int = 64,
+                  arch: str = "sm_80", seed: int = 0) -> list[Mismatch]:
+    """Build matching inputs, run both engines, return every differing
+    (param, index) pair -- empty means bit-exact. `sass_code`/`sass_labels`
+    are exactly what openassembler.backend.ra.compile_kernel returns."""
+    import sys
+    from pathlib import Path
+
+    sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "tools"))
+    from bench_build import listing  # noqa: E402  (code+labels -> emulator SASS text)
+
+    k: Kernel = mod.kernels[kname]
+    rng = random.Random(seed)
+
+    sass_mem, ptx_mem = Memory(), Memory()
+    interp_params: dict[str, int] = {}
+    sass_param_bytes: list[bytes] = []
+    arrays: dict[str, int] = {}
+
+    # Anything literally named n/count/size/len becomes n_elems, so a kernel
+    # guarded by `if i < n` (the common pattern) touches every element.
+    n_like = {"n", "count", "size", "len", "num", "length"}
+    base_addr = 0x7F00_0000_0000
+    for ptx_type, name in k.params:
+        if ptx_type == "u64":
+            addr = base_addr
+            base_addr += max(4096, n_elems * 8 + 256)  # generous gap, 8B/elem covers f64 too
+            arrays[name] = addr
+            # We don't know the element type from the signature alone (PTX
+            # pointers are untyped); default to f32 and let ld/st's own width
+            # govern what's actually read back -- this matches every example
+            # kernel this project ships (fp32 is the compiler's supported
+            # float width, see docs/STATUS.md Gaps).
+            buf = bytearray()
+            for _ in range(n_elems):
+                buf += struct.pack("<f", rng.uniform(-8, 8))
+            sass_mem.write_bytes(addr, bytes(buf))
+            ptx_mem.write_bytes(addr, bytes(buf))
+            interp_params[name] = addr
+            sass_param_bytes.append(struct.pack("<Q", addr))
+        else:
+            if name.lower() in n_like:
+                v = n_elems
+            else:
+                v = _rand_scalar(rng, ptx_type, n_elems)
+            interp_params[name] = (struct.unpack("<I", struct.pack("<f", v))[0]
+                                    if ptx_type == "f32" else int(v) & 0xFFFFFFFF)
+            sass_param_bytes.append(struct.pack(_SCALAR_FMT.get(ptx_type, "<i"),
+                                                 v if ptx_type in ("f32", "f64") else int(v)))
+
+    sass_params = b"".join(sass_param_bytes)
+    sass_text = listing(sass_code, sass_labels)
+    from openassembler.emu.program import load_listing
+
+    prog = load_listing(sass_text)
+    sass_launch = SassLaunch(block=(n_elems, 1, 1), params=sass_params,
+                              param_base=PARAM_BASE.get(arch, 0x160))
+    Machine(prog, sass_launch, sass_mem).run()
+
+    interp_launch = InterpLaunch(block=(n_elems, 1, 1), params=interp_params)
+    run_kernel(mod, kname, interp_launch, ptx_mem)
+
+    mismatches = []
+    for name, addr in arrays.items():
+        for i in range(n_elems):
+            g = sass_mem.read(addr + 4 * i, 4)
+            e = ptx_mem.read(addr + 4 * i, 4)
+            if g != e:
+                mismatches.append(Mismatch(name, i, g, e))
+    return mismatches

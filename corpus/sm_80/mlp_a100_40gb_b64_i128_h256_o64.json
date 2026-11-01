@@ -1,0 +1,26 @@
+{
+ "device": {
+  "name": "NVIDIA A100-SXM4-40GB",
+  "cc": "8.0",
+  "driver": 13030,
+  "sm_count": 108,
+  "clock_khz": 1410000,
+  "mem_bytes": 42429251584
+ },
+ "shape": {
+  "batch": 64,
+  "in_dim": 128,
+  "hidden": 256,
+  "out_dim": 64
+ },
+ "results": {
+  "ours": {
+   "ms": 0.12697599828243256,
+   "max_abs_err": 3.2386100805581464e-06
+  },
+  "ptxas": {
+   "ms": 0.04710400104522705,
+   "max_abs_err": 3.894927399272774e-06
+  }
+ }
+}

@@ -161,3 +161,4 @@ map onto the sections above:
 | `fastmm build` / `fastmm run` | `tools/fastmm_build.py` / `tools/fastmm_run.py` | C / D2 |
 | `gpu run --backend local\|user@host\|modal` | `tools/gpu_run.py` / `tools/gpu_modal.py` | D1 / D2 |
 | `status` | prints `docs/STATUS.md`'s headline table | — |
+| *(no subcommand)* | `openassembler.ui.repl` — interactive shell over every command above | — |

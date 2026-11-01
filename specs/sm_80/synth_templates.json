@@ -118,5 +118,9 @@
  {
   "word": "000fe40003f4327000005c00ff007a0c",
   "text": "ISETP.LE.AND P2, PT, RZ, c[0x0][0x170], PT"
+ },
+ {
+  "word": "001fca00078e020500005a0004027625",
+  "text": "IMAD.WIDE R2, R4, R5, c[0x0][0x168]"
  }
 ]

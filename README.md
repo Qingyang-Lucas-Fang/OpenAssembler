@@ -1,6 +1,6 @@
 <div align="center">
 
-# OpenAssembler
+<img src="figs/openassembler_logo.png" width="520" alt="OpenAssembler">
 
 **A from-scratch NVIDIA SASS compiler, built entirely by reverse-engineering `ptxas` as a black box.**
 
@@ -97,7 +97,32 @@ openassembler gpu run --backend modal
 ```
 
 Run `openassembler --help` for the full command list (`compile`, `verify`,
-`check`, `bench`, `fastmm build|run`, `gpu run`, `status`).
+`check`, `bench`, `fastmm build|run`, `gpu run`, `status`), or just run
+`openassembler` with no arguments for an interactive shell with the same
+commands, command history, and tab completion:
+
+```
+$ openassembler
+
+   ▄▀▄ █▀▄ █▀▀ █▄▀ █▀█ ▄▀▀ ▄▀▀ █▀▀ █▄█ █▀▄ █   █▀▀ █▀▄
+    █ █ █▀  █▀  █ █ █▀█  ▀▄  ▀▄ █▀  █▀█ █▀▄ █   █▀  █▀▄
+     ▀  ▀   ▀▀▀ ▀ ▀ ▀ ▀ ▀▀  ▀▀  ▀▀▀ ▀ ▀ ▀▀  ▀▀▀ ▀▀▀ ▀ ▀
+
+  ╭──────────────────────────────────────────────────────────────╮
+  │           openassembler v0.1.0 · PTX → SASS with our own backend          │
+  │                                                                │
+  │  Tips for getting started                                     │
+  │    Run `compile <file.ptx> -o out.cubin --verify` to compile  │
+  │    with our own backend and check it against the PTX          │
+  │    reference interpreter.                                     │
+  │    ...                                                         │
+  ╰──────────────────────────────────────────────────────────────╯
+
+❯ status
+```
+
+No AI, no network calls, no telemetry — it's a plain command dispatcher with
+a banner, nothing more.
 
 ---
 

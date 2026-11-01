@@ -69,3 +69,12 @@ done
 
 echo "done: $OUT"
 "$OUT/bin/ptxas" --version
+
+# Setup complete -- show the banner (same art `openassembler` shows), if the
+# package is importable; harmless to skip if it isn't (e.g. not pip installed
+# yet) since the fetch itself already succeeded above.
+PYTHONPATH="$ROOT" python3 -c "
+from openassembler.ui.banner import render
+print()
+print(render(include_logo=True))
+" 2>/dev/null || true

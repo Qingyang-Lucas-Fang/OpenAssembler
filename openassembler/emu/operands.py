@@ -23,12 +23,45 @@ class Pred:
     neg: bool = False
 
 
+_F32_SPECIAL = {"+INF": 0x7F800000, "INF": 0x7F800000, "-INF": 0xFF800000,
+                "NAN": 0x7FC00000, "+QNAN": 0x7FC00000, "-QNAN": 0xFFC00000}
+_F64_SPECIAL = {"+INF": 0x7FF00000_00000000, "INF": 0x7FF00000_00000000, "-INF": 0xFFF00000_00000000,
+                "NAN": 0x7FF80000_00000000, "+QNAN": 0x7FF80000_00000000, "-QNAN": 0xFFF80000_00000000}
+
+
+def _f32_text_to_bits(text: str) -> int:
+    """nvdisasm's decimal text for a float immediate, as its raw 32 bits.
+    f32-range values (FADD/FSETP/FFMA/...) round-trip through struct directly;
+    a double-precision instruction's immediate (DMUL/DSETP/...) can exceed
+    f32's range, and only its high 32 bits sit in a 32-bit immediate slot --
+    see ops.py's _fsel note on FSEL selecting raw f64 high words."""
+    import struct
+
+    key = text.strip()
+    if key in _F32_SPECIAL:
+        return _F32_SPECIAL[key]
+    try:
+        return struct.unpack("<I", struct.pack("<f", float(key)))[0]
+    except OverflowError:
+        bits64 = _F64_SPECIAL.get(key) or struct.unpack("<Q", struct.pack("<d", float(key)))[0]
+        return bits64 >> 32
+
+
 @dataclass(frozen=True)
 class Imm:
     text: str          # raw text; integer vs float meaning is up to the opcode
 
     def int32(self) -> int:
-        return int(self.text, 0) & 0xFFFFFFFF
+        """The raw 32 bits nvdisasm's text represents. Most immediates are
+        plain decimal/hex integers; FSETP/FADD/etc. print their immediate as
+        a decimal float in scientific notation (e.g. "1.175494350822287508e-38")
+        or +INF/-INF/NAN/+QNAN -- those parse as the IEEE-754 f32 bit pattern
+        of that value, which is what actually sits in the word's immediate
+        field for a float-typed instruction."""
+        try:
+            return int(self.text, 0) & 0xFFFFFFFF
+        except ValueError:
+            return _f32_text_to_bits(self.text)
 
 
 @dataclass(frozen=True)

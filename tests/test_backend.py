@@ -57,6 +57,40 @@ def test_encoder_never_emits_wrong_word_on_corpus():
     assert produced > 1000
 
 
+def test_imad_wide_signed_cbank_template():
+    """IMAD.WIDE Rd, Ra, Rb, c[bank][off] (signed, no .U32) is the form our
+    backend emits when it fuses a signed `mul.wide.s32` + `add.s64` of a
+    cbank-held pointer (the idiom nvcc itself emits for `arr[int i]` --
+    openassembler/pyfront and real CUDA C both hit this). It had no template
+    until synthesize() found and nvdisasm-verified one (specs/sm_80/
+    synth_templates.json) -- this test is the regression lock for that fix."""
+    enc = Encoder("sm_80")
+    assert ("IMAD", ("WIDE",), ("R", "R", "R", "CBank")) in enc.templates
+    assert enc.encode("IMAD.WIDE R4, R0, R2, c[0x0][0x160]") is not None
+
+
+def test_float_immediate_setp_learned_and_round_trips():
+    """FSETP's immediate operand (`if v < 0.0`, pyfront's ReLU) printed as
+    decimal scientific notation by nvdisasm ('1.17549435...e-38'), which
+    Imm.int32() couldn't parse before -- the slot stayed unlearned even
+    though the template itself existed. Regression lock for that fix
+    (openassembler/emu/operands.py: Imm.int32 / _f32_text_to_bits)."""
+    from openassembler.emu.operands import Imm
+
+    assert Imm("0.0").int32() == 0x00000000
+    assert Imm("1.0").int32() == 0x3F800000
+    assert Imm("+INF").int32() == 0x7F800000
+    assert Imm("NAN").int32() == 0x7FC00000
+    # a double's immediate exceeds f32 range; only the high 32 bits are a
+    # 32-bit immediate slot's worth (see the DMUL case this came from).
+    assert Imm("8.98846567431157953865e+307").int32() == 0x7FE00000
+
+    enc = Encoder("sm_80")
+    t = enc.templates[("FSETP", ("LT", "AND"), ("P", "P", "R", "Imm", "P"))]
+    assert t.slots[3] == ("imm", "imm32")
+    assert enc.encode("FSETP.LT.AND P0, PT, R3, 0x0, PT") is not None
+
+
 @pytest.mark.parametrize("op,signed", [("div", False), ("div", True), ("rem", False), ("rem", True)])
 def test_divconst_sequences_random(op, signed):
     """Fast random check; the full proof is tools/verify_divconst_exhaustive.py (all 2^32 x)."""
