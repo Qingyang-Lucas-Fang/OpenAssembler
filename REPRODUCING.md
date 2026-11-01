@@ -143,9 +143,9 @@ modal run tools/gpu_modal.py --which dir:corpus/sm_80/bench --trials 2 --timing 
 modal run tools/fastmm_run.py --n 8192 --schemes strassen_2x2x2,at_2x2x2,strassen2_4x4x4,at_gpu_4x4x4 --rounds 2 --reps 3 --budget 580 --job-timeout 200
 ```
 
-The n = 8192 fast-matmul run above costs roughly $0.35 (≈10 A100-minutes at
-Modal's A100-40GB rate — check `openassembler fastmm run --dry-run` for a current
-estimate, prices drift). Every run in this repo so far has cost under $2
+The n = 8192 fast-matmul run above costs roughly 
+\$0.35 (≈10 A100-minutes at Modal's A100-40GB rate — check `openassembler fastmm run --dry-run` for a current
+estimate, prices drift). Every run in this repo so far has cost under \$2
 total; `--dry-run` always prints the estimate before anything is billed.
 
 ## E. What ties it together

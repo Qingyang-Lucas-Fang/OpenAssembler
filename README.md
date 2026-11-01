@@ -1,6 +1,8 @@
+  <p align="center"><img src="figs/openassembler_logo.png" width="820"></p>
+
 <div align="center">
 
-<img src="figs/openassembler_logo.png" width="520" alt="OpenAssembler">
+# OpenAssembler
 
 **A from-scratch NVIDIA SASS compiler, built entirely by reverse-engineering `ptxas` as a black box.**
 
@@ -71,58 +73,47 @@ and [docs/STATUS.md](docs/STATUS.md) for the exact command behind each one.
 
 ## Quick start
 
+### Install
+```bash
+git clone github.com/Qingyang-Lucas-Fang/OpenAssembler && cd openassembler
+pip install -e .   
+```
+One-time: fetch NVIDIA's own CUDA toolkit as a black-box oracle (never vendored in this repo — see NOTICE). Needs a Linux box or a VM (e.g. colima on macOS); see REPRODUCING.md if you're not on Linux.
+
+
+### Setting up the oracle
+```bash
+env/fetch_cuda.sh  
+env/cuda.sh ptxas --version              # must print "release 12.8"
+```
+### Run OpenAssembler
+```bash
+openassembler
+```
+and then it should display properly on your terminal
+<img width="943" height="318" alt="Image" src="https://github.com/user-attachments/assets/6411bddf-d711-4c01-913f-bb30cee27e6f" />
+
+---
+
+### Commands for different devices
+Run it on a real GPU — any Linux box with an NVIDIA driver, no CUDA toolkit needed htere:
 ```sh
-git clone <this-repo> && cd openassembler
-pip install -e .                      # installs the `openassembler` command
-
-# One-time: fetch NVIDIA's own CUDA toolkit as a black-box oracle (never
-# vendored in this repo — see NOTICE). Needs a Linux box or a VM (e.g. colima
-# on macOS); see REPRODUCING.md if you're not on Linux.
-env/fetch_cuda.sh
-
-# Compile a PTX kernel straight to a cubin with our backend, then verify it
-# against a reference PTX interpreter:
-openassembler compile examples/div_by_const.ptx -o out.cubin --verify
-
-# Run it on a real GPU — any Linux box with an NVIDIA driver, no CUDA toolkit
-# needed there:
 openassembler gpu run --backend user@your-gpu-box --which ours
+```
 
-# ...or on this machine, if it has an NVIDIA GPU:
+...or on this machine, if it has an NVIDIA GPU:
+```sh
 openassembler gpu run --backend local --which ours
+```
 
-# ...or on a cloud A100 via Modal (what produced the numbers below):
+...or on a cloud A100 via Modal (what produced the numbers below):
+```sh
 openassembler gpu run --backend modal --dry-run    # cost estimate, $0 spent
 openassembler gpu run --backend modal
 ```
 
 Run `openassembler --help` for the full command list (`compile`, `verify`,
-`check`, `bench`, `fastmm build|run`, `gpu run`, `status`), or just run
-`openassembler` with no arguments for an interactive shell with the same
-commands, command history, and tab completion:
-
-```
-$ openassembler
-
-   ▄▀▄ █▀▄ █▀▀ █▄▀ █▀█ ▄▀▀ ▄▀▀ █▀▀ █▄█ █▀▄ █   █▀▀ █▀▄
-    █ █ █▀  █▀  █ █ █▀█  ▀▄  ▀▄ █▀  █▀█ █▀▄ █   █▀  █▀▄
-     ▀  ▀   ▀▀▀ ▀ ▀ ▀ ▀ ▀▀  ▀▀  ▀▀▀ ▀ ▀ ▀▀  ▀▀▀ ▀▀▀ ▀ ▀
-
-  ╭──────────────────────────────────────────────────────────────╮
-  │           openassembler v0.1.0 · PTX → SASS with our own backend          │
-  │                                                                │
-  │  Tips for getting started                                     │
-  │    Run `compile <file.ptx> -o out.cubin --verify` to compile  │
-  │    with our own backend and check it against the PTX          │
-  │    reference interpreter.                                     │
-  │    ...                                                         │
-  ╰──────────────────────────────────────────────────────────────╯
-
-❯ status
-```
-
-No AI, no network calls, no telemetry — it's a plain command dispatcher with
-a banner, nothing more.
+`check`, `bench`, `fastmm build|run`, `gpu run`, `status`).
 
 ---
 
@@ -222,23 +213,23 @@ result (DeepMind, *Nature* 2022), reproduced end to end on our own backend.
  PTX source
      │
      ▼
- ┌─────────────┐   ┌──────────────────────────────────────────────┐
- │   ptxas     │   │  openassembler (this repo)                            │
+ ┌─────────────┐   ┌────────────────────────────────────────────--──┐
+ │   ptxas     │   │  openassembler (this repo)                     │
  │ (reference) │   │                                                │
- │             │   │  parse → select IR → DCE → coalesce →         │
- │  produces   │   │  linear-scan allocate → lower → [unroll ×4] → │
- │  the ELF    │   │  [list-schedule] → stall/yield/scoreboard →   │
- │  container  │   │  encode (our own encoder, from the recovered │
- └──────┬──────┘   │  spec, not ptxas's)                           │
-        │          └───────────────────┬────────────────────────┬─┘
+ │             │   │  parse → select IR → DCE → coalesce →          │
+ │  produces   │   │  linear-scan allocate → lower → [unroll ×4] →  │
+ │  the ELF    │   │  [list-schedule] → stall/yield/scoreboard →    │
+ │  container  │   │  encode (our own encoder, from the recovered   │
+ └──────┬──────┘   │  spec, not ptxas's)                            │
+        │          └───────────────────┬────────────────────────┬--─┘
         │ cubin (symbols, relocs,      │ new .text bytes,       │
         │ constant banks — unchanged)  │ regcount, EXIT offsets │
         ▼                              ▼                        │
- ┌────────────────────────────────────────────┐                 │
- │  splice_text(): patch the cubin in place    │ ◄───────────────┘
- │  (openassembler/container/cubin.py)                 │
- └──────────────────────┬───────────────────────┘
-                         ▼
+ ┌───────────────────────────────────────────-─┐                │
+ │  splice_text(): patch the cubin in place    │ ◄──────────────┘
+ │  (openassembler/container/cubin.py)         │
+ └──────────────────────┬──────────────────────┘
+                        ▼
                  a cubin the driver
                  runs exactly like
                  any other — but every
@@ -278,9 +269,9 @@ columns in the benchmark table above.
 
 ---
 
-## Gaps
+## Future Improvements
 
-We'd rather list what's missing than imply this is finished:
+Here are a list of possible further improvements:
 
 - **Dependent instruction chains**: `ptxas` still wins by 5–8%. It hides the
   loop counter increment and branch test inside the dependent chain; our
@@ -309,20 +300,32 @@ The living version of this list, with what's measured vs. hypothesized, is
 ## Repository layout
 
 ```
-openassembler/        the package: backend/ (compiler), isa/ (encoder), emu/ (SASS
-                emulator), container/ (ELF splicing), ptx/ (parser + reference
-                interpreter), opt/ (div-by-const), fastmm/ (Strassen/
-                AlphaTensor), gpu/ (transport-agnostic GPU job runner), cli.py
-tools/          build/benchmark/fuzz scripts the CLI wraps; also usable directly
-docs/           STATUS.md (every measured result), WORKFLOW.md (method),
-                findings-*.md (encoding + div-by-const writeups), research/
-specs/          recovered encoding tables + AlphaTensor-derived GEMM schemes (JSON)
-corpus/         generated probe kernels + evidence JSON (regenerated by tools/;
-                the small summary files are kept, the bulk is gitignored)
-third_party/    AlphaTensor factorizations (DeepMind, Apache-2.0 — see NOTICE)
-env/            env/fetch_cuda.sh + env/cuda.sh: the oracle wrapper (toolkit
-                itself is never vendored, see NOTICE)
-tests/          164 offline pytest tests, including replays of recorded A100 runs
+openassembler/        the package: backend/ (compiler),
+                      isa/ (encoder),
+                      emu/ (SASS emulator),
+                      container/ (ELF splicing),
+                      ptx/ (parser + reference interpreter),
+                      opt/ (div-by-const),
+                      fastmm/ (Strassen/AlphaTensor),
+                      gpu/ (transport-agnostic GPU job runner),
+                      cli.py
+
+tools/                build/benchmark/fuzz scripts the CLI wraps; also usable directly
+
+docs/         `       STATUS.md (every measured result),
+                      WORKFLOW.md (method),
+                      findings-*.md (encoding + div-by-const writeups),
+                      research/
+
+specs/                recovered encoding tables + AlphaTensor-derived GEMM schemes (JSON)
+
+corpus/               generated probe kernels + evidence JSON (regenerated by tools/; the small summary files are kept, the bulk is gitignored)
+
+third_party/          AlphaTensor factorizations (DeepMind, Apache-2.0 — see NOTICE)
+
+env/                  env/fetch_cuda.sh + env/cuda.sh: the oracle wrapper (toolkit itself is never vendored, see NOTICE)
+
+tests/                164 offline pytest tests, including replays of recorded A100 runs
 ```
 
 ## License
