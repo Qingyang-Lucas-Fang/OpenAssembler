@@ -384,3 +384,12 @@ AlphaTensor import under `third_party/`) are in [NOTICE](NOTICE). This project
 reverse-engineers NVIDIA's `ptxas` by black-box observation only; no NVIDIA
 source code or binaries are included or redistributed.
 
+## Star History
+
+<a href="https://www.star-history.com/?repos=qingyang-lucas-fang%2Fopenassembler&type=date&legend=top-left">
+ <picture>
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=qingyang-lucas-fang/openassembler&type=date&theme=dark&legend=top-left" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=qingyang-lucas-fang/openassembler&type=date&legend=top-left" />
+   <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=qingyang-lucas-fang/openassembler&type=date&legend=top-left" />
+ </picture>
+</a>
