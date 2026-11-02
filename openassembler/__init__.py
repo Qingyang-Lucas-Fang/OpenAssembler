@@ -1,3 +1,4 @@
-"""openassembler: from-scratch reverse engineering of NVIDIA SASS (Volta+ 128-bit ISA)."""
+"""OpenAssembler: a Python / CUDA C / C++ (and PTX) to NVIDIA SASS compiler with its own
+backend, built on from-scratch reverse engineering of the Volta+ 128-bit SASS ISA."""
 
-__version__ = "0.1.0"
+__version__ = "0.2.0"

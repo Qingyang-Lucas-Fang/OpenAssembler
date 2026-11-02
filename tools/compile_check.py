@@ -103,7 +103,7 @@ def main():
         exits = [16 * i for i, (t, _) in enumerate(code) if t == "EXIT"]
         nregs = required_regcount([t for t, _ in code])
         (OUT / f"{kname}.cubin").write_bytes(
-            splice_text((CORPUS / "cubin" / f"{kname}.cubin").read_bytes(), kname, words, nregs, exits))
+            splice_text((CORPUS / "cubin" / f"{kname}.cubin").read_bytes(), kname, words, nregs, exits, replace_helpers=True))
         built[name] = (kname, code, ptx)
 
     oracle.run_tool("bash", "-c", f"cd {shlex.quote(str(OUT))} && for f in *.cubin; do "

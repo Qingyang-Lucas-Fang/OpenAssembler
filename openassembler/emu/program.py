@@ -61,7 +61,7 @@ def load_listing(text: str, kernel: str | None = None) -> Program:
     pending: list[str] = []
     in_kernel = kernel is None
     for i, line in enumerate(lines):
-        if line.lstrip().startswith(".section") and not line.lstrip().startswith(".sectioninfo"):
+        if line.lstrip().startswith((".section ", ".section\t")):
             sec = line.split()[1].split(",")[0]
             in_kernel = kernel is None or sec == f".text.{kernel}"
         if not in_kernel:

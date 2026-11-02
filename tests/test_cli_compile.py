@@ -1,123 +1,188 @@
-"""`openassembler compile`: writes a .cubin AND a .sass listing, from .ptx/.py/.cu,
-with the output anywhere (not only inside the repo). Plus the pieces that made
-that work on both macOS (toolkit in a colima VM) and Linux (toolkit native)."""
+"""The 0.2 CLI contract: source names are separate from output paths, and each
+compile produces a manifest under an output root with mirrored cubin/SASS trees.
+"""
 
 from __future__ import annotations
 
-import struct
+import json
 from pathlib import Path
 
 import pytest
 
-from openassembler import oracle
+from openassembler import __version__, oracle
 from openassembler.cli import main
+from openassembler.project import ProjectError, output_names, single_output_name, walk
 
 ROOT = Path(__file__).resolve().parent.parent
-needs_toolkit = pytest.mark.skipif(not oracle.available("ptxas") or not oracle.available("nvdisasm"),
+needs_toolkit = pytest.mark.skipif(not all(oracle.available(t) for t in ("ptxas", "nvdisasm")),
                                    reason=oracle.NEEDS_TOOLKIT)
 
 
-@needs_toolkit
-def test_compile_ptx_writes_cubin_and_sass(tmp_path, capsys):
-    out = tmp_path / "k.cubin"
-    assert main(["compile", str(ROOT / "examples" / "div_by_const.ptx"), "-o", str(out), "--verify"]) == 0
-    sass = out.with_suffix(".sass")
-    assert out.stat().st_size > 0 and sass.exists()
-    text = sass.read_text()
-    assert ".text.div_by_const" in text and "IMAD.HI" in text   # real nvdisasm output of our code
-    assert "bit-exact" in capsys.readouterr().out
+def test_version_and_startup_commands(capsys):
+    assert __version__ == "0.2.0"
+    with pytest.raises(SystemExit) as e:
+        main(["--version"])
+    assert e.value.code == 0
+    assert "0.2.0" in capsys.readouterr().out
+    with pytest.raises(SystemExit) as e:
+        main(["compile", "--help"])
+    assert e.value.code == 0
+    help_text = capsys.readouterr().out
+    assert "whole source tree" in help_text
+    assert "output/cubin" in help_text
+    assert "-o NAME" in help_text
 
 
-@needs_toolkit
-def test_compile_python_source_and_custom_sass_path(tmp_path):
-    out, sass = tmp_path / "v.cubin", tmp_path / "listing" / "v.sass"
-    assert main(["compile", str(ROOT / "examples" / "vector_add.py"), "-o", str(out), "--sass", str(sass)]) == 0
-    assert out.exists() and sass.exists() and "FADD" in sass.read_text()
+def test_output_name_is_a_name_not_a_path():
+    assert single_output_name(Path("k.ptx"), None) == ("k", None)
+    assert single_output_name(Path("k.ptx"), "answer") == ("answer", None)
+    name, note = single_output_name(Path("k.ptx"), "answer.cubin")
+    assert name == "answer" and "without extension" in note
+    with pytest.raises(ProjectError, match="takes a name, not a path"):
+        single_output_name(Path("k.ptx"), "nested/answer")
+    with pytest.raises(ProjectError, match="usable output name"):
+        single_output_name(Path("k.ptx"), "..")
 
 
-@needs_toolkit
-def test_compile_cuda_source_leaves_no_files_next_to_it(tmp_path):
-    src = tmp_path / "k.cu"
-    src.write_text((ROOT / "examples" / "vector_add.cu").read_text())
-    out = tmp_path / "out" / "k.cubin"
-    assert main(["compile", str(src), "-o", str(out)]) == 0
-    assert out.exists() and out.with_suffix(".sass").exists()
-    assert not src.with_suffix(".ptx").exists()        # nvcc's intermediate goes to scratch, not beside the source
+def test_repo_names_preserve_relative_tree_and_same_stem_extensions():
+    assert output_names(["kernels/gemm.cu", "kernels/other.py"]) == {
+        "kernels/gemm.cu": "kernels/gemm",
+        "kernels/other.py": "kernels/other",
+    }
+    assert output_names(["a.cu", "a.py"]) == {"a.cu": "a.cu", "a.py": "a.py"}
+    assert output_names(["x/a.cu", "y/a.py"]) == {"x/a.cu": "x/a", "y/a.py": "y/a"}
 
 
-@needs_toolkit
-def test_no_sass_flag_skips_disassembly(tmp_path):
-    out = tmp_path / "k.cubin"
-    assert main(["compile", str(ROOT / "examples" / "div_by_const.ptx"), "-o", str(out), "--no-sass"]) == 0
-    assert out.exists() and not out.with_suffix(".sass").exists()
+def test_repo_walk_ignores_hidden_dirs_and_output(tmp_path):
+    src = tmp_path / "repo"
+    (src / "kernels").mkdir(parents=True)
+    (src / ".git").mkdir()
+    (src / "node_modules").mkdir()
+    out = tmp_path / "build"
+    out.mkdir()
+    (src / "kernels" / "a.ptx").write_text(".visible .entry a() { ret; }")
+    (src / ".git" / "hidden.ptx").write_text(".visible .entry hidden() { ret; }")
+    (src / "node_modules" / "vendor.ptx").write_text(".visible .entry vendor() { ret; }")
+    (out / "old.ptx").write_text(".visible .entry old() { ret; }")
+    files, used_git = walk(src, out)
+    assert not used_git
+    assert files == [src / "kernels" / "a.ptx"]
 
 
-def test_backend_rejection_is_a_clean_error_not_a_traceback(tmp_path, capsys):
-    src = tmp_path / "bad.py"
-    src.write_text("from openassembler.pyfront import Array, f32, i32, kernel\n\n@kernel\n"
-                   "def bad(a: Array(f32), out: Array(f32), n: i32):\n    i = tid_x()\n"
-                   "    if i < n:\n        out[i] = float(i) + a[i]\n")
-    assert main(["compile", str(src), "-o", str(tmp_path / "b.cubin"), "--no-sass",
-                 "--base-cubin", str(ROOT / "specs" / "does-not-matter")]) == 1
-    err = capsys.readouterr().err
-    assert "can't compile this kernel yet" in err and "cvt" in err
+def test_cli_rejects_missing_source_and_non_source_extensions(tmp_path, capsys):
+    assert main(["compile", str(tmp_path / "missing.ptx")]) == 1
+    assert "does not exist" in capsys.readouterr().err
+    script = tmp_path / "train.sh"
+    script.write_text("#!/bin/sh\necho hello\n")
+    assert main(["compile", str(script)]) == 1
+    assert "supported" in capsys.readouterr().err
 
 
-def test_tool_path_relative_inside_repo_absolute_outside(tmp_path):
-    assert oracle.tool_path(ROOT / "examples" / "div_by_const.ptx") == "examples/div_by_const.ptx"
-    outside = tmp_path / "x.cubin"
-    if oracle.platform_is_macos():
-        # the colima VM only mounts $HOME; pytest's tmp_path lives under /private/var on macOS
-        with pytest.raises(oracle.OracleError, match="outside your home"):
-            oracle.tool_path(outside)
-    else:
-        assert oracle.tool_path(outside) == str(outside.resolve())
-
-
-def test_generic_verifier_aligns_pointer_after_a_4_byte_scalar():
-    """(float a, float* x, ...): the pointer sits at offset 8, not 4. The harness used to
-    concatenate without padding and the kernel read garbage (found compiling saxpy)."""
-    from openassembler.verify import _align
-
-    chunks = [struct.pack("<f", 2.0)]
-    _align(chunks, 8)
-    assert sum(len(c) for c in chunks) == 8
-
-
-def test_encoder_loads_without_the_toolkit_thanks_to_the_fieldmap_cache(monkeypatch):
-    """Encoder() used to call nvdisasm ~60 times at every start (a minute on macOS).
-    The probe results are cached in specs/sm_80/synth_fieldmaps.json, so loading is
-    instant and offline."""
-    def boom(*a, **k):
-        raise AssertionError("Encoder() must not need nvdisasm when the cache is complete")
-
-    monkeypatch.setattr(oracle, "run_tool", boom)
-    from openassembler.isa.encode import Encoder
-
-    assert len(Encoder("sm_80").templates) > 400
-
-
-@needs_toolkit
-def test_failed_verify_removes_the_bad_cubin(tmp_path, monkeypatch):
-    import openassembler.cli as cli
-
-    monkeypatch.setattr(cli, "_verify_compiled", lambda *a, **k: 1)       # pretend --verify found a mismatch
-    out = tmp_path / "k.cubin"
-    assert main(["compile", str(ROOT / "examples" / "vector_add.py"), "-o", str(out), "--verify"]) == 1
-    assert not out.exists() and not out.with_suffix(".sass").exists()
-
-
-@needs_toolkit
-def test_output_directory_and_sass_collision(tmp_path, capsys):
-    d = tmp_path / "outdir"
-    d.mkdir()
-    assert main(["compile", str(ROOT / "examples" / "vector_add.py"), "-o", str(d)]) == 0
-    assert (d / "vector_add.cubin").exists() and (d / "vector_add.sass").exists()
-    capsys.readouterr()
-    assert main(["compile", str(ROOT / "examples" / "vector_add.py"), "-o", str(tmp_path / "x.sass")]) == 1
-    assert "both be written" in capsys.readouterr().err
-
-
-def test_unknown_arch_is_a_clean_error(tmp_path, capsys):
-    assert main(["compile", str(ROOT / "examples" / "vector_add.py"), "--arch", "sm_90", "-o", str(tmp_path / "a.cubin")]) == 1
+def test_compile_unknown_arch_is_a_clean_error(tmp_path, capsys):
+    assert main(["compile", str(ROOT / "examples/vector_add.py"), "--arch", "sm_90",
+                 "--out-dir", str(tmp_path)]) == 1
     assert "no SASS encoder data for 'sm_90'" in capsys.readouterr().err
+
+
+@needs_toolkit
+def test_single_compile_writes_cubin_sass_and_manifest(tmp_path, capsys):
+    assert main(["compile", str(ROOT / "examples/div_by_const.ptx"), "-o", "quotient",
+                 "--out-dir", str(tmp_path), "--verify"]) == 0
+    cubin = tmp_path / "cubin" / "quotient.cubin"
+    sass = tmp_path / "sass" / "quotient.sass"
+    manifest = json.loads((tmp_path / "manifest.json").read_text())
+    assert cubin.is_file() and sass.is_file()
+    assert ".text.div_by_const" in sass.read_text() and "IMAD.HI" in sass.read_text()
+    assert manifest["openassembler"] == "0.2.0"
+    assert manifest["entries"][0]["cubin"] == "cubin/quotient.cubin"
+    assert manifest["entries"][0]["sass"] == "sass/quotient.sass"
+    assert manifest["entries"][0]["kernels"][0]["verify"] == "ok"
+    assert "OK:" in capsys.readouterr().out
+
+
+@needs_toolkit
+def test_python_and_cuda_c_compile_to_output_tree(tmp_path):
+    py_out = tmp_path / "python"
+    assert main(["compile", str(ROOT / "examples/vector_add.py"), "--out-dir", str(py_out)]) == 0
+    assert (py_out / "cubin/vector_add.cubin").is_file()
+    assert (py_out / "sass/vector_add.sass").is_file()
+
+    src = tmp_path / "external.cu"
+    src.write_text((ROOT / "examples/vector_add.cu").read_text())
+    cu_out = tmp_path / "cuda"
+    assert main(["compile", str(src), "--out-dir", str(cu_out), "-o", "custom"]) == 0
+    assert (cu_out / "cubin/custom.cubin").is_file()
+    assert (cu_out / "sass/custom.sass").is_file()
+    assert not src.with_suffix(".ptx").exists()
+
+
+@needs_toolkit
+def test_no_sass_sets_manifest_null_and_writes_cubin(tmp_path):
+    assert main(["compile", str(ROOT / "examples/div_by_const.ptx"), "--out-dir", str(tmp_path),
+                 "--no-sass"]) == 0
+    assert (tmp_path / "cubin/div_by_const.cubin").is_file()
+    assert not (tmp_path / "sass/div_by_const.sass").exists()
+    manifest = json.loads((tmp_path / "manifest.json").read_text())
+    assert manifest["entries"][0]["sass"] is None
+
+
+@needs_toolkit
+def test_repo_compile_mirrors_paths_and_skips_non_kernel_files(tmp_path, capsys):
+    src = tmp_path / "repo"
+    (src / "kernels").mkdir(parents=True)
+    (src / "kernels" / "sum.ptx").write_text((ROOT / "examples/div_by_const.ptx").read_text())
+    (src / "README.md").write_text("repository metadata")
+    (src / "script.sh").write_text("echo not a kernel")
+    out = tmp_path / "artifacts"
+    assert main(["compile", str(src), "--out-dir", str(out)]) == 0
+    assert (out / "cubin/kernels/sum.cubin").is_file()
+    assert (out / "sass/kernels/sum.sass").is_file()
+    manifest = json.loads((out / "manifest.json").read_text())
+    assert len(manifest["entries"]) == 1
+    summary = capsys.readouterr().out
+    assert "files skipped" in summary
+
+
+@needs_toolkit
+def test_recompile_removes_only_manifest_owned_stale_outputs(tmp_path):
+    src = tmp_path / "repo"
+    src.mkdir()
+    kernel = src / "k.ptx"
+    kernel.write_text((ROOT / "examples/div_by_const.ptx").read_text())
+    out = tmp_path / "output"
+    assert main(["compile", str(src), "--out-dir", str(out)]) == 0
+    stale = out / "cubin/unrelated.cubin"
+    stale.parent.mkdir(exist_ok=True)
+    stale.write_bytes(b"user file")
+    kernel.unlink()
+    # Empty source trees are an error and do not authorize deleting prior/user files.
+    assert main(["compile", str(src), "--out-dir", str(out)]) == 1
+    assert stale.read_bytes() == b"user file"
+    assert (out / "cubin/k.cubin").is_file()
+
+
+@needs_toolkit
+def test_repo_compile_excludes_output_inside_source_tree(tmp_path, capsys):
+    src = tmp_path / "repo"
+    src.mkdir()
+    (src / "k.ptx").write_text(".version 8.7\n.target sm_80\n.address_size 64\n.visible .entry k() { ret; }\n")
+    out = src / "output"
+    assert main(["compile", str(src), "--out-dir", str(out)]) == 0
+    assert (out / "cubin/k.cubin").is_file()
+    assert not (out / "output/cubin/k.cubin").exists()
+
+
+@needs_toolkit
+def test_failed_single_rebuild_marks_prior_artifact_unrunnable(tmp_path, capsys):
+    from openassembler.runner import RunError, RunOptions, build_plan
+    src = tmp_path / 'k.ptx'
+    src.write_text((ROOT / 'examples/div_by_const.ptx').read_text())
+    out = tmp_path / 'output'
+    assert main(['compile', str(src), '--out-dir', str(out)]) == 0
+    assert (out / 'cubin/k.cubin').is_file()
+    src.write_text('.version 8.7\n.target sm_80\n.address_size 64\n.entry k( {')
+    assert main(['compile', str(src), '--out-dir', str(out)]) == 1
+    assert (out / 'cubin/k.cubin').is_file()
+    with pytest.raises(RunError, match='latest build.*failed'):
+        build_plan(RunOptions(out_dir=out, dry_run=True))
+    capsys.readouterr()

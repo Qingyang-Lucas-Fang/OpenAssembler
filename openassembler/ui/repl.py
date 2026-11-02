@@ -20,15 +20,17 @@ Built-in shell commands (in addition to every CLI subcommand below):
   exit, quit     leave the shell (Ctrl-D also works)
 
 Type any openassembler subcommand without the leading "openassembler", e.g.:
-  compile examples/div_by_const.ptx -o out.cubin --verify
+  compile examples/div_by_const.ptx -o out --verify   # -> output/cubin/out.cubin, output/sass/out.sass
+  compile my_repo/                                     # every kernel in a repo, mirrored into output/
+  run --backend modal --dry-run                        # ours vs ptxas on a GPU (nothing is sent)
+  cnr kernel.cu --backend me@gpubox                    # compile, then run what compiled
   status
-  gpu run --backend modal --dry-run
 """
 
 
 def _try_readline() -> None:
     """Best-effort: history + line editing. Not available everywhere (e.g.
-    stock Windows Python), so this degrades to plain input() silently."""
+    Python builds without readline), so this degrades to plain input() silently."""
     try:
         import atexit
         import os
@@ -90,7 +92,9 @@ def run() -> int:
             continue
 
         try:
-            args.func(args)
+            rc = args.func(args)
+            if isinstance(rc, int) and rc not in (0,):
+                print(f"(exit code {rc})")
         except SystemExit as e:
             if e.code not in (0, None):
                 print(f"(exit code {e.code})")

@@ -25,7 +25,7 @@ from openassembler.emu.program import Insn
 ALU: dict[str, Callable] = {}
 WARP: dict[str, Callable] = {}
 CTRL: dict[str, Callable] = {}
-NOPS = {"NOP", "BSSY", "BSYNC", "WARPSYNC", "DEPBAR", "LDGDEPBAR", "ERRBAR", "MEMBAR",
+NOPS = {"NOP", "BSSY", "BSYNC", "BREAK", "WARPSYNC", "DEPBAR", "LDGDEPBAR", "ERRBAR", "MEMBAR",
         "CCTL", "NANOSLEEP", "PMTRIG", "BMOV", "YIELD", "FENCE"}
 
 

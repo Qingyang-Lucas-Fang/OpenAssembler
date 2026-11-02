@@ -124,6 +124,18 @@ class Selector:
     def bind(self, name: str, v) -> None:
         """PTX register `name` := v. For home registers, emit a real copy into the home."""
         if name in getattr(self, "homes", {}):
+            if isinstance(v, tuple):
+                v = self.pair_value(v)
+                h = self.homes[name]
+                if h is None:
+                    h = self.homes[name] = (self.new(), self.new())
+                if not isinstance(h, tuple):
+                    raise NotSupported(f"mixed-width assignments to {name}")
+                for dst, src in zip(h, v):
+                    if dst != src:
+                        self.emit("MOV {d0}, {s0}", [dst], [src], copy=True)
+                self.env[name] = h
+                return
             if not isinstance(v, (V, C, I)):
                 raise NotSupported(f"non-32-bit value for multiply-assigned {name}")
             h = self.homes[name]
@@ -195,20 +207,32 @@ class Selector:
             raise NotSupported(f"undefined 64-bit {name}")
         return v
 
-    def pair(self, name: str) -> tuple[V, V]:
-        """64-bit value as a register pair (materialize c[] params)."""
-        v = self.val64(name)
+    def pair_value(self, v):
         if isinstance(v, tuple) and v[0] == "cpair":
             lo, hi = self.new(), self.new()
             self.emit("MOV {d0}, {s0}", [lo], [C(v[1])])
             self.emit("MOV {d0}, {s0}", [hi], [C(v[1] + 4)])
-            self.env[name] = (lo, hi)
             return lo, hi
         if isinstance(v, tuple) and len(v) == 2 and all(isinstance(x, V) for x in v):
-            return v  # scalar halves; callers needing consecutive regs use self.wide()
+            return v
         if isinstance(v, tuple) and v[0] == "widemul":
-            return self.materialize_widemul(name, v)
-        raise NotSupported(f"64-bit value {name}={v}")
+            _, a, b, unsigned = v
+            lo, hi = self.new(), self.new()
+            self.emit(f"IMAD.WIDE{'.U32' if unsigned else ''} {{d0}}, {{s0}}, {{s1}}, RZ",
+                      [(lo, hi)], [a, b])
+            return lo, hi
+        raise NotSupported(f"64-bit value {v}")
+
+    def pair(self, name: str) -> tuple[V, V]:
+        v = self.pair_value(self.val64(name))
+        self.env[name] = v
+        return v
+
+    def operand64(self, operand):
+        if isinstance(operand, ImmI):
+            return (self.reg32(ImmI(operand.value & 0xffffffff)),
+                    self.reg32(ImmI((operand.value >> 32) & 0xffffffff)))
+        return self.pair(operand.name)
 
     # wide multiply kept symbolic until used, so add.s64 can fuse into IMAD.WIDE ----
 
@@ -266,10 +290,10 @@ class Selector:
         t = next((x for x in m if x[:1] in ("s", "u", "b", "f") and x[1:].isdigit()), None)
         if op == "ld" and "param" in m:
             off = self.param_off[a[1].base] + a[1].off
-            self.env[a[0].name] = ("cpair", off) if t and t.endswith("64") else C(off)
+            self.bind(a[0].name, ("cpair", off) if t and t.endswith("64") else C(off))
             return
         if op == "cvta":                                   # global generic == global
-            self.env[a[0].name] = self.val64(a[1].name)
+            self.bind(a[0].name, self.val64(a[1].name))
             return
         if op == "mov" and isinstance(a[1], Var) and a[1].name in SREG_S2R:
             d = self.new()
@@ -280,7 +304,7 @@ class Selector:
             self.bind(a[0].name, C(SREG_C0[a[1].name]))
             return
         if op == "mov" and isinstance(a[1], Vec):          # pack {lo, hi}: pure renaming
-            self.env[a[0].name] = tuple(self.reg32(e) for e in a[1].elems)
+            self.bind(a[0].name, tuple(self.reg32(e) for e in a[1].elems))
             return
         if op == "mov" and isinstance(a[0], Vec):          # unpack: pure renaming
             lo, hi = self.pair(a[1].name)
@@ -295,7 +319,13 @@ class Selector:
             if isinstance(a[1], Var) and a[1].name.startswith("%") and a[1].name not in self.env:
                 raise NotSupported(f"special register {a[1].name}")
             if t and t.endswith("64"):
-                self.env[a[0].name] = self.val64(a[1].name)
+                v = self.operand64(a[1]) if isinstance(a[1], ImmI) else self.val64(a[1].name)
+                if isinstance(v, tuple) and v in self.homes.values() and a[0].name not in self.homes:
+                    snap = (self.new(), self.new())
+                    for dst, src in zip(snap, v):
+                        self.emit("MOV {d0}, {s0}", [dst], [src], copy=True)
+                    v = snap
+                self.bind(a[0].name, v)
             else:
                 v = self.val32(a[1])
                 if (isinstance(v, V) and a[0].name not in getattr(self, "homes", {})
@@ -311,36 +341,71 @@ class Selector:
                 self.bind(a[0].name, v)
             return
         if op == "mul" and "wide" in m and t in ("u32", "s32"):
-            self.env[a[0].name] = ("widemul", self.reg32(a[1]), self.val32(a[2]), t == "u32")
+            self.bind(a[0].name, ("widemul", self.reg32(a[1]), self.val32(a[2]), t == "u32"))
             return
-        if op == "add" and t in ("s64", "u64"):
-            if not (isinstance(a[1], Var) and isinstance(a[2], Var)):
-                # e.g. `add.s64 %rd1, %rd1, 4`: the pointer-increment form nvcc emits when it
-                # strength-reduces `base + i*4` in a loop. Needs a 64-bit add-immediate
-                # (IADD3 + IADD3.X carry chain with an immediate), which isn't implemented.
-                raise NotSupported("add.s64 with an immediate operand (pointer increment)")
-            x, y = a[1].name, a[2].name
-            vx, vy = self.val64(x), self.val64(y)
-            # fuse: base + mul.wide(a, b)  ->  IMAD.WIDE d, a, b, base
-            for wm, base in ((vy, x), (vx, y)):
-                if isinstance(wm, tuple) and wm[0] == "widemul":
-                    _, ma, mb, uns = wm
-                    bv = self.val64(base)
-                    c = bv[1] if isinstance(bv, tuple) and bv[0] == "cpair" else self.wide(self.pair(base))
-                    lo, hi = self.new(), self.new()
-                    src = C(c) if isinstance(c, int) else c
-                    if isinstance(src, C) and not isinstance(mb, V):
-                        # b and c cannot both be non-registers (ptxas: HFMA2.MMA R5 = imm; IMAD.WIDE ..., R5, c[])
-                        mb = self.reg32(ImmI(mb.v) if isinstance(mb, I) else mb)
-                    self.emit(f"IMAD.WIDE{'.U32' if uns else ''} {{d0}}, {{s0}}, {{s1}}, {{s2}}",
-                              [(lo, hi)], [ma, mb, src])
-                    self.env[a[0].name] = (lo, hi)
-                    return
-            (xl, xh), (yl, yh) = self.pair(x), self.pair(y)
+        if op in ("add", "sub") and t in ("s64", "u64"):
+            if op == "add" and all(isinstance(x, Var) for x in a[1:]):
+                x, y = a[1].name, a[2].name
+                vx, vy = self.val64(x), self.val64(y)
+                for wm, base in ((vy, x), (vx, y)):
+                    if isinstance(wm, tuple) and wm[0] == "widemul":
+                        _, ma, mb, uns = wm
+                        bv = self.val64(base)
+                        src = C(bv[1]) if bv[0] == "cpair" else self.wide(self.pair(base))
+                        if isinstance(src, C) and not isinstance(mb, V):
+                            tmp = self.new()
+                            self.emit("MOV {d0}, {s0}", [tmp], [mb])
+                            mb = tmp
+                        lo, hi = self.new(), self.new()
+                        self.emit(f"IMAD.WIDE{'.U32' if uns else ''} {{d0}}, {{s0}}, {{s1}}, {{s2}}",
+                                  [(lo, hi)], [ma, mb, src])
+                        self.bind(a[0].name, (lo, hi))
+                        return
+            (xl, xh), (yl, yh) = self.operand64(a[1]), self.operand64(a[2])
+            lo, hi, carry = self.new(), self.new(), self.newp()
+            if op == "add":
+                self.emit("IADD3 {d0}, {p0}, {s0}, {s1}, RZ", [lo, carry], [xl, yl])
+                self.emit("IADD3.X {d0}, {s0}, {s1}, RZ, {q0}, !PT", [hi], [xh, yh, (carry, False)])
+            else:
+                self.emit("IADD3 {d0}, {p0}, {s0}, -{s1}, RZ", [lo, carry], [xl, yl])
+                self.emit("IADD3.X {d0}, {s0}, ~{s1}, RZ, {q0}, !PT", [hi], [xh, yh, (carry, False)])
+            self.bind(a[0].name, (lo, hi))
+            return
+        if op == "cvt" and len(m) == 2 and all(x in ("s32", "u32", "s64", "u64") for x in m):
+            dst, src = m
+            if dst.endswith("64") and src.endswith("32"):
+                lo, hi = self.reg32(a[1]), self.new()
+                if src == "s32":
+                    self.emit("SHF.R.S32.HI {d0}, RZ, 0x1f, {s0}", [hi], [lo])
+                else:
+                    self.emit("MOV {d0}, 0x0", [hi])
+                self.bind(a[0].name, (lo, hi))
+            elif dst.endswith("32") and src.endswith("64"):
+                self.bind(a[0].name, self.operand64(a[1])[0])
+            elif dst.endswith("32"):
+                self.bind(a[0].name, self.val32(a[1]))
+            else:
+                self.bind(a[0].name, self.operand64(a[1]))
+            return
+        if t in ("b64", "u64", "s64") and op in ("and", "or", "xor", "shl", "shr"):
+            xl, xh = self.operand64(a[1])
             lo, hi = self.new(), self.new()
-            self.emit("IADD3 {d0}, P0, {s0}, {s1}, RZ", [lo], [xl, yl])
-            self.emit("IADD3.X {d0}, {s0}, {s1}, RZ, P0, !PT", [hi], [xh, yh])
-            self.env[a[0].name] = (lo, hi)
+            if op in ("and", "or", "xor"):
+                yl, yh = self.operand64(a[2])
+                lut = {"and": 0xc0, "or": 0xfc, "xor": 0x3c}[op]
+                for dst, x, y in ((lo, xl, yl), (hi, xh, yh)):
+                    self.emit(f"LOP3.LUT {{d0}}, {{s0}}, {{s1}}, RZ, {lut:#x}, !PT", [dst], [x, y])
+            elif isinstance(a[2], ImmI) and 0 <= a[2].value < 32:
+                sh = a[2].value
+                if op == "shl":
+                    self.emit(f"SHF.L.U32 {{d0}}, {{s0}}, {sh:#x}, RZ", [lo], [xl])
+                    self.emit(f"SHF.L.U64.HI {{d0}}, {{s0}}, {sh:#x}, {{s1}}", [hi], [xl, xh])
+                else:
+                    self.emit(f"SHF.R.U64 {{d0}}, {{s0}}, {sh:#x}, {{s1}}", [lo], [xl, xh])
+                    self.emit(f"SHF.R.{'S32' if t == 's64' else 'U32'}.HI {{d0}}, RZ, {sh:#x}, {{s0}}", [hi], [xh])
+            else:
+                raise NotSupported("64-bit shifts currently require a constant in [0, 31]")
+            self.bind(a[0].name, (lo, hi))
             return
         if op == "ld" and "global" in m:
             return self.load_global(ins, t)
@@ -351,6 +416,18 @@ class Selector:
             return
         if op == "bra":
             self.emit("BRA `({target})", side=True, target=a[0].name)
+            return
+        if "pred" in m and op in ("and", "or", "xor", "not", "mov"):
+            p = self.newp()
+            srcs = [self.pred(a[1])]
+            if op in ("and", "or", "xor"):
+                srcs.append(self.pred(a[2]))
+                lut = {"and": 0xc0, "or": 0xfc, "xor": 0x3c}[op]
+                fmt = f"PLOP3.LUT {{p0}}, PT, {{q0}}, {{q1}}, PT, {lut:#x}, 0x0"
+            else:
+                fmt = f"PLOP3.LUT {{p0}}, PT, {{q0}}, PT, PT, {0x0f if op == 'not' else 0xf0:#x}, 0x0"
+            self.emit(fmt, [p], srcs)
+            self.env[a[0].name] = p
             return
         if op == "setp":
             return self.setp(ins, t)
@@ -368,11 +445,63 @@ class Selector:
         if op == "mov" and isinstance(a[1], Var) and a[1].name in self.sym_shared:
             self.bind(a[0].name, I(self.sym_shared[a[1].name]))
             return
+        from openassembler.backend.fragments import library
+        key = ".".join((op, *m))
+        if key in library() and not (op in ("div", "rem") and t in ("s32", "u32") and isinstance(a[2], ImmI) and 2 <= a[2].value < 2**31):
+            return self.fragment(ins, key)
         if t == "f32" and op in ("add", "sub", "mul", "fma", "mad", "min", "max", "neg", "abs"):
             return self.f32(ins)
         if t in ("u32", "s32", "b32"):
             return self.alu32(ins, t)
         raise NotSupported(f"{op}.{'.'.join(m)}")
+
+    def fragment(self, ins, key):
+        """Expand a validated arithmetic sequence into private virtual registers."""
+        from openassembler.backend import fragments as F
+        frag = F.library()[key]
+        regs, preds = {}, {}
+        def reg(n):
+            if n not in regs:
+                regs[n] = self.new()
+            return regs[n]
+        def pred(n):
+            if n not in preds:
+                preds[n] = self.newp()
+            return preds[n]
+        seqid = self.__dict__.get("_fragment_id", 0) + 1
+        self._fragment_id = seqid
+        prefix = f"__oa_math_{seqid}_"
+        outer = getattr(self, "cur_guard", None)
+        self.cur_guard = None
+        if outer:
+            self.emit("BRA `({target})", side=True, target=prefix + "skip", guard=(outer[0], not outer[1]))
+        arity = len(ins.args) - 1
+        for n, index in frag["inputs"].items():
+            if index >= arity:
+                continue
+            src = self.val32(ins.args[index + 1])
+            self.emit("MOV {d0}, {s0}", [reg(int(n))], [src])
+        for line in frag["lines"]:
+            if "label" in line:
+                self.emit("", label=prefix + line["label"])
+                continue
+            fmt, defs, uses, guard, target = F.lower_line(line["text"], reg, pred, lambda n: self.wide((reg(n), reg(n + 1))))
+            if target and uses:
+                # BRA's optional predicate is ANDed with its instruction guard.
+                if guard:
+                    both = self.newp()
+                    self.emit("PLOP3.LUT {p0}, PT, {q0}, {q1}, PT, 0xc0, 0x0", [both], [guard, uses[0]])
+                    guard = (both, False)
+                else:
+                    guard = uses[0]
+                fmt, uses = "BRA `({target})", []
+            self.emit(fmt, defs, uses, guard=guard, target=prefix + target if target else None,
+                      side=bool(target), var_lat=line["var_lat"])
+        self.bind(ins.args[0].name, reg(frag["output"]))
+        if outer:
+            self.emit("", label=prefix + "skip")
+        self.cur_guard = outer
+        self.__dict__.pop("_const_cse", None)
 
     # predicates ------------------------------------------------------------------
 
@@ -388,7 +517,7 @@ class Selector:
 
     def setp(self, ins, t):
         a, m = ins.args, ins.mods
-        cmp = next((x for x in m if x in ("eq", "ne", "lt", "le", "gt", "ge", "lo", "ls", "hi", "hs")), None)
+        cmp = next((x for x in m if x in ("eq", "ne", "lt", "le", "gt", "ge", "lo", "ls", "hi", "hs", "equ", "neu", "ltu", "leu", "gtu", "geu", "num", "nan")), None)
         if cmp is None or len(a) != 3 or not isinstance(a[0], Var):
             raise NotSupported("setp form")
         cmp = {"lo": "lt", "ls": "le", "hi": "gt", "hs": "ge"}.get(cmp, cmp).upper()
@@ -437,7 +566,7 @@ class Selector:
             base, off = None, self.sym_shared[ad.base] + ad.off
         else:
             base, off = self.reg32(Var(ad.base)), ad.off
-        addr = f"[{{s0}}{'+' + hex(off) if off else ''}]" if base is not None else f"[{off:#x}]"
+        addr = f"[{{s0}}{'+' + hex(off) if off else ''}]" if base is not None else f"[RZ+{off:#x}]"
         uses0 = [base] if base is not None else []
         si = 1 if base is not None else 0
         nvec = 4 if "v4" in m else 2 if "v2" in m else 1
@@ -461,7 +590,7 @@ class Selector:
 
     def _addr(self, ad: Addr):
         base = self.wide(self.pair(ad.base))
-        return base, (f"+{ad.off:#x}" if ad.off else "")
+        return base, ((("+" if ad.off > 0 else "-") + hex(abs(ad.off))) if ad.off else "")
 
     def load_global(self, ins, t):
         m, a = ins.mods, ins.args
@@ -487,7 +616,7 @@ class Selector:
         if sfx == ".64":
             g = (self.new(), self.new())
             self.emit(f"LDG.E.64 {{d0}}, [{{s0}}.64{off}]", [g], [base], var_lat=True)
-            self.env[a[0].name] = g
+            self.bind(a[0].name, g)
         else:
             d = self.new()
             self.emit(f"LDG.E{sfx} {{d0}}, [{{s0}}.64{off}]", [d], [base], var_lat=True)
@@ -704,7 +833,12 @@ def coalesce(ops: list[Op]) -> list[Op]:
         taken.add(s_)
     if not ren:
         return ops
-    sub = lambda x: x if _is_puse(x) else (tuple(ren.get(v, v) for v in x) if isinstance(x, tuple) else ren.get(x, x))  # noqa: E731
+    def resolve(v):
+        while v in ren:
+            v = ren[v]
+        return v
+    def sub(x):
+        return x if _is_puse(x) else (tuple(resolve(v) for v in x) if isinstance(x, tuple) else resolve(x))
     out = []
     for op in ops:
         if op.copy and op.defs[0] in ren:
@@ -871,6 +1005,7 @@ def lower(ops: list[Op], phys: dict[V, int]) -> list[tuple[str, bool, list[int],
         kw.update({f"s{i}": name(u) for i, u in enumerate(ruses)})
         if puses and not pdefs:
             kw.update({f"p{i}": name(u) for i, u in enumerate(puses)})
+        kw.update({f"q{i}": name(u) for i, u in enumerate(puses)})
         kw["target"] = op.target or ""
         text = op.fmt.format(**kw)
         if op.guard is not None:

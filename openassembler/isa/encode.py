@@ -126,6 +126,13 @@ class Encoder:
             groups[key(ins)][w] = ins
         self.templates: dict[tuple, Template] = {}
         synth_words = {int(r["word"], 16) for r in (json.loads(synth.read_text()) if synth.exists() else [])}
+        arithmetic = ROOT / "specs" / arch / "arithmetic_templates.json"
+        if arithmetic.exists():
+            for r in json.loads(arithmetic.read_text()):
+                w = int(r["word"], 16)
+                ins = parse_insn(0, r["text"], w)
+                groups[key(ins)][w] = ins
+                synth_words.add(w)
         for k, members in groups.items():
             t = self._learn(list(members.values()), canonical=all(w in synth_words for w in members))
             if t:
@@ -177,6 +184,14 @@ class Encoder:
             elif isinstance(op, Imm):
                 # Secondary immediates (bitflip map, specs/sm_80/bitflip.json):
                 #   LOP3/PLOP3 LUT at 72..79; LEA shift at 75..79; PRMT selector reg form n/a.
+                if base.op == "PLOP3" and pos == 5:
+                    ok = all((bits(m.word, 64, 3) | bits(m.word, 72, 5) << 3) == m.ops[pos].int32() for m in members)
+                    slots.append(("plut", "split" if ok else None))
+                    continue
+                if base.op == "PLOP3" and pos == 6:
+                    ok = all(bits(m.word, 16, 8) == m.ops[pos].int32() for m in members)
+                    slots.append(("imm2", (16, 8) if ok else None))
+                    continue
                 sec = _SECONDARY_IMM.get((base.op, pos))
                 if sec is not None:
                     lo, wd = sec
@@ -292,6 +307,11 @@ class Encoder:
                 if field is None:
                     raise EncodeError(f"immediate slot {pos} not learned")
                 w = set_bits(w, 32, 32, op.f32bits() if field == "imm32f" else op.int32())
+            elif kind == "plut":
+                value = op.int32()
+                if field is None or not 0 <= value <= 255:
+                    raise EncodeError("invalid PLOP3 truth table")
+                w = set_bits(set_bits(w, 64, 3, value & 7), 72, 5, value >> 3)
             elif kind == "imm2":
                 if field is None:
                     raise EncodeError(f"secondary immediate slot {pos} not learned")

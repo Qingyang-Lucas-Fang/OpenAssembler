@@ -42,9 +42,9 @@ No NVIDIA GPU is needed for anything except section D.
 | Division/remainder-by-constant lowering is correct for **all 2³² inputs** (needs a C compiler: `clang` or `gcc`) | `python3 tools/verify_divconst_exhaustive.py` | 1-2 min |
 | All 97 Strassen/AlphaTensor schemes are exact over ℚ | `python3 -c "from openassembler.fastmm import factors as F; s=F.all_schemes(); print(len(s), all(F.verify(v) for v in s.values()))"` | ~30 s |
 
-On a fresh clone the unit tests give **58 passed, 148 skipped**. The skipped ones
-need the probe corpus (§C), and each says so in its skip reason (`pytest -rs`). With the
-toolkit and corpus set up the whole suite runs: see §C.
+On a fresh clone, tests that require NVIDIA tools or generated corpus data skip with a
+specific reason (`pytest -rs`). The CPU-only compiler, frontend, and CLI tests run
+without a GPU. With the toolkit set up, run the full suite with `uv run pytest -q`.
 
 ## C. With NVIDIA's toolkit
 
@@ -72,8 +72,8 @@ fresh clone has none):
 
 | Result | Command | Time |
 |---|---|---|
-| Compile + verify one kernel (writes `.cubin` and `.sass`) | `openassembler compile examples/div_by_const.ptx -o out.cubin --verify` | seconds |
-| Same from Python or CUDA C | `openassembler compile examples/vector_add.py -o out.cubin --verify` (or `.cu`) | seconds |
+| Compile + verify one kernel (writes `output/cubin/out.cubin` and `output/sass/out.sass`) | `openassembler compile examples/div_by_const.ptx -o out --verify` | seconds |
+| Same from Python or CUDA C | `openassembler compile examples/vector_add.py -o out --verify` (or `.cu`) | seconds |
 | **Build the 541-probe corpus** (needed by the rows below) | `openassembler corpus` | ~20 s |
 | Our compiler on every probe, validated against `nvdisasm` and the PTX interpreter | `openassembler check` | ~3 min |
 | Naive v0 compiler, for comparison | `openassembler check --compiler naive` | ~3 min |
@@ -85,7 +85,7 @@ fresh clone has none):
 | Fast-matmul kernels for every scheme | `openassembler fastmm build` | ~15 min |
 | Bit-field map (bit-flip fuzzing) | `python3 tools/bitflip.py sm_80 > corpus/sm_80/bitflip_report.txt` | ~5 s |
 | Encoder round-trip | `python3 tools/encoder_eval.py` | ~1 min |
-| Full test suite, every test runs (206) | `python3 -m pytest -q` | ~30 s - 1.5 min |
+| Full test suite | `uv run pytest -q` | depends on toolkit/corpus availability |
 
 If a step fails, the message says what is missing; the usual causes:
 
@@ -163,10 +163,36 @@ killed hard, `modal app list` then `modal app stop -y <id>` cleans up. Three lay
 (per-kernel watchdog, in-container `--budget`, Modal's hard limit) bound a run even if a kernel
 hangs. Never use `modal shell` for this: it bills until you close it.
 
+
+### Modal reproduction
+
+This is the exact path for reproducing a project `run` or `cnr` on a cloud GPU. Modal is billed while a container is running, so begin with the dry run.
+
+```sh
+pip install modal
+modal setup
+openassembler compile examples/vector_add.py -o vector_add --out-dir output
+openassembler run output --backend modal --dry-run --n 1024 --reps 0 --budget 60
+openassembler run output --backend modal --n 1024 --reps 3 --budget 60 --job-timeout 20
+```
+
+The dry run prints the jobs, upload size, GPU choice, budget, timeout, and a price estimate; it starts no container. `--budget` is the total in-container limit (capped by the Modal adapter), `--job-timeout` is the watchdog for one kernel job, and Modal adds a hard function timeout. Use a small `--n`, few repetitions, and a single kernel for a first smoke test. For real workloads, pass `--spec SPEC.json` with explicit buffers and launch geometry.
+
+The command writes `output/run.json`. Timestamped raw Modal evidence belongs outside the committed output tree so a later run cannot overwrite a recorded result. On completion check for leaked resources:
+
+```sh
+modal app list
+modal container list
+modal app stop APP_ID       # only if an app remains after a failed client process
+```
+
+Do not use `modal shell` for this workflow: an interactive container can continue billing until it is closed. A failed client process can leave an app alive; the cleanup commands above are the required recovery.
+
 ### D3. Your own kernel on a GPU: the MLP example
 
-`compile` gives you a cubin; there is not yet a one-line command to run an arbitrary cubin. The
-tested end-to-end example is a 2-layer MLP written in Python
+`compile` writes the cubin, SASS listing, PTX, ptxas reference cubin, and manifest under
+`output/`. `run output` executes the manifest directly; `cnr SRC` compiles and then runs the
+kernels built in that invocation. The tested end-to-end example is a 2-layer MLP written in Python
 ([`examples/mlp/kernels.py`](examples/mlp/kernels.py)), built with both compilers, run on an A100, and
 checked against a float64 reference:
 
@@ -186,12 +212,15 @@ More on what each frontend accepts: [docs/FRONTENDS.md](docs/FRONTENDS.md).
 
 | Command | Does | Section |
 |---|---|---|
-| `compile FILE` | `.ptx` / `.py` / `.cu` to `.cubin` + `.sass` (`--verify`, `--opt-level`, `--no-sass`, ...) | C |
+| `compile FILE` or `compile REPO/` | file/repository to `output/cubin/`, `output/sass/`, and manifest (`--out-dir`, `--verify`, `--fallback`) | C |
+| `run OUTDIR` | run an existing manifest on local/SSH/Modal, compare with ptxas; accepts `--spec` and `--dry-run` | D |
+| `cnr SRC` | compile a file/repository, then run only what was built | D |
 | `verify CUBIN PTX --kernel NAME` | check a cubin of the probe signature `(out, in, k, kf)` against the PTX interpreter | C |
 | `corpus` | build the 541-probe corpus (`tools/build_corpus.py`) | C |
 | `check` | `tools/compile_check.py` | C |
 | `bench` | `tools/bench_build.py` | C |
 | `fastmm build` / `fastmm run` | `tools/fastmm_build.py` / `tools/fastmm_run.py` (Modal) | C / D2 |
+| `nn_study.py` | compile and measure ReLU, GELU, softmax, LayerNorm, Adam, cross-entropy, matmul, and attention baselines | D2 |
 | `gpu run --backend local\|user@host\|modal` | `tools/gpu_run.py` / `tools/gpu_modal.py` | D1 / D2 |
 | `status` | the headline results from `docs/STATUS.md` | — |
 | *(none)* | interactive shell over all of the above | — |

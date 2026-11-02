@@ -49,11 +49,31 @@ def words_to_bytes(words: list[int]) -> bytes:
     return b"".join(struct.pack("<QQ", w & (2**64 - 1), w >> 64) for w in words)
 
 
-def splice_text(cubin: bytes, kname: str, words: list[int], nregs: int, exits: list[int]) -> bytes:
+def splice_text(cubin: bytes, kname: str, words: list[int], nregs: int, exits: list[int], *,
+                replace_helpers: bool = False) -> bytes:
     e = Elf.parse(cubin)
     e.replace_data(f".text.{kname}", words_to_bytes(words))
     t = e.section(f".text.{kname}")
     t.info = (t.info & 0x00FFFFFF) | (nregs << 24)
+    if replace_helpers:
+        # Selection flattened arithmetic helpers into the replacement kernel. Old
+        # helper symbols/relocations describe offsets in the removed code. Retain
+        # symbol indices (nv.info uses them), but retire their code ranges.
+        from openassembler.container.elf import SHT_SYMTAB, SHT_REL, SHT_RELA, _SYM
+        tid = e.sections.index(t)
+        symtab = next(sec for sec in e.sections if sec.type == SHT_SYMTAB)
+        data = bytearray(symtab.data)
+        for i, sym in enumerate(e.symbols):
+            if sym.shndx == tid and sym.name != kname and sym.info & 15 == 2:
+                sym.value = sym.size = 0
+                sym.info &= 0xf0  # STT_NOTYPE, with binding preserved
+                _SYM.pack_into(data, i * _SYM.size, sym.name_off, sym.info, sym.other,
+                               sym.shndx, sym.value, sym.size)
+        symtab.data = bytes(data)
+        for sec in e.sections:
+            if sec.type in (SHT_REL, SHT_RELA) and sec.info == tid:
+                e.replace_data(sec.name, b"")
+
     recs = nvinfo.parse(e.section(".nv.info").data)
     for r in recs:
         if r.name == "REGCOUNT":

@@ -1,23 +1,65 @@
-"""Dispatches `openassembler compile` to the right frontend by file extension, so
-the backend (openassembler.backend.ra) always starts from PTX text regardless of
-whether the source was already PTX, a Python kernel (openassembler.pyfront), or
-CUDA C/C++ (openassembler.cppfront, which shells out to nvcc once -- see its
-docstring for why that's not "cheating" the same way ptxas's code generation
-would be).
+"""Turns any supported source file into PTX for the backend, so
+openassembler.backend.ra always starts from PTX text regardless of whether the
+source was already PTX, a Python kernel (openassembler.pyfront), or CUDA C/C++
+(openassembler.cppfront, which shells out to nvcc once -- see its docstring for
+why that's not "cheating" the same way ptxas's code generation would be).
+
+to_ptx_module() is what `openassembler compile` uses: one source file -> one PTX
+module holding ALL of its kernels (they end up in one cubin). to_ptx() is the
+older single-kernel form, kept for callers that want exactly one kernel.
 """
 
 from __future__ import annotations
 
+import re
+import sys
 from pathlib import Path
 
-PTX_EXTS = (".ptx",)
-PY_EXTS = (".py",)
-CU_EXTS = (".cu", ".cuh")
-CPP_EXTS = (".cpp", ".cc", ".cxx")
+from openassembler.project import CPP_EXTS, CU_EXTS, PTX_EXTS, PY_EXTS, python_kernel_names
 
 
 class FrontendError(Exception):
     pass
+
+
+_HEADER_LINE = re.compile(r"^\s*\.(version|target|address_size)\b.*$", re.M)
+
+
+def _merge_ptx(texts: list[str]) -> str:
+    """Several single-kernel PTX modules (pyfront emits one per @kernel) -> one module:
+    keep the first module's .version/.target/.address_size header, drop the repeats."""
+    if not texts:
+        return ""
+    return "\n".join([texts[0], *(_HEADER_LINE.sub("", t) for t in texts[1:])])
+
+
+def _python_module(path: Path, arch: str) -> tuple[str, list[str], list[str]]:
+    """Statically compile all supported @kernel definitions; never import user code."""
+    from openassembler.pyfront.compile import compile_file
+    ptx, names = compile_file(path, arch)
+    return ptx, list(names), []
+
+
+def to_ptx_module(path: Path, *, arch: str, include_dirs: list[Path] | None = None,
+                  nvcc_flags: list[str] | None = None) -> tuple[str, list[str], list[str]]:
+    """(ptx_text, kernel names in source order, notes). Raises FrontendError for an
+    unsupported extension; the frontends' own errors (pyfront.NotSupported,
+    cppfront.CppFrontendError) propagate unchanged for the caller to report."""
+    suf = path.suffix.lower()
+    if suf in PTX_EXTS:
+        from openassembler.cppfront import _kernel_names
+
+        text = path.read_text()
+        return text, _kernel_names(text), []
+    if suf in PY_EXTS:
+        return _python_module(path, arch)
+    if suf in CU_EXTS or suf in CPP_EXTS:
+        from openassembler.cppfront import compile_to_ptx_module
+
+        ptx, names = compile_to_ptx_module(path, arch=arch, include_dirs=include_dirs, extra_flags=nvcc_flags)
+        return ptx, names, []
+    raise FrontendError(f"don't know how to compile {path.suffix or 'extension-less'!r} files "
+                        f"(supported: {' '.join(PTX_EXTS + PY_EXTS + CU_EXTS + CPP_EXTS)})")
 
 
 def to_ptx(path: Path, *, entry: str | None, arch: str) -> tuple[str, str]:

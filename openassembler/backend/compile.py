@@ -316,25 +316,22 @@ def _opname(text: str) -> str:
 
 
 def _pdefs(text: str) -> set:
-    """Predicate registers written (SETP/PLOP3 put them in the first two operands)."""
     import re
     body = re.sub(r"^@!?P\d ", "", text)
     op, _, rest = body.partition(" ")
-    if not re.search(r"SETP|PLOP3|R2P", op):
-        return set()
-    return {x.strip() for x in rest.split(",")[:2] if re.fullmatch(r"P[0-6]", x.strip())}
+    args = [x.strip() for x in rest.split(",")]
+    count = 2 if re.search(r"SETP|PLOP3|R2P|IADD3|LEA|LOP3", op) else 1 if op.startswith("FCHK") else 0
+    return {x for x in args[:count] if re.fullmatch(r"P[0-6]", x)}
 
 
 def _puses(text: str) -> set:
-    """Predicate registers read: the guard plus predicate source operands."""
     import re
     g = re.match(r"@!?(P[0-6]) ", text)
     body = re.sub(r"^@!?P\d ", "", text)
     op, _, rest = body.partition(" ")
     args = [x.strip().lstrip("!") for x in rest.split(",")]
-    if re.search(r"SETP|PLOP3", op):
-        args = args[2:]
-    return {a for a in args if re.fullmatch(r"P[0-6]", a)} | ({g[1]} if g else set())
+    count = 2 if re.search(r"SETP|PLOP3|R2P|IADD3|LEA|LOP3", op) else 1 if op.startswith("FCHK") else 0
+    return {x for x in args[count:] if re.fullmatch(r"P[0-6]", x)} | ({g[1]} if g else set())
 
 
 def schedule(code: list[Out], labels: dict | None = None, model: str = "safe") -> list[tuple[str, Control]]:
@@ -367,7 +364,9 @@ def schedule(code: list[Out], labels: dict | None = None, model: str = "safe") -
         if i in join_at:
             for b in set(pending_w.values()) | set(pending_r.values()):
                 wait |= 1 << b
-        for r in o.reads + o.writes:
+        pred_reads = [("p", p) for p in _puses(o.text)]
+        pred_writes = [("p", p) for p in _pdefs(o.text)]
+        for r in o.reads + o.writes + pred_reads + pred_writes:
             if r in pending_w:
                 wait |= 1 << pending_w[r]
         for r in o.writes:
@@ -382,7 +381,7 @@ def schedule(code: list[Out], labels: dict | None = None, model: str = "safe") -
         wbar = rbar = 7
         if o.var_lat:
             wbar = take()
-            for r in o.writes:
+            for r in o.writes + pred_writes:
                 pending_w[r] = wbar
         if _opname(o.text) in MEM_ASYNC and o.reads:
             rbar = take()
@@ -419,7 +418,7 @@ def _branch_pred_latency(out):
             if len(ops) < 2:
                 continue
             dsts = [x.strip() for x in ops[1].split(",")[:2]]
-            if m[1] in dsts and re.search(r"SETP|PLOP3|R2P", ops[0]):
+            if m[1] in _pdefs(out[j][0]):
                 gap = sum(out[q][1].stall for q in range(j, i))
                 q = i - 1
                 while gap < PRED_TO_GUARD and q >= j:

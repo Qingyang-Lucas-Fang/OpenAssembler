@@ -126,7 +126,7 @@ def _split_top(s: str, sep: str = ",") -> list[str]:
 
 
 def parse_operand(t: str) -> Operand:
-    t = t.strip()
+    t = t.strip().replace("+-", "-")
     if t.startswith("{"):
         return Vec(tuple(None if e == "_" else parse_operand(e) for e in _split_top(t[1:-1])))
     if t.startswith("["):

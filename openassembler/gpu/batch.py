@@ -46,6 +46,11 @@ def worker(jobs_path: str, start: int, out_path: str) -> None:
                 # a fault poisons the context: write the result and let the parent restart us
                 _append(out_path, i, res)
                 os._exit(3)
+        except Exception as e:  # noqa: BLE001
+            # Anything else (a malformed job, cuBLAS missing, ...): record it and go on.
+            # Without this the worker died with no result for job i, and the parent
+            # restarted it at job i again until the budget ran out.
+            res = {"error": f"{type(e).__name__}: {e}", "error_name": "HOST_EXCEPTION"}
         _append(out_path, i, res)
     drv.close()
 

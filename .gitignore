@@ -41,3 +41,7 @@ corpus/.tmp/
 # --- Modal / local env ---
 .env
 .modal.toml
+
+# Compiler artifacts and local environments
+output/
+.venv/

@@ -34,12 +34,18 @@ def _wrap(text: str, width: int) -> list[str]:
 
 
 TIPS = [
-    "Run `compile <file.ptx> -o out.cubin --verify` to compile with our own"
-    " backend and check it against the PTX reference interpreter.",
-    "`gpu run --backend user@host` runs on any NVIDIA box you can SSH into --"
-    " no CUDA toolkit needed there.",
-    "`status` prints the headline, reproducible results from docs/STATUS.md.",
-    "`help` lists every command; `<command> --help` shows its flags.",
+    "Compiles Python (@kernel), CUDA C / C++ (__global__) and PTX to NVIDIA SASS"
+    " (sm_80) with our own backend, not ptxas's code generator.",
+    "`compile kernel.cu` writes output/cubin/kernel.cubin + output/sass/kernel.sass"
+    " (+ manifest.json). `-o NAME` renames it, `--out-dir DIR` moves output/,"
+    " `--verify` checks it against the PTX reference interpreter.",
+    "`compile my_repo/` compiles every kernel in a repo (.ptx, .cu/.cpp with"
+    " __global__, .py with @kernel); other files are skipped and counted.",
+    "`run` executes output/ on a GPU: our cubin vs ptxas's, bit-exact + timing."
+    " `--backend local|modal|user@host`, `--spec`, `--dry-run`.",
+    "`cnr SRC` = compile and run in one step.",
+    "`status` prints the headline results; `help` lists every command;"
+    " `<command> --help` shows its flags.",
 ]
 
 
@@ -63,7 +69,7 @@ def render(width: int | None = None, include_logo: bool = True) -> str:
         out.append("")
 
     inner = cols - 2
-    header = f"openassembler v{__version__} · PTX → SASS with our own backend"
+    header = f"openassembler v{__version__} · Python / CUDA C / C++ → SASS"
     out.append(f"╭{'─' * inner}╮")
     out.append(f"│{header.center(inner)}│")
     out.append(f"│{' ' * inner}│")

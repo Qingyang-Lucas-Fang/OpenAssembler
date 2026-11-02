@@ -1,6 +1,6 @@
 # Status (sm_80; CUDA 12.8 oracle; real-hardware validation on A100 via Modal)
 
-Updated 2026-10-30. Every number below comes from a script in this repo. Section
+Updated 2026-11-03. Every number below comes from a script in this repo. Section
 "Reproduce" lists the exact command for each one.
 
 ## New since 2026-10-25 (details in the sections below)
@@ -12,21 +12,23 @@ Updated 2026-10-30. Every number below comes from a script in this repo. Section
 | Hardware latencies (A100, measured, not mined) | Fixed-latency RAW: **4 cycles within a pipe, 5 across** (IMAD/FFMA pipe vs IADD3/LOP3/SHF pipe). **Predicate → any `@P`-guarded op or branch: 13 cycles.** SETP → `SEL …, P`: 4. ALU → STG data: 1–2. 33 pairs × stalls 1–15. `corpus/sm_80/hw_latency.json` |
 | Compiler features | Branches, loops, predication (`@p` ops update in place), f32 ops, f32 immediates, shared memory (v1/v2/v4), `bar.sync 0`, `st.global.v4`, 4× loop unrolling, basic-block list scheduling, measured-latency stalls |
 | Emulator | Multi-warp CTAs with cooperative `BAR.SYNC`; uniform-datapath ops execute once per warp (were executed per thread) |
-| Tests | 206 passing with the toolkit and probe corpus; 58 passed / 148 skipped on a fresh clone (the skipped need the corpus) |
+| Tests | Run `uv run pytest -q`; toolkit and corpus tests skip with an explicit reason when unavailable. The backend regression suite covers arithmetic, pointer loops, shared-memory barriers, CLI manifests, and the GPU runner. |
+| 0.2.0 backend regression | 65 arithmetic fragments (including division, sqrt, casts, approximate math, integer div/rem) and pointer-loop fixtures pass emulator/interpreter/encoder checks. 372 tests pass in the current toolkit environment. |
+| Modal validation (2026-11-02 to 2026-11-03) | Python vector-add: bit-exact on A100-SXM4-80GB. Arithmetic adversarial replay: 65 compiled fragments, 320 input pairs each, bit-exact on A100-SXM4-40GB. CUDA pointer-loop pipeline: dot rows, grid-stride SAXPY, naive matmul, nested loops: bit-exact on A100-SXM4-40GB. A 64-thread cross-warp shared-memory barrier matched ptxas on A100-SXM4-80GB. NN baseline and evidence: [study](NN_OPTIMIZATION_STUDY.md). |
 
 ## Headline results (2026-10-25)
 
 | Area | Result |
 |---|---|
 | **Our compiler on real hardware** | **110/110 cubins built by our compiler (v1) are bit-exact on an A100-SXM4-40GB** (4 trials × 32 threads each; `gpu_a100_40gb_ours_ra.json`) |
-| Our compiler size | On those 110 probes: **1,103 SASS instructions vs ptxas 12.8's 1,182 (−6.7%)**; on the 80 both of our compilers handled then: v1 808, naive v0 2,281, ptxas 887. **Re-measured 2026-11-01** (`openassembler check`): on today's 203 probes, ours 2,132 vs ptxas 2,249 (−5.2%); on the 87 probes v0 and v1 both handle: v1 878, naive v0 2,477, ptxas 962. These are instruction counts only. Nothing has been timed yet, and our scheduler is conservative (see Gaps). |
-| Our compiler coverage | 110 of 541 probes at the time of the A100 run above (**203 today**; naive v0: 89). Everything else is refused with a reason (predication, branches, floats, ordered memory ops, …). |
+| Our compiler size | On those 110 probes: **1,103 SASS instructions vs ptxas 12.8's 1,182 (−6.7%)**; on the 80 both of our compilers handled then: v1 808, naive v0 2,281, ptxas 887. **Re-measured 2026-11-01** (`openassembler check`): on today's 203 probes, ours 2,132 vs ptxas 2,249 (−5.2%); on the 87 probes v0 and v1 both handle: v1 878, naive v0 2,477, ptxas 962. These are instruction counts for the historical probe set. No timing was collected on those 203 probes; selected microbenchmark timing is summarized separately above. |
+| Our compiler coverage | The original probe corpus count remains a historical 203-kernel compiler run. The 0.2.0 arithmetic and pointer-loop regressions are tracked separately above; unsupported constructs remain explicit diagnostics. |
 | Emulator vs A100 (ptxas cubins) | **532/541 probes reproduce the A100**, bit-exact or within the PTX spec's tolerance for `.approx` ops. The other 9: 7 nondeterministic (clock, globaltimer, smid, nsmid, warpid, gridid, cvta.shared) plus sin/cos lanes with \|x\| > 100π, where the spec gives no accuracy bound. |
 | Tensor cores | HMMA f16/bf16/tf32, IMMA s8, DMMA f64, LDSM and LDGSTS are emulated **bit-exact on 512/512 recorded A100 lanes each**. |
 | Emulator vs PTX interpreter (offline) | 518/541 bit-exact, 0 mismatches. The other 23 use ops the interpreter doesn't model (mma, ldmatrix, cp.async, timers); those are verified against hardware instead. |
 | M2 stall model | 89.2% exact stall-field match on held-out kernels |
 | Encoder | 1,239/1,239 randomized register/offset rewrites disassemble to the intended text |
-| Tests | (2026-10-25 run: 157; see the 2026-10-30 row above for the current count) |
+| Tests | 372 passing in the 2026-11-03 toolkit run; fresh clones skip only tests whose external toolkit/corpus is unavailable. |
 | GPU spend | About $1.5 of the $10 cap so far, by runner estimates (mostly the n = 8192 fast-matmul runs, about 10 A100-minutes each, including two runs whose results were lost when Modal stopped the app). Exact figure on the Modal usage page. Every run ended with zero containers; one leftover container was stopped by hand with `modal app stop`. |
 
 ## What the A100 taught us (each finding has a recorded run behind it)
@@ -148,5 +150,5 @@ but not yet against a real SSH host.
 - **4×4×4 schemes:** the block GEMMs are too small for 108 SMs at n = 8192. Try n = 16384 (needs 2 GB more buffers, OK on 40 GB), or two Strassen levels with fused additions.
 - **Dependent chains:** ptxas still wins by 5–8%. It hides the loop counter and branch inside the chain; we pay a 13-cycle predicate wait per unrolled trip. Fix: compute the next trip's predicate one trip early (software pipelining).
 - **Other GPUs:** the loader, plan runner and timing harness are arch-independent (`--gpu L4|A10|H100|…`), but our encoder and latency model are sm_80 only. The A10 (sm_86) shares the sm_80 encoding for everything we emit, though that is not yet verified. sm_89/sm_90 need their own corpus, synthesized templates and a latency sweep, all produced by the same tools.
-- **Compiler gaps:** warp shuffles/votes, f16/f64 arithmetic, `ld.global.v2`, atomics, more than 7 live predicates, register spilling.
+- **Compiler gaps:** warp shuffles/votes, f16/f64 arithmetic, `ld.global.v2`, atomics, more than 7 live predicates, register spilling, and some non-default float rounding/encoding forms. The supported 0.2.0 arithmetic and pointer-loop paths are covered by measured fragments and regression tests.
 - **Unmeasured hypotheses:** tensor-core handling of inf/NaN/subnormal inputs, DMMA order (matched on finite inputs), `QSPC` on real shared/local pointers.

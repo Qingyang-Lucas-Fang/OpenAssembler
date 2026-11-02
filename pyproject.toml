@@ -1,9 +1,10 @@
 [project]
 name = "openassembler"
-version = "0.1.0"
-description = "A from-scratch NVIDIA SASS compiler/assembler/emulator: reverse-engineered ptxas semantics, a PTX-to-SASS backend with measured-latency scheduling, and Strassen/AlphaTensor fast matmul"
+version = "0.2.0"
+description = "A Python / CUDA C / C++ (and PTX) to NVIDIA SASS compiler with its own backend: reverse-engineered ptxas semantics, a bit-exact SASS emulator, measured-latency scheduling, and Strassen/AlphaTensor fast matmul"
 readme = "README.md"
 license = "Apache-2.0"
+keywords = ["cuda", "sass", "ptx", "compiler", "gpu", "nvidia"]
 requires-python = ">=3.12"
 dependencies = []
 
@@ -21,3 +22,21 @@ build-backend = "hatchling.build"
 testpaths = ["tests"]
 pythonpath = ["."]
 markers = ["oracle: needs the NVIDIA tools via env/cuda.sh (colima VM)"]
+
+[tool.hatch.build.targets.wheel]
+[tool.hatch.build.targets.wheel.force-include]
+"corpus/sm_80/pairs.jsonl" = "corpus/sm_80/pairs.jsonl"
+"specs/sm_80/synth_templates.json" = "specs/sm_80/synth_templates.json"
+"specs/sm_80/synth_fieldmaps.json" = "specs/sm_80/synth_fieldmaps.json"
+"specs/sm_80/arithmetic_templates.json" = "specs/sm_80/arithmetic_templates.json"
+"tools" = "tools"
+"env/cuda.sh" = "env/cuda.sh"
+"env/fetch_cuda.sh" = "env/fetch_cuda.sh"
+"corpus/sm_80/machine_model.json" = "corpus/sm_80/machine_model.json"
+"specs/sm_80" = "specs/sm_80"
+"third_party/alphatensor" = "third_party/alphatensor"
+"examples" = "examples"
+"docs" = "docs"
+"README.md" = "README.md"
+"NOTICE" = "NOTICE"
+"LICENSE" = "LICENSE"
