@@ -97,6 +97,11 @@ def main(gpu: str = GPU_DEFAULT, which: str = "ptxas", trials: int = 4, only: st
     tag = gpu.lower().replace("!", "").replace("-", "_")
     kind = "_ours" if which == "ours" else ("_" + Path(which[4:]).name if which.startswith("dir:") else "")
     out = G.ROOT / "corpus" / arch / f"gpu_{tag}{kind}{suffix}.json"
+    if out.exists() and not suffix:
+        # corpus/ holds the committed evidence of past runs; a reproduction run must not
+        # overwrite it. Write next to it under a timestamp instead (diff the two to compare).
+        out = out.with_name(f"{out.stem}_{time.strftime('%Y%m%d-%H%M%S')}.json")
+        print(f"note: {out.name}: not overwriting the recorded run")
     if timing:
         corr = [j for j in jobs if j.get("mode") != "time"]
         idx = {i: r for i, r in res["results"].items()}

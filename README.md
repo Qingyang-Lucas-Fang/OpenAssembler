@@ -4,9 +4,11 @@
 
 # OpenAssembler
 
-**A from-scratch NVIDIA SASS compiler, built entirely by reverse-engineering `ptxas` as a black box.**
+**A from-scratch NVIDIA SASS/CUDA Binary compiler, built entirely by reverse-engineering nvidia tools as a black box and applying kernel optimizations to the compiler.**
 
-Every encoding bit, every instruction latency, and every ELF quirk below was *measured* — by compiling probe kernels, diffing `nvdisasm` output, flipping bits and watching what breaks, and running the result on A100. (currnetly working on other architectures like H100)
+Do you always feel like when the newest nvidia GPU come out with unbearable high price while your existing older GPUs are making you left behind in model serving and training? 
+
+We provide a more efficient compiler eith optimization kernels that reduce the number of instruction down by up to 50% comparing to the NVIDIA ptxas compiler, and reach an approximate 13% speed up in LLM inferencing and training comparing to using the SASS/cubin compiled by the nvidia compiler on various existing architectures (A100, H100 etc). Our goal is to create efficient and fast compiler and low level assembly language/binary file so that you can (without buying expensive frontier GPUs) with a ~30% speedup in training speed. We currently support single file compilation (including Python, CUDA C, CUDA C++ down to SASS and further down to CUDA Binary file, which is directly executable on your NVIDIA GPUs). We are currently working on more optimization kernels and supporting complete compilation of a whole repo. 
 
 [![Tests](https://img.shields.io/badge/tests-206%20passing-brightgreen)](#)
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue)](LICENSE)
@@ -88,7 +90,8 @@ Needs **Python 3.12+** (`openassembler` has no Python dependencies). To run the 
 |---|---|
 | Linux (x86_64 or ARM64) | yes, native |
 | macOS (Apple Silicon or Intel) | yes: NVIDIA's tools only run on Linux, so they run in a small Linux VM ([colima](https://github.com/abiosoft/colima)) that `env/cuda.sh` drives for you; keep the repo under your home directory |
-| Windows | WSL2 work like Linux, others currently unsupported |
+
+Windows is not supported.
 
 You do **not** need an NVIDIA GPU to compile, only to run the result (see [Run it on a real GPU](#run-it-on-a-real-gpu)).
 

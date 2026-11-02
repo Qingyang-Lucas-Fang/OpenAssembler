@@ -195,5 +195,8 @@ def main(n: int = 4096, schemes: str = "strassen_2x2x2,at_2x2x2,naive_2x2x2,stra
     print("* effective: 2 n^3 / time (counts the classical flop count for every plan)")
     tag = gpu.lower().replace("!", "").replace("-", "_")
     out = Path(__file__).resolve().parent.parent / "corpus" / "sm_80" / f"fastmm_{tag}_n{n}_{gemm}.json"
+    if out.exists():
+        # the committed file is the recorded run; keep it, write this one beside it
+        out = out.with_name(f"{out.stem}_{time.strftime('%Y%m%d-%H%M%S')}.json")
     out.write_text(json.dumps({"device": dev, "n": n, "plans": info, "results": rows}, indent=1))
     print(f"-> {out}")

@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from dataclasses import dataclass
 from fractions import Fraction
 from typing import Callable
 
@@ -680,17 +681,92 @@ def _redux(it, lanes, ins):
         it.put(ln, d, r, 32)
 
 
+# ---- barriers ---------------------------------------------------------------------------
+# CTA barriers (bar/barrier .sync/.arrive/.red) are scheduled by Interp.run/_bar_arrive,
+# which needs every warp's state; this module only decodes their operands. Only the
+# warp-scope bar.warp.sync stays an ordinary collective.
+
+@dataclass
+class BarrierForm:
+    bid: int                    # barrier id 0..15
+    count: int | None           # expected threads, None = whole CTA
+    waits: bool                 # .sync/.red block; .arrive does not
+    red: str | None             # "popc" / "and" / "or"
+    preds: dict[int, bool]      # bar.red: id(lane) -> predicate value
+    aligned: bool
+
+
+def cta_barrier(ins: Instr) -> bool:
+    return ins.op in ("bar", "barrier") and not ins.has("warp")
+
+
+def _uniform(it, lanes, op, what: str, ins: Instr) -> int:
+    vals = {it.get(ln, op, 32) for ln in lanes}
+    if len(vals) != 1:
+        raise NotModeled(f"{ins.op}.{'.'.join(ins.mods)}: {what} differs between threads of a warp "
+                         f"({sorted(vals)}); undefined behavior per the PTX ISA")
+    return vals.pop()
+
+
+def barrier_form(it, ins: Instr, lanes: list[Lane]) -> BarrierForm:
+    """Decode the CTA-barrier forms nvcc and hand-written PTX use:
+        bar{.cta}.sync a{, b}      barrier{.cta}.sync{.aligned} a{, b}
+        bar{.cta}.arrive a, b      barrier{.cta}.arrive{.aligned} a, b
+        bar{.cta}.red.popc.u32 d, a{, b}, {!}p
+        bar{.cta}.red.{and,or}.pred d, a{, b}, {!}p     (barrier.red likewise)
+    a = barrier id 0..15, b = thread count (immediate or register, uniform per
+    warp). __syncthreads() is `bar.sync 0`; __syncthreads_count/_and/_or are the
+    bar.red forms. Anything else (bare `bar`, .cluster, bar.arrive without a
+    count, other reduction types) is rejected rather than guessed at."""
+    name = f"{ins.op}.{'.'.join(ins.mods)}"
+    known = {"cta", "sync", "arrive", "red", "aligned", "popc", "and", "or", "u32", "pred"}
+    extra = [m for m in ins.mods if m not in known]
+    if extra:
+        raise NotModeled(f"{name}: modifier(s) {extra} not modeled (only CTA-scope barriers)")
+    kinds = [m for m in ("sync", "arrive", "red") if m in ins.mods]
+    if len(kinds) != 1:
+        raise NotModeled(f"{name}: expected exactly one of .sync/.arrive/.red")
+    if ins.has("aligned") and ins.op == "bar":
+        raise NotModeled(f"{name}: .aligned is only valid on barrier.*")
+    kind, args = kinds[0], list(ins.args)
+    red, preds = None, {}
+    if kind == "red":
+        ops = [m for m in ("popc", "and", "or") if m in ins.mods]
+        want = {"popc": "u32", "and": "pred", "or": "pred"}
+        if len(ops) != 1 or not ins.has(want[ops[0]]) or len(args) not in (3, 4):
+            raise NotModeled(f"{name}: expected bar.red.popc.u32 / bar.red.and.pred / bar.red.or.pred "
+                             "d, a{, b}, {!}p")
+        red, p = ops[0], args[-1]
+        if not isinstance(p, Var):
+            raise NotModeled(f"{name}: predicate operand {p}")
+        preds = {id(ln): it.pred(ln, p.name) for ln in lanes}
+        args = args[1:-1]
+    elif any(m in ins.mods for m in ("popc", "and", "or", "u32", "pred")):
+        raise NotModeled(f"{name}: reduction modifiers without .red")
+    if not 1 <= len(args) <= 2 or (kind == "arrive" and len(args) != 2):
+        raise NotModeled(f"{name}: expected barrier id{' and thread count' if kind == 'arrive' else ''}"
+                         f"{'' if kind == 'arrive' else ' and optional thread count'}")
+    bid = _uniform(it, lanes, args[0], "barrier id", ins)
+    if bid > 15:
+        raise NotModeled(f"{name}: barrier id {bid} out of range 0..15")
+    count = _uniform(it, lanes, args[1], "thread count", ins) if len(args) == 2 else None
+    return BarrierForm(bid, count, kind != "arrive", red, preds,
+                       aligned=ins.op == "bar" or ins.has("aligned"))
+
+
 @warp("bar", "barrier")
-def _bar(it, lanes, ins):
-    if len(it.warps) > 1:
-        raise NotModeled("CTA barrier across warps")
-    if ins.has("red"):
-        d, _bar_id, p = ins.args[0], ins.args[1], ins.args[-1]
-        vals = [it.pred(ln, p.name.lstrip("!")) != p.name.startswith("!") for ln in lanes]
-        if ins.has("popc"):
-            for ln in lanes:
-                it.put(ln, d, sum(vals), 32)
-        else:
-            r = all(vals) if ins.has("and") else any(vals)
-            for ln in lanes:
-                it.put(ln, d, int(r), 1)
+def _bar_warp(it, lanes, ins):
+    """bar.warp.sync membermask (__syncwarp). The scheduler runs the lowest-pc
+    lane group first, so any live lane of the mask that is not executing this
+    instruction with us has diverged past it and would have to arrive later at a
+    (possibly different) bar.warp.sync -- that rendezvous is not modeled, so it is
+    rejected instead of treated as a no-op. Exited lanes in the mask are ignored."""
+    if not ins.has("warp", "sync"):
+        raise NotModeled(f"{ins.op}.{'.'.join(ins.mods)}")
+    mask = _uniform(it, lanes, ins.args[0], "membermask", ins)
+    here = {ln.lane for ln in lanes}
+    w = it.warps[lanes[0].warp]
+    away = [ln.lane for ln in w if not ln.done and mask >> ln.lane & 1 and ln.lane not in here]
+    if away:
+        raise NotModeled(f"bar.warp.sync: lanes {away[:8]} of the membermask are on a divergent path; "
+                         "divergent __syncwarp is not modeled")

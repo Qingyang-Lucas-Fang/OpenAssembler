@@ -52,7 +52,6 @@ case "$(uname -s)" in
     ;;
   *)
     echo "env/cuda.sh: unsupported OS $(uname -s). Supported: Linux, macOS (via colima)." >&2
-    echo "  On Windows use WSL2 and follow the Linux instructions." >&2
     exit 1
     ;;
 esac

@@ -29,7 +29,8 @@ they find the package themselves. `uv` is optional: every `python3 ...` below wo
 |---|---|
 | Linux x86_64 / ARM64 | native; the toolkit runs directly |
 | macOS, Apple Silicon or Intel | supported; the toolkit is Linux-only, so it runs inside a small [colima](https://github.com/abiosoft/colima) VM that `env/cuda.sh` drives. **Keep the repo under your home directory** (the VM mounts only `$HOME`). |
-| Windows | not tested; WSL2 should work like Linux |
+
+Windows is not supported.
 
 No NVIDIA GPU is needed for anything except section D.
 
@@ -94,7 +95,7 @@ If a step fails, the message says what is missing; the usual causes:
 | `is outside $HOME` / `outside your home directory` | move the repo under your home directory (macOS VM mount) |
 | `ptxas: command not found` / `couldn't build the ELF container` | `env/fetch_cuda.sh` |
 | `the probe corpus isn't built yet` / `no ours cubins` | `openassembler corpus`, then `openassembler check` |
-| `unsupported OS` | use Linux or macOS (Windows: WSL2 is untested) |
+| `unsupported OS` | use Linux or macOS; Windows is not supported |
 | `need xz` | `sudo apt install xz-utils` (NVIDIA ships .tar.xz) |
 | `nvcc fatal ... gcc` compiling a `.cu` | install a host C++ compiler: `sudo apt install g++` |
 

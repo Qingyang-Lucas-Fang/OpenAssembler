@@ -8,10 +8,19 @@ cppfront frontends -- or anyone's hand-written PTX -- produce: it reads the
 kernel's own `.param` list and launch geometry instead of assuming one.
 Trade-off: it doesn't know what each array actually means (is `b` an input
 or scratch space?), so every pointer parameter is treated as length `n`
-(matching the launch's thread count) and filled with random data; a kernel
-that writes outside that bound, or whose real geometry needs more than one
-block, needs a hand-written check instead (same as the original probes'
-fixed ABI didn't generalize either).
+(matching the launch's total thread count) and filled with random data; a
+kernel that writes outside that bound needs a hand-written check instead
+(same as the original probes' fixed ABI didn't generalize either).
+
+Geometry: by default one CTA of `n_elems` threads (the original behaviour).
+With `grid=g` the same n_elems elements are spread over g CTAs of
+ceil(n_elems / g) threads, so a kernel indexing with
+%ctaid.x * %ntid.x + %tid.x touches every element and really runs several
+blocks; `block=` overrides the block size. Each CTA runs separately on both
+engines (one Machine / Interp per %ctaid, own shared memory, one shared
+global memory) in the same order, which is exact for kernels whose CTAs don't
+communicate through global memory within one launch -- the CUDA model gives
+no ordering between CTAs anyway.
 """
 
 from __future__ import annotations
@@ -62,11 +71,34 @@ def _align(chunks: list[bytes], size: int) -> None:
         chunks.append(b"\0" * (size - have % size))
 
 
+Dim = int | tuple[int, int, int]
+
+
+def _dim3(d: Dim) -> tuple[int, int, int]:
+    t = (d, 1, 1) if isinstance(d, int) else tuple(d)
+    if len(t) != 3 or any(not isinstance(v, int) or v < 1 for v in t):
+        raise ValueError(f"launch dimension must be a positive int or 3 positive ints, got {d!r}")
+    return t
+
+
+def launch_geometry(n_elems: int, grid: Dim = 1, block: Dim | None = None
+                    ) -> tuple[tuple[int, int, int], tuple[int, int, int]]:
+    """(grid, block) for run_and_diff: block defaults to ceil(n_elems / grid.x)
+    threads along x (n_elems itself for one CTA, the original behaviour)."""
+    g = _dim3(grid)
+    b = _dim3(block) if block is not None else (-(-n_elems // g[0]), 1, 1)
+    if b[0] * b[1] * b[2] > 1024:
+        raise ValueError(f"block {b} has more than 1024 threads (CUDA's limit); pass a larger grid")
+    return g, b
+
+
 def run_and_diff(mod: Module, kname: str, sass_code, sass_labels, n_elems: int = 64,
-                  arch: str = "sm_80", seed: int = 0) -> list[Mismatch]:
+                  arch: str = "sm_80", seed: int = 0, grid: Dim = 1,
+                  block: Dim | None = None) -> list[Mismatch]:
     """Build matching inputs, run both engines, return every differing
     (param, index) pair -- empty means bit-exact. `sass_code`/`sass_labels`
-    are exactly what openassembler.backend.ra.compile_kernel returns."""
+    are exactly what openassembler.backend.ra.compile_kernel returns.
+    `grid`/`block`: see the module docstring (defaults: 1 CTA of n_elems)."""
     import sys
     from pathlib import Path
 
@@ -74,6 +106,7 @@ def run_and_diff(mod: Module, kname: str, sass_code, sass_labels, n_elems: int =
     from bench_build import listing  # noqa: E402  (code+labels -> emulator SASS text)
 
     k: Kernel = mod.kernels[kname]
+    gdim, bdim = launch_geometry(n_elems, grid, block)
     rng = random.Random(seed)
 
     sass_mem, ptx_mem = Memory(), Memory()
@@ -119,12 +152,14 @@ def run_and_diff(mod: Module, kname: str, sass_code, sass_labels, n_elems: int =
     from openassembler.emu.program import load_listing
 
     prog = load_listing(sass_text)
-    sass_launch = SassLaunch(block=(n_elems, 1, 1), params=sass_params,
-                              param_base=PARAM_BASE.get(arch, 0x160))
-    Machine(prog, sass_launch, sass_mem).run()
-
-    interp_launch = InterpLaunch(block=(n_elems, 1, 1), params=interp_params)
-    run_kernel(mod, kname, interp_launch, ptx_mem)
+    ctaids = [(x, y, z) for z in range(gdim[2]) for y in range(gdim[1]) for x in range(gdim[0])]
+    for c in ctaids:
+        sass_launch = SassLaunch(grid=gdim, block=bdim, ctaid=c, params=sass_params,
+                                  param_base=PARAM_BASE.get(arch, 0x160))
+        Machine(prog, sass_launch, sass_mem).run()
+    for c in ctaids:
+        interp_launch = InterpLaunch(block=bdim, grid=gdim, ctaid=c, params=interp_params)
+        run_kernel(mod, kname, interp_launch, ptx_mem)
 
     mismatches = []
     for name, addr in arrays.items():

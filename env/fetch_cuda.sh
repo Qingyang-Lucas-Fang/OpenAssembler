@@ -30,7 +30,7 @@ case "$(uname -s)" in
     command -v colima >/dev/null 2>&1 || { echo "macOS needs colima (the toolkit is Linux-only): brew install colima && colima start" >&2; exit 1; }
     colima status >/dev/null 2>&1 || { echo "the colima VM isn't running: colima start" >&2; exit 1; }
     HOST_ARCH="$(colima ssh -- uname -m | tr -d '\r')" ;;
-  *) echo "unsupported OS $(uname -s): use Linux, macOS (colima), or Windows via WSL2" >&2; exit 1 ;;
+  *) echo "unsupported OS $(uname -s): use Linux or macOS (colima)" >&2; exit 1 ;;
 esac
 case "$HOST_ARCH" in
   x86_64|amd64)   PLATFORM="linux-x86_64" ;;

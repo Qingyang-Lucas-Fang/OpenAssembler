@@ -178,6 +178,9 @@ def main(batch: int = 64, in_dim: int = 128, hidden: int = 256, out_dim: int = 6
     tag = gpu.lower().replace("!", "").replace("-", "_")
     out = Path(__file__).resolve().parent.parent / "corpus" / "sm_80" / \
         f"mlp_{tag}_b{batch}_i{in_dim}_h{hidden}_o{out_dim}.json"
+    if out.exists():
+        # the committed file is the recorded run; keep it, write this one beside it
+        out = out.with_name(f"{out.stem}_{time.strftime('%Y%m%d-%H%M%S')}.json")
     out.write_text(json.dumps({"device": dev, "shape": {"batch": batch, "in_dim": in_dim,
                                                           "hidden": hidden, "out_dim": out_dim},
                                 "results": rows}, indent=1))
