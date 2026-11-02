@@ -12,6 +12,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import subprocess
 import sys
 import tempfile
@@ -85,11 +86,27 @@ def check(case):
     with tempfile.TemporaryDirectory() as td:
         c, exe = Path(td) / "v.c", Path(td) / "v"
         c.write_text(src)
-        subprocess.run(["clang", "-O3", "-march=native", "-o", str(exe), str(c)], check=True)
+        subprocess.run([CC, "-O3", "-march=native", "-o", str(exe), str(c)], check=True)
         t = time.time()
         out = subprocess.run([str(exe)], capture_output=True, text=True, check=True).stdout.split()
     bad, first = int(out[0]), int(out[1])
     return case, seq, bad, first, time.time() - t
+
+
+def _find_cc() -> str:
+    """The exhaustive check compiles a tiny C program that loops over all 2^32 inputs, so it
+    needs a C compiler: clang, gcc or cc, whichever the machine has (macOS ships clang; most
+    Linux installs have gcc)."""
+    import shutil
+
+    for cc in (os.environ.get("CC"), "clang", "gcc", "cc"):
+        if cc and shutil.which(cc):
+            return cc
+    sys.exit("verify_divconst_exhaustive.py needs a C compiler (clang or gcc): "
+             "`sudo apt install gcc` on Debian/Ubuntu, `xcode-select --install` on macOS.")
+
+
+CC = _find_cc() if __name__ == "__main__" else "cc"
 
 
 def main():

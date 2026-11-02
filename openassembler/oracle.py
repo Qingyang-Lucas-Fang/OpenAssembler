@@ -41,11 +41,71 @@ class Insn:
     word: int
 
 
+class OracleError(RuntimeError):
+    """The NVIDIA toolkit can't be reached or can't see the given path."""
+
+
 def run_tool(*args: str, check: bool = True) -> subprocess.CompletedProcess[str]:
-    """Run an NVIDIA tool inside the VM, from the project root."""
+    """Run an NVIDIA tool from the project root: directly on Linux, inside the
+    colima VM on macOS (both handled by env/cuda.sh)."""
     return subprocess.run(
         [str(CUDA_SH), *args], cwd=ROOT, capture_output=True, text=True, check=check
     )
+
+
+_available: dict[str, bool] = {}
+
+
+def available(tool: str = "ptxas") -> bool:
+    """Can `tool` (ptxas, nvdisasm, nvcc, ...) actually be run right now? False if
+    the toolkit hasn't been fetched (env/fetch_cuda.sh), or on macOS if the
+    colima VM isn't running. Cached per process; used by tests to skip rather than
+    fail, and by the CLI to give one clear message."""
+    if tool not in _available:
+        try:
+            r = run_tool(tool, "--version", check=False)
+            _available[tool] = r.returncode == 0
+        except (OSError, subprocess.SubprocessError):
+            _available[tool] = False
+    return _available[tool]
+
+
+NEEDS_TOOLKIT = ("needs NVIDIA's CUDA toolkit: run env/fetch_cuda.sh "
+                 "(on macOS also `colima start`) -- see REPRODUCING.md")
+
+
+def platform_is_macos() -> bool:
+    import platform
+
+    return platform.system() == "Darwin"
+
+
+def tool_path(p: Path | str) -> str:
+    """How to name file `p` on a tool's command line. Inside the repo it's the
+    repo-relative path; anywhere else it's absolute. On macOS the tool runs in a
+    VM that only mounts $HOME, so a path outside $HOME can't be seen and raises
+    OracleError up front instead of failing inside the VM with a confusing
+    'no such file'. (On Linux the tool runs natively and can read any path.)"""
+    resolved = Path(p).resolve()
+    try:
+        return str(resolved.relative_to(ROOT))
+    except ValueError:
+        pass
+    if platform_is_macos():
+        try:
+            resolved.relative_to(Path.home().resolve())
+        except ValueError:
+            raise OracleError(
+                f"{resolved} is outside your home directory, which is all the colima VM "
+                "mounts on macOS. Put the file somewhere under $HOME.") from None
+    return str(resolved)
+
+
+def disasm_text(path: Path | str) -> str:
+    """`nvdisasm -hex -c` output for a cubin: the .sass text, two lines per
+    instruction (text + 64-bit halves), exactly the format tools/ and the
+    emulator read."""
+    return run_tool("nvdisasm", "-hex", "-c", tool_path(path)).stdout
 
 
 def words_to_bytes(words: list[int]) -> bytes:
@@ -104,12 +164,10 @@ def disasm_words(words: list[int], arch: str = "SM80", max_rounds: int = 64) -> 
 
 def disasm_cubin(path: Path) -> list[Insn]:
     """Disassemble every code section of a cubin."""
-    r = run_tool("nvdisasm", "-hex", "-c", str(Path(path).resolve().relative_to(ROOT)))
-    return parse_listing(r.stdout)
+    return parse_listing(disasm_text(path))
 
 
 def ptxas(ptx: Path, out: Path, arch: str = "sm_80", *flags: str) -> None:
     """Compile PTX to a cubin. Raises CalledProcessError with ptxas's message."""
     out.parent.mkdir(parents=True, exist_ok=True)
-    rel = lambda p: str(Path(p).resolve().relative_to(ROOT))  # noqa: E731
-    run_tool("ptxas", f"-arch={arch}", *flags, "-o", rel(out), rel(ptx))
+    run_tool("ptxas", f"-arch={arch}", *flags, "-o", tool_path(out), tool_path(ptx))

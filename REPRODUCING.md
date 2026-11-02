@@ -1,164 +1,196 @@
 # Reproducing every number in this repo
 
-Every claim in [README.md](README.md) and [docs/STATUS.md](docs/STATUS.md) comes
-from a script in this repo. This file lists the exact command behind each
-category of result, split by what it costs and what it needs.
+Every claim in [README.md](README.md) and [docs/STATUS.md](docs/STATUS.md) comes from a
+script in this repo. This file gives the command behind each one, grouped by what it needs:
 
-All commands run from the repo root. Offline sections need nothing but Python
-3.12+; the oracle and GPU sections need NVIDIA's own tools and, for sections
-C/D, a real GPU.
+| Section | Needs | Costs |
+|---|---|---|
+| [B. Offline](#b-offline-checks-no-nvidia-software-no-gpu) | Python 3.12+ | $0 |
+| [C. With NVIDIA's toolkit](#c-with-nvidias-toolkit) (compile, build the corpus, full tests) | + CUDA toolkit (free download, no GPU) | $0 |
+| [D. On a real GPU](#d-real-gpu) (costs money on Modal, free on your own) | + a Linux machine with an NVIDIA GPU, or a Modal account | $0 on your own GPU; cents on Modal |
+
+All commands run from the repo root. Times are approximate: Linux x86_64 first, then the 4-core Linux VM on an Apple-silicon Mac (typically 2-4x slower for anything that calls the NVIDIA tools).
 
 ## A. Install
 
+Requires **Python 3.12+**. The package has no Python dependencies.
+
 ```sh
-git clone <this-repo> && cd openassembler
-pip install -e .                 # installs the `openassembler` command
-# or, to match exactly how this repo's own tools/*.py scripts were run:
-pip install uv
+git clone https://github.com/Qingyang-Lucas-Fang/OpenAssembler.git && cd OpenAssembler
+python3 -m venv .venv && source .venv/bin/activate     # a venv avoids a system pip on an older Python
+pip install -e .            # installs the `openassembler` command
 ```
 
-Every command below has two forms: `openassembler <subcommand> ...` (the CLI) or
-`uv run --no-project python tools/<script>.py ...` (the script the CLI wraps
-directly — useful if you want flags the CLI doesn't expose yet). Both do the
-same thing; the CLI prints the equivalent `tools/` invocation it's running
-before most GPU commands.
+The scripts in `tools/` also run directly (`python3 tools/<script>.py`) without installing;
+they find the package themselves. `uv` is optional: every `python3 ...` below works as
+`uv run --no-project python ...` too.
 
-## B. Offline results ($0, no GPU, no NVIDIA tools needed)
+| Machine | Status |
+|---|---|
+| Linux x86_64 / ARM64 | native; the toolkit runs directly |
+| macOS, Apple Silicon or Intel | supported; the toolkit is Linux-only, so it runs inside a small [colima](https://github.com/abiosoft/colima) VM that `env/cuda.sh` drives. **Keep the repo under your home directory** (the VM mounts only `$HOME`). |
+| Windows | not tested; WSL2 should work like Linux |
+
+No NVIDIA GPU is needed for anything except section D.
+
+## B. Offline checks (no NVIDIA software, no GPU)
 
 | Result | Command | Time |
 |---|---|---|
-| All 164 tests (incl. replays of recorded A100 runs) | `uv run --with pytest==8.4.2 --no-project pytest -q` | ~30 s |
-| Compile + verify one example kernel | `openassembler compile examples/div_by_const.ptx -o /tmp/x.cubin --verify` | ~1 s (plus the oracle setup in §C, since `compile` needs a `ptxas`-built ELF template) |
-| Div-by-constant proofs (all 2³² inputs, exhaustive) | `uv run --no-project python tools/verify_divconst_exhaustive.py` | ~1 min |
-| Strassen/AlphaTensor scheme verification (97 schemes, exact over ℚ) | `uv run --no-project --with numpy python tools/fastmm_import.py` then check `specs/fastmm/schemes.json.gz` loads via `openassembler.fastmm.factors.all_schemes()` | ~24 s |
-| Emulator vs. PTX interpreter (offline, 541 probes × 8 trials) | `PYTHONPATH=. uv run --no-project python tools/diff_emu.py sm_80 --trials 8` | ~5 min |
-| Emulator vs. **recorded** A100 runs (no GPU needed — replays `corpus/sm_80/gpu_a100_40gb_v2.raw.json.gz`) | `PYTHONPATH=. uv run --no-project python tools/gpu_replay.py corpus/sm_80/gpu_a100_40gb_v2.raw.json.gz` | ~2 min |
-| Tensor-core numerics model fit (recorded lanes) | `PYTHONPATH=. uv run --no-project python tools/gpu_replay.py corpus/sm_80/gpu_a100_40gb_tensor.raw.json.gz`; `... tools/fit_mma_nominal.py` | ~1 / ~10 min |
+| Unit tests | `pip install pytest && python3 -m pytest -q` | ~5 s |
+| Division/remainder-by-constant lowering is correct for **all 2³² inputs** (needs a C compiler: `clang` or `gcc`) | `python3 tools/verify_divconst_exhaustive.py` | 1-2 min |
+| All 97 Strassen/AlphaTensor schemes are exact over ℚ | `python3 -c "from openassembler.fastmm import factors as F; s=F.all_schemes(); print(len(s), all(F.verify(v) for v in s.values()))"` | ~30 s |
 
-`...` = `PYTHONPATH=. uv run --no-project python`. These all read files already
-in `corpus/sm_80/*.json(.gz)` — no network, no GPU, nothing to set up.
+On a fresh clone the unit tests give **58 passed, 148 skipped**. The skipped ones
+need the probe corpus (§C), and each says so in its skip reason (`pytest -rs`). With the
+toolkit and corpus set up the whole suite runs: see §C.
 
-## C. Setting up the oracle (needed for §D and to build *new* cubins)
+## C. With NVIDIA's toolkit
 
-Our compiler reuses a `ptxas`-built cubin as the ELF container (see
-README.md "How it works"), so compiling anything new — not just replaying
-recorded data — needs `ptxas`, `nvdisasm`, and `cuobjdump` on hand once.
-
-**NVIDIA's CUDA toolkit is never vendored in this repo** (see [NOTICE](NOTICE)).
-`env/fetch_cuda.sh` downloads it straight from NVIDIA's own servers and
-verifies it against NVIDIA's own published manifest (`redistrib_12.8.0.json`),
-the same way NVIDIA's installers do internally.
+Our backend splices its code into an ELF container that `ptxas` builds for the same
+kernel ([how it works](README.md#how-it-works)), and `nvdisasm` produces the `.sass`
+listing, so compiling needs NVIDIA's tools once. They are never bundled: NVIDIA's license
+forbids redistribution, so `env/fetch_cuda.sh` downloads CUDA 12.8 from NVIDIA and checks it
+against NVIDIA's own published checksums. It picks the Linux x86_64 or ARM64 build to match
+the machine that will run it.
 
 ```sh
-# If you're not on Linux (e.g. macOS): a throwaway Linux VM to run the
-# toolkit in. Any Linux VM works; this is what the recorded results used.
-brew install colima docker
-colima start --cpu 4 --memory 6 --disk 40
+# macOS only: the VM the tools run in
+brew install colima && colima start
 
-env/fetch_cuda.sh                       # downloads + sha256-verifies CUDA 12.8 linux-sbsa
-env/cuda.sh ptxas --version              # must print "release 12.8"
+env/fetch_cuda.sh                 # ~300 MB into env/cuda-12.8/ (gitignored); needs curl, tar, xz, python3
+env/cuda.sh ptxas --version       # must print "release 12.8"
 ```
 
-If you're already on Linux with the CUDA toolkit on `PATH`, you don't need
-`env/cuda.sh` or colima at all — `openassembler.oracle` only shells out through
-`env/cuda.sh` because this repo was developed on a Mac. Point
-`OPENASSEMBLER_CUDA_HOME` at an existing install, or adapt `env/cuda.sh`'s one-line
-wrapper to just exec the command directly.
+Already have CUDA on Linux? Skip the download: have `ptxas`, `nvdisasm`, `nvcc` on `PATH`, or set
+`OPENASSEMBLER_CUDA_HOME`. The measurements here are with 12.8; other versions may disassemble
+slightly differently.
 
-With the oracle set up:
+Now compiling works, and the probe corpus can be built (`corpus/` is generated output, so a
+fresh clone has none):
 
 | Result | Command | Time |
 |---|---|---|
-| Rebuild the 541-probe PTX/SASS/cubin corpus | `openassembler check` (or `uv run --no-project python tools/build_corpus.py sm_80`) | ~20 s |
-| Our compiler, full corpus, all 4 opt levels | `openassembler check --compiler ra` | ~3 min |
-| Naive compiler v0 (A/B baseline) | `openassembler check --compiler naive` | ~3 min |
-| Build the 7 benchmark kernels at every opt level | `openassembler bench` | ~10 s |
-| Build the 73 fast-matmul kernels (all schemes) | `openassembler fastmm build` | ~15 min (each kernel is checked in the emulator before being written) |
-| Bit-field map (bit-flip fuzzing) | `uv run --no-project python tools/bitflip.py sm_80 > corpus/sm_80/bitflip_report.txt` | ~5 s |
-| Encoder round-trip (corpus + randomized register/offset rewrites, count varies per run) | `uv run --no-project python tools/encoder_eval.py` | ~1 min |
+| Compile + verify one kernel (writes `.cubin` and `.sass`) | `openassembler compile examples/div_by_const.ptx -o out.cubin --verify` | seconds |
+| Same from Python or CUDA C | `openassembler compile examples/vector_add.py -o out.cubin --verify` (or `.cu`) | seconds |
+| **Build the 541-probe corpus** (needed by the rows below) | `openassembler corpus` | ~20 s |
+| Our compiler on every probe, validated against `nvdisasm` and the PTX interpreter | `openassembler check` | ~3 min |
+| Naive v0 compiler, for comparison | `openassembler check --compiler naive` | ~3 min |
+| Emulator vs. the **recorded** A100 runs (no GPU; replays `corpus/sm_80/gpu_a100_40gb_v2.raw.json.gz`). Compares bit-exactly and ends with a summary line: ~520 of 541 match, the rest are listed as expected (approximate instructions, clocks, probes since fixed) | `python3 tools/gpu_replay.py corpus/sm_80/gpu_a100_40gb_v2.raw.json.gz` | 10 s - 2 min |
+| The same check as pass/fail (applies the tolerances) | `python3 -m pytest tests/test_gpu_truth.py -q` | ~10 s |
+| Emulator vs. PTX interpreter, 541 probes x 8 trials | `python3 tools/diff_emu.py sm_80 --trials 8` | ~5 min |
+| Tensor-core numerics (recorded lanes), then the model fit | `python3 tools/gpu_replay.py corpus/sm_80/gpu_a100_40gb_tensor.raw.json.gz`, `python3 tools/fit_mma_nominal.py` | ~1 / ~10 min |
+| Benchmark kernels at four optimization levels | `openassembler bench` | ~1 min |
+| Fast-matmul kernels for every scheme | `openassembler fastmm build` | ~15 min |
+| Bit-field map (bit-flip fuzzing) | `python3 tools/bitflip.py sm_80 > corpus/sm_80/bitflip_report.txt` | ~5 s |
+| Encoder round-trip | `python3 tools/encoder_eval.py` | ~1 min |
+| Full test suite, every test runs (206) | `python3 -m pytest -q` | ~30 s - 1.5 min |
 
-## D. Real GPU — the part that costs money (or doesn't, if you have one)
+If a step fails, the message says what is missing; the usual causes:
 
-This is where README.md's and STATUS.md's headline numbers come from.
-**Any NVIDIA GPU works** — you don't need Modal or any cloud account.
+| Message | Fix |
+|---|---|
+| `colima not found` / `the colima VM isn't running` | `brew install colima && colima start` |
+| `is outside $HOME` / `outside your home directory` | move the repo under your home directory (macOS VM mount) |
+| `ptxas: command not found` / `couldn't build the ELF container` | `env/fetch_cuda.sh` |
+| `the probe corpus isn't built yet` / `no ours cubins` | `openassembler corpus`, then `openassembler check` |
+| `unsupported OS` | use Linux or macOS (Windows: WSL2 is untested) |
+| `need xz` | `sudo apt install xz-utils` (NVIDIA ships .tar.xz) |
+| `nvcc fatal ... gcc` compiling a `.cu` | install a host C++ compiler: `sudo apt install g++` |
 
-### D1. A GPU you can SSH into, or this machine (recommended path for anyone reproducing this)
+## D. Real GPU
 
-```sh
-# Smoke test: 3 probes, a few seconds
-openassembler gpu run --backend user@your-gpu-box --only add.s32 --trials 2
+The headline numbers were measured on an A100-SXM4-40GB. Anything with an NVIDIA GPU can
+run the correctness side; the timing tables currently need Modal (below).
 
-# Full probe corpus against ptxas's own cubins (sanity check: should mostly match)
-openassembler gpu run --backend user@your-gpu-box --trials 4
+### D1. Your own GPU, over SSH or locally: correctness of the probe corpus
 
-# Our compiler's cubins, the actual result this repo is about
-openassembler gpu run --backend user@your-gpu-box --which ours --trials 4
-
-# This machine, if it has an NVIDIA GPU + driver (no CUDA toolkit needed here)
-openassembler gpu run --backend local --which ours
-```
-
-The remote machine needs only a Linux NVIDIA driver (`libcuda.so.1`) and
-`python3 >= 3.8` — no CUDA toolkit, no compiler. `openassembler gpu run` copies
-over a small stdlib-only package (`openassembler/gpu/`), runs it with a hard
-timeout even if the SSH connection drops, copies results back, and deletes
-the remote scratch directory.
-
-Benchmark timing and fast-matmul plans need the richer `tools/` scripts
-directly (the CLI's `gpu run` covers the probe-correctness path; the timing
-variants aren't wired into it yet):
+`gpu run` sends the probe cubins to the GPU, runs them, and compares every result with the
+emulator and the PTX spec. It needs the corpus from §C first:
 
 ```sh
-PYTHONPATH=. uv run --no-project python tools/bench_build.py
-python tools/gpu_run.py --ssh user@your-gpu-box --which ours --tag mybox
+openassembler corpus                                         # once
+openassembler check                                          # once; builds the cubins of OUR compiler (--which ours)
+
+openassembler gpu run --backend user@your-gpu-box --only add.s32 --trials 2     # smoke test, seconds
+openassembler gpu run --backend user@your-gpu-box --trials 4                    # ptxas's cubins (sanity)
+openassembler gpu run --backend user@your-gpu-box --which ours --trials 4       # our compiler's cubins
+openassembler gpu run --backend local --which ours                              # this machine's own GPU (Linux)
 ```
 
-### D2. Modal (cloud A100, what produced the numbers in this README)
+What the GPU host needs: Linux, an NVIDIA driver (`libcuda.so.1`), `python3` 3.8+, and GNU
+`timeout` (standard on Linux). No CUDA toolkit, no compiler, nothing installed: the tool
+copies a small stdlib-only package over `ssh`/`scp`, runs it under a hard timeout, copies the
+results back, and deletes its scratch directory. You need passwordless `ssh` to the host.
+`--backend local` is Linux-only (it uses GNU `timeout`, and macOS has no NVIDIA GPU anyway).
 
-Convenience, not a requirement — use this if you don't have GPU access
-otherwise. Needs a [Modal](https://modal.com) account.
+Results land in `corpus/sm_80/gpu_<host>.json` (`gpu_<host>_ours.json` with `--which ours`; `gpu_local.json` for `--backend local`), plus a `.raw.json.gz` you can replay offline as in §C.
+
+**Honest status of this path:** it is tested end to end against a simulated driver, and `--backend local` / Modal against real A100s, but it has **not been run against a real SSH host** yet. If it misbehaves on yours, that is a bug worth reporting.
+
+### D2. Modal: a cloud A100, and where the timing numbers come from
+
+Use this if you have no GPU. You need a [Modal](https://modal.com) account:
 
 ```sh
 pip install modal==1.6.2 && modal setup
 
-openassembler gpu run --backend modal --dry-run              # job count + cost, $0 spent
-openassembler gpu run --backend modal --only add.s32 --trials 2   # ~$0.01, few seconds
-openassembler gpu run --backend modal --which ours --trials 4     # our compiler's cubins
-
-modal app list; modal container list      # must show nothing running when you're done
+openassembler gpu run --backend modal --dry-run                      # job count and cost, $0
+openassembler gpu run --backend modal --only add.s32 --trials 2      # ~$0.01
+openassembler gpu run --backend modal --which ours --trials 4        # our cubins; ~$0.01
+modal app list; modal container list                                 # must show nothing running afterwards
 ```
 
-**Billing safety**, inherited from `tools/gpu_modal.py`: `modal run` is
-ephemeral and stops when the local process exits; if it's killed hard,
-`modal app list` / `modal app stop -y <id>` cleans up. Three layers of
-timeout (per-kernel watchdog, in-container `--budget`, Modal's hard function
-timeout) bound a single run even if a kernel hangs. **Never use `modal
-shell`** for this — it stays billing until you remember to close it.
-
-Timing and fast-matmul runs on Modal (outside the `openassembler` CLI for now,
-same safety model):
+The **timing** tables (README "Results") use Modal-only scripts today: the SSH/local path checks
+correctness but has no `--timing` mode. Each needs its cubins built first (§C):
 
 ```sh
+# ptxas vs. our compiler, 7 loop kernels (README table 1). Run `openassembler bench` first.
 modal run tools/gpu_modal.py --which dir:corpus/sm_80/bench --trials 2 --timing --grid 4096 --reps 30 --iters 4096 --budget 300
+
+# Strassen/AlphaTensor vs. cuBLAS at n = 8192 (README table 2). Run `openassembler fastmm build` first (~15 min).
 modal run tools/fastmm_run.py --n 8192 --schemes strassen_2x2x2,at_2x2x2,strassen2_4x4x4,at_gpu_4x4x4 --rounds 2 --reps 3 --budget 580 --job-timeout 200
+modal run tools/fastmm_run.py --n 8192 --schemes strassen_2x2x2,at_2x2x2,strassen2_4x4x4,at_gpu_4x4x4 --dry-run   # the plan, no GPU, no price
 ```
 
-The n = 8192 fast-matmul run above costs roughly 
-\$0.35 (≈10 A100-minutes at Modal's A100-40GB rate — check `openassembler fastmm run --dry-run` for a current
-estimate, prices drift). Every run in this repo so far has cost under \$2
-total; `--dry-run` always prints the estimate before anything is billed.
+The n = 8192 run is about 10 A100-minutes, roughly \$0.35 at Modal's A100-40GB rate (prices
+drift). `gpu run --backend modal --dry-run` and `mlp_run.py --dry-run` print a dollar estimate before anything is billed; `fastmm_run.py --dry-run` prints only the launch plan, job count and upload size (no price), and needs `openassembler fastmm build` first. Everything in this
+repo so far cost under \$2 in total.
 
-## E. What ties it together
+**Billing safety.** `modal run` is ephemeral and stops when the local process exits; if it is
+killed hard, `modal app list` then `modal app stop -y <id>` cleans up. Three layers of timeout
+(per-kernel watchdog, in-container `--budget`, Modal's hard limit) bound a run even if a kernel
+hangs. Never use `modal shell` for this: it bills until you close it.
 
-`openassembler <subcommand> --help` for the full flag reference. The subcommands
-map onto the sections above:
+### D3. Your own kernel on a GPU: the MLP example
 
-| CLI | wraps | section |
+`compile` gives you a cubin; there is not yet a one-line command to run an arbitrary cubin. The
+tested end-to-end example is a 2-layer MLP written in Python
+([`examples/mlp/kernels.py`](examples/mlp/kernels.py)), built with both compilers, run on an A100, and
+checked against a float64 reference:
+
+```sh
+python3 tools/mlp_build.py                         # builds corpus/sm_80/mlp/{ptxas,ours}@*.cubin
+modal run tools/mlp_run.py --dry-run               # job size, $0
+modal run tools/mlp_run.py --batch 64 --in-dim 128 --hidden 256 --out-dim 64    # ~$0.01
+```
+
+[`tools/mlp_run.py`](tools/mlp_run.py) shows how to describe cubins, buffers and launch geometry as a job
+([`run_plan_job`](openassembler/gpu/cuda_driver.py) documents the format, and it also works over SSH).
+More on what each frontend accepts: [docs/FRONTENDS.md](docs/FRONTENDS.md).
+
+## E. What the CLI maps to
+
+`openassembler <command> --help` has every flag.
+
+| Command | Does | Section |
 |---|---|---|
-| `compile`, `verify` | `openassembler.backend.ra`, `openassembler.container.cubin` directly | B/C |
+| `compile FILE` | `.ptx` / `.py` / `.cu` to `.cubin` + `.sass` (`--verify`, `--opt-level`, `--no-sass`, ...) | C |
+| `verify CUBIN PTX --kernel NAME` | check a cubin of the probe signature `(out, in, k, kf)` against the PTX interpreter | C |
+| `corpus` | build the 541-probe corpus (`tools/build_corpus.py`) | C |
 | `check` | `tools/compile_check.py` | C |
 | `bench` | `tools/bench_build.py` | C |
-| `fastmm build` / `fastmm run` | `tools/fastmm_build.py` / `tools/fastmm_run.py` | C / D2 |
+| `fastmm build` / `fastmm run` | `tools/fastmm_build.py` / `tools/fastmm_run.py` (Modal) | C / D2 |
 | `gpu run --backend local\|user@host\|modal` | `tools/gpu_run.py` / `tools/gpu_modal.py` | D1 / D2 |
-| `status` | prints `docs/STATUS.md`'s headline table | — |
-| *(no subcommand)* | `openassembler.ui.repl` — interactive shell over every command above | — |
+| `status` | the headline results from `docs/STATUS.md` | — |
+| *(none)* | interactive shell over all of the above | — |

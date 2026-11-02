@@ -5,9 +5,7 @@ same convention as test_backend.py's needs_corpus.
 
 from __future__ import annotations
 
-import shutil
 import struct
-import subprocess
 import sys
 from pathlib import Path
 
@@ -25,17 +23,12 @@ from bench_build import listing  # noqa: E402
 
 
 def _oracle_available() -> bool:
-    if not shutil.which("colima"):
-        return False
-    try:
-        # colima status logs everything to stderr; exit code 0 means running.
-        r = subprocess.run(["colima", "status"], capture_output=True, text=True, timeout=5)
-        return r.returncode == 0
-    except Exception:  # noqa: BLE001
-        return False
+    from openassembler import oracle
+
+    return oracle.available("nvcc")
 
 
-needs_oracle = pytest.mark.skipif(not _oracle_available(), reason="needs colima running (env/cuda.sh)")
+needs_oracle = pytest.mark.skipif(not _oracle_available(), reason="needs the CUDA toolkit (nvcc): env/fetch_cuda.sh")
 
 CUDA_SRC = """
 extern "C" __global__ void vec_add(float* a, float* b, float* out, int n) {

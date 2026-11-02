@@ -55,6 +55,7 @@ class _Scope:
     n_p: int = 0
     n_rd: int = 0
     label_n: int = 0
+    exit_label: str = "L_exit"
 
     def emit(self, text: str) -> None:
         self.lines.append(text)
@@ -127,6 +128,9 @@ class _Emitter(ast.NodeVisitor):
     # ---- statements ----
 
     def visit_FunctionDef(self, node: ast.FunctionDef) -> None:
+        if getattr(self, "_in_kernel", False):
+            raise NotSupported("nested function definitions are not supported", node)
+        self._in_kernel = True
         for stmt in node.body:
             self.visit(stmt)
 
@@ -228,19 +232,43 @@ class _Emitter(ast.NodeVisitor):
         elif len(args) == 2:
             start_e, stop_e, step = args[0], args[1], 1
         elif len(args) == 3:
-            if not isinstance(args[2], ast.Constant) or not isinstance(args[2].value, int):
+            step_node = args[2]
+            sign = 1
+            if isinstance(step_node, ast.UnaryOp) and isinstance(step_node.op, (ast.USub, ast.UAdd)):
+                sign = -1 if isinstance(step_node.op, ast.USub) else 1
+                step_node = step_node.operand          # `-2` parses as UnaryOp(USub, Constant(2))
+            if (not isinstance(step_node, ast.Constant) or not isinstance(step_node.value, int)
+                    or isinstance(step_node.value, bool)):
                 raise NotSupported("range() step must be a constant int", node)
-            start_e, stop_e, step = args[0], args[1], args[2].value
+            start_e, stop_e, step = args[0], args[1], sign * step_node.value
         else:
             raise NotSupported("range() takes 1-3 args", node)
         if step == 0:
             raise NotSupported("range() step must not be 0", node)
+        if node.orelse:
+            raise NotSupported("'for ... else' is not supported", node.orelse[0])
+        target = node.target.id
+        for sub in ast.walk(ast.Module(body=node.body, type_ignores=[])):
+            tgts = []
+            if isinstance(sub, ast.Assign):
+                tgts = sub.targets
+            elif isinstance(sub, (ast.AugAssign, ast.AnnAssign)):
+                tgts = [sub.target]
+            elif isinstance(sub, ast.For):
+                tgts = [sub.target]
+            if any(isinstance(t_, ast.Name) and t_.id == target for t_ in tgts):
+                # Python rebinds the loop variable on the next iteration; here it IS the counter,
+                # so an assignment would change how many times the loop runs.
+                raise NotSupported(f"assigning to the loop variable {target!r} inside its own "
+                                    "loop is not supported", sub)
 
         i_reg = self.s.var_reg(node.target.id, "s32", node)
-        start_v, _ = self._eval(start_e)
+        start_v, start_k = self._eval(start_e)
+        stop_v, stop_k = self._eval(stop_e)
+        if start_k != "s32" or stop_k != "s32":
+            raise NotSupported("range() bounds must be int32 expressions", node.iter)
         self._mov(i_reg, start_v, "s32")
         stop_reg = self.s.new_reg("s32")
-        stop_v, _ = self._eval(stop_e)
         self._mov(stop_reg, stop_v, "s32")
 
         loop_label = self.s.new_label("loop")
@@ -273,6 +301,9 @@ class _Emitter(ast.NodeVisitor):
     def visit_Return(self, node: ast.Return) -> None:
         if node.value is not None:
             raise NotSupported("kernels don't return a value (write to an output array)", node)
+        # A bare `return` is the standard CUDA early-out (`if i >= n: return`). It used to be
+        # silently dropped, so every thread went on to execute the rest of the kernel.
+        self.s.emit(f" bra {self.s.exit_label};")
 
     def generic_visit(self, node: ast.AST) -> None:
         raise NotSupported(f"unsupported statement: {type(node).__name__}", node)
@@ -305,9 +336,20 @@ class _Emitter(ast.NodeVisitor):
         if not isinstance(target.value, ast.Name) or target.value.id not in self.s.arrays:
             raise NotSupported("subscript target must be a declared array", target)
         base = self.s.arrays[target.value.id]
-        idx, _ = self._eval(target.slice)
+        idx, idx_kind = self._eval(target.slice)
+        if idx_kind != "s32":
+            raise NotSupported(f"array index must be an int32 expression, not {idx_kind}", target)
         elem_kind = self._array_elem_kind(target.value.id)
-        val = precomputed if precomputed is not None else self._eval(value_node)[0]
+        if precomputed is not None:
+            val, val_kind = precomputed, elem_kind
+        else:
+            val, val_kind = self._eval(value_node)
+        if val_kind != elem_kind:
+            # `out[i] = 1` into an Array(f32) used to store the integer's raw bits
+            # (1.4e-45, not 1.0) with no error -- and --verify can't see it, because the
+            # interpreter and the SASS agree on the wrong value.
+            raise NotSupported(f"storing a {val_kind} value into an Array of {elem_kind} "
+                                "(write 1.0, not 1, for a float array)", target)
         addr = self.s.new_reg("ptr")
         # mul.wide.u32 (not .s32): our backend fuses mul.wide+add.s64 of a
         # cbank-held pointer into one IMAD.WIDE, and the encoder only has a
@@ -448,8 +490,10 @@ class _Emitter(ast.NodeVisitor):
 
 
 def _get_source(fn) -> ast.FunctionDef:
-    src = textwrap.dedent(inspect.getsource(fn))
+    lines, first = inspect.getsourcelines(fn)
+    src = textwrap.dedent("".join(lines))
     mod = ast.parse(src)
+    ast.increment_lineno(mod, first - 1)     # report real file line numbers, not "line 2"
     (fdef,) = [n for n in mod.body if isinstance(n, ast.FunctionDef)]
     return fdef
 
@@ -516,6 +560,7 @@ def _render(name: str, s: _Scope) -> str:
             ld = "f32" if ptx_t == "f32" else "u32" if ptx_t in ("s32", "u32") else ptx_t
             out.append(f" ld.param.{ld} {r.name}, [{pname}];")
     out.extend(s.lines)
+    out.append(f"{s.exit_label}:")
     out.append(" ret;\n}")
     return "\n".join(out) + "\n"
 

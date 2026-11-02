@@ -47,6 +47,10 @@ def build(target: str) -> None:
 
     oracle.run_tool("bash", "-c", VM_SCRIPT.format(dir=shlex.quote(str(out)), target=target))
 
+    # probes/smoke.ptx (a plain saxpy) -> corpus/<arch>/smoke.cubin: tests/test_backend.py
+    # reads its .nv.info records, so the corpus build has to make it.
+    oracle.ptxas(oracle.ROOT / "probes" / "smoke.ptx", out / "smoke.cubin", target)
+
     failed, n_insn = [], 0
     with open(out / "pairs.jsonl", "w") as f:
         for kname, name in sorted(names.items()):
@@ -63,5 +67,13 @@ def build(target: str) -> None:
 
 
 if __name__ == "__main__":
-    for t in sys.argv[1:] or ["sm_80"]:
+    import argparse
+    import re
+
+    ap = argparse.ArgumentParser(description="Build the probe corpus (PTX probes -> ptxas -> cubin + SASS).")
+    ap.add_argument("arch", nargs="*", default=["sm_80"], metavar="ARCH",
+                    help="target architecture(s), default sm_80 (only sm_80 has an encoder today)")
+    for t in ap.parse_args().arch:
+        if not re.fullmatch(r"sm_\d+[a-z]?", t):
+            ap.error(f"{t!r} is not an architecture like sm_80")
         build(t)

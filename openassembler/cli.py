@@ -2,12 +2,14 @@
 ptxas's code generation (but reusing its ELF container -- see README.md
 "How it works"), and measure the result against ptxas on real hardware.
 
-    openassembler compile kernel.ptx -o kernel.cubin [--opt-level opt]
+    openassembler compile kernel.ptx|kernel.py|kernel.cu -o out.cubin   # also writes out.sass
+    openassembler corpus                        # build the probe corpus (once)
     openassembler check --only add.s32
     openassembler bench
     openassembler fastmm build
-    openassembler gpu run --ssh user@host
+    openassembler gpu run --backend user@host   # or: local | modal
     openassembler status
+    openassembler                               # no arguments: interactive shell
 
 Every subcommand here is a thin front door onto the scripts in tools/ and the
 importable openassembler/ package; run `openassembler <subcommand> --help` for the
@@ -17,6 +19,7 @@ full flag set, or call the wrapped tools/*.py script directly if you want one.
 from __future__ import annotations
 
 import argparse
+import os
 import shlex
 import subprocess
 import sys
@@ -26,19 +29,6 @@ ROOT = Path(__file__).resolve().parent.parent
 TOOLS = ROOT / "tools"
 
 OPT_LEVELS = ("safe", "mined", "sched", "opt")
-
-
-def _require_in_repo(path: Path, what: str) -> Path:
-    """ptxas/nvdisasm run inside the colima VM (env/cuda.sh), which only
-    bind-mounts this repo -- any path they touch must resolve under ROOT."""
-    resolved = path.resolve()
-    try:
-        resolved.relative_to(ROOT)
-    except ValueError:
-        print(f"error: {what} must be inside the repo ({ROOT}) -- ptxas/nvdisasm "
-              f"run in a VM that only sees this tree. Got: {resolved}", file=sys.stderr)
-        raise SystemExit(1)
-    return resolved
 
 
 def _run_tool(script: str, argv: list[str]) -> int:
@@ -63,18 +53,13 @@ def cmd_compile(a: argparse.Namespace) -> int:
     from openassembler.backend.unroll import unroll_loops
     from openassembler.container.cubin import required_regcount, splice_text
     from openassembler.frontend import FrontendError, to_ptx
-    from openassembler.isa.encode import Encoder
+    from openassembler.isa.encode import EncodeError, Encoder
     from openassembler.ptx.parse import parse_module
 
     src_path = Path(a.ptx)
-    suf = src_path.suffix.lower()
-    # .ptx/.cu/.cpp sources go through the oracle (ptxas directly, or nvcc for
-    # C++) which only sees this repo via the colima VM mount; .py sources are
-    # compiled by openassembler.pyfront with no VM involved, so only the
-    # scratch files *we* write (handled below, under corpus/.tmp/) need to be
-    # in-repo, not the .py file itself.
-    if suf != ".py" and (a.base_cubin is None or suf != ".ptx"):
-        _require_in_repo(src_path, "the source file")
+    if not src_path.exists():
+        print(f"error: {src_path} does not exist", file=sys.stderr)
+        return 1
     try:
         ptx, kname = to_ptx(src_path, entry=a.kernel, arch=a.arch)
     except FrontendError as e:
@@ -98,36 +83,52 @@ def cmd_compile(a: argparse.Namespace) -> int:
     if a.dump_ptx:
         print(ptx)
 
-    if a.opt_level == "safe":
-        code, st = ra.compile_kernel(kernel)
-        labels = st["labels"]
-    else:
-        # Mirrors tools/bench_build.py:_reschedule_k, the reference pipeline for
-        # the mined/sched/opt variants (list_schedule runs on the raw lowered
-        # body, before it's split into labels + Out tuples for schedule()).
-        k = unroll_loops(kernel) if a.opt_level == "opt" else kernel
-        s = ra.Selector(k)
-        ops = ra.coalesce(ra.dce(s.run()))
-        phys = ra.allocate(ops, s.r1)
-        lowered = ra.lower(ops, phys)
-        if a.opt_level in ("sched", "opt"):
-            lowered = list_schedule(lowered)
-        labels, body = {}, []
-        for t, vl, r, w in lowered:
-            if t.startswith("<label "):
-                labels[t[7:-1]] = len(body)
-            else:
-                body.append((t, vl, r, w))
-        code = schedule([Out(t, vl, r, w) for t, vl, r, w in body], labels=labels, model="mined")
+    def generate():
+        if a.opt_level == "safe":
+            code, st = ra.compile_kernel(kernel)
+            labels = st["labels"]
+        else:
+            # Mirrors tools/bench_build.py:_reschedule_k, the reference pipeline for
+            # the mined/sched/opt variants (list_schedule runs on the raw lowered
+            # body, before it's split into labels + Out tuples for schedule()).
+            k = unroll_loops(kernel) if a.opt_level == "opt" else kernel
+            s = ra.Selector(k)
+            ops = ra.coalesce(ra.dce(s.run()))
+            phys = ra.allocate(ops, s.r1)
+            lowered = ra.lower(ops, phys)
+            if a.opt_level in ("sched", "opt"):
+                lowered = list_schedule(lowered)
+            labels, body = {}, []
+            for t, vl, r, w in lowered:
+                if t.startswith("<label "):
+                    labels[t[7:-1]] = len(body)
+                else:
+                    body.append((t, vl, r, w))
+            code = schedule([Out(t, vl, r, w) for t, vl, r, w in body], labels=labels, model="mined")
 
-    enc = Encoder(a.arch)
-    words = ra.encode_code(enc, code, labels)
-    nop = enc.encode("NOP")
-    words.append(enc.encode_branch("BRA `(.L_x_0)", 16 * len(words), 16 * len(words)))
-    while len(words) % 8:
-        words.append(nop)
-    exits = [16 * i for i, (t, _ctl) in enumerate(code) if t.endswith("EXIT")]
-    nregs = required_regcount([t for t, _ctl in code])
+        enc = Encoder(a.arch)
+        words = ra.encode_code(enc, code, labels)
+        nop = enc.encode("NOP")
+        words.append(enc.encode_branch("BRA `(.L_x_0)", 16 * len(words), 16 * len(words)))
+        while len(words) % 8:
+            words.append(nop)
+        exits = [16 * i for i, (t, _ctl) in enumerate(code) if t.endswith("EXIT")]
+        nregs = required_regcount([t for t, _ctl in code])
+        return code, labels, words, exits, nregs
+
+    try:
+        code, labels, words, exits, nregs = generate()
+    except ra.NotSupported as e:
+        print(f"error: our backend can't compile this kernel yet: {e}\n"
+              "  That PTX instruction isn't implemented in openassembler/backend/ra.py. Rewrite the "
+              "kernel without it, or see docs/FRONTENDS.md for what is supported.",
+              file=sys.stderr)
+        return 1
+    except EncodeError as e:
+        print(f"error: our encoder can't encode this kernel: {e}\n"
+              "  See docs/FRONTENDS.md (\"Python\" / \"CUDA C/C++\" sections) for what is supported.",
+              file=sys.stderr)
+        return 1
 
     base_path = Path(a.base_cubin) if a.base_cubin else None
     if base_path is None:
@@ -145,9 +146,17 @@ def cmd_compile(a: argparse.Namespace) -> int:
         scratch_ptx.write_text(ptx)
         try:
             oracle.ptxas(scratch_ptx, base_path, arch=a.arch)
-        except Exception:
+        except subprocess.CalledProcessError as e:
             base_path.unlink(missing_ok=True)
-            raise
+            why = (e.stderr or "").strip() or f"exit code {e.returncode}"
+            print("error: couldn't build the ELF container with ptxas (our backend splices its "
+                  f"code into one; see README \"How it works\"):\n  {why}\n"
+                  "  ptxas comes with the CUDA toolkit: run env/fetch_cuda.sh "
+                  "(on macOS also `colima start`), or pass --base-cubin.", file=sys.stderr)
+            return 1
+        except (FileNotFoundError, oracle.OracleError) as e:
+            print(f"error: {e}", file=sys.stderr)
+            return 1
         finally:
             scratch_ptx.unlink(missing_ok=True)
     base = base_path.read_bytes()
@@ -155,14 +164,78 @@ def cmd_compile(a: argparse.Namespace) -> int:
         base_path.unlink(missing_ok=True)
     cubin = splice_text(base, kname, words, nregs, exits)
     out_path = Path(a.out) if a.out else src_path.with_suffix(".cubin")
-    if a.verify:
-        out_path = _require_in_repo(out_path, "the output cubin (needed by --verify's nvdisasm step)")
+    if out_path.is_dir() or str(a.out or "").endswith(("/", os.sep)):
+        out_path = out_path / (src_path.stem + ".cubin")      # -o some/dir  ->  some/dir/<name>.cubin
+    sass_path = Path(a.sass) if a.sass else out_path.with_suffix(".sass")
+    if not a.no_sass and sass_path.resolve() == out_path.resolve():
+        print(f"error: the cubin and the .sass listing would both be written to {out_path}. "
+              "Give -o a .cubin name (the .sass goes next to it), or pass --sass PATH.", file=sys.stderr)
+        return 1
     out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_bytes(cubin)
     n_insns = sum(1 for t, _ in code if not t.startswith("NOP") and not t.startswith("BRA `(.L_x_0)"))
     print(f"{out_path}  ({n_insns} instructions, opt-level={a.opt_level}, regs={nregs})")
+
+    if not a.no_sass:
+        rc = _write_sass(cubin, sass_path, code)
+        if rc:
+            return rc
     if a.verify:
-        return _verify_compiled(module, kname, code, labels, ptx, a.trials)
+        rc = _verify_compiled(module, kname, code, labels, ptx, a.trials)
+        if rc == 1:
+            # A real mismatch (rc 2 means "couldn't check", which keeps the files). Don't leave
+            # a cubin that just failed its own check where a later `gpu run` or a copy-paste
+            # could pick it up as if it were good.
+            out_path.unlink(missing_ok=True)
+            if not a.no_sass:
+                sass_path.unlink(missing_ok=True)
+            print(f"(removed {out_path}: it did not pass --verify)", file=sys.stderr)
+        return rc
+    return 0
+
+
+def _write_sass(cubin: bytes, sass_path: Path, code) -> int:
+    """Disassemble the cubin we just wrote with nvdisasm and save it as a .sass
+    listing (the same `nvdisasm -hex -c` format the rest of this repo reads:
+    instruction text plus its raw 128-bit word). This is the real toolkit
+    decoding our bytes, so it doubles as a check that what we encoded reads
+    back as what we meant. nvdisasm runs natively on Linux and inside the
+    colima VM on macOS (env/cuda.sh), so this works on both."""
+    import os
+    import re
+    import uuid
+
+    from openassembler import oracle
+
+    # Disassemble from a scratch copy inside the repo: always reachable by the
+    # tool (on macOS the VM only sees $HOME), wherever -o points.
+    oracle.SCRATCH.mkdir(parents=True, exist_ok=True)
+    tmp = oracle.SCRATCH / f"sass_{os.getpid()}_{uuid.uuid4().hex[:8]}.cubin"
+    tmp.write_bytes(cubin)
+    try:
+        text = oracle.disasm_text(tmp)
+    except (subprocess.CalledProcessError, FileNotFoundError, OSError) as e:
+        detail = (getattr(e, "stderr", "") or str(e)).strip().splitlines()[-1:] or [""]
+        print(f"error: couldn't disassemble the cubin into a .sass file: {detail[0]}\n"
+              "  nvdisasm comes with the CUDA toolkit: run env/fetch_cuda.sh (on macOS also "
+              "`colima start`), or pass --no-sass to skip this step.", file=sys.stderr)
+        return 1
+    finally:
+        tmp.unlink(missing_ok=True)
+    sass_path.parent.mkdir(parents=True, exist_ok=True)
+    sass_path.write_text(text)
+    print(f"{sass_path}  (SASS listing from nvdisasm)")
+
+    # Soft sanity check, never fatal: every non-branch instruction nvdisasm
+    # printed should be the one we encoded (branch targets are renamed by
+    # nvdisasm, so those lines legitimately differ).
+    norm = lambda s: re.sub(r"\s+", "", s)  # noqa: E731
+    got = [i.text for i in oracle.parse_listing(text)]
+    want = [t for t, _ in code]
+    bad = [(w, g) for w, g in zip(want, got) if "BRA" not in w and "BSSY" not in w and norm(w) != norm(g)]
+    if bad:
+        print(f"warning: {len(bad)} instruction(s) disassemble differently than we encoded them, "
+              f"e.g. {bad[0][0]!r} -> {bad[0][1]!r}", file=sys.stderr)
     return 0
 
 
@@ -203,10 +276,17 @@ def _verify_compiled(module, kname: str, code, labels, ptx_text: str, trials: in
         print(f"OK: {trials} random trials (probe ABI), bit-exact against the PTX reference interpreter")
         return 0
 
+    from openassembler.ptx.interp import NotModeled
     from openassembler.verify import run_and_diff
 
     for trial in range(trials):
-        mismatches = run_and_diff(module, kname, code, labels, n_elems=64, seed=trial)
+        try:
+            mismatches = run_and_diff(module, kname, code, labels, n_elems=64, seed=trial)
+        except NotModeled as e:
+            print(f"not verified: the PTX reference interpreter can't model this kernel ({e}). "
+                  "The cubin compiled and was kept, but --verify cannot check it; write your own "
+                  "test (see docs/FRONTENDS.md, \"What --verify proves\").", file=sys.stderr)
+            return 2
         if mismatches:
             m = mismatches[0]
             print(f"FAIL: {m.param}[{m.index}]: ours {m.ours:#x} vs PTX interpreter {m.expected:#x} "
@@ -229,8 +309,11 @@ def cmd_verify(a: argparse.Namespace) -> int:
     from openassembler import oracle
     from openassembler.emu.probe import run_probe
 
-    cubin_path = _require_in_repo(Path(a.cubin), "the cubin")
-    sass = oracle.run_tool("nvdisasm", "-hex", "-c", str(cubin_path.relative_to(ROOT))).stdout
+    try:
+        sass = oracle.disasm_text(a.cubin)
+    except (oracle.OracleError, subprocess.CalledProcessError, FileNotFoundError) as e:
+        print(f"error: {getattr(e, 'stderr', '') or e}", file=sys.stderr)
+        return 1
     ptx = Path(a.ptx).read_text()
     rng = random.Random(0)
 
@@ -258,6 +341,10 @@ def cmd_check(a: argparse.Namespace) -> int:
     """Compile the full probe corpus, validate with nvdisasm, check semantics
     against the PTX interpreter. Needs the probe corpus (tools/build_corpus.py)
     and ptxas. Wraps tools/compile_check.py."""
+    if not any((ROOT / "corpus" / "sm_80" / "ptx").glob("*.ptx")):
+        print("error: the probe corpus isn't built yet (corpus/ is build output, not in git).\n"
+              "  Build it once:  openassembler corpus   (needs the CUDA toolkit, ~20 s)", file=sys.stderr)
+        return 1
     argv = []
     if a.only:
         argv += ["--only", a.only]
@@ -265,10 +352,33 @@ def cmd_check(a: argparse.Namespace) -> int:
     return _run_tool("compile_check.py", argv)
 
 
+def cmd_corpus(a: argparse.Namespace) -> int:
+    """Build the probe corpus (541 PTX probes -> ptxas -> cubin + SASS) under
+    corpus/<arch>/. Needed once before `check`, `gpu run`, or the offline
+    A100-replay tests; needs the CUDA toolkit. Wraps tools/build_corpus.py."""
+    from openassembler import oracle
+
+    if not oracle.available("ptxas"):
+        print(f"error: {oracle.NEEDS_TOOLKIT}", file=sys.stderr)
+        return 1
+    return _run_tool("build_corpus.py", [a.arch])
+
+
+def _need_toolkit() -> int | None:
+    from openassembler import oracle
+
+    if not oracle.available("ptxas"):
+        print(f"error: {oracle.NEEDS_TOOLKIT}", file=sys.stderr)
+        return 1
+    return None
+
+
 def cmd_bench(a: argparse.Namespace) -> int:
     """Build the microbenchmark cubins at every optimization level
     (safe/mined/sched/opt), each checked in the emulator first. Wraps
     tools/bench_build.py. Pair with `openassembler gpu run` to time them."""
+    if (rc := _need_toolkit()) is not None:
+        return rc
     return _run_tool("bench_build.py", ["--arch", a.arch])
 
 
@@ -278,6 +388,8 @@ def cmd_fastmm(a: argparse.Namespace) -> int:
     (tools/fastmm_run.py, Modal only -- for SSH/local use `gpu run` on the
     cubins fastmm build produces)."""
     if a.fastmm_cmd == "build":
+        if (rc := _need_toolkit()) is not None:
+            return rc
         argv = ["--arch", a.arch, "--variant", a.variant]
         if a.only:
             argv += ["--only", a.only]
@@ -307,6 +419,27 @@ def cmd_gpu(a: argparse.Namespace) -> int:
         print("$", " ".join(shlex.quote(c) for c in cmd))
         return subprocess.run(cmd, cwd=ROOT).returncode
     # ssh or local: same script, tools/gpu_run.py
+    if a.dry_run:
+        # no GPU, no network: just say what would be sent (gpu_run.py itself has no --dry-run)
+        sys.path[:0] = [str(ROOT), str(TOOLS)]
+        import gpu_common as G
+
+        try:
+            jobs = G.build_jobs("sm_80", a.which, a.only, a.trials, 1)
+        except SystemExit as e:
+            print(f"error: {e}", file=sys.stderr)
+            return 1
+        print(f"dry run: {len(jobs)} {a.which} probes x {a.trials} trials would run on "
+              f"{'this machine' if a.backend == 'local' else a.backend}; nothing was sent")
+        return 0
+    if a.backend == "local":
+        import platform
+
+        if platform.system() != "Linux":
+            print("error: --backend local runs the probes on THIS machine's NVIDIA GPU, which needs "
+                  f"Linux with an NVIDIA driver (this is {platform.system()}). Use --backend user@host "
+                  "to run on a Linux GPU box over SSH, or --backend modal for a cloud GPU.", file=sys.stderr)
+            return 1
     argv = ["--which", a.which, "--trials", str(a.trials), "--budget", str(a.budget)]
     if a.only:
         argv += ["--only", a.only]
@@ -349,6 +482,10 @@ def build_parser() -> argparse.ArgumentParser:
     pc.add_argument("--trials", type=int, default=6)
     pc.add_argument("--dump-ptx", action="store_true",
                      help="print the PTX our frontend generated (for .py/.cu sources) before compiling it")
+    pc.add_argument("--sass", default=None, metavar="PATH",
+                     help="where to write the SASS listing (default: next to the cubin, .sass)")
+    pc.add_argument("--no-sass", action="store_true",
+                     help="write only the cubin; skip the nvdisasm step")
     pc.set_defaults(func=cmd_compile)
 
     pv = sub.add_parser("verify", help="check a compiled cubin's SASS against the PTX reference interpreter")
@@ -363,6 +500,10 @@ def build_parser() -> argparse.ArgumentParser:
     pk.add_argument("--trials", type=int, default=6)
     pk.add_argument("--compiler", choices=["ra", "naive"], default="ra")
     pk.set_defaults(func=cmd_check)
+
+    pco = sub.add_parser("corpus", help="build the probe corpus that check / gpu run / some tests need")
+    pco.add_argument("--arch", default="sm_80")
+    pco.set_defaults(func=cmd_corpus)
 
     pb = sub.add_parser("bench", help="build the optimization-level benchmark cubins (tools/bench_build.py)")
     pb.add_argument("--arch", default="sm_80")

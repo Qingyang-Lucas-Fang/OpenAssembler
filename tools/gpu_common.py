@@ -119,6 +119,12 @@ def build_jobs(arch: str, which: str, only: str, trials: int, seed: int, limit: 
                          "trials": ts})
         return jobs
     src = {"ptxas": corpus / "cubin", "ours": corpus / "ours"}[which]
+    if not any(src.glob("*.cubin")):
+        # corpus/ holds build output (gitignored), so a fresh clone has none.
+        how = {"ptxas": "python tools/build_corpus.py " + arch,
+               "ours": "openassembler check   (compiles every probe with our backend)"}[which]
+        sys.exit(f"no {which} cubins in {src.relative_to(ROOT)}: build them first with\n  {how}\n"
+                 "(both need NVIDIA's CUDA toolkit: env/fetch_cuda.sh; see REPRODUCING.md)")
     # `only`: substring, or a comma-separated list of exact probe names ("a,b,c")
     exact = set(only.split(",")) if "," in only else None
     for name, _b, _s in ptx_probes.probes(arch):

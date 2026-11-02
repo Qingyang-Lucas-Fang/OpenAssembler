@@ -177,6 +177,12 @@ class Selector:
         if isinstance(v, V):
             return v
         cache = self.__dict__.setdefault("_const_cse", {})
+        if getattr(self, "cur_guard", None) is not None:
+            # a predicated instruction's operand may not be hoisted into a cache the
+            # unpredicated code after it will trust
+            d = self.new()
+            self.emit("MOV {d0}, {s0}", [d], [v], copy=False)
+            return d
         if v not in cache:  # CSE: one register per distinct immediate / c[] value
             d = self.new()
             self.emit("MOV {d0}, {s0}", [d], [v], copy=False)
@@ -238,6 +244,12 @@ class Selector:
         for idx, ins in enumerate(self.k.body):
             for name in lab_at.get(idx, []):
                 self.emit("", label=name)
+                # A label is a join point: threads can arrive having skipped the code above
+                # it. A constant materialized (MOV R, imm) in a branch that only some threads
+                # took must not be reused after the join -- "constant CSE" cached it in a
+                # register those threads never wrote (found by `if i<3: o[i]=7` followed by
+                # `if i>5: o[i]=9`: the second store used the first branch's MOV of 4).
+                self.__dict__.pop("_const_cse", None)
             self.cur_guard = None
             if ins.guard is not None:
                 p, neg = ins.guard
@@ -285,12 +297,28 @@ class Selector:
             if t and t.endswith("64"):
                 self.env[a[0].name] = self.val64(a[1].name)
             else:
-                self.bind(a[0].name, self.val32(a[1]))
+                v = self.val32(a[1])
+                if (isinstance(v, V) and a[0].name not in getattr(self, "homes", {})
+                        and v in getattr(self, "homes", {}).values()):
+                    # `mov %b, %a` where %a is a multiply-assigned (loop-carried) home and %b is
+                    # an ordinary single-assignment register: %b is a SNAPSHOT of %a's value
+                    # right now. Aliasing it to the home (the pure-renaming fast path) would
+                    # make %b see later writes to %a -- e.g. `m = n; for j in range(0, m): m = 100`
+                    # ran 100 iterations instead of n. Take a real copy instead.
+                    snap = self.new()
+                    self.emit("MOV {d0}, {s0}", [snap], [v], copy=True)
+                    v = snap
+                self.bind(a[0].name, v)
             return
         if op == "mul" and "wide" in m and t in ("u32", "s32"):
             self.env[a[0].name] = ("widemul", self.reg32(a[1]), self.val32(a[2]), t == "u32")
             return
         if op == "add" and t in ("s64", "u64"):
+            if not (isinstance(a[1], Var) and isinstance(a[2], Var)):
+                # e.g. `add.s64 %rd1, %rd1, 4`: the pointer-increment form nvcc emits when it
+                # strength-reduces `base + i*4` in a loop. Needs a 64-bit add-immediate
+                # (IADD3 + IADD3.X carry chain with an immediate), which isn't implemented.
+                raise NotSupported("add.s64 with an immediate operand (pointer increment)")
             x, y = a[1].name, a[2].name
             vx, vy = self.val64(x), self.val64(y)
             # fuse: base + mul.wide(a, b)  ->  IMAD.WIDE d, a, b, base

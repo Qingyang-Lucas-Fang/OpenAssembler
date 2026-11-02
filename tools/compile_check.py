@@ -149,7 +149,13 @@ def main():
         ours = len(code)
         stats["fewer" if ours < len(theirs) else "equal" if ours == len(theirs) else "more"] += 1
         rows.append((name, "ok" if ok else "SEMANTIC MISMATCH", f"ours={ours} ptxas={len(theirs)}"))
+    tot_ours = sum(int(r[2].split("ours=")[1].split()[0]) for r in rows if "ours=" in r[2])
+    tot_ptxas = sum(int(r[2].split("ptxas=")[1]) for r in rows if "ptxas=" in r[2])
+    n_ok = sum(1 for r in rows if "ours=" in r[2])
     print(f"compiled {len(built)} probes with our compiler ({len(skipped)} out of v0 scope)")
+    if tot_ptxas:
+        print(f"instructions over those {n_ok}: ours {tot_ours} vs ptxas {tot_ptxas} "
+              f"({100 * (tot_ours - tot_ptxas) / tot_ptxas:+.1f}%)")
     for k_, v in stats.items():
         print(f"  {k_:15} {v}")
     for r in rows:

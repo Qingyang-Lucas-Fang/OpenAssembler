@@ -17,6 +17,10 @@ import gpu_common  # noqa: E402
 import gpu_replay  # noqa: E402
 
 C = ROOT / "corpus" / "sm_80"
+# The recorded A100 outputs (*.raw.json.gz) are committed, but replaying them runs
+# the emulator on each probe's SASS, which is build output (tools/build_corpus.py).
+needs_corpus = pytest.mark.skipif(not (C / "sass").is_dir() or not any((C / "sass").glob("*.sass")),
+                                  reason="build the probe corpus first: python tools/build_corpus.py sm_80 (needs the CUDA toolkit)")
 
 # Recorded runs that the current probes/emulator must reproduce.
 # v2: full corpus (its st.shared.* used a since-fixed racy probe -> excluded, covered by fix5)
@@ -27,6 +31,7 @@ RUNS = {
 }
 
 
+@needs_corpus
 @pytest.mark.parametrize("run", sorted(RUNS))
 def test_emulator_reproduces_a100(run):
     path = C / run
@@ -43,6 +48,7 @@ def test_emulator_reproduces_a100(run):
     assert len(res) > 0
 
 
+@needs_corpus
 def test_tensor_cores_bit_exact():
     """mma f16/bf16/tf32/s8/f64, ldmatrix, cp.async: every lane equals the A100."""
     path = C / "gpu_a100_40gb_tensor.raw.json.gz"

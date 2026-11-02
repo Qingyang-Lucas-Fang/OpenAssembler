@@ -12,21 +12,21 @@ Updated 2026-10-30. Every number below comes from a script in this repo. Section
 | Hardware latencies (A100, measured, not mined) | Fixed-latency RAW: **4 cycles within a pipe, 5 across** (IMAD/FFMA pipe vs IADD3/LOP3/SHF pipe). **Predicate → any `@P`-guarded op or branch: 13 cycles.** SETP → `SEL …, P`: 4. ALU → STG data: 1–2. 33 pairs × stalls 1–15. `corpus/sm_80/hw_latency.json` |
 | Compiler features | Branches, loops, predication (`@p` ops update in place), f32 ops, f32 immediates, shared memory (v1/v2/v4), `bar.sync 0`, `st.global.v4`, 4× loop unrolling, basic-block list scheduling, measured-latency stalls |
 | Emulator | Multi-warp CTAs with cooperative `BAR.SYNC`; uniform-datapath ops execute once per warp (were executed per thread) |
-| Tests | 164 passing |
+| Tests | 206 passing with the toolkit and probe corpus; 58 passed / 148 skipped on a fresh clone (the skipped need the corpus) |
 
 ## Headline results (2026-10-25)
 
 | Area | Result |
 |---|---|
 | **Our compiler on real hardware** | **110/110 cubins built by our compiler (v1) are bit-exact on an A100-SXM4-40GB** (4 trials × 32 threads each; `gpu_a100_40gb_ours_ra.json`) |
-| Our compiler size | On those 110 probes: **1,103 SASS instructions vs ptxas 12.8's 1,182 (−6.7%)**. On the 80 probes both of our compilers handle: v1 808, naive v0 2,281, ptxas 887. These are instruction counts only. Nothing has been timed yet, and our scheduler is conservative (see Gaps). |
-| Our compiler coverage | 110 of 541 probes (naive v0 covered 82). Everything else is refused with a reason (predication, branches, floats, ordered memory ops, …). |
+| Our compiler size | On those 110 probes: **1,103 SASS instructions vs ptxas 12.8's 1,182 (−6.7%)**; on the 80 both of our compilers handled then: v1 808, naive v0 2,281, ptxas 887. **Re-measured 2026-11-01** (`openassembler check`): on today's 203 probes, ours 2,132 vs ptxas 2,249 (−5.2%); on the 87 probes v0 and v1 both handle: v1 878, naive v0 2,477, ptxas 962. These are instruction counts only. Nothing has been timed yet, and our scheduler is conservative (see Gaps). |
+| Our compiler coverage | 110 of 541 probes at the time of the A100 run above (**203 today**; naive v0: 89). Everything else is refused with a reason (predication, branches, floats, ordered memory ops, …). |
 | Emulator vs A100 (ptxas cubins) | **532/541 probes reproduce the A100**, bit-exact or within the PTX spec's tolerance for `.approx` ops. The other 9: 7 nondeterministic (clock, globaltimer, smid, nsmid, warpid, gridid, cvta.shared) plus sin/cos lanes with \|x\| > 100π, where the spec gives no accuracy bound. |
 | Tensor cores | HMMA f16/bf16/tf32, IMMA s8, DMMA f64, LDSM and LDGSTS are emulated **bit-exact on 512/512 recorded A100 lanes each**. |
 | Emulator vs PTX interpreter (offline) | 518/541 bit-exact, 0 mismatches. The other 23 use ops the interpreter doesn't model (mma, ldmatrix, cp.async, timers); those are verified against hardware instead. |
 | M2 stall model | 89.2% exact stall-field match on held-out kernels |
 | Encoder | 1,239/1,239 randomized register/offset rewrites disassemble to the intended text |
-| Tests | 157 passing offline, including replays of the recorded A100 outputs |
+| Tests | (2026-10-25 run: 157; see the 2026-10-30 row above for the current count) |
 | GPU spend | About $1.5 of the $10 cap so far, by runner estimates (mostly the n = 8192 fast-matmul runs, about 10 A100-minutes each, including two runs whose results were lost when Modal stopped the app). Exact figure on the Modal usage page. Every run ended with zero containers; one leftover container was stopped by hand with `modal app stop`. |
 
 ## What the A100 taught us (each finding has a recorded run behind it)
@@ -118,81 +118,13 @@ At n = 2048, all of these plans lose (cuBLAS 0.98 ms vs 1.9 ms for Strassen): th
 
 ## Reproduce
 
-All commands run from the repo root. Python runs through `uv run --no-project`;
-nothing is installed globally.
+Every command behind every number here is in **[REPRODUCING.md](../REPRODUCING.md)**, which works on
+Linux and macOS and says what each step needs (nothing / NVIDIA's toolkit / a GPU). It is the one
+place the commands live; this file used to carry its own Mac-only copy, which drifted.
 
-### A. One-time setup on the Mac
-
-```sh
-brew install colima docker                      # Linux VM for NVIDIA's Linux tools
-colima start --cpu 4 --memory 6 --disk 40
-env/fetch_cuda.sh                               # downloads CUDA 12.8 linux-sbsa (ptxas,
-                                                 # nvdisasm, cuobjdump, nvcc) straight from
-                                                 # NVIDIA, sha256-checked against NVIDIA's own
-                                                 # redistrib_12.8.0.json. Not vendored in this repo.
-env/cuda.sh ptxas --version                     # must print "release 12.8"
-pip install modal==1.6.2 && modal setup         # only for section C
-```
-
-### B. Offline results (Mac only, $0)
-
-| Result | Command | Time |
-|---|---|---|
-| Probe corpus (541 PTX → cubin/SASS) | `uv run --no-project python tools/build_corpus.py sm_80` | ~20 s |
-| Bit-field map | `PYTHONPATH=. uv run --no-project python tools/bitflip.py sm_80 > corpus/sm_80/bitflip_report.txt` | ~5 s |
-| All tests (incl. A100 replays) | `uv run --with pytest==8.4.2 --no-project pytest -q` | ~6 s |
-| Emulator vs PTX interpreter | `PYTHONPATH=. uv run --no-project python tools/diff_emu.py sm_80 --trials 8` | ~5 min |
-| **Emulator vs recorded A100** | `PYTHONPATH=. uv run --no-project python tools/gpu_replay.py corpus/sm_80/gpu_a100_40gb_v2.raw.json.gz` | ~2 min |
-| Tensor-core replay / model fit | `... tools/gpu_replay.py corpus/sm_80/gpu_a100_40gb_tensor.raw.json.gz`; `... tools/fit_mma_nominal.py` | ~1 / ~10 min |
-| **Our compiler v1** (writes `corpus/sm_80/ours/`) | `PYTHONPATH=. uv run --no-project python tools/compile_check.py --compiler ra` | ~3 min |
-| Naive compiler v0 (A/B baseline) | `... tools/compile_check.py --compiler naive` (writes `ours_naive/`) | ~3 min |
-| Stall model, held-out | `... tools/mine_latency.py sm_80 && ... tools/stall_holdout.py` | ~1 min |
-| Scoreboard policy | `... tools/sb_policy.py sm_80` | ~30 s |
-| Encoder evaluation | `... tools/encoder_eval.py` | ~1 min |
-| Re-encode whole cubins | `... tools/reencode_cubin.py sm_80` | ~2 min |
-| Div-by-constant proofs (all 2³² inputs) | `... tools/verify_divconst_exhaustive.py` | ~1 min |
-| Bisection variant sets | `... tools/gpu_bisect.py elf` / `... tools/gpu_bisect.py regs` | seconds |
-
-(`...` = `PYTHONPATH=. uv run --no-project python`)
-
-### C. Real GPU through Modal (A100-40GB, $0.000583/s)
-
-```sh
-modal run tools/gpu_modal.py --dry-run                                  # job count + cost, $0
-modal run tools/gpu_modal.py --trials 4 --budget 300 --suffix _v2      # all ptxas probes   (~$0.01)
-modal run tools/gpu_modal.py --which ours --suffix _ra                 # our v1 cubins      (~$0.01)
-modal run tools/gpu_modal.py --only "mma.f16,mma.bf16,mma.tf32,mma.s8,mma.f64,ldmatrix,ldmatrix.trans,cp.async,cp.async.ca4" --trials 16 --suffix _tensor
-modal run tools/gpu_modal.py --which dir:corpus/sm_80/bisect5 --trials 1 --budget 200   # regcount sweep (~$0.03)
-modal container list ; modal app list                                  # must show nothing running
-```
-
-Every run writes `corpus/sm_80/gpu_<gpu><set><suffix>.json` (per-probe status, first
-differing lane, driver-reported registers/smem) **and** `….raw.json.gz` (all inputs and
-outputs). The raw file is what `tools/gpu_replay.py` and the tests replay offline.
-
-Safety: three levels of timeout (per-kernel watchdog 20 s → in-container `--budget` →
-Modal function timeout of 660 s); one container per batch; a faulting kernel only kills its
-worker process. `modal run` is ephemeral, so if a local command is killed, check `modal app
-list` / `modal container list` and run `modal app stop -y <id>`. Never use `modal shell`.
-
-### C2. Timing, latencies and fast matmul (Modal, A100)
-
-```sh
-# bench kernels: ptxas vs our variants (safe/mined/sched/opt/optY/optN), ~$0.01
-PYTHONPATH=. uv run --no-project python tools/bench_build.py
-modal run tools/gpu_modal.py --which dir:corpus/sm_80/bench --trials 2 --timing --grid 4096 --reps 30 --iters 4096 --budget 300
-# hardware latency sweep (writes corpus/sm_80/hw_latency.json), ~$0.02
-PYTHONPATH=. uv run --no-project python tools/lat_sweep.py
-modal run tools/gpu_modal.py --which dir:corpus/sm_80/latsweep --trials 3 --budget 240
-PYTHONPATH=. uv run --no-project python tools/lat_sweep.py --report corpus/sm_80/gpu_a100_40gb_latsweep.json
-# fast matmul
-uv run --no-project --with numpy python tools/fastmm_import.py          # once; needs third_party/alphatensor
-PYTHONPATH=. uv run --no-project python tools/fastmm_build.py            # 73 kernels, ~15 min (emulator checks)
-modal run tools/fastmm_run.py --n 2048 --rounds 1 --reps 3 --budget 200  # smoke test, ~$0.03
-modal run tools/fastmm_run.py --n 8192 --schemes strassen_2x2x2,at_2x2x2,strassen2_4x4x4,at_gpu_4x4x4 \
-    --rounds 2 --reps 3 --budget 580 --job-timeout 200                   # ~10 min of A100 = ~$0.35
-modal container list                                                     # must be empty
-```
+Files named in the tables above (`corpus/sm_80/*.json`, `*.raw.json.gz`) are committed evidence from
+the recorded A100 runs; `corpus/sm_80/{ptx,sass,cubin,ours}/` are build output you regenerate with
+`openassembler corpus` and `openassembler check`.
 
 `third_party/alphatensor` was fetched from `raw.githubusercontent.com/google-deepmind/alphatensor/main/`
 (files: `algorithms/factorizations_{r,f2}.npz`, `benchmarking/{factorizations,utils,run_gpu_benchmark}.py`,

@@ -108,7 +108,12 @@ class Template:
 
 class Encoder:
     def __init__(self, arch: str = "sm_80"):
-        rows = [json.loads(l) for l in open(ROOT / "corpus" / arch / "pairs.jsonl")]
+        pairs = ROOT / "corpus" / arch / "pairs.jsonl"
+        if not pairs.exists():
+            have = sorted(d.name for d in (ROOT / "corpus").glob("sm_*") if (d / "pairs.jsonl").exists())
+            raise EncodeError(f"no SASS encoder data for {arch!r} (only {', '.join(have) or 'sm_80'} "
+                              "has been reverse-engineered; see docs/STATUS.md \"Gaps\")")
+        rows = [json.loads(l) for l in open(pairs)]
         synth = ROOT / "specs" / arch / "synth_templates.json"
         if synth.exists():  # nvdisasm-verified words made by synthesize()
             rows += json.loads(synth.read_text())
@@ -181,11 +186,26 @@ class Encoder:
                         ok = False
                     slots.append(("imm2", sec if ok else None))
                     continue
-                try:
-                    ok = all(bits(m.word, 32, 32) == m.ops[pos].int32() for m in members)
-                except ValueError:
-                    ok = False  # float literal text
-                slots.append(("imm", "imm32" if ok else None))
+                # The immediate is bits 32..63. nvdisasm prints it either as the raw integer
+                # (IADD3, ISETP, ...) or, for float opcodes, as a decimal FLOAT -- which can
+                # look exactly like an integer ("FMUL R9, R9, 16777216" is 16777216.0, bits
+                # 0x4b800000, not 0x01000000). Learn which reading this opcode uses, and
+                # remember it in the slot so encode() applies the same one.
+                def _reads(conv):
+                    ok_ = True
+                    for m in members:
+                        try:
+                            ok_ = ok_ and conv(m.ops[pos]) == bits(m.word, 32, 32)
+                        except (ValueError, OverflowError):
+                            return False
+                    return ok_
+
+                if _reads(lambda o: o.int32()):
+                    slots.append(("imm", "imm32"))
+                elif _reads(lambda o: o.f32bits()):
+                    slots.append(("imm", "imm32f"))
+                else:
+                    slots.append(("imm", None))
             elif base.op in ("S2R", "S2UR", "CS2R") and pos == 1 and _SR.get(op.text) is not None:
                 # special-register index at bits 72..79 (S2R SR_TID.X = 0x21, measured)
                 ok = all(bits(m.word, 72, 8) == _SR.get(m.ops[pos].text) for m in members)
@@ -271,7 +291,7 @@ class Encoder:
             elif kind == "imm":
                 if field is None:
                     raise EncodeError(f"immediate slot {pos} not learned")
-                w = set_bits(w, 32, 32, op.int32())
+                w = set_bits(w, 32, 32, op.f32bits() if field == "imm32f" else op.int32())
             elif kind == "imm2":
                 if field is None:
                     raise EncodeError(f"secondary immediate slot {pos} not learned")
@@ -298,10 +318,40 @@ class Encoder:
 SYNTH_CACHE = ROOT / "specs" / "sm_80" / "synth_templates.json"
 
 
+FIELDMAP_CACHE = ROOT / "specs" / "sm_80" / "synth_fieldmaps.json"
+
+
+def _fieldmap_cache() -> dict:
+    try:
+        return json.loads(FIELDMAP_CACHE.read_text())
+    except (OSError, ValueError):
+        return {}
+
+
 def field_probe(word: int, arch: str = "SM80") -> dict[int, str]:
     """Flip every bit of `word` in the operand regions and record which operand text
     changed (one nvdisasm batch). -> {bit: "opN"}. Used to learn the field map of a
-    synthesized (single-example) template instead of guessing canonical positions."""
+    synthesized (single-example) template instead of guessing canonical positions.
+
+    The answer depends only on (word, arch), so it's cached in specs/sm_80/
+    synth_fieldmaps.json. Without the cache, building an Encoder re-ran this ~60
+    times through nvdisasm at every start (a minute on macOS, where nvdisasm runs
+    in a VM) and needed the NVIDIA toolkit just to load. With it, loading is
+    instant and offline; a word that isn't cached yet is probed once and added."""
+    key = f"{arch}:{word:032x}"
+    cache = _fieldmap_cache()
+    if key in cache:
+        return {int(b): v for b, v in cache[key].items()}
+    out = _field_probe_uncached(word, arch)
+    cache[key] = {str(b): v for b, v in out.items()}
+    try:
+        FIELDMAP_CACHE.write_text(json.dumps(cache, indent=1, sort_keys=True) + "\n")
+    except OSError:
+        pass  # read-only install: just don't persist
+    return out
+
+
+def _field_probe_uncached(word: int, arch: str) -> dict[int, str]:
     from openassembler import oracle
 
     base = oracle.disasm_words([word], arch)[0]

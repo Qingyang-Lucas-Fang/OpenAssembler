@@ -6,12 +6,9 @@
 
 **A from-scratch NVIDIA SASS compiler, built entirely by reverse-engineering `ptxas` as a black box.**
 
-No NVIDIA source. No decompiled binaries. Every encoding bit, every instruction
-latency, and every ELF quirk below was *measured* — by compiling probe kernels,
-diffing `nvdisasm` output, flipping bits and watching what breaks, and running
-the result on a real A100.
+Every encoding bit, every instruction latency, and every ELF quirk below was *measured* — by compiling probe kernels, diffing `nvdisasm` output, flipping bits and watching what breaks, and running the result on A100. (currnetly working on other architectures like H100)
 
-[![Tests](https://img.shields.io/badge/tests-164%20passing-brightgreen)](#)
+[![Tests](https://img.shields.io/badge/tests-206%20passing-brightgreen)](#)
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue)](LICENSE)
 [![Arch](https://img.shields.io/badge/arch-sm__80%20(Ampere)-76b900)](#)
 
@@ -39,10 +36,10 @@ Concretely, this repo contains:
   control bits (stall, yield, scoreboards, wait masks) — recovered by bit-flip
   fuzzing against `nvdisasm` ([docs/findings-sm80-encoding.md](docs/findings-sm80-encoding.md)).
 - **A PTX → SASS compiler** (register allocation, scheduling, 4× loop
-  unrolling) that emits code **1,103 instructions vs. ptxas's 1,182** on a
-  110-probe corpus, and beats `ptxas`'s own output by **3–36%** on measured
+  unrolling) that emits code **2,132 instructions vs. ptxas's 2,249** (-5.2%) on the
+  203 probes it handles in testing (1,103 vs 1,182 on the 110 it handled on an A100), and beats `ptxas`'s own output by **3–36%** on measured
   A100 wall-clock time for several kernel shapes.
-- **A cycle-accurate-ish SASS emulator**, fitted to real A100 behavior:
+- **A cycle-accurate-ish SASS emulator**, fitted to real A100 behaviour:
   tensor-core (HMMA/IMMA/DMMA) numerics bit-exact on 512/512 recorded lanes,
   instruction latencies measured directly on hardware (not guessed from
   `nvdisasm`'s mined minimum distances, which are provably wrong — see
@@ -54,20 +51,25 @@ Concretely, this repo contains:
   low-rank factorizations of matrix multiply (AlphaTensor, DeepMind/Nature
   2022) imported, verified exactly over the rationals, compiled by our
   backend, and measured against cuBLAS on an A100 at n = 8192.
-- **`openassembler`, a CLI** that ties all of this together: compile a PTX
-  file straight to a cubin with our backend, verify it against a reference
-  interpreter, and benchmark it on any NVIDIA GPU you can reach — your own
-  box, an SSH host, or a cloud GPU.
+- **Python and CUDA C/C++ frontends**: Python, CUDA C/C++ are supported in out compiler     write a kernel in a Python subset
+  (`openassembler/pyfront/`, built from scratch) or in CUDA C/C++ (lowered to PTX
+  by `nvcc`), and it is compiled to SASS by our backend
+  ([docs/FRONTENDS.md](docs/FRONTENDS.md)).
+- **`openassembler`, a CLI** that ties all of this together: compile a PTX, Python
+  or CUDA C file to a `.cubin` plus a readable `.sass` with our backend, verify it
+  against a reference interpreter, and run the probe corpus on any NVIDIA GPU you
+  can reach — your own box, an SSH host, or a cloud GPU.
 
-Every number in this README is reproducible; see [REPRODUCING.md](REPRODUCING.md)
-and [docs/STATUS.md](docs/STATUS.md) for the exact command behind each one.
+Every number in this README is reproducible; see [REPRODUCING.md](REPRODUCING.md) for documentations and [docs/STATUS.md](docs/STATUS.md) for the exact command behind each one.
 
-> **Honesty up front.** OpenAssembler does not replace `ptxas` end to end: it
+> **Reminder** Our OpenAssembler does not replace `ptxas` end to end: it
 > still uses a `ptxas`-built cubin as the ELF container (symbol table,
 > relocations, constant banks) and only replaces the *code* inside it — see
 > [How it works](#how-it-works). It also doesn't cover all of PTX yet: no
-> f16/f64 arithmetic, no warp shuffles, no register spilling. See
-> [Gaps](#gaps) and [docs/STATUS.md](docs/STATUS.md) for the honest list.
+> f16/f64 arithmetic, no warp shuffles, no register spilling, no float division
+> or square root, and no pointer-increment loops (so some CUDA C kernels are
+> rejected with a clear message — [docs/FRONTENDS.md](docs/FRONTENDS.md)). See
+> [Future Improvements](#future-improvements) and [docs/STATUS.md](docs/STATUS.md) for the current discoveries & results and future improvements and collaborations. 
 
 ---
 
@@ -75,45 +77,109 @@ and [docs/STATUS.md](docs/STATUS.md) for the exact command behind each one.
 
 ### Install
 ```bash
-git clone github.com/Qingyang-Lucas-Fang/OpenAssembler && cd openassembler
-pip install -e .   
+git clone https://github.com/Qingyang-Lucas-Fang/OpenAssembler.git && cd OpenAssembler
+python3 --version                  # must be 3.12 or newer
+python3 -m venv .venv && source .venv/bin/activate
+pip install -e .                   # installs the `openassembler` command into the venv   
 ```
-One-time: fetch NVIDIA's own CUDA toolkit as a black-box oracle (never vendored in this repo — see NOTICE). Needs a Linux box or a VM (e.g. colima on macOS); see REPRODUCING.md if you're not on Linux.
+Needs **Python 3.12+** (`openassembler` has no Python dependencies). To run the tests too: `pip install pytest`. On Debian/Ubuntu, `sudo apt install python3-venv xz-utils` first (a minimal install has neither); compiling CUDA C also needs a host `g++`.
+
+| Your machine | Supported? |
+|---|---|
+| Linux (x86_64 or ARM64) | yes, native |
+| macOS (Apple Silicon or Intel) | yes: NVIDIA's tools only run on Linux, so they run in a small Linux VM ([colima](https://github.com/abiosoft/colima)) that `env/cuda.sh` drives for you; keep the repo under your home directory |
+| Windows | WSL2 work like Linux, others currently unsupported |
+
+You do **not** need an NVIDIA GPU to compile, only to run the result (see [Run it on a real GPU](#run-it-on-a-real-gpu)).
 
 
-### Setting up the oracle
+### Set up NVIDIA's toolkit (once)
+
+Compiling needs `ptxas`, `nvdisasm` and (for CUDA C) `nvcc`. NVIDIA's license doesn't let us ship them,
+so `env/fetch_cuda.sh` downloads CUDA 12.8 straight from NVIDIA and checks it against NVIDIA's published
+checksums. It picks the build that matches your CPU. On macOS, start the VM first:
+
 ```bash
-env/fetch_cuda.sh  
+brew install colima && colima start        # macOS only; skip on Linux
+```
+```bash
+env/fetch_cuda.sh                       # for both macOS and linux
 env/cuda.sh ptxas --version              # must print "release 12.8"
 ```
+Already have CUDA on a Linux box? Point `OPENASSEMBLER_CUDA_HOME` at it (or just have `ptxas`/`nvdisasm`/`nvcc` on `PATH`); the numbers in this repo were measured with 12.8.
+
 ### Run OpenAssembler
 ```bash
 openassembler
 ```
-and then it should display properly on your terminal
+With no arguments this opens an interactive shell (history, tab completion) that takes every command below without the `openassembler` prefix (so you do not need to include the `openassembler` command). Every command also works one-shot, e.g. `openassembler status`.
+
+Here is the expected display:
 <img width="943" height="318" alt="Image" src="https://github.com/user-attachments/assets/6411bddf-d711-4c01-913f-bb30cee27e6f" />
 
 ---
 
-### Commands for different devices
-Run it on a real GPU — any Linux box with an NVIDIA driver, no CUDA toolkit needed htere:
+### Compile your first kernel
+
+One command turns a kernel into a loadable **`.cubin`** and a readable **`.sass`** listing, and `--verify` checks the result is bit-exact against a reference interpreter:
+
+```bash
+compile examples/div_by_const.ptx -o out.cubin --verify
+# -> out.cubin   (the binary the GPU driver loads)
+# -> out.sass    (the SASS instructions, decoded by nvdisasm)
+```
+
+The kernel can be PTX, a small Python subset, or CUDA C/C++, and all three end in our backend:
+
+```bash
+compile examples/vector_add.py  -o out.cubin --verify   # Python  -> SASS
+compile examples/vector_add.cu  -o out.cubin --verify   # CUDA C  -> SASS
+```
+
+What each language accepts, what is rejected, and the exact limits of `--verify` are in
+**[docs/FRONTENDS.md](docs/FRONTENDS.md)**. It runs the same on macOS and Linux; `-o` can be any path.
+
+---
+
+### Run it on a real GPU
+
+*Reminder*: If you are already in a interactive OpenAssembler shell, for every command, just ignore the `openassembler` command and directly run the others. For example:
+Instead of 
+```bash
+openassembler compile _______.ptx -o out.cubin --verify
+```
+We should use:
+```bash
+compile _______.ptx -o out.cubin --verify
+```
+
+`gpu run` runs this project's 541-probe test corpus on a GPU and checks the results against the emulator.
+Build the corpus once (`corpus/` is generated, not stored in git; ~20 s):
+
+```bash
+openassembler corpus                    # probes -> ptxas -> cubin/sass   (~20 s on Linux, ~1-2 min on macOS)
+openassembler check                     # compile every probe with OUR backend; needed for --which ours (~1-3 min)
+```
+
+Then run it on a GPU — any Linux box with an NVIDIA driver (no CUDA toolkit needed there), reached over SSH:
 ```sh
 openassembler gpu run --backend user@your-gpu-box --which ours
 ```
 
-...or on this machine, if it has an NVIDIA GPU:
+...or on this machine, if it is a Linux box with an NVIDIA GPU (not macOS):
 ```sh
 openassembler gpu run --backend local --which ours
 ```
 
-...or on a cloud A100 via Modal (what produced the numbers below):
+...or on a cloud A100 via [Modal](https://modal.com) (needs `pip install modal && modal setup`; this is what produced the numbers below):
 ```sh
 openassembler gpu run --backend modal --dry-run    # cost estimate, $0 spent
 openassembler gpu run --backend modal
 ```
 
 Run `openassembler --help` for the full command list (`compile`, `verify`,
-`check`, `bench`, `fastmm build|run`, `gpu run`, `status`).
+`corpus`, `check`, `bench`, `fastmm build|run`, `gpu run`, `status`). `gpu run` covers the probe corpus; the
+timing tables below were produced with the scripts in [REPRODUCING.md](REPRODUCING.md#d-real-gpu).
 
 ---
 
@@ -147,7 +213,7 @@ cost and the exact commands). A few findings that surprised us:
   `nvdisasm` doesn't print those bits — but the hardware reads them, and a
   stale value made every affected loop run one extra iteration.
 
-The full list, each with the measured file behind it, is in
+The full list of discoveries regarding the closed source nvidia assembly language and MMA operations details, each with the measured file behind it, is in
 [docs/STATUS.md](docs/STATUS.md#what-the-a100-taught-us-each-finding-has-a-recorded-run-behind-it).
 
 ---
@@ -175,7 +241,7 @@ We win on division (magic-number lowering vs. `ptxas`'s always-runtime
 reciprocal) and on loops with enough work to hide scheduling latency; `ptxas`
 still wins tight dependent chains by 5–8%, because it hides the loop counter
 and branch inside the chain and we pay a 13-cycle predicate wait per
-unrolled trip (see [Gaps](#gaps)).
+unrolled trip (see [Future Improvements](#future-improvements)).
 
 ### Strassen / AlphaTensor fast matmul vs. cuBLAS, fp32, n = 8192, A100
 
@@ -198,44 +264,18 @@ result (DeepMind, *Nature* 2022), reproduced end to end on our own backend.
 
 | | |
 |---|---|
-| Our compiler's cubins on real hardware | **110/110 bit-exact** on an A100 (4 trials × 32 threads) |
+| Our compiler's cubins on real hardware | **110/110 bit-exact** on an A100 (4 trials × 32 threads; the compiler now handles 203 probes, the 93 more have not been re-run on a GPU) |
 | Emulator vs. real A100 (`ptxas` cubins) | **532/541 probes** bit-exact or within PTX spec tolerance |
 | Tensor cores (HMMA/IMMA/DMMA, LDSM, LDGSTS) | bit-exact on 512/512 recorded lanes, every dtype |
 | Division/remainder-by-constant lowering | proved equal to `/` and `%` by z3 (exhaustive for 32-bit) |
 | Strassen/AlphaTensor factorizations | all 97 verified exactly over ℚ |
-| Offline tests | 164 passing |
+| Tests | 206 passing with the NVIDIA toolkit and probe corpus set up; on a fresh clone the ones that need them skip, with the reason shown |
 
 ---
 
 ## How it works
 
-```
- PTX source
-     │
-     ▼
- ┌─────────────┐   ┌────────────────────────────────────────────--──┐
- │   ptxas     │   │  openassembler (this repo)                     │
- │ (reference) │   │                                                │
- │             │   │  parse → select IR → DCE → coalesce →          │
- │  produces   │   │  linear-scan allocate → lower → [unroll ×4] →  │
- │  the ELF    │   │  [list-schedule] → stall/yield/scoreboard →    │
- │  container  │   │  encode (our own encoder, from the recovered   │
- └──────┬──────┘   │  spec, not ptxas's)                            │
-        │          └───────────────────┬────────────────────────┬--─┘
-        │ cubin (symbols, relocs,      │ new .text bytes,       │
-        │ constant banks — unchanged)  │ regcount, EXIT offsets │
-        ▼                              ▼                        │
- ┌───────────────────────────────────────────-─┐                │
- │  splice_text(): patch the cubin in place    │ ◄──────────────┘
- │  (openassembler/container/cubin.py)         │
- └──────────────────────┬──────────────────────┘
-                        ▼
-                 a cubin the driver
-                 runs exactly like
-                 any other — but every
-                 instruction inside it
-                 is ours
-```
+<p align="center"><img src="figs/OpenAssembler_architecture.png" width="800"></p>
 
 We don't build an ELF from scratch. `ptxas`'s cubin for the same kernel
 *signature* already has a correct symbol table, relocations, and constant
@@ -301,6 +341,9 @@ The living version of this list, with what's measured vs. hypothesized, is
 
 ```
 openassembler/        the package: backend/ (compiler),
+                      pyfront/ + cppfront.py + frontend.py (Python / CUDA C -> PTX),
+                      verify.py (checker for any kernel signature),
+                      ui/ (banner + interactive shell),
                       isa/ (encoder),
                       emu/ (SASS emulator),
                       container/ (ELF splicing),
@@ -310,12 +353,18 @@ openassembler/        the package: backend/ (compiler),
                       gpu/ (transport-agnostic GPU job runner),
                       cli.py
 
+examples/             div_by_const.ptx, vector_add.{py,cu}, mlp/ (a 2-layer MLP in Python)
+
 tools/                build/benchmark/fuzz scripts the CLI wraps; also usable directly
 
-docs/         `       STATUS.md (every measured result),
-                      WORKFLOW.md (method),
+docs/                 FRONTENDS.md (compile Python / CUDA C / PTX),
+                      STATUS.md (every measured result),
                       findings-*.md (encoding + div-by-const writeups),
                       research/
+
+WORKFLOW.md           the black-box method (repo root)
+REPRODUCING.md        every command behind every number
+NOTICE, LICENSE       attributions, Apache-2.0
 
 specs/                recovered encoding tables + AlphaTensor-derived GEMM schemes (JSON)
 
@@ -325,7 +374,7 @@ third_party/          AlphaTensor factorizations (DeepMind, Apache-2.0 — see N
 
 env/                  env/fetch_cuda.sh + env/cuda.sh: the oracle wrapper (toolkit itself is never vendored, see NOTICE)
 
-tests/                164 offline pytest tests, including replays of recorded A100 runs
+tests/                206 pytest tests, incl. replays of recorded A100 runs (those need the built probe corpus)
 ```
 
 ## License
@@ -334,3 +383,4 @@ Apache License 2.0 — see [LICENSE](LICENSE). Third-party attributions (the
 AlphaTensor import under `third_party/`) are in [NOTICE](NOTICE). This project
 reverse-engineers NVIDIA's `ptxas` by black-box observation only; no NVIDIA
 source code or binaries are included or redistributed.
+

@@ -37,22 +37,38 @@ def _kernel_names(ptx: str) -> list[str]:
 
 def compile_to_ptx(path: Path, *, entry: str | None, arch: str = "sm_80") -> tuple[str, str]:
     """Run `nvcc --ptx` on a .cu/.cpp file and return (ptx_text, kernel_name).
-    `path` must be inside the repo (same colima-VM-mount constraint as
-    openassembler.oracle.ptxas) -- raises CppFrontendError with nvcc's own message
-    on a compile error, same as a bad .ptx file raises from the PTX parser."""
+    On macOS nvcc runs in the colima VM, which only mounts $HOME; a source outside
+    it is compiled from a scratch copy (so keep local #includes under $HOME).
+    Raises CppFrontendError with nvcc's own message on a compile error, same as a
+    bad .ptx file raises from the PTX parser. The intermediate .ptx goes to a
+    scratch file and is removed -- nothing is written next to your source."""
+    import os
+    import uuid
+
+    scratch = oracle.SCRATCH
+    scratch.mkdir(parents=True, exist_ok=True)
+    tag = f"cppfront_{os.getpid()}_{uuid.uuid4().hex[:8]}"
+    out_path = scratch / f"{tag}.ptx"
+    staged = None
     try:
-        rel_src = path.resolve().relative_to(ROOT)
-    except ValueError as e:
-        raise CppFrontendError(f"{path} must be inside the repo ({ROOT}) -- nvcc runs in a "
-                                "VM that only sees this tree") from e
-    out_path = path.with_suffix(".ptx")
-    rel_out = out_path.resolve().relative_to(ROOT)
-
-    r = oracle.run_tool("nvcc", "--ptx", f"-arch={arch}", "-o", str(rel_out), str(rel_src), check=False)
-    if r.returncode != 0:
-        raise CppFrontendError(f"nvcc failed on {path}:\n{r.stderr or r.stdout}")
-
-    ptx = out_path.read_text()
+        src_arg = oracle.tool_path(path)
+    except oracle.OracleError:
+        # macOS, source outside $HOME: nvcc (in the VM) can't see it, so compile a
+        # copy from scratch. A local `#include "foo.h"` next to the original won't
+        # resolve from there -- keep such sources under $HOME.
+        staged = scratch / f"{tag}{path.suffix}"
+        staged.write_bytes(path.read_bytes())
+        src_arg = oracle.tool_path(staged)
+    try:
+        r = oracle.run_tool("nvcc", "--ptx", f"-arch={arch}", "-o", oracle.tool_path(out_path),
+                            src_arg, check=False)
+        if r.returncode != 0:
+            raise CppFrontendError(f"nvcc failed on {path}:\n{r.stderr or r.stdout}")
+        ptx = out_path.read_text()
+    finally:
+        out_path.unlink(missing_ok=True)
+        if staged is not None:
+            staged.unlink(missing_ok=True)
     names = _kernel_names(ptx)
     if not names:
         raise CppFrontendError(f"nvcc produced no __global__ kernels from {path} -- "

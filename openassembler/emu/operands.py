@@ -63,6 +63,15 @@ class Imm:
         except ValueError:
             return _f32_text_to_bits(self.text)
 
+    def f32bits(self) -> int:
+        """The text read as a FLOAT, whatever it looks like: nvdisasm prints some float
+        immediates as plain integers ("FMUL R0, R1, 4096" means 4096.0, bits 0x45800000),
+        which int32() would take as the raw bits 0x1000. Text that is explicitly hex
+        ("0x40000000", which is how our own compiler writes a float constant) IS the raw bits."""
+        if self.text.lstrip("+-").lower().startswith("0x"):
+            return int(self.text, 0) & 0xFFFFFFFF
+        return _f32_text_to_bits(self.text)
+
 
 @dataclass(frozen=True)
 class CBank:

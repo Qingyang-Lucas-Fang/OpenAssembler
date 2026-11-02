@@ -52,6 +52,16 @@ def _rand_scalar(rng: random.Random, ptx_type: str, n_elems: int):
     return rng.randrange(1, max(1, n_elems) + 1)
 
 
+def _align(chunks: list[bytes], size: int) -> None:
+    """Pad the packed kernel-parameter bytes so the next value starts at a
+    multiple of its own size -- the layout CUDA (and our backend, see
+    Selector.param_off) uses. Without it, `(float a, float* x, ...)` puts the
+    pointer at offset 4 instead of 8 and the kernel reads garbage."""
+    have = sum(len(c) for c in chunks)
+    if have % size:
+        chunks.append(b"\0" * (size - have % size))
+
+
 def run_and_diff(mod: Module, kname: str, sass_code, sass_labels, n_elems: int = 64,
                   arch: str = "sm_80", seed: int = 0) -> list[Mismatch]:
     """Build matching inputs, run both engines, return every differing
@@ -91,6 +101,7 @@ def run_and_diff(mod: Module, kname: str, sass_code, sass_labels, n_elems: int =
             sass_mem.write_bytes(addr, bytes(buf))
             ptx_mem.write_bytes(addr, bytes(buf))
             interp_params[name] = addr
+            _align(sass_param_bytes, 8)
             sass_param_bytes.append(struct.pack("<Q", addr))
         else:
             if name.lower() in n_like:
@@ -99,6 +110,7 @@ def run_and_diff(mod: Module, kname: str, sass_code, sass_labels, n_elems: int =
                 v = _rand_scalar(rng, ptx_type, n_elems)
             interp_params[name] = (struct.unpack("<I", struct.pack("<f", v))[0]
                                     if ptx_type == "f32" else int(v) & 0xFFFFFFFF)
+            _align(sass_param_bytes, 8 if ptx_type.endswith("64") else 4)
             sass_param_bytes.append(struct.pack(_SCALAR_FMT.get(ptx_type, "<i"),
                                                  v if ptx_type in ("f32", "f64") else int(v)))
 

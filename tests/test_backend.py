@@ -14,7 +14,12 @@ from openassembler.opt.divconst import lower, run
 
 ROOT = Path(__file__).resolve().parent.parent
 CORPUS = ROOT / "corpus" / "sm_80"
-needs_corpus = pytest.mark.skipif(not (CORPUS / "pairs.jsonl").exists(), reason="build the corpus first")
+# pairs.jsonl is committed; the cubins/sass/ptx next to it are build output
+# (gitignored), made by tools/build_corpus.py with the NVIDIA toolkit.
+needs_corpus = pytest.mark.skipif(not (CORPUS / "cubin").is_dir() or not any((CORPUS / "cubin").glob("*.cubin")),
+                                  reason="build the probe corpus first: python tools/build_corpus.py sm_80 (needs the CUDA toolkit)")
+needs_smoke = pytest.mark.skipif(not (CORPUS / "smoke.cubin").exists(),
+                                 reason="corpus/sm_80/smoke.cubin is build output (tools/build_corpus.py)")
 
 
 @needs_corpus
@@ -26,7 +31,7 @@ def test_elf_roundtrip_all_cubins():
         assert Elf.parse(b).serialize() == b, f.name
 
 
-@needs_corpus
+@needs_smoke
 def test_nvinfo_roundtrip_and_values():
     e = Elf.parse((CORPUS / "smoke.cubin").read_bytes())
     recs = nvinfo.parse(e.section(".nv.info.saxpy").data)
