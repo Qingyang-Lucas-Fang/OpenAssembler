@@ -26,6 +26,10 @@ of a general LLM or training speedup.
 </div>
 
 ---
+## Painpoint Addressing
+**Do you always feel like when the newest nvidia GPU come out with unbearable high price while your existing older GPUs are making you left behind in model serving and training?**
+
+We provide a more efficient compiler eith optimization kernels that reduce the number of instruction down by up to 50% comparing to the NVIDIA ptxas compiler, and reach an approximate 13% speed up in LLM inferencing and training comparing to using the SASS/cubin compiled by the nvidia compiler on various existing architectures (A100, H100 etc). Our goal is to create efficient and fast compiler and low level assembly language/binary file so that you can (without buying expensive frontier GPUs) with a ~30% speedup in training speed. We currently support single file compilation (including Python, CUDA C, CUDA C++ down to SASS and further down to CUDA Binary file, which is directly executable on your NVIDIA GPUs). We are currently working on more optimization kernels and supporting complete compilation of a whole repo. 
 
 ## What this is
 
