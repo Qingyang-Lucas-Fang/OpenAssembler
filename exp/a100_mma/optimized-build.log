@@ -1,0 +1,4 @@
+EXPERIMENTAL A100 MMA selector; conservative schedule; no core files changed
+exp/a100_mma/build/async_rect_licm_f16/cubin/async_rect_ssa_f16.cubin  (gemm: 733 instructions, opt-level=safe, regs=108)
+exp/a100_mma/build/async_rect_licm_f16/sass/async_rect_ssa_f16.sass  (SASS listing from nvdisasm)
+warning: gemm: 101 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R2, R2, 0x40, RZ' -> 'IMAD.SHL R2, R2, 0x40, RZ'

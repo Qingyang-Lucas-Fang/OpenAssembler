@@ -1,0 +1,7 @@
+[
+  {
+    "error": "Traceback (most recent call last):\n  File \"/root/exp/a100_mma/gpu_worker.py\", line 211, in <module>\n    result = run_hmma(case) if case.get(\"kind\") == \"hmma\" else run(case)\n                                                               ^^^^^^^^^\n  File \"/root/exp/a100_mma/gpu_worker.py\", line 137, in run\n    raise AssertionError(f\"{name} left nonfinite/unwritten outputs\")\nAssertionError: ours left nonfinite/unwritten outputs\n",
+    "name": "large_pipe_128_128_32_64_64_i8",
+    "worker_rc": 1
+  }
+]

@@ -1,0 +1,16 @@
+{
+  "name": "triton_128x256x32_w8_s3_g8",
+  "compiler": "Triton (comparison only)",
+  "triton_version": "3.3.1",
+  "configuration": [
+    128,
+    256,
+    32,
+    8,
+    3,
+    8
+  ],
+  "n_regs": 221,
+  "n_spills": 0,
+  "shared": 49152
+}

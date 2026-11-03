@@ -1,0 +1,83 @@
+✓ Initialized. View run at 
+https://modal.com/apps/qingyang-lucas-fang/main/ap-LHDCMyZHctgCOBS3e3DqxF
+✓ Created objects.
+├── ✓ Uploaded /Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/modal_run.py
+├── ✓ Uploaded 
+│   /Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/triton_kernel.py
+├── ✓ Uploaded /Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/gpu_worker.py
+├── ✓ Uploaded PythonPackage:openassembler
+└── ✓ Created Function execute.
+
+==========
+== CUDA ==
+==========
+
+CUDA Version 12.8.0
+
+Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+
+This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+By pulling and using the container, you accept the terms and conditions of this license:
+https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+
+A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
+
+v2_4096_sync_base {'ours': 2.910054397583008, 'ptxas': 1.2049407958984375, 'cublas': 0.542310380935669}
+v2_4096_async_safe {'ours': 1.7346559524536134, 'ptxas': 1.0067456245422364, 'cublas': 0.5496319770812989}
+v2_4096_async_interlock Traceback (most recent call last):
+  File "/root/exp/a100_mma/gpu_worker.py", line 211, in <module>
+    result = run_hmma(case) if case.get("kind") == "hmma" else run(case)
+                                                               ^^^^^^^^^
+  File "/root/exp/a100_mma/gpu_worker.py", line 146, in run
+    raise AssertionError(f"{name} full-output comparison failed for {pattern}; relative_l2={full_rel}")
+AssertionError: ours full-output comparison failed for integer; relative_l2=0.0007481776410713792
+
+v2_4096_async_licm Traceback (most recent call last):
+  File "/root/exp/a100_mma/gpu_worker.py", line 211, in <module>
+    result = run_hmma(case) if case.get("kind") == "hmma" else run(case)
+                                                               ^^^^^^^^^
+  File "/root/exp/a100_mma/gpu_worker.py", line 137, in run
+    raise AssertionError(f"{name} left nonfinite/unwritten outputs")
+AssertionError: ours left nonfinite/unwritten outputs
+
+v2_4096_async_tile128 Traceback (most recent call last):
+  File "/root/exp/a100_mma/gpu_worker.py", line 211, in <module>
+    result = run_hmma(case) if case.get("kind") == "hmma" else run(case)
+                                                               ^^^^^^^^^
+  File "/root/exp/a100_mma/gpu_worker.py", line 146, in run
+    raise AssertionError(f"{name} full-output comparison failed for {pattern}; relative_l2={full_rel}")
+AssertionError: ours full-output comparison failed for zero; relative_l2=2.0651976696070826e+26
+
+v2_4096_bf16_tile128 Traceback (most recent call last):
+  File "/root/exp/a100_mma/gpu_worker.py", line 211, in <module>
+    result = run_hmma(case) if case.get("kind") == "hmma" else run(case)
+                                                               ^^^^^^^^^
+  File "/root/exp/a100_mma/gpu_worker.py", line 146, in run
+    raise AssertionError(f"{name} full-output comparison failed for {pattern}; relative_l2={full_rel}")
+AssertionError: ours full-output comparison failed for integer; relative_l2=0.18573737144470215
+
+v2_mlp_f16_tile128 Traceback (most recent call last):
+  File "/root/exp/a100_mma/gpu_worker.py", line 211, in <module>
+    result = run_hmma(case) if case.get("kind") == "hmma" else run(case)
+                                                               ^^^^^^^^^
+  File "/root/exp/a100_mma/gpu_worker.py", line 146, in run
+    raise AssertionError(f"{name} full-output comparison failed for {pattern}; relative_l2={full_rel}")
+AssertionError: ours full-output comparison failed for zero; relative_l2=5.0066278575664576e+26
+
+/Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/results/v2_4096_sync_base.json
+/Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/results/v2_4096_async_safe.json
+/Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/results/v2_4096_async_interlock.json
+/Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/results/v2_4096_async_licm.json
+/Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/results/v2_4096_async_tile128.json
+/Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/results/v2_4096_bf16_tile128.json
+/Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/results/v2_mlp_f16_tile128.json
+/Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/results/v2_mlp_bf16_tile128.json
+v2_mlp_bf16_tile128 Traceback (most recent call last):
+  File "/root/exp/a100_mma/gpu_worker.py", line 211, in <module>
+    result = run_hmma(case) if case.get("kind") == "hmma" else run(case)
+                                                               ^^^^^^^^^
+  File "/root/exp/a100_mma/gpu_worker.py", line 146, in run
+    raise AssertionError(f"{name} full-output comparison failed for {pattern}; relative_l2={full_rel}")
+AssertionError: ours full-output comparison failed for zero; relative_l2=0.0
+
+Stopping app - uncaught exception raised locally: SystemExit(1).

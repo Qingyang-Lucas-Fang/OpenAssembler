@@ -1,0 +1,69 @@
+[
+  {
+    "build": "validated_square_f16",
+    "m": 4096,
+    "n": 4096,
+    "k": 4096,
+    "dtype": "f16",
+    "tile_m": 128,
+    "tile_n": 128,
+    "threads": 128,
+    "smem": 65536
+  },
+  {
+    "build": "validated_mlp_f16",
+    "m": 4096,
+    "n": 16384,
+    "k": 4096,
+    "dtype": "f16",
+    "tile_m": 128,
+    "tile_n": 128,
+    "threads": 128,
+    "smem": 65536
+  },
+  {
+    "build": "validated_tall_f16",
+    "m": 16384,
+    "n": 4096,
+    "k": 4096,
+    "dtype": "f16",
+    "tile_m": 128,
+    "tile_n": 128,
+    "threads": 128,
+    "smem": 65536
+  },
+  {
+    "build": "validated_square_bf16",
+    "m": 4096,
+    "n": 4096,
+    "k": 4096,
+    "dtype": "bf16",
+    "tile_m": 128,
+    "tile_n": 128,
+    "threads": 128,
+    "smem": 65536,
+    "triton_sweep": true
+  },
+  {
+    "build": "validated_mlp_bf16",
+    "m": 4096,
+    "n": 16384,
+    "k": 4096,
+    "dtype": "bf16",
+    "tile_m": 128,
+    "tile_n": 128,
+    "threads": 128,
+    "smem": 65536
+  },
+  {
+    "build": "validated_tall_bf16",
+    "m": 16384,
+    "n": 4096,
+    "k": 4096,
+    "dtype": "bf16",
+    "tile_m": 128,
+    "tile_n": 128,
+    "threads": 128,
+    "smem": 65536
+  }
+]

@@ -46,6 +46,18 @@ def _compile_opts(a: argparse.Namespace):
                    nvcc_flags=list(a.nvcc_flag), dump_ptx=a.dump_ptx)
 
 
+def _application_root(src: Path) -> Path | None:
+    from openassembler.torchfront.frontend import config_path
+    root = Path(src).resolve()
+    root = root if root.is_dir() else root.parent
+    return root if config_path(root) else None
+
+
+def _application_compile_opts(a: argparse.Namespace) -> dict:
+    return {'verify': a.verify, 'dry_run': a.dry_run,
+            'build_backend': a.build_backend, 'gpu': a.build_gpu, 'budget': a.build_budget}
+
+
 def cmd_compile(a: argparse.Namespace) -> int:
     """Source file or directory -> output/ (cubin/, sass/, manifest.json, .build/),
     using our backend (openassembler.backend.ra) instead of ptxas's code generator.
@@ -54,16 +66,28 @@ def cmd_compile(a: argparse.Namespace) -> int:
     PTX handed to the same backend. ptxas builds the ELF container our code is
     spliced into (README.md "How it works"); see openassembler/build.py."""
     from openassembler.build import compile_paths
-
+    if (root := _application_root(Path(a.src))) is not None:
+        from openassembler.torchfront.frontend import ApplicationError, compile_application
+        try:
+            return compile_application(root, Path(a.out_dir), output_name=a.out,
+                                       **_application_compile_opts(a)).rc
+        except (ApplicationError, OSError) as exc:
+            print(f"error: {exc}", file=sys.stderr)
+            return 1
+    if a.dry_run:
+        print("error: --dry-run is only available for configured PyTorch application builds", file=sys.stderr)
+        return 1
     return compile_paths(Path(a.src), Path(a.out_dir), _compile_opts(a), a.out).rc
 
 
 def _run_opts(a: argparse.Namespace, out_dir: str, only=None):
     from openassembler.runner import RunOptions
 
-    return RunOptions(out_dir=Path(out_dir), backend=a.backend, kernel=getattr(a, "run_kernel", None),
+    backend = "local" if a.backend == "auto" else a.backend
+    return RunOptions(out_dir=Path(out_dir), backend=backend, kernel=getattr(a, "run_kernel", None),
                       source=getattr(a, "source", None), spec=Path(a.spec) if a.spec else None, n=a.n,
-                      reps=a.reps, gpu=a.gpu, budget=a.budget, job_timeout=a.job_timeout, dry_run=a.dry_run,
+                      reps=a.reps, gpu=a.gpu or "A100-40GB", budget=a.budget if a.budget is not None else 300,
+                      job_timeout=a.job_timeout, dry_run=a.dry_run,
                       save_jobs=Path(a.save_jobs) if a.save_jobs else None,
                       from_results=Path(a.from_results) if getattr(a, "from_results", None) else None,
                       only=only)
@@ -76,6 +100,17 @@ def cmd_run(a: argparse.Namespace) -> int:
     --spec format."""
     from openassembler.runner import run_command
 
+    from openassembler.torchfront.frontend import ApplicationError, run_application
+    try:
+        application = run_application(Path(a.outdir), name=a.application, backend=a.backend,
+                                       gpu=a.gpu, budget=a.budget, dry_run=a.dry_run,
+                                       extra_args=a.app_arg, verify=a.verify_application)
+    except ApplicationError as exc:
+        print(f"error: {exc}", file=sys.stderr)
+        return 1
+    if application is not None:
+        return application
+
     a.run_kernel = a.kernel
     return run_command(_run_opts(a, a.outdir))
 
@@ -85,6 +120,27 @@ def cmd_cnr(a: argparse.Namespace) -> int:
     that failed to compile are reported and not run; nonzero exit if anything failed."""
     from openassembler.build import compile_paths
     from openassembler.runner import run_command
+
+    if (root := _application_root(Path(a.src))) is not None:
+        from openassembler.torchfront.frontend import ApplicationError, compile_application, run_application
+        try:
+            result = compile_application(root, Path(a.out_dir), output_name=a.out, verify=a.verify,
+                                         dry_run=a.dry_run, build_backend=a.build_backend,
+                                         gpu=a.build_gpu, budget=a.build_budget)
+            if result.entry is None:
+                if a.dry_run:
+                    from openassembler.torchfront.frontend import load_config
+                    app_config = load_config(root / "openassembler.toml")
+                    backend = a.backend if a.backend != "auto" else (a.build_backend or app_config["build_backend"])
+                    gpu = a.gpu or a.build_gpu or app_config["gpu"]
+                    budget = a.budget or a.build_budget or app_config["budget"]
+                    print(f"run: would replay {result.name} on {backend} with GPU {gpu} and budget {budget:g}s")
+                return result.rc
+            return run_application(result.out_dir, name=result.name, backend=a.backend, gpu=a.gpu,
+                                   budget=a.budget, dry_run=a.dry_run, verify=a.verify) or result.rc
+        except (ApplicationError, OSError) as exc:
+            print(f"error: {exc}", file=sys.stderr)
+            return 1
 
     res = compile_paths(Path(a.src), Path(a.out_dir), _compile_opts(a), a.out)
     if not res.built:
@@ -328,19 +384,28 @@ def _add_compile_args(pc: argparse.ArgumentParser) -> None:
                     help="extra nvcc flag, e.g. --nvcc-flag=-DTILE=32 (repeatable)")
     pc.add_argument("--dump-ptx", action="store_true", help="print the PTX each source compiled to")
     pc.add_argument("--no-sass", action="store_true", help="write only the cubins; skip the nvdisasm listing")
+    pc.add_argument("--build-backend", choices=("auto", "local", "modal"), default=None,
+                    help="PyTorch application capture backend (default: auto-detect)")
+    pc.add_argument("--build-gpu", default=None, help="Modal GPU for PyTorch capture (default: application config)")
+    pc.add_argument("--build-budget", type=float, default=None, metavar="SECONDS",
+                    help="PyTorch capture budget; defaults to openassembler.toml")
+    pc.add_argument("--dry-run", action="store_true",
+                    help="show PyTorch capture plan; with cnr, also skip the GPU launch")
 
 
-def _add_run_args(pr: argparse.ArgumentParser) -> None:
-    pr.add_argument("--backend", default="local", metavar="local|modal|user@host",
+def _add_run_args(pr: argparse.ArgumentParser, *, include_dry_run: bool = True) -> None:
+    pr.add_argument("--backend", default="auto", metavar="auto|local|modal|user@host",
                     help="'local' (this Linux machine's GPU), 'modal' (cloud, needs `modal setup`), "
                          "or an SSH target user@host (any Linux box with an NVIDIA driver)")
     pr.add_argument("--spec", default=None, metavar="SPEC.json", help="buffers/launches to use (see above)")
     pr.add_argument("-n", "--n", type=int, default=1 << 20, help="auto-harness elements per buffer (default 1048576)")
     pr.add_argument("--reps", type=int, default=20, help="timed repetitions (median reported)")
-    pr.add_argument("--gpu", default="A100-40GB", help="Modal GPU type (--backend modal)")
-    pr.add_argument("--budget", type=float, default=300, help="hard time limit for the GPU batch, seconds")
+    pr.add_argument("--gpu", default=None, help="Modal GPU type (default: application config or A100-40GB)")
+    pr.add_argument("--budget", type=float, default=None,
+                    help="hard time limit in seconds (default 300 for kernels; application config for PyTorch)")
     pr.add_argument("--job-timeout", type=float, default=60, help="per-job watchdog, seconds")
-    pr.add_argument("--dry-run", action="store_true", help="print what would run (and the cost); touch no GPU")
+    if include_dry_run:
+        pr.add_argument("--dry-run", action="store_true", help="print what would run (and the cost); touch no GPU")
     pr.add_argument("--save-jobs", default=None, metavar="FILE", help="also write the GPU jobs pickle here")
 
 
@@ -366,6 +431,9 @@ def build_parser() -> argparse.ArgumentParser:
                     help="only kernels compiled from FILE (needed when --kernel is in several sources)")
     pr.add_argument("--from-results", default=None, metavar="RES.pkl",
                     help="re-report a results pickle from an earlier run instead of running anything")
+    pr.add_argument("--application", default=None, help="run a compiled PyTorch application from the manifest")
+    pr.add_argument("--app-arg", action="append", default=[], help="application arguments; must match the bundle")
+    pr.add_argument("--verify-application", action="store_true", help="verify eager and compiled application state")
     _add_run_args(pr)
     pr.set_defaults(func=cmd_run)
 
@@ -373,7 +441,7 @@ def build_parser() -> argparse.ArgumentParser:
                         description=CNR_HELP, formatter_class=argparse.RawDescriptionHelpFormatter)
     pn.add_argument("src", metavar="SRC", help="a source file or a directory (repo)")
     _add_compile_args(pn)
-    _add_run_args(pn)
+    _add_run_args(pn, include_dry_run=False)
     pn.set_defaults(func=cmd_cnr)
 
     pv = sub.add_parser("verify", help="check a compiled cubin's SASS against the PTX reference interpreter")

@@ -1,0 +1,82 @@
+[
+  {
+    "build": "warp_rect_f16",
+    "m": 32,
+    "n": 24,
+    "k": 48,
+    "dtype": "f16",
+    "tile_m": 16,
+    "tile_n": 8,
+    "threads": 32
+  },
+  {
+    "build": "cta_rect_base_f16",
+    "m": 128,
+    "n": 192,
+    "k": 256,
+    "dtype": "f16",
+    "tile_m": 64,
+    "tile_n": 64,
+    "threads": 128
+  },
+  {
+    "build": "cta_rect_ssa_f16",
+    "m": 128,
+    "n": 192,
+    "k": 256,
+    "dtype": "f16",
+    "tile_m": 64,
+    "tile_n": 64,
+    "threads": 128
+  },
+  {
+    "build": "async_rect_ssa_f16",
+    "m": 128,
+    "n": 192,
+    "k": 256,
+    "dtype": "f16",
+    "tile_m": 64,
+    "tile_n": 64,
+    "threads": 128
+  },
+  {
+    "build": "warp_rect_bf16",
+    "m": 32,
+    "n": 24,
+    "k": 48,
+    "dtype": "bf16",
+    "tile_m": 16,
+    "tile_n": 8,
+    "threads": 32
+  },
+  {
+    "build": "cta_rect_base_bf16",
+    "m": 128,
+    "n": 192,
+    "k": 256,
+    "dtype": "bf16",
+    "tile_m": 64,
+    "tile_n": 64,
+    "threads": 128
+  },
+  {
+    "build": "cta_rect_ssa_bf16",
+    "m": 128,
+    "n": 192,
+    "k": 256,
+    "dtype": "bf16",
+    "tile_m": 64,
+    "tile_n": 64,
+    "threads": 128
+  },
+  {
+    "build": "async_rect_ssa_bf16",
+    "m": 128,
+    "n": 192,
+    "k": 256,
+    "dtype": "bf16",
+    "tile_m": 64,
+    "tile_n": 64,
+    "threads": 128
+  }
+]

@@ -1,0 +1,25 @@
+...F............................................................         [100%]
+=================================== FAILURES ===================================
+________________ test_repo_walk_ignores_hidden_dirs_and_output _________________
+
+tmp_path = PosixPath('/Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/pytest-temp/test_repo_walk_ignores_hidden_0')
+
+    def test_repo_walk_ignores_hidden_dirs_and_output(tmp_path):
+        src = tmp_path / "repo"
+        (src / "kernels").mkdir(parents=True)
+        (src / ".git").mkdir()
+        (src / "node_modules").mkdir()
+        out = tmp_path / "build"
+        out.mkdir()
+        (src / "kernels" / "a.ptx").write_text(".visible .entry a() { ret; }")
+        (src / ".git" / "hidden.ptx").write_text(".visible .entry hidden() { ret; }")
+        (src / "node_modules" / "vendor.ptx").write_text(".visible .entry vendor() { ret; }")
+        (out / "old.ptx").write_text(".visible .entry old() { ret; }")
+        files, used_git = walk(src, out)
+>       assert not used_git
+E       assert not True
+
+tests/test_cli_compile.py:68: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_cli_compile.py::test_repo_walk_ignores_hidden_dirs_and_output
+1 failed, 63 passed in 17.07s

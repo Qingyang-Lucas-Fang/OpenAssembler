@@ -48,12 +48,78 @@ symlinks are excluded. Other files are skipped and counted. Python modules are
 parsed without executing imports or top-level code. CUDA headers and dependencies
 must still be visible to nvcc; `-I DIR` and `--nvcc-flag=-DNAME=value` are repeatable.
 
-This compiles discovered GPU kernels. It does not translate arbitrary Python
-applications, PyTorch graphs, shell scripts, host C++, or a repository's build
+Without an application manifest, this compiles discovered GPU kernels. It does
+not translate host Python, shell scripts, host C++, or a repository's build
 system into one GPU program. Device linkage and unsupported constructs fail with
 a diagnostic. `--kernel NAME` selects an entry; without it, all entries in each
 supported source are included in that source's cubin. C++ entry names may be
 mangled: use `extern "C"` or the exact name listed in the diagnostic.
+
+## PyTorch training applications
+
+A PyTorch source tree can opt into application capture with an `openassembler.toml`
+at its root. This graph-based frontend traces project `nn.Module.forward`
+methods, captures forward and backward graphs through AOTAutograd, and emits CUDA
+kernels through TorchInductor/Triton. It does not use OpenAssembler's PTX-to-SASS
+backend for these generated kernels. Cubins are written under
+`output/cubin/applications/<name>/`; their `nvdisasm` listings are under
+`output/sass/applications/<name>/`. Captured PTX and graph records are retained
+under `output/.build/` when available, along with the source and runtime cache.
+
+The entry point, arguments, seed, Python/PyTorch/CUDA versions, and GPU
+specializations are explicit. Capture executes the configured training workload
+on a CUDA GPU. `--verify` runs the same workload eagerly and compiled in separate
+seeded processes, then compares observed model outputs, final parameters,
+gradients, optimizer state, and step counts within the configured tolerance.
+This checks the selected arguments, shapes, and observed branches; it does not
+prove correctness for unobserved workloads.
+`rtol`/`atol` apply to outputs and gradients; `state_rtol`/`state_atol` apply to
+post-update parameters and optimizer state, where Adam can amplify small gradient
+rounding differences.
+
+By default, a root `requirements.txt` is installed in the worker environment.
+Use `requirements = ["requirements.txt", "requirements/runtime.txt"]` to name
+other dependency files, or `requirements = []` to disable installation. Dependency
+resolution is constrained to PyTorch 2.7.1 so it cannot silently replace the
+supported CUDA runtime.
+
+The current runtime supports PyTorch 2.7.1 on Python 3.11 and NVIDIA sm_80
+(A100). Use `build_backend = "modal"` for the pinned cloud environment, or
+`build_backend = "local"` with a matching local PyTorch/CUDA setup. Python host
+control flow and project entry code remain in the runtime bundle. The result is
+a runnable CUDA application bundle, not a standalone host executable or one
+cubin containing the repository. PyTorch operators dispatched to ATen, cuBLAS,
+or cuDNN remain supplied by the matching PyTorch runtime.
+
+Example configuration:
+
+```toml
+[application]
+frontend = "torch"
+entrypoint = "train.py"
+args = ["--device", "cuda", "--steps", "2"]
+requirements = ["requirements.txt"]
+seed = 7
+torch = "2.7.1"
+build_backend = "modal"
+gpu = "A100-40GB"
+budget = 900
+job_timeout = 600
+verification = "state"
+rtol = 0.0001
+atol = 0.00001
+state_rtol = 0.001
+state_atol = 0.001
+```
+
+Compile and replay the configured run with
+`openassembler compile my_training_repo/ --out-dir output --verify` followed by
+`openassembler run output --application my_training_repo --backend modal`.
+`--dry-run` prints the selected
+entry point, arguments, backend, GPU, and budget without executing training.
+`--build-backend`, `--build-gpu`, and `--build-budget` override the manifest for
+one build. Runtime replay uses the bundled cache only; an uncaptured shape or
+Triton kernel fails and requires recompilation.
 
 | Option | Meaning |
 |---|---|

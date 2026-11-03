@@ -1,0 +1,6 @@
+exp/a100_mma/build/completion_source/cubin/completion_source.cubin  (gemm: 1898 instructions, opt-level=safe, regs=228)
+exp/a100_mma/build/completion_source/sass/completion_source.sass  (SASS listing from nvdisasm)
+warning: gemm: 77 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R2, R2, 0x80, RZ' -> 'IMAD.SHL R2, R2, 0x80, RZ'
+exp/a100_mma/build/completion_list/cubin/completion_list.cubin  (gemm: 1898 instructions, opt-level=safe, regs=228)
+exp/a100_mma/build/completion_list/sass/completion_list.sass  (SASS listing from nvdisasm)
+warning: gemm: 77 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R2, R2, 0x80, RZ' -> 'IMAD.SHL R2, R2, 0x80, RZ'

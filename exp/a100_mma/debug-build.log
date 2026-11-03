@@ -1,0 +1,12 @@
+exp/a100_mma/build/debug_licm_safe/cubin/debug_licm_safe.cubin  (gemm: 733 instructions, opt-level=safe, regs=108)
+exp/a100_mma/build/debug_licm_safe/sass/debug_licm_safe.sass  (SASS listing from nvdisasm)
+warning: gemm: 101 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R2, R2, 0x40, RZ' -> 'IMAD.SHL R2, R2, 0x40, RZ'
+exp/a100_mma/build/debug_no_licm_issue2/cubin/debug_no_licm_issue2.cubin  (gemm: 733 instructions, opt-level=safe, regs=60)
+exp/a100_mma/build/debug_no_licm_issue2/sass/debug_no_licm_issue2.sass  (SASS listing from nvdisasm)
+warning: gemm: 101 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R2, R2, 0x40, RZ' -> 'IMAD.SHL R2, R2, 0x40, RZ'
+exp/a100_mma/build/debug_no_licm_issue4/cubin/debug_no_licm_issue4.cubin  (gemm: 733 instructions, opt-level=safe, regs=60)
+exp/a100_mma/build/debug_no_licm_issue4/sass/debug_no_licm_issue4.sass  (SASS listing from nvdisasm)
+warning: gemm: 101 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R2, R2, 0x40, RZ' -> 'IMAD.SHL R2, R2, 0x40, RZ'
+exp/a100_mma/build/debug_licm_issue4/cubin/debug_licm_issue4.cubin  (gemm: 733 instructions, opt-level=safe, regs=108)
+exp/a100_mma/build/debug_licm_issue4/sass/debug_licm_issue4.sass  (SASS listing from nvdisasm)
+warning: gemm: 101 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R2, R2, 0x40, RZ' -> 'IMAD.SHL R2, R2, 0x40, RZ'

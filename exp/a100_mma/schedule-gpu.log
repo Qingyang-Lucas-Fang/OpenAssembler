@@ -1,0 +1,40 @@
+✓ Initialized. View run at 
+https://modal.com/apps/qingyang-lucas-fang/main/ap-evXztj0pZ9qOHn2QOkbQBk
+✓ Created objects.
+├── ✓ Uploaded /Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/modal_run.py
+├── ✓ Uploaded /Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/gpu_worker.py
+├── ✓ Uploaded 
+│   /Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/triton_kernel.py
+├── ✓ Uploaded PythonPackage:openassembler
+└── ✓ Created Function execute.
+
+==========
+== CUDA ==
+==========
+
+CUDA Version 12.8.0
+
+Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+
+This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+By pulling and using the container, you accept the terms and conditions of this license:
+https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+
+A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
+
+sched_compact_list8 {'ours': 0.9693183898925781, 'ptxas': 0.7221248149871826, 'cublas': 0.6328832149505615}
+sched_compact_list4 {'ours': 1.012992000579834, 'ptxas': 0.7559679985046387, 'cublas': 0.6614528179168702}
+sched_compact_no_read8 {'ours': 0.8303615570068359, 'ptxas': 0.6558207988739013, 'cublas': 0.5940735816955567}
+sched_compact_list_no_read8 Traceback (most recent call last):
+  File "/root/exp/a100_mma/gpu_worker.py", line 214, in <module>
+    result = run_hmma(case) if case.get("kind") == "hmma" else run(case)
+                                                               ^^^^^^^^^
+  File "/root/exp/a100_mma/gpu_worker.py", line 149, in run
+    raise AssertionError(f"{name} full-output comparison failed for {pattern}; relative_l2={full_rel}")
+AssertionError: ours full-output comparison failed for integer; relative_l2=0.02172374539077282
+
+/Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/results/sched_compact_list8.json
+/Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/results/sched_compact_list4.json
+/Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/results/sched_compact_no_read8.json
+/Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/results/sched_compact_list_no_read8.json
+Stopping app - uncaught exception raised locally: SystemExit(1).

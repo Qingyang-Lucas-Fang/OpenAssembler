@@ -1,0 +1,25 @@
+EXPERIMENTAL A100 MMA selector; conservative schedule; no core files changed
+exp/a100_mma/build/cli-pipeline/cubin/pipe_64_64_32_32_32_f16.cubin  (gemm: 618 instructions, opt-level=safe, regs=84)
+exp/a100_mma/build/cli-pipeline/sass/pipe_64_64_32_32_32_f16.sass  (SASS listing from nvdisasm)
+warning: gemm: 53 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R2, R2, 0x40, RZ' -> 'IMAD.SHL R2, R2, 0x40, RZ'
+
+running 1 kernel (modal)
+wrote 2 jobs to exp/a100_mma/cli-jobs.pkl
+$ modal run /Users/lucasfang/Desktop/OpenAssembler/openassembler/gpu/modal_app.py --jobs /Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/scratch/oa_run_t90j39x7/jobs.pkl --out /Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/scratch/oa_run_t90j39x7/res.pkl --gpu A100-40GB --budget 60 --job-timeout 20
+✓ Initialized. View run at 
+https://modal.com/apps/qingyang-lucas-fang/main/ap-l7oK1Sb04aDgyBrhFRWuLZ
+✓ Created objects.
+├── ✓ Uploaded 
+│   /Users/lucasfang/Desktop/OpenAssembler/openassembler/gpu/modal_app.py
+├── ✓ Uploaded /Users/lucasfang/Desktop/OpenAssembler/openassembler/__init__.py
+├── ✓ Uploaded /Users/lucasfang/Desktop/OpenAssembler/openassembler/gpu
+└── ✓ Created Function run_batch.
+2 jobs on Modal A100-40GB (budget 60s)
+NVIDIA A100-SXM4-40GB cc 8.0 driver 13030: 1.0s in container, 47s wall, 1 worker(s)
+Stopping app - local entrypoint completed.
+✓ App completed. View run at 
+https://modal.com/apps/qingyang-lucas-fang/main/ap-l7oK1Sb04aDgyBrhFRWuLZ
+device: NVIDIA A100-SXM4-40GB cc 8.0 (Modal A100-40GB)
+kernel  result      ours ms   ptxas ms  speedup  source
+gemm    OK           0.0184     0.0154    0.83x  cli-spec.json
+1/1 OK (bit-exact against ptxas's build on identical inputs); speedup = ptxas median / ours median

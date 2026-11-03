@@ -1,0 +1,7 @@
+[
+  {
+    "error": "Traceback (most recent call last):\n  File \"/root/exp/a100_mma/gpu_worker.py\", line 196, in <module>\n    result = run_hmma(case) if case.get(\"kind\") == \"hmma\" else run(case)\n                                                               ^^^^^^^^^\n  File \"/root/exp/a100_mma/gpu_worker.py\", line 140, in run\n    raise AssertionError(f\"{name} failed exact {pattern} case: max_abs={float(error.abs().max())}; \"\nAssertionError: ours failed exact integer case: max_abs=141.0; actual=[59.0, -30.0, 22.0, -62.409912109375, -3.0, -132.83270263671875, 94.0, 101.0, 39.0, -42.0, -21.0, 32.0, -27.0, -116.0, 22.0, -77.0]; expected=[8.0, -45.0, 77.0, -88.0, 0.0, -78.0, -1.0, 69.0, 40.0, -25.0, -8.0, 44.0, 32.0, -99.0, 8.0, -106.0]\n",
+    "name": "isolate_licm_scalar",
+    "worker_rc": 1
+  }
+]

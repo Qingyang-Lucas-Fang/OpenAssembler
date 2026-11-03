@@ -1,0 +1,51 @@
+✓ Initialized. View run at 
+https://modal.com/apps/qingyang-lucas-fang/main/ap-Ugnn5rRMk3WYmwMFeQmULF
+✓ Created objects.
+├── ✓ Uploaded /Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/modal_run.py
+├── ✓ Uploaded 
+│   /Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/triton_kernel.py
+├── ✓ Uploaded /Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/gpu_worker.py
+├── ✓ Uploaded PythonPackage:openassembler
+└── ✓ Created Function execute.
+
+==========
+== CUDA ==
+==========
+
+CUDA Version 12.8.0
+
+Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+
+This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+By pulling and using the container, you accept the terms and conditions of this license:
+https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+
+A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
+
+hmma_independent_gap02 True
+hmma_independent_gap03 True
+hmma_independent_gap04 True
+hmma_independent_gap05 True
+hmma_independent_gap06 True
+hmma_independent_gap07 True
+hmma_independent_gap08 True
+hmma_independent_gap10 True
+hmma_independent_gap12 True
+hmma_independent_gap16 True
+hmma_independent_gap24 True
+hmma_independent_gap30 True
+/Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/results/hmma_independent_gap02.json
+/Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/results/hmma_independent_gap03.json
+/Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/results/hmma_independent_gap04.json
+/Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/results/hmma_independent_gap05.json
+/Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/results/hmma_independent_gap06.json
+/Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/results/hmma_independent_gap07.json
+/Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/results/hmma_independent_gap08.json
+/Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/results/hmma_independent_gap10.json
+/Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/results/hmma_independent_gap12.json
+/Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/results/hmma_independent_gap16.json
+/Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/results/hmma_independent_gap24.json
+/Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/results/hmma_independent_gap30.json
+Stopping app - local entrypoint completed.
+✓ App completed. View run at 
+https://modal.com/apps/qingyang-lucas-fang/main/ap-Ugnn5rRMk3WYmwMFeQmULF

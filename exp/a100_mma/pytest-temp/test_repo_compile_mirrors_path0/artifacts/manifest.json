@@ -1,0 +1,45 @@
+{
+ "openassembler": "0.2.0",
+ "schema": 1,
+ "arch": "sm_80",
+ "opt_level": "opt",
+ "root": "/Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/pytest-temp/test_repo_compile_mirrors_path0/repo",
+ "entries": [
+  {
+   "source": "kernels/sum.ptx",
+   "source_sha256": "aae0af24ca3f23a1b00f08f0681b84bd493c52d2c7ec819af6d1680259e7faf5",
+   "language": "ptx",
+   "cubin": "cubin/kernels/sum.cubin",
+   "sass": "sass/kernels/sum.sass",
+   "ptx": ".build/ptx/kernels/sum.ptx",
+   "reference": ".build/reference/kernels/sum.cubin",
+   "kernels": [
+    {
+     "name": "div_by_const",
+     "params": [
+      [
+       "u64",
+       "out"
+      ],
+      [
+       "u64",
+       "in"
+      ],
+      [
+       "u32",
+       "k"
+      ],
+      [
+       "f32",
+       "kf"
+      ]
+     ],
+     "compiled_by": "openassembler",
+     "instructions": 12,
+     "registers": 16,
+     "verify": "not-run"
+    }
+   ]
+  }
+ ]
+}

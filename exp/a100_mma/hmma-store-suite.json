@@ -1,0 +1,138 @@
+[
+  {
+    "kind": "hmma",
+    "name": "hmma_store_gap02",
+    "gap": 2,
+    "steps": 128,
+    "cubin_path": "hmma/store-gap02.cubin",
+    "family": "result-to-store"
+  },
+  {
+    "kind": "hmma",
+    "name": "hmma_store_gap03",
+    "gap": 3,
+    "steps": 128,
+    "cubin_path": "hmma/store-gap03.cubin",
+    "family": "result-to-store"
+  },
+  {
+    "kind": "hmma",
+    "name": "hmma_store_gap04",
+    "gap": 4,
+    "steps": 128,
+    "cubin_path": "hmma/store-gap04.cubin",
+    "family": "result-to-store"
+  },
+  {
+    "kind": "hmma",
+    "name": "hmma_store_gap05",
+    "gap": 5,
+    "steps": 128,
+    "cubin_path": "hmma/store-gap05.cubin",
+    "family": "result-to-store"
+  },
+  {
+    "kind": "hmma",
+    "name": "hmma_store_gap06",
+    "gap": 6,
+    "steps": 128,
+    "cubin_path": "hmma/store-gap06.cubin",
+    "family": "result-to-store"
+  },
+  {
+    "kind": "hmma",
+    "name": "hmma_store_gap07",
+    "gap": 7,
+    "steps": 128,
+    "cubin_path": "hmma/store-gap07.cubin",
+    "family": "result-to-store"
+  },
+  {
+    "kind": "hmma",
+    "name": "hmma_store_gap08",
+    "gap": 8,
+    "steps": 128,
+    "cubin_path": "hmma/store-gap08.cubin",
+    "family": "result-to-store"
+  },
+  {
+    "kind": "hmma",
+    "name": "hmma_store_gap09",
+    "gap": 9,
+    "steps": 128,
+    "cubin_path": "hmma/store-gap09.cubin",
+    "family": "result-to-store"
+  },
+  {
+    "kind": "hmma",
+    "name": "hmma_store_gap10",
+    "gap": 10,
+    "steps": 128,
+    "cubin_path": "hmma/store-gap10.cubin",
+    "family": "result-to-store"
+  },
+  {
+    "kind": "hmma",
+    "name": "hmma_store_gap11",
+    "gap": 11,
+    "steps": 128,
+    "cubin_path": "hmma/store-gap11.cubin",
+    "family": "result-to-store"
+  },
+  {
+    "kind": "hmma",
+    "name": "hmma_store_gap12",
+    "gap": 12,
+    "steps": 128,
+    "cubin_path": "hmma/store-gap12.cubin",
+    "family": "result-to-store"
+  },
+  {
+    "kind": "hmma",
+    "name": "hmma_store_gap13",
+    "gap": 13,
+    "steps": 128,
+    "cubin_path": "hmma/store-gap13.cubin",
+    "family": "result-to-store"
+  },
+  {
+    "kind": "hmma",
+    "name": "hmma_store_gap14",
+    "gap": 14,
+    "steps": 128,
+    "cubin_path": "hmma/store-gap14.cubin",
+    "family": "result-to-store"
+  },
+  {
+    "kind": "hmma",
+    "name": "hmma_store_gap15",
+    "gap": 15,
+    "steps": 128,
+    "cubin_path": "hmma/store-gap15.cubin",
+    "family": "result-to-store"
+  },
+  {
+    "kind": "hmma",
+    "name": "hmma_store_gap16",
+    "gap": 16,
+    "steps": 128,
+    "cubin_path": "hmma/store-gap16.cubin",
+    "family": "result-to-store"
+  },
+  {
+    "kind": "hmma",
+    "name": "hmma_store_gap24",
+    "gap": 24,
+    "steps": 128,
+    "cubin_path": "hmma/store-gap24.cubin",
+    "family": "result-to-store"
+  },
+  {
+    "kind": "hmma",
+    "name": "hmma_store_gap30",
+    "gap": 30,
+    "steps": 128,
+    "cubin_path": "hmma/store-gap30.cubin",
+    "family": "result-to-store"
+  }
+]

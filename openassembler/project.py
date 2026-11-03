@@ -380,6 +380,10 @@ def load_manifest(out_dir: Path) -> dict | None:
                     for e in m["entries"]):
         raise ManifestError(f"{p} is not an openassembler manifest (missing entries/source/cubin/kernels); "
                             "delete it, or recompile with openassembler compile <src>")
+    if "applications" in m and (not isinstance(m["applications"], list) or
+            not all(isinstance(a, dict) and isinstance(a.get("name"), str)
+                    and isinstance(a.get("kernels"), list) for a in m["applications"])):
+        raise ManifestError(f"{p}: invalid application records; recompile")
     if m.get("schema") != MANIFEST_SCHEMA or not isinstance(m.get("root"), str):
         raise ManifestError(f"{p}: unsupported manifest schema or missing source root; recompile")
     for e in m["entries"]:
@@ -393,6 +397,26 @@ def load_manifest(out_dir: Path) -> dict | None:
             raise ManifestError(f"{p}: invalid kernel or source record; recompile")
         for rel in entry_outputs(e):
             artifact_path(out_dir, rel)
+    for app in m.get("applications", []):
+        required = ("source_bundle", "cache", "report", "graphs", "config", "entrypoint", "compiled_by")
+        if (not all(isinstance(app.get(k), str) and app[k] for k in required)
+                or not isinstance(app.get("args"), list) or not all(isinstance(x, str) for x in app["args"])
+                or not isinstance(app.get("runtime"), dict)
+                or not isinstance(app.get("source_bundle_sha256"), str)
+                or not isinstance(app.get("cache_sha256"), str)
+                or not all(isinstance(k, dict) and isinstance(k.get("name"), str)
+                           and isinstance(k.get("cubin"), str) and isinstance(k.get("sha256"), str)
+                           and isinstance(k.get("cache_path"), str)
+                           and not Path(k["cache_path"]).is_absolute() and ".." not in Path(k["cache_path"]).parts
+                           for k in app["kernels"])):
+            raise ManifestError(f"{p}: invalid application record; recompile")
+        for key in ("source_bundle", "cache", "report", "graphs", "config"):
+            if app.get(key) is not None:
+                artifact_path(out_dir, app[key])
+        for kernel in app["kernels"]:
+            for key in ("cubin", "sass", "ptx"):
+                if kernel.get(key) is not None:
+                    artifact_path(out_dir, kernel[key])
     return m
 
 
@@ -443,7 +467,8 @@ def remove_outputs(out_dir: Path, rels: list[str]) -> list[str]:
     return gone
 
 
-def save_manifest(out_dir: Path, root: Path, arch: str, opt_level: str, entries: list[dict]) -> None:
+def save_manifest(out_dir: Path, root: Path, arch: str, opt_level: str, entries: list[dict],
+                  applications: list[dict] | None = None) -> None:
     """entries carry absolute "source" paths in memory; stored relative to root."""
     stored = []
     for e in sorted(entries, key=lambda e: e["cubin"]):
@@ -452,6 +477,11 @@ def save_manifest(out_dir: Path, root: Path, arch: str, opt_level: str, entries:
         stored.append(e)
     m = {"openassembler": __version__, "schema": MANIFEST_SCHEMA, "arch": arch, "opt_level": opt_level,
          "root": str(root.resolve()), "entries": stored}
+    if applications is None:
+        previous = load_manifest(Path(out_dir))
+        applications = previous.get("applications", []) if previous else []
+    if applications:
+        m["applications"] = applications
     write_atomic(Path(out_dir) / MANIFEST, json.dumps(m, indent=1) + "\n")
 
 

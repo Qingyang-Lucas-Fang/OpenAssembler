@@ -1,0 +1,17 @@
+exp/a100_mma/build/tuned2_64_64_32_32_32/cubin/tuned2_64_64_32_32_32.cubin  (gemm: 618 instructions, opt-level=safe, regs=84)
+exp/a100_mma/build/tuned2_64_64_32_32_32/sass/tuned2_64_64_32_32_32.sass  (SASS listing from nvdisasm)
+warning: gemm: 53 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R2, R2, 0x40, RZ' -> 'IMAD.SHL R2, R2, 0x40, RZ'
+exp/a100_mma/build/tuned2_64_128_32_32_64/cubin/tuned2_64_128_32_32_64.cubin  (gemm: 1073 instructions, opt-level=safe, regs=140)
+exp/a100_mma/build/tuned2_64_128_32_32_64/sass/tuned2_64_128_32_32_64.sass  (SASS listing from nvdisasm)
+warning: gemm: 83 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R2, R2, 0x40, RZ' -> 'IMAD.SHL R2, R2, 0x40, RZ'
+exp/a100_mma/build/tuned2_128_128_32_64_32/cubin/tuned2_128_128_32_64_32.cubin  (gemm: 934 instructions, opt-level=safe, regs=128)
+exp/a100_mma/build/tuned2_128_128_32_64_32/sass/tuned2_128_128_32_64_32.sass  (SASS listing from nvdisasm)
+warning: gemm: 65 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R2, R2, 0x80, RZ' -> 'IMAD.SHL R2, R2, 0x80, RZ'
+exp/a100_mma/build/tuned2_128_128_32_64_64/cubin/tuned2_128_128_32_64_64.cubin  (gemm: 1706 instructions, opt-level=safe, regs=220)
+exp/a100_mma/build/tuned2_128_128_32_64_64/sass/tuned2_128_128_32_64_64.sass  (SASS listing from nvdisasm)
+warning: gemm: 101 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R2, R2, 0x80, RZ' -> 'IMAD.SHL R2, R2, 0x80, RZ'
+exp/a100_mma/build/tuned2_128_128_64_64_32/cubin/tuned2_128_128_64_64_32.cubin  (gemm: 1378 instructions, opt-level=safe, regs=156)
+exp/a100_mma/build/tuned2_128_128_64_64_32/sass/tuned2_128_128_64_64_32.sass  (SASS listing from nvdisasm)
+warning: gemm: 125 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R2, R2, 0x80, RZ' -> 'IMAD.SHL R2, R2, 0x80, RZ'
+error: gemm: our backend can't compile this kernel yet: out of registers
+  That PTX construct isn't implemented in openassembler/backend/ra.py. Rewrite the kernel without it, pass --fallback ptxas to keep ptxas's code for this kernel, or see docs/FRONTENDS.md for what is supported.

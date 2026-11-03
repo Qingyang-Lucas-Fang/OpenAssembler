@@ -150,7 +150,19 @@ What each language accepts, what is rejected, and the exact limits of `--verify`
 
 ### Compile a repository and run it
 
-A directory compile walks tracked and non-ignored files, recognizes PTX entries, CUDA C/C++ files containing `__global__`, and Python files containing OpenAssembler `@kernel` functions. Shell scripts, host-only files, virtual environments, and generated output are skipped and counted. GPU kernels in test files are included when they match the discovery rules. The source tree is mirrored below the output folder:
+A directory compile can build standalone kernels or a configured PyTorch training application. Standalone discovery recognizes PTX entries, CUDA C/C++ files containing `__global__`, and Python files containing OpenAssembler `@kernel` functions. For a Python application, a root `openassembler.toml` selects its entry point and bounded workload. TorchDynamo/AOTAutograd and TorchInductor/Triton capture project model graphs and produce cubins plus SASS. Python host code, training control flow, PyTorch, and other CPU-side dependencies remain part of the runtime; this does not turn an arbitrary repository into a standalone host executable. See [docs/FRONTENDS.md](docs/FRONTENDS.md#pytorch-training-applications) for coverage and limits.
+
+This repository's small Transformer sample includes a deterministic two-step Modal/A100 capture configuration and eager-versus-compiled state verification:
+
+```bash
+openassembler compile testcases/test_whole_repo/ --out-dir output --verify
+# -> output/cubin/applications/test_whole_repo/*.cubin
+# -> output/sass/applications/test_whole_repo/*.sass
+# -> output/manifest.json and output/.build/applications/test_whole_repo/
+openassembler run output --application test_whole_repo --backend modal
+```
+
+Without `[application]`, directory compilation walks tracked and non-ignored files, recognizes PTX entries, CUDA C/C++ files containing `__global__`, and Python files containing OpenAssembler `@kernel` functions. Shell scripts, host-only files, virtual environments, and generated output are skipped and counted. The source tree is mirrored below the output folder:
 
 ```bash
 openassembler compile my_repo/ --out-dir output --verify
@@ -159,7 +171,7 @@ openassembler compile my_repo/ --out-dir output --verify
 # output/manifest.json
 ```
 
-`compile` only builds. `run output` executes already-built cubins on a local GPU, an SSH Linux GPU, or Modal and compares each selected output buffer with the ptxas reference recorded in the manifest. `cnr SRC` combines the two commands and runs only the kernels compiled in that invocation.
+`compile` only builds. `run output` executes the standalone-kernel harness; add `--application NAME` to replay a configured PyTorch application with its bundled runtime cache. `cnr SRC` combines compile and run. For applications, change the configured workload and recompile to alter entry-point arguments or captured shapes.
 
 For non-trivial launches, create a JSON `--spec` describing buffers, arguments, grid, block, and the buffers to compare. The schema and examples are in [docs/FRONTENDS.md](docs/FRONTENDS.md). The automatic harness is intentionally conservative and is suitable for simple one-dimensional kernels.
 

@@ -1,0 +1,25 @@
+exp/a100_mma/build/tuned_64_64_32_32_32/cubin/tuned_64_64_32_32_32.cubin  (gemm: 619 instructions, opt-level=safe, regs=86)
+exp/a100_mma/build/tuned_64_64_32_32_32/sass/tuned_64_64_32_32_32.sass  (SASS listing from nvdisasm)
+warning: gemm: 53 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R2, R2, 0x40, RZ' -> 'IMAD.SHL R2, R2, 0x40, RZ'
+exp/a100_mma/build/tuned_64_128_32_32_64/cubin/tuned_64_128_32_32_64.cubin  (gemm: 1073 instructions, opt-level=safe, regs=140)
+exp/a100_mma/build/tuned_64_128_32_32_64/sass/tuned_64_128_32_32_64.sass  (SASS listing from nvdisasm)
+warning: gemm: 83 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R2, R2, 0x40, RZ' -> 'IMAD.SHL R2, R2, 0x40, RZ'
+exp/a100_mma/build/tuned_128_128_32_64_32/cubin/tuned_128_128_32_64_32.cubin  (gemm: 935 instructions, opt-level=safe, regs=130)
+exp/a100_mma/build/tuned_128_128_32_64_32/sass/tuned_128_128_32_64_32.sass  (SASS listing from nvdisasm)
+warning: gemm: 65 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R2, R2, 0x80, RZ' -> 'IMAD.SHL R2, R2, 0x80, RZ'
+exp/a100_mma/build/tuned_128_128_32_64_64/cubin/tuned_128_128_32_64_64.cubin  (gemm: 1707 instructions, opt-level=safe, regs=222)
+exp/a100_mma/build/tuned_128_128_32_64_64/sass/tuned_128_128_32_64_64.sass  (SASS listing from nvdisasm)
+warning: gemm: 101 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R2, R2, 0x80, RZ' -> 'IMAD.SHL R2, R2, 0x80, RZ'
+exp/a100_mma/build/tuned_128_128_64_64_32/cubin/tuned_128_128_64_64_32.cubin  (gemm: 1379 instructions, opt-level=safe, regs=158)
+exp/a100_mma/build/tuned_128_128_64_64_32/sass/tuned_128_128_64_64_32.sass  (SASS listing from nvdisasm)
+warning: gemm: 125 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R2, R2, 0x80, RZ' -> 'IMAD.SHL R2, R2, 0x80, RZ'
+error: gemm: our backend can't compile this kernel yet: out of registers
+  That PTX construct isn't implemented in openassembler/backend/ra.py. Rewrite the kernel without it, pass --fallback ptxas to keep ptxas's code for this kernel, or see docs/FRONTENDS.md for what is supported.
+Traceback (most recent call last):
+  File "/Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/tune_pipeline.py", line 15, in <module>
+    suite.append(compile_one(name,4096,4096,4096,'f16',bm,bn,bk,wm,wn))
+                 ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/build_pipeline.py", line 21, in compile_one
+    if rc: raise RuntimeError(name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: tuned_128_128_64_64_64

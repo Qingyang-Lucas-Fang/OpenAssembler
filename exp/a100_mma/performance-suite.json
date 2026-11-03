@@ -1,0 +1,90 @@
+[
+  {
+    "build": "v2_4096_sync_base",
+    "m": 4096,
+    "n": 4096,
+    "k": 4096,
+    "dtype": "f16",
+    "tile_m": 64,
+    "tile_n": 64,
+    "threads": 128,
+    "triton_sweep": false
+  },
+  {
+    "build": "v2_4096_async_safe",
+    "m": 4096,
+    "n": 4096,
+    "k": 4096,
+    "dtype": "f16",
+    "tile_m": 64,
+    "tile_n": 64,
+    "threads": 128,
+    "triton_sweep": false
+  },
+  {
+    "build": "v2_4096_async_interlock",
+    "m": 4096,
+    "n": 4096,
+    "k": 4096,
+    "dtype": "f16",
+    "tile_m": 64,
+    "tile_n": 64,
+    "threads": 128,
+    "triton_sweep": false
+  },
+  {
+    "build": "v2_4096_async_licm",
+    "m": 4096,
+    "n": 4096,
+    "k": 4096,
+    "dtype": "f16",
+    "tile_m": 64,
+    "tile_n": 64,
+    "threads": 128,
+    "triton_sweep": false
+  },
+  {
+    "build": "v2_4096_async_tile128",
+    "m": 4096,
+    "n": 4096,
+    "k": 4096,
+    "dtype": "f16",
+    "tile_m": 128,
+    "tile_n": 128,
+    "threads": 512,
+    "triton_sweep": false
+  },
+  {
+    "build": "v2_4096_bf16_tile128",
+    "m": 4096,
+    "n": 4096,
+    "k": 4096,
+    "dtype": "bf16",
+    "tile_m": 128,
+    "tile_n": 128,
+    "threads": 512,
+    "triton_sweep": true
+  },
+  {
+    "build": "v2_mlp_f16_tile128",
+    "m": 4096,
+    "n": 16384,
+    "k": 4096,
+    "dtype": "f16",
+    "tile_m": 128,
+    "tile_n": 128,
+    "threads": 512,
+    "triton_sweep": true
+  },
+  {
+    "build": "v2_mlp_bf16_tile128",
+    "m": 4096,
+    "n": 16384,
+    "k": 4096,
+    "dtype": "bf16",
+    "tile_m": 128,
+    "tile_n": 128,
+    "threads": 512,
+    "triton_sweep": true
+  }
+]

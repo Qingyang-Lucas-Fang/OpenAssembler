@@ -1,0 +1,7 @@
+[
+  {
+    "error": "Traceback (most recent call last):\n  File \"/root/exp/a100_mma/gpu_worker.py\", line 195, in <module>\n    result = run_hmma(case) if case.get(\"kind\") == \"hmma\" else run(case)\n                                                               ^^^^^^^^^\n  File \"/root/exp/a100_mma/gpu_worker.py\", line 140, in run\n    raise AssertionError(f\"{name} failed exact {pattern} case\")\nAssertionError: ours failed exact zero case\n",
+    "name": "async_rect_licm_f16",
+    "worker_rc": 1
+  }
+]

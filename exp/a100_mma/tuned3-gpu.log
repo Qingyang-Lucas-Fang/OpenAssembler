@@ -1,0 +1,37 @@
+✓ Initialized. View run at 
+https://modal.com/apps/qingyang-lucas-fang/main/ap-455dFR33TxXzVqU341D9DY
+✓ Created objects.
+├── ✓ Uploaded /Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/modal_run.py
+├── ✓ Uploaded 
+│   /Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/triton_kernel.py
+├── ✓ Uploaded /Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/gpu_worker.py
+├── ✓ Uploaded PythonPackage:openassembler
+└── ✓ Created Function execute.
+
+==========
+== CUDA ==
+==========
+
+CUDA Version 12.8.0
+
+Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+
+This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+By pulling and using the container, you accept the terms and conditions of this license:
+https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+
+A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
+
+tuned3_64_64_32_32_32 {'ours': 1.2208127975463867, 'ptxas': 1.2560895919799804, 'cublas': 0.5923840045928955}
+tuned3_64_128_32_32_64 {'ours': 1.1576831817626954, 'ptxas': 0.9735679626464844, 'cublas': 0.5832191944122315}
+tuned3_128_128_32_64_32 {'ours': 1.2402688026428224, 'ptxas': 1.1768832206726074, 'cublas': 0.6464000225067139}
+tuned3_128_128_32_64_64 {'ours': 1.17324800491333, 'ptxas': 0.7787007808685302, 'cublas': 0.5724671840667724}
+/Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/results/tuned3_64_64_32_32_32.json
+/Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/results/tuned3_64_128_32_32_64.json
+/Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/results/tuned3_128_128_32_64_32.json
+/Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/results/tuned3_128_128_32_64_64.json
+/Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/results/tuned3_128_128_64_64_32.json
+tuned3_128_128_64_64_32 {'ours': 1.0262016296386718, 'ptxas': 0.8214528083801269, 'cublas': 0.5719039916992188}
+Stopping app - local entrypoint completed.
+✓ App completed. View run at 
+https://modal.com/apps/qingyang-lucas-fang/main/ap-455dFR33TxXzVqU341D9DY

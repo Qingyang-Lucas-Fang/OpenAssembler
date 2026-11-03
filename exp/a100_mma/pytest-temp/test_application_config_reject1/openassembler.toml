@@ -1,0 +1,4 @@
+[application]
+frontend="torch"
+entrypoint="train.py"
+requirements=["../outside.txt"]

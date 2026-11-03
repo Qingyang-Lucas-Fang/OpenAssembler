@@ -1,0 +1,39 @@
+✓ Initialized. View run at 
+https://modal.com/apps/qingyang-lucas-fang/main/ap-Piy3ToMG1e9rwTloLc9GbF
+✓ Created objects.
+├── ✓ Uploaded /Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/modal_run.py
+├── ✓ Uploaded 
+│   /Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/triton_kernel.py
+├── ✓ Uploaded /Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/gpu_worker.py
+├── ✓ Uploaded PythonPackage:openassembler
+└── ✓ Created Function execute.
+
+==========
+== CUDA ==
+==========
+
+CUDA Version 12.8.0
+
+Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+
+This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+By pulling and using the container, you accept the terms and conditions of this license:
+https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+
+A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
+
+validated_square_f16 {'ours': 0.9504768371582031, 'ptxas': 0.7199232101440429, 'cublas': 0.6333439826965332}
+validated_mlp_f16 {'ours': 3.137740707397461, 'ptxas': 2.449920082092285, 'cublas': 2.4396799087524412}
+validated_tall_f16 {'ours': 3.6935169219970705, 'ptxas': 3.323545455932617, 'cublas': 2.312089538574219}
+validated_square_bf16 {'ours': 0.8151040077209473, 'ptxas': 0.6274559974670411, 'cublas': 0.5454336166381836, 'triton_32x64x32_w4_s3_g0': 2.2916095733642576, 'triton_64x128x32_w4_s4_g8': 0.7188479900360107, 'triton_128x128x32_w4_s4_g8': 0.6547455787658691, 'triton_128x128x64_w4_s3_g8': 0.5965312004089356, 'triton_128x256x32_w8_s3_g8': 0.6950911998748779, 'triton_128x256x64_w8_s3_g8': 0.6955008029937744, 'triton_64x256x32_w4_s4_g8': 0.6654975891113282, 'triton_256x128x32_w8_s3_g8': 0.734668779373169, 'triton_128x128x32_w8_s4_g8': 0.9208319664001465}
+validated_mlp_bf16 {'ours': 3.101593589782715, 'ptxas': 2.4103424072265627, 'cublas': 2.1386751174926757}
+validated_tall_bf16 {'ours': 3.633817672729492, 'ptxas': 3.2931838989257813, 'cublas': 2.0917760848999025}
+/Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/results/validated_square_f16.json
+/Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/results/validated_mlp_f16.json
+/Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/results/validated_tall_f16.json
+/Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/results/validated_square_bf16.json
+/Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/results/validated_mlp_bf16.json
+/Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/results/validated_tall_bf16.json
+Stopping app - local entrypoint completed.
+✓ App completed. View run at 
+https://modal.com/apps/qingyang-lucas-fang/main/ap-Piy3ToMG1e9rwTloLc9GbF

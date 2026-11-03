@@ -1,0 +1,7 @@
+[
+  {
+    "error": "Traceback (most recent call last):\n  File \"/root/exp/a100_mma/gpu_worker.py\", line 211, in <module>\n    result = run_hmma(case) if case.get(\"kind\") == \"hmma\" else run(case)\n                                                               ^^^^^^^^^\n  File \"/root/exp/a100_mma/gpu_worker.py\", line 146, in run\n    raise AssertionError(f\"{name} full-output comparison failed for {pattern}; relative_l2={full_rel}\")\nAssertionError: ours full-output comparison failed for zero; relative_l2=2.0651976696070826e+26\n",
+    "name": "v2_4096_async_tile128",
+    "worker_rc": 1
+  }
+]

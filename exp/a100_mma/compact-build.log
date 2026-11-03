@@ -1,0 +1,15 @@
+exp/a100_mma/build/compact_64_64_32_32_32/cubin/compact_64_64_32_32_32.cubin  (gemm: 502 instructions, opt-level=safe, regs=76)
+exp/a100_mma/build/compact_64_64_32_32_32/sass/compact_64_64_32_32_32.sass  (SASS listing from nvdisasm)
+warning: gemm: 29 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R2, R2, 0x40, RZ' -> 'IMAD.SHL R2, R2, 0x40, RZ'
+exp/a100_mma/build/compact_128_128_32_64_32/cubin/compact_128_128_32_64_32.cubin  (gemm: 766 instructions, opt-level=safe, regs=116)
+exp/a100_mma/build/compact_128_128_32_64_32/sass/compact_128_128_32_64_32.sass  (SASS listing from nvdisasm)
+warning: gemm: 29 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R2, R2, 0x80, RZ' -> 'IMAD.SHL R2, R2, 0x80, RZ'
+exp/a100_mma/build/compact_128_128_32_64_64/cubin/compact_128_128_32_64_64.cubin  (gemm: 1418 instructions, opt-level=safe, regs=200)
+exp/a100_mma/build/compact_128_128_32_64_64/sass/compact_128_128_32_64_64.sass  (SASS listing from nvdisasm)
+warning: gemm: 41 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R2, R2, 0x80, RZ' -> 'IMAD.SHL R2, R2, 0x80, RZ'
+exp/a100_mma/build/compact_128_128_64_64_32/cubin/compact_128_128_64_64_32.cubin  (gemm: 1042 instructions, opt-level=safe, regs=132)
+exp/a100_mma/build/compact_128_128_64_64_32/sass/compact_128_128_64_64_32.sass  (SASS listing from nvdisasm)
+warning: gemm: 53 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R2, R2, 0x80, RZ' -> 'IMAD.SHL R2, R2, 0x80, RZ'
+exp/a100_mma/build/compact_128_128_64_64_64/cubin/compact_128_128_64_64_64.cubin  (gemm: 1898 instructions, opt-level=safe, regs=228)
+exp/a100_mma/build/compact_128_128_64_64_64/sass/compact_128_128_64_64_64.sass  (SASS listing from nvdisasm)
+warning: gemm: 77 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R2, R2, 0x80, RZ' -> 'IMAD.SHL R2, R2, 0x80, RZ'

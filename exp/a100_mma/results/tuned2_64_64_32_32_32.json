@@ -1,0 +1,52 @@
+[
+  {
+    "error": "Traceback (most recent call last):\n  File \"/root/exp/a100_mma/gpu_worker.py\", line 214, in <module>\n    result = run_hmma(case) if case.get(\"kind\") == \"hmma\" else run(case)\n                                                               ^^^^^^^^^\n  File \"/root/exp/a100_mma/gpu_worker.py\", line 149, in run\n    raise AssertionError(f\"{name} full-output comparison failed for {pattern}; relative_l2={full_rel}\")\nAssertionError: ours full-output comparison failed for zero; relative_l2=2.134609967888732e+34\n",
+    "name": "tuned2_64_64_32_32_32",
+    "worker_rc": 1,
+    "input_provenance": {
+      "build": "tuned2_64_64_32_32_32",
+      "grid": [
+        64,
+        64,
+        1
+      ],
+      "threads": 128,
+      "dynamic_shared_bytes": 0,
+      "ours_sha256": "1fcdf38a72cf9416a603804328456aac92354486ff239fca53f3a16c96801b83",
+      "ptxas_sha256": "be41d011001aa31d390ed1f6b27a934ba27a31164201f26ee2672d6c993525d1",
+      "ptx_sha256": "81efc661dc83f22e6cbd86672fee94c5dba8908de49705653f472eb20b09915e",
+      "compilation": {
+        "compiler": "OpenAssembler experimental MMA selector",
+        "fallback": false,
+        "reference_and_ELF_container": "NVIDIA ptxas",
+        "cli_rc": 0,
+        "cli_wall_ms": 4151.739415945485,
+        "kernels": [
+          {
+            "kernel": "gemm",
+            "requested_opt_level": "safe",
+            "applied_schedule": "source-order-HMMA4-epoch-drain15",
+            "scalar_schedule": "mined",
+            "protected_scoreboard_recycling": true,
+            "ldsm_read_barrier": false,
+            "optimize_local_homes": true,
+            "licm_ops_hoisted": 0,
+            "ptx_instructions": 569,
+            "sass_instructions": 622,
+            "registers": 84,
+            "stages": {
+              "select_ms": 8.255583001300693,
+              "licm_ms": 0.0012919772416353226,
+              "dce_coalesce_ms": 5.4623750038445,
+              "allocate_ms": 89.79483298026025,
+              "lower_ms": 7.20258301589638,
+              "schedule_ms": 32.17383404262364,
+              "encoder_setup_ms": 997.5291249575093,
+              "encode_ms": 6.515208049677312
+            }
+          }
+        ]
+      }
+    }
+  }
+]

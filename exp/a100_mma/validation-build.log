@@ -1,0 +1,18 @@
+exp/a100_mma/build/validated_square_f16/cubin/validated_square_f16.cubin  (gemm: 1898 instructions, opt-level=safe, regs=228)
+exp/a100_mma/build/validated_square_f16/sass/validated_square_f16.sass  (SASS listing from nvdisasm)
+warning: gemm: 77 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R2, R2, 0x80, RZ' -> 'IMAD.SHL R2, R2, 0x80, RZ'
+exp/a100_mma/build/validated_mlp_f16/cubin/validated_mlp_f16.cubin  (gemm: 1898 instructions, opt-level=safe, regs=228)
+exp/a100_mma/build/validated_mlp_f16/sass/validated_mlp_f16.sass  (SASS listing from nvdisasm)
+warning: gemm: 77 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R2, R2, 0x80, RZ' -> 'IMAD.SHL R2, R2, 0x80, RZ'
+exp/a100_mma/build/validated_tall_f16/cubin/validated_tall_f16.cubin  (gemm: 1898 instructions, opt-level=safe, regs=228)
+exp/a100_mma/build/validated_tall_f16/sass/validated_tall_f16.sass  (SASS listing from nvdisasm)
+warning: gemm: 77 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R2, R2, 0x80, RZ' -> 'IMAD.SHL R2, R2, 0x80, RZ'
+exp/a100_mma/build/validated_square_bf16/cubin/validated_square_bf16.cubin  (gemm: 1898 instructions, opt-level=safe, regs=228)
+exp/a100_mma/build/validated_square_bf16/sass/validated_square_bf16.sass  (SASS listing from nvdisasm)
+warning: gemm: 77 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R2, R2, 0x80, RZ' -> 'IMAD.SHL R2, R2, 0x80, RZ'
+exp/a100_mma/build/validated_mlp_bf16/cubin/validated_mlp_bf16.cubin  (gemm: 1898 instructions, opt-level=safe, regs=228)
+exp/a100_mma/build/validated_mlp_bf16/sass/validated_mlp_bf16.sass  (SASS listing from nvdisasm)
+warning: gemm: 77 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R2, R2, 0x80, RZ' -> 'IMAD.SHL R2, R2, 0x80, RZ'
+exp/a100_mma/build/validated_tall_bf16/cubin/validated_tall_bf16.cubin  (gemm: 1898 instructions, opt-level=safe, regs=228)
+exp/a100_mma/build/validated_tall_bf16/sass/validated_tall_bf16.sass  (SASS listing from nvdisasm)
+warning: gemm: 77 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R2, R2, 0x80, RZ' -> 'IMAD.SHL R2, R2, 0x80, RZ'

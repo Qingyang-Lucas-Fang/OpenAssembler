@@ -1,0 +1,12 @@
+exp/a100_mma/build/isolate_tensor2/cubin/isolate_tensor2.cubin  (gemm: 733 instructions, opt-level=safe, regs=60)
+exp/a100_mma/build/isolate_tensor2/sass/isolate_tensor2.sass  (SASS listing from nvdisasm)
+warning: gemm: 101 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R2, R2, 0x40, RZ' -> 'IMAD.SHL R2, R2, 0x40, RZ'
+exp/a100_mma/build/isolate_tensor4/cubin/isolate_tensor4.cubin  (gemm: 733 instructions, opt-level=safe, regs=60)
+exp/a100_mma/build/isolate_tensor4/sass/isolate_tensor4.sass  (SASS listing from nvdisasm)
+warning: gemm: 101 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R2, R2, 0x40, RZ' -> 'IMAD.SHL R2, R2, 0x40, RZ'
+exp/a100_mma/build/isolate_scalar/cubin/isolate_scalar.cubin  (gemm: 733 instructions, opt-level=safe, regs=60)
+exp/a100_mma/build/isolate_scalar/sass/isolate_scalar.sass  (SASS listing from nvdisasm)
+warning: gemm: 101 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R2, R2, 0x40, RZ' -> 'IMAD.SHL R2, R2, 0x40, RZ'
+exp/a100_mma/build/isolate_licm_scalar/cubin/isolate_licm_scalar.cubin  (gemm: 733 instructions, opt-level=safe, regs=108)
+exp/a100_mma/build/isolate_licm_scalar/sass/isolate_licm_scalar.sass  (SASS listing from nvdisasm)
+warning: gemm: 101 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R2, R2, 0x40, RZ' -> 'IMAD.SHL R2, R2, 0x40, RZ'

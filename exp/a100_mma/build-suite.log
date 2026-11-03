@@ -1,0 +1,24 @@
+exp/a100_mma/build/warp_rect_f16/cubin/warp_rect_f16.cubin  (gemm: 85 instructions, opt-level=safe, regs=21)
+exp/a100_mma/build/warp_rect_f16/sass/warp_rect_f16.sass  (SASS listing from nvdisasm)
+warning: gemm: 1 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R0, R0, 0x2, RZ' -> 'IMAD.SHL R0, R0, 0x2, RZ'
+exp/a100_mma/build/cta_rect_base_f16/cubin/cta_rect_base_f16.cubin  (gemm: 1023 instructions, opt-level=safe, regs=72)
+exp/a100_mma/build/cta_rect_base_f16/sass/cta_rect_base_f16.sass  (SASS listing from nvdisasm)
+warning: gemm: 101 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R2, R2, 0x40, RZ' -> 'IMAD.SHL R2, R2, 0x40, RZ'
+exp/a100_mma/build/cta_rect_ssa_f16/cubin/cta_rect_ssa_f16.cubin  (gemm: 739 instructions, opt-level=safe, regs=60)
+exp/a100_mma/build/cta_rect_ssa_f16/sass/cta_rect_ssa_f16.sass  (SASS listing from nvdisasm)
+warning: gemm: 101 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R2, R2, 0x40, RZ' -> 'IMAD.SHL R2, R2, 0x40, RZ'
+exp/a100_mma/build/async_rect_ssa_f16/cubin/async_rect_ssa_f16.cubin  (gemm: 733 instructions, opt-level=safe, regs=60)
+exp/a100_mma/build/async_rect_ssa_f16/sass/async_rect_ssa_f16.sass  (SASS listing from nvdisasm)
+warning: gemm: 101 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R2, R2, 0x40, RZ' -> 'IMAD.SHL R2, R2, 0x40, RZ'
+exp/a100_mma/build/warp_rect_bf16/cubin/warp_rect_bf16.cubin  (gemm: 85 instructions, opt-level=safe, regs=21)
+exp/a100_mma/build/warp_rect_bf16/sass/warp_rect_bf16.sass  (SASS listing from nvdisasm)
+warning: gemm: 1 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R0, R0, 0x2, RZ' -> 'IMAD.SHL R0, R0, 0x2, RZ'
+exp/a100_mma/build/cta_rect_base_bf16/cubin/cta_rect_base_bf16.cubin  (gemm: 1023 instructions, opt-level=safe, regs=72)
+exp/a100_mma/build/cta_rect_base_bf16/sass/cta_rect_base_bf16.sass  (SASS listing from nvdisasm)
+warning: gemm: 101 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R2, R2, 0x40, RZ' -> 'IMAD.SHL R2, R2, 0x40, RZ'
+exp/a100_mma/build/cta_rect_ssa_bf16/cubin/cta_rect_ssa_bf16.cubin  (gemm: 739 instructions, opt-level=safe, regs=60)
+exp/a100_mma/build/cta_rect_ssa_bf16/sass/cta_rect_ssa_bf16.sass  (SASS listing from nvdisasm)
+warning: gemm: 101 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R2, R2, 0x40, RZ' -> 'IMAD.SHL R2, R2, 0x40, RZ'
+exp/a100_mma/build/async_rect_ssa_bf16/cubin/async_rect_ssa_bf16.cubin  (gemm: 733 instructions, opt-level=safe, regs=60)
+exp/a100_mma/build/async_rect_ssa_bf16/sass/async_rect_ssa_bf16.sass  (SASS listing from nvdisasm)
+warning: gemm: 101 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R2, R2, 0x40, RZ' -> 'IMAD.SHL R2, R2, 0x40, RZ'

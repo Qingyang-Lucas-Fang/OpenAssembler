@@ -1,0 +1,12 @@
+exp/a100_mma/build/sched_compact_list8/cubin/sched_compact_list8.cubin  (gemm: 1898 instructions, opt-level=safe, regs=228)
+exp/a100_mma/build/sched_compact_list8/sass/sched_compact_list8.sass  (SASS listing from nvdisasm)
+warning: gemm: 77 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R2, R2, 0x80, RZ' -> 'IMAD.SHL R2, R2, 0x80, RZ'
+exp/a100_mma/build/sched_compact_list4/cubin/sched_compact_list4.cubin  (gemm: 1898 instructions, opt-level=safe, regs=228)
+exp/a100_mma/build/sched_compact_list4/sass/sched_compact_list4.sass  (SASS listing from nvdisasm)
+warning: gemm: 77 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R2, R2, 0x80, RZ' -> 'IMAD.SHL R2, R2, 0x80, RZ'
+exp/a100_mma/build/sched_compact_no_read8/cubin/sched_compact_no_read8.cubin  (gemm: 1898 instructions, opt-level=safe, regs=228)
+exp/a100_mma/build/sched_compact_no_read8/sass/sched_compact_no_read8.sass  (SASS listing from nvdisasm)
+warning: gemm: 77 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R2, R2, 0x80, RZ' -> 'IMAD.SHL R2, R2, 0x80, RZ'
+exp/a100_mma/build/sched_compact_list_no_read8/cubin/sched_compact_list_no_read8.cubin  (gemm: 1898 instructions, opt-level=safe, regs=228)
+exp/a100_mma/build/sched_compact_list_no_read8/sass/sched_compact_list_no_read8.sass  (SASS listing from nvdisasm)
+warning: gemm: 77 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R2, R2, 0x80, RZ' -> 'IMAD.SHL R2, R2, 0x80, RZ'

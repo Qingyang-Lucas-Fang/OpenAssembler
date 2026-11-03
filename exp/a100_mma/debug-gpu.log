@@ -1,0 +1,61 @@
+✓ Initialized. View run at 
+https://modal.com/apps/qingyang-lucas-fang/main/ap-F2SnhPVZLEWsJwCveC4KP8
+✓ Created objects.
+├── ✓ Uploaded /Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/modal_run.py
+├── ✓ Uploaded 
+│   /Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/triton_kernel.py
+├── ✓ Uploaded /Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/gpu_worker.py
+├── ✓ Uploaded PythonPackage:openassembler
+└── ✓ Created Function execute.
+
+==========
+== CUDA ==
+==========
+
+CUDA Version 12.8.0
+
+Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+
+This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+By pulling and using the container, you accept the terms and conditions of this license:
+https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+
+A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
+
+debug_licm_safe Traceback (most recent call last):
+  File "/root/exp/a100_mma/gpu_worker.py", line 196, in <module>
+    result = run_hmma(case) if case.get("kind") == "hmma" else run(case)
+                                                               ^^^^^^^^^
+  File "/root/exp/a100_mma/gpu_worker.py", line 140, in run
+    raise AssertionError(f"{name} failed exact {pattern} case: max_abs={float(error.abs().max())}; "
+AssertionError: ours failed exact integer case: max_abs=141.0; actual=[67.0, -7.0, 20.0, -68.409912109375, 10.0, -121.83270263671875, 94.0, 101.0, 39.0, -42.0, -21.0, 29.0, -15.0, -99.0, 25.0, -100.0]; expected=[8.0, -45.0, 77.0, -88.0, 0.0, -78.0, -1.0, 69.0, 40.0, -25.0, -8.0, 44.0, 32.0, -99.0, 8.0, -106.0]
+
+/Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/results/debug_licm_safe.json
+/Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/results/debug_no_licm_issue2.json
+/Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/results/debug_no_licm_issue4.json
+/Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/results/debug_licm_issue4.json
+debug_no_licm_issue2 Traceback (most recent call last):
+  File "/root/exp/a100_mma/gpu_worker.py", line 196, in <module>
+    result = run_hmma(case) if case.get("kind") == "hmma" else run(case)
+                                                               ^^^^^^^^^
+  File "/root/exp/a100_mma/gpu_worker.py", line 140, in run
+    raise AssertionError(f"{name} failed exact {pattern} case: max_abs={float(error.abs().max())}; "
+AssertionError: ours failed exact integer case: max_abs=111.0; actual=[8.0, -45.0, 77.0, -88.0, 0.0, -78.0, -1.0, 69.0, 40.0, -25.0, -8.0, 44.0, 32.0, -99.0, 8.0, -106.0]; expected=[8.0, -45.0, 77.0, -88.0, 0.0, -78.0, -1.0, 69.0, 40.0, -25.0, -8.0, 44.0, 32.0, -99.0, 8.0, -106.0]
+
+debug_no_licm_issue4 Traceback (most recent call last):
+  File "/root/exp/a100_mma/gpu_worker.py", line 196, in <module>
+    result = run_hmma(case) if case.get("kind") == "hmma" else run(case)
+                                                               ^^^^^^^^^
+  File "/root/exp/a100_mma/gpu_worker.py", line 140, in run
+    raise AssertionError(f"{name} failed exact {pattern} case: max_abs={float(error.abs().max())}; "
+AssertionError: ours failed exact integer case: max_abs=111.0; actual=[8.0, -45.0, 77.0, -88.0, 0.0, -78.0, -1.0, 69.0, 40.0, -25.0, -8.0, 44.0, 32.0, -99.0, 8.0, -106.0]; expected=[8.0, -45.0, 77.0, -88.0, 0.0, -78.0, -1.0, 69.0, 40.0, -25.0, -8.0, 44.0, 32.0, -99.0, 8.0, -106.0]
+
+debug_licm_issue4 Traceback (most recent call last):
+  File "/root/exp/a100_mma/gpu_worker.py", line 196, in <module>
+    result = run_hmma(case) if case.get("kind") == "hmma" else run(case)
+                                                               ^^^^^^^^^
+  File "/root/exp/a100_mma/gpu_worker.py", line 140, in run
+    raise AssertionError(f"{name} failed exact {pattern} case: max_abs={float(error.abs().max())}; "
+AssertionError: ours failed exact integer case: max_abs=156.0; actual=[67.0, -7.0, 17.0, -68.409912109375, 10.0, -121.83270263671875, 17.0, 141.0, 17.0, -42.0, -21.0, 37.0, 42.0, -77.0, -45.0, -119.0]; expected=[8.0, -45.0, 77.0, -88.0, 0.0, -78.0, -1.0, 69.0, 40.0, -25.0, -8.0, 44.0, 32.0, -99.0, 8.0, -106.0]
+
+Stopping app - uncaught exception raised locally: SystemExit(1).
