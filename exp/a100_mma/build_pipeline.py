@@ -8,9 +8,9 @@ from pipeline import pipelined_gemm
 from openassembler.cli import main
 
 
-def compile_one(name,m,n,k,dtype,bm,bn,bk,wm,wn,compact=False):
+def compile_one(name,m,n,k,dtype,bm,bn,bk,wm,wn,compact=False,stages=2,b_window=0,bias=False,swizzle_a=None,swizzle_b=None,group_m=0):
     source=HERE/'ptx'/f'{name}.ptx'
-    source.write_text(pipelined_gemm(m,n,k,dtype,bm,bn,bk,wm,wn,compact=compact))
+    source.write_text(pipelined_gemm(m,n,k,dtype,bm,bn,bk,wm,wn,compact=compact,stages=stages,b_window=b_window,bias=bias,swizzle_a=swizzle_a,swizzle_b=swizzle_b,group_m=group_m))
     output=HERE/'build'/name
     backend.OPTIMIZE_LOCALS=True
     backend.HOIST_LOOP_INVARIANTS=False
@@ -32,10 +32,10 @@ def compile_one(name,m,n,k,dtype,bm,bn,bk,wm,wn,compact=False):
         'reference_and_ELF_container':'NVIDIA ptxas','cli_rc':rc,
         'cli_wall_ms':(time.perf_counter()-start)*1000,
         'compiler_source_hashes':digests,'compiler_source_snapshot':str(snapshot.relative_to(HERE)),
-        'geometry':{'m':m,'n':n,'k':k,'bm':bm,'bn':bn,'bk':bk,'wm':wm,'wn':wn,'compact_addresses':compact},
+        'geometry':{'m':m,'n':n,'k':k,'bm':bm,'bn':bn,'bk':bk,'wm':wm,'wn':wn,'compact_addresses':compact,'stages':stages,'b_window':b_window,'bias_fused':bias,'swizzle_a':swizzle_a,'swizzle_b':swizzle_b,'group_m':group_m},
         'kernels':backend.STAGE_RECORDS.copy()},indent=2)+'\n')
     return dict(build=name,m=m,n=n,k=k,dtype=dtype,tile_m=bm,tile_n=bn,threads=bm//wm*(bn//wn)*32,
-                smem=4*bk*(bm+bn) if 4*bk*(bm+bn)>49152 else 0)
+                smem=2*stages*bk*(bm+bn) if 2*stages*bk*(bm+bn)>49152 else 0)
 
 
 if __name__=='__main__':

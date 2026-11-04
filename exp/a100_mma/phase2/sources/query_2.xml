@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/hnCHX4F9ePqLqB9ppn+VRVCvBJk</id>
+  <title>arXiv Query: search_query=ti:Strassen AND all:GPU&amp;id_list=&amp;start=0&amp;max_results=8</title>
+  <updated>2026-11-03T11:30:50Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:Strassen+AND+all:GPU&amp;start=0&amp;max_results=8&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>8</opensearch:itemsPerPage>
+  <opensearch:totalResults>2</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2312.12732v1</id>
+    <title>Strassen's Matrix Multiplication Algorithm Is Still Faster</title>
+    <updated>2023-12-20T03:09:50Z</updated>
+    <link href="https://arxiv.org/abs/2312.12732v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2312.12732v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Recently, reinforcement algorithms discovered new algorithms that really jump-started a wave of excitements and a flourishing of publications. However, there is little on implementations, applications, and, especially, no absolute performance and, we show here they are not here to replace Strassen's original fast matrix multiplication yet. We present Matrix Flow, this is a simple Python project for the automatic formulation, design, implementation, code generation, and execution of fast matrix multiplication algorithms for CPUs, using BLAS interface GPUs, and in the future other accelerators. We shall not play with module-2 (Z2) algorithms and, for simplicity, we present only square double-precision matrices. By means of factorizing the operand matrices we can express many algorithms and prove them correct. These algorithms are represented by Data Flows and matrix data partitions: a Directed Acyclic Graph. We show that Strassen's original algorithm is still the top choice even for modern GPUs. We also address error analysis in double precision, because integer computations are correct, always</summary>
+    <category term="cs.MS" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.PF" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2023-12-20T03:09:50Z</published>
+    <arxiv:comment>8 pages, 2 images, mathematical software</arxiv:comment>
+    <arxiv:primary_category term="cs.MS"/>
+    <author>
+      <name>Paolo D'Alberto</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/1808.07984v1</id>
+    <title>Implementing Strassen's Algorithm with CUTLASS on NVIDIA Volta GPUs</title>
+    <updated>2018-08-24T02:28:51Z</updated>
+    <link href="https://arxiv.org/abs/1808.07984v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/1808.07984v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Conventional GPU implementations of Strassen's algorithm (Strassen) typically rely on the existing high-performance matrix multiplication (GEMM), trading space for time. As a result, such approaches can only achieve practical speedup for relatively large, "squarish" matrices due to the extra memory overhead, and their usages are limited due to the considerable workspace. We present novel Strassen primitives for GPUs that can be composed to generate a family of Strassen algorithms. Our algorithms utilize both the memory and thread hierarchies on GPUs, reusing shared memory and register files inherited from GEMM, fusing additional operations, and avoiding extra workspace. We further exploit intra- and inter-kernel parallelism by batching, streaming, and employing atomic operations. We also develop a performance model for NVIDIA Volta GPUs to select the appropriate blocking parameters and predict the performance for GEMM and Strassen. Overall, our 1-level Strassen can achieve up to 1.11x speedup with a crossover point as small as 1,536 compared to cublasSgemm on a NVIDIA Tesla V100 GPU. With additional workspace, our 2-level Strassen can achieve 1.19x speedup with a crossover point at 7,680.</summary>
+    <category term="cs.MS" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2018-08-24T02:28:51Z</published>
+    <arxiv:primary_category term="cs.MS"/>
+    <author>
+      <name>Jianyu Huang</name>
+    </author>
+    <author>
+      <name>Chenhan D. Yu</name>
+    </author>
+    <author>
+      <name>Robert A. van de Geijn</name>
+    </author>
+  </entry>
+</feed>

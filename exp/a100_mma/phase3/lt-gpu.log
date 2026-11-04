@@ -1,0 +1,32 @@
+✓ Initialized. View run at 
+https://modal.com/apps/qingyang-lucas-fang/main/ap-VZzAGL61S63JaGxcDB0Khq
+✓ Created objects.
+├── ✓ Uploaded 
+│   /Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/phase3/lt_modal.py
+├── ✓ Uploaded 
+│   /Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/phase3/lt_abi.py
+├── ✓ Uploaded 
+│   /Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/phase3/lt_worker.py
+├── ✓ Uploaded PythonPackage:openassembler
+└── ✓ Created Function execute.
+
+==========
+== CUDA ==
+==========
+
+CUDA Version 12.8.0
+
+Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+
+This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+By pulling and using the container, you accept the terms and conditions of this license:
+https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+
+A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
+
+f16 {'0': {'name': 'lt_da7700b505d3', 'milliseconds': 0.5764607906341552, 'gemmex_over_best': 1.0340172214029}, '33554432': {'name': 'lt_78a4f24a141f', 'milliseconds': 0.5882880210876464, 'gemmex_over_best': 1.01322883283806}}
+bf16 {'0': {'name': 'lt_89ccf1d832f7', 'milliseconds': 0.5639167785644531, 'gemmex_over_best': 1.018794299974159}, '33554432': {'name': 'lt_89ccf1d832f7', 'milliseconds': 0.5639167785644531, 'gemmex_over_best': 1.018794299974159}}
+/Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/phase3/lt_results_20261103T235453.187530Z.json
+Stopping app - local entrypoint completed.
+✓ App completed. View run at 
+https://modal.com/apps/qingyang-lucas-fang/main/ap-VZzAGL61S63JaGxcDB0Khq

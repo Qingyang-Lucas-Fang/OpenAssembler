@@ -1,0 +1,176 @@
+[
+  {
+    "build": "geometry_large_f16_base",
+    "name": "geometry_large_f16",
+    "m": 4096,
+    "n": 4096,
+    "k": 4096,
+    "dtype": "f16",
+    "tile_m": 128,
+    "tile_n": 128,
+    "threads": 128,
+    "smem": 65536,
+    "alternatives": [
+      {
+        "build": "geometry_large_f16_wide64s2",
+        "name": "geometry_large_f16_wide64s2",
+        "m": 4096,
+        "n": 4096,
+        "k": 4096,
+        "dtype": "f16",
+        "tile_m": 128,
+        "tile_n": 256,
+        "threads": 256,
+        "smem": 98304
+      },
+      {
+        "build": "geometry_large_f16_tall64s2",
+        "name": "geometry_large_f16_tall64s2",
+        "m": 4096,
+        "n": 4096,
+        "k": 4096,
+        "dtype": "f16",
+        "tile_m": 256,
+        "tile_n": 128,
+        "threads": 256,
+        "smem": 98304
+      },
+      {
+        "build": "geometry_large_f16_wide32s3",
+        "name": "geometry_large_f16_wide32s3",
+        "m": 4096,
+        "n": 4096,
+        "k": 4096,
+        "dtype": "f16",
+        "tile_m": 128,
+        "tile_n": 256,
+        "threads": 256,
+        "smem": 73728
+      },
+      {
+        "build": "geometry_large_f16_wide32s4",
+        "name": "geometry_large_f16_wide32s4",
+        "m": 4096,
+        "n": 4096,
+        "k": 4096,
+        "dtype": "f16",
+        "tile_m": 128,
+        "tile_n": 256,
+        "threads": 256,
+        "smem": 98304
+      },
+      {
+        "build": "geometry_large_f16_wide32s5",
+        "name": "geometry_large_f16_wide32s5",
+        "m": 4096,
+        "n": 4096,
+        "k": 4096,
+        "dtype": "f16",
+        "tile_m": 128,
+        "tile_n": 256,
+        "threads": 256,
+        "smem": 122880
+      },
+      {
+        "build": "geometry_large_f16_square32s5",
+        "name": "geometry_large_f16_square32s5",
+        "m": 4096,
+        "n": 4096,
+        "k": 4096,
+        "dtype": "f16",
+        "tile_m": 128,
+        "tile_n": 128,
+        "threads": 128,
+        "smem": 81920
+      }
+    ],
+    "steady_warmup_rounds": 16
+  },
+  {
+    "build": "geometry_large_bf16_base",
+    "name": "geometry_large_bf16",
+    "m": 4096,
+    "n": 4096,
+    "k": 4096,
+    "dtype": "bf16",
+    "tile_m": 128,
+    "tile_n": 128,
+    "threads": 128,
+    "smem": 65536,
+    "alternatives": [
+      {
+        "build": "geometry_large_bf16_wide64s2",
+        "name": "geometry_large_bf16_wide64s2",
+        "m": 4096,
+        "n": 4096,
+        "k": 4096,
+        "dtype": "bf16",
+        "tile_m": 128,
+        "tile_n": 256,
+        "threads": 256,
+        "smem": 98304
+      },
+      {
+        "build": "geometry_large_bf16_tall64s2",
+        "name": "geometry_large_bf16_tall64s2",
+        "m": 4096,
+        "n": 4096,
+        "k": 4096,
+        "dtype": "bf16",
+        "tile_m": 256,
+        "tile_n": 128,
+        "threads": 256,
+        "smem": 98304
+      },
+      {
+        "build": "geometry_large_bf16_wide32s3",
+        "name": "geometry_large_bf16_wide32s3",
+        "m": 4096,
+        "n": 4096,
+        "k": 4096,
+        "dtype": "bf16",
+        "tile_m": 128,
+        "tile_n": 256,
+        "threads": 256,
+        "smem": 73728
+      },
+      {
+        "build": "geometry_large_bf16_wide32s4",
+        "name": "geometry_large_bf16_wide32s4",
+        "m": 4096,
+        "n": 4096,
+        "k": 4096,
+        "dtype": "bf16",
+        "tile_m": 128,
+        "tile_n": 256,
+        "threads": 256,
+        "smem": 98304
+      },
+      {
+        "build": "geometry_large_bf16_wide32s5",
+        "name": "geometry_large_bf16_wide32s5",
+        "m": 4096,
+        "n": 4096,
+        "k": 4096,
+        "dtype": "bf16",
+        "tile_m": 128,
+        "tile_n": 256,
+        "threads": 256,
+        "smem": 122880
+      },
+      {
+        "build": "geometry_large_bf16_square32s5",
+        "name": "geometry_large_bf16_square32s5",
+        "m": 4096,
+        "n": 4096,
+        "k": 4096,
+        "dtype": "bf16",
+        "tile_m": 128,
+        "tile_n": 128,
+        "threads": 128,
+        "smem": 81920
+      }
+    ],
+    "steady_warmup_rounds": 16
+  }
+]

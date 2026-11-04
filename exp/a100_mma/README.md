@@ -1,13 +1,27 @@
 # Isolated A100 MMA compiler experiment
 
-Started 2026-11-03. Everything new in this experiment stays here. No production
-package, specifications, CLI, or existing dirty files are edited. Python remains
-the compiler implementation language.
+Started 2026-11-03. Phases one through three kept compiler experiments here.
+Phase four, explicitly authorized by the user, promotes the validated SM80
+selector and GEMM plan into the standard CLI. Python remains the implementation
+language. See [phase4/REPORT.md](phase4/REPORT.md) and
+[the public API](../../docs/TENSOR_GEMM.md).
 
-**Current results and reproduction:** [REPORT.md](REPORT.md). The final six
-FP16/BF16 projection workloads passed full-output checks on A100; the compiler
-reaches approximately 58–78% of cuBLAS throughput in that series. No core changes
-have been merged. Use final result records rather than the earlier debug runs.
+**Measured research results:** [phase3/REPORT.md](phase3/REPORT.md). A fixed
+paired-B-fragment/vector-epilogue/stage-specialized schedule reduces kernel time
+by16.1–26.7% across six FP16/BF16 projections, reaching80–99% of matched default
+cuBLAS throughput in the final run, with separate component confirmations.
+All timed outputs are checked in full. The [first-round report](REPORT.md) retains
+its historical baseline. No core changes have been merged. Use final result
+records rather than earlier debug runs. Native CLI promotion and further tested
+candidates are in [phase4/REPORT.md](phase4/REPORT.md).
+
+**Follow-on results:** [phase2/REPORT.md](phase2/REPORT.md) records real Nsight
+counters, clocked HMMA/LDSM probes, isolated synchronization mutations,
+two/three/four-stage pipelines, shared-memory layouts, paired pointer-update
+improvements, and a padded fused-bias autograd hook. The associated
+[literature survey](phase2/LITERATURE.md) distinguishes A100 features from hardware
+changes proposed in papers or introduced on Hopper. Root README/REPRODUCING edits
+were explicitly authorized for this phase; production compiler code remains intact.
 
 ## Order and promotion rule
 

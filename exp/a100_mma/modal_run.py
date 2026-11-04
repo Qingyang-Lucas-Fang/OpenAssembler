@@ -106,4 +106,8 @@ def build_case(config):
     if (directory / "experiment.json").exists():
         provenance["compilation"] = json.loads((directory / "experiment.json").read_text())
     case["input_provenance"] = provenance
+    case['steady_warmup_rounds']=config.get('steady_warmup_rounds',0)
+    if config.get('alternatives'):
+        case['compiled_variants']=[build_case(extra) for extra in config['alternatives']]
+        provenance['alternatives']=[x['input_provenance'] for x in case['compiled_variants']]
     return case

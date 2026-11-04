@@ -1,0 +1,15 @@
+exp/a100_mma/build/p2_group0/cubin/p2_group0.cubin  (gemm: 1898 instructions, opt-level=safe, regs=228)
+exp/a100_mma/build/p2_group0/sass/p2_group0.sass  (SASS listing from nvdisasm)
+warning: gemm: 77 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R2, R2, 0x80, RZ' -> 'IMAD.SHL R2, R2, 0x80, RZ'
+exp/a100_mma/build/p2_group2/cubin/p2_group2.cubin  (gemm: 1906 instructions, opt-level=safe, regs=228)
+exp/a100_mma/build/p2_group2/sass/p2_group2.sass  (SASS listing from nvdisasm)
+warning: gemm: 79 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R2, R4, 0xffffffc0, R2' -> 'IMAD R2, R4, -0x40, R2'
+exp/a100_mma/build/p2_group4/cubin/p2_group4.cubin  (gemm: 1906 instructions, opt-level=safe, regs=228)
+exp/a100_mma/build/p2_group4/sass/p2_group4.sass  (SASS listing from nvdisasm)
+warning: gemm: 79 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R2, R4, 0xffffff80, R2' -> 'IMAD R2, R4, -0x80, R2'
+exp/a100_mma/build/p2_group8/cubin/p2_group8.cubin  (gemm: 1906 instructions, opt-level=safe, regs=228)
+exp/a100_mma/build/p2_group8/sass/p2_group8.sass  (SASS listing from nvdisasm)
+warning: gemm: 79 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R2, R4, 0xffffff00, R2' -> 'IMAD R2, R4, -0x100, R2'
+exp/a100_mma/build/p2_group16/cubin/p2_group16.cubin  (gemm: 1906 instructions, opt-level=safe, regs=228)
+exp/a100_mma/build/p2_group16/sass/p2_group16.sass  (SASS listing from nvdisasm)
+warning: gemm: 79 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R2, R4, 0xfffffe00, R2' -> 'IMAD R2, R4, -0x200, R2'

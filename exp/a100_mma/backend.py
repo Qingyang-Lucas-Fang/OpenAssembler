@@ -1,7 +1,8 @@
 """Opt-in tensor selector using the existing OpenAssembler IR/allocator/encoder.
 
-This module never edits the imported production modules on disk. HMMA schedules
-are deliberately padded pending the separate hardware dependency sweep.
+This module never edits the imported production modules on disk. The safe
+schedule is padded; optional schedules are supported by the retained A100
+clocked probes, completion tests and full-output GEMM comparisons.
 """
 from __future__ import annotations
 
@@ -27,6 +28,8 @@ MINED_SCALAR = False
 LDSM_READ_BARRIER = True
 LIST_SCHEDULE = False
 TENSOR_REUSE = False
+EXPERIMENTAL_RECYCLE_WITHOUT_WAIT = False
+INLINE_POINTER_INCREMENTS = False
 STAGE_RECORDS = []
 
 
@@ -43,7 +46,8 @@ def tensor_schedule(body, labels):
     out = []
     joins = set(labels.values())
     next_sb = 1
-    async_group = False
+    async_group = 0
+    committed_group_seen = False
     active = set()
 
     for i, op in enumerate(body):
@@ -75,7 +79,7 @@ def tensor_schedule(body, labels):
             nonlocal next_sb, wait
             b = next_sb
             next_sb = 1 + next_sb % 5
-            if b in active:
+            if b in active and not EXPERIMENTAL_RECYCLE_WITHOUT_WAIT:
                 wait |= 1 << b
                 retire(1 << b)
             active.add(b)
@@ -100,11 +104,13 @@ def tensor_schedule(body, labels):
                 pending_r.setdefault(reg,set()).add(wbar)
         if name == "LDGDEPBAR":
             wbar = 0
-            async_group = True
+            async_group += 1
+            committed_group_seen = True
         if name == "DEPBAR":
-            if not async_group:
+            if not committed_group_seen:
                 raise ra.NotSupported("DEPBAR without an experimental copy-group commit")
-            async_group = False
+            threshold=int(op.text.rsplit(' ',1)[1],16)
+            async_group=min(async_group,threshold)
         stall = 2 if op.var_lat else 6
         if name in ("STG", "BRA", "EXIT"):
             stall = 5
@@ -234,6 +240,17 @@ class TensorSelector(ra.Selector):
 
     def select(self, ins):
         self._init_tensor_homes()
+        if (INLINE_POINTER_INCREMENTS and ins.guard is None and ins.op=='add' and ins.mods in (('u64',),('s64',))
+                and len(ins.args)==3 and isinstance(ins.args[0],Var) and ins.args[0]==ins.args[1]
+                and isinstance(ins.args[2],ImmI) and 0<=ins.args[2].value<2**31):
+            name=ins.args[0].name
+            pair=self.pair(name)
+            if self.homes.get(name)==pair and all(isinstance(v,ra.V) for v in pair):
+                lo,hi=pair;carry=self.newp()
+                self.emit('IADD3 {d0}, {p0}, {s0}, {s1}, RZ',[lo,carry],[lo,ra.I(ins.args[2].value)])
+                self.emit('IADD3.X {d0}, {s0}, RZ, RZ, {q0}, !PT',[hi],[hi,(carry,False)])
+                self.env[name]=pair
+                return
         if ins.op == "mma":
             return self.mma(ins)
         if ins.op == "ldmatrix":
@@ -249,13 +266,13 @@ class TensorSelector(ra.Selector):
             self.emit("LDGDEPBAR", side=True)
             return
         if (ins.mods == ("async", "wait_group") and len(ins.args) == 1
-                and isinstance(ins.args[0], ImmI) and ins.args[0].value == 0):
-            self.emit("DEPBAR.LE SB0, 0x0", side=True)
+                and isinstance(ins.args[0], ImmI) and ins.args[0].value in (0,1,2)):
+            self.emit(f"DEPBAR.LE SB0, {ins.args[0].value:#x}", side=True)
             return
         if (ins.mods != ("async", "cg", "shared", "global") or len(ins.args) != 3
                 or not all(isinstance(x, Addr) and x.off == 0 for x in ins.args[:2])
                 or not isinstance(ins.args[2], ImmI) or ins.args[2].value != 16):
-            raise ra.NotSupported("only cp.async.cg.shared.global of 16 bytes and wait_group 0 are implemented")
+            raise ra.NotSupported("only cp.async.cg.shared.global of 16 bytes and wait_group 0/1/2 are implemented")
         shared = self.reg32(Var(ins.args[0].base))
         source = self.wide(self.pair(ins.args[1].base))
         self.emit("LDGSTS.E.BYPASS.128 [{s0}], [{s1}.64]", [], [shared, source], side=True)
@@ -369,6 +386,13 @@ class CopyEncoder:
         return getattr(self.base, name)
 
     def encode(self, text, ctl=None):
+        if text in ('DEPBAR.LE SB0, 0x1','DEPBAR.LE SB0, 0x2'):
+            from openassembler.isa.word import set_bits
+            # phase2/depbar-fields.json: bits 38..43 independently encode the
+            # counter threshold; each variant is also round-tripped at setup.
+            seed=self.base.encode('DEPBAR.LE SB0, 0x0')
+            word=set_bits(seed,38,6,int(text.rsplit(' ',1)[1],16))
+            return self.base._ctl(word,ctl) if ctl is not None else word
         if not text.startswith("LDGSTS."):
             return self.base.encode(text, ctl)
         from openassembler.isa import encode
@@ -402,6 +426,11 @@ def encoder():
     wanted = ["LDSM.16.M88.2 R8, [R0]"]
     encode.synthesize(enc, wanted)
     _ENCODER = CopyEncoder(enc)
+    from openassembler import oracle
+    for threshold in (1,2):
+        text=f'DEPBAR.LE SB0, {threshold:#x}'
+        if oracle.disasm_words([_ENCODER.encode(text)])[0]!=text:
+            raise encode.EncodeError('DEPBAR threshold roundtrip failed')
     return _ENCODER
 
 
@@ -508,6 +537,8 @@ def generate(kernel, arch, opt_level):
                           "ldsm_address_war_uses_write_completion": not LDSM_READ_BARRIER,
                           "list_schedule_with_tensor_ordering": LIST_SCHEDULE,
                           "tensor_reuse_hints": TENSOR_REUSE,
+                          "experimental_recycle_without_wait": EXPERIMENTAL_RECYCLE_WITHOUT_WAIT,
+                          "inline_64bit_pointer_increments": INLINE_POINTER_INCREMENTS,
                           "optimize_local_homes": OPTIMIZE_LOCALS,
                           "licm_ops_hoisted": hoisted,
                           "ptx_instructions": len(kernel.body), "sass_instructions": len(code),

@@ -1,0 +1,42 @@
+// Minimal example for `openassembler compile --verify`: each thread divides one
+// input word by the compile-time constant 0x1234 (4660) and stores the
+// quotient. ptxas lowers `div.u32 x, C` to a 13-instruction runtime
+// reciprocal sequence even though C is a literal; our compiler proves a
+// 2-instruction multiply-high replacement correct with z3 instead
+// (openassembler/opt/divconst.py, docs/findings-div-const.md).
+//
+//   openassembler compile examples/div_by_const.ptx -o out.cubin --verify
+//
+// `--verify` runs the kernel through openassembler's SASS emulator against a PTX
+// reference interpreter, using the fixed "probe" calling convention the rest
+// of this repo's corpus uses (see openassembler/emu/probe.py's docstring): params
+// are (out: u64, in: u64, k: u32, kf: f32), one thread per 16-byte input
+// slot. That's why this kernel takes two params it doesn't use -- a
+// from-scratch kernel with your own signature compiles and runs fine with
+// `openassembler compile` (no --verify), it just needs your own test harness to
+// check, same as it would compiling straight through ptxas.
+.version 8.7
+.target sm_80
+.address_size 64
+
+.visible .entry div_by_const(.param .u64 out, .param .u64 in, .param .u32 k, .param .f32 kf)
+{
+    .reg .b32 %r<6>;
+    .reg .b64 %rd<6>;
+
+    ld.param.u64 %rd1, [in];
+    ld.param.u64 %rd2, [out];
+    cvta.to.global.u64 %rd1, %rd1;
+    cvta.to.global.u64 %rd2, %rd2;
+
+    mov.u32 %r1, %tid.x;
+    mul.wide.u32 %rd3, %r1, 16;        // 16 bytes/thread, the probe ABI's input stride
+    add.s64 %rd4, %rd1, %rd3;          // &in[tid]
+    add.s64 %rd5, %rd2, %rd3;          // &out[tid]
+
+    ld.global.u32 %r2, [%rd4];
+    div.u32 %r3, %r2, 0x1234;          // r3 = r2 / 4660
+    st.global.u32 [%rd5], %r3;
+
+    ret;
+}

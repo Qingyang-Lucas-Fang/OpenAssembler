@@ -4,6 +4,12 @@ Date: 2026-11-03. Scope: Ampere A100, transformer training GEMMs and their PTX/S
 
 ## Executive read
 
+Historical snapshot: later work implemented the native SM80 tensor selector,
+scheduler and GEMM documented in [TENSOR_GEMM.md](../TENSOR_GEMM.md), with
+[phase-four promotion evidence](../../exp/a100_mma/phase4/REPORT.md). Statements
+below about the missing MMA backend describe the November 3 baseline. The
+prototype and negative results retain their original scope.
+
 OpenAssembler has a real research asset in its A100 reverse-engineering corpus: it can emit and rewrite sm_80 SASS words, patch cubin text and ABI metadata, and run those cubins on an A100. The measured divider strength reduction is concrete. The current evidence does not yet establish a training-kernel speedup, and a tensor-core AlphaTensor prototype we measured is dramatically slower than cuBLAS. The bad result is informative: the current prototype pays large scalar transform, indexing, conversion, and synchronization costs and generates a poor tensor-core pipeline. It does not disprove low-rank algorithms when their transform is performed cheaply in-register/shared memory and their products use an optimized MMA tile.
 
 The immediate strategic target should be a strong hand-authored A100 GEMM kernel with an explicit PTX-to-SASS-to-cubin path, then optimizer experiments whose hypotheses can be checked at the SASS and timing levels. A general SASS decompiler/lifter is valuable infrastructure, but it is not the near-term performance bottleneck. Python is entirely suitable for the host-side compiler, corpus mining, proof harness, and experimentation. It is not currently a reason to rewrite the project in C++; GPU time dominates these kernels and Python emits native GPU instructions. The right split is Python orchestration plus native/GPU implementation only where profiling identifies host overhead or where a code-generation abstraction gives leverage.

@@ -1,0 +1,13 @@
+[application]
+frontend="torch"
+entrypoint="train.py"
+requirements=[]
+build_backend="modal"
+gpu="A100-40GB"
+budget=300
+job_timeout=240
+verification="state"
+rtol=0.0001
+atol=0.00001
+state_rtol=0.001
+state_atol=0.001

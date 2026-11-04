@@ -85,6 +85,8 @@ def execute_program(root: Path, config: dict, state_path: Path, *, compiled: boo
     inductor_config.fallback_random = True
     inductor_config.compile_threads = 1
     models, outputs, optimizers, graphs = {}, {}, [], []
+    model_names = {}
+    forward_depth = 0
     total_output_bytes = 0
 
     def snapshot(value, key, result):
@@ -118,13 +120,28 @@ def execute_program(root: Path, config: dict, state_path: Path, *, compiled: boo
         lowered = torch.compile(forward, backend=backend, dynamic=False, fullgraph=True) if compiled else forward
         @functools.wraps(forward)
         def wrapped(model, *args, **kwargs):
+            nonlocal forward_depth
             if compiled and torch.compiler.is_compiling():
                 return forward(model, *args, **kwargs)
-            name = forward.__module__ + '.' + forward.__qualname__
-            if name in models and models[name] is not model:
-                name += f'#{len(models)}'
+            if not isinstance(model, torch.nn.Module):
+                return forward(model, *args, **kwargs)
+            # Observe the same owning model in eager and compiled execution.
+            # Nested project forwards inline into that owner's graph and must
+            # not introduce extra eager-only model/output snapshot keys.
+            if forward_depth:
+                return forward(model, *args, **kwargs)
+            identity = id(model)
+            if identity not in model_names:
+                base = forward.__module__ + '.' + forward.__qualname__
+                suffix = sum(n == base or n.startswith(base + '#') for n in model_names.values())
+                model_names[identity] = base + (f'#{suffix}' if suffix else '')
+            name = model_names[identity]
             models[name] = model
-            value = lowered(model, *args, **kwargs)
+            forward_depth += 1
+            try:
+                value = lowered(model, *args, **kwargs)
+            finally:
+                forward_depth -= 1
             # This wrapper itself is eager. Only the original model method enters
             # Dynamo; reading/copying tensors here cannot introduce graph breaks.
             index = outputs.setdefault(name, 0)

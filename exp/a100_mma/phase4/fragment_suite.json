@@ -1,0 +1,104 @@
+[
+  {
+    "name": "fragment_compare_f16",
+    "build": "address_stagepair_square_f16",
+    "m": 4096,
+    "n": 4096,
+    "k": 4096,
+    "dtype": "f16",
+    "tile_m": 128,
+    "tile_n": 128,
+    "threads": 128,
+    "smem": 65536,
+    "steady_warmup_rounds": 16,
+    "alternatives": [
+      {
+        "name": "fragment_w2_f16",
+        "build": "../phase4/build/fragment_w2_f16",
+        "m": 4096,
+        "n": 4096,
+        "k": 4096,
+        "dtype": "f16",
+        "tile_m": 128,
+        "tile_n": 128,
+        "threads": 128,
+        "smem": 65536
+      },
+      {
+        "name": "fragment_w4_f16",
+        "build": "../phase4/build/fragment_w4_f16",
+        "m": 4096,
+        "n": 4096,
+        "k": 4096,
+        "dtype": "f16",
+        "tile_m": 128,
+        "tile_n": 128,
+        "threads": 128,
+        "smem": 65536
+      },
+      {
+        "name": "fragment_w4_prefetch_f16",
+        "build": "../phase4/build/fragment_w4_prefetch_f16",
+        "m": 4096,
+        "n": 4096,
+        "k": 4096,
+        "dtype": "f16",
+        "tile_m": 128,
+        "tile_n": 128,
+        "threads": 128,
+        "smem": 65536
+      }
+    ]
+  },
+  {
+    "name": "fragment_compare_bf16",
+    "build": "address_stagepair_square_bf16",
+    "m": 4096,
+    "n": 4096,
+    "k": 4096,
+    "dtype": "bf16",
+    "tile_m": 128,
+    "tile_n": 128,
+    "threads": 128,
+    "smem": 65536,
+    "steady_warmup_rounds": 16,
+    "alternatives": [
+      {
+        "name": "fragment_w2_bf16",
+        "build": "../phase4/build/fragment_w2_bf16",
+        "m": 4096,
+        "n": 4096,
+        "k": 4096,
+        "dtype": "bf16",
+        "tile_m": 128,
+        "tile_n": 128,
+        "threads": 128,
+        "smem": 65536
+      },
+      {
+        "name": "fragment_w4_bf16",
+        "build": "../phase4/build/fragment_w4_bf16",
+        "m": 4096,
+        "n": 4096,
+        "k": 4096,
+        "dtype": "bf16",
+        "tile_m": 128,
+        "tile_n": 128,
+        "threads": 128,
+        "smem": 65536
+      },
+      {
+        "name": "fragment_w4_prefetch_bf16",
+        "build": "../phase4/build/fragment_w4_prefetch_bf16",
+        "m": 4096,
+        "n": 4096,
+        "k": 4096,
+        "dtype": "bf16",
+        "tile_m": 128,
+        "tile_n": 128,
+        "threads": 128,
+        "smem": 65536
+      }
+    ]
+  }
+]

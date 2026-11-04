@@ -1,0 +1,164 @@
+[
+  {
+    "build": "p4_cli_square_f16",
+    "name": "p4_cli_square_f16",
+    "m": 4096,
+    "n": 4096,
+    "k": 4096,
+    "dtype": "f16",
+    "tile_m": 128,
+    "tile_n": 128,
+    "threads": 128,
+    "smem": 65536,
+    "steady_warmup_rounds": 24,
+    "alternatives": [
+      {
+        "build": "address_stagepair_square_f16",
+        "name": "address_stagepair_square_f16",
+        "m": 4096,
+        "n": 4096,
+        "k": 4096,
+        "dtype": "f16",
+        "tile_m": 128,
+        "tile_n": 128,
+        "threads": 128,
+        "smem": 65536
+      }
+    ]
+  },
+  {
+    "build": "p4_cli_mlp_f16",
+    "name": "p4_cli_mlp_f16",
+    "m": 4096,
+    "n": 16384,
+    "k": 4096,
+    "dtype": "f16",
+    "tile_m": 128,
+    "tile_n": 128,
+    "threads": 128,
+    "smem": 65536,
+    "steady_warmup_rounds": 24,
+    "alternatives": [
+      {
+        "build": "address_stagepair_confirm_mlp_f16",
+        "name": "address_stagepair_confirm_mlp_f16",
+        "m": 4096,
+        "n": 16384,
+        "k": 4096,
+        "dtype": "f16",
+        "tile_m": 128,
+        "tile_n": 128,
+        "threads": 128,
+        "smem": 65536
+      }
+    ]
+  },
+  {
+    "build": "p4_cli_tall_f16",
+    "name": "p4_cli_tall_f16",
+    "m": 16384,
+    "n": 4096,
+    "k": 4096,
+    "dtype": "f16",
+    "tile_m": 128,
+    "tile_n": 128,
+    "threads": 128,
+    "smem": 65536,
+    "steady_warmup_rounds": 24,
+    "alternatives": [
+      {
+        "build": "address_stagepair_confirm_tall_f16",
+        "name": "address_stagepair_confirm_tall_f16",
+        "m": 16384,
+        "n": 4096,
+        "k": 4096,
+        "dtype": "f16",
+        "tile_m": 128,
+        "tile_n": 128,
+        "threads": 128,
+        "smem": 65536
+      }
+    ]
+  },
+  {
+    "build": "p4_cli_square_bf16",
+    "name": "p4_cli_square_bf16",
+    "m": 4096,
+    "n": 4096,
+    "k": 4096,
+    "dtype": "bf16",
+    "tile_m": 128,
+    "tile_n": 128,
+    "threads": 128,
+    "smem": 65536,
+    "steady_warmup_rounds": 24,
+    "alternatives": [
+      {
+        "build": "address_stagepair_square_bf16",
+        "name": "address_stagepair_square_bf16",
+        "m": 4096,
+        "n": 4096,
+        "k": 4096,
+        "dtype": "bf16",
+        "tile_m": 128,
+        "tile_n": 128,
+        "threads": 128,
+        "smem": 65536
+      }
+    ]
+  },
+  {
+    "build": "p4_cli_mlp_bf16",
+    "name": "p4_cli_mlp_bf16",
+    "m": 4096,
+    "n": 16384,
+    "k": 4096,
+    "dtype": "bf16",
+    "tile_m": 128,
+    "tile_n": 128,
+    "threads": 128,
+    "smem": 65536,
+    "steady_warmup_rounds": 24,
+    "alternatives": [
+      {
+        "build": "address_stagepair_confirm_mlp_bf16",
+        "name": "address_stagepair_confirm_mlp_bf16",
+        "m": 4096,
+        "n": 16384,
+        "k": 4096,
+        "dtype": "bf16",
+        "tile_m": 128,
+        "tile_n": 128,
+        "threads": 128,
+        "smem": 65536
+      }
+    ]
+  },
+  {
+    "build": "p4_cli_tall_bf16",
+    "name": "p4_cli_tall_bf16",
+    "m": 16384,
+    "n": 4096,
+    "k": 4096,
+    "dtype": "bf16",
+    "tile_m": 128,
+    "tile_n": 128,
+    "threads": 128,
+    "smem": 65536,
+    "steady_warmup_rounds": 24,
+    "alternatives": [
+      {
+        "build": "address_stagepair_confirm_tall_bf16",
+        "name": "address_stagepair_confirm_tall_bf16",
+        "m": 16384,
+        "n": 4096,
+        "k": 4096,
+        "dtype": "bf16",
+        "tile_m": 128,
+        "tile_n": 128,
+        "threads": 128,
+        "smem": 65536
+      }
+    ]
+  }
+]

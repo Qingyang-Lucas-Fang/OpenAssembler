@@ -1,0 +1,17 @@
+{
+ "openassembler": "0.2.0",
+ "backend": "modal",
+ "device": "NVIDIA A100-SXM4-80GB cc 8.0 (Modal A100-40GB)",
+ "cases": [
+  {
+   "kernel": "gemm",
+   "source": "gemm.ptx",
+   "result": "OK",
+   "detail": "",
+   "ours_ms": 0.015359999611973763,
+   "ptxas_ms": 0.013311999849975109,
+   "speedup": 0.866666678793263
+  }
+ ],
+ "timestamp": "20261104T024611.544460Z"
+}

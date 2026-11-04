@@ -1,0 +1,829 @@
+                         NVLift: Lifting NVIDIA GPU Assembly to LLVM IR
+                               for Downstream Security Applications
+
+                    Junpeng Wan                        Louis Zheng-Hua Tan                              Dave (Jing) Tian
+                  Purdue University                        Purdue University                            Purdue University
+                 wan155@purdue.edu                       louistan@purdue.edu                            daveti@purdue.edu
+
+
+
+
+    Abstract—NVIDIA GPUs underpin the vast majority of mod-                             CUDA Source Code
+ern AI workloads. These workloads are ultimately executed
+                                                                             CPU Source                CUDA Kernel
+in the form of Streaming Assembly (SASS), the lowest-level
+assembly for NVIDIA hardware. However, SASS remains largely                                                                    Further
+                                                                                               NVCC                            Analysis
+undocumented, let alone well studied, posing a significant barrier
+to downstream security applications, such as security auditing,
+vulnerability discovery, binary hardening, etc.
+                                                                              CPU Binary                     PTX
+    In this paper, we address this challenge with NVLift,
+a systematic framework that lifts NVIDIA GPU SASS into
+LLVM IR to enable downstream GPU binary analysis. To lift                                                             NVLift
+SASS instructions, NVLift reconstructs instruction semantics                                          SASS     SASS            LLVM IR
+
+by consolidating prior reverse-engineering efforts and validating            Host ELF Binary              Fatbin
+execution behaviors at runtime using cuda-gdb. To verify the
+semantic correctness of the lifted IR, we design and implement               Fig. 1: CUDA binary and NVLift overview.
+a differential testing pipeline by compiling the lifted IR into
+SASS and comparing the GPU execution results against the
+SASS generated from the reference CUDA kernel compilation. In
+total, NVLift supports 47 commonly used SASS instructions on         CPU code alongside this fat binary, which serves as a multi-
+the Turing architecture (SM75), covering 88.39% of instruction       architecture container for device-side representations. This
+occurrence count in popular CUDA libraries. Using NVLift, we         container bundles a hierarchy of code, including architecture-
+lifted 11 CUDA kernels, including representative DNN operators,      independent Parallel Thread Execution (PTX) virtual instruc-
+and verified the semantic correctness of 5 kernels. We further
+                                                                     tions for forward compatibility and microarchitecture-specific
+provide a PoC implementation of GPU binary decompilation
+by translating the lifted LLVM IR into pseudo C code using           SASS binaries for native execution on targeted GPUs. This
+RetDec. In sum, NVLift is a critical step towards enabling           structure allows targeting multiple generations of GPU mi-
+GPU binary analysis and downstream security applications.            croarchitectures simultaneously.
+                                                                        As the lowest-level executable representation, Streaming
+                       I. I NTRODUCTION                              Assembly (SASS) is crucial for understanding the architec-
+                                                                     tural behavior of NVIDIA GPUs, performance analysis, and
+   NVIDIA GPUs serve as the fundamental computational
+                                                                     security risk assessment of GPU binary programs. Unfor-
+backbone of the contemporary artificial intelligence era. Their
+                                                                     tunately, NVIDIA provides minimal official documentation
+dominance is largely driven by the Compute Unified Device
+                                                                     for SASS, typically exposing opcode names with minimal
+Architecture (CUDA), which provides the essential program-
+                                                                     semantic detail [1]. As a result, while CPU binary analysis
+ming interface for leveraging the GPU’s massive parallel
+                                                                     and its corresponding downstream security applications, such
+processing power for general-purpose tasks. The CUDA com-
+                                                                     as decompilation, have been evolving and improving over
+piler and runtime abstract complex low-level hardware details,
+                                                                     the years, GPU binary analysis and downstream security
+enabling developers to write highly parallel code without
+                                                                     applications have been stuck at the same starting point.
+directly managing warp scheduling, register allocation, or
+                                                                        In this paper, we tackle this challenge and barrier with
+other microarchitectural resources.
+                                                                     NVLift, a systematic framework that lifts NVIDIA GPU
+   To support execution across a rapidly evolving landscape
+                                                                     SASS into LLVM IR to enable GPU binary analysis and
+of GPU microarchitectures, the NVIDIA CUDA compiler
+                                                                     downstream security applications. Specifically, to lift SASS in-
+nvcc generates host executables that embed a fat binary. As
+                                                                     structions, we systematically consolidate previously scattered
+illustrated in Figure 1, the final host binary contains native
+                                                                     reverse-engineering efforts and validate inferred instruction
+                                                                     semantics and behavior at runtime through cuda-gdb in-
+                                                                     spection. To verify the semantic correctness of the lifted IRs,
+                                                                     we design and implement a differential testing pipeline by
+                                                                     compiling the lifted IRs into CUDA SASS and comparing the
+Workshop on Binary Analysis Research (BAR) 2026
+27 February 2026, San Diego, CA, USA                                 GPU execution results against the SASS generated from the
+ISBN 978-1-970672-08-4                                               reference CUDA kernel compilation using clang.
+https://dx.doi.org/10.14722/bar.2026.23028
+www.ndss-symposium.org
+   In total, NVLift supports lifting 47 frequently used SASS           B. CUDA Binary
+instructions targeting the Turing architecture (SM75), covering           In a typical CUDA compilation flow, the programmer first
+88.39% of all instruction occurrences observed in essential            writes CUDA C/C++ source code. The nvcc compiler (pro-
+CUDA libraries such as cuBLAS and cuDNN. Using NVLift,                 vided with CUDA) separates the host (CPU) part from the
+we lift 11 CUDA kernel implementations of standard DNN                 device (GPU) part and then compiles them. The host part is
+operators, including ReLU, fully connected layers, convolu-            passed to a conventional host compiler like gcc and compiled
+tion, and max pooling. Using our automated differential testing        to CPU machine code. The device part is first translated to
+pipeline, we have verified the semantic correctness of 5 lifted        NVVM IR [3], which is a subset of LLVM IR. Then, PTX is
+CUDA kernels. To further demonstrate the applicability of              generated from the NVVM IR. PTX is NVIDIA’s virtual GPU
+the lifted IRs for downstream GPU binary analysis, we apply            instruction set architecture (ISA) and is designed to provide
+RetDec [2] to decompile the lifted IRs into C-like pseudocode          forward compatibility, allowing PTX code to be just-in-time
+that preserves the original functionality, realizing a proof-of-       compiled by the CUDA driver into native code for newer
+concept (PoC) implementation for GPU binary decompilation.             GPU architectures. At build time, nvcc can further assemble
+   Our main contributions are as follows:                              PTX into SASS (the low-level, architecture-specific assembly
+   • Recovered SASS semantics. We consolidate prior                    language), which corresponds to the actual binary instructions
+      reverse-engineering efforts and validate instruction be-         executed by the GPU. The binary file, therefore, contains the
+      haviors through cuda-gdb inspection, resulting in                CPU machine code together with the GPU part (often called
+      a more complete and systematic characterization of               a fat binary), which may include PTX, several SASS images
+      NVIDIA GPU assembly instructions.                                for different GPU generations, or a combination of both. Our
+   • SASS-to-LLVM lifter. We present NVLift, which lifts               lifter translates SASS to LLVM IR for further security and
+      NVIDIA GPU assembly into LLVM IR. The current                    program analysis, as shown in Figure 1.
+      implementation supports 47 common SASS instructions
+      in the Turing (SM75) architecture. Using NVLift, we              C. LLVM IR and NVVM IR
+      manage to lift 11 representative CUDA kernels into                  LLVM IR is a low-level, strongly typed intermediate repre-
+      LLVM IR.                                                         sentation at the heart of the LLVM compiler framework [4],
+   • Semantic correctness checking. We develop an auto-                commonly used for program analysis, optimization, and cross-
+      mated differential testing pipeline that compares the GPU        architecture translation.
+      execution behavior of lifted IRs against the reference IRs          NVVM IR is NVIDIA’s GPU-oriented derivative of LLVM
+      generated by compiling CUDA kernels using clang. 5               IR [3]. It preserves the LLVM IR structure while constraining
+      lifted CUDA kernels have been successfully verified.             the instruction set and introducing CUDA-specific intrinsics
+   • PoC of GPU binary decompilation. We demonstrate the               (e.g., accessing thread and block indices) to model the CUDA
+      first PoC of GPU binary decompilation via LLVM IR by             execution and memory hierarchy. NVVM IR serves as the
+      applying RetDec to generate high-level C pseudocode              immediate representation of CUDA device code before it is
+      representation.                                                  lowered to PTX.
+   NVLift is available at https://github.com/purseclab/                                       III. OVERVIEW
+Sass-LLVM-Lifter.
+                                                                       A. Motivation.
+                      II. BACKGROUND
+                                                                          The motivation for this work stems from two observa-
+A. GPU Architecture                                                    tions. First, SASS is the instruction set ultimately executed
+   GPUs are a cornerstone of parallel computation. Among               on NVIDIA GPUs. Thus, analyzing SASS is essential for
+them, NVIDIA GPUs are particularly popular due to their                accurately understanding the concrete execution behavior of
+high performance and the Compute Unified Device Archi-                 CUDA programs, including their performance characteristics
+tecture (CUDA) programming framework. In NVIDIA GPUs,                  and security-relevant semantics. Moreover, we translate SASS
+each Streaming Multiprocessor (SM) contains multiple cores             rather than PTX for the following reasons. First, SASS is
+that execute threads in a SIMT (Single-Instruction Multiple-           sometimes the sole GPU representation found in deployed
+Thread) fashion, organized into units called warps. All threads        CUDA binaries: while PTX can be included to enable forward
+within a warp execute in lockstep, following the same program          compatibility, it may be omitted to protect intellectual property
+counter (PC) but operating on different registers and memory           or reduce binary size. Second, even in the scenario where only
+locations. Furthermore, each SM can execute multiple warps             the PTX is present, PTX can be compiled into SASS using
+simultaneously, which are managed and scheduled by warp                NVIDIA’s toolchain. Thus, regardless of whether a binary
+schedulers.                                                            initially contains SASS or PTX, SASS can be reliably obtained
+   Typically, GPUs come in two forms: integrated and discrete.         and lifted into LLVM IR.
+Integrated GPUs are built into the same chip as the CPU and               Second, lifting SASS to LLVM IR enables the reuse of
+share the same physical memory (e.g., Apple M-series SoCs).            a mature and extensive ecosystem of LLVM-based analysis
+Other GPUs on the market are discrete, communicate with the            and optimization tools. LLVM IR provides a structured, SSA-
+system via a PCIe link, and have their own dedicated memory.           based intermediate representation that is well suited for tasks
+
+
+
+                                                                   2
+like static analysis, equivalence checking, symbolic execution         B. PTX Documents and Existing Reverse Engineering
+(e.g., KLEE [5]), and decompilation (e.g., RetDec [2]). There-
+                                                                          Due to the absence of official documentation, we rely on
+fore, the lifting efforts offer the binary analysis researcher a
+                                                                       information gathered from other reverse-engineering sources,
+practical foundation for applying established program analysis
+                                                                       including blogs, repositories, prior research papers, and PTX
+techniques to CUDA programs.
+                                                                       documentation [6]–[15].
+B. Challenges                                                          Compare Instruction Set from PTX. The PTX ISA docu-
+   The successful implementation of NVLift requires over-              mentation [9] provides a detailed specification of PTX, the
+coming several challenges, which we address in the following           lowest-level intermediate representation publicly exposed by
+sections.                                                              NVIDIA. Although there is a semantic gap between PTX
+Lack of Official SASS Documentation. The description                   and SASS, the PTX documentation remains a valuable ref-
+of SASS ISA from NVIDIA’s documentation is high-level                  erence for inferring SASS behavior. In particular, by com-
+and vague [1]: it only briefly summarizes the functionality            paring the extracted SASS assembly with the documented
+of each instruction opcode, without specifying instruction             semantics of corresponding PTX opcodes, we can approxi-
+formats, operand usage, or potential side effects. Although the        mate the functional behavior of SASS instructions. For ex-
+document mentions different register types and the existence of        ample, given the SASS instruction IMAD R0, R7, R0,
+constant memory, it lacks detailed architectural specifications.       R4, the related PTX ISA document specifies the instruc-
+For instance, it does not specify how many GPRs (General-              tion mad.mode.type d, a, b, c, whose semantics are
+Purpose Registers) are supported at the SASS level. To recover         defined as t = a * b followed by d = t + c. Based
+the precise semantics of many instructions, we either manually         on this, we can infer that the SASS instruction implements
+reverse-engineer the SASS instruction behaviors or rely on             the computation R0 = R7 * R0 + R4, consistent with its
+previously scattered reverse-engineering efforts.                      definition in official documents as an Integer Multiply
+Type Analysis. Certain opcodes expose operand types directly           And Add operation. However, even when an opcode shares
+(e.g., IMAD R4, R4, R5, R3 or FADD R7, R2, R7),                        the same name, its SASS semantics are not guaranteed to
+making type inference straightforward. However, many in-               be equivalent to those of PTX. Therefore, we need further
+structions, such as MOV R6, R2, do not reveal operand types            information to accurately reconstruct and validate the SASS
+syntactically. In these cases, type information must be inferred       semantics.
+from the context.                                                      Existing Reverse Engineering Work. Several key resources
+Parsing SASS Instructions. Parsing and reconstructing                  that are helpful for us to understand the SASS ISA are listed
+SASS semantics is challenging due to its heterogeneous                 below.
+memory spaces (global, local, shared and constant), nu-                   First, Cloudcore’s article [6] provides an extensive overview
+merous architecture-specific special registers (e.g., SR_TID,          of NVIDIA’s SASS instruction set from a microarchitec-
+SR_CTAID), and multiple register types.                                tural perspective. The work summarizes instruction formats,
+                                                                       operand types, execution pipelines, and special registers, offer-
+ IV. R ECOVERING AND U NDERSTANDING NVIDIA SASS                        ing detailed explanations of how different SASS instructions
+                   I NSTRUCTIONS                                       behave on NVIDIA GPUs. Although unofficial, it serves as a
+   To construct the lifter, we first need to study the function-       valuable reference for understanding SASS semantics in the
+ality, syntax, encoding format, and usage of each instruction.         absence of complete public documentation.
+Our current investigation targets the Turing GPU architecture             Second, TuringAs [13] is an open-source SASS assembler
+(SM75). However, the methodology is readily extensible to              for NVIDIA Volta, Turing, and Ampere GPUs. It takes human-
+other NVIDIA architectures, such as Volta and Ampere. This             readable SASS assembly as input and produces cubin bi-
+assumption is based on the fact that across GPU generations,           naries for specific architectures (e.g., SM70, SM75, SM80),
+most SASS instructions preserve their core semantics, with             enabling developers to handcraft and assemble low-level GPU
+architectural changes being largely incremental rather than            kernels beyond what the standard CUDA toolchain directly
+disruptive [6].                                                        exposes.
+                                                                          Third, the Nintendo Switch SDK documentation set [14]
+A. NVIDIA Official Documents                                           includes an index of SASS opcodes for NVIDIA’s Maxwell
+   Although under-documented, the NVIDIA official doc-                 microarchitecture (e.g., SM52). The collection provides com-
+umentation provides and confirms several essential facts.              prehensive per-instruction entries detailing operand layouts,
+Specifically, Section 4 of the CUDA Binary Utilities [1] clar-         control modifiers, and functional behavior. This material of-
+ifies the semantic intent of individual opcodes. For example,          fers concrete architecture-specific insights that complement
+FADD denotes the addition of two FP32 floating-point val-              community reverse-engineering efforts, enabling more precise
+ues, while LDG represents loading data from global memory.             reasoning of instruction semantics.
+Furthermore, Table 6 of the CUDA Binary Utilities [1] lists               In addition to SASS reverse engineering, Jia et al. [7]
+the valid instructions for Turing GPUs, which serves as the            present an in-depth microbenchmarking study of the NVIDIA
+foundation for our work.                                               Turing T4 GPU. By designing targeted instruction- and
+
+
+
+                                                                   3
+memory-level microbenchmarks, they reverse engineer key mi-               Predicate registers are denoted as P0, P1, . . . , P7 [6].
+croarchitectural characteristics, including instruction through-       Among them, P7 is a special predicate register also referred
+put and latency, tensor core performance, instruction encoding,        to as PT, which is hardwired to logical true. Predicate
+and so on. Their analysis quantitatively compares Turing               registers are used to support predicated execution, where a
+against prior generations and provides practical guidelines for        predicate condition guards the execution of an instruction. A
+developers and researchers seeking to optimize performance             predicate is specified by prefixing an instruction with @Pi or
+on Turing T4 GPUs.                                                     its negation @!Pi. For example, @P0 IMAD.WIDE R40,
+                                                                       R41, R18, c[0x0][0x168] indicates that the IMAD in-
+C. Instruction Tester by cuda-gdb                                      struction is executed only if predicate register P0 evaluates
+   Based on the aforementioned documentation, we obtain a              to true; otherwise, the instruction is suppressed and has
+preliminary knowledge of the functionality, usage, and operand         no architectural effect. Similarly, the prefix @!P0 causes the
+formats of individual SASS instructions. To validate the se-           instruction to execute only when P0 is false. In short,
+mantic information, we perform an additional confirmation              predicated execution enables control flow without explicit
+step using cuda-gdb [16], a debugging tool provided by                 branch instructions.
+NVIDIA that extends GDB to support the debugging of CPU                   Starting from the Turing, NVIDIA GPUs introduce uniform
+and GPU code.                                                          registers and uniform predicate registers as operands [6].
+   To examine the behavior of a specific instruction, such as          Uniform general-purpose registers are denoted as URi, where
+IMAD R0, R7, R0, R4, we utilize cuda-gdb to pause                      UR0-UR63 are writable uniform registers. Similarly, URZ
+program execution immediately before the instruction is ex-            is hardwired to zero. Besides, uniform predicate registers
+ecuted. We then inject controlled values into the source               are denoted as UPi, where UP0-UP6 are general uniform
+registers, R7, R0, and R4 in this instance, perform a single-          predicates and UP7, also referred to as UPT, is hardwired
+step execution (si), and verify whether the resulting value            to logical true. These registers are accessed by instructions
+in R0 matches our predicted outcome. This methodology is               executed on the uniform datapath. Unlike normal general-
+equally effective for resolving ambiguities in register roles;         purpose registers and predicates, which are private to each
+by observing which register’s contents changed, we can defini-         thread, uniform registers and uniform predicates are shared
+tively distinguish between source and destination operands in          at the warp level: all threads within the same warp observe
+previously undocumented instructions.                                  the same value. As a result, uniform datapath instructions are
+   The instruction tester grounds our intuition regarding un-          executed once per warp rather than once per thread.
+known instructions and modifiers in concrete execution data.              Additionally, SASS special registers provide access to
+When necessary, we also perform in-place binary patching               CUDA execution and indexing state defined by the GPU archi-
+(e.g., manipulating the instruction’s hexadecimal represen-            tecture. Common examples include SR_TID.X, SR_TID.Y,
+tation to replace a hardwired RZ register with a general-              and SR_TID.Z, which denote the thread index within a
+purpose R4 register) to bypass hardware limitations, such as           thread block. Additionally, SR_CTAID.X, SR_CTAID.Y,
+the immutability of the zero register.                                 and SR_CTAID.Z, denotes the block index.
+                                                                       Instruction Format. A SASS instruction consists of an op-
+D. Summary of Turing SASS ISA                                          code, a list of operands, and optional modifiers. The opcode
+   Based on the above-mentioned documentation and our in-              specifies the function of operation, while modifiers refine
+struction tester, we provide an overall overview of the Turing         its behavior (e.g., data type, rounding mode, cache policy).
+SASS ISA.                                                              Operands follow a consistent convention: the first operand
+Registers. The official document [1] identifies several types of       is typically the destination (dst), and subsequent operands
+registers, including RX for general-purpose registers, URX for         are sources (src), drawn from registers, immediates, or con-
+uniform registers, SRX for special system-controlled registers,        stant memory. For example, in IMAD.WIDE R40, R41,
+and PX for predicate registers, but omits further details. We          R18, c[0x0][0x168], the opcode is IMAD, the modi-
+therefore summarize these additional details based on previous         fier is .WIDE, dst is R40, and src are R41, R18, and
+reverse-engineering work and cuda-gdb.                                 c[0x0][0x168]. In addition to instruction-level modifiers,
+   General-purpose registers (GPRs) R0-R255 are 256 32-bit             SASS also supports operand-level modifiers. Some modifiers,
+registers. Among them, R255 (or RZ) is the architectural               such as reuse (e.g., R41.reuse), affect microarchitectural
+zero register and always returns a zero value by any read              behavior without altering the functional semantics of the in-
+operation. Although GPRs are 32-bit, a 64-bit value can still be       struction. Others directly change operand semantics, including
+represented by a pair of consecutive 32-bit registers, assembled       negation (-R0), absolute value (|R0|), and bitwise inversion
+as Rhi||Rlo. For example, in IMAD.WIDE R40, R41,                       (~R0).
+R18, c[0x0][0x168], the destination R40 denotes a 64-                  Instruction Encoding. In Turing, each SASS instruction is
+bit register pair R41||R40, where R41 holds the high 32 bits.          encoded in 16 bytes, which include both the instruction itself
+Similarly, when a 128-bit operand is expected, R40 implicitly          and a control code. According to previous research [15], the
+refers to the concatenation R43||R42||R41||R40.                        encoding format is as follows:
+
+
+
+                                                                   4
+                                                                         of the SASS instructions within the core instruction set are
+                                                                         floating-point and integer instructions, such as IMAD, IABS,
+      P | Opcode | Operands | Unused | Control Logic
+     |{z} | {z } | {z } | {z } |            {z     }                     and FMUL. We also include data movement and Load/Store
+      4b                              8b
+              12b         80b                      24b                   instructions, including MOV/UMOV for register or immediate
+   The 4-bit predicate field (P) controls per-instruction predica-       transfers and LDG for loading data from global memory.
+tion. The lower three bits select one of eight predicate registers       Control flow is handled by BRA as well as CALL and RET.
+(P0–P7), with the special all-ones encoding corresponding                Besides, the @ prefix denotes predicated execution: a predi-
+to PT, the always-true predicate. The most significant bit               cated BRA or a predicated instruction such as @P1 IMAD is
+acts as a negation flag, inverting the selected predicate when           executed conditionally, while instructions like ISETP evaluate
+set (e.g., !P1 and !PT). This design enables conditional                 conditions and write the results to predicate registers (P0-
+execution without introducing explicit control-flow branches.            P7). Finally, reconvergence and scheduling-related instruc-
+The 12-bit Opcode field specifies the instruction, and the 80-           tions such as BSSY and BSYNC are used to manage warp
+bit Operand field encodes registers, immediates, addressing              divergence and reconvergence.
+modes, and instruction-specific modifiers. The 24-bit control
+code provides explicit warp-scheduling directives, including                     V. NVL I F T D ESIGN AND I MPLEMENTATION
+dependency barrier indices, stall cycles, and yield hints.                  In this section, we describe the detailed design and im-
+Operand Types. According to previous work [12], common                   plementation of NVLift. Figure 2 illustrates the overall
+operands can be categorized into several types, including                workflow: we first extract the cubin and disassemble embedded
+registers (e.g., R10), immediate values (e.g., 0x100, 3.2),              SASS instructions; we then split SASS into tokens, construct
+global memory (e.g., [R10]), and constant memory (e.g.,                  a control-flow graph (CFG), and organize them into our
+C[0x0][0x50]). For the operand data types, in the SASS                   internal representation consisting of functions, basic blocks,
+code we lift, they are 32-/64-bit integer and floating-point             instructions, and opcode/operands; after that, we perform type
+values, along with predicate registers used for predication              analysis to recover operand types; finally, each SASS instruc-
+and conditional control flow. The underlying register file               tion is lifted to LLVM IR. NVLift produces a complete
+is untyped: the same 32- or 64-bit register contents may                 LLVM IR module that can serve as the base for further
+be interpreted as signed or unsigned integers, floating-point            analysis.
+values, or raw bits depending on the opcode and its modifiers.
+Memory Accessing. NVIDIA GPUs expose several distinct                    A. Extract and Disassemble
+memory spaces, each characterized by different visibility
+                                                                            To extract SASS assembly from a CUDA program, we first
+scopes, access latencies, and dedicated instruction support.
+                                                                         use cuobjdump to inspect the compiled binary and extract
+Global memory is visible to all threads across all thread blocks
+                                                                         the relevant .cubin files, and then apply nvdisasm to
+and persists for the lifetime of a kernel; it is accessed using
+                                                                         disassemble the extracted .cubin and generate the corre-
+global load and store instructions such as LDG and STG.
+                                                                         sponding SASS code for subsequent analysis.
+Shared memory is an on-chip, low-latency memory region
+shared among threads within the same thread block and ex-                B. Parse SASS
+plicitly managed by the programmer, accessed via instructions
+such as LDS and STS. Local memory is logically private to                   We first tokenize the SASS code. For example, we de-
+each thread; despite its name, it is typically backed by global          compose IADD3.WIDE R7, R15, 0x2, RZ into opcode
+memory and is used primarily for register spills or thread-              (IADD3), modifier (WIDE) and operands (R7, R15, 0x2,
+private arrays, with accesses issued through LDL and STL.                RZ). After tokenization, we identify all branch instructions
+Constant memory provides a read-only memory space visible                to construct a CFG that represents the program’s execution
+to all threads and blocks, optimized for broadcast-style access          paths. In addition to explicit branch instructions, such as
+when multiple threads read the same address; it is accessed              BRA, conditional execution also serves as a branching in-
+via LDC instructions and the c[...] addressing form (e.g.,               dicator. In detail, we treat predication denoted by @ as a
+c[0x0][0x300]).                                                          conditional branch. For example, in @P2 IADD3 R7, R15,
+Core Instruction Set. The NVIDIA official documentation [1]              0x2, RZ, the instruction IADD3 R7, R15, 0x2, RZ is
+briefly categorizes Turing instructions into ten classes: 22             put in a separate basic block, with an explicit branch to the
+floating-point instructions, 21 integer instructions, 4 conver-          next instruction.
+sion instructions, 4 movement instructions, 6 predicate/CC                  After the parsing step, our internal representation organizes
+instructions, 7 texture instructions, 16 Load/Store instructions,        the SASS assembly hierarchically into functions, basic blocks,
+4 surface memory instructions, 17 control instructions, and 7            and instructions. Each instruction is further decomposed into
+miscellaneous instructions.                                              its opcode and operands, as Figure 2 shows.
+   Among them, our work uncovers the formats and function-
+ality of 47 instructions, which we also refer to as the core             C. Type Analysis
+instruction set in this paper. Their opcodes and associated                The goal of this step is to recover the data type of all
+modifiers are summarized in Table II in the appendix. Most               operands, which is essential for LLVM IR lifting.
+
+
+
+                                                                     5
+                                                                                                                                                Opcode
+                                                                                                           Function Basic Blocks Instructions
+                                                                                                                                                Operands
+
+
+                                                                                                                         Our Internal
+   Binary                 SASS Assembly           Split to Tokens                       Build CFG
+                                                                                                                        Representation
+
+        A. Extract and Disassemble
+                                                                    B. Parse SASS
+
+
+
+                                                                                                                       Operand Define-Use
+ Further Analysis             LLVM IR       Lift Instructions by Opcode             Recover Operand Type
+                                                                                                                            Chains
+
+
+                                          D. Apply Lifting Rules by Opcode                          C. Type Analysis
+
+                                                   Fig. 2: The workflow of NVLift.
+
+
+   1) Infer Types from Opcode: Firstly, we try to infer operand               whether each operand constitutes a definition or a use. The
+types using the opcode semantics, as many opcodes directly                    detailed design and implementation of this component are
+imply their operands’ types. For example, arithmetic instruc-                 described in Appendix A.
+tions such as IMAD (integer multiply-add) and FADD (floating-                 Type Analysis. After constructing the Use-Def and Def-Use
+point addition) explicitly operate on integer and floating-point              chain, we analyze operand types with the following steps.
+operands, respectively. Consider the following instructions:                  The first step is opcode-based type assignment, where we
+IMAD R4, R4, R5, R3 and FADD R7, R2, R7. In the                               traverse all SASS instructions whose opcodes provide type
+first case, the IMAD opcode indicates that all source and                     information, e.g., IMAD and FFMA, and assign types to each
+destination operands (R4, R5, and R3) stores 32-bit integers.                 Definition and Use. The second step is type propagation, in
+Similarly, the FADD opcode implies that R7 and R2 contain                     which operand types inferred in the first step are propagated
+32-bit floating-point values. Consequently, opcode semantics                  along the Use-Def and Def-Use chains. After several rounds
+alone are sufficient to infer operand types in the above cases.               of recursive propagation, the types of most operands can
+   2) Infer Types from Context: Although operand types can                    be recovered. The specific propagation rules are detailed in
+often be inferred from opcodes, this approach does not apply                  Section V-E. In rare cases, conflicting type information may
+to all SASS instructions. For instance, in MOV R6, R2,                        arise during propagation; in such situations, the latest inferred
+the value in R2 is copied verbatim to R6 without any type                     type is applied, unless the operand type was previously marked
+interpretation by the hardware, making the operand type                       as confident. Operands whose types cannot be determined
+unobservable from the instruction alone. A similar limitation                 from opcodes, modifiers, or surrounding context are assigned
+applies to the destination register R17 in LDG.E.SYS R17,                     a default 32-bit integer type.
+[R2+0x10], where the load instruction specifies the address                      3) Recover CUDA Kernel Parameters and Types: We re-
+space but does not encode the semantic type of the loaded                     cover CUDA kernel parameters by analyzing constant memory
+value.                                                                        that stores argument values. In our experiments with Turing
+   To solve the issue of the above instructions, we infer                     (SM75), kernel arguments are typically stored in constant
+operand types from the assembly context. Taking MOV R6,                       memory starting at c[0x0][0x160], with subsequent argu-
+R2 as an example, if R2 is previously defined or later used                   ments laid out sequentially. Integer arguments occupy 4 bytes,
+as an integer, we assign R6 an integer type. Conversely, if                   while pointer arguments occupy 8 bytes. We also optionally
+R6 is later used by a floating-point instruction before being                 cross-validate argument types by demangling kernel symbols
+redefined, we infer that R2 also contains a floating-point value.             using llvm-cxxfilt; for example, _Z4reluPfS_i de-
+This bidirectional and context-sensitive inference allows us to               mangles to relu(float*, float*, int). This heuris-
+recover type information for type-agnostic instructions.                      tic relies on the presence of unstripped symbols and, when
+Operand Definition Reaching Analysis. To infer operand                        available, provides high-confidence type information for sub-
+types from context, we first perform a reaching definition                    sequent inference.
+analysis [17], which allows us to construct both use–define
+(Use-Def) and define–use chains (Def-Use) [18], as shown in                   D. Apply Lifting Rules by Opcode
+Figure 2. Built on the CFG, Use-Def associates each operand                     After recovering type information for each operand, the lift-
+use with its most recent definition, while Def-Use tracks all                 ing process is continued using the llvmlite Python frame-
+subsequent uses following a definition. Since an operand’s type               work [19]. Specifically, NVLift employs llvmlite.ir
+must be consistent across its definitions and uses, we leverage               to construct an llvmir.Module and lift each analyzed
+these chains to infer operand types transitively.                             function into LLVM IR. NVLift also defines pseudo-
+   The Reaching Definition Analysis process requires a pre-                   functions and intrinsics, i.e., the NVVM thread index, to
+defined mapping of operands for each opcode to determine                      map GPU/SASS semantics into composable LLVM IR and
+
+
+
+                                                                          6
+ultimately outputs standard NVVM IR text. In the lifting, we            In NVLift, effective addresses are lifted by mapping each
+preserve the full program semantics while discarding low-level          memory region to the corresponding NVVM/LLVM address
+microarchitectural details that are irrelevant to semantics, such       space: global (1), shared (3), constant (4), and local (5).
+as warp scheduling behavior or hardware-specific optimiza-              For example, when lifting LDG.E.SYS R15, [R2+0xc],
+tions.                                                                  NVLift materializes an address-space–qualified pointer, e.g.,
+   For each instruction, we define a deterministic mapping              %"inttoptr_bytes.6" = inttoptr i64 %".191"
+rule to lift it into semantically equivalent LLVM IR. Before            to ptr addrspace(1), which converts a 64-bit integer
+instruction translation, NVLift performs custom analyses and            address into a pointer in address space 1. In the above example,
+transformations, including CFG construction and type analy-             the global memory load instruction LDG accesses the 64-bit
+sis, to determine control flow and operand types. Additionally,         global address space, implying that the base address register
+each SASS register is represented as a LLVM variable, with              R2 represents a 64-bit pointer. Accordingly, the effective
+its contents loaded from or stored to the variable during               address is formed using the register pair R3||R2.
+instruction emission. In the following text, we briefly introduce          Constant memory accesses appear in SASS as
+the details of lifting each instruction type.                           c[bank][offset], e.g., c[0x0][0x168]. These
+Arithmetic Instructions. A typical SASS instruction is an               locations are read-only from the kernel and are therefore only
+arithmetic instruction (e.g., multiplication or addition) on            referenced (but not defined or updated) by SASS instructions.
+several operands and stores the result in a destination reg-            We further parse the constant-memory layout metadata to
+ister. One example is the following instruction IMAD R3,                recover kernel-level information such as parameter locations
+R3, c[0x0][0x4], R4, which computes R3 = R3 ×                           and launch configuration values (e.g., dimensions) when
+c[0x0][0x4] + R4.                                                       available.
+                                                                        Branch Instructions. In NVLift, we handle two branch
+Listing 1: LLVM IR for IMAD R3, R3, c[0x0][0x4],                        instruction types. The first type is an unconditional branch,
+R4.                                                                     such as BRA, which performs direct control-flow transfers.
+%"_.35" = load i32, ptr %"R3"
+                                                                        For example, BRA ‘(.L_x_13) unconditionally jumps to
+%"nvvm_blockdim_y" =                                                    the label ‘(.L_x_13). And it is lifted as: br label
+  call i32 @"llvm.nvvm.read.ptx.sreg.ntid.y"()                          %".L_x_13". The second type is a conditional branch,
+%"_.36" = load i32, ptr %"R4"                                           implemented via predication. As mentioned in Section IV-D,
+%"mul" = mul i32 %"_.35", %"nvvm_blockdim_y"                            a conditional branch is indicated by the predicate modi-
+%"add" = add i32 %"mul", %"_.36"
+store i32 %"add", ptr %"R3"
+                                                                        fier @Pi. For instance, @!P1 BRA ‘(.L_x_12) jumps to
+                                                                        ‘(.L_x_12) only if predicate P1 evaluates to false. This
+   The lifted LLVM IR corresponding to this IMAD instruction            instruction is lifted into LLVM IR as follows:
+is shown in Listing 1. The translation proceeds in three steps:           %".463" = icmp eq i1 %"P1.1", 1
+first, the source operands R3, c[0x0][0x4], and R4 are                    br i1 %".463", label %".L_x_12", label %".
+loaded into temporary LLVM variables; next, the multiply-                   L_x_8"
+and-add computation is expressed using standard LLVM IR
+                                                                        Function Calls. Internal functions could be invoked within the
+arithmetic instructions, namely mul and add; finally, the
+                                                                        SASS code of a CUDA kernel. Such an internal function runs
+computed result is stored back into the variable for destination
+                                                                        in the same thread context as the kernel and therefore uses the
+register R3.
+                                                                        same register file and per-thread local memory address space.
+   To understand the semantics of this instruction, it is im-
+                                                                        A CALL instruction transfers control to the Callee function,
+portant to note that c[0x0][0x4] stores blockDim.y
+                                                                        and RET returns control back to the Caller function. Take
+and is lifted via the corresponding NVVM special-register
+                                                                        Listing 2 as an example, R24 carries the input argument and
+intrinsic. Besides, R4 holds threadIdx.y, and R3 contains
+                                                                        R22 carries the return value. Moreover, R11||R10 are used
+blockIdx.y. Consequently, the updated value of R3 is
+                                                                        to hold the return address (i.e., the callback target) across the
+blockIdx.y × blockDim.y + threadIdx.y, which
+                                                                        call. In the lifting process, NVLift resolves internal function
+corresponds to the global thread index in the y-dimension of
+                                                                        calls by expanding the CALL instruction into the CFG of
+a two-dimensional CUDA grid.
+                                                                        the callee, ensuring that all instructions and operands are
+   In addition, we handle 64-bit operands during arithmetic in-         integrated into the caller’s control flow.
+struction lifting. For example, in the instruction IMAD.WIDE
+R12, R25, R24, c[0x0][0x170], the WIDE modifier                                   Listing 2: An example of SASS function call
+denotes a 64-bit operation, indicating that both the destination
+                                                                        Caller:
+and the final source operand are treated as 64-bit values [8],          /*2170*/                   MOV R24, R20 ;
+[11]. Consequently, R12 represents a 64-bit register pair               /*2180*/                   MOV R10, 0x21a0 ;
+                                                                        /*2190*/                   CALL.REL.NOINC
+(R13||R12), and c[0x0][0x170] is accessed as a 64-bit                   `($__internal_0_$__cuda_sm20_rcp_rn_f32_slowpath) ;
+constant.                                                               /*21a0*/                   MOV R8, R22 ;
+Memory Access Instructions. We support memory accesses
+to global memory (LDG/STG) and shared memory (LDS/STS).                 Callee:
+
+
+
+
+                                                                    7
+$__internal_0_$__cuda_sm20_rcp_rn_f32_slowpath:                            NVLift is implemented in 3,482 lines of Python and
+        /*4900*/                   SHF.L.U32 R11, R24, 0x1,
+     RZ ;
+                                                                        leverages llvmlite for programmatic LLVM IR generation.
+        .......                                                         We containerized the toolchain using Docker to enforce a
+        /*4c30*/                   MOV R22, R11 ;
+        /*4c40*/                   MOV R11, 0x0 ;
+                                                                        consistent input schema for the lifter, effectively pinning
+        /*4c50*/                   RET.REL.NODEC R10                    the SASS artifacts generated by nvdisasm to a known,
+        `(_Z11gru_forwardPfS_S_S_iii) ;
+                                                                        compatible format. This prevents version-specific deviations
+Special Registers. CUDA exposes several SASS special                    in disassembly syntax from breaking the lifter’s parsing logic,
+registers that describe the execution configuration and the             thereby ensuring stable IR generation and reproducibility.
+calling thread’s coordinates. In particular, SR_TID encodes             Furthermore, all 11 representative CUDA kernels can be lifted
+the thread index within a thread block (i.e., threadIdx)                to LLVM IR, and the lifted IR can then be compiled back
+and SR_CTAID encodes the thread-block index within the                  into PTX using llc. The generated PTX can be successfully
+grid (i.e., blockIdx); both are three-dimensional and thus              compiled and executed on the GPU, confirming that the lifted
+provide .x, .y, and .z components. Here, CTA stands for                 IR is syntactically valid and executable.
+Cooperative Thread Array (CUDA thread block), and TID                   Type Analysis Implementation. In detail, we perform type
+stands for Thread ID. When lifting SASS that reads these                analysis through a multi-stage iterative process. After the build
+special registers (e.g., via S2R), we map them directly to the          of Def-Use and Use-Def chains, type resolution proceeds
+corresponding NVVM intrinsics in NVVM IR [3], as shown                  by identifying directly solvable types. Instructions with ex-
+in Listing 5 in the Appendix.                                           plicit type semantic expectations, such as floating-point oper-
+                                                                        ations (e.g., FADD, FMUL) or integer arithmetic opcodes (e.g.,
+Special Instructions. One type of special instruction is
+                                                                        IADD3, IMAD), allow us to assign types to their operands
+the warp divergence instruction, such as BSSY, BSYNC,
+                                                                        immediately. One caveat here is that we assume the compiler
+and BMOV: BSSY initiates a divergent region and records
+                                                                        generating the SASS does not employ unconventional opti-
+the reconvergence target for the warp; BSYNC denotes
+                                                                        mizations, such as performing integer arithmetic on floating-
+the corresponding reconvergence point where previously di-
+                                                                        point data.
+verged paths are synchronized; BMOV resets the hardware
+bookkeeping state (e.g., the b0/b1 branch-tracking regis-                  For the remaining operands, we apply a fixpoint iteration
+ters) used by the SIMT control stack to manage per-                     algorithm that propagates type constraints across the data-
+thread execution. Our lifter ignores these instructions for             flow graph until convergence. The engine alternates between
+semantics-preserving translation of functional behavior. How-           local resolution and global propagation. In the local resolution
+ever, when an explicit representation is desired, warp-                 phase, types are inferred from instruction-specific semantics
+level synchronization can also be modeled via NVVM                      such as enforcing consistency for data movement (MOV,
+intrinsics such as @llvm.nvvm.bar.warp.sync(i32                         UMOV), applying type-coercion heuristics for bitwise logic
+%membermask). The BAR barrier is another class of special               (LOP3), and deriving value types from pointer pointees during
+instructions. It typically originates from the high-level CUDA          memory accesses (LDG, STG). In the propagation phase, the
+primitive __syncthreads(), which enforces synchroniza-                  engine traverses Use-Def and Def-Use chains bi-directionally
+tion among all threads within a thread block. In our lifter, such       to spread inferred types throughout the graph. This iterative
+block-wide barriers are represented using the NVVM intrinsic            process continues until the global type map stabilizes. To pre-
+@llvm.nvvm.barrier0().                                                  vent conflicting data-flow type designations from introducing
+                                                                        instability, we mark certain resolved operands as confident
+                                                                        types. Once an operand is designated as confident, its type
+E. Other Details
+                                                                        becomes immutable, acting as a fixed point that prevents
+Lifter Implementation. Before applying our SASS instruction             upstream or downstream propagation from overwriting high-
+recovery and lifting pipelines, we first implement 11 represen-         confidence assignments.
+tative CUDA kernels, including standard DNN operators such
+as ReLU, fully connected layers, convolution, max pooling,                            VI. E VALUATION AND A NALYSIS
+and GRU. We then compile these kernels into CUDA bina-                     In this section, we first show that the core instruction set
+ries using nvcc with the -arch=sm_75 option, producing                  explored and supported by NVLift covers the most common
+Turing-specific .cubin files. We then use cuobjdump to                  instruction occurrences encountered in practice. Second, we
+extract the .cubin binaries and nvdisasm to disassemble                 check the functional correctness of the lifted LLVM IR.
+them into SASS. Based on the obtained SASS, we reconstruct              Finally, we present a decompiler pipeline as a downstream
+the semantics and usage of each encountered instruction                 application to demonstrate the practical utility of NVLift.
+using the strategies described in Section IV, and implement
+corresponding lifting rules for each instruction based on Sec-          A. Instruction Coverage
+tion V-D. In total, the SASS of the 11 representative CUDA                 To evaluate instruction coverage by our supported in-
+kernels contains roughly 40 instructions, all of which are              struction set, we analyzed opcode occurrences across 18
+covered by our supported core SASS instruction set, as listed           NVIDIA dynamic libraries (.so), including libcublas
+in Table II in the appendix.                                            and libcudnn. Specifically, we extracted cubins targeting
+
+
+
+                                                                    8
+        TABLE I: Top-10 opcodes by occurrence (SM75).                                    kernels fail under the current implementation, with Illegal
+ Opcode        Occurrences      Share (%)       Opcode     Occurrences   Share (%)
+                                                                                         Memory Access error reported. This error indicates that
+                                                                                         the lifting process still misinterprets specific GPU addresses;
+ IMAD           14,966,550         16.60%       LDG          4,837,123       5.37%
+ ISETP           8,323,456          9.23%       LEA          3,515,048       3.90%       addressing these limitations is deferred to future work and
+ MOV             6,968,693          7.73%       BRA          3,449,718       3.83%       remains ongoing, as detailed in Section VII.
+ IADD3           6,714,123          7.45%       LOP3         2,526,697       2.80%
+ FFMA            5,849,742          6.49%       SHF          2,286,332       2.54%
+                                                                                         C. Case Study: Decompiler
+                                                                                            In this case study, we demonstrate that NVLift can ben-
+SM75 and disassembled them into SASS, yielding a total of                                efit downstream binary analysis tasks such as decompila-
+90,149,916 instructions. Among them, the core instruction set                            tion. Specifically, we build the SASS decompiler based on
+covers 79,683,855 occurrences, corresponding to 88.39% of                                RetDec [2], an LLVM-based decompiler. Starting from the
+all observed instructions. These results indicate that NVLift                            original ReLU CUDA kernel in Listing 3, we compile it with
+covers the majority of instructions commonly encountered in                              nvcc to a NVIDIA Turing cubin, obtain the corresponding
+real-world GPU software.                                                                 SASS, and then use NVLift to lift the SASS into LLVM IR.
+   Moreover, we observe that instruction usage is highly
+skewed: the top-10 opcodes alone account for 65.93% of all                                         Listing 3: Original CUDA ReLU kernel
+occurrences, as shown in Table I, and all of them are already
+                                                                                          1   __global__ void relu(float *input, float *output
+supported by our implementation. Among these, IMAD is the                                         , int size) {
+most frequently executed instruction, accounting for 16.6% of                             2       int idx = blockIdx.x * blockDim.x +
+the total instruction mix.                                                                        threadIdx.x;
+                                                                                          3       if (idx < size)
+B. Testing for LLVM IR Lifted by NVLift                                                   4           output[idx] = fmaxf(0.0f, input[idx]);
+                                                                                          5   }
+   We check the functional correctness of the lifted IR through
+a differential testing framework that evaluates NVLift’s out-
+put against a compiler-generated ground truth. The end-to-end                            Listing 4: ReLU kernel pseudo-C code decompiled from Lifted
+differential testing pipeline is illustrated in Figure 3.                                LLVM IR
+   Starting from a CUDA kernel, we use nvcc to compile the
+source into a binary, and then use nvdisasm to disassemble                                1   void _Z4reluPfS_i(float32_t * a1, float32_t * a2
+                                                                                                  , int32_t a3) {
+it into SASS. Then, given only the SASS, NVLift produces                                  2       uint32_t v1 =
+the lifted LLVM IR. Concurrently, we generate a reference                                         llvm_nvvm_read_ptx_sreg_ctaid_x() *
+LLVM IR by compiling the same CUDA source with clang                                              llvm_nvvm_read_ptx_sreg_ntid_x() +
+                                                                                                  llvm_nvvm_read_ptx_sreg_tid_x();
+using the -emit-llvm flag. Both the lifted and reference IRs                              3
+are then lowered to PTX via the llc tool and then compiled                                4       if (v1 < a3 || false) {
+into SASS.                                                                                5           int64_t v2 = (int64_t)v1 * (int64_t)4 +
+                                                                                                  (int64_t)a1;
+                                                                                          6           int32_t v3 = v2;
+ CUDA Kernel                Reference LLVM IR            PTX/SASS                         7           float32_t v4 = *(float32_t *)(char *)(0
+                    clang                       llc                                               x100000000 * (int64_t)(int32_t)((v2 & -0
+ nvcc    nvdisasm                                                        Compare                  x100000000) >> 32) | (int64_t)v3);
+                                                                         Execution        8
+
+                                                           Lifted
+                                                                                          9           *(float32_t *)&v3 = v4;
+    SASS                     Lifted LLVM IR                                              10
+                NVLift                          llc      PTX/SASS
+                                                                                         11           int64_t v5 = (int64_t)v1 * (int64_t)4 +
+         Fig. 3: The pipeline to test the lifted LLVM IR.                                         (int64_t)a2;
+                                                                                         12           float32_t v6 = *(float32_t *)&v3;
+                                                                                         13           int32_t v7;
+   In our approach, we first specify a lightweight input schema                          14
+
+that defines the execution configuration (e.g., block dimen-
+                                                                                         15           *(float32_t *)&v7 =
+                                                                                         16               0 ? 0.0f < v6 ? 0.0f : v6
+sions), argument types, and input distributions. For example,                            17                 : 0.0f > v6 ? 0.0f : v6;
+a ReLU kernel can be configured to use a uniform distribution                            18
+                                                                                         19           float32_t v8 = *(float32_t *)&v7;
+over the range [-20.0, 20.0] with a fixed PRNG seed. Then, a                             20
+Python harness consumes the above schema, uses the CUDA                                  21            *(float32_t *)(char *)(0x100000000 * (
+Driver API to load and execute both the lifted and reference                                      int64_t)(int32_t)((v5 & -0x100000000) >> 32)
+                                                                                                    | (int64_t)(int32_t)v5) = v8;
+assembly, and compares their outputs element-wise under                                  22       }
+configurable floating-point tolerances.                                                  23   }
+   In our experiments, 5 of the 11 lifted CUDA kernels pass
+differential testing, including ReLU, fully connected layers,                               We subsequently apply RetDec to the lifted LLVM IR to
+and kernels that exercise local, shared, and global memory                               recover C-like pseudocode, as shown in Listing 4. While the
+address computations. The remaining six lifted LLVM IR                                   recovered code is more verbose than the original due to lifting
+
+
+
+                                                                                     9
+and IR-level artifacts, it preserves the kernel’s semantics. Im-                            VIII. R ELATED W ORK
+proving the readability of the decompiled output via additional
+simplification passes is left to future work.                               SLifter [20] represents an early effort to lift NVIDIA GPU
+   In addition to ReLU, we successfully applied RetDec to the            SASS to LLVM IR. However, it is limited to a narrow subset
+lifted LLVM IR of 7 out of the remaining 10 CUDA kernels                 of instructions and lacks a proper type inference engine.
+mentioned in Section V-E, recovering C-like pseudocode for               Consequently, its capabilities are limited to trivial kernels and
+each of them. However, RetDec reported segmentation faults               do not support complex neural network primitives, such as
+when attempting to decompile the remaining three kernels, and            non-linear activation functions (e.g., ReLU). Furthermore, the
+we defer addressing these issues to future work.                         framework lacks rigorous validation or testing methodologies
+                                                                         for the generated IR. The project repository has remained
+                      VII. D ISCUSSION                                   incomplete and unmaintained for more than 3 years, rendering
+                                                                         it insufficient for practical binary analysis tasks.
+Addressing Testing Failures. As noted in Section VI-B, 6 ker-               PLANG [21] translates NVIDIA PTX kernels into LLVM
+nels we lifted failed differential execution with error Illegal          IR and further maps the PTX execution model onto multicore
+Memory Access. We hypothesize that these errors stem                     CPUs. However, to the best of our knowledge, only the
+from load or store operations on nonsensical addresses, likely           presentation slides are publicly available; the codebase and full
+due to underlying lifting bugs and faulty IR assumptions that            paper are not accessible. In contrast, our work lifts SASS, the
+lead to invalid pointer arithmetic, incorrect address loading            architecture-specific binary ISA, enabling analysis even when
+logic, or type confusion in address-generating data.                     PTX is absent and providing a lower-level reconstruction of
+   Since cuda-gdb only reports the SASS instruction at                   GPU kernel semantics.
+which execution halts, we will trace the true source of the                 Recently, JEB also released an experimental decompiler
+error back to the LLVM IR. We already mapped the executed                capable of converting CUDA SASS into pseudo-C code [22].
+SASS instruction to PTX using NVIDIA Nsight Compute.                     In contrast with NVLift, their work does not involve LLVM
+Specifically, we load the cubin file compiled with debug-                IR, and the resulting software is a proprietary commercial
+ging flags, which allows Nsight Compute to correlate SASS                product.
+instructions with PTX lines. Next, because llc is an open-
+                                                                            CuFuzz [23] translates CUDA programs into CPU-
+source backend in the LLVM framework, we plan to modify it
+                                                                         compilable code, enabling the use of existing CPU fuzzing
+to emit LLVM IR that generates specific PTX instructions as
+                                                                         tools to test GPU programs. Although CuFuzz shares a similar
+comments. This will enable us to establish a correspondence
+                                                                         high-level idea with NVLift, it targets CUDA source code
+between the relevant SASS region and the lifted IR, thereby
+                                                                         rather than GPU binaries, which fundamentally differs from
+narrowing the error scope. We leave the rest as future work.
+                                                                         our approach.
+Porting to Other SM Architectures. The current imple-
+mentation of NVLift targets only the Turing architecture
+(SM75). Extending the lifter to other SM generations is left for                               IX. C ONCLUSION
+future work. In large part, such a port can reuse the existing
+SASS recovery and lifting pipeline. This is further aided by                In this work, we investigated the semantics of NVIDIA
+the largely incremental nature of NVIDIA GPU ISA and                     SASS assembly and presented NVLift, a framework that lifts
+microarchitectural evolution across generations, which often             SASS into LLVM IR to enable GPU binary analysis. Our im-
+allows substantial portions of instruction semantics and lifting         plementation supports 47 commonly used SASS instructions
+rules to be carried forward with limited adaptation.                     on Turing (SM75), covering 88.39% of instruction occurrences
+Support More Instructions. The current implementation of                 in popular CUDA libraries. We lifted 11 representative CUDA
+NVLift supports 47 of the 163 Turing SASS instructions,                  kernels and further demonstrated practicality by decompiling
+focusing on the high-frequency ones. The implementation of               the lifted IR into C-like pseudocode using RetDec. Overall,
+the remaining instructions is also deferred to future work.              NVLift takes an important step toward analysis for deployed
+Indirect Branches. In the current implementation, NVLift                 NVIDIA GPU binaries.
+supports lifting only SASS direct control-flow transfers, while
+indirect branches are not yet handled due to the static nature of                             ACKNOWLEDGMENT
+our analysis pipeline. Support for indirect branch instructions,
+such as BRX, is deferred to future work.                                    We thank the anonymous reviewers for their insightful
+Lifting to Other IRs for Decompilation. As an alternative                feedback. This work was supported in part by the National Sci-
+direction, NVLift can be extended to lift SASS into other                ence Foundation (NSF) under Award Number CNS-2145744,
+intermediate representations, such as Ghidra’s p-code or the             the Office of Naval Research (ONR) under grant N00014-
+microcode used by Hex-Rays. Once lifted, existing decompila-             23-1-2157, and Lockheed Martin. Any opinions, findings,
+tion infrastructures in Ghidra or Hex-Rays can be leveraged to           recommendations, and conclusions expressed in this material
+recover high-level program representations from the translated           are those of the authors and do not necessarily reflect the views
+code.                                                                    of the sponsors.
+
+
+
+                                                                    10
+                               R EFERENCES                                              in the instruction IADD R1, R2, R3, R1 is marked as a
+ [1] NVIDIA Corporation, CUDA Binary Utilities, NVIDIA, 2025,
+                                                                                        definition (Def), while R2 and R3 are marked as uses (Use).
+     accessed 2025-12-19. [Online]. Available: https://docs.nvidia.com/cuda/            (RD1) Dataflow-based Reaching Definition Analysis. To
+     cuda-binary-utilities/index.html                                                   track the source of register and memory values, we implement
+ [2] Avast Software, “RetDec: A retargetable machine-code decompiler,”
+     https://retdec.com/.
+                                                                                        a forward dataflow analysis. For each basic block B in the
+ [3] NVIDIA Corporation, NVVM IR Specification, https://docs.nvidia.com/                Control Flow Graph (CFG), we define the following sets:
+     cuda/nvvm-ir-spec/index.html, 2025, accessed: 2025-12-19.                             • GEN[B]: Definitions generated within B that reach the
+ [4] LLVM Project, LLVM Language Reference Manual, https://llvm.org/
+     docs/LangRef.html, accessed: 2025-12-19.                                                end of the block.
+ [5] C. Cadar, D. Dunbar, D. R. Engler et al., “Klee: unassisted and automatic             • KILL[B]: Definitions killed by re-definitions in B.
+     generation of high-coverage tests for complex systems programs.” in                   • IN[B]: Definitions reaching the entry of B, defined as
+     OSDI, vol. 8, 2008, pp. 209–224.                                                                                     [
+ [6] Cloudcore. (2020) CUDA Microarchitecture and Instruction Set (3) -                                      IN[B] =          OUT[P ]
+     Classification of SASS Instructions (in Chinese). Accessed: 2025-06-17.
+     [Online]. Available: https://zhuanlan.zhihu.com/p/163865260                                                       P ∈pred(B)
+ [7] Z. Jia, M. Maggioni, J. Smith, and D. P. Scarpazza, “Dissecting
+     the nvidia turing t4 gpu via microbenchmarking,” arXiv preprint
+                                                                                          •   OUT[B]: Definitions reaching the exit of B, defined as
+     arXiv:1903.07486, 2019.
+ [8] NVIDIA Corporation, Parallel Thread Execution ISA Version 8.8,                                 OUT[B] = GEN[B] ∪ (IN[B] − KILL[B])
+     2025, accessed: 2025-06-30. [Online]. Available: https://docs.nvidia.
+     com/cuda/parallel-thread-execution/                                                After pre-computing the GEN and KILL sets for each basic
+ [9] ——, Parallel Thread Execution (PTX) ISA, NVIDIA, 2025,                             block, we iteratively solve the dataflow equations for IN and
+     accessed 2025-12-19. [Online]. Available: https://docs.nvidia.com/                 OUT over the CFG until convergence. The above idea is
+     cuda/parallel-thread-execution/#instruction-set
+[10] 0xD0GF00D, “Documentsass: Unofficial documentation of nvidia sass                  similar to that in [17].
+     instruction sets,” https://github.com/0xD0GF00D/DocumentSASS, 2020,                (RD2) Chain Construction. We construct instruction-level
+     accessed: 2025-12-19.                                                              Use-Def (UD) and Def-Use (DU) chains by refining block-
+[11] Cloudcore, “Cuda microarchitecture and instruction set (2) - overview of
+     the sass instruction set,” https://zhuanlan.zhihu.com/p/161624982, 2020,           level results to instruction-level granularity through a top-
+     accessed: 2025-06-30.                                                              down intra-block traversal. For each instruction i ∈ B,
+[12] X. Zhang, G. Tan, S. Xue, J. Li, K. Zhou, and M. Chen, “Understanding              we propagate the block’s entry state IN[B] and update it
+     the gpu microarchitecture to achieve bare-metal performance tuning,” in
+     Proceedings of the 22nd ACM SIGPLAN Symposium on Principles and                    incrementally according to the GEN and KILL sets of all
+     Practice of Parallel Programming, 2017, pp. 31–43.                                 preceding instructions. This allows us to resolve the UD
+[13] D. Yan, “Turingas: Assembler for nvidia volta, turing, and ampere gpus,”           chain for i by mapping each source operand to the set of
+     https://github.com/daadaada/turingas, 2019, accessed: 2025-12-19.
+[14] “Maxwell instruction set architecture,” https://nintyconservation9619.             reaching definitions that target that specific register or memory
+     github.io/Switch%20SDK/Docs-JAP/Documents/Package/contents/                        location. We subsequently derive the DU chain by inverting
+     SASS/opcodes.htm, NintendoSDK Documentation, 2018, accessed:                       the UD mapping, associating each definition with the set of
+     2026-01-10.
+[15] J. Roels, A. Jacobs, and S. Volckaert, “Cuda, woulda, shoulda: Returning           its corresponding uses.
+     exploits in a sass-y world,” in Proceedings of the 18th European
+     Workshop on Systems Security, 2025, pp. 40–48.                                     B. Supported Instructions
+[16] NVIDIA Corporation, CUDA-GDB Documentation, 2025. [Online].                          Table II lists the instruction opcodes and modifiers sup-
+     Available: https://docs.nvidia.com/cuda/cuda-gdb/index.html
+[17] W. contributors, “Reaching definition,” https://en.wikipedia.org/wiki/             ported by NVLift.
+     Reaching_definition, accessed: 2025-06-30.
+[18] ——, “Use-define chain,” https://en.wikipedia.org/wiki/Use-define_                  C. NVVM IR Intrinsics Functions
+     chain, accessed: 2025-06-30.                                                         Listing 5 showcases example NVVM IR intrinsics used to
+[19] llvmlite Project, llvmlite documentation, Read the Docs, accessed:
+     2025-12-28. [Online]. Available: https://llvmlite.readthedocs.io/en/latest/        access GPU special registers.
+[20] Cupbop, “Slifter,” https://github.com/cupbop/SLifter, 2025, accessed:
+     2025-12-19.                                                                              Listing 5: NVVM IR Intrinsics for Special Registers
+[21] S. L. Vinod Grover, Andrew Kerr, “Plang: Ptx frontend for llvm,” https:
+     //llvm.org/devmtg/2009-10/Grover_PLANG.pdf, 2009, accessed: 2025-                  declare i32 @llvm.nvvm.read.ptx.sreg.tid.x()
+     12-19.                                                                             declare i32 @llvm.nvvm.read.ptx.sreg.tid.y()
+[22] N. Falliere. (2025, August) Reversing nvidia gpu’s sass code. Accessed:            declare i32 @llvm.nvvm.read.ptx.sreg.tid.z()
+     2026-01-08. [Online]. Available: https://www.pnfsoftware.com/blog/                 declare i32 @llvm.nvvm.read.ptx.sreg.ntid.x()
+     2025/08/                                                                           declare i32 @llvm.nvvm.read.ptx.sreg.ntid.y()
+                                                                                        declare i32 @llvm.nvvm.read.ptx.sreg.ntid.z()
+[23] S. Singh, R. Han, J. Lee, S. Na, Y. Kim, T. Kim, and H. Kim, “Cufuzz:              declare i32 @llvm.nvvm.read.ptx.sreg.ctaid.x()
+     Hardening cuda programs through transformation and fuzzing,” arXiv                 declare i32 @llvm.nvvm.read.ptx.sreg.ctaid.y()
+     preprint arXiv:2601.01048, 2026.                                                   declare i32 @llvm.nvvm.read.ptx.sreg.ctaid.z()
+                                                                                        declare i32 @llvm.nvvm.read.ptx.sreg.nctaid.x()
+                                                                                        declare i32 @llvm.nvvm.read.ptx.sreg.nctaid.y()
+                                A PPENDIX                                               declare i32 @llvm.nvvm.read.ptx.sreg.nctaid.z()
+                                                                                        declare i32 @llvm.nvvm.read.ptx.sreg.warpsize()
+A. The Construction of Use-Def and Def-Use Chains
+   The construction of precise Use-Def and Def-Use proceeds
+through a sequence of steps, denoted RD0 through RD2.
+(RD0) Instruction-level Use-Def Marking. For each instruc-
+tion, we parse and record its Definition and Use. For example,
+
+
+
+                                                                                   11
+TABLE II: Opcodes and modifiers for the core instruction set
+    Opcode    Modifiers
+    EXIT      –
+    NOP       –
+    BRA       –
+    S2R       –
+    MOV       –
+    UMOV      –
+    LDG       –
+    LDS       –
+    LDL       –
+    ULDC      –
+    STG       .E
+    STS       .E
+    STL       .E
+    IMAD      .WIDE, .MOV, .IADD, .SHL, .HI, .X, .U32, .S32
+    IABS      –
+    ISETP     .AND, .OR, .EQ, .NE, .LT, .LE, .GT, .GE, .FTZ
+    UISETP    .AND, .OR, .EQ, .NE, .LT, .LE, .GT, .GE, .FTZ
+    FSETP     .AND, .OR, .EQ, .NE, .LT, .LE, .GT, .GE, .FTZ
+    IADD      .FTZ
+    FADD      .FTZ
+    IADD3     .X
+    UIADD3    .X
+    IMNMX     –
+    FMNMX     –
+    FFMA      –
+    LEA       –
+    LOP3      –
+    ULOP3     –
+    PLOP3     –
+    I2I       –
+    I2F       –
+    F2F       –
+    F2I       .FTZ, .NTZ, .U32, .S32, .TRUNC, .FLOOR, .CEIL
+    MUFU      –
+    BMOV      –
+    BSSY      –
+    BSYNC     –
+    SEL       –
+    FSEL      –
+    USEL      –
+    SHF       .L, .R, .W, .C, .U32, .S32, .U64, .S64, .HI
+    USHF      .L, .R, .W, .C, .U32, .S32, .U64, .S64, .HI
+    CALL      .REL, .NOINC
+    RET       –
+    IMUL      –
+    FMUL      –
+    BAR       .SYNC
+
+
+
+
+                                                               12
+

@@ -9,7 +9,7 @@ from __future__ import annotations
 import shlex
 import sys
 
-from openassembler.cli import build_parser
+from openassembler.cli import build_parser, dispatch
 from openassembler.ui.banner import render
 
 PROMPT = "\033[1;34m❯\033[0m " if sys.stdout.isatty() else "> "
@@ -24,6 +24,8 @@ Type any openassembler subcommand without the leading "openassembler", e.g.:
   compile my_repo/                                     # every kernel in a repo, mirrored into output/
   run --backend modal --dry-run                        # ours vs ptxas on a GPU (nothing is sent)
   cnr kernel.cu --backend me@gpubox                    # compile, then run what compiled
+  gemm --m 128 --n 128 --k 128                         # native A100 tensor GEMM
+  run --application training --backend modal           # compiled PyTorch application
   status
 """
 
@@ -90,9 +92,12 @@ def run() -> int:
         except SystemExit:
             # argparse already printed its own usage/error message.
             continue
+        except ValueError as exc:
+            print(f'error: {exc}', file=sys.stderr)
+            continue
 
         try:
-            rc = args.func(args)
+            rc = dispatch(args)
             if isinstance(rc, int) and rc not in (0,):
                 print(f"(exit code {rc})")
         except SystemExit as e:

@@ -1,0 +1,26 @@
+[
+  {
+    "build": "search_combined_square_row_bpair_f16",
+    "name": "search_combined_square_row_bpair_f16",
+    "m": 4096,
+    "n": 4096,
+    "k": 4096,
+    "dtype": "f16",
+    "tile_m": 128,
+    "tile_n": 128,
+    "threads": 128,
+    "smem": 65536
+  },
+  {
+    "build": "search_combined_square_row_bpair_bf16",
+    "name": "search_combined_square_row_bpair_bf16",
+    "m": 4096,
+    "n": 4096,
+    "k": 4096,
+    "dtype": "bf16",
+    "tile_m": 128,
+    "tile_n": 128,
+    "threads": 128,
+    "smem": 65536
+  }
+]

@@ -1,0 +1,1271 @@
+{
+  "case": "search_combined_square_f16",
+  "plan": {
+    "suite": "phase3/search_combined_suite.json",
+    "suite_sha256": "be66954fa9f850509a1c4f72b889b7ac5bdad7de521a891246aafd666529d902",
+    "case": "search_combined_square_f16",
+    "dtype": "f16",
+    "shape_mnk": [
+      4096,
+      4096,
+      4096
+    ],
+    "grid": [
+      32,
+      32,
+      1
+    ],
+    "threads": 128,
+    "dynamic_shared_bytes": 65536,
+    "profile_contract": "each OA kernel and ptxas on that exact same source PTX",
+    "remote_function": "phase2/profile_modal.py:profile",
+    "requested_metrics": [
+      "gpu__time_duration.sum",
+      "sm__pipe_tensor_cycles_active.avg.pct_of_peak_sustained_active",
+      "sm__warps_active.avg.pct_of_peak_sustained_active",
+      "smsp__inst_executed.sum",
+      "smsp__warp_issue_stalled_short_scoreboard_per_warp_active.pct",
+      "smsp__warp_issue_stalled_long_scoreboard_per_warp_active.pct",
+      "smsp__warp_issue_stalled_barrier_per_warp_active.pct",
+      "smsp__warp_issue_stalled_math_pipe_throttle_per_warp_active.pct",
+      "smsp__warp_issue_stalled_mio_throttle_per_warp_active.pct",
+      "smsp__warp_issue_stalled_wait_per_warp_active.pct",
+      "smsp__warp_issue_stalled_not_selected_per_warp_active.pct",
+      "l1tex__data_bank_conflicts_pipe_lsu_mem_shared_op_ld.sum",
+      "l1tex__data_bank_conflicts_pipe_lsu_mem_shared_op_st.sum",
+      "dram__bytes.sum",
+      "lts__t_sector_hit_rate.pct",
+      "smsp__inst_executed_pipe_tensor.sum",
+      "l1tex__data_pipe_lsu_wavefronts_mem_shared_op_ld.sum",
+      "l1tex__t_requests_pipe_lsu_mem_shared_op_ld.sum",
+      "smsp__warps_eligible.avg.per_cycle_active"
+    ],
+    "candidates": {
+      "baseline": {
+        "build": "p3_epilogue_confirm_square_f16_scalar",
+        "grid": [
+          32,
+          32,
+          1
+        ],
+        "threads": 128,
+        "dynamic_shared_bytes": 65536,
+        "ours_sha256": "370b054840a0cb530aff62396b9a62b493a96b1916020e39f824d133f7c8ba1a",
+        "ptxas_sha256": "464b8dca772b04a09a94f54507e767dde8045d7b75a769ccf3dc246ee39ae302",
+        "ptx_sha256": "87eb579b9f5d369d04223ad4f5ed09345a30f81f40971e63357630e8dd815143",
+        "compilation": {
+          "compiler": "OpenAssembler experimental tensor selector plus isolated epilogue selector",
+          "fallback": false,
+          "variant": "scalar",
+          "reference_and_ELF_container": "NVIDIA ptxas on matching PTX",
+          "cli_wall_ms": 5867.744083050638,
+          "geometry": {
+            "m": 4096,
+            "n": 4096,
+            "k": 4096,
+            "bm": 128,
+            "bn": 128,
+            "bk": 64,
+            "wm": 64,
+            "wn": 64,
+            "stages": 2
+          },
+          "epilogue_source_sha256": "495a537d20cb63bd5a85d5dacf53875347340c0888d4700f603df850f2b2ea49",
+          "source_ptx_sha256": "87eb579b9f5d369d04223ad4f5ed09345a30f81f40971e63357630e8dd815143",
+          "compiler_source_hashes": {
+            "exp/a100_mma/phase3/epilogue.py": "495a537d20cb63bd5a85d5dacf53875347340c0888d4700f603df850f2b2ea49",
+            "exp/a100_mma/backend.py": "755f6bf4f36f331fb636e2cd7314e4149762d9120f007f2567489858f49fdd69",
+            "exp/a100_mma/pipeline.py": "77769b4f4f433df23826b482d16386f4d0003afaade8ab863a1d5f5345d8b28e",
+            "openassembler/backend/ra.py": "6ed4a3f999f20e5d2317ece1bf4ef47a7e9a2019d461394df486e228797c14fc",
+            "openassembler/isa/encode.py": "739d2954e794134c5aa2840f12b7561ce2f275ae682d40ce8fde489968ebb650"
+          },
+          "kernels": [
+            {
+              "kernel": "gemm",
+              "requested_opt_level": "safe",
+              "applied_schedule": "source-order-HMMA8-epoch-drain15",
+              "scalar_schedule": "mined",
+              "protected_scoreboard_recycling": true,
+              "ldsm_read_barrier": false,
+              "ldsm_address_war_uses_write_completion": true,
+              "list_schedule_with_tensor_ordering": false,
+              "tensor_reuse_hints": true,
+              "experimental_recycle_without_wait": false,
+              "inline_64bit_pointer_increments": true,
+              "optimize_local_homes": true,
+              "licm_ops_hoisted": 0,
+              "ptx_instructions": 1717,
+              "sass_instructions": 1820,
+              "registers": 228,
+              "stages": {
+                "select_ms": 57.94462491758168,
+                "licm_ms": 0.001625041477382183,
+                "dce_coalesce_ms": 31.330083031207323,
+                "allocate_ms": 582.8718330012634,
+                "lower_ms": 38.219916983507574,
+                "schedule_ms": 107.10070794448256,
+                "encoder_setup_ms": 2313.048000098206,
+                "encode_ms": 18.90120899770409
+              }
+            }
+          ],
+          "sass_opcode_counts": {
+            "MOV": 339,
+            "ULDC.64": 1,
+            "S2R": 3,
+            "IMAD.SHL": 77,
+            "LOP3.LUT": 81,
+            "SHF.R.U32.HI": 27,
+            "IADD3": 417,
+            "IMAD": 168,
+            "IMAD.WIDE.U32": 144,
+            "LDGSTS.E.BYPASS.128": 32,
+            "LDGDEPBAR": 2,
+            "IADD3.X": 32,
+            "DEPBAR.LE": 2,
+            "BAR.SYNC.DEFER_BLOCKING": 4,
+            "LDSM.16.M88.4": 32,
+            "LDSM.16.M88.2": 64,
+            "HMMA.16816.F32": 256,
+            "NOP": 11,
+            "ISETP.LT.U32.AND": 1,
+            "@P0": 1,
+            "STG.E": 128,
+            "EXIT": 1,
+            "BRA": 1
+          }
+        }
+      },
+      "row_bpair": {
+        "build": "search_combined_square_row_bpair_f16",
+        "grid": [
+          32,
+          32,
+          1
+        ],
+        "threads": 128,
+        "dynamic_shared_bytes": 65536,
+        "ours_sha256": "2efcf91f106c895a7144244e210466bf74183ac1d2ca1fb14e2e2a79ee928c83",
+        "ptxas_sha256": "1f43608a3fb88ccbf88c8267ddeff085779fbe7b24708ceee9edfc79b5c09a8b",
+        "ptx_sha256": "83de480dac0f33e28677d5b779fb7253cfe2a78a25a05309a4a910a32f5948b5",
+        "compilation": {
+          "compiler": "OpenAssembler isolated B-LDSM/row-epilogue composition",
+          "fallback": false,
+          "reference_and_ELF_container": "NVIDIA ptxas on matching PTX",
+          "candidate": {
+            "paired_b": true,
+            "paired_preaddress": false,
+            "row": true,
+            "role_bias": 0,
+            "gap": 8,
+            "reuse": true
+          },
+          "geometry": {
+            "m": 4096,
+            "n": 4096,
+            "k": 4096,
+            "bm": 128,
+            "bn": 128,
+            "bk": 64,
+            "wm": 64,
+            "wn": 64,
+            "stages": 2
+          },
+          "source_ptx_sha256": "83de480dac0f33e28677d5b779fb7253cfe2a78a25a05309a4a910a32f5948b5",
+          "compiler_source_hashes": {
+            "exp/a100_mma/phase3/search_combined.py": "8a06158ecd2e657bab801b977fdbf8a375dde20d123e3df5c2e88b950aac2ff6",
+            "exp/a100_mma/phase3/search_sequences.py": "4ec826e51a60c86eb96764b2a3175483656eb21a02841b5000903575d6f2ae3d",
+            "exp/a100_mma/phase3/epilogue.py": "495a537d20cb63bd5a85d5dacf53875347340c0888d4700f603df850f2b2ea49",
+            "exp/a100_mma/backend.py": "755f6bf4f36f331fb636e2cd7314e4149762d9120f007f2567489858f49fdd69",
+            "exp/a100_mma/pipeline.py": "77769b4f4f433df23826b482d16386f4d0003afaade8ab863a1d5f5345d8b28e",
+            "openassembler/backend/ra.py": "6ed4a3f999f20e5d2317ece1bf4ef47a7e9a2019d461394df486e228797c14fc",
+            "openassembler/isa/encode.py": "739d2954e794134c5aa2840f12b7561ce2f275ae682d40ce8fde489968ebb650"
+          },
+          "cli_wall_ms": 2444.907500059344,
+          "kernels": [
+            {
+              "kernel": "gemm",
+              "requested_opt_level": "safe",
+              "applied_schedule": "source-order-HMMA8-epoch-drain15",
+              "scalar_schedule": "mined",
+              "protected_scoreboard_recycling": true,
+              "ldsm_read_barrier": false,
+              "ldsm_address_war_uses_write_completion": true,
+              "list_schedule_with_tensor_ordering": false,
+              "tensor_reuse_hints": true,
+              "experimental_recycle_without_wait": false,
+              "inline_64bit_pointer_increments": true,
+              "optimize_local_homes": true,
+              "licm_ops_hoisted": 0,
+              "ptx_instructions": 1025,
+              "sass_instructions": 1128,
+              "registers": 232,
+              "stages": {
+                "select_ms": 68.2562910951674,
+                "licm_ms": 0.001334003172814846,
+                "dce_coalesce_ms": 28.627665946260095,
+                "allocate_ms": 530.3874589735642,
+                "lower_ms": 31.892874976620078,
+                "schedule_ms": 91.31220809649676,
+                "encoder_setup_ms": 0.002249958924949169,
+                "encode_ms": 18.490999937057495
+              }
+            }
+          ],
+          "sass_opcode_counts": {
+            "MOV": 219,
+            "ULDC.64": 1,
+            "S2R": 3,
+            "IMAD.SHL": 79,
+            "LOP3.LUT": 81,
+            "SHF.R.U32.HI": 29,
+            "IADD3": 177,
+            "IMAD": 48,
+            "IMAD.WIDE.U32": 24,
+            "LDGSTS.E.BYPASS.128": 32,
+            "LDGDEPBAR": 2,
+            "IADD3.X": 32,
+            "DEPBAR.LE": 2,
+            "BAR.SYNC.DEFER_BLOCKING": 4,
+            "LDSM.16.M88.4": 64,
+            "HMMA.16816.F32": 256,
+            "NOP": 15,
+            "ISETP.LT.U32.AND": 1,
+            "@P0": 1,
+            "STG.E.64": 64,
+            "EXIT": 1,
+            "BRA": 1
+          },
+          "nvdisasm_exact_tensor_memory_store_operands": true,
+          "spliced_words_and_control_exact": true
+        }
+      }
+    }
+  },
+  "records": [
+    {
+      "variant": "baseline",
+      "method": "ours",
+      "source": "profiles/search_combined_square_f16/baseline/profile.json",
+      "source_sha256": "6e5f351b988ee6e35321519c34ee2435bfe611f8609209ecd1cbeb7369aac23e",
+      "input_provenance": {
+        "build": "p3_epilogue_confirm_square_f16_scalar",
+        "grid": [
+          32,
+          32,
+          1
+        ],
+        "threads": 128,
+        "dynamic_shared_bytes": 65536,
+        "ours_sha256": "370b054840a0cb530aff62396b9a62b493a96b1916020e39f824d133f7c8ba1a",
+        "ptxas_sha256": "464b8dca772b04a09a94f54507e767dde8045d7b75a769ccf3dc246ee39ae302",
+        "ptx_sha256": "87eb579b9f5d369d04223ad4f5ed09345a30f81f40971e63357630e8dd815143",
+        "compilation": {
+          "compiler": "OpenAssembler experimental tensor selector plus isolated epilogue selector",
+          "fallback": false,
+          "variant": "scalar",
+          "reference_and_ELF_container": "NVIDIA ptxas on matching PTX",
+          "cli_wall_ms": 5867.744083050638,
+          "geometry": {
+            "m": 4096,
+            "n": 4096,
+            "k": 4096,
+            "bm": 128,
+            "bn": 128,
+            "bk": 64,
+            "wm": 64,
+            "wn": 64,
+            "stages": 2
+          },
+          "epilogue_source_sha256": "495a537d20cb63bd5a85d5dacf53875347340c0888d4700f603df850f2b2ea49",
+          "source_ptx_sha256": "87eb579b9f5d369d04223ad4f5ed09345a30f81f40971e63357630e8dd815143",
+          "compiler_source_hashes": {
+            "exp/a100_mma/phase3/epilogue.py": "495a537d20cb63bd5a85d5dacf53875347340c0888d4700f603df850f2b2ea49",
+            "exp/a100_mma/backend.py": "755f6bf4f36f331fb636e2cd7314e4149762d9120f007f2567489858f49fdd69",
+            "exp/a100_mma/pipeline.py": "77769b4f4f433df23826b482d16386f4d0003afaade8ab863a1d5f5345d8b28e",
+            "openassembler/backend/ra.py": "6ed4a3f999f20e5d2317ece1bf4ef47a7e9a2019d461394df486e228797c14fc",
+            "openassembler/isa/encode.py": "739d2954e794134c5aa2840f12b7561ce2f275ae682d40ce8fde489968ebb650"
+          },
+          "kernels": [
+            {
+              "kernel": "gemm",
+              "requested_opt_level": "safe",
+              "applied_schedule": "source-order-HMMA8-epoch-drain15",
+              "scalar_schedule": "mined",
+              "protected_scoreboard_recycling": true,
+              "ldsm_read_barrier": false,
+              "ldsm_address_war_uses_write_completion": true,
+              "list_schedule_with_tensor_ordering": false,
+              "tensor_reuse_hints": true,
+              "experimental_recycle_without_wait": false,
+              "inline_64bit_pointer_increments": true,
+              "optimize_local_homes": true,
+              "licm_ops_hoisted": 0,
+              "ptx_instructions": 1717,
+              "sass_instructions": 1820,
+              "registers": 228,
+              "stages": {
+                "select_ms": 57.94462491758168,
+                "licm_ms": 0.001625041477382183,
+                "dce_coalesce_ms": 31.330083031207323,
+                "allocate_ms": 582.8718330012634,
+                "lower_ms": 38.219916983507574,
+                "schedule_ms": 107.10070794448256,
+                "encoder_setup_ms": 2313.048000098206,
+                "encode_ms": 18.90120899770409
+              }
+            }
+          ],
+          "sass_opcode_counts": {
+            "MOV": 339,
+            "ULDC.64": 1,
+            "S2R": 3,
+            "IMAD.SHL": 77,
+            "LOP3.LUT": 81,
+            "SHF.R.U32.HI": 27,
+            "IADD3": 417,
+            "IMAD": 168,
+            "IMAD.WIDE.U32": 144,
+            "LDGSTS.E.BYPASS.128": 32,
+            "LDGDEPBAR": 2,
+            "IADD3.X": 32,
+            "DEPBAR.LE": 2,
+            "BAR.SYNC.DEFER_BLOCKING": 4,
+            "LDSM.16.M88.4": 32,
+            "LDSM.16.M88.2": 64,
+            "HMMA.16816.F32": 256,
+            "NOP": 11,
+            "ISETP.LT.U32.AND": 1,
+            "@P0": 1,
+            "STG.E": 128,
+            "EXIT": 1,
+            "BRA": 1
+          }
+        }
+      },
+      "metrics": {
+        "gpu__time_duration.sum": {
+          "value": 833.312,
+          "unit": "us"
+        },
+        "sm__pipe_tensor_cycles_active.avg.pct_of_peak_sustained_active": {
+          "value": 63.511009,
+          "unit": "%"
+        },
+        "sm__warps_active.avg.pct_of_peak_sustained_active": {
+          "value": 11.880468,
+          "unit": "%"
+        },
+        "smsp__inst_executed.sum": {
+          "value": 81862656.0,
+          "unit": "inst"
+        },
+        "smsp__warp_issue_stalled_short_scoreboard_per_warp_active.pct": {
+          "value": 14.045068,
+          "unit": "%"
+        },
+        "smsp__warp_issue_stalled_long_scoreboard_per_warp_active.pct": {
+          "value": 12.659965,
+          "unit": "%"
+        },
+        "smsp__warp_issue_stalled_barrier_per_warp_active.pct": {
+          "value": 3.239944,
+          "unit": "%"
+        },
+        "smsp__warp_issue_stalled_math_pipe_throttle_per_warp_active.pct": {
+          "value": 12.142824,
+          "unit": "%"
+        },
+        "smsp__warp_issue_stalled_mio_throttle_per_warp_active.pct": {
+          "value": 0.393159,
+          "unit": "%"
+        },
+        "smsp__warp_issue_stalled_wait_per_warp_active.pct": {
+          "value": 44.344881,
+          "unit": "%"
+        },
+        "smsp__warp_issue_stalled_not_selected_per_warp_active.pct": {
+          "value": 1.909806,
+          "unit": "%"
+        },
+        "l1tex__data_bank_conflicts_pipe_lsu_mem_shared_op_ld.sum": {
+          "value": 170940.0,
+          "unit": ""
+        },
+        "l1tex__data_bank_conflicts_pipe_lsu_mem_shared_op_st.sum": {
+          "value": 0.0,
+          "unit": ""
+        },
+        "dram__bytes.sum": {
+          "value": 397.38688,
+          "unit": "Mbyte"
+        },
+        "lts__t_sector_hit_rate.pct": {
+          "value": 78.201868,
+          "unit": "%"
+        },
+        "smsp__inst_executed_pipe_tensor.sum": {
+          "value": 33554432.0,
+          "unit": "inst"
+        },
+        "l1tex__data_pipe_lsu_wavefronts_mem_shared_op_ld.sum": {
+          "value": 33726229.0,
+          "unit": ""
+        },
+        "smsp__warps_eligible.avg.per_cycle_active": {
+          "value": 0.230262,
+          "unit": "warp"
+        }
+      },
+      "launch": {
+        "launch__barrier_count": "1",
+        "launch__block_dim_x": "128",
+        "launch__block_dim_y": "1",
+        "launch__block_dim_z": "1",
+        "launch__block_size": "128",
+        "launch__context_id": "1",
+        "launch__device_id": "0",
+        "launch__func_cache_config": "CachePreferNone",
+        "launch__function_pcs": "1",
+        "launch__grid_dim_x": "32",
+        "launch__grid_dim_y": "32",
+        "launch__grid_dim_z": "1",
+        "launch__grid_size": "1024",
+        "launch__kernel_name": "",
+        "launch__occupancy_limit_blocks": "32.000000",
+        "launch__occupancy_limit_registers": "2.000000",
+        "launch__occupancy_limit_shared_mem": "2.000000",
+        "launch__occupancy_limit_warps": "16.000000",
+        "launch__occupancy_per_block_size": "94",
+        "launch__occupancy_per_register_count": "2056",
+        "launch__occupancy_per_shared_mem_size": "1840",
+        "launch__registers_per_thread": "228",
+        "launch__registers_per_thread_allocated": "232.000000",
+        "launch__shared_mem_config_size": "135.168000",
+        "launch__shared_mem_per_block": "66.560000",
+        "launch__shared_mem_per_block_allocated": "66.560000",
+        "launch__shared_mem_per_block_driver": "1.024000",
+        "launch__shared_mem_per_block_dynamic": "65.536000",
+        "launch__shared_mem_per_block_static": "0",
+        "launch__sm_count": "108",
+        "launch__stack_size": "1024",
+        "launch__stream_id": "7",
+        "launch__thread_count": "131072",
+        "launch__tpc_count": "54",
+        "launch__tpc_enabled": "all",
+        "launch__uses_cdp": "0",
+        "launch__uses_green_context": "0",
+        "launch__uses_vgpu": "0",
+        "launch__waves_per_multiprocessor": "4.74"
+      },
+      "unavailable_requested_metrics": [
+        "l1tex__t_requests_pipe_lsu_mem_shared_op_ld.sum"
+      ]
+    },
+    {
+      "variant": "baseline",
+      "method": "ptxas",
+      "source": "profiles/search_combined_square_f16/baseline/profile.json",
+      "source_sha256": "6e5f351b988ee6e35321519c34ee2435bfe611f8609209ecd1cbeb7369aac23e",
+      "input_provenance": {
+        "build": "p3_epilogue_confirm_square_f16_scalar",
+        "grid": [
+          32,
+          32,
+          1
+        ],
+        "threads": 128,
+        "dynamic_shared_bytes": 65536,
+        "ours_sha256": "370b054840a0cb530aff62396b9a62b493a96b1916020e39f824d133f7c8ba1a",
+        "ptxas_sha256": "464b8dca772b04a09a94f54507e767dde8045d7b75a769ccf3dc246ee39ae302",
+        "ptx_sha256": "87eb579b9f5d369d04223ad4f5ed09345a30f81f40971e63357630e8dd815143",
+        "compilation": {
+          "compiler": "OpenAssembler experimental tensor selector plus isolated epilogue selector",
+          "fallback": false,
+          "variant": "scalar",
+          "reference_and_ELF_container": "NVIDIA ptxas on matching PTX",
+          "cli_wall_ms": 5867.744083050638,
+          "geometry": {
+            "m": 4096,
+            "n": 4096,
+            "k": 4096,
+            "bm": 128,
+            "bn": 128,
+            "bk": 64,
+            "wm": 64,
+            "wn": 64,
+            "stages": 2
+          },
+          "epilogue_source_sha256": "495a537d20cb63bd5a85d5dacf53875347340c0888d4700f603df850f2b2ea49",
+          "source_ptx_sha256": "87eb579b9f5d369d04223ad4f5ed09345a30f81f40971e63357630e8dd815143",
+          "compiler_source_hashes": {
+            "exp/a100_mma/phase3/epilogue.py": "495a537d20cb63bd5a85d5dacf53875347340c0888d4700f603df850f2b2ea49",
+            "exp/a100_mma/backend.py": "755f6bf4f36f331fb636e2cd7314e4149762d9120f007f2567489858f49fdd69",
+            "exp/a100_mma/pipeline.py": "77769b4f4f433df23826b482d16386f4d0003afaade8ab863a1d5f5345d8b28e",
+            "openassembler/backend/ra.py": "6ed4a3f999f20e5d2317ece1bf4ef47a7e9a2019d461394df486e228797c14fc",
+            "openassembler/isa/encode.py": "739d2954e794134c5aa2840f12b7561ce2f275ae682d40ce8fde489968ebb650"
+          },
+          "kernels": [
+            {
+              "kernel": "gemm",
+              "requested_opt_level": "safe",
+              "applied_schedule": "source-order-HMMA8-epoch-drain15",
+              "scalar_schedule": "mined",
+              "protected_scoreboard_recycling": true,
+              "ldsm_read_barrier": false,
+              "ldsm_address_war_uses_write_completion": true,
+              "list_schedule_with_tensor_ordering": false,
+              "tensor_reuse_hints": true,
+              "experimental_recycle_without_wait": false,
+              "inline_64bit_pointer_increments": true,
+              "optimize_local_homes": true,
+              "licm_ops_hoisted": 0,
+              "ptx_instructions": 1717,
+              "sass_instructions": 1820,
+              "registers": 228,
+              "stages": {
+                "select_ms": 57.94462491758168,
+                "licm_ms": 0.001625041477382183,
+                "dce_coalesce_ms": 31.330083031207323,
+                "allocate_ms": 582.8718330012634,
+                "lower_ms": 38.219916983507574,
+                "schedule_ms": 107.10070794448256,
+                "encoder_setup_ms": 2313.048000098206,
+                "encode_ms": 18.90120899770409
+              }
+            }
+          ],
+          "sass_opcode_counts": {
+            "MOV": 339,
+            "ULDC.64": 1,
+            "S2R": 3,
+            "IMAD.SHL": 77,
+            "LOP3.LUT": 81,
+            "SHF.R.U32.HI": 27,
+            "IADD3": 417,
+            "IMAD": 168,
+            "IMAD.WIDE.U32": 144,
+            "LDGSTS.E.BYPASS.128": 32,
+            "LDGDEPBAR": 2,
+            "IADD3.X": 32,
+            "DEPBAR.LE": 2,
+            "BAR.SYNC.DEFER_BLOCKING": 4,
+            "LDSM.16.M88.4": 32,
+            "LDSM.16.M88.2": 64,
+            "HMMA.16816.F32": 256,
+            "NOP": 11,
+            "ISETP.LT.U32.AND": 1,
+            "@P0": 1,
+            "STG.E": 128,
+            "EXIT": 1,
+            "BRA": 1
+          }
+        }
+      },
+      "metrics": {
+        "gpu__time_duration.sum": {
+          "value": 646.4,
+          "unit": "us"
+        },
+        "sm__pipe_tensor_cycles_active.avg.pct_of_peak_sustained_active": {
+          "value": 78.054506,
+          "unit": "%"
+        },
+        "sm__warps_active.avg.pct_of_peak_sustained_active": {
+          "value": 12.148118,
+          "unit": "%"
+        },
+        "smsp__inst_executed.sum": {
+          "value": 69615616.0,
+          "unit": "inst"
+        },
+        "smsp__warp_issue_stalled_short_scoreboard_per_warp_active.pct": {
+          "value": 1.143464,
+          "unit": "%"
+        },
+        "smsp__warp_issue_stalled_long_scoreboard_per_warp_active.pct": {
+          "value": 11.989181,
+          "unit": "%"
+        },
+        "smsp__warp_issue_stalled_barrier_per_warp_active.pct": {
+          "value": 3.36668,
+          "unit": "%"
+        },
+        "smsp__warp_issue_stalled_math_pipe_throttle_per_warp_active.pct": {
+          "value": 20.363314,
+          "unit": "%"
+        },
+        "smsp__warp_issue_stalled_mio_throttle_per_warp_active.pct": {
+          "value": 4.806322,
+          "unit": "%"
+        },
+        "smsp__warp_issue_stalled_wait_per_warp_active.pct": {
+          "value": 36.977431,
+          "unit": "%"
+        },
+        "smsp__warp_issue_stalled_not_selected_per_warp_active.pct": {
+          "value": 3.696424,
+          "unit": "%"
+        },
+        "l1tex__data_bank_conflicts_pipe_lsu_mem_shared_op_ld.sum": {
+          "value": 144314.0,
+          "unit": ""
+        },
+        "l1tex__data_bank_conflicts_pipe_lsu_mem_shared_op_st.sum": {
+          "value": 0.0,
+          "unit": ""
+        },
+        "dram__bytes.sum": {
+          "value": 264.876544,
+          "unit": "Mbyte"
+        },
+        "lts__t_sector_hit_rate.pct": {
+          "value": 85.029211,
+          "unit": "%"
+        },
+        "smsp__inst_executed_pipe_tensor.sum": {
+          "value": 33554432.0,
+          "unit": "inst"
+        },
+        "l1tex__data_pipe_lsu_wavefronts_mem_shared_op_ld.sum": {
+          "value": 33699547.0,
+          "unit": ""
+        },
+        "smsp__warps_eligible.avg.per_cycle_active": {
+          "value": 0.273386,
+          "unit": "warp"
+        }
+      },
+      "launch": {
+        "launch__barrier_count": "1",
+        "launch__block_dim_x": "128",
+        "launch__block_dim_y": "1",
+        "launch__block_dim_z": "1",
+        "launch__block_size": "128",
+        "launch__context_id": "1",
+        "launch__device_id": "0",
+        "launch__func_cache_config": "CachePreferNone",
+        "launch__function_pcs": "1",
+        "launch__grid_dim_x": "32",
+        "launch__grid_dim_y": "32",
+        "launch__grid_dim_z": "1",
+        "launch__grid_size": "1024",
+        "launch__kernel_name": "",
+        "launch__occupancy_limit_blocks": "32.000000",
+        "launch__occupancy_limit_registers": "2.000000",
+        "launch__occupancy_limit_shared_mem": "2.000000",
+        "launch__occupancy_limit_warps": "16.000000",
+        "launch__occupancy_per_block_size": "94",
+        "launch__occupancy_per_register_count": "2056",
+        "launch__occupancy_per_shared_mem_size": "1840",
+        "launch__registers_per_thread": "242",
+        "launch__registers_per_thread_allocated": "248.000000",
+        "launch__shared_mem_config_size": "135.168000",
+        "launch__shared_mem_per_block": "66.560000",
+        "launch__shared_mem_per_block_allocated": "66.560000",
+        "launch__shared_mem_per_block_driver": "1.024000",
+        "launch__shared_mem_per_block_dynamic": "65.536000",
+        "launch__shared_mem_per_block_static": "0",
+        "launch__sm_count": "108",
+        "launch__stack_size": "1024",
+        "launch__stream_id": "7",
+        "launch__thread_count": "131072",
+        "launch__tpc_count": "54",
+        "launch__tpc_enabled": "all",
+        "launch__uses_cdp": "0",
+        "launch__uses_green_context": "0",
+        "launch__uses_vgpu": "0",
+        "launch__waves_per_multiprocessor": "4.74"
+      },
+      "unavailable_requested_metrics": [
+        "l1tex__t_requests_pipe_lsu_mem_shared_op_ld.sum"
+      ]
+    },
+    {
+      "variant": "row_bpair",
+      "method": "ours",
+      "source": "profiles/search_combined_square_f16/row_bpair/profile.json",
+      "source_sha256": "6613d69054f7f1fba873298d610c552c3aaac50dfc6637e68ff4751c9a25fb53",
+      "input_provenance": {
+        "build": "search_combined_square_row_bpair_f16",
+        "grid": [
+          32,
+          32,
+          1
+        ],
+        "threads": 128,
+        "dynamic_shared_bytes": 65536,
+        "ours_sha256": "2efcf91f106c895a7144244e210466bf74183ac1d2ca1fb14e2e2a79ee928c83",
+        "ptxas_sha256": "1f43608a3fb88ccbf88c8267ddeff085779fbe7b24708ceee9edfc79b5c09a8b",
+        "ptx_sha256": "83de480dac0f33e28677d5b779fb7253cfe2a78a25a05309a4a910a32f5948b5",
+        "compilation": {
+          "compiler": "OpenAssembler isolated B-LDSM/row-epilogue composition",
+          "fallback": false,
+          "reference_and_ELF_container": "NVIDIA ptxas on matching PTX",
+          "candidate": {
+            "paired_b": true,
+            "paired_preaddress": false,
+            "row": true,
+            "role_bias": 0,
+            "gap": 8,
+            "reuse": true
+          },
+          "geometry": {
+            "m": 4096,
+            "n": 4096,
+            "k": 4096,
+            "bm": 128,
+            "bn": 128,
+            "bk": 64,
+            "wm": 64,
+            "wn": 64,
+            "stages": 2
+          },
+          "source_ptx_sha256": "83de480dac0f33e28677d5b779fb7253cfe2a78a25a05309a4a910a32f5948b5",
+          "compiler_source_hashes": {
+            "exp/a100_mma/phase3/search_combined.py": "8a06158ecd2e657bab801b977fdbf8a375dde20d123e3df5c2e88b950aac2ff6",
+            "exp/a100_mma/phase3/search_sequences.py": "4ec826e51a60c86eb96764b2a3175483656eb21a02841b5000903575d6f2ae3d",
+            "exp/a100_mma/phase3/epilogue.py": "495a537d20cb63bd5a85d5dacf53875347340c0888d4700f603df850f2b2ea49",
+            "exp/a100_mma/backend.py": "755f6bf4f36f331fb636e2cd7314e4149762d9120f007f2567489858f49fdd69",
+            "exp/a100_mma/pipeline.py": "77769b4f4f433df23826b482d16386f4d0003afaade8ab863a1d5f5345d8b28e",
+            "openassembler/backend/ra.py": "6ed4a3f999f20e5d2317ece1bf4ef47a7e9a2019d461394df486e228797c14fc",
+            "openassembler/isa/encode.py": "739d2954e794134c5aa2840f12b7561ce2f275ae682d40ce8fde489968ebb650"
+          },
+          "cli_wall_ms": 2444.907500059344,
+          "kernels": [
+            {
+              "kernel": "gemm",
+              "requested_opt_level": "safe",
+              "applied_schedule": "source-order-HMMA8-epoch-drain15",
+              "scalar_schedule": "mined",
+              "protected_scoreboard_recycling": true,
+              "ldsm_read_barrier": false,
+              "ldsm_address_war_uses_write_completion": true,
+              "list_schedule_with_tensor_ordering": false,
+              "tensor_reuse_hints": true,
+              "experimental_recycle_without_wait": false,
+              "inline_64bit_pointer_increments": true,
+              "optimize_local_homes": true,
+              "licm_ops_hoisted": 0,
+              "ptx_instructions": 1025,
+              "sass_instructions": 1128,
+              "registers": 232,
+              "stages": {
+                "select_ms": 68.2562910951674,
+                "licm_ms": 0.001334003172814846,
+                "dce_coalesce_ms": 28.627665946260095,
+                "allocate_ms": 530.3874589735642,
+                "lower_ms": 31.892874976620078,
+                "schedule_ms": 91.31220809649676,
+                "encoder_setup_ms": 0.002249958924949169,
+                "encode_ms": 18.490999937057495
+              }
+            }
+          ],
+          "sass_opcode_counts": {
+            "MOV": 219,
+            "ULDC.64": 1,
+            "S2R": 3,
+            "IMAD.SHL": 79,
+            "LOP3.LUT": 81,
+            "SHF.R.U32.HI": 29,
+            "IADD3": 177,
+            "IMAD": 48,
+            "IMAD.WIDE.U32": 24,
+            "LDGSTS.E.BYPASS.128": 32,
+            "LDGDEPBAR": 2,
+            "IADD3.X": 32,
+            "DEPBAR.LE": 2,
+            "BAR.SYNC.DEFER_BLOCKING": 4,
+            "LDSM.16.M88.4": 64,
+            "HMMA.16816.F32": 256,
+            "NOP": 15,
+            "ISETP.LT.U32.AND": 1,
+            "@P0": 1,
+            "STG.E.64": 64,
+            "EXIT": 1,
+            "BRA": 1
+          },
+          "nvdisasm_exact_tensor_memory_store_operands": true,
+          "spliced_words_and_control_exact": true
+        }
+      },
+      "metrics": {
+        "gpu__time_duration.sum": {
+          "value": 613.408,
+          "unit": "us"
+        },
+        "sm__pipe_tensor_cycles_active.avg.pct_of_peak_sustained_active": {
+          "value": 75.512008,
+          "unit": "%"
+        },
+        "sm__warps_active.avg.pct_of_peak_sustained_active": {
+          "value": 11.967666,
+          "unit": "%"
+        },
+        "smsp__inst_executed.sum": {
+          "value": 76488704.0,
+          "unit": "inst"
+        },
+        "smsp__warp_issue_stalled_short_scoreboard_per_warp_active.pct": {
+          "value": 11.114687,
+          "unit": "%"
+        },
+        "smsp__warp_issue_stalled_long_scoreboard_per_warp_active.pct": {
+          "value": 9.875769,
+          "unit": "%"
+        },
+        "smsp__warp_issue_stalled_barrier_per_warp_active.pct": {
+          "value": 1.775692,
+          "unit": "%"
+        },
+        "smsp__warp_issue_stalled_math_pipe_throttle_per_warp_active.pct": {
+          "value": 11.469589,
+          "unit": "%"
+        },
+        "smsp__warp_issue_stalled_mio_throttle_per_warp_active.pct": {
+          "value": 0.254558,
+          "unit": "%"
+        },
+        "smsp__warp_issue_stalled_wait_per_warp_active.pct": {
+          "value": 50.251108,
+          "unit": "%"
+        },
+        "smsp__warp_issue_stalled_not_selected_per_warp_active.pct": {
+          "value": 1.902731,
+          "unit": "%"
+        },
+        "l1tex__data_bank_conflicts_pipe_lsu_mem_shared_op_ld.sum": {
+          "value": 57238.0,
+          "unit": ""
+        },
+        "l1tex__data_bank_conflicts_pipe_lsu_mem_shared_op_st.sum": {
+          "value": 0.0,
+          "unit": ""
+        },
+        "dram__bytes.sum": {
+          "value": 263.8688,
+          "unit": "Mbyte"
+        },
+        "lts__t_sector_hit_rate.pct": {
+          "value": 84.809132,
+          "unit": "%"
+        },
+        "smsp__inst_executed_pipe_tensor.sum": {
+          "value": 33554432.0,
+          "unit": "inst"
+        },
+        "l1tex__data_pipe_lsu_wavefronts_mem_shared_op_ld.sum": {
+          "value": 33612370.0,
+          "unit": ""
+        },
+        "smsp__warps_eligible.avg.per_cycle_active": {
+          "value": 0.252733,
+          "unit": "warp"
+        }
+      },
+      "launch": {
+        "launch__barrier_count": "1",
+        "launch__block_dim_x": "128",
+        "launch__block_dim_y": "1",
+        "launch__block_dim_z": "1",
+        "launch__block_size": "128",
+        "launch__context_id": "1",
+        "launch__device_id": "0",
+        "launch__func_cache_config": "CachePreferNone",
+        "launch__function_pcs": "1",
+        "launch__grid_dim_x": "32",
+        "launch__grid_dim_y": "32",
+        "launch__grid_dim_z": "1",
+        "launch__grid_size": "1024",
+        "launch__kernel_name": "",
+        "launch__occupancy_limit_blocks": "32.000000",
+        "launch__occupancy_limit_registers": "2.000000",
+        "launch__occupancy_limit_shared_mem": "2.000000",
+        "launch__occupancy_limit_warps": "16.000000",
+        "launch__occupancy_per_block_size": "94",
+        "launch__occupancy_per_register_count": "2056",
+        "launch__occupancy_per_shared_mem_size": "1840",
+        "launch__registers_per_thread": "232",
+        "launch__registers_per_thread_allocated": "232.000000",
+        "launch__shared_mem_config_size": "135.168000",
+        "launch__shared_mem_per_block": "66.560000",
+        "launch__shared_mem_per_block_allocated": "66.560000",
+        "launch__shared_mem_per_block_driver": "1.024000",
+        "launch__shared_mem_per_block_dynamic": "65.536000",
+        "launch__shared_mem_per_block_static": "0",
+        "launch__sm_count": "108",
+        "launch__stack_size": "1024",
+        "launch__stream_id": "7",
+        "launch__thread_count": "131072",
+        "launch__tpc_count": "54",
+        "launch__tpc_enabled": "all",
+        "launch__uses_cdp": "0",
+        "launch__uses_green_context": "0",
+        "launch__uses_vgpu": "0",
+        "launch__waves_per_multiprocessor": "4.74"
+      },
+      "unavailable_requested_metrics": [
+        "l1tex__t_requests_pipe_lsu_mem_shared_op_ld.sum"
+      ]
+    },
+    {
+      "variant": "row_bpair",
+      "method": "ptxas",
+      "source": "profiles/search_combined_square_f16/row_bpair/profile.json",
+      "source_sha256": "6613d69054f7f1fba873298d610c552c3aaac50dfc6637e68ff4751c9a25fb53",
+      "input_provenance": {
+        "build": "search_combined_square_row_bpair_f16",
+        "grid": [
+          32,
+          32,
+          1
+        ],
+        "threads": 128,
+        "dynamic_shared_bytes": 65536,
+        "ours_sha256": "2efcf91f106c895a7144244e210466bf74183ac1d2ca1fb14e2e2a79ee928c83",
+        "ptxas_sha256": "1f43608a3fb88ccbf88c8267ddeff085779fbe7b24708ceee9edfc79b5c09a8b",
+        "ptx_sha256": "83de480dac0f33e28677d5b779fb7253cfe2a78a25a05309a4a910a32f5948b5",
+        "compilation": {
+          "compiler": "OpenAssembler isolated B-LDSM/row-epilogue composition",
+          "fallback": false,
+          "reference_and_ELF_container": "NVIDIA ptxas on matching PTX",
+          "candidate": {
+            "paired_b": true,
+            "paired_preaddress": false,
+            "row": true,
+            "role_bias": 0,
+            "gap": 8,
+            "reuse": true
+          },
+          "geometry": {
+            "m": 4096,
+            "n": 4096,
+            "k": 4096,
+            "bm": 128,
+            "bn": 128,
+            "bk": 64,
+            "wm": 64,
+            "wn": 64,
+            "stages": 2
+          },
+          "source_ptx_sha256": "83de480dac0f33e28677d5b779fb7253cfe2a78a25a05309a4a910a32f5948b5",
+          "compiler_source_hashes": {
+            "exp/a100_mma/phase3/search_combined.py": "8a06158ecd2e657bab801b977fdbf8a375dde20d123e3df5c2e88b950aac2ff6",
+            "exp/a100_mma/phase3/search_sequences.py": "4ec826e51a60c86eb96764b2a3175483656eb21a02841b5000903575d6f2ae3d",
+            "exp/a100_mma/phase3/epilogue.py": "495a537d20cb63bd5a85d5dacf53875347340c0888d4700f603df850f2b2ea49",
+            "exp/a100_mma/backend.py": "755f6bf4f36f331fb636e2cd7314e4149762d9120f007f2567489858f49fdd69",
+            "exp/a100_mma/pipeline.py": "77769b4f4f433df23826b482d16386f4d0003afaade8ab863a1d5f5345d8b28e",
+            "openassembler/backend/ra.py": "6ed4a3f999f20e5d2317ece1bf4ef47a7e9a2019d461394df486e228797c14fc",
+            "openassembler/isa/encode.py": "739d2954e794134c5aa2840f12b7561ce2f275ae682d40ce8fde489968ebb650"
+          },
+          "cli_wall_ms": 2444.907500059344,
+          "kernels": [
+            {
+              "kernel": "gemm",
+              "requested_opt_level": "safe",
+              "applied_schedule": "source-order-HMMA8-epoch-drain15",
+              "scalar_schedule": "mined",
+              "protected_scoreboard_recycling": true,
+              "ldsm_read_barrier": false,
+              "ldsm_address_war_uses_write_completion": true,
+              "list_schedule_with_tensor_ordering": false,
+              "tensor_reuse_hints": true,
+              "experimental_recycle_without_wait": false,
+              "inline_64bit_pointer_increments": true,
+              "optimize_local_homes": true,
+              "licm_ops_hoisted": 0,
+              "ptx_instructions": 1025,
+              "sass_instructions": 1128,
+              "registers": 232,
+              "stages": {
+                "select_ms": 68.2562910951674,
+                "licm_ms": 0.001334003172814846,
+                "dce_coalesce_ms": 28.627665946260095,
+                "allocate_ms": 530.3874589735642,
+                "lower_ms": 31.892874976620078,
+                "schedule_ms": 91.31220809649676,
+                "encoder_setup_ms": 0.002249958924949169,
+                "encode_ms": 18.490999937057495
+              }
+            }
+          ],
+          "sass_opcode_counts": {
+            "MOV": 219,
+            "ULDC.64": 1,
+            "S2R": 3,
+            "IMAD.SHL": 79,
+            "LOP3.LUT": 81,
+            "SHF.R.U32.HI": 29,
+            "IADD3": 177,
+            "IMAD": 48,
+            "IMAD.WIDE.U32": 24,
+            "LDGSTS.E.BYPASS.128": 32,
+            "LDGDEPBAR": 2,
+            "IADD3.X": 32,
+            "DEPBAR.LE": 2,
+            "BAR.SYNC.DEFER_BLOCKING": 4,
+            "LDSM.16.M88.4": 64,
+            "HMMA.16816.F32": 256,
+            "NOP": 15,
+            "ISETP.LT.U32.AND": 1,
+            "@P0": 1,
+            "STG.E.64": 64,
+            "EXIT": 1,
+            "BRA": 1
+          },
+          "nvdisasm_exact_tensor_memory_store_operands": true,
+          "spliced_words_and_control_exact": true
+        }
+      },
+      "metrics": {
+        "gpu__time_duration.sum": {
+          "value": 708.512,
+          "unit": "us"
+        },
+        "sm__pipe_tensor_cycles_active.avg.pct_of_peak_sustained_active": {
+          "value": 85.43966,
+          "unit": "%"
+        },
+        "sm__warps_active.avg.pct_of_peak_sustained_active": {
+          "value": 12.017445,
+          "unit": "%"
+        },
+        "smsp__inst_executed.sum": {
+          "value": 66273280.0,
+          "unit": "inst"
+        },
+        "smsp__warp_issue_stalled_short_scoreboard_per_warp_active.pct": {
+          "value": 3.994727,
+          "unit": "%"
+        },
+        "smsp__warp_issue_stalled_long_scoreboard_per_warp_active.pct": {
+          "value": 7.853143,
+          "unit": "%"
+        },
+        "smsp__warp_issue_stalled_barrier_per_warp_active.pct": {
+          "value": 9.010766,
+          "unit": "%"
+        },
+        "smsp__warp_issue_stalled_math_pipe_throttle_per_warp_active.pct": {
+          "value": 17.620375,
+          "unit": "%"
+        },
+        "smsp__warp_issue_stalled_mio_throttle_per_warp_active.pct": {
+          "value": 3.779985,
+          "unit": "%"
+        },
+        "smsp__warp_issue_stalled_wait_per_warp_active.pct": {
+          "value": 41.012254,
+          "unit": "%"
+        },
+        "smsp__warp_issue_stalled_not_selected_per_warp_active.pct": {
+          "value": 3.252263,
+          "unit": "%"
+        },
+        "l1tex__data_bank_conflicts_pipe_lsu_mem_shared_op_ld.sum": {
+          "value": 101411.0,
+          "unit": ""
+        },
+        "l1tex__data_bank_conflicts_pipe_lsu_mem_shared_op_st.sum": {
+          "value": 0.0,
+          "unit": ""
+        },
+        "dram__bytes.sum": {
+          "value": 373.84,
+          "unit": "Mbyte"
+        },
+        "lts__t_sector_hit_rate.pct": {
+          "value": 78.941626,
+          "unit": "%"
+        },
+        "smsp__inst_executed_pipe_tensor.sum": {
+          "value": 33554432.0,
+          "unit": "inst"
+        },
+        "l1tex__data_pipe_lsu_wavefronts_mem_shared_op_ld.sum": {
+          "value": 33657269.0,
+          "unit": ""
+        },
+        "smsp__warps_eligible.avg.per_cycle_active": {
+          "value": 0.273641,
+          "unit": "warp"
+        }
+      },
+      "launch": {
+        "launch__barrier_count": "1",
+        "launch__block_dim_x": "128",
+        "launch__block_dim_y": "1",
+        "launch__block_dim_z": "1",
+        "launch__block_size": "128",
+        "launch__context_id": "1",
+        "launch__device_id": "0",
+        "launch__func_cache_config": "CachePreferNone",
+        "launch__function_pcs": "1",
+        "launch__grid_dim_x": "32",
+        "launch__grid_dim_y": "32",
+        "launch__grid_dim_z": "1",
+        "launch__grid_size": "1024",
+        "launch__kernel_name": "",
+        "launch__occupancy_limit_blocks": "32.000000",
+        "launch__occupancy_limit_registers": "2.000000",
+        "launch__occupancy_limit_shared_mem": "2.000000",
+        "launch__occupancy_limit_warps": "16.000000",
+        "launch__occupancy_per_block_size": "94",
+        "launch__occupancy_per_register_count": "2056",
+        "launch__occupancy_per_shared_mem_size": "1840",
+        "launch__registers_per_thread": "244",
+        "launch__registers_per_thread_allocated": "248.000000",
+        "launch__shared_mem_config_size": "135.168000",
+        "launch__shared_mem_per_block": "66.560000",
+        "launch__shared_mem_per_block_allocated": "66.560000",
+        "launch__shared_mem_per_block_driver": "1.024000",
+        "launch__shared_mem_per_block_dynamic": "65.536000",
+        "launch__shared_mem_per_block_static": "0",
+        "launch__sm_count": "108",
+        "launch__stack_size": "1024",
+        "launch__stream_id": "7",
+        "launch__thread_count": "131072",
+        "launch__tpc_count": "54",
+        "launch__tpc_enabled": "all",
+        "launch__uses_cdp": "0",
+        "launch__uses_green_context": "0",
+        "launch__uses_vgpu": "0",
+        "launch__waves_per_multiprocessor": "4.74"
+      },
+      "unavailable_requested_metrics": [
+        "l1tex__t_requests_pipe_lsu_mem_shared_op_ld.sum"
+      ]
+    }
+  ],
+  "derived": {
+    "ours_baseline_to_row_bpair": {
+      "gpu__time_duration.sum": {
+        "baseline": 833.312,
+        "row_bpair": 613.408,
+        "unit": "us",
+        "difference": -219.904,
+        "relative_change_percent": -26.389155562382392
+      },
+      "sm__pipe_tensor_cycles_active.avg.pct_of_peak_sustained_active": {
+        "baseline": 63.511009,
+        "row_bpair": 75.512008,
+        "unit": "%",
+        "difference": 12.000998999999993,
+        "relative_change_percent": 18.895935033877343
+      },
+      "sm__warps_active.avg.pct_of_peak_sustained_active": {
+        "baseline": 11.880468,
+        "row_bpair": 11.967666,
+        "unit": "%",
+        "difference": 0.087197999999999,
+        "relative_change_percent": 0.733960985375326
+      },
+      "smsp__inst_executed.sum": {
+        "baseline": 81862656.0,
+        "row_bpair": 76488704.0,
+        "unit": "inst",
+        "difference": -5373952.0,
+        "relative_change_percent": -6.564595216651659
+      },
+      "smsp__warp_issue_stalled_short_scoreboard_per_warp_active.pct": {
+        "baseline": 14.045068,
+        "row_bpair": 11.114687,
+        "unit": "%",
+        "difference": -2.9303810000000006,
+        "relative_change_percent": -20.86412824772369
+      },
+      "smsp__warp_issue_stalled_long_scoreboard_per_warp_active.pct": {
+        "baseline": 12.659965,
+        "row_bpair": 9.875769,
+        "unit": "%",
+        "difference": -2.7841959999999997,
+        "relative_change_percent": -21.992130309996906
+      },
+      "smsp__warp_issue_stalled_barrier_per_warp_active.pct": {
+        "baseline": 3.239944,
+        "row_bpair": 1.775692,
+        "unit": "%",
+        "difference": -1.4642519999999999,
+        "relative_change_percent": -45.19374408940401
+      },
+      "smsp__warp_issue_stalled_math_pipe_throttle_per_warp_active.pct": {
+        "baseline": 12.142824,
+        "row_bpair": 11.469589,
+        "unit": "%",
+        "difference": -0.673235,
+        "relative_change_percent": -5.544303367980962
+      },
+      "smsp__warp_issue_stalled_mio_throttle_per_warp_active.pct": {
+        "baseline": 0.393159,
+        "row_bpair": 0.254558,
+        "unit": "%",
+        "difference": -0.13860099999999997,
+        "relative_change_percent": -35.253167293639464
+      },
+      "smsp__warp_issue_stalled_wait_per_warp_active.pct": {
+        "baseline": 44.344881,
+        "row_bpair": 50.251108,
+        "unit": "%",
+        "difference": 5.906227000000001,
+        "relative_change_percent": 13.318847332119343
+      },
+      "smsp__warp_issue_stalled_not_selected_per_warp_active.pct": {
+        "baseline": 1.909806,
+        "row_bpair": 1.902731,
+        "unit": "%",
+        "difference": -0.0070749999999999424,
+        "relative_change_percent": -0.37045647568391127
+      },
+      "l1tex__data_bank_conflicts_pipe_lsu_mem_shared_op_ld.sum": {
+        "baseline": 170940.0,
+        "row_bpair": 57238.0,
+        "unit": "",
+        "difference": -113702.0,
+        "relative_change_percent": -66.51573651573652
+      },
+      "l1tex__data_bank_conflicts_pipe_lsu_mem_shared_op_st.sum": {
+        "baseline": 0.0,
+        "row_bpair": 0.0,
+        "unit": "",
+        "difference": 0.0,
+        "relative_change_percent": null
+      },
+      "dram__bytes.sum": {
+        "baseline": 397.38688,
+        "row_bpair": 263.8688,
+        "unit": "Mbyte",
+        "difference": -133.51808,
+        "relative_change_percent": -33.59901564943463
+      },
+      "lts__t_sector_hit_rate.pct": {
+        "baseline": 78.201868,
+        "row_bpair": 84.809132,
+        "unit": "%",
+        "difference": 6.607264000000001,
+        "relative_change_percent": 8.448984875911147
+      },
+      "smsp__inst_executed_pipe_tensor.sum": {
+        "baseline": 33554432.0,
+        "row_bpair": 33554432.0,
+        "unit": "inst",
+        "difference": 0.0,
+        "relative_change_percent": 0.0
+      },
+      "l1tex__data_pipe_lsu_wavefronts_mem_shared_op_ld.sum": {
+        "baseline": 33726229.0,
+        "row_bpair": 33612370.0,
+        "unit": "",
+        "difference": -113859.0,
+        "relative_change_percent": -0.33759777886819275
+      },
+      "smsp__warps_eligible.avg.per_cycle_active": {
+        "baseline": 0.230262,
+        "row_bpair": 0.252733,
+        "unit": "warp",
+        "difference": 0.02247099999999999,
+        "relative_change_percent": 9.758883358956316
+      }
+    }
+  }
+}

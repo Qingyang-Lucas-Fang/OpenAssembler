@@ -1,0 +1,104 @@
+[
+  {
+    "build": "p3_epilogue_scalar_4096_4096_4096_f16",
+    "name": "p3_epilogue_large_f16",
+    "m": 4096,
+    "n": 4096,
+    "k": 4096,
+    "dtype": "f16",
+    "tile_m": 128,
+    "tile_n": 128,
+    "threads": 128,
+    "smem": 65536,
+    "steady_warmup_rounds": 16,
+    "alternatives": [
+      {
+        "build": "p3_epilogue_pair_packed_4096_4096_4096_f16",
+        "name": "p3_epilogue_pair_packed_4096_4096_4096_f16",
+        "m": 4096,
+        "n": 4096,
+        "k": 4096,
+        "dtype": "f16",
+        "tile_m": 128,
+        "tile_n": 128,
+        "threads": 128,
+        "smem": 65536
+      },
+      {
+        "build": "p3_epilogue_pair_native_4096_4096_4096_f16",
+        "name": "p3_epilogue_pair_native_4096_4096_4096_f16",
+        "m": 4096,
+        "n": 4096,
+        "k": 4096,
+        "dtype": "f16",
+        "tile_m": 128,
+        "tile_n": 128,
+        "threads": 128,
+        "smem": 65536
+      },
+      {
+        "build": "p3_epilogue_row_native_4096_4096_4096_f16",
+        "name": "p3_epilogue_row_native_4096_4096_4096_f16",
+        "m": 4096,
+        "n": 4096,
+        "k": 4096,
+        "dtype": "f16",
+        "tile_m": 128,
+        "tile_n": 128,
+        "threads": 128,
+        "smem": 65536
+      }
+    ]
+  },
+  {
+    "build": "p3_epilogue_scalar_4096_4096_4096_bf16",
+    "name": "p3_epilogue_large_bf16",
+    "m": 4096,
+    "n": 4096,
+    "k": 4096,
+    "dtype": "bf16",
+    "tile_m": 128,
+    "tile_n": 128,
+    "threads": 128,
+    "smem": 65536,
+    "steady_warmup_rounds": 16,
+    "alternatives": [
+      {
+        "build": "p3_epilogue_pair_packed_4096_4096_4096_bf16",
+        "name": "p3_epilogue_pair_packed_4096_4096_4096_bf16",
+        "m": 4096,
+        "n": 4096,
+        "k": 4096,
+        "dtype": "bf16",
+        "tile_m": 128,
+        "tile_n": 128,
+        "threads": 128,
+        "smem": 65536
+      },
+      {
+        "build": "p3_epilogue_pair_native_4096_4096_4096_bf16",
+        "name": "p3_epilogue_pair_native_4096_4096_4096_bf16",
+        "m": 4096,
+        "n": 4096,
+        "k": 4096,
+        "dtype": "bf16",
+        "tile_m": 128,
+        "tile_n": 128,
+        "threads": 128,
+        "smem": 65536
+      },
+      {
+        "build": "p3_epilogue_row_native_4096_4096_4096_bf16",
+        "name": "p3_epilogue_row_native_4096_4096_4096_bf16",
+        "m": 4096,
+        "n": 4096,
+        "k": 4096,
+        "dtype": "bf16",
+        "tile_m": 128,
+        "tile_n": 128,
+        "threads": 128,
+        "smem": 65536
+      }
+    ]
+  }
+]

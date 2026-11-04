@@ -1,0 +1,41 @@
+{
+ "openassembler": "0.2.0",
+ "schema": 1,
+ "arch": "sm_80",
+ "opt_level": "safe",
+ "root": "/Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/phase3",
+ "entries": [
+  {
+   "source": "producer_producer_k64_w64x64_p4_large.ptx",
+   "source_sha256": "dd88d95eb3c556167fb2fe5a1df081bb55b3b94a31db85ffd0d44e92705ac48e",
+   "language": "ptx",
+   "cubin": "cubin/producer_producer_k64_w64x64_p4_large.cubin",
+   "sass": "sass/producer_producer_k64_w64x64_p4_large.sass",
+   "ptx": ".build/ptx/producer_producer_k64_w64x64_p4_large.ptx",
+   "reference": ".build/reference/producer_producer_k64_w64x64_p4_large.cubin",
+   "kernels": [
+    {
+     "name": "gemm",
+     "params": [
+      [
+       "u64",
+       "A"
+      ],
+      [
+       "u64",
+       "B"
+      ],
+      [
+       "u64",
+       "C"
+      ]
+     ],
+     "compiled_by": "openassembler",
+     "instructions": 1818,
+     "registers": 182,
+     "verify": "not-run"
+    }
+   ]
+  }
+ ]
+}

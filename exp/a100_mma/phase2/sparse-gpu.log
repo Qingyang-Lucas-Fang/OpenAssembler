@@ -1,0 +1,11 @@
+✓ Initialized. View run at 
+https://modal.com/apps/qingyang-lucas-fang/main/ap-bb6VYGMDvIhICE9XqPtDyS
+✓ Created objects.
+├── ✓ Uploaded 
+│   /Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/phase2/clock_modal.py
+├── ✓ Uploaded PythonPackage:openassembler
+└── ✓ Created Function execute.
+[]
+Stopping app - local entrypoint completed.
+✓ App completed. View run at 
+https://modal.com/apps/qingyang-lucas-fang/main/ap-bb6VYGMDvIhICE9XqPtDyS

@@ -1,0 +1,1 @@
+{"schema": 1, "root": "/Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/phase2/pytest-temp/test_manifest_cannot_read_arti0", "entries": [{"source": "k.py", "cubin": "../private.cubin", "kernels": []}]}

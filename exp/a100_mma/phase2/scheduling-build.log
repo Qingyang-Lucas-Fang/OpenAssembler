@@ -1,0 +1,21 @@
+exp/a100_mma/build/p2_schedule_row_base/cubin/p2_schedule_row_base.cubin  (gemm: 1812 instructions, opt-level=safe, regs=228)
+exp/a100_mma/build/p2_schedule_row_base/sass/p2_schedule_row_base.sass  (SASS listing from nvdisasm)
+warning: gemm: 77 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R2, R2, 0x80, RZ' -> 'IMAD.SHL R2, R2, 0x80, RZ'
+exp/a100_mma/build/p2_schedule_column_all/cubin/p2_schedule_column_all.cubin  (gemm: 1812 instructions, opt-level=safe, regs=228)
+exp/a100_mma/build/p2_schedule_column_all/sass/p2_schedule_column_all.sass  (SASS listing from nvdisasm)
+warning: gemm: 77 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R2, R2, 0x80, RZ' -> 'IMAD.SHL R2, R2, 0x80, RZ'
+exp/a100_mma/build/p2_schedule_column_reuse/cubin/p2_schedule_column_reuse.cubin  (gemm: 1812 instructions, opt-level=safe, regs=228)
+exp/a100_mma/build/p2_schedule_column_reuse/sass/p2_schedule_column_reuse.sass  (SASS listing from nvdisasm)
+warning: gemm: 269 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R2, R2, 0x80, RZ' -> 'IMAD.SHL R2, R2, 0x80, RZ'
+exp/a100_mma/build/p2_schedule_window4_reuse/cubin/p2_schedule_window4_reuse.cubin  (gemm: 1812 instructions, opt-level=safe, regs=222)
+exp/a100_mma/build/p2_schedule_window4_reuse/sass/p2_schedule_window4_reuse.sass  (SASS listing from nvdisasm)
+warning: gemm: 269 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R2, R2, 0x80, RZ' -> 'IMAD.SHL R2, R2, 0x80, RZ'
+exp/a100_mma/build/p2_schedule_list_safe/cubin/p2_schedule_list_safe.cubin  (gemm: 1812 instructions, opt-level=safe, regs=228)
+exp/a100_mma/build/p2_schedule_list_safe/sass/p2_schedule_list_safe.sass  (SASS listing from nvdisasm)
+warning: gemm: 77 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R2, R2, 0x80, RZ' -> 'IMAD.SHL R2, R2, 0x80, RZ'
+exp/a100_mma/build/p2_shape_w32x64/cubin/p2_shape_w32x64.cubin  (gemm: 1012 instructions, opt-level=safe, regs=118)
+exp/a100_mma/build/p2_shape_w32x64/sass/p2_shape_w32x64.sass  (SASS listing from nvdisasm)
+warning: gemm: 53 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R2, R2, 0x80, RZ' -> 'IMAD.SHL R2, R2, 0x80, RZ'
+exp/a100_mma/build/p2_shape_w32x32/cubin/p2_shape_w32x32.cubin  (gemm: 424 instructions, opt-level=safe, regs=66)
+exp/a100_mma/build/p2_shape_w32x32/sass/p2_shape_w32x32.sass  (SASS listing from nvdisasm)
+warning: gemm: 23 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R2, R2, 0x80, RZ' -> 'IMAD.SHL R2, R2, 0x80, RZ'

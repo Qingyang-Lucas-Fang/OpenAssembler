@@ -1,0 +1,107 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/ZzPSsM/pWeHmkaIEMN83FM7E9tI</id>
+  <title>arXiv Query: search_query=au:Jangda AND all:matrix&amp;id_list=&amp;start=0&amp;max_results=8</title>
+  <updated>2026-11-03T11:30:50Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=au:Jangda+AND+all:matrix&amp;start=0&amp;max_results=8&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>8</opensearch:itemsPerPage>
+  <opensearch:totalResults>4</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2512.19018v1</id>
+    <title>PEAK: A Performance Engineering AI-Assistant for GPU Kernels Powered by Natural Language Transformations</title>
+    <updated>2025-12-22T04:15:24Z</updated>
+    <link href="https://arxiv.org/abs/2512.19018v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2512.19018v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Advancements in large language models (LLMs) are showing promising impact in software development and programming assistance. However, these models struggle when operating on low-level backend code. This challenge is exacerbated in the domain of GPU kernels, where performance-critical details are coupled to rapidly evolving hardware characteristics and available code examples are sparse.
+  In this work, we introduce PEAK, a Performance Engineering AI-Assistant for GPU Kernels powered by natural language transformations. PEAK utilizes the key insight that iterative code transformations (optimizations) can straightforwardly be written in natural language, and then carried out by LLMs. Thus, these transformations can be rapidly developed, encoding general portable optimizations, but also easily specialized to specific GPU devices and even kernels. These natural transformations are supported by a modular and extensible infrastructure that additionally performs validation and performance evaluation. We demonstrate the flexibility of PEAK by instantiating it for three backends, CUDA, HIP, and HLSL, and create 16 natural transformations for optimizing matrix multiplication kernels. We show that our resulting implementations are competitive with vendor libraries when available, and for HLSL (without a library) our implementations match the hardware documented FLOPS. PEAK allows the fine-grained exploration of several research questions around how LLMs behave in this domain, including characterizing transformations and their errors; and how performance evolves along optimization sequences. PEAK provides an interface that can either be utilized by performance engineers to improve productivity, or driven completely autonomously (e.g., by an AI agent), providing a forward-compatible design that can continue to improve with advances in AI capabilities.</summary>
+    <category term="cs.SE" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-12-22T04:15:24Z</published>
+    <arxiv:primary_category term="cs.SE"/>
+    <author>
+      <name>Muhammad Usman Tariq</name>
+    </author>
+    <author>
+      <name>Abhinav Jangda</name>
+    </author>
+    <author>
+      <name>Angelica Moreira</name>
+    </author>
+    <author>
+      <name>Madan Musuvathi</name>
+    </author>
+    <author>
+      <name>Tyler Sorensen</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2505.18350v2</id>
+    <title>How Many Parameters Does Your Task Really Need? Task Specific Pruning with LLM-Sieve</title>
+    <updated>2025-10-04T01:32:32Z</updated>
+    <link href="https://arxiv.org/abs/2505.18350v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2505.18350v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>As Large Language Models (LLMs) are increasingly deployed for narrow tasks in resource-constrained settings, a central question arises: how much of an LLM is truly necessary for a given task? We present LLM-Sieve, a framework that prunes LLMs down to the minimal parameter subset needed to preserve task performance. Our approach introduces two innovations: (i) output-aligned non-orthogonal projections, which yield more faithful low-rank approximations than traditional PCA/SVD by aligning directly with layer outputs; and (ii) adaptive pruning via a Genetic Algorithm, which automatically discovers matrix-specific pruning levels and exposes the uneven distribution of task-relevant knowledge. Across models from 3.8B to 70B parameters, LLM-Sieve removes 20-75% of weights with only 1-5% accuracy loss-substantially ahead of prior pruning methods. Beyond efficiency, our framework reveals bottleneck matrices that concentrate critical knowledge, suggesting architectural implications for future LLM design. LLM-Sieve integrates seamlessly with LoRA fine-tuning and quantization, enabling both efficient deployment and deeper understanding of knowledge organization in LLMs.</summary>
+    <category term="cs.LG" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-05-23T20:17:20Z</published>
+    <arxiv:primary_category term="cs.LG"/>
+    <author>
+      <name>Waleed Reda</name>
+    </author>
+    <author>
+      <name>Abhinav Jangda</name>
+    </author>
+    <author>
+      <name>Krishna Chintalapudi</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2401.10187v3</id>
+    <title>Fast Kronecker Matrix-Matrix Multiplication on GPUs</title>
+    <updated>2024-02-28T02:00:31Z</updated>
+    <link href="https://arxiv.org/abs/2401.10187v3" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2401.10187v3" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Kronecker Matrix-Matrix Multiplication (Kron-Matmul) is the multiplication of a matrix with the Kronecker Product of several smaller matrices. Kron-Matmul is a core operation for many scientific and machine learning computations. State-of-the-art Kron-Matmul implementations utilize existing tensor algebra operations, such as matrix multiplication, transpose, and tensor matrix multiplication. However, this design choice prevents several Kron-Matmul specific optimizations, thus, leaving significant performance on the table. To address this issue, we present FastKron, an efficient technique for Kron-Matmul on single and multiple GPUs. FastKron is independent of linear algebra operations enabling several new optimizations for Kron-Matmul. Thus, it performs up to 40.7x and 7.85x faster than existing implementations on 1 and 16 GPUs respectively.</summary>
+    <category term="cs.DC" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2024-01-18T18:16:48Z</published>
+    <arxiv:comment>Accepted at PPoPP 2024</arxiv:comment>
+    <arxiv:primary_category term="cs.DC"/>
+    <author>
+      <name>Abhinav Jangda</name>
+    </author>
+    <author>
+      <name>Mohit Yadav</name>
+    </author>
+    <arxiv:doi>10.1145/3627535.3638489</arxiv:doi>
+    <link rel="related" href="https://doi.org/10.1145/3627535.3638489" title="doi"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2305.13450v3</id>
+    <title>A Framework for Fine-Grained Synchronization of Dependent GPU Kernels</title>
+    <updated>2024-02-14T05:42:32Z</updated>
+    <link href="https://arxiv.org/abs/2305.13450v3" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2305.13450v3" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Machine Learning (ML) models execute several parallel computations including Generalized Matrix Multiplication, Convolution, Dropout, etc. These computations are commonly executed on Graphics Processing Units (GPUs), by dividing the computation into independent processing blocks, known as tiles. Since the number of tiles are usually higher than the execution units of a GPU, tiles are executed on all execution units in one or more waves. However, the number of tiles is not always a multiple of the number of execution units. Thus, tiles executed in the final wave can under-utilize the GPU.
+  To address this issue, we present cuSync, a framework for synchronizing dependent kernels using a user-defined fine-grained synchronization policy to improve the GPU utilization. cuSync synchronizes tiles instead of kernels, which allows executing independent tiles of dependent kernels concurrently. We also present a compiler to generate diverse fine-grained synchronization policies based on dependencies between kernels. Our experiments found that synchronizing CUDA kernels using cuSync reduces the inference times of four popular ML models: MegatronLM GPT-3 by up to 15%, LLaMA by up to 14%, ResNet-38 by up to 22%, and VGG-19 by up to 16% over several batch sizes.</summary>
+    <category term="cs.DC" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2023-05-22T19:49:36Z</published>
+    <arxiv:comment>Accepted at CGO 2024</arxiv:comment>
+    <arxiv:primary_category term="cs.DC"/>
+    <author>
+      <name>Abhinav Jangda</name>
+    </author>
+    <author>
+      <name>Saeed Maleki</name>
+    </author>
+    <author>
+      <name>Maryam Mehri Dehnavi</name>
+    </author>
+    <author>
+      <name>Madan Musuvathi</name>
+    </author>
+    <author>
+      <name>Olli Saarikivi</name>
+    </author>
+  </entry>
+</feed>

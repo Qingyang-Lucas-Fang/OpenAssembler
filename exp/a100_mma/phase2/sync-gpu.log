@@ -1,0 +1,66 @@
+✓ Initialized. View run at 
+https://modal.com/apps/qingyang-lucas-fang/main/ap-IVfFxAM0gX2iyEWSoq1Pof
+✓ Created objects.
+├── ✓ Uploaded /Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/modal_run.py
+├── ✓ Uploaded 
+│   /Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/triton_kernel.py
+├── ✓ Uploaded /Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/gpu_worker.py
+├── ✓ Uploaded PythonPackage:openassembler
+└── ✓ Created Function execute.
+
+==========
+== CUDA ==
+==========
+
+CUDA Version 12.8.0
+
+Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+
+This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+By pulling and using the container, you accept the terms and conditions of this license:
+https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+
+A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
+
+p2_sync_bar1 {'ours': 0.8775679588317871, 'ptxas': 0.6625279903411865, 'cublas': 0.5818880081176758}
+p2_sync_bar2 {'ours': 1.0098176002502441, 'ptxas': 0.7683072090148926, 'cublas': 0.6737919807434082}
+p2_sync_bar4 {'ours': 0.8977408409118652, 'ptxas': 0.6615551948547364, 'cublas': 0.5837823867797851}
+p2_sync_bar6 {'ours': 0.8681983947753906, 'ptxas': 0.6628352165222168, 'cublas': 0.582041597366333}
+p2_sync_bar8 {'ours': 0.9086976051330566, 'ptxas': 0.6597119808197022, 'cublas': 0.5955584049224854}
+p2_sync_depbar1 Traceback (most recent call last):
+  File "/root/exp/a100_mma/gpu_worker.py", line 214, in <module>
+    result = run_hmma(case) if case.get("kind") == "hmma" else run(case)
+                                                               ^^^^^^^^^
+  File "/root/exp/a100_mma/gpu_worker.py", line 149, in run
+    raise AssertionError(f"{name} full-output comparison failed for {pattern}; relative_l2={full_rel}")
+AssertionError: ours full-output comparison failed for scaled; relative_l2=0.0018449939088895917
+
+p2_sync_depbar2 Traceback (most recent call last):
+  File "/root/exp/a100_mma/gpu_worker.py", line 214, in <module>
+    result = run_hmma(case) if case.get("kind") == "hmma" else run(case)
+                                                               ^^^^^^^^^
+  File "/root/exp/a100_mma/gpu_worker.py", line 149, in run
+    raise AssertionError(f"{name} full-output comparison failed for {pattern}; relative_l2={full_rel}")
+AssertionError: ours full-output comparison failed for integer; relative_l2=0.00021483164164237678
+
+p2_sync_depbar3 Traceback (most recent call last):
+  File "/root/exp/a100_mma/gpu_worker.py", line 214, in <module>
+    result = run_hmma(case) if case.get("kind") == "hmma" else run(case)
+                                                               ^^^^^^^^^
+  File "/root/exp/a100_mma/gpu_worker.py", line 149, in run
+    raise AssertionError(f"{name} full-output comparison failed for {pattern}; relative_l2={full_rel}")
+AssertionError: ours full-output comparison failed for normal; relative_l2=0.19030451774597168
+
+p2_sync_depbar4 {'ours': 1.0080256462097168, 'ptxas': 0.768614387512207, 'cublas': 0.6735360145568847}
+p2_sync_depbar6 {'ours': 1.0087424278259278, 'ptxas': 0.7682559967041016, 'cublas': 0.6735360145568847}
+/Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/results/p2_sync_bar1.json
+/Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/results/p2_sync_bar2.json
+/Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/results/p2_sync_bar4.json
+/Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/results/p2_sync_bar6.json
+/Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/results/p2_sync_bar8.json
+/Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/results/p2_sync_depbar1.json
+/Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/results/p2_sync_depbar2.json
+/Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/results/p2_sync_depbar3.json
+/Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/results/p2_sync_depbar4.json
+/Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/results/p2_sync_depbar6.json
+Stopping app - uncaught exception raised locally: SystemExit(1).

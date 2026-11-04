@@ -21,6 +21,8 @@ if __name__ == "__main__":
     experiment_parser.add_argument("--mined-scalar", action="store_true")
     experiment_parser.add_argument("--ldsm-completion-wars", action="store_true")
     experiment_parser.add_argument("--list-schedule", action="store_true")
+    experiment_parser.add_argument("--inline-pointer-increments", action="store_true")
+    experiment_parser.add_argument("--tensor-reuse", action="store_true")
     experiment_parser.add_argument("--tensor-issue", type=int, choices=(2, 4, 8, 12), default=4)
     experimental, remaining = experiment_parser.parse_known_args()
     backend.OPTIMIZE_LOCALS = experimental.ssa_locals
@@ -29,6 +31,8 @@ if __name__ == "__main__":
     backend.MINED_SCALAR = experimental.mined_scalar
     backend.LDSM_READ_BARRIER = not experimental.ldsm_completion_wars
     backend.LIST_SCHEDULE = experimental.list_schedule
+    backend.INLINE_POINTER_INCREMENTS = experimental.inline_pointer_increments
+    backend.TENSOR_REUSE = experimental.tensor_reuse
     backend.TENSOR_ISSUE_GAP = experimental.tensor_issue
     args = build_parser().parse_args(remaining)
     if args.cmd not in ("compile", "run", "cnr"):

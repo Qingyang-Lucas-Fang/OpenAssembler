@@ -1,5 +1,11 @@
 # A100 MMA compiler experiment: measured progress, remaining gap
 
+Latest repeated kernel improvements and cuBLAS/SASS research are in
+[phase3/REPORT.md](phase3/REPORT.md). Follow-on hardware-counter experiments are in
+[phase2/REPORT.md](phase2/REPORT.md); primary papers and hardware feasibility are
+in [phase2/LITERATURE.md](phase2/LITERATURE.md). This file retains the first-round
+baseline and its historical validation scope.
+
 2026-11-03. All work is isolated under `exp/a100_mma/`. No production
 source, specifications, existing dirty file, branch, or commit was changed.
 

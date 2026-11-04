@@ -1,0 +1,1417 @@
+[
+  {
+    "device": {
+      "name": "NVIDIA A100-SXM4-40GB",
+      "cc": "8.0",
+      "driver": 13030,
+      "sm_count": 108,
+      "clock_khz": 1410000,
+      "mem_bytes": 42429251584
+    },
+    "torch": "2.7.1+cu128",
+    "shape_mnk": [
+      16384,
+      4096,
+      4096
+    ],
+    "dtype": "f16",
+    "output_dtype": "f32",
+    "accumulation": "f32",
+    "layout": "A=MxK row-major; B=NxK row-major; C=A@B.T",
+    "checks": [
+      {
+        "pattern": "zero",
+        "seed": 17,
+        "method": "cublas",
+        "sample_shape": [
+          32,
+          32
+        ],
+        "max_abs": 0.0,
+        "relative_l2": 0.0,
+        "exact": true,
+        "full_output_relative_l2_vs_cublas": 0.0,
+        "full_output_elements_checked": 67108864
+      },
+      {
+        "pattern": "zero",
+        "seed": 17,
+        "method": "ours",
+        "sample_shape": [
+          32,
+          32
+        ],
+        "max_abs": 0.0,
+        "relative_l2": 0.0,
+        "exact": true,
+        "full_output_relative_l2_vs_cublas": 0.0,
+        "full_output_elements_checked": 67108864
+      },
+      {
+        "pattern": "zero",
+        "seed": 17,
+        "method": "ptxas",
+        "sample_shape": [
+          32,
+          32
+        ],
+        "max_abs": 0.0,
+        "relative_l2": 0.0,
+        "exact": true,
+        "full_output_relative_l2_vs_cublas": 0.0,
+        "full_output_elements_checked": 67108864
+      },
+      {
+        "pattern": "zero",
+        "seed": 17,
+        "method": "cache_l2_128_confirm_tall_f16",
+        "sample_shape": [
+          32,
+          32
+        ],
+        "max_abs": 0.0,
+        "relative_l2": 0.0,
+        "exact": true,
+        "full_output_relative_l2_vs_cublas": 0.0,
+        "full_output_elements_checked": 67108864,
+        "ours_equals_ptxas": true
+      },
+      {
+        "pattern": "zero",
+        "seed": 29,
+        "method": "cublas",
+        "sample_shape": [
+          32,
+          32
+        ],
+        "max_abs": 0.0,
+        "relative_l2": 0.0,
+        "exact": true,
+        "full_output_relative_l2_vs_cublas": 0.0,
+        "full_output_elements_checked": 67108864
+      },
+      {
+        "pattern": "zero",
+        "seed": 29,
+        "method": "ours",
+        "sample_shape": [
+          32,
+          32
+        ],
+        "max_abs": 0.0,
+        "relative_l2": 0.0,
+        "exact": true,
+        "full_output_relative_l2_vs_cublas": 0.0,
+        "full_output_elements_checked": 67108864
+      },
+      {
+        "pattern": "zero",
+        "seed": 29,
+        "method": "ptxas",
+        "sample_shape": [
+          32,
+          32
+        ],
+        "max_abs": 0.0,
+        "relative_l2": 0.0,
+        "exact": true,
+        "full_output_relative_l2_vs_cublas": 0.0,
+        "full_output_elements_checked": 67108864
+      },
+      {
+        "pattern": "zero",
+        "seed": 29,
+        "method": "cache_l2_128_confirm_tall_f16",
+        "sample_shape": [
+          32,
+          32
+        ],
+        "max_abs": 0.0,
+        "relative_l2": 0.0,
+        "exact": true,
+        "full_output_relative_l2_vs_cublas": 0.0,
+        "full_output_elements_checked": 67108864,
+        "ours_equals_ptxas": true
+      },
+      {
+        "pattern": "integer",
+        "seed": 17,
+        "method": "cublas",
+        "sample_shape": [
+          32,
+          32
+        ],
+        "max_abs": 0.0,
+        "relative_l2": 0.0,
+        "exact": true,
+        "full_output_relative_l2_vs_cublas": 0.0,
+        "full_output_elements_checked": 67108864
+      },
+      {
+        "pattern": "integer",
+        "seed": 17,
+        "method": "ours",
+        "sample_shape": [
+          32,
+          32
+        ],
+        "max_abs": 0.0,
+        "relative_l2": 0.0,
+        "exact": true,
+        "full_output_relative_l2_vs_cublas": 0.0,
+        "full_output_elements_checked": 67108864
+      },
+      {
+        "pattern": "integer",
+        "seed": 17,
+        "method": "ptxas",
+        "sample_shape": [
+          32,
+          32
+        ],
+        "max_abs": 0.0,
+        "relative_l2": 0.0,
+        "exact": true,
+        "full_output_relative_l2_vs_cublas": 0.0,
+        "full_output_elements_checked": 67108864
+      },
+      {
+        "pattern": "integer",
+        "seed": 17,
+        "method": "cache_l2_128_confirm_tall_f16",
+        "sample_shape": [
+          32,
+          32
+        ],
+        "max_abs": 0.0,
+        "relative_l2": 0.0,
+        "exact": true,
+        "full_output_relative_l2_vs_cublas": 0.0,
+        "full_output_elements_checked": 67108864,
+        "ours_equals_ptxas": true
+      },
+      {
+        "pattern": "integer",
+        "seed": 29,
+        "method": "cublas",
+        "sample_shape": [
+          32,
+          32
+        ],
+        "max_abs": 0.0,
+        "relative_l2": 0.0,
+        "exact": true,
+        "full_output_relative_l2_vs_cublas": 0.0,
+        "full_output_elements_checked": 67108864
+      },
+      {
+        "pattern": "integer",
+        "seed": 29,
+        "method": "ours",
+        "sample_shape": [
+          32,
+          32
+        ],
+        "max_abs": 0.0,
+        "relative_l2": 0.0,
+        "exact": true,
+        "full_output_relative_l2_vs_cublas": 0.0,
+        "full_output_elements_checked": 67108864
+      },
+      {
+        "pattern": "integer",
+        "seed": 29,
+        "method": "ptxas",
+        "sample_shape": [
+          32,
+          32
+        ],
+        "max_abs": 0.0,
+        "relative_l2": 0.0,
+        "exact": true,
+        "full_output_relative_l2_vs_cublas": 0.0,
+        "full_output_elements_checked": 67108864
+      },
+      {
+        "pattern": "integer",
+        "seed": 29,
+        "method": "cache_l2_128_confirm_tall_f16",
+        "sample_shape": [
+          32,
+          32
+        ],
+        "max_abs": 0.0,
+        "relative_l2": 0.0,
+        "exact": true,
+        "full_output_relative_l2_vs_cublas": 0.0,
+        "full_output_elements_checked": 67108864,
+        "ours_equals_ptxas": true
+      },
+      {
+        "pattern": "normal",
+        "seed": 17,
+        "method": "cublas",
+        "sample_shape": [
+          32,
+          32
+        ],
+        "max_abs": 0.0011820861836895347,
+        "relative_l2": 3.3550611336898946e-06,
+        "exact": false,
+        "full_output_relative_l2_vs_cublas": 0.0,
+        "full_output_elements_checked": 67108864
+      },
+      {
+        "pattern": "normal",
+        "seed": 17,
+        "method": "ours",
+        "sample_shape": [
+          32,
+          32
+        ],
+        "max_abs": 0.0019908020040020347,
+        "relative_l2": 6.740927267428163e-06,
+        "exact": false,
+        "full_output_relative_l2_vs_cublas": 3.980057044827845e-06,
+        "full_output_elements_checked": 67108864
+      },
+      {
+        "pattern": "normal",
+        "seed": 17,
+        "method": "ptxas",
+        "sample_shape": [
+          32,
+          32
+        ],
+        "max_abs": 0.0019908020040020347,
+        "relative_l2": 6.740927267428163e-06,
+        "exact": false,
+        "full_output_relative_l2_vs_cublas": 3.980057044827845e-06,
+        "full_output_elements_checked": 67108864
+      },
+      {
+        "pattern": "normal",
+        "seed": 17,
+        "method": "cache_l2_128_confirm_tall_f16",
+        "sample_shape": [
+          32,
+          32
+        ],
+        "max_abs": 0.0019908020040020347,
+        "relative_l2": 6.740927267428163e-06,
+        "exact": false,
+        "full_output_relative_l2_vs_cublas": 3.980057044827845e-06,
+        "full_output_elements_checked": 67108864,
+        "ours_equals_ptxas": true
+      },
+      {
+        "pattern": "normal",
+        "seed": 29,
+        "method": "cublas",
+        "sample_shape": [
+          32,
+          32
+        ],
+        "max_abs": 0.0009078482398763299,
+        "relative_l2": 3.4240746484365183e-06,
+        "exact": false,
+        "full_output_relative_l2_vs_cublas": 0.0,
+        "full_output_elements_checked": 67108864
+      },
+      {
+        "pattern": "normal",
+        "seed": 29,
+        "method": "ours",
+        "sample_shape": [
+          32,
+          32
+        ],
+        "max_abs": 0.00147242343518883,
+        "relative_l2": 6.644145889332136e-06,
+        "exact": false,
+        "full_output_relative_l2_vs_cublas": 3.980753717769403e-06,
+        "full_output_elements_checked": 67108864
+      },
+      {
+        "pattern": "normal",
+        "seed": 29,
+        "method": "ptxas",
+        "sample_shape": [
+          32,
+          32
+        ],
+        "max_abs": 0.00147242343518883,
+        "relative_l2": 6.644145889332136e-06,
+        "exact": false,
+        "full_output_relative_l2_vs_cublas": 3.980753717769403e-06,
+        "full_output_elements_checked": 67108864
+      },
+      {
+        "pattern": "normal",
+        "seed": 29,
+        "method": "cache_l2_128_confirm_tall_f16",
+        "sample_shape": [
+          32,
+          32
+        ],
+        "max_abs": 0.00147242343518883,
+        "relative_l2": 6.644145889332136e-06,
+        "exact": false,
+        "full_output_relative_l2_vs_cublas": 3.980753717769403e-06,
+        "full_output_elements_checked": 67108864,
+        "ours_equals_ptxas": true
+      },
+      {
+        "pattern": "scaled",
+        "seed": 17,
+        "method": "cublas",
+        "sample_shape": [
+          32,
+          32
+        ],
+        "max_abs": 0.0011685494100674987,
+        "relative_l2": 3.3548045998557577e-06,
+        "exact": false,
+        "full_output_relative_l2_vs_cublas": 0.0,
+        "full_output_elements_checked": 67108864
+      },
+      {
+        "pattern": "scaled",
+        "seed": 17,
+        "method": "ours",
+        "sample_shape": [
+          32,
+          32
+        ],
+        "max_abs": 0.0019772652303799987,
+        "relative_l2": 6.739002039238111e-06,
+        "exact": false,
+        "full_output_relative_l2_vs_cublas": 3.980062047048705e-06,
+        "full_output_elements_checked": 67108864
+      },
+      {
+        "pattern": "scaled",
+        "seed": 17,
+        "method": "ptxas",
+        "sample_shape": [
+          32,
+          32
+        ],
+        "max_abs": 0.0019772652303799987,
+        "relative_l2": 6.739002039238111e-06,
+        "exact": false,
+        "full_output_relative_l2_vs_cublas": 3.980062047048705e-06,
+        "full_output_elements_checked": 67108864
+      },
+      {
+        "pattern": "scaled",
+        "seed": 17,
+        "method": "cache_l2_128_confirm_tall_f16",
+        "sample_shape": [
+          32,
+          32
+        ],
+        "max_abs": 0.0019772652303799987,
+        "relative_l2": 6.739002039238111e-06,
+        "exact": false,
+        "full_output_relative_l2_vs_cublas": 3.980062047048705e-06,
+        "full_output_elements_checked": 67108864,
+        "ours_equals_ptxas": true
+      },
+      {
+        "pattern": "scaled",
+        "seed": 29,
+        "method": "cublas",
+        "sample_shape": [
+          32,
+          32
+        ],
+        "max_abs": 0.0009056691778823733,
+        "relative_l2": 3.4273131906790167e-06,
+        "exact": false,
+        "full_output_relative_l2_vs_cublas": 0.0,
+        "full_output_elements_checked": 67108864
+      },
+      {
+        "pattern": "scaled",
+        "seed": 29,
+        "method": "ours",
+        "sample_shape": [
+          32,
+          32
+        ],
+        "max_abs": 0.0014626149786636233,
+        "relative_l2": 6.648392532325371e-06,
+        "exact": false,
+        "full_output_relative_l2_vs_cublas": 3.980745987064438e-06,
+        "full_output_elements_checked": 67108864
+      },
+      {
+        "pattern": "scaled",
+        "seed": 29,
+        "method": "ptxas",
+        "sample_shape": [
+          32,
+          32
+        ],
+        "max_abs": 0.0014626149786636233,
+        "relative_l2": 6.648392532325371e-06,
+        "exact": false,
+        "full_output_relative_l2_vs_cublas": 3.980745987064438e-06,
+        "full_output_elements_checked": 67108864
+      },
+      {
+        "pattern": "scaled",
+        "seed": 29,
+        "method": "cache_l2_128_confirm_tall_f16",
+        "sample_shape": [
+          32,
+          32
+        ],
+        "max_abs": 0.0014626149786636233,
+        "relative_l2": 6.648392532325371e-06,
+        "exact": false,
+        "full_output_relative_l2_vs_cublas": 3.980745987064438e-06,
+        "full_output_elements_checked": 67108864,
+        "ours_equals_ptxas": true
+      }
+    ],
+    "resources": {
+      "ours": {
+        "max_threads": 256,
+        "shared_bytes": 0,
+        "const_bytes": 0,
+        "local_bytes": 0,
+        "num_regs": 216,
+        "ptx_version": 80,
+        "binary_version": 80
+      },
+      "ptxas": {
+        "max_threads": 256,
+        "shared_bytes": 0,
+        "const_bytes": 0,
+        "local_bytes": 0,
+        "num_regs": 234,
+        "ptx_version": 80,
+        "binary_version": 80
+      },
+      "cache_l2_128_confirm_tall_f16": {
+        "max_threads": 256,
+        "shared_bytes": 0,
+        "const_bytes": 0,
+        "local_bytes": 0,
+        "num_regs": 216,
+        "ptx_version": 80,
+        "binary_version": 80
+      }
+    },
+    "milliseconds": {
+      "ours": 2.7652095794677733,
+      "ptxas": 3.494451141357422,
+      "cache_l2_128_confirm_tall_f16": 2.753945541381836,
+      "cublas": 2.3542272567749025
+    },
+    "samples_ms": {
+      "ours": [
+        2.7671552658081056,
+        2.738688087463379,
+        2.7682815551757813,
+        2.7652095794677733,
+        2.750873565673828,
+        2.763212776184082,
+        2.767411231994629
+      ],
+      "ptxas": [
+        3.5040256500244142,
+        3.491891098022461,
+        3.498137664794922,
+        3.493580627441406,
+        3.4950145721435546,
+        3.4842113494873046,
+        3.494451141357422
+      ],
+      "cache_l2_128_confirm_tall_f16": [
+        2.763007926940918,
+        2.689587211608887,
+        2.753945541381836,
+        2.6868223190307616,
+        2.778572845458984,
+        2.6844160079956056,
+        2.765875244140625
+      ],
+      "cublas": [
+        2.315622329711914,
+        2.382745552062988,
+        2.3275007247924804,
+        2.3542272567749025,
+        2.383820724487305,
+        2.368511962890625,
+        2.312447929382324
+      ]
+    },
+    "graph_nodes": 20,
+    "tflops": {
+      "ours": 198.8116264206682,
+      "ptxas": 157.32250692577918,
+      "cache_l2_128_confirm_tall_f16": 199.62479490867176,
+      "cublas": 233.518583350836
+    },
+    "name": "cache_compare_confirm_tall_f16",
+    "worker_rc": 0,
+    "input_provenance": {
+      "build": "address_stagepair_confirm_tall_f16",
+      "grid": [
+        128,
+        32,
+        1
+      ],
+      "threads": 128,
+      "dynamic_shared_bytes": 65536,
+      "ours_sha256": "b08cdb5a6d3678f2eb5b453b23816ae7593655e35ee903c3a87fbd1d67e4d763",
+      "ptxas_sha256": "318311614de65b2bf13118306e996a716ceb02fec35f29ac768bb0e735a9a15d",
+      "ptx_sha256": "25df2a8950638940c87ab9460c01dd92883610f0e93b26159e410e9f8b6adb6a",
+      "compilation": {
+        "compiler": "OpenAssembler isolated LDGSTS shared-immediate experiment",
+        "fallback": false,
+        "reference_and_ELF_container": "NVIDIA ptxas on matching PTX",
+        "candidate": {
+          "shared_chunk_immediates": true,
+          "global_chunk_immediates": false,
+          "stage_pair": true,
+          "paired_b": true,
+          "row_epilogue": true,
+          "gap": 8,
+          "reuse": true
+        },
+        "geometry": {
+          "m": 16384,
+          "n": 4096,
+          "k": 4096,
+          "bm": 128,
+          "bn": 128,
+          "bk": 64,
+          "wm": 64,
+          "wn": 64,
+          "stages": 2
+        },
+        "source_ptx_sha256": "25df2a8950638940c87ab9460c01dd92883610f0e93b26159e410e9f8b6adb6a",
+        "compiler_source_hashes": {
+          "exp/a100_mma/phase3/address_shared.py": "2343f42ed9321804cbc0835730c7f27dc5941ea2dc6f33a445d5c8996b6ab674",
+          "exp/a100_mma/phase3/address_stage.py": "ae5c2e8cd5e27a59dadd22a8a5138ad2c2c86795daf847cb91da532034fc9f09",
+          "exp/a100_mma/phase3/search_sequences.py": "4ec826e51a60c86eb96764b2a3175483656eb21a02841b5000903575d6f2ae3d",
+          "exp/a100_mma/phase3/search_combined.py": "8a06158ecd2e657bab801b977fdbf8a375dde20d123e3df5c2e88b950aac2ff6",
+          "exp/a100_mma/phase3/epilogue.py": "495a537d20cb63bd5a85d5dacf53875347340c0888d4700f603df850f2b2ea49",
+          "exp/a100_mma/backend.py": "755f6bf4f36f331fb636e2cd7314e4149762d9120f007f2567489858f49fdd69",
+          "exp/a100_mma/pipeline.py": "77769b4f4f433df23826b482d16386f4d0003afaade8ab863a1d5f5345d8b28e",
+          "openassembler/backend/ra.py": "6ed4a3f999f20e5d2317ece1bf4ef47a7e9a2019d461394df486e228797c14fc"
+        },
+        "cli_wall_ms": 2337.942957994528,
+        "kernels": [
+          {
+            "kernel": "gemm",
+            "requested_opt_level": "safe",
+            "applied_schedule": "source-order-HMMA8-epoch-drain15",
+            "scalar_schedule": "mined",
+            "protected_scoreboard_recycling": true,
+            "ldsm_read_barrier": false,
+            "ldsm_address_war_uses_write_completion": true,
+            "list_schedule_with_tensor_ordering": false,
+            "tensor_reuse_hints": true,
+            "experimental_recycle_without_wait": false,
+            "inline_64bit_pointer_increments": true,
+            "optimize_local_homes": true,
+            "licm_ops_hoisted": 0,
+            "ptx_instructions": 1419,
+            "sass_instructions": 1595,
+            "registers": 216,
+            "stages": {
+              "select_ms": 122.09712492767721,
+              "licm_ms": 0.0013330718502402306,
+              "dce_coalesce_ms": 33.1307080341503,
+              "allocate_ms": 599.1454169852659,
+              "lower_ms": 44.30254199542105,
+              "schedule_ms": 101.96566593367606,
+              "encoder_setup_ms": 0.0019170111045241356,
+              "encode_ms": 16.025542048737407
+            }
+          }
+        ],
+        "sass_opcode_counts": {
+          "MOV": 282,
+          "ULDC.64": 1,
+          "S2R": 3,
+          "IMAD.SHL": 81,
+          "LOP3.LUT": 79,
+          "SHF.R.U32.HI": 31,
+          "IADD3": 195,
+          "IMAD": 48,
+          "IMAD.WIDE.U32": 24,
+          "LDGSTS.E.BYPASS.128": 64,
+          "LDGDEPBAR": 4,
+          "IADD3.X": 48,
+          "DEPBAR.LE": 4,
+          "BAR.SYNC.DEFER_BLOCKING": 8,
+          "LDSM.16.M88.4": 128,
+          "HMMA.16816.F32": 512,
+          "NOP": 20,
+          "ISETP.LT.U32.AND": 1,
+          "@P0": 1,
+          "STG.E.64": 64,
+          "EXIT": 1,
+          "BRA": 1
+        },
+        "exact_nvdisasm_tensor_memory_store_operands": true,
+        "spliced_words_and_controls_exact": true,
+        "address_field_evidence_sha256": "5168b037a21ffd74cfa9d6bc4644a7bd7acd471d4862b3145f59b5e507199044"
+      },
+      "alternatives": [
+        {
+          "build": "../phase4/build/cache_l2_128_confirm_tall_f16",
+          "grid": [
+            128,
+            32,
+            1
+          ],
+          "threads": 128,
+          "dynamic_shared_bytes": 65536,
+          "ours_sha256": "becada625ac8a6d7076699ae9895e4a5f208cb4b9eb2a34bdf010fc2c5dd741e",
+          "ptxas_sha256": "e98106de2d93d51adba70b911dcead380a31fee434ab1d7aa492af74d87af6e9",
+          "ptx_sha256": "706f5f42c4b2ac629405e213be27e144c1f57d86194bfe4bc5e1dd8ef8ade740",
+          "compilation": {
+            "compiler": "native OpenAssembler stage-pair plus isolated validated L2-prefetch bit pass",
+            "fallback": false,
+            "candidate": {
+              "l2_prefetch_bytes": 128,
+              "stage_pair": true,
+              "paired_b": true,
+              "row_epilogue": true
+            },
+            "geometry": {
+              "m": 16384,
+              "n": 4096,
+              "k": 4096,
+              "bm": 128,
+              "bn": 128,
+              "bk": 64,
+              "wm": 64,
+              "wn": 64,
+              "stages": 2
+            },
+            "kernels": [
+              {
+                "kernel": "gemm",
+                "requested_opt_level": "safe",
+                "applied_schedule": "source-order-HMMA8-epoch-drain15",
+                "scalar_schedule": "mined",
+                "protected_scoreboard_recycling": true,
+                "ldsm_read_barrier": false,
+                "ldsm_address_war_uses_write_completion": true,
+                "list_schedule_with_tensor_ordering": false,
+                "tensor_reuse_hints": true,
+                "experimental_recycle_without_wait": false,
+                "inline_64bit_pointer_increments": true,
+                "optimize_local_homes": true,
+                "licm_ops_hoisted": 0,
+                "ptx_instructions": 1419,
+                "sass_instructions": 1595,
+                "registers": 216,
+                "stages": {
+                  "select_ms": 122.09712492767721,
+                  "licm_ms": 0.0013330718502402306,
+                  "dce_coalesce_ms": 33.1307080341503,
+                  "allocate_ms": 599.1454169852659,
+                  "lower_ms": 44.30254199542105,
+                  "schedule_ms": 101.96566593367606,
+                  "encoder_setup_ms": 0.0019170111045241356,
+                  "encode_ms": 16.025542048737407
+                }
+              }
+            ],
+            "baseline_build": "address_stagepair_confirm_tall_f16",
+            "baseline_source_sha256": "25df2a8950638940c87ab9460c01dd92883610f0e93b26159e410e9f8b6adb6a",
+            "baseline_cubin_sha256": "b08cdb5a6d3678f2eb5b453b23816ae7593655e35ee903c3a87fbd1d67e4d763",
+            "source_ptx_sha256": "706f5f42c4b2ac629405e213be27e144c1f57d86194bfe4bc5e1dd8ef8ade740",
+            "native_cubin_sha256": "becada625ac8a6d7076699ae9895e4a5f208cb4b9eb2a34bdf010fc2c5dd741e",
+            "ptxas_reference_sha256": "e98106de2d93d51adba70b911dcead380a31fee434ab1d7aa492af74d87af6e9",
+            "evidence_sha256": "e4022691deb41d2a60b2974a9a837bf627f857773437be2ccccba19cc4afeda5",
+            "postpass_source_sha256": "cfa1c5999d39078dded3118ccd83ebcb1e8b5b6cc1df730de385eef8ee0cdcf0",
+            "postpass_changed_only_bits": [
+              72
+            ],
+            "copy_instructions_changed": [
+              {
+                "instruction_index": 451,
+                "address": 7216,
+                "old_word": "0009e4000b901c4400000000b2b17fae",
+                "new_word": "0009e4000b901d4400000000b2b17fae",
+                "changed_bits": [
+                  72
+                ],
+                "old_text": "LDGSTS.E.BYPASS.128 [R177], [R178.64]"
+              },
+              {
+                "instruction_index": 454,
+                "address": 7264,
+                "old_word": "000be4000b901c4400800000b2b17fae",
+                "new_word": "000be4000b901d4400800000b2b17fae",
+                "changed_bits": [
+                  72
+                ],
+                "old_text": "LDGSTS.E.BYPASS.128 [R177+0x800], [R178.64]"
+              },
+              {
+                "instruction_index": 457,
+                "address": 7312,
+                "old_word": "0003e4000b901c4401000000b2b17fae",
+                "new_word": "0003e4000b901d4401000000b2b17fae",
+                "changed_bits": [
+                  72
+                ],
+                "old_text": "LDGSTS.E.BYPASS.128 [R177+0x1000], [R178.64]"
+              },
+              {
+                "instruction_index": 460,
+                "address": 7360,
+                "old_word": "0005e4000b901c4401800000b2b17fae",
+                "new_word": "0005e4000b901d4401800000b2b17fae",
+                "changed_bits": [
+                  72
+                ],
+                "old_text": "LDGSTS.E.BYPASS.128 [R177+0x1800], [R178.64]"
+              },
+              {
+                "instruction_index": 463,
+                "address": 7408,
+                "old_word": "0007e4000b901c4402000000b2b17fae",
+                "new_word": "0007e4000b901d4402000000b2b17fae",
+                "changed_bits": [
+                  72
+                ],
+                "old_text": "LDGSTS.E.BYPASS.128 [R177+0x2000], [R178.64]"
+              },
+              {
+                "instruction_index": 466,
+                "address": 7456,
+                "old_word": "0009e4000b901c4402800000b2b17fae",
+                "new_word": "0009e4000b901d4402800000b2b17fae",
+                "changed_bits": [
+                  72
+                ],
+                "old_text": "LDGSTS.E.BYPASS.128 [R177+0x2800], [R178.64]"
+              },
+              {
+                "instruction_index": 469,
+                "address": 7504,
+                "old_word": "000be4000b901c4403000000b2b17fae",
+                "new_word": "000be4000b901d4403000000b2b17fae",
+                "changed_bits": [
+                  72
+                ],
+                "old_text": "LDGSTS.E.BYPASS.128 [R177+0x3000], [R178.64]"
+              },
+              {
+                "instruction_index": 472,
+                "address": 7552,
+                "old_word": "0003e4000b901c4403800000b2b17fae",
+                "new_word": "0003e4000b901d4403800000b2b17fae",
+                "changed_bits": [
+                  72
+                ],
+                "old_text": "LDGSTS.E.BYPASS.128 [R177+0x3800], [R178.64]"
+              },
+              {
+                "instruction_index": 476,
+                "address": 7616,
+                "old_word": "0005e4000b901c4400000000b2b17fae",
+                "new_word": "0005e4000b901d4400000000b2b17fae",
+                "changed_bits": [
+                  72
+                ],
+                "old_text": "LDGSTS.E.BYPASS.128 [R177], [R178.64]"
+              },
+              {
+                "instruction_index": 479,
+                "address": 7664,
+                "old_word": "0007e4000b901c4400800000b2b17fae",
+                "new_word": "0007e4000b901d4400800000b2b17fae",
+                "changed_bits": [
+                  72
+                ],
+                "old_text": "LDGSTS.E.BYPASS.128 [R177+0x800], [R178.64]"
+              },
+              {
+                "instruction_index": 482,
+                "address": 7712,
+                "old_word": "0009e4000b901c4401000000b2b17fae",
+                "new_word": "0009e4000b901d4401000000b2b17fae",
+                "changed_bits": [
+                  72
+                ],
+                "old_text": "LDGSTS.E.BYPASS.128 [R177+0x1000], [R178.64]"
+              },
+              {
+                "instruction_index": 485,
+                "address": 7760,
+                "old_word": "000be4000b901c4401800000b2b17fae",
+                "new_word": "000be4000b901d4401800000b2b17fae",
+                "changed_bits": [
+                  72
+                ],
+                "old_text": "LDGSTS.E.BYPASS.128 [R177+0x1800], [R178.64]"
+              },
+              {
+                "instruction_index": 488,
+                "address": 7808,
+                "old_word": "0003e4000b901c4402000000b2b17fae",
+                "new_word": "0003e4000b901d4402000000b2b17fae",
+                "changed_bits": [
+                  72
+                ],
+                "old_text": "LDGSTS.E.BYPASS.128 [R177+0x2000], [R178.64]"
+              },
+              {
+                "instruction_index": 491,
+                "address": 7856,
+                "old_word": "0005e4000b901c4402800000b2b17fae",
+                "new_word": "0005e4000b901d4402800000b2b17fae",
+                "changed_bits": [
+                  72
+                ],
+                "old_text": "LDGSTS.E.BYPASS.128 [R177+0x2800], [R178.64]"
+              },
+              {
+                "instruction_index": 494,
+                "address": 7904,
+                "old_word": "0007e4000b901c4403000000b2b17fae",
+                "new_word": "0007e4000b901d4403000000b2b17fae",
+                "changed_bits": [
+                  72
+                ],
+                "old_text": "LDGSTS.E.BYPASS.128 [R177+0x3000], [R178.64]"
+              },
+              {
+                "instruction_index": 497,
+                "address": 7952,
+                "old_word": "0009e4000b901c4403800000b2b17fae",
+                "new_word": "0009e4000b901d4403800000b2b17fae",
+                "changed_bits": [
+                  72
+                ],
+                "old_text": "LDGSTS.E.BYPASS.128 [R177+0x3800], [R178.64]"
+              },
+              {
+                "instruction_index": 536,
+                "address": 8576,
+                "old_word": "000be4000b901c4400000000b2b17fae",
+                "new_word": "000be4000b901d4400000000b2b17fae",
+                "changed_bits": [
+                  72
+                ],
+                "old_text": "LDGSTS.E.BYPASS.128 [R177], [R178.64]"
+              },
+              {
+                "instruction_index": 539,
+                "address": 8624,
+                "old_word": "0003e4000b901c4400800000b2b17fae",
+                "new_word": "0003e4000b901d4400800000b2b17fae",
+                "changed_bits": [
+                  72
+                ],
+                "old_text": "LDGSTS.E.BYPASS.128 [R177+0x800], [R178.64]"
+              },
+              {
+                "instruction_index": 542,
+                "address": 8672,
+                "old_word": "0005e4000b901c4401000000b2b17fae",
+                "new_word": "0005e4000b901d4401000000b2b17fae",
+                "changed_bits": [
+                  72
+                ],
+                "old_text": "LDGSTS.E.BYPASS.128 [R177+0x1000], [R178.64]"
+              },
+              {
+                "instruction_index": 545,
+                "address": 8720,
+                "old_word": "0007e4000b901c4401800000b2b17fae",
+                "new_word": "0007e4000b901d4401800000b2b17fae",
+                "changed_bits": [
+                  72
+                ],
+                "old_text": "LDGSTS.E.BYPASS.128 [R177+0x1800], [R178.64]"
+              },
+              {
+                "instruction_index": 548,
+                "address": 8768,
+                "old_word": "0009e4000b901c4402000000b2b17fae",
+                "new_word": "0009e4000b901d4402000000b2b17fae",
+                "changed_bits": [
+                  72
+                ],
+                "old_text": "LDGSTS.E.BYPASS.128 [R177+0x2000], [R178.64]"
+              },
+              {
+                "instruction_index": 551,
+                "address": 8816,
+                "old_word": "000be4000b901c4402800000b2b17fae",
+                "new_word": "000be4000b901d4402800000b2b17fae",
+                "changed_bits": [
+                  72
+                ],
+                "old_text": "LDGSTS.E.BYPASS.128 [R177+0x2800], [R178.64]"
+              },
+              {
+                "instruction_index": 554,
+                "address": 8864,
+                "old_word": "0003e4000b901c4403000000b2b17fae",
+                "new_word": "0003e4000b901d4403000000b2b17fae",
+                "changed_bits": [
+                  72
+                ],
+                "old_text": "LDGSTS.E.BYPASS.128 [R177+0x3000], [R178.64]"
+              },
+              {
+                "instruction_index": 557,
+                "address": 8912,
+                "old_word": "0005e4000b901c4403800000b2b17fae",
+                "new_word": "0005e4000b901d4403800000b2b17fae",
+                "changed_bits": [
+                  72
+                ],
+                "old_text": "LDGSTS.E.BYPASS.128 [R177+0x3800], [R178.64]"
+              },
+              {
+                "instruction_index": 561,
+                "address": 8976,
+                "old_word": "0007e4000b901c4400000000b2b17fae",
+                "new_word": "0007e4000b901d4400000000b2b17fae",
+                "changed_bits": [
+                  72
+                ],
+                "old_text": "LDGSTS.E.BYPASS.128 [R177], [R178.64]"
+              },
+              {
+                "instruction_index": 564,
+                "address": 9024,
+                "old_word": "0009e4000b901c4400800000b2b17fae",
+                "new_word": "0009e4000b901d4400800000b2b17fae",
+                "changed_bits": [
+                  72
+                ],
+                "old_text": "LDGSTS.E.BYPASS.128 [R177+0x800], [R178.64]"
+              },
+              {
+                "instruction_index": 567,
+                "address": 9072,
+                "old_word": "000be4000b901c4401000000b2b17fae",
+                "new_word": "000be4000b901d4401000000b2b17fae",
+                "changed_bits": [
+                  72
+                ],
+                "old_text": "LDGSTS.E.BYPASS.128 [R177+0x1000], [R178.64]"
+              },
+              {
+                "instruction_index": 570,
+                "address": 9120,
+                "old_word": "0003e4000b901c4401800000b2b17fae",
+                "new_word": "0003e4000b901d4401800000b2b17fae",
+                "changed_bits": [
+                  72
+                ],
+                "old_text": "LDGSTS.E.BYPASS.128 [R177+0x1800], [R178.64]"
+              },
+              {
+                "instruction_index": 573,
+                "address": 9168,
+                "old_word": "0005e4000b901c4402000000b2b17fae",
+                "new_word": "0005e4000b901d4402000000b2b17fae",
+                "changed_bits": [
+                  72
+                ],
+                "old_text": "LDGSTS.E.BYPASS.128 [R177+0x2000], [R178.64]"
+              },
+              {
+                "instruction_index": 576,
+                "address": 9216,
+                "old_word": "0007e4000b901c4402800000b2b17fae",
+                "new_word": "0007e4000b901d4402800000b2b17fae",
+                "changed_bits": [
+                  72
+                ],
+                "old_text": "LDGSTS.E.BYPASS.128 [R177+0x2800], [R178.64]"
+              },
+              {
+                "instruction_index": 579,
+                "address": 9264,
+                "old_word": "0009e4000b901c4403000000b2b17fae",
+                "new_word": "0009e4000b901d4403000000b2b17fae",
+                "changed_bits": [
+                  72
+                ],
+                "old_text": "LDGSTS.E.BYPASS.128 [R177+0x3000], [R178.64]"
+              },
+              {
+                "instruction_index": 582,
+                "address": 9312,
+                "old_word": "000be4000b901c4403800000b2b17fae",
+                "new_word": "000be4000b901d4403800000b2b17fae",
+                "changed_bits": [
+                  72
+                ],
+                "old_text": "LDGSTS.E.BYPASS.128 [R177+0x3800], [R178.64]"
+              },
+              {
+                "instruction_index": 800,
+                "address": 12800,
+                "old_word": "0007e4000b901c4400000000b2b17fae",
+                "new_word": "0007e4000b901d4400000000b2b17fae",
+                "changed_bits": [
+                  72
+                ],
+                "old_text": "LDGSTS.E.BYPASS.128 [R177], [R178.64]"
+              },
+              {
+                "instruction_index": 803,
+                "address": 12848,
+                "old_word": "0009e4000b901c4400800000b2b17fae",
+                "new_word": "0009e4000b901d4400800000b2b17fae",
+                "changed_bits": [
+                  72
+                ],
+                "old_text": "LDGSTS.E.BYPASS.128 [R177+0x800], [R178.64]"
+              },
+              {
+                "instruction_index": 806,
+                "address": 12896,
+                "old_word": "000be4000b901c4401000000b2b17fae",
+                "new_word": "000be4000b901d4401000000b2b17fae",
+                "changed_bits": [
+                  72
+                ],
+                "old_text": "LDGSTS.E.BYPASS.128 [R177+0x1000], [R178.64]"
+              },
+              {
+                "instruction_index": 809,
+                "address": 12944,
+                "old_word": "0003e4000b901c4401800000b2b17fae",
+                "new_word": "0003e4000b901d4401800000b2b17fae",
+                "changed_bits": [
+                  72
+                ],
+                "old_text": "LDGSTS.E.BYPASS.128 [R177+0x1800], [R178.64]"
+              },
+              {
+                "instruction_index": 812,
+                "address": 12992,
+                "old_word": "0005e4000b901c4402000000b2b17fae",
+                "new_word": "0005e4000b901d4402000000b2b17fae",
+                "changed_bits": [
+                  72
+                ],
+                "old_text": "LDGSTS.E.BYPASS.128 [R177+0x2000], [R178.64]"
+              },
+              {
+                "instruction_index": 815,
+                "address": 13040,
+                "old_word": "0007e4000b901c4402800000b2b17fae",
+                "new_word": "0007e4000b901d4402800000b2b17fae",
+                "changed_bits": [
+                  72
+                ],
+                "old_text": "LDGSTS.E.BYPASS.128 [R177+0x2800], [R178.64]"
+              },
+              {
+                "instruction_index": 818,
+                "address": 13088,
+                "old_word": "0009e4000b901c4403000000b2b17fae",
+                "new_word": "0009e4000b901d4403000000b2b17fae",
+                "changed_bits": [
+                  72
+                ],
+                "old_text": "LDGSTS.E.BYPASS.128 [R177+0x3000], [R178.64]"
+              },
+              {
+                "instruction_index": 821,
+                "address": 13136,
+                "old_word": "000be4000b901c4403800000b2b17fae",
+                "new_word": "000be4000b901d4403800000b2b17fae",
+                "changed_bits": [
+                  72
+                ],
+                "old_text": "LDGSTS.E.BYPASS.128 [R177+0x3800], [R178.64]"
+              },
+              {
+                "instruction_index": 825,
+                "address": 13200,
+                "old_word": "0003e4000b901c4400000000b2b17fae",
+                "new_word": "0003e4000b901d4400000000b2b17fae",
+                "changed_bits": [
+                  72
+                ],
+                "old_text": "LDGSTS.E.BYPASS.128 [R177], [R178.64]"
+              },
+              {
+                "instruction_index": 828,
+                "address": 13248,
+                "old_word": "0005e4000b901c4400800000b2b17fae",
+                "new_word": "0005e4000b901d4400800000b2b17fae",
+                "changed_bits": [
+                  72
+                ],
+                "old_text": "LDGSTS.E.BYPASS.128 [R177+0x800], [R178.64]"
+              },
+              {
+                "instruction_index": 831,
+                "address": 13296,
+                "old_word": "0007e4000b901c4401000000b2b17fae",
+                "new_word": "0007e4000b901d4401000000b2b17fae",
+                "changed_bits": [
+                  72
+                ],
+                "old_text": "LDGSTS.E.BYPASS.128 [R177+0x1000], [R178.64]"
+              },
+              {
+                "instruction_index": 834,
+                "address": 13344,
+                "old_word": "0009e4000b901c4401800000b2b17fae",
+                "new_word": "0009e4000b901d4401800000b2b17fae",
+                "changed_bits": [
+                  72
+                ],
+                "old_text": "LDGSTS.E.BYPASS.128 [R177+0x1800], [R178.64]"
+              },
+              {
+                "instruction_index": 837,
+                "address": 13392,
+                "old_word": "000be4000b901c4402000000b2b17fae",
+                "new_word": "000be4000b901d4402000000b2b17fae",
+                "changed_bits": [
+                  72
+                ],
+                "old_text": "LDGSTS.E.BYPASS.128 [R177+0x2000], [R178.64]"
+              },
+              {
+                "instruction_index": 840,
+                "address": 13440,
+                "old_word": "0003e4000b901c4402800000b2b17fae",
+                "new_word": "0003e4000b901d4402800000b2b17fae",
+                "changed_bits": [
+                  72
+                ],
+                "old_text": "LDGSTS.E.BYPASS.128 [R177+0x2800], [R178.64]"
+              },
+              {
+                "instruction_index": 843,
+                "address": 13488,
+                "old_word": "0005e4000b901c4403000000b2b17fae",
+                "new_word": "0005e4000b901d4403000000b2b17fae",
+                "changed_bits": [
+                  72
+                ],
+                "old_text": "LDGSTS.E.BYPASS.128 [R177+0x3000], [R178.64]"
+              },
+              {
+                "instruction_index": 846,
+                "address": 13536,
+                "old_word": "0007e4000b901c4403800000b2b17fae",
+                "new_word": "0007e4000b901d4403800000b2b17fae",
+                "changed_bits": [
+                  72
+                ],
+                "old_text": "LDGSTS.E.BYPASS.128 [R177+0x3800], [R178.64]"
+              },
+              {
+                "instruction_index": 1067,
+                "address": 17072,
+                "old_word": "0003e4000b901c4400000000b2077fae",
+                "new_word": "0003e4000b901d4400000000b2077fae",
+                "changed_bits": [
+                  72
+                ],
+                "old_text": "LDGSTS.E.BYPASS.128 [R7], [R178.64]"
+              },
+              {
+                "instruction_index": 1070,
+                "address": 17120,
+                "old_word": "0005e4000b901c4400800000b2077fae",
+                "new_word": "0005e4000b901d4400800000b2077fae",
+                "changed_bits": [
+                  72
+                ],
+                "old_text": "LDGSTS.E.BYPASS.128 [R7+0x800], [R178.64]"
+              },
+              {
+                "instruction_index": 1073,
+                "address": 17168,
+                "old_word": "0007e4000b901c4401000000b2077fae",
+                "new_word": "0007e4000b901d4401000000b2077fae",
+                "changed_bits": [
+                  72
+                ],
+                "old_text": "LDGSTS.E.BYPASS.128 [R7+0x1000], [R178.64]"
+              },
+              {
+                "instruction_index": 1076,
+                "address": 17216,
+                "old_word": "0009e4000b901c4401800000b2077fae",
+                "new_word": "0009e4000b901d4401800000b2077fae",
+                "changed_bits": [
+                  72
+                ],
+                "old_text": "LDGSTS.E.BYPASS.128 [R7+0x1800], [R178.64]"
+              },
+              {
+                "instruction_index": 1079,
+                "address": 17264,
+                "old_word": "000be4000b901c4402000000b2077fae",
+                "new_word": "000be4000b901d4402000000b2077fae",
+                "changed_bits": [
+                  72
+                ],
+                "old_text": "LDGSTS.E.BYPASS.128 [R7+0x2000], [R178.64]"
+              },
+              {
+                "instruction_index": 1082,
+                "address": 17312,
+                "old_word": "0003e4000b901c4402800000b2077fae",
+                "new_word": "0003e4000b901d4402800000b2077fae",
+                "changed_bits": [
+                  72
+                ],
+                "old_text": "LDGSTS.E.BYPASS.128 [R7+0x2800], [R178.64]"
+              },
+              {
+                "instruction_index": 1085,
+                "address": 17360,
+                "old_word": "0005e4000b901c4403000000b2077fae",
+                "new_word": "0005e4000b901d4403000000b2077fae",
+                "changed_bits": [
+                  72
+                ],
+                "old_text": "LDGSTS.E.BYPASS.128 [R7+0x3000], [R178.64]"
+              },
+              {
+                "instruction_index": 1088,
+                "address": 17408,
+                "old_word": "0007e4000b901c4403800000b2077fae",
+                "new_word": "0007e4000b901d4403800000b2077fae",
+                "changed_bits": [
+                  72
+                ],
+                "old_text": "LDGSTS.E.BYPASS.128 [R7+0x3800], [R178.64]"
+              },
+              {
+                "instruction_index": 1092,
+                "address": 17472,
+                "old_word": "0009e4000b901c440000000088077fae",
+                "new_word": "0009e4000b901d440000000088077fae",
+                "changed_bits": [
+                  72
+                ],
+                "old_text": "LDGSTS.E.BYPASS.128 [R7], [R136.64]"
+              },
+              {
+                "instruction_index": 1095,
+                "address": 17520,
+                "old_word": "000be4000b901c440080000088077fae",
+                "new_word": "000be4000b901d440080000088077fae",
+                "changed_bits": [
+                  72
+                ],
+                "old_text": "LDGSTS.E.BYPASS.128 [R7+0x800], [R136.64]"
+              },
+              {
+                "instruction_index": 1098,
+                "address": 17568,
+                "old_word": "0003e4000b901c440100000088077fae",
+                "new_word": "0003e4000b901d440100000088077fae",
+                "changed_bits": [
+                  72
+                ],
+                "old_text": "LDGSTS.E.BYPASS.128 [R7+0x1000], [R136.64]"
+              },
+              {
+                "instruction_index": 1101,
+                "address": 17616,
+                "old_word": "0005e4000b901c440180000088077fae",
+                "new_word": "0005e4000b901d440180000088077fae",
+                "changed_bits": [
+                  72
+                ],
+                "old_text": "LDGSTS.E.BYPASS.128 [R7+0x1800], [R136.64]"
+              },
+              {
+                "instruction_index": 1104,
+                "address": 17664,
+                "old_word": "0007e4000b901c440200000088077fae",
+                "new_word": "0007e4000b901d440200000088077fae",
+                "changed_bits": [
+                  72
+                ],
+                "old_text": "LDGSTS.E.BYPASS.128 [R7+0x2000], [R136.64]"
+              },
+              {
+                "instruction_index": 1107,
+                "address": 17712,
+                "old_word": "0009e4000b901c440280000088077fae",
+                "new_word": "0009e4000b901d440280000088077fae",
+                "changed_bits": [
+                  72
+                ],
+                "old_text": "LDGSTS.E.BYPASS.128 [R7+0x2800], [R136.64]"
+              },
+              {
+                "instruction_index": 1110,
+                "address": 17760,
+                "old_word": "000be4000b901c440300000088077fae",
+                "new_word": "000be4000b901d440300000088077fae",
+                "changed_bits": [
+                  72
+                ],
+                "old_text": "LDGSTS.E.BYPASS.128 [R7+0x3000], [R136.64]"
+              },
+              {
+                "instruction_index": 1113,
+                "address": 17808,
+                "old_word": "0003e4000b901c440380000088077fae",
+                "new_word": "0003e4000b901d440380000088077fae",
+                "changed_bits": [
+                  72
+                ],
+                "old_text": "LDGSTS.E.BYPASS.128 [R7+0x3800], [R136.64]"
+              }
+            ],
+            "all_controls_and_noncopy_words_exact": true,
+            "all_nontext_section_data_exact": true,
+            "valid_nvdisasm": true,
+            "reference_is_matching_hinted_ptx": true,
+            "sass_opcode_counts": {
+              "MOV": 282,
+              "ULDC.64": 1,
+              "S2R": 3,
+              "IMAD.SHL": 81,
+              "LOP3.LUT": 79,
+              "SHF.R.U32.HI": 31,
+              "IADD3": 195,
+              "IMAD": 48,
+              "IMAD.WIDE.U32": 24,
+              "LDGSTS.E.BYPASS.LTC128B.128": 64,
+              "LDGDEPBAR": 4,
+              "IADD3.X": 48,
+              "DEPBAR.LE": 4,
+              "BAR.SYNC.DEFER_BLOCKING": 8,
+              "LDSM.16.M88.4": 128,
+              "HMMA.16816.F32": 512,
+              "NOP": 20,
+              "ISETP.LT.U32.AND": 1,
+              "@P0": 1,
+              "STG.E.64": 64,
+              "EXIT": 1,
+              "BRA": 1
+            }
+          }
+        }
+      ]
+    },
+    "recorded_utc": "20261104T024558.705725Z"
+  }
+]

@@ -1,5 +1,19 @@
 # Status (sm_80; CUDA 12.8 oracle; real-hardware validation on A100 via Modal)
 
+2026-11-04 update: the standard CLI now compiles supported SM80 tensor PTX.
+`openassembler gemm --m M --n N --k K --dtype f16|bf16` generates the validated
+full-tile schedule, and `run` reads its launch contract. Six native instruction
+streams match the measured kernels exactly and pass full-output A100 checks;
+452 repository tests pass. See [the public contract](TENSOR_GEMM.md) and
+[integration evidence](../exp/a100_mma/phase4/REPORT.md). Historical measurements
+below retain their original scope; no whole-training-step speedup is claimed.
+
+The [November 4 integration review](INTEGRATION_REVIEW.md) adds current CLI,
+mixed-manifest, writer-lock, FP16/BF16 spec, application replay and wheel checks.
+Its [machine-readable evidence](evidence/integration-20261104.json) records the
+latest full-suite result and fresh A100 execution. Historical test counts below
+refer to their original snapshots.
+
 Updated 2026-11-03. Every number below comes from a script in this repo. Section
 "Reproduce" lists the exact command for each one.
 
@@ -7,6 +21,8 @@ Updated 2026-11-03. Every number below comes from a script in this repo. Section
 
 | Area | Result |
 |---|---|
+| **Current integration (2026-11-04)** | **486 tests pass**, no failures/skips; 262 supported scalar probes match semantics. Fresh A100 scalar/barrier/FP16/BF16 runs pass; original Transformer and nested-model applications replay with zero GPU code generation. Installed wheel passes outside-checkout checks. [Review](INTEGRATION_REVIEW.md), [evidence](evidence/integration-20261104.json). |
+| **Native tensor CLI** | `compile` selects supported SM80 tensor PTX; `gemm` generates the validated FP16/BF16 full-tile plan. `run` uses retained launch metadata or an explicit FP16/BF16 `--spec`. PyTorch capture remains a separate backend. [Contract](TENSOR_GEMM.md). |
 | **Measured speed, our compiler vs ptxas** (A100, 7 loop kernels, best median of 3 shuffled rounds) | ptxas time / our time: div7 **1.36×**, rem1000 **1.19×**, smem 1.05×, ilp4.imad 1.03×, ilp4.ffma 1.01×, chain.imad_lop3 0.95×, chain.ffma 0.92×. All 49 bench cubins bit-exact. `corpus/sm_80/gpu_a100_40gb_bench_times.json` |
 | **Fast matmul (Strassen / AlphaTensor) compiled by our compiler** | 97 schemes imported and **all verified exactly** over the rationals. At n = 8192 fp32 on the A100: cuBLAS 57.6 ms; our direct GEMM 60.0 ms; **one Strassen / AlphaTensor-2×2×2 level 58.4 / 58.3 ms** (2.7% faster than our direct GEMM, 1.4% slower than cuBLAS); 4×4×4 schemes 69–72 ms. Relative error 2–6e-6 (cuBLAS 1.6e-6). `corpus/sm_80/fastmm_a100_40gb_n8192_sgemm128.json` |
 | Hardware latencies (A100, measured, not mined) | Fixed-latency RAW: **4 cycles within a pipe, 5 across** (IMAD/FFMA pipe vs IADD3/LOP3/SHF pipe). **Predicate → any `@P`-guarded op or branch: 13 cycles.** SETP → `SEL …, P`: 4. ALU → STG data: 1–2. 33 pairs × stalls 1–15. `corpus/sm_80/hw_latency.json` |
@@ -145,7 +161,7 @@ but not yet against a real SSH host.
 
 ## Gaps and next steps
 
-- **Base GEMM is 4% behind cuBLAS** at n = 8192, and every fast-matmul plan inherits that gap. Next steps: tensor-core (TF32/HMMA) GEMM using our bit-exact HMMA model, `LDGSTS` (cp.async) pipelining, and a 128×256 tile. With a GEMM equal to cuBLAS, the measured 2.7% Strassen gain would put us ahead of cuBLAS.
+- **Broader tensor GEMM coverage:** the native FP16/BF16 full-tile SM80 path is now available through `gemm`. TF32, arbitrary tails/layouts and integration into PyTorch forward/backward graphs remain future work. Historical FP32 fast-matmul gains do not predict speedups against current tensor-core cuBLAS.
 - **Fused fgemm kernels are slower than unfused.** They are memory-bound on the 2–4 extra 128-bit loads per k-tile, and the epilogue's read-modify-write of up to 4 C blocks adds traffic. Our scheduler also loses to ptxas on them (76.5 vs 68.0 ms).
 - **4×4×4 schemes:** the block GEMMs are too small for 108 SMs at n = 8192. Try n = 16384 (needs 2 GB more buffers, OK on 40 GB), or two Strassen levels with fused additions.
 - **Dependent chains:** ptxas still wins by 5–8%. It hides the loop counter and branch inside the chain; we pay a 13-cycle predicate wait per unrolled trip. Fix: compute the next trip's predicate one trip early (software pipelining).

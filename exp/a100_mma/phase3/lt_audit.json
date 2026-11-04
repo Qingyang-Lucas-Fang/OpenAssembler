@@ -1,0 +1,392 @@
+{
+  "source": "lt_results_20261103T235453.187530Z.json",
+  "source_sha256": "a4de90ffb3319b5b780b6a97003285bc547479c0c15e25845eca7da701f4676d",
+  "valid": true,
+  "dtypes": [
+    {
+      "dtype": "f16",
+      "structural_checks": {
+        "worker_success": true,
+        "empty_worker_stderr": true,
+        "all_checks_pass": true,
+        "guards_and_finite": true,
+        "zero_integer_exact": true,
+        "all_timed_methods_four_checks": true,
+        "all_timed_methods_seven_samples": true,
+        "all_round_orders_cover_timed_methods": true,
+        "no_graph_rejections": true,
+        "all_attribute_reads_succeeded": true,
+        "heuristic_abi_validated": true
+      },
+      "valid": true,
+      "cublas_version": 120803,
+      "query_results": [
+        {
+          "workspace_cap_bytes": 0,
+          "requested": 32,
+          "returned": 6,
+          "status": 0
+        },
+        {
+          "workspace_cap_bytes": 33554432,
+          "requested": 32,
+          "returned": 5,
+          "status": 0
+        }
+      ],
+      "unique_algorithms": 10,
+      "full_output_check_records": 48,
+      "full_output_element_comparisons": 805306368,
+      "max_full_relative_l2": 3.980247583967866e-06,
+      "max_cpu_float64_sample_relative_l2": 6.647028679564261e-06,
+      "best": {
+        "name": "lt_da7700b505d3",
+        "milliseconds": 0.5764607906341552,
+        "config": {
+          "id": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 21
+          },
+          "tile": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 24
+          },
+          "split_k": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 1
+          },
+          "reduction_scheme": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 0
+          },
+          "cta_swizzle": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 0
+          },
+          "custom_option": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 0
+          },
+          "stages": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 9
+          },
+          "tile_name": "CUBLASLT_MATMUL_TILE_256x128",
+          "stage_name": "CUBLASLT_MATMUL_STAGES_32x3"
+        },
+        "workspace_required_bytes": 0
+      },
+      "workspace_queries_vs_feasibility": {
+        "0": {
+          "best_returned": "lt_da7700b505d3",
+          "best_returned_ms": 0.5764607906341552,
+          "best_known_feasible_from_both_queries": "lt_da7700b505d3",
+          "best_known_feasible_ms": 0.5764607906341552,
+          "returned_names": [
+            "lt_37abb4c47a90",
+            "lt_387df1fda99f",
+            "lt_9490a0cbc189",
+            "lt_b0bbce6015d7",
+            "lt_c136d3e61abd",
+            "lt_da7700b505d3"
+          ],
+          "known_feasible_names": [
+            "lt_37abb4c47a90",
+            "lt_387df1fda99f",
+            "lt_8807f3c96256",
+            "lt_9490a0cbc189",
+            "lt_b0bbce6015d7",
+            "lt_c136d3e61abd",
+            "lt_da7700b505d3",
+            "lt_ff66d3733829"
+          ]
+        },
+        "33554432": {
+          "best_returned": "lt_78a4f24a141f",
+          "best_returned_ms": 0.5882880210876464,
+          "best_known_feasible_from_both_queries": "lt_da7700b505d3",
+          "best_known_feasible_ms": 0.5764607906341552,
+          "returned_names": [
+            "lt_78a4f24a141f",
+            "lt_8807f3c96256",
+            "lt_b0bbce6015d7",
+            "lt_de1b15af7291",
+            "lt_ff66d3733829"
+          ],
+          "known_feasible_names": [
+            "lt_37abb4c47a90",
+            "lt_387df1fda99f",
+            "lt_78a4f24a141f",
+            "lt_8807f3c96256",
+            "lt_9490a0cbc189",
+            "lt_b0bbce6015d7",
+            "lt_c136d3e61abd",
+            "lt_da7700b505d3",
+            "lt_de1b15af7291",
+            "lt_ff66d3733829"
+          ]
+        }
+      },
+      "gemmex_over_best": {
+        "ratio_of_medians": 1.0340172214029,
+        "median_of_round_ratios": 1.0361456057210248,
+        "round_ratios": [
+          1.0547317540662187,
+          1.0470366075366018,
+          1.0361456057210248,
+          1.10679428180644,
+          1.0076543634747197,
+          1.0297540155273373,
+          0.9971014068328562
+        ],
+        "min_round_ratio": 0.9971014068328562,
+        "max_round_ratio": 1.10679428180644,
+        "rounds_numerator_slower": 6,
+        "rounds": 7
+      },
+      "native_over_best": {
+        "search_combined_square_row_bpair_f16": {
+          "ratio_of_medians": 1.1652011922318812,
+          "median_of_round_ratios": 1.1776238835373507,
+          "round_ratios": [
+            1.1790240238040932,
+            1.1776238835373507,
+            1.123426124702615,
+            1.179340810207748,
+            1.168484900628065,
+            1.1802113760653157,
+            1.1523056347836413
+          ],
+          "min_round_ratio": 1.123426124702615,
+          "max_round_ratio": 1.1802113760653157,
+          "rounds_numerator_slower": 7,
+          "rounds": 7
+        }
+      },
+      "native_over_gemmex": {
+        "search_combined_square_row_bpair_f16": {
+          "ratio_of_medians": 1.1268682649704787,
+          "median_of_round_ratios": 1.1247208312114185,
+          "round_ratios": [
+            1.117842540777502,
+            1.1247208312114185,
+            1.0842357661893032,
+            1.0655465334379053,
+            1.1596088331307866,
+            1.1461100012908707,
+            1.155655409657648
+          ],
+          "min_round_ratio": 1.0655465334379053,
+          "max_round_ratio": 1.1596088331307866,
+          "rounds_numerator_slower": 7,
+          "rounds": 7
+        }
+      },
+      "confidence_limit": "Seven shuffled rounds are used both to select and assess the minimum across candidates. Ratios are descriptive; no independent confirmation or statistical confidence interval is claimed."
+    },
+    {
+      "dtype": "bf16",
+      "structural_checks": {
+        "worker_success": true,
+        "empty_worker_stderr": true,
+        "all_checks_pass": true,
+        "guards_and_finite": true,
+        "zero_integer_exact": true,
+        "all_timed_methods_four_checks": true,
+        "all_timed_methods_seven_samples": true,
+        "all_round_orders_cover_timed_methods": true,
+        "no_graph_rejections": true,
+        "all_attribute_reads_succeeded": true,
+        "heuristic_abi_validated": true
+      },
+      "valid": true,
+      "cublas_version": 120803,
+      "query_results": [
+        {
+          "workspace_cap_bytes": 0,
+          "requested": 32,
+          "returned": 8,
+          "status": 0
+        },
+        {
+          "workspace_cap_bytes": 33554432,
+          "requested": 32,
+          "returned": 8,
+          "status": 0
+        }
+      ],
+      "unique_algorithms": 13,
+      "full_output_check_records": 60,
+      "full_output_element_comparisons": 1006632960,
+      "max_full_relative_l2": 4.057196292706067e-06,
+      "max_cpu_float64_sample_relative_l2": 5.419381767510093e-06,
+      "best": {
+        "name": "lt_89ccf1d832f7",
+        "milliseconds": 0.5639167785644531,
+        "config": {
+          "id": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 6
+          },
+          "tile": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 20
+          },
+          "split_k": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 1
+          },
+          "reduction_scheme": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 0
+          },
+          "cta_swizzle": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 1
+          },
+          "custom_option": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 0
+          },
+          "stages": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 11
+          },
+          "tile_name": "CUBLASLT_MATMUL_TILE_128x128",
+          "stage_name": "CUBLASLT_MATMUL_STAGES_32x5"
+        },
+        "workspace_required_bytes": 0
+      },
+      "workspace_queries_vs_feasibility": {
+        "0": {
+          "best_returned": "lt_89ccf1d832f7",
+          "best_returned_ms": 0.5639167785644531,
+          "best_known_feasible_from_both_queries": "lt_89ccf1d832f7",
+          "best_known_feasible_ms": 0.5639167785644531,
+          "returned_names": [
+            "lt_1e44808f09a6",
+            "lt_21e7d084eb81",
+            "lt_2b9e01baa6b5",
+            "lt_4b1b510caaea",
+            "lt_854ada55866e",
+            "lt_89ccf1d832f7",
+            "lt_958af29035a3",
+            "lt_eff0c9d3f0b4"
+          ],
+          "known_feasible_names": [
+            "lt_1e44808f09a6",
+            "lt_21e7d084eb81",
+            "lt_2b9e01baa6b5",
+            "lt_4b1b510caaea",
+            "lt_854ada55866e",
+            "lt_89ccf1d832f7",
+            "lt_958af29035a3",
+            "lt_c2f022f0055f",
+            "lt_eff0c9d3f0b4"
+          ]
+        },
+        "33554432": {
+          "best_returned": "lt_89ccf1d832f7",
+          "best_returned_ms": 0.5639167785644531,
+          "best_known_feasible_from_both_queries": "lt_89ccf1d832f7",
+          "best_known_feasible_ms": 0.5639167785644531,
+          "returned_names": [
+            "lt_0dd66f782644",
+            "lt_315825fdd42a",
+            "lt_4b1b510caaea",
+            "lt_89ccf1d832f7",
+            "lt_958af29035a3",
+            "lt_99b3d966d56e",
+            "lt_bd0406d41798",
+            "lt_c2f022f0055f"
+          ],
+          "known_feasible_names": [
+            "lt_0dd66f782644",
+            "lt_1e44808f09a6",
+            "lt_21e7d084eb81",
+            "lt_2b9e01baa6b5",
+            "lt_315825fdd42a",
+            "lt_4b1b510caaea",
+            "lt_854ada55866e",
+            "lt_89ccf1d832f7",
+            "lt_958af29035a3",
+            "lt_99b3d966d56e",
+            "lt_bd0406d41798",
+            "lt_c2f022f0055f",
+            "lt_eff0c9d3f0b4"
+          ]
+        }
+      },
+      "gemmex_over_best": {
+        "ratio_of_medians": 1.018794299974159,
+        "median_of_round_ratios": 1.0160432861786541,
+        "round_ratios": [
+          1.0050840151899856,
+          1.0088098059125088,
+          1.0200397447244671,
+          1.0160432861786541,
+          1.0190683070504407,
+          1.018794299974159,
+          1.0077979676729396
+        ],
+        "min_round_ratio": 1.0050840151899856,
+        "max_round_ratio": 1.0200397447244671,
+        "rounds_numerator_slower": 7,
+        "rounds": 7
+      },
+      "native_over_best": {
+        "search_combined_square_row_bpair_bf16": {
+          "ratio_of_medians": 1.1623388999603592,
+          "median_of_round_ratios": 1.1707889053739953,
+          "round_ratios": [
+            1.162233351308747,
+            1.143563492690742,
+            1.1707889053739953,
+            1.1743674383404357,
+            1.1480068826368683,
+            1.175413184565243,
+            1.1847381891620579
+          ],
+          "min_round_ratio": 1.143563492690742,
+          "max_round_ratio": 1.1847381891620579,
+          "rounds_numerator_slower": 7,
+          "rounds": 7
+        }
+      },
+      "native_over_gemmex": {
+        "search_combined_square_row_bpair_bf16": {
+          "ratio_of_medians": 1.140896547997806,
+          "median_of_round_ratios": 1.1537296435551871,
+          "round_ratios": [
+            1.1563544278326388,
+            1.1335769002129625,
+            1.1477875361515923,
+            1.1558242196129653,
+            1.1265259401105538,
+            1.1537296435551871,
+            1.175571123543425
+          ],
+          "min_round_ratio": 1.1265259401105538,
+          "max_round_ratio": 1.175571123543425,
+          "rounds_numerator_slower": 7,
+          "rounds": 7
+        }
+      },
+      "confidence_limit": "Seven shuffled rounds are used both to select and assess the minimum across candidates. Ratios are descriptive; no independent confirmation or statistical confidence interval is claimed."
+    }
+  ]
+}

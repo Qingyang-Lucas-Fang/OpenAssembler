@@ -39,10 +39,12 @@ TIPS = [
     "`compile kernel.cu` writes output/cubin/kernel.cubin + output/sass/kernel.sass"
     " (+ manifest.json). `-o NAME` renames it, `--out-dir DIR` moves output/,"
     " `--verify` checks it against the PTX reference interpreter.",
-    "`compile my_repo/` compiles every kernel in a repo (.ptx, .cu/.cpp with"
-    " __global__, .py with @kernel); other files are skipped and counted.",
+    "`compile my_repo/` discovers GPU kernels; openassembler.toml selects PyTorch"
+    " application capture through TorchInductor/Triton with a Python runtime bundle.",
+    "`gemm --m 128 --n 128 --k 128` builds a specialized A100 FP16/BF16 tensor GEMM.",
     "`run` executes output/ on a GPU: our cubin vs ptxas's, bit-exact + timing."
     " `--backend local|modal|user@host`, `--spec`, `--dry-run`.",
+    "`run --application NAME` replays a built PyTorch application; local or Modal.",
     "`cnr SRC` = compile and run in one step.",
     "`status` prints the headline results; `help` lists every command;"
     " `<command> --help` shows its flags.",

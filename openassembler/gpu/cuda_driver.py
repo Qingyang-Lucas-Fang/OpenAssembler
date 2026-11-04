@@ -47,6 +47,7 @@ class Driver:
         cu.cuLaunchKernel.argtypes = [vp] + [C.c_uint] * 7 + [vp, C.POINTER(vp), vp]
         cu.cuModuleLoadDataEx.argtypes = [C.POINTER(vp), vp, C.c_uint, vp, vp]
         cu.cuModuleGetFunction.argtypes = [C.POINTER(vp), vp, C.c_char_p]
+        cu.cuFuncSetAttribute.argtypes = [vp, C.c_int, C.c_int]
         cu.cuEventElapsedTime.argtypes = [C.POINTER(C.c_float), vp, vp]
         cu.cuEventRecord.argtypes = [vp, vp]
         cu.cuEventSynchronize.argtypes = [vp]
@@ -138,6 +139,8 @@ class Driver:
     def launch(self, fn, grid, block, args: list, smem: int = 0, time_it: bool = False) -> float | None:
         """args: list of ctypes scalars. Returns kernel time in ms if time_it."""
         params = (C.c_void_p * len(args))(*[C.cast(C.pointer(a), C.c_void_p) for a in args])
+        if smem > 49152:
+            self.ck(self.cu.cuFuncSetAttribute(fn, 8, smem), "opt-in dynamic shared memory")
         ev0 = ev1 = None
         if time_it:
             ev0, ev1 = C.c_void_p(), C.c_void_p()
@@ -256,12 +259,35 @@ def rand_f32(seed: int, count: int) -> bytes:
     return _RAND[key]
 
 
+def rand_tensor16(seed: int, count: int, dtype: str) -> bytes:
+    """Exactly representable small integers for bitwise tensor-kernel comparisons.
+
+    These are smoke inputs, not a replacement for floating-point GEMM validation.
+    Generate them at the worker to avoid uploading entire matrices in job files.
+    """
+    import array
+    import random
+    import struct
+    import sys
+    if dtype not in ("f16", "bf16") or type(count) is not int or count < 0:
+        raise ValueError("tensor initialization requires f16/bf16 and a nonnegative count")
+    values = range(-3, 4)
+    table = ([struct.unpack("<H", struct.pack("<e", v))[0] for v in values] if dtype == "f16"
+             else [struct.unpack("<I", struct.pack("<f", v))[0] >> 16 for v in values])
+    rng = random.Random(seed)
+    data = array.array("H", (table[rng.randrange(7)] for _ in range(count)))
+    if sys.byteorder != "little":
+        data.byteswap()
+    return data.tobytes()
+
+
 def run_plan_job(drv: Driver, job: dict) -> dict:
     """job = {
         "modules": {name: cubin bytes},
         "buffers": {name: size_bytes},
         "init":    {buffer: bytes}               host data copied in once
         "init_rand": {buffer: (seed, count)}     or generated with rand_f32 (no upload)
+        "init_tensor16": {buffer: (seed, count, dtype)} small f16/bf16 integers
         "steps":   [(module, kernel, grid, block, smem, [arg, ...]), ...]
                    arg: ("buf", name, byte_offset) | ("u32", v) | ("f32bits", v) | ("u64", v)
         "outputs": {buffer: [(offset, nbytes)]}  read back after one run
@@ -279,8 +305,13 @@ def run_plan_job(drv: Driver, job: dict) -> dict:
             drv.htod(bufs[name], data)
         for name, (seed, count) in job.get("init_rand", {}).items():
             drv.htod(bufs[name], rand_f32(seed, count))
+        for name, (seed, count, dtype) in job.get("init_tensor16", {}).items():
+            if 2 * count != job["buffers"][name]:
+                raise ValueError("tensor initialization size does not match its buffer")
+            drv.htod(bufs[name], rand_tensor16(seed, count, dtype))
         launches = []
         attrs = {}
+        shared_limits = {}
         blas = None
         for mname, kname, grid, block, smem, args in job["steps"]:
             if mname == "@memset":
@@ -298,6 +329,9 @@ def run_plan_job(drv: Driver, job: dict) -> dict:
             if key not in fns:
                 fns[key] = drv.function(mods[mname], kname)
                 attrs[f"{mname}:{kname}"] = drv.func_attrs(fns[key])
+            if smem > max(49152, shared_limits.get(key, 0)):
+                drv.ck(drv.cu.cuFuncSetAttribute(fns[key], 8, smem), "opt-in dynamic shared memory")
+                shared_limits[key] = smem
             cargs = []
             for a in args:
                 if a[0] == "buf":

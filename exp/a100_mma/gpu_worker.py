@@ -72,6 +72,17 @@ def run(case):
             stream = C.c_void_p(torch.cuda.current_stream().cuda_stream)
             drv.ck(drv.cu.cuLaunchKernel(fn, *grid, *block, case.get("smem", 0), stream, params, None), "launch")
         launches[name] = launch
+    for extra in case.get('compiled_variants',[]):
+        mod=drv.load(base64.b64decode(extra['ours']));modules.append(mod)
+        fn=drv.function(mod,'gemm');resources[extra['name']]=drv.func_attrs(fn)
+        shared=extra.get('smem',0)
+        if shared:
+            drv.cu.cuFuncSetAttribute.argtypes=[C.c_void_p,C.c_int,C.c_int]
+            drv.ck(drv.cu.cuFuncSetAttribute(fn,8,shared),'variant dynamic shared')
+        def launch_extra(fn=fn,extra=extra,shared=shared):
+            stream=C.c_void_p(torch.cuda.current_stream().cuda_stream)
+            drv.ck(drv.cu.cuLaunchKernel(fn,*extra['grid'],extra['threads'],1,1,shared,stream,params,None),'variant launch')
+        launches[extra['name']]=launch_extra
 
     paths = ["libcublas.so.12"] + glob.glob("/opt/conda/lib/python*/site-packages/nvidia/cublas/lib/libcublas.so*")
     blas = None
@@ -184,6 +195,9 @@ def run(case):
         graphs[name] = graph
     samples = {name: [] for name in graphs}
     rng = random.Random(23)
+    for _ in range(case.get('steady_warmup_rounds',0)):
+        for graph in graphs.values():graph.replay()
+    torch.cuda.synchronize()
     for _ in range(7):
         order = list(graphs); rng.shuffle(order)
         for name in order:

@@ -1,0 +1,25 @@
+exp/a100_mma/build/p4_cli_square_f16/cubin/gemm.cubin  (gemm: 1579 instructions, opt-level=opt, regs=216)
+exp/a100_mma/build/p4_cli_square_f16/sass/gemm.sass  (SASS listing from nvdisasm)
+launch: grid [32, 32, 1], block 128, dynamic shared memory 65536 bytes
+run: openassembler run /Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/build/p4_cli_square_f16
+exp/a100_mma/build/p4_cli_mlp_f16/cubin/gemm.cubin  (gemm: 1579 instructions, opt-level=opt, regs=216)
+exp/a100_mma/build/p4_cli_mlp_f16/sass/gemm.sass  (SASS listing from nvdisasm)
+launch: grid [32, 128, 1], block 128, dynamic shared memory 65536 bytes
+run: openassembler run /Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/build/p4_cli_mlp_f16
+exp/a100_mma/build/p4_cli_tall_f16/cubin/gemm.cubin  (gemm: 1579 instructions, opt-level=opt, regs=216)
+exp/a100_mma/build/p4_cli_tall_f16/sass/gemm.sass  (SASS listing from nvdisasm)
+launch: grid [128, 32, 1], block 128, dynamic shared memory 65536 bytes
+run: openassembler run /Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/build/p4_cli_tall_f16
+exp/a100_mma/build/p4_cli_square_bf16/cubin/gemm.cubin  (gemm: 1579 instructions, opt-level=opt, regs=216)
+exp/a100_mma/build/p4_cli_square_bf16/sass/gemm.sass  (SASS listing from nvdisasm)
+launch: grid [32, 32, 1], block 128, dynamic shared memory 65536 bytes
+run: openassembler run /Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/build/p4_cli_square_bf16
+exp/a100_mma/build/p4_cli_mlp_bf16/cubin/gemm.cubin  (gemm: 1579 instructions, opt-level=opt, regs=216)
+exp/a100_mma/build/p4_cli_mlp_bf16/sass/gemm.sass  (SASS listing from nvdisasm)
+launch: grid [32, 128, 1], block 128, dynamic shared memory 65536 bytes
+run: openassembler run /Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/build/p4_cli_mlp_bf16
+exp/a100_mma/build/p4_cli_tall_bf16/cubin/gemm.cubin  (gemm: 1579 instructions, opt-level=opt, regs=216)
+exp/a100_mma/build/p4_cli_tall_bf16/sass/gemm.sass  (SASS listing from nvdisasm)
+launch: grid [128, 32, 1], block 128, dynamic shared memory 65536 bytes
+run: openassembler run /Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/build/p4_cli_tall_bf16
+All six native CLI instruction streams match the measured research kernels.

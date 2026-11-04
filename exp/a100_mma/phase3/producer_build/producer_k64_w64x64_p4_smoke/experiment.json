@@ -1,0 +1,49 @@
+{
+  "compiler": "OpenAssembler experimental producer/consumer selector",
+  "fallback": false,
+  "reference_and_ELF_container": "NVIDIA ptxas",
+  "cli_wall_ms": 2063.555665896274,
+  "geometry": {
+    "m": 256,
+    "n": 384,
+    "k": 256,
+    "bm": 128,
+    "bn": 128,
+    "bk": 64,
+    "wm": 64,
+    "wn": 64,
+    "producer_warps": 4
+  },
+  "kernels": [
+    {
+      "kernel": "gemm",
+      "requested_opt_level": "safe",
+      "applied_schedule": "source-order-HMMA8-epoch-drain15",
+      "scalar_schedule": "mined",
+      "protected_scoreboard_recycling": true,
+      "ldsm_read_barrier": false,
+      "ldsm_address_war_uses_write_completion": true,
+      "list_schedule_with_tensor_ordering": false,
+      "tensor_reuse_hints": true,
+      "experimental_recycle_without_wait": false,
+      "inline_64bit_pointer_increments": true,
+      "optimize_local_homes": true,
+      "licm_ops_hoisted": 0,
+      "ptx_instructions": 1723,
+      "sass_instructions": 1826,
+      "registers": 182,
+      "stages": {
+        "select_ms": 42.0477909501642,
+        "licm_ms": 0.001208973117172718,
+        "dce_coalesce_ms": 25.56029101833701,
+        "allocate_ms": 402.9344170121476,
+        "lower_ms": 32.74062497075647,
+        "schedule_ms": 109.99787505716085,
+        "encoder_setup_ms": 0.0011669471859931946,
+        "encode_ms": 18.077249987982213
+      }
+    }
+  ],
+  "generator_sha256": "477afef47e0cff92b4229a36a635a3d5ef18ab186d30f747db9f222b47f5f2c7",
+  "synchronization": "warp-uniform roles; same BAR0 generation on both paths; producer wait_group0 before ready barrier"
+}

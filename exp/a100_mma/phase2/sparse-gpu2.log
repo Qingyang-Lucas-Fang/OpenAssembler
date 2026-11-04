@@ -1,0 +1,21 @@
+✓ Initialized. View run at 
+https://modal.com/apps/qingyang-lucas-fang/main/ap-6LMK5gJrxFPY3BOtBqiJiI
+✓ Created objects.
+├── ✓ Uploaded 
+│   /Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/phase2/clock_modal.py
+├── ✓ Uploaded PythonPackage:openassembler
+└── ✓ Created Function execute.
+[
+  {
+    "name": "sparse_ones"
+  },
+  {
+    "name": "sparse_negative_b"
+  },
+  {
+    "name": "sparse_zero_b"
+  }
+]
+Stopping app - local entrypoint completed.
+✓ App completed. View run at 
+https://modal.com/apps/qingyang-lucas-fang/main/ap-6LMK5gJrxFPY3BOtBqiJiI

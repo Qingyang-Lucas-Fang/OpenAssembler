@@ -1,0 +1,5440 @@
+[
+  {
+    "header_validation": {
+      "path": "/usr/local/cuda/include/cublasLt.h",
+      "sha256": "a07f53474d47e4259f18f223264ebe2e383c7903aed20868ed336df378029b08",
+      "enums": {
+        "CUBLASLT_MATMUL_DESC_TRANSA": 3,
+        "CUBLASLT_MATMUL_DESC_TRANSB": 4,
+        "CUBLASLT_MATMUL_PREF_MAX_WORKSPACE_BYTES": 1,
+        "CUBLASLT_ALGO_CONFIG_ID": 0,
+        "CUBLASLT_ALGO_CONFIG_TILE_ID": 1,
+        "CUBLASLT_ALGO_CONFIG_SPLITK_NUM": 2,
+        "CUBLASLT_ALGO_CONFIG_REDUCTION_SCHEME": 3,
+        "CUBLASLT_ALGO_CONFIG_CTA_SWIZZLING": 4,
+        "CUBLASLT_ALGO_CONFIG_CUSTOM_OPTION": 5,
+        "CUBLASLT_ALGO_CONFIG_STAGES_ID": 6
+      },
+      "structs": {
+        "cublasLtMatmulAlgo_t": "uint64_t data[8];",
+        "cublasLtMatmulHeuristicResult_t": "cublasLtMatmulAlgo_t algo; size_t workspaceSize; cublasStatus_t state; float wavesCount; int reserved[4];"
+      },
+      "ctypes_algo_bytes": 64,
+      "ctypes_heuristic_bytes": 96,
+      "tile_names": {
+        "0": "CUBLASLT_MATMUL_TILE_UNDEFINED",
+        "1": "CUBLASLT_MATMUL_TILE_8x8",
+        "2": "CUBLASLT_MATMUL_TILE_8x16",
+        "3": "CUBLASLT_MATMUL_TILE_16x8",
+        "4": "CUBLASLT_MATMUL_TILE_8x32",
+        "5": "CUBLASLT_MATMUL_TILE_16x16",
+        "6": "CUBLASLT_MATMUL_TILE_32x8",
+        "7": "CUBLASLT_MATMUL_TILE_8x64",
+        "8": "CUBLASLT_MATMUL_TILE_16x32",
+        "9": "CUBLASLT_MATMUL_TILE_32x16",
+        "10": "CUBLASLT_MATMUL_TILE_64x8",
+        "11": "CUBLASLT_MATMUL_TILE_32x32",
+        "12": "CUBLASLT_MATMUL_TILE_32x64",
+        "13": "CUBLASLT_MATMUL_TILE_64x32",
+        "14": "CUBLASLT_MATMUL_TILE_32x128",
+        "15": "CUBLASLT_MATMUL_TILE_64x64",
+        "16": "CUBLASLT_MATMUL_TILE_128x32",
+        "17": "CUBLASLT_MATMUL_TILE_64x128",
+        "18": "CUBLASLT_MATMUL_TILE_128x64",
+        "19": "CUBLASLT_MATMUL_TILE_64x256",
+        "20": "CUBLASLT_MATMUL_TILE_128x128",
+        "21": "CUBLASLT_MATMUL_TILE_256x64",
+        "22": "CUBLASLT_MATMUL_TILE_64x512",
+        "23": "CUBLASLT_MATMUL_TILE_128x256",
+        "24": "CUBLASLT_MATMUL_TILE_256x128",
+        "25": "CUBLASLT_MATMUL_TILE_512x64",
+        "26": "CUBLASLT_MATMUL_TILE_64x96",
+        "27": "CUBLASLT_MATMUL_TILE_96x64",
+        "28": "CUBLASLT_MATMUL_TILE_96x128",
+        "29": "CUBLASLT_MATMUL_TILE_128x160",
+        "30": "CUBLASLT_MATMUL_TILE_160x128",
+        "31": "CUBLASLT_MATMUL_TILE_192x128",
+        "32": "CUBLASLT_MATMUL_TILE_128x192",
+        "33": "CUBLASLT_MATMUL_TILE_128x96",
+        "34": "CUBLASLT_MATMUL_TILE_32x256",
+        "35": "CUBLASLT_MATMUL_TILE_256x32",
+        "36": "CUBLASLT_MATMUL_TILE_8x128",
+        "37": "CUBLASLT_MATMUL_TILE_8x192",
+        "38": "CUBLASLT_MATMUL_TILE_8x256",
+        "39": "CUBLASLT_MATMUL_TILE_8x320",
+        "40": "CUBLASLT_MATMUL_TILE_8x384",
+        "41": "CUBLASLT_MATMUL_TILE_8x448",
+        "42": "CUBLASLT_MATMUL_TILE_8x512",
+        "43": "CUBLASLT_MATMUL_TILE_8x576",
+        "44": "CUBLASLT_MATMUL_TILE_8x640",
+        "45": "CUBLASLT_MATMUL_TILE_8x704",
+        "46": "CUBLASLT_MATMUL_TILE_8x768",
+        "47": "CUBLASLT_MATMUL_TILE_16x64",
+        "48": "CUBLASLT_MATMUL_TILE_16x128",
+        "49": "CUBLASLT_MATMUL_TILE_16x192",
+        "50": "CUBLASLT_MATMUL_TILE_16x256",
+        "51": "CUBLASLT_MATMUL_TILE_16x320",
+        "52": "CUBLASLT_MATMUL_TILE_16x384",
+        "53": "CUBLASLT_MATMUL_TILE_16x448",
+        "54": "CUBLASLT_MATMUL_TILE_16x512",
+        "55": "CUBLASLT_MATMUL_TILE_16x576",
+        "56": "CUBLASLT_MATMUL_TILE_16x640",
+        "57": "CUBLASLT_MATMUL_TILE_16x704",
+        "58": "CUBLASLT_MATMUL_TILE_16x768",
+        "59": "CUBLASLT_MATMUL_TILE_24x64",
+        "60": "CUBLASLT_MATMUL_TILE_24x128",
+        "61": "CUBLASLT_MATMUL_TILE_24x192",
+        "62": "CUBLASLT_MATMUL_TILE_24x256",
+        "63": "CUBLASLT_MATMUL_TILE_24x320",
+        "64": "CUBLASLT_MATMUL_TILE_24x384",
+        "65": "CUBLASLT_MATMUL_TILE_24x448",
+        "66": "CUBLASLT_MATMUL_TILE_24x512",
+        "67": "CUBLASLT_MATMUL_TILE_24x576",
+        "68": "CUBLASLT_MATMUL_TILE_24x640",
+        "69": "CUBLASLT_MATMUL_TILE_24x704",
+        "70": "CUBLASLT_MATMUL_TILE_24x768",
+        "71": "CUBLASLT_MATMUL_TILE_32x192",
+        "72": "CUBLASLT_MATMUL_TILE_32x320",
+        "73": "CUBLASLT_MATMUL_TILE_32x384",
+        "74": "CUBLASLT_MATMUL_TILE_32x448",
+        "75": "CUBLASLT_MATMUL_TILE_32x512",
+        "76": "CUBLASLT_MATMUL_TILE_32x576",
+        "77": "CUBLASLT_MATMUL_TILE_32x640",
+        "78": "CUBLASLT_MATMUL_TILE_32x704",
+        "79": "CUBLASLT_MATMUL_TILE_32x768",
+        "80": "CUBLASLT_MATMUL_TILE_40x64",
+        "81": "CUBLASLT_MATMUL_TILE_40x128",
+        "82": "CUBLASLT_MATMUL_TILE_40x192",
+        "83": "CUBLASLT_MATMUL_TILE_40x256",
+        "84": "CUBLASLT_MATMUL_TILE_40x320",
+        "85": "CUBLASLT_MATMUL_TILE_40x384",
+        "86": "CUBLASLT_MATMUL_TILE_40x448",
+        "87": "CUBLASLT_MATMUL_TILE_40x512",
+        "88": "CUBLASLT_MATMUL_TILE_40x576",
+        "89": "CUBLASLT_MATMUL_TILE_40x640",
+        "90": "CUBLASLT_MATMUL_TILE_40x704",
+        "91": "CUBLASLT_MATMUL_TILE_40x768",
+        "92": "CUBLASLT_MATMUL_TILE_48x64",
+        "93": "CUBLASLT_MATMUL_TILE_48x128",
+        "94": "CUBLASLT_MATMUL_TILE_48x192",
+        "95": "CUBLASLT_MATMUL_TILE_48x256",
+        "96": "CUBLASLT_MATMUL_TILE_48x320",
+        "97": "CUBLASLT_MATMUL_TILE_48x384",
+        "98": "CUBLASLT_MATMUL_TILE_48x448",
+        "99": "CUBLASLT_MATMUL_TILE_48x512",
+        "100": "CUBLASLT_MATMUL_TILE_48x576",
+        "101": "CUBLASLT_MATMUL_TILE_48x640",
+        "102": "CUBLASLT_MATMUL_TILE_48x704",
+        "103": "CUBLASLT_MATMUL_TILE_48x768",
+        "104": "CUBLASLT_MATMUL_TILE_56x64",
+        "105": "CUBLASLT_MATMUL_TILE_56x128",
+        "106": "CUBLASLT_MATMUL_TILE_56x192",
+        "107": "CUBLASLT_MATMUL_TILE_56x256",
+        "108": "CUBLASLT_MATMUL_TILE_56x320",
+        "109": "CUBLASLT_MATMUL_TILE_56x384",
+        "110": "CUBLASLT_MATMUL_TILE_56x448",
+        "111": "CUBLASLT_MATMUL_TILE_56x512",
+        "112": "CUBLASLT_MATMUL_TILE_56x576",
+        "113": "CUBLASLT_MATMUL_TILE_56x640",
+        "114": "CUBLASLT_MATMUL_TILE_56x704",
+        "115": "CUBLASLT_MATMUL_TILE_56x768",
+        "116": "CUBLASLT_MATMUL_TILE_64x192",
+        "117": "CUBLASLT_MATMUL_TILE_64x320",
+        "118": "CUBLASLT_MATMUL_TILE_64x384",
+        "119": "CUBLASLT_MATMUL_TILE_64x448",
+        "120": "CUBLASLT_MATMUL_TILE_64x576",
+        "121": "CUBLASLT_MATMUL_TILE_64x640",
+        "122": "CUBLASLT_MATMUL_TILE_64x704",
+        "123": "CUBLASLT_MATMUL_TILE_64x768",
+        "124": "CUBLASLT_MATMUL_TILE_72x64",
+        "125": "CUBLASLT_MATMUL_TILE_72x128",
+        "126": "CUBLASLT_MATMUL_TILE_72x192",
+        "127": "CUBLASLT_MATMUL_TILE_72x256",
+        "128": "CUBLASLT_MATMUL_TILE_72x320",
+        "129": "CUBLASLT_MATMUL_TILE_72x384",
+        "130": "CUBLASLT_MATMUL_TILE_72x448",
+        "131": "CUBLASLT_MATMUL_TILE_72x512",
+        "132": "CUBLASLT_MATMUL_TILE_72x576",
+        "133": "CUBLASLT_MATMUL_TILE_72x640",
+        "134": "CUBLASLT_MATMUL_TILE_80x64",
+        "135": "CUBLASLT_MATMUL_TILE_80x128",
+        "136": "CUBLASLT_MATMUL_TILE_80x192",
+        "137": "CUBLASLT_MATMUL_TILE_80x256",
+        "138": "CUBLASLT_MATMUL_TILE_80x320",
+        "139": "CUBLASLT_MATMUL_TILE_80x384",
+        "140": "CUBLASLT_MATMUL_TILE_80x448",
+        "141": "CUBLASLT_MATMUL_TILE_80x512",
+        "142": "CUBLASLT_MATMUL_TILE_80x576",
+        "143": "CUBLASLT_MATMUL_TILE_88x64",
+        "144": "CUBLASLT_MATMUL_TILE_88x128",
+        "145": "CUBLASLT_MATMUL_TILE_88x192",
+        "146": "CUBLASLT_MATMUL_TILE_88x256",
+        "147": "CUBLASLT_MATMUL_TILE_88x320",
+        "148": "CUBLASLT_MATMUL_TILE_88x384",
+        "149": "CUBLASLT_MATMUL_TILE_88x448",
+        "150": "CUBLASLT_MATMUL_TILE_88x512",
+        "151": "CUBLASLT_MATMUL_TILE_96x192",
+        "152": "CUBLASLT_MATMUL_TILE_96x256",
+        "153": "CUBLASLT_MATMUL_TILE_96x320",
+        "154": "CUBLASLT_MATMUL_TILE_96x384",
+        "155": "CUBLASLT_MATMUL_TILE_96x448",
+        "156": "CUBLASLT_MATMUL_TILE_96x512",
+        "157": "CUBLASLT_MATMUL_TILE_104x64",
+        "158": "CUBLASLT_MATMUL_TILE_104x128",
+        "159": "CUBLASLT_MATMUL_TILE_104x192",
+        "160": "CUBLASLT_MATMUL_TILE_104x256",
+        "161": "CUBLASLT_MATMUL_TILE_104x320",
+        "162": "CUBLASLT_MATMUL_TILE_104x384",
+        "163": "CUBLASLT_MATMUL_TILE_104x448",
+        "164": "CUBLASLT_MATMUL_TILE_112x64",
+        "165": "CUBLASLT_MATMUL_TILE_112x128",
+        "166": "CUBLASLT_MATMUL_TILE_112x192",
+        "167": "CUBLASLT_MATMUL_TILE_112x256",
+        "168": "CUBLASLT_MATMUL_TILE_112x320",
+        "169": "CUBLASLT_MATMUL_TILE_112x384",
+        "170": "CUBLASLT_MATMUL_TILE_120x64",
+        "171": "CUBLASLT_MATMUL_TILE_120x128",
+        "172": "CUBLASLT_MATMUL_TILE_120x192",
+        "173": "CUBLASLT_MATMUL_TILE_120x256",
+        "174": "CUBLASLT_MATMUL_TILE_120x320",
+        "175": "CUBLASLT_MATMUL_TILE_120x384",
+        "176": "CUBLASLT_MATMUL_TILE_128x320",
+        "177": "CUBLASLT_MATMUL_TILE_128x384",
+        "178": "CUBLASLT_MATMUL_TILE_136x64",
+        "179": "CUBLASLT_MATMUL_TILE_136x128",
+        "180": "CUBLASLT_MATMUL_TILE_136x192",
+        "181": "CUBLASLT_MATMUL_TILE_136x256",
+        "182": "CUBLASLT_MATMUL_TILE_136x320",
+        "183": "CUBLASLT_MATMUL_TILE_144x64",
+        "184": "CUBLASLT_MATMUL_TILE_144x128",
+        "185": "CUBLASLT_MATMUL_TILE_144x192",
+        "186": "CUBLASLT_MATMUL_TILE_144x256",
+        "187": "CUBLASLT_MATMUL_TILE_144x320",
+        "188": "CUBLASLT_MATMUL_TILE_152x64",
+        "189": "CUBLASLT_MATMUL_TILE_152x128",
+        "190": "CUBLASLT_MATMUL_TILE_152x192",
+        "191": "CUBLASLT_MATMUL_TILE_152x256",
+        "192": "CUBLASLT_MATMUL_TILE_152x320",
+        "193": "CUBLASLT_MATMUL_TILE_160x64",
+        "194": "CUBLASLT_MATMUL_TILE_160x192",
+        "195": "CUBLASLT_MATMUL_TILE_160x256",
+        "196": "CUBLASLT_MATMUL_TILE_168x64",
+        "197": "CUBLASLT_MATMUL_TILE_168x128",
+        "198": "CUBLASLT_MATMUL_TILE_168x192",
+        "199": "CUBLASLT_MATMUL_TILE_168x256",
+        "200": "CUBLASLT_MATMUL_TILE_176x64",
+        "201": "CUBLASLT_MATMUL_TILE_176x128",
+        "202": "CUBLASLT_MATMUL_TILE_176x192",
+        "203": "CUBLASLT_MATMUL_TILE_176x256",
+        "204": "CUBLASLT_MATMUL_TILE_184x64",
+        "205": "CUBLASLT_MATMUL_TILE_184x128",
+        "206": "CUBLASLT_MATMUL_TILE_184x192",
+        "207": "CUBLASLT_MATMUL_TILE_184x256",
+        "208": "CUBLASLT_MATMUL_TILE_192x64",
+        "209": "CUBLASLT_MATMUL_TILE_192x192",
+        "210": "CUBLASLT_MATMUL_TILE_192x256",
+        "211": "CUBLASLT_MATMUL_TILE_200x64",
+        "212": "CUBLASLT_MATMUL_TILE_200x128",
+        "213": "CUBLASLT_MATMUL_TILE_200x192",
+        "214": "CUBLASLT_MATMUL_TILE_208x64",
+        "215": "CUBLASLT_MATMUL_TILE_208x128",
+        "216": "CUBLASLT_MATMUL_TILE_208x192",
+        "217": "CUBLASLT_MATMUL_TILE_216x64",
+        "218": "CUBLASLT_MATMUL_TILE_216x128",
+        "219": "CUBLASLT_MATMUL_TILE_216x192",
+        "220": "CUBLASLT_MATMUL_TILE_224x64",
+        "221": "CUBLASLT_MATMUL_TILE_224x128",
+        "222": "CUBLASLT_MATMUL_TILE_224x192",
+        "223": "CUBLASLT_MATMUL_TILE_232x64",
+        "224": "CUBLASLT_MATMUL_TILE_232x128",
+        "225": "CUBLASLT_MATMUL_TILE_232x192",
+        "226": "CUBLASLT_MATMUL_TILE_240x64",
+        "227": "CUBLASLT_MATMUL_TILE_240x128",
+        "228": "CUBLASLT_MATMUL_TILE_240x192",
+        "229": "CUBLASLT_MATMUL_TILE_248x64",
+        "230": "CUBLASLT_MATMUL_TILE_248x128",
+        "231": "CUBLASLT_MATMUL_TILE_248x192",
+        "232": "CUBLASLT_MATMUL_TILE_256x192",
+        "233": "CUBLASLT_MATMUL_TILE_264x64",
+        "234": "CUBLASLT_MATMUL_TILE_264x128",
+        "235": "CUBLASLT_MATMUL_TILE_272x64",
+        "236": "CUBLASLT_MATMUL_TILE_272x128",
+        "237": "CUBLASLT_MATMUL_TILE_280x64",
+        "238": "CUBLASLT_MATMUL_TILE_280x128",
+        "239": "CUBLASLT_MATMUL_TILE_288x64",
+        "240": "CUBLASLT_MATMUL_TILE_288x128",
+        "241": "CUBLASLT_MATMUL_TILE_296x64",
+        "242": "CUBLASLT_MATMUL_TILE_296x128",
+        "243": "CUBLASLT_MATMUL_TILE_304x64",
+        "244": "CUBLASLT_MATMUL_TILE_304x128",
+        "245": "CUBLASLT_MATMUL_TILE_312x64",
+        "246": "CUBLASLT_MATMUL_TILE_312x128",
+        "247": "CUBLASLT_MATMUL_TILE_320x64",
+        "248": "CUBLASLT_MATMUL_TILE_320x128",
+        "249": "CUBLASLT_MATMUL_TILE_328x64",
+        "250": "CUBLASLT_MATMUL_TILE_328x128",
+        "251": "CUBLASLT_MATMUL_TILE_336x64",
+        "252": "CUBLASLT_MATMUL_TILE_336x128",
+        "253": "CUBLASLT_MATMUL_TILE_344x64",
+        "254": "CUBLASLT_MATMUL_TILE_344x128",
+        "255": "CUBLASLT_MATMUL_TILE_352x64",
+        "256": "CUBLASLT_MATMUL_TILE_352x128",
+        "257": "CUBLASLT_MATMUL_TILE_360x64",
+        "258": "CUBLASLT_MATMUL_TILE_360x128",
+        "259": "CUBLASLT_MATMUL_TILE_368x64",
+        "260": "CUBLASLT_MATMUL_TILE_368x128",
+        "261": "CUBLASLT_MATMUL_TILE_376x64",
+        "262": "CUBLASLT_MATMUL_TILE_376x128",
+        "263": "CUBLASLT_MATMUL_TILE_384x64",
+        "264": "CUBLASLT_MATMUL_TILE_384x128",
+        "265": "CUBLASLT_MATMUL_TILE_392x64",
+        "266": "CUBLASLT_MATMUL_TILE_400x64",
+        "267": "CUBLASLT_MATMUL_TILE_408x64",
+        "268": "CUBLASLT_MATMUL_TILE_416x64",
+        "269": "CUBLASLT_MATMUL_TILE_424x64",
+        "270": "CUBLASLT_MATMUL_TILE_432x64",
+        "271": "CUBLASLT_MATMUL_TILE_440x64",
+        "272": "CUBLASLT_MATMUL_TILE_448x64",
+        "273": "CUBLASLT_MATMUL_TILE_456x64",
+        "274": "CUBLASLT_MATMUL_TILE_464x64",
+        "275": "CUBLASLT_MATMUL_TILE_472x64",
+        "276": "CUBLASLT_MATMUL_TILE_480x64",
+        "277": "CUBLASLT_MATMUL_TILE_488x64",
+        "278": "CUBLASLT_MATMUL_TILE_496x64",
+        "279": "CUBLASLT_MATMUL_TILE_504x64",
+        "280": "CUBLASLT_MATMUL_TILE_520x64",
+        "281": "CUBLASLT_MATMUL_TILE_528x64",
+        "282": "CUBLASLT_MATMUL_TILE_536x64",
+        "283": "CUBLASLT_MATMUL_TILE_544x64",
+        "284": "CUBLASLT_MATMUL_TILE_552x64",
+        "285": "CUBLASLT_MATMUL_TILE_560x64",
+        "286": "CUBLASLT_MATMUL_TILE_568x64",
+        "287": "CUBLASLT_MATMUL_TILE_576x64",
+        "288": "CUBLASLT_MATMUL_TILE_584x64",
+        "289": "CUBLASLT_MATMUL_TILE_592x64",
+        "290": "CUBLASLT_MATMUL_TILE_600x64",
+        "291": "CUBLASLT_MATMUL_TILE_608x64",
+        "292": "CUBLASLT_MATMUL_TILE_616x64",
+        "293": "CUBLASLT_MATMUL_TILE_624x64",
+        "294": "CUBLASLT_MATMUL_TILE_632x64",
+        "295": "CUBLASLT_MATMUL_TILE_640x64",
+        "296": "CUBLASLT_MATMUL_TILE_648x64",
+        "297": "CUBLASLT_MATMUL_TILE_656x64",
+        "298": "CUBLASLT_MATMUL_TILE_664x64",
+        "299": "CUBLASLT_MATMUL_TILE_672x64",
+        "300": "CUBLASLT_MATMUL_TILE_680x64",
+        "301": "CUBLASLT_MATMUL_TILE_688x64",
+        "302": "CUBLASLT_MATMUL_TILE_696x64",
+        "303": "CUBLASLT_MATMUL_TILE_704x64",
+        "304": "CUBLASLT_MATMUL_TILE_712x64",
+        "305": "CUBLASLT_MATMUL_TILE_720x64",
+        "306": "CUBLASLT_MATMUL_TILE_728x64",
+        "307": "CUBLASLT_MATMUL_TILE_736x64",
+        "308": "CUBLASLT_MATMUL_TILE_744x64",
+        "309": "CUBLASLT_MATMUL_TILE_752x64",
+        "310": "CUBLASLT_MATMUL_TILE_760x64",
+        "311": "CUBLASLT_MATMUL_TILE_768x64",
+        "312": "CUBLASLT_MATMUL_TILE_64x16",
+        "313": "CUBLASLT_MATMUL_TILE_64x24",
+        "314": "CUBLASLT_MATMUL_TILE_64x40",
+        "315": "CUBLASLT_MATMUL_TILE_64x48",
+        "316": "CUBLASLT_MATMUL_TILE_64x56",
+        "317": "CUBLASLT_MATMUL_TILE_64x72",
+        "318": "CUBLASLT_MATMUL_TILE_64x80",
+        "319": "CUBLASLT_MATMUL_TILE_64x88",
+        "320": "CUBLASLT_MATMUL_TILE_64x104",
+        "321": "CUBLASLT_MATMUL_TILE_64x112",
+        "322": "CUBLASLT_MATMUL_TILE_64x120",
+        "323": "CUBLASLT_MATMUL_TILE_64x136",
+        "324": "CUBLASLT_MATMUL_TILE_64x144",
+        "325": "CUBLASLT_MATMUL_TILE_64x152",
+        "326": "CUBLASLT_MATMUL_TILE_64x160",
+        "327": "CUBLASLT_MATMUL_TILE_64x168",
+        "328": "CUBLASLT_MATMUL_TILE_64x176",
+        "329": "CUBLASLT_MATMUL_TILE_64x184",
+        "330": "CUBLASLT_MATMUL_TILE_64x200",
+        "331": "CUBLASLT_MATMUL_TILE_64x208",
+        "332": "CUBLASLT_MATMUL_TILE_64x216",
+        "333": "CUBLASLT_MATMUL_TILE_64x224",
+        "334": "CUBLASLT_MATMUL_TILE_64x232",
+        "335": "CUBLASLT_MATMUL_TILE_64x240",
+        "336": "CUBLASLT_MATMUL_TILE_64x248",
+        "337": "CUBLASLT_MATMUL_TILE_64x264",
+        "338": "CUBLASLT_MATMUL_TILE_64x272",
+        "339": "CUBLASLT_MATMUL_TILE_64x280",
+        "340": "CUBLASLT_MATMUL_TILE_64x288",
+        "341": "CUBLASLT_MATMUL_TILE_64x296",
+        "342": "CUBLASLT_MATMUL_TILE_64x304",
+        "343": "CUBLASLT_MATMUL_TILE_64x312",
+        "344": "CUBLASLT_MATMUL_TILE_64x328",
+        "345": "CUBLASLT_MATMUL_TILE_64x336",
+        "346": "CUBLASLT_MATMUL_TILE_64x344",
+        "347": "CUBLASLT_MATMUL_TILE_64x352",
+        "348": "CUBLASLT_MATMUL_TILE_64x360",
+        "349": "CUBLASLT_MATMUL_TILE_64x368",
+        "350": "CUBLASLT_MATMUL_TILE_64x376",
+        "351": "CUBLASLT_MATMUL_TILE_64x392",
+        "352": "CUBLASLT_MATMUL_TILE_64x400",
+        "353": "CUBLASLT_MATMUL_TILE_64x408",
+        "354": "CUBLASLT_MATMUL_TILE_64x416",
+        "355": "CUBLASLT_MATMUL_TILE_64x424",
+        "356": "CUBLASLT_MATMUL_TILE_64x432",
+        "357": "CUBLASLT_MATMUL_TILE_64x440",
+        "358": "CUBLASLT_MATMUL_TILE_64x456",
+        "359": "CUBLASLT_MATMUL_TILE_64x464",
+        "360": "CUBLASLT_MATMUL_TILE_64x472",
+        "361": "CUBLASLT_MATMUL_TILE_64x480",
+        "362": "CUBLASLT_MATMUL_TILE_64x488",
+        "363": "CUBLASLT_MATMUL_TILE_64x496",
+        "364": "CUBLASLT_MATMUL_TILE_64x504",
+        "365": "CUBLASLT_MATMUL_TILE_64x520",
+        "366": "CUBLASLT_MATMUL_TILE_64x528",
+        "367": "CUBLASLT_MATMUL_TILE_64x536",
+        "368": "CUBLASLT_MATMUL_TILE_64x544",
+        "369": "CUBLASLT_MATMUL_TILE_64x552",
+        "370": "CUBLASLT_MATMUL_TILE_64x560",
+        "371": "CUBLASLT_MATMUL_TILE_64x568",
+        "372": "CUBLASLT_MATMUL_TILE_64x584",
+        "373": "CUBLASLT_MATMUL_TILE_64x592",
+        "374": "CUBLASLT_MATMUL_TILE_64x600",
+        "375": "CUBLASLT_MATMUL_TILE_64x608",
+        "376": "CUBLASLT_MATMUL_TILE_64x616",
+        "377": "CUBLASLT_MATMUL_TILE_64x624",
+        "378": "CUBLASLT_MATMUL_TILE_64x632",
+        "379": "CUBLASLT_MATMUL_TILE_64x648",
+        "380": "CUBLASLT_MATMUL_TILE_64x656",
+        "381": "CUBLASLT_MATMUL_TILE_64x664",
+        "382": "CUBLASLT_MATMUL_TILE_64x672",
+        "383": "CUBLASLT_MATMUL_TILE_64x680",
+        "384": "CUBLASLT_MATMUL_TILE_64x688",
+        "385": "CUBLASLT_MATMUL_TILE_64x696",
+        "386": "CUBLASLT_MATMUL_TILE_64x712",
+        "387": "CUBLASLT_MATMUL_TILE_64x720",
+        "388": "CUBLASLT_MATMUL_TILE_64x728",
+        "389": "CUBLASLT_MATMUL_TILE_64x736",
+        "390": "CUBLASLT_MATMUL_TILE_64x744",
+        "391": "CUBLASLT_MATMUL_TILE_64x752",
+        "392": "CUBLASLT_MATMUL_TILE_64x760",
+        "393": "CUBLASLT_MATMUL_TILE_128x8",
+        "394": "CUBLASLT_MATMUL_TILE_128x16",
+        "395": "CUBLASLT_MATMUL_TILE_128x24",
+        "396": "CUBLASLT_MATMUL_TILE_128x40",
+        "397": "CUBLASLT_MATMUL_TILE_128x48",
+        "398": "CUBLASLT_MATMUL_TILE_128x56",
+        "399": "CUBLASLT_MATMUL_TILE_128x72",
+        "400": "CUBLASLT_MATMUL_TILE_128x80",
+        "401": "CUBLASLT_MATMUL_TILE_128x88",
+        "402": "CUBLASLT_MATMUL_TILE_128x104",
+        "403": "CUBLASLT_MATMUL_TILE_128x112",
+        "404": "CUBLASLT_MATMUL_TILE_128x120",
+        "405": "CUBLASLT_MATMUL_TILE_128x136",
+        "406": "CUBLASLT_MATMUL_TILE_128x144",
+        "407": "CUBLASLT_MATMUL_TILE_128x152",
+        "408": "CUBLASLT_MATMUL_TILE_128x168",
+        "409": "CUBLASLT_MATMUL_TILE_128x176",
+        "410": "CUBLASLT_MATMUL_TILE_128x184",
+        "411": "CUBLASLT_MATMUL_TILE_128x200",
+        "412": "CUBLASLT_MATMUL_TILE_128x208",
+        "413": "CUBLASLT_MATMUL_TILE_128x216",
+        "414": "CUBLASLT_MATMUL_TILE_128x224",
+        "415": "CUBLASLT_MATMUL_TILE_128x232",
+        "416": "CUBLASLT_MATMUL_TILE_128x240",
+        "417": "CUBLASLT_MATMUL_TILE_128x248",
+        "418": "CUBLASLT_MATMUL_TILE_128x264",
+        "419": "CUBLASLT_MATMUL_TILE_128x272",
+        "420": "CUBLASLT_MATMUL_TILE_128x280",
+        "421": "CUBLASLT_MATMUL_TILE_128x288",
+        "422": "CUBLASLT_MATMUL_TILE_128x296",
+        "423": "CUBLASLT_MATMUL_TILE_128x304",
+        "424": "CUBLASLT_MATMUL_TILE_128x312",
+        "425": "CUBLASLT_MATMUL_TILE_128x328",
+        "426": "CUBLASLT_MATMUL_TILE_128x336",
+        "427": "CUBLASLT_MATMUL_TILE_128x344",
+        "428": "CUBLASLT_MATMUL_TILE_128x352",
+        "429": "CUBLASLT_MATMUL_TILE_128x360",
+        "430": "CUBLASLT_MATMUL_TILE_128x368",
+        "431": "CUBLASLT_MATMUL_TILE_128x376",
+        "432": "CUBLASLT_MATMUL_TILE_128x392",
+        "433": "CUBLASLT_MATMUL_TILE_128x400",
+        "434": "CUBLASLT_MATMUL_TILE_128x408",
+        "435": "CUBLASLT_MATMUL_TILE_128x416",
+        "436": "CUBLASLT_MATMUL_TILE_128x424",
+        "437": "CUBLASLT_MATMUL_TILE_128x432",
+        "438": "CUBLASLT_MATMUL_TILE_128x440",
+        "439": "CUBLASLT_MATMUL_TILE_128x448",
+        "440": "CUBLASLT_MATMUL_TILE_128x456",
+        "441": "CUBLASLT_MATMUL_TILE_128x464",
+        "442": "CUBLASLT_MATMUL_TILE_128x472",
+        "443": "CUBLASLT_MATMUL_TILE_128x480",
+        "444": "CUBLASLT_MATMUL_TILE_128x488",
+        "445": "CUBLASLT_MATMUL_TILE_128x496",
+        "446": "CUBLASLT_MATMUL_TILE_128x504",
+        "447": "CUBLASLT_MATMUL_TILE_128x512",
+        "448": "CUBLASLT_MATMUL_TILE_192x8",
+        "449": "CUBLASLT_MATMUL_TILE_192x16",
+        "450": "CUBLASLT_MATMUL_TILE_192x24",
+        "451": "CUBLASLT_MATMUL_TILE_192x32",
+        "452": "CUBLASLT_MATMUL_TILE_192x40",
+        "453": "CUBLASLT_MATMUL_TILE_192x48",
+        "454": "CUBLASLT_MATMUL_TILE_192x56",
+        "455": "CUBLASLT_MATMUL_TILE_192x72",
+        "456": "CUBLASLT_MATMUL_TILE_192x80",
+        "457": "CUBLASLT_MATMUL_TILE_192x88",
+        "458": "CUBLASLT_MATMUL_TILE_192x96",
+        "459": "CUBLASLT_MATMUL_TILE_192x104",
+        "460": "CUBLASLT_MATMUL_TILE_192x112",
+        "461": "CUBLASLT_MATMUL_TILE_192x120",
+        "462": "CUBLASLT_MATMUL_TILE_192x136",
+        "463": "CUBLASLT_MATMUL_TILE_192x144",
+        "464": "CUBLASLT_MATMUL_TILE_192x152",
+        "465": "CUBLASLT_MATMUL_TILE_192x160",
+        "466": "CUBLASLT_MATMUL_TILE_192x168",
+        "467": "CUBLASLT_MATMUL_TILE_192x176",
+        "468": "CUBLASLT_MATMUL_TILE_192x184",
+        "469": "CUBLASLT_MATMUL_TILE_192x200",
+        "470": "CUBLASLT_MATMUL_TILE_192x208",
+        "471": "CUBLASLT_MATMUL_TILE_192x216",
+        "472": "CUBLASLT_MATMUL_TILE_192x224",
+        "473": "CUBLASLT_MATMUL_TILE_192x232",
+        "474": "CUBLASLT_MATMUL_TILE_192x240",
+        "475": "CUBLASLT_MATMUL_TILE_192x248",
+        "476": "CUBLASLT_MATMUL_TILE_192x264",
+        "477": "CUBLASLT_MATMUL_TILE_192x272",
+        "478": "CUBLASLT_MATMUL_TILE_192x280",
+        "479": "CUBLASLT_MATMUL_TILE_192x288",
+        "480": "CUBLASLT_MATMUL_TILE_192x296",
+        "481": "CUBLASLT_MATMUL_TILE_192x304",
+        "482": "CUBLASLT_MATMUL_TILE_192x312",
+        "483": "CUBLASLT_MATMUL_TILE_192x320",
+        "484": "CUBLASLT_MATMUL_TILE_192x328",
+        "485": "CUBLASLT_MATMUL_TILE_192x336",
+        "486": "CUBLASLT_MATMUL_TILE_256x8",
+        "487": "CUBLASLT_MATMUL_TILE_256x16",
+        "488": "CUBLASLT_MATMUL_TILE_256x24",
+        "489": "CUBLASLT_MATMUL_TILE_256x40",
+        "490": "CUBLASLT_MATMUL_TILE_256x48",
+        "491": "CUBLASLT_MATMUL_TILE_256x56",
+        "492": "CUBLASLT_MATMUL_TILE_256x72",
+        "493": "CUBLASLT_MATMUL_TILE_256x80",
+        "494": "CUBLASLT_MATMUL_TILE_256x88",
+        "495": "CUBLASLT_MATMUL_TILE_256x96",
+        "496": "CUBLASLT_MATMUL_TILE_256x104",
+        "497": "CUBLASLT_MATMUL_TILE_256x112",
+        "498": "CUBLASLT_MATMUL_TILE_256x120",
+        "499": "CUBLASLT_MATMUL_TILE_256x136",
+        "500": "CUBLASLT_MATMUL_TILE_256x144",
+        "501": "CUBLASLT_MATMUL_TILE_256x152",
+        "502": "CUBLASLT_MATMUL_TILE_256x160",
+        "503": "CUBLASLT_MATMUL_TILE_256x168",
+        "504": "CUBLASLT_MATMUL_TILE_256x176",
+        "505": "CUBLASLT_MATMUL_TILE_256x184",
+        "506": "CUBLASLT_MATMUL_TILE_256x200",
+        "507": "CUBLASLT_MATMUL_TILE_256x208",
+        "508": "CUBLASLT_MATMUL_TILE_256x216",
+        "509": "CUBLASLT_MATMUL_TILE_256x224",
+        "510": "CUBLASLT_MATMUL_TILE_256x232",
+        "511": "CUBLASLT_MATMUL_TILE_256x240",
+        "512": "CUBLASLT_MATMUL_TILE_256x248",
+        "513": "CUBLASLT_MATMUL_TILE_256x256",
+        "514": "CUBLASLT_MATMUL_TILE_320x8",
+        "515": "CUBLASLT_MATMUL_TILE_320x16",
+        "516": "CUBLASLT_MATMUL_TILE_320x24",
+        "517": "CUBLASLT_MATMUL_TILE_320x32",
+        "518": "CUBLASLT_MATMUL_TILE_320x40",
+        "519": "CUBLASLT_MATMUL_TILE_320x48",
+        "520": "CUBLASLT_MATMUL_TILE_320x56",
+        "521": "CUBLASLT_MATMUL_TILE_320x72",
+        "522": "CUBLASLT_MATMUL_TILE_320x80",
+        "523": "CUBLASLT_MATMUL_TILE_320x88",
+        "524": "CUBLASLT_MATMUL_TILE_320x96",
+        "525": "CUBLASLT_MATMUL_TILE_320x104",
+        "526": "CUBLASLT_MATMUL_TILE_320x112",
+        "527": "CUBLASLT_MATMUL_TILE_320x120",
+        "528": "CUBLASLT_MATMUL_TILE_320x136",
+        "529": "CUBLASLT_MATMUL_TILE_320x144",
+        "530": "CUBLASLT_MATMUL_TILE_320x152",
+        "531": "CUBLASLT_MATMUL_TILE_320x160",
+        "532": "CUBLASLT_MATMUL_TILE_320x168",
+        "533": "CUBLASLT_MATMUL_TILE_320x176",
+        "534": "CUBLASLT_MATMUL_TILE_320x184",
+        "535": "CUBLASLT_MATMUL_TILE_320x192",
+        "536": "CUBLASLT_MATMUL_TILE_320x200",
+        "537": "CUBLASLT_MATMUL_TILE_384x8",
+        "538": "CUBLASLT_MATMUL_TILE_384x16",
+        "539": "CUBLASLT_MATMUL_TILE_384x24",
+        "540": "CUBLASLT_MATMUL_TILE_384x32",
+        "541": "CUBLASLT_MATMUL_TILE_384x40",
+        "542": "CUBLASLT_MATMUL_TILE_384x48",
+        "543": "CUBLASLT_MATMUL_TILE_384x56",
+        "544": "CUBLASLT_MATMUL_TILE_384x72",
+        "545": "CUBLASLT_MATMUL_TILE_384x80",
+        "546": "CUBLASLT_MATMUL_TILE_384x88",
+        "547": "CUBLASLT_MATMUL_TILE_384x96",
+        "548": "CUBLASLT_MATMUL_TILE_384x104",
+        "549": "CUBLASLT_MATMUL_TILE_384x112",
+        "550": "CUBLASLT_MATMUL_TILE_384x120",
+        "551": "CUBLASLT_MATMUL_TILE_384x136",
+        "552": "CUBLASLT_MATMUL_TILE_384x144",
+        "553": "CUBLASLT_MATMUL_TILE_384x152",
+        "554": "CUBLASLT_MATMUL_TILE_384x160",
+        "555": "CUBLASLT_MATMUL_TILE_384x168",
+        "556": "CUBLASLT_MATMUL_TILE_448x8",
+        "557": "CUBLASLT_MATMUL_TILE_448x16",
+        "558": "CUBLASLT_MATMUL_TILE_448x24",
+        "559": "CUBLASLT_MATMUL_TILE_448x32",
+        "560": "CUBLASLT_MATMUL_TILE_448x40",
+        "561": "CUBLASLT_MATMUL_TILE_448x48",
+        "562": "CUBLASLT_MATMUL_TILE_448x56",
+        "563": "CUBLASLT_MATMUL_TILE_448x72",
+        "564": "CUBLASLT_MATMUL_TILE_448x80",
+        "565": "CUBLASLT_MATMUL_TILE_448x88",
+        "566": "CUBLASLT_MATMUL_TILE_448x96",
+        "567": "CUBLASLT_MATMUL_TILE_448x104",
+        "568": "CUBLASLT_MATMUL_TILE_448x112",
+        "569": "CUBLASLT_MATMUL_TILE_448x120",
+        "570": "CUBLASLT_MATMUL_TILE_448x128",
+        "571": "CUBLASLT_MATMUL_TILE_448x136",
+        "572": "CUBLASLT_MATMUL_TILE_448x144",
+        "573": "CUBLASLT_MATMUL_TILE_512x8",
+        "574": "CUBLASLT_MATMUL_TILE_512x16",
+        "575": "CUBLASLT_MATMUL_TILE_512x24",
+        "576": "CUBLASLT_MATMUL_TILE_512x32",
+        "577": "CUBLASLT_MATMUL_TILE_512x40",
+        "578": "CUBLASLT_MATMUL_TILE_512x48",
+        "579": "CUBLASLT_MATMUL_TILE_512x56",
+        "580": "CUBLASLT_MATMUL_TILE_512x72",
+        "581": "CUBLASLT_MATMUL_TILE_512x80",
+        "582": "CUBLASLT_MATMUL_TILE_512x88",
+        "583": "CUBLASLT_MATMUL_TILE_512x96",
+        "584": "CUBLASLT_MATMUL_TILE_512x104",
+        "585": "CUBLASLT_MATMUL_TILE_512x112",
+        "586": "CUBLASLT_MATMUL_TILE_512x120",
+        "587": "CUBLASLT_MATMUL_TILE_512x128",
+        "588": "CUBLASLT_MATMUL_TILE_576x8",
+        "589": "CUBLASLT_MATMUL_TILE_576x16",
+        "590": "CUBLASLT_MATMUL_TILE_576x24",
+        "591": "CUBLASLT_MATMUL_TILE_576x32",
+        "592": "CUBLASLT_MATMUL_TILE_576x40",
+        "593": "CUBLASLT_MATMUL_TILE_576x48",
+        "594": "CUBLASLT_MATMUL_TILE_576x56",
+        "595": "CUBLASLT_MATMUL_TILE_576x72",
+        "596": "CUBLASLT_MATMUL_TILE_576x80",
+        "597": "CUBLASLT_MATMUL_TILE_576x88",
+        "598": "CUBLASLT_MATMUL_TILE_576x96",
+        "599": "CUBLASLT_MATMUL_TILE_576x104",
+        "600": "CUBLASLT_MATMUL_TILE_576x112",
+        "601": "CUBLASLT_MATMUL_TILE_640x8",
+        "602": "CUBLASLT_MATMUL_TILE_640x16",
+        "603": "CUBLASLT_MATMUL_TILE_640x24",
+        "604": "CUBLASLT_MATMUL_TILE_640x32",
+        "605": "CUBLASLT_MATMUL_TILE_640x40",
+        "606": "CUBLASLT_MATMUL_TILE_640x48",
+        "607": "CUBLASLT_MATMUL_TILE_640x56",
+        "608": "CUBLASLT_MATMUL_TILE_640x72",
+        "609": "CUBLASLT_MATMUL_TILE_640x80",
+        "610": "CUBLASLT_MATMUL_TILE_640x88",
+        "611": "CUBLASLT_MATMUL_TILE_640x96",
+        "612": "CUBLASLT_MATMUL_TILE_704x8",
+        "613": "CUBLASLT_MATMUL_TILE_704x16",
+        "614": "CUBLASLT_MATMUL_TILE_704x24",
+        "615": "CUBLASLT_MATMUL_TILE_704x32",
+        "616": "CUBLASLT_MATMUL_TILE_704x40",
+        "617": "CUBLASLT_MATMUL_TILE_704x48",
+        "618": "CUBLASLT_MATMUL_TILE_704x56",
+        "619": "CUBLASLT_MATMUL_TILE_704x72",
+        "620": "CUBLASLT_MATMUL_TILE_704x80",
+        "621": "CUBLASLT_MATMUL_TILE_704x88",
+        "622": "CUBLASLT_MATMUL_TILE_768x8",
+        "623": "CUBLASLT_MATMUL_TILE_768x16",
+        "624": "CUBLASLT_MATMUL_TILE_768x24",
+        "625": "CUBLASLT_MATMUL_TILE_768x32",
+        "626": "CUBLASLT_MATMUL_TILE_768x40",
+        "627": "CUBLASLT_MATMUL_TILE_768x48",
+        "628": "CUBLASLT_MATMUL_TILE_768x56",
+        "629": "CUBLASLT_MATMUL_TILE_768x72",
+        "630": "CUBLASLT_MATMUL_TILE_768x80",
+        "631": "CUBLASLT_MATMUL_TILE_256x512",
+        "632": "CUBLASLT_MATMUL_TILE_256x1024",
+        "633": "CUBLASLT_MATMUL_TILE_512x512",
+        "634": "CUBLASLT_MATMUL_TILE_512x1024"
+      },
+      "stage_names": {
+        "0": "CUBLASLT_MATMUL_STAGES_UNDEFINED",
+        "1": "CUBLASLT_MATMUL_STAGES_16x1",
+        "2": "CUBLASLT_MATMUL_STAGES_16x2",
+        "3": "CUBLASLT_MATMUL_STAGES_16x3",
+        "4": "CUBLASLT_MATMUL_STAGES_16x4",
+        "5": "CUBLASLT_MATMUL_STAGES_16x5",
+        "6": "CUBLASLT_MATMUL_STAGES_16x6",
+        "7": "CUBLASLT_MATMUL_STAGES_32x1",
+        "8": "CUBLASLT_MATMUL_STAGES_32x2",
+        "9": "CUBLASLT_MATMUL_STAGES_32x3",
+        "10": "CUBLASLT_MATMUL_STAGES_32x4",
+        "11": "CUBLASLT_MATMUL_STAGES_32x5",
+        "12": "CUBLASLT_MATMUL_STAGES_32x6",
+        "13": "CUBLASLT_MATMUL_STAGES_64x1",
+        "14": "CUBLASLT_MATMUL_STAGES_64x2",
+        "15": "CUBLASLT_MATMUL_STAGES_64x3",
+        "16": "CUBLASLT_MATMUL_STAGES_64x4",
+        "17": "CUBLASLT_MATMUL_STAGES_64x5",
+        "18": "CUBLASLT_MATMUL_STAGES_64x6",
+        "19": "CUBLASLT_MATMUL_STAGES_128x1",
+        "20": "CUBLASLT_MATMUL_STAGES_128x2",
+        "21": "CUBLASLT_MATMUL_STAGES_128x3",
+        "22": "CUBLASLT_MATMUL_STAGES_128x4",
+        "23": "CUBLASLT_MATMUL_STAGES_128x5",
+        "24": "CUBLASLT_MATMUL_STAGES_128x6",
+        "25": "CUBLASLT_MATMUL_STAGES_32x10",
+        "26": "CUBLASLT_MATMUL_STAGES_8x4",
+        "27": "CUBLASLT_MATMUL_STAGES_16x10",
+        "28": "CUBLASLT_MATMUL_STAGES_8x5",
+        "31": "CUBLASLT_MATMUL_STAGES_8x3",
+        "32": "CUBLASLT_MATMUL_STAGES_8xAUTO",
+        "33": "CUBLASLT_MATMUL_STAGES_16xAUTO",
+        "34": "CUBLASLT_MATMUL_STAGES_32xAUTO",
+        "35": "CUBLASLT_MATMUL_STAGES_64xAUTO",
+        "36": "CUBLASLT_MATMUL_STAGES_128xAUTO",
+        "37": "CUBLASLT_MATMUL_STAGES_256xAUTO"
+      }
+    },
+    "configuration": {
+      "dtype": "f16",
+      "shape": [
+        4096,
+        4096,
+        4096
+      ],
+      "requested": 32,
+      "graph_nodes": 20,
+      "warmup_rounds": 8,
+      "extras": [
+        {
+          "name": "search_combined_square_row_bpair_f16",
+          "grid": [
+            32,
+            32,
+            1
+          ],
+          "threads": 128,
+          "smem": 65536,
+          "sha256": "2efcf91f106c895a7144244e210466bf74183ac1d2ca1fb14e2e2a79ee928c83",
+          "build": "search_combined_square_row_bpair_f16",
+          "resources": {
+            "max_threads": 256,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 232,
+            "ptx_version": 80,
+            "binary_version": 80
+          }
+        }
+      ],
+      "runner_source_sha256": {
+        "lt_abi.py": "f8bacce3d769b79563a13a748caf1f20d0624bc9e9550d385d776140f436b5f0",
+        "lt_worker.py": "db5c8833ba8363b39be353aab0f6b2ea8f76c1aff6018c58091b108b1ba32f0d",
+        "lt_modal.py": "5d12c3aaad3a20e85fc79e9cc9e93982fa5fb631bfb99d66a89f35b9cb7d56de"
+      }
+    },
+    "precision_policy": "quantized FP16/BF16 inputs; CUBLAS_COMPUTE_32F=68; FP32 accumulation/output; alpha=1,beta=0; default math mode",
+    "layout": "C^T[N,M] column-major; Lt A=Bstorage[K,N],transA=T; Lt B=Astorage[K,M],transB=N",
+    "heuristic_queries": [
+      {
+        "workspace_cap_bytes": 0,
+        "requested": 32,
+        "returned": 6,
+        "status": 0
+      },
+      {
+        "workspace_cap_bytes": 33554432,
+        "requested": 32,
+        "returned": 5,
+        "status": 0
+      }
+    ],
+    "candidates": [
+      {
+        "name": "lt_387df1fda99f",
+        "heuristic_rank": 0,
+        "workspace_cap_bytes": 0,
+        "workspace_required_bytes": 0,
+        "heuristic_state": 0,
+        "waves_count": 4.740740776062012,
+        "algo_bytes_hex": "06000000170000000f000000010000000000000001000000000000000000000001000000e3d70100020000000200000000000000440000000000000000000000",
+        "config": {
+          "id": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 6
+          },
+          "tile": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 23
+          },
+          "split_k": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 1
+          },
+          "reduction_scheme": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 0
+          },
+          "cta_swizzle": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 1
+          },
+          "custom_option": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 0
+          },
+          "stages": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 15
+          },
+          "tile_name": "CUBLASLT_MATMUL_TILE_128x256",
+          "stage_name": "CUBLASLT_MATMUL_STAGES_64x3"
+        },
+        "algo_check": {
+          "return_status": 0,
+          "state": 0,
+          "workspace_required_bytes": 0
+        }
+      },
+      {
+        "name": "lt_c136d3e61abd",
+        "heuristic_rank": 1,
+        "workspace_cap_bytes": 0,
+        "workspace_required_bytes": 0,
+        "heuristic_state": 0,
+        "waves_count": 4.740740776062012,
+        "algo_bytes_hex": "06000000180000000f000000010000000000000001000000000000000000000001000000e3d70100020000000200000000000000440000000000000000000000",
+        "config": {
+          "id": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 6
+          },
+          "tile": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 24
+          },
+          "split_k": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 1
+          },
+          "reduction_scheme": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 0
+          },
+          "cta_swizzle": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 1
+          },
+          "custom_option": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 0
+          },
+          "stages": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 15
+          },
+          "tile_name": "CUBLASLT_MATMUL_TILE_256x128",
+          "stage_name": "CUBLASLT_MATMUL_STAGES_64x3"
+        },
+        "algo_check": {
+          "return_status": 0,
+          "state": 0,
+          "workspace_required_bytes": 0
+        }
+      },
+      {
+        "name": "lt_da7700b505d3",
+        "heuristic_rank": 2,
+        "workspace_cap_bytes": 0,
+        "workspace_required_bytes": 0,
+        "heuristic_state": 0,
+        "waves_count": 4.740740776062012,
+        "algo_bytes_hex": "150000001800000009000000010000000000000000000000000000000000000001000000e3d70100020000000200000000000000440000000000000000000000",
+        "config": {
+          "id": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 21
+          },
+          "tile": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 24
+          },
+          "split_k": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 1
+          },
+          "reduction_scheme": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 0
+          },
+          "cta_swizzle": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 0
+          },
+          "custom_option": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 0
+          },
+          "stages": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 9
+          },
+          "tile_name": "CUBLASLT_MATMUL_TILE_256x128",
+          "stage_name": "CUBLASLT_MATMUL_STAGES_32x3"
+        },
+        "algo_check": {
+          "return_status": 0,
+          "state": 0,
+          "workspace_required_bytes": 0
+        }
+      },
+      {
+        "name": "lt_b0bbce6015d7",
+        "heuristic_rank": 3,
+        "workspace_cap_bytes": 0,
+        "workspace_required_bytes": 0,
+        "heuristic_state": 0,
+        "waves_count": 4.740740776062012,
+        "algo_bytes_hex": "06000000140000000b000000010000000000000001000000000000000000000001000000e3d70100020000000200000000000000440000000000000000000000",
+        "config": {
+          "id": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 6
+          },
+          "tile": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 20
+          },
+          "split_k": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 1
+          },
+          "reduction_scheme": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 0
+          },
+          "cta_swizzle": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 1
+          },
+          "custom_option": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 0
+          },
+          "stages": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 11
+          },
+          "tile_name": "CUBLASLT_MATMUL_TILE_128x128",
+          "stage_name": "CUBLASLT_MATMUL_STAGES_32x5"
+        },
+        "algo_check": {
+          "return_status": 0,
+          "state": 0,
+          "workspace_required_bytes": 0
+        }
+      },
+      {
+        "name": "lt_9490a0cbc189",
+        "heuristic_rank": 4,
+        "workspace_cap_bytes": 0,
+        "workspace_required_bytes": 0,
+        "heuristic_state": 0,
+        "waves_count": 9.481481552124023,
+        "algo_bytes_hex": "06000000140000000f000000010000000000000001000000000000000000000001000000e3d70100020000000200000000000000440000000000000000000000",
+        "config": {
+          "id": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 6
+          },
+          "tile": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 20
+          },
+          "split_k": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 1
+          },
+          "reduction_scheme": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 0
+          },
+          "cta_swizzle": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 1
+          },
+          "custom_option": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 0
+          },
+          "stages": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 15
+          },
+          "tile_name": "CUBLASLT_MATMUL_TILE_128x128",
+          "stage_name": "CUBLASLT_MATMUL_STAGES_64x3"
+        },
+        "algo_check": {
+          "return_status": 0,
+          "state": 0,
+          "workspace_required_bytes": 0
+        }
+      },
+      {
+        "name": "lt_37abb4c47a90",
+        "heuristic_rank": 5,
+        "workspace_cap_bytes": 0,
+        "workspace_required_bytes": 0,
+        "heuristic_state": 0,
+        "waves_count": 9.481481552124023,
+        "algo_bytes_hex": "150000001300000010000000010000000000000000000000000000000000000001000000e3d70100020000000200000000000000440000000000000000000000",
+        "config": {
+          "id": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 21
+          },
+          "tile": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 19
+          },
+          "split_k": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 1
+          },
+          "reduction_scheme": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 0
+          },
+          "cta_swizzle": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 0
+          },
+          "custom_option": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 0
+          },
+          "stages": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 16
+          },
+          "tile_name": "CUBLASLT_MATMUL_TILE_64x256",
+          "stage_name": "CUBLASLT_MATMUL_STAGES_64x4"
+        },
+        "algo_check": {
+          "return_status": 0,
+          "state": 0,
+          "workspace_required_bytes": 0
+        }
+      },
+      {
+        "name": "lt_de1b15af7291",
+        "heuristic_rank": 0,
+        "workspace_cap_bytes": 33554432,
+        "workspace_required_bytes": 4096,
+        "heuristic_state": 0,
+        "waves_count": 9.481481552124023,
+        "algo_bytes_hex": "15000000140000000b000000020000000100000000000000000000000000000001000000e3d70100020000000200000000000000440000000000000000000000",
+        "config": {
+          "id": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 21
+          },
+          "tile": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 20
+          },
+          "split_k": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 2
+          },
+          "reduction_scheme": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 1
+          },
+          "cta_swizzle": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 0
+          },
+          "custom_option": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 0
+          },
+          "stages": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 11
+          },
+          "tile_name": "CUBLASLT_MATMUL_TILE_128x128",
+          "stage_name": "CUBLASLT_MATMUL_STAGES_32x5"
+        },
+        "algo_check": {
+          "return_status": 0,
+          "state": 0,
+          "workspace_required_bytes": 4096
+        }
+      },
+      {
+        "name": "lt_78a4f24a141f",
+        "heuristic_rank": 1,
+        "workspace_cap_bytes": 33554432,
+        "workspace_required_bytes": 4096,
+        "heuristic_state": 0,
+        "waves_count": 9.481481552124023,
+        "algo_bytes_hex": "06000000140000000b000000020000000100000001000000000000000000000001000000e3d70100020000000200000000000000440000000000000000000000",
+        "config": {
+          "id": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 6
+          },
+          "tile": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 20
+          },
+          "split_k": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 2
+          },
+          "reduction_scheme": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 1
+          },
+          "cta_swizzle": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 1
+          },
+          "custom_option": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 0
+          },
+          "stages": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 11
+          },
+          "tile_name": "CUBLASLT_MATMUL_TILE_128x128",
+          "stage_name": "CUBLASLT_MATMUL_STAGES_32x5"
+        },
+        "algo_check": {
+          "return_status": 0,
+          "state": 0,
+          "workspace_required_bytes": 4096
+        }
+      },
+      {
+        "name": "lt_b0bbce6015d7",
+        "heuristic_rank": 2,
+        "workspace_cap_bytes": 33554432,
+        "workspace_required_bytes": 0,
+        "heuristic_state": 0,
+        "waves_count": 4.740740776062012,
+        "algo_bytes_hex": "06000000140000000b000000010000000000000001000000000000000000000001000000e3d70100020000000200000000000000440000000000000000000000",
+        "config": {
+          "id": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 6
+          },
+          "tile": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 20
+          },
+          "split_k": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 1
+          },
+          "reduction_scheme": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 0
+          },
+          "cta_swizzle": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 1
+          },
+          "custom_option": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 0
+          },
+          "stages": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 11
+          },
+          "tile_name": "CUBLASLT_MATMUL_TILE_128x128",
+          "stage_name": "CUBLASLT_MATMUL_STAGES_32x5"
+        },
+        "algo_check": {
+          "return_status": 0,
+          "state": 0,
+          "workspace_required_bytes": 0
+        },
+        "duplicate_of": "lt_b0bbce6015d7"
+      },
+      {
+        "name": "lt_ff66d3733829",
+        "heuristic_rank": 3,
+        "workspace_cap_bytes": 33554432,
+        "workspace_required_bytes": 0,
+        "heuristic_state": 0,
+        "waves_count": 4.740740776062012,
+        "algo_bytes_hex": "06000000140000000b000000010000000000000000000000000000000000000001000000e3d70100020000000200000000000000440000000000000000000000",
+        "config": {
+          "id": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 6
+          },
+          "tile": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 20
+          },
+          "split_k": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 1
+          },
+          "reduction_scheme": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 0
+          },
+          "cta_swizzle": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 0
+          },
+          "custom_option": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 0
+          },
+          "stages": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 11
+          },
+          "tile_name": "CUBLASLT_MATMUL_TILE_128x128",
+          "stage_name": "CUBLASLT_MATMUL_STAGES_32x5"
+        },
+        "algo_check": {
+          "return_status": 0,
+          "state": 0,
+          "workspace_required_bytes": 0
+        }
+      },
+      {
+        "name": "lt_8807f3c96256",
+        "heuristic_rank": 4,
+        "workspace_cap_bytes": 33554432,
+        "workspace_required_bytes": 0,
+        "heuristic_state": 0,
+        "waves_count": 4.740740776062012,
+        "algo_bytes_hex": "050000001500000007000000010000000000000001000000000000000000000001000000e3d70100020000000200000000000000440000000000000000000000",
+        "config": {
+          "id": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 5
+          },
+          "tile": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 21
+          },
+          "split_k": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 1
+          },
+          "reduction_scheme": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 0
+          },
+          "cta_swizzle": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 1
+          },
+          "custom_option": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 0
+          },
+          "stages": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 7
+          },
+          "tile_name": "CUBLASLT_MATMUL_TILE_256x64",
+          "stage_name": "CUBLASLT_MATMUL_STAGES_32x1"
+        },
+        "algo_check": {
+          "return_status": 0,
+          "state": 0,
+          "workspace_required_bytes": 0
+        }
+      }
+    ],
+    "checks": [
+      {
+        "name": "gemmex",
+        "pattern": "zero",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 0.0,
+        "full_max_abs_vs_gemmex": 0.0,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 0.0,
+        "sample_max_abs": 0.0,
+        "exact": true
+      },
+      {
+        "name": "lt_387df1fda99f",
+        "pattern": "zero",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 0.0,
+        "full_max_abs_vs_gemmex": 0.0,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 0.0,
+        "sample_max_abs": 0.0,
+        "exact": true
+      },
+      {
+        "name": "lt_c136d3e61abd",
+        "pattern": "zero",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 0.0,
+        "full_max_abs_vs_gemmex": 0.0,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 0.0,
+        "sample_max_abs": 0.0,
+        "exact": true
+      },
+      {
+        "name": "lt_da7700b505d3",
+        "pattern": "zero",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 0.0,
+        "full_max_abs_vs_gemmex": 0.0,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 0.0,
+        "sample_max_abs": 0.0,
+        "exact": true
+      },
+      {
+        "name": "lt_b0bbce6015d7",
+        "pattern": "zero",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 0.0,
+        "full_max_abs_vs_gemmex": 0.0,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 0.0,
+        "sample_max_abs": 0.0,
+        "exact": true
+      },
+      {
+        "name": "lt_9490a0cbc189",
+        "pattern": "zero",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 0.0,
+        "full_max_abs_vs_gemmex": 0.0,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 0.0,
+        "sample_max_abs": 0.0,
+        "exact": true
+      },
+      {
+        "name": "lt_37abb4c47a90",
+        "pattern": "zero",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 0.0,
+        "full_max_abs_vs_gemmex": 0.0,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 0.0,
+        "sample_max_abs": 0.0,
+        "exact": true
+      },
+      {
+        "name": "lt_de1b15af7291",
+        "pattern": "zero",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 0.0,
+        "full_max_abs_vs_gemmex": 0.0,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 0.0,
+        "sample_max_abs": 0.0,
+        "exact": true
+      },
+      {
+        "name": "lt_78a4f24a141f",
+        "pattern": "zero",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 0.0,
+        "full_max_abs_vs_gemmex": 0.0,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 0.0,
+        "sample_max_abs": 0.0,
+        "exact": true
+      },
+      {
+        "name": "lt_ff66d3733829",
+        "pattern": "zero",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 0.0,
+        "full_max_abs_vs_gemmex": 0.0,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 0.0,
+        "sample_max_abs": 0.0,
+        "exact": true
+      },
+      {
+        "name": "lt_8807f3c96256",
+        "pattern": "zero",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 0.0,
+        "full_max_abs_vs_gemmex": 0.0,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 0.0,
+        "sample_max_abs": 0.0,
+        "exact": true
+      },
+      {
+        "name": "search_combined_square_row_bpair_f16",
+        "pattern": "zero",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 0.0,
+        "full_max_abs_vs_gemmex": 0.0,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 0.0,
+        "sample_max_abs": 0.0,
+        "exact": true
+      },
+      {
+        "name": "gemmex",
+        "pattern": "integer",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 0.0,
+        "full_max_abs_vs_gemmex": 0.0,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 0.0,
+        "sample_max_abs": 0.0,
+        "exact": true
+      },
+      {
+        "name": "lt_387df1fda99f",
+        "pattern": "integer",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 0.0,
+        "full_max_abs_vs_gemmex": 0.0,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 0.0,
+        "sample_max_abs": 0.0,
+        "exact": true
+      },
+      {
+        "name": "lt_c136d3e61abd",
+        "pattern": "integer",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 0.0,
+        "full_max_abs_vs_gemmex": 0.0,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 0.0,
+        "sample_max_abs": 0.0,
+        "exact": true
+      },
+      {
+        "name": "lt_da7700b505d3",
+        "pattern": "integer",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 0.0,
+        "full_max_abs_vs_gemmex": 0.0,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 0.0,
+        "sample_max_abs": 0.0,
+        "exact": true
+      },
+      {
+        "name": "lt_b0bbce6015d7",
+        "pattern": "integer",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 0.0,
+        "full_max_abs_vs_gemmex": 0.0,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 0.0,
+        "sample_max_abs": 0.0,
+        "exact": true
+      },
+      {
+        "name": "lt_9490a0cbc189",
+        "pattern": "integer",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 0.0,
+        "full_max_abs_vs_gemmex": 0.0,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 0.0,
+        "sample_max_abs": 0.0,
+        "exact": true
+      },
+      {
+        "name": "lt_37abb4c47a90",
+        "pattern": "integer",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 0.0,
+        "full_max_abs_vs_gemmex": 0.0,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 0.0,
+        "sample_max_abs": 0.0,
+        "exact": true
+      },
+      {
+        "name": "lt_de1b15af7291",
+        "pattern": "integer",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 0.0,
+        "full_max_abs_vs_gemmex": 0.0,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 0.0,
+        "sample_max_abs": 0.0,
+        "exact": true
+      },
+      {
+        "name": "lt_78a4f24a141f",
+        "pattern": "integer",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 0.0,
+        "full_max_abs_vs_gemmex": 0.0,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 0.0,
+        "sample_max_abs": 0.0,
+        "exact": true
+      },
+      {
+        "name": "lt_ff66d3733829",
+        "pattern": "integer",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 0.0,
+        "full_max_abs_vs_gemmex": 0.0,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 0.0,
+        "sample_max_abs": 0.0,
+        "exact": true
+      },
+      {
+        "name": "lt_8807f3c96256",
+        "pattern": "integer",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 0.0,
+        "full_max_abs_vs_gemmex": 0.0,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 0.0,
+        "sample_max_abs": 0.0,
+        "exact": true
+      },
+      {
+        "name": "search_combined_square_row_bpair_f16",
+        "pattern": "integer",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 0.0,
+        "full_max_abs_vs_gemmex": 0.0,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 0.0,
+        "sample_max_abs": 0.0,
+        "exact": true
+      },
+      {
+        "name": "gemmex",
+        "pattern": "normal",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 0.0,
+        "full_max_abs_vs_gemmex": 0.0,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 3.384570273026696e-06,
+        "sample_max_abs": 0.0008373793098144233,
+        "exact": false
+      },
+      {
+        "name": "lt_387df1fda99f",
+        "pattern": "normal",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 3.978729637310607e-06,
+        "full_max_abs_vs_gemmex": 0.001983642578125,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 6.60998785720378e-06,
+        "sample_max_abs": 0.0016544414684176445,
+        "exact": false
+      },
+      {
+        "name": "lt_c136d3e61abd",
+        "pattern": "normal",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 3.978729637310607e-06,
+        "full_max_abs_vs_gemmex": 0.001983642578125,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 6.60998785720378e-06,
+        "sample_max_abs": 0.0016544414684176445,
+        "exact": false
+      },
+      {
+        "name": "lt_da7700b505d3",
+        "pattern": "normal",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 3.978729637310607e-06,
+        "full_max_abs_vs_gemmex": 0.001983642578125,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 6.60998785720378e-06,
+        "sample_max_abs": 0.0016544414684176445,
+        "exact": false
+      },
+      {
+        "name": "lt_b0bbce6015d7",
+        "pattern": "normal",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 3.978729637310607e-06,
+        "full_max_abs_vs_gemmex": 0.001983642578125,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 6.60998785720378e-06,
+        "sample_max_abs": 0.0016544414684176445,
+        "exact": false
+      },
+      {
+        "name": "lt_9490a0cbc189",
+        "pattern": "normal",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 3.978729637310607e-06,
+        "full_max_abs_vs_gemmex": 0.001983642578125,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 6.60998785720378e-06,
+        "sample_max_abs": 0.0016544414684176445,
+        "exact": false
+      },
+      {
+        "name": "lt_37abb4c47a90",
+        "pattern": "normal",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 3.978729637310607e-06,
+        "full_max_abs_vs_gemmex": 0.001983642578125,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 6.60998785720378e-06,
+        "sample_max_abs": 0.0016544414684176445,
+        "exact": false
+      },
+      {
+        "name": "lt_de1b15af7291",
+        "pattern": "normal",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 0.0,
+        "full_max_abs_vs_gemmex": 0.0,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 3.384570273026696e-06,
+        "sample_max_abs": 0.0008373793098144233,
+        "exact": false
+      },
+      {
+        "name": "lt_78a4f24a141f",
+        "pattern": "normal",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 0.0,
+        "full_max_abs_vs_gemmex": 0.0,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 3.384570273026696e-06,
+        "sample_max_abs": 0.0008373793098144233,
+        "exact": false
+      },
+      {
+        "name": "lt_ff66d3733829",
+        "pattern": "normal",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 3.978729637310607e-06,
+        "full_max_abs_vs_gemmex": 0.001983642578125,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 6.60998785720378e-06,
+        "sample_max_abs": 0.0016544414684176445,
+        "exact": false
+      },
+      {
+        "name": "lt_8807f3c96256",
+        "pattern": "normal",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 3.978729637310607e-06,
+        "full_max_abs_vs_gemmex": 0.001983642578125,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 6.60998785720378e-06,
+        "sample_max_abs": 0.0016544414684176445,
+        "exact": false
+      },
+      {
+        "name": "search_combined_square_row_bpair_f16",
+        "pattern": "normal",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 3.978729637310607e-06,
+        "full_max_abs_vs_gemmex": 0.001983642578125,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 6.60998785720378e-06,
+        "sample_max_abs": 0.0016544414684176445,
+        "exact": false
+      },
+      {
+        "name": "gemmex",
+        "pattern": "scaled",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 0.0,
+        "full_max_abs_vs_gemmex": 0.0,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 3.351797480982259e-06,
+        "sample_max_abs": 0.0007952970336191356,
+        "exact": false
+      },
+      {
+        "name": "lt_387df1fda99f",
+        "pattern": "scaled",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 3.980247583967866e-06,
+        "full_max_abs_vs_gemmex": 0.00213623046875,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 6.647028679564261e-06,
+        "sample_max_abs": 0.0016661399859003723,
+        "exact": false
+      },
+      {
+        "name": "lt_c136d3e61abd",
+        "pattern": "scaled",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 3.980247583967866e-06,
+        "full_max_abs_vs_gemmex": 0.00213623046875,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 6.647028679564261e-06,
+        "sample_max_abs": 0.0016661399859003723,
+        "exact": false
+      },
+      {
+        "name": "lt_da7700b505d3",
+        "pattern": "scaled",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 3.980247583967866e-06,
+        "full_max_abs_vs_gemmex": 0.00213623046875,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 6.647028679564261e-06,
+        "sample_max_abs": 0.0016661399859003723,
+        "exact": false
+      },
+      {
+        "name": "lt_b0bbce6015d7",
+        "pattern": "scaled",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 3.980247583967866e-06,
+        "full_max_abs_vs_gemmex": 0.00213623046875,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 6.647028679564261e-06,
+        "sample_max_abs": 0.0016661399859003723,
+        "exact": false
+      },
+      {
+        "name": "lt_9490a0cbc189",
+        "pattern": "scaled",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 3.980247583967866e-06,
+        "full_max_abs_vs_gemmex": 0.00213623046875,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 6.647028679564261e-06,
+        "sample_max_abs": 0.0016661399859003723,
+        "exact": false
+      },
+      {
+        "name": "lt_37abb4c47a90",
+        "pattern": "scaled",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 3.980247583967866e-06,
+        "full_max_abs_vs_gemmex": 0.00213623046875,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 6.647028679564261e-06,
+        "sample_max_abs": 0.0016661399859003723,
+        "exact": false
+      },
+      {
+        "name": "lt_de1b15af7291",
+        "pattern": "scaled",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 0.0,
+        "full_max_abs_vs_gemmex": 0.0,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 3.351797480982259e-06,
+        "sample_max_abs": 0.0007952970336191356,
+        "exact": false
+      },
+      {
+        "name": "lt_78a4f24a141f",
+        "pattern": "scaled",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 0.0,
+        "full_max_abs_vs_gemmex": 0.0,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 3.351797480982259e-06,
+        "sample_max_abs": 0.0007952970336191356,
+        "exact": false
+      },
+      {
+        "name": "lt_ff66d3733829",
+        "pattern": "scaled",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 3.980247583967866e-06,
+        "full_max_abs_vs_gemmex": 0.00213623046875,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 6.647028679564261e-06,
+        "sample_max_abs": 0.0016661399859003723,
+        "exact": false
+      },
+      {
+        "name": "lt_8807f3c96256",
+        "pattern": "scaled",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 3.980247583967866e-06,
+        "full_max_abs_vs_gemmex": 0.00213623046875,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 6.647028679564261e-06,
+        "sample_max_abs": 0.0016661399859003723,
+        "exact": false
+      },
+      {
+        "name": "search_combined_square_row_bpair_f16",
+        "pattern": "scaled",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 3.980247583967866e-06,
+        "full_max_abs_vs_gemmex": 0.00213623046875,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 6.647028679564261e-06,
+        "sample_max_abs": 0.0016661399859003723,
+        "exact": false
+      }
+    ],
+    "device": {
+      "name": "NVIDIA A100-SXM4-40GB",
+      "cc": "8.0",
+      "driver": 13030,
+      "sm_count": 108,
+      "clock_khz": 1410000,
+      "mem_bytes": 42429251584
+    },
+    "torch": "2.7.1+cu128",
+    "libraries": {
+      "lt": "libcublasLt.so.12",
+      "blas": "libcublas.so.12"
+    },
+    "shape_mnk": [
+      4096,
+      4096,
+      4096
+    ],
+    "cublas_version": 120803,
+    "math_mode": 0,
+    "passed": true,
+    "milliseconds": {
+      "gemmex": 0.596070384979248,
+      "lt_387df1fda99f": 0.5910528182983399,
+      "lt_c136d3e61abd": 0.59683837890625,
+      "lt_da7700b505d3": 0.5764607906341552,
+      "lt_b0bbce6015d7": 0.5916160106658935,
+      "lt_9490a0cbc189": 0.602675199508667,
+      "lt_37abb4c47a90": 0.6583807945251465,
+      "lt_de1b15af7291": 0.5933568000793457,
+      "lt_78a4f24a141f": 0.5882880210876464,
+      "lt_ff66d3733829": 0.593612813949585,
+      "lt_8807f3c96256": 0.9332223892211914,
+      "search_combined_square_row_bpair_f16": 0.6716928005218505
+    },
+    "samples_ms": {
+      "gemmex": [
+        0.6008831977844238,
+        0.596070384979248,
+        0.6193664073944092,
+        0.6155263900756835,
+        0.5863935947418213,
+        0.593612813949585,
+        0.58122239112854
+      ],
+      "lt_387df1fda99f": [
+        0.5761536121368408,
+        0.5955071926116944,
+        0.5744639873504639,
+        0.6105088233947754,
+        0.5888512134552002,
+        0.5954048156738281,
+        0.5910528182983399
+      ],
+      "lt_c136d3e61abd": [
+        0.592844820022583,
+        0.596992015838623,
+        0.5896192073822022,
+        0.5993472099304199,
+        0.5970431804656983,
+        0.5868031978607178,
+        0.59683837890625
+      ],
+      "lt_da7700b505d3": [
+        0.5697023868560791,
+        0.5692927837371826,
+        0.597760009765625,
+        0.5561344146728515,
+        0.5819392204284668,
+        0.5764607906341552,
+        0.582912015914917
+      ],
+      "lt_b0bbce6015d7": [
+        0.5917183876037597,
+        0.5763072013854981,
+        0.5988351821899414,
+        0.5916160106658935,
+        0.5840896129608154,
+        0.5939712047576904,
+        0.5842432022094727
+      ],
+      "lt_9490a0cbc189": [
+        0.5923840045928955,
+        0.5899263858795166,
+        0.6291967868804932,
+        0.5809152126312256,
+        0.6060544013977051,
+        0.602675199508667,
+        0.6059008121490479
+      ],
+      "lt_37abb4c47a90": [
+        0.6475776195526123,
+        0.6459392070770263,
+        0.6512127876281738,
+        0.6809088230133057,
+        0.6639103889465332,
+        0.6681600093841553,
+        0.6583807945251465
+      ],
+      "lt_de1b15af7291": [
+        0.5933568000793457,
+        0.5920767784118652,
+        0.607692813873291,
+        0.5941247940063477,
+        0.5888512134552002,
+        0.5938176155090332,
+        0.5933568000793457
+      ],
+      "lt_78a4f24a141f": [
+        0.5882880210876464,
+        0.587007999420166,
+        0.6248447895050049,
+        0.5815807819366455,
+        0.59683837890625,
+        0.6091263771057129,
+        0.5876736164093017
+      ],
+      "lt_ff66d3733829": [
+        0.572979211807251,
+        0.5996032238006592,
+        0.6112768173217773,
+        0.593612813949585,
+        0.593612813949585,
+        0.601087999343872,
+        0.5744639873504639
+      ],
+      "lt_8807f3c96256": [
+        0.9150464057922363,
+        0.930457592010498,
+        0.9442303657531739,
+        0.8998911857604981,
+        0.9353728294372559,
+        0.9484288215637207,
+        0.9332223892211914
+      ],
+      "search_combined_square_row_bpair_f16": [
+        0.6716928005218505,
+        0.6704127788543701,
+        0.6715392112731934,
+        0.6558720111846924,
+        0.6799871921539307,
+        0.6803455829620362,
+        0.6716928005218505
+      ]
+    },
+    "paired_round_orders": [
+      [
+        "lt_8807f3c96256",
+        "lt_387df1fda99f",
+        "lt_ff66d3733829",
+        "lt_da7700b505d3",
+        "search_combined_square_row_bpair_f16",
+        "lt_37abb4c47a90",
+        "lt_78a4f24a141f",
+        "lt_9490a0cbc189",
+        "lt_de1b15af7291",
+        "lt_c136d3e61abd",
+        "lt_b0bbce6015d7",
+        "gemmex"
+      ],
+      [
+        "lt_387df1fda99f",
+        "lt_c136d3e61abd",
+        "lt_8807f3c96256",
+        "lt_de1b15af7291",
+        "lt_da7700b505d3",
+        "search_combined_square_row_bpair_f16",
+        "lt_b0bbce6015d7",
+        "lt_9490a0cbc189",
+        "lt_37abb4c47a90",
+        "lt_78a4f24a141f",
+        "gemmex",
+        "lt_ff66d3733829"
+      ],
+      [
+        "gemmex",
+        "lt_78a4f24a141f",
+        "lt_9490a0cbc189",
+        "lt_ff66d3733829",
+        "lt_da7700b505d3",
+        "lt_b0bbce6015d7",
+        "lt_de1b15af7291",
+        "lt_8807f3c96256",
+        "lt_c136d3e61abd",
+        "lt_37abb4c47a90",
+        "search_combined_square_row_bpair_f16",
+        "lt_387df1fda99f"
+      ],
+      [
+        "lt_8807f3c96256",
+        "search_combined_square_row_bpair_f16",
+        "lt_da7700b505d3",
+        "lt_9490a0cbc189",
+        "lt_78a4f24a141f",
+        "lt_de1b15af7291",
+        "lt_b0bbce6015d7",
+        "gemmex",
+        "lt_387df1fda99f",
+        "lt_37abb4c47a90",
+        "lt_c136d3e61abd",
+        "lt_ff66d3733829"
+      ],
+      [
+        "lt_37abb4c47a90",
+        "lt_9490a0cbc189",
+        "lt_ff66d3733829",
+        "lt_c136d3e61abd",
+        "lt_da7700b505d3",
+        "search_combined_square_row_bpair_f16",
+        "lt_de1b15af7291",
+        "gemmex",
+        "lt_8807f3c96256",
+        "lt_78a4f24a141f",
+        "lt_387df1fda99f",
+        "lt_b0bbce6015d7"
+      ],
+      [
+        "lt_da7700b505d3",
+        "lt_de1b15af7291",
+        "lt_37abb4c47a90",
+        "lt_ff66d3733829",
+        "lt_78a4f24a141f",
+        "lt_8807f3c96256",
+        "lt_b0bbce6015d7",
+        "gemmex",
+        "lt_9490a0cbc189",
+        "lt_387df1fda99f",
+        "search_combined_square_row_bpair_f16",
+        "lt_c136d3e61abd"
+      ],
+      [
+        "search_combined_square_row_bpair_f16",
+        "lt_ff66d3733829",
+        "gemmex",
+        "lt_da7700b505d3",
+        "lt_c136d3e61abd",
+        "lt_9490a0cbc189",
+        "lt_37abb4c47a90",
+        "lt_de1b15af7291",
+        "lt_b0bbce6015d7",
+        "lt_387df1fda99f",
+        "lt_8807f3c96256",
+        "lt_78a4f24a141f"
+      ]
+    ],
+    "best_lt": "lt_da7700b505d3",
+    "best_by_workspace_cap": {
+      "0": {
+        "name": "lt_da7700b505d3",
+        "milliseconds": 0.5764607906341552,
+        "gemmex_over_best": 1.0340172214029
+      },
+      "33554432": {
+        "name": "lt_78a4f24a141f",
+        "milliseconds": 0.5882880210876464,
+        "gemmex_over_best": 1.01322883283806
+      }
+    },
+    "unique_heuristics": 10,
+    "correctness_accepted": [
+      "gemmex",
+      "lt_37abb4c47a90",
+      "lt_387df1fda99f",
+      "lt_78a4f24a141f",
+      "lt_8807f3c96256",
+      "lt_9490a0cbc189",
+      "lt_b0bbce6015d7",
+      "lt_c136d3e61abd",
+      "lt_da7700b505d3",
+      "lt_de1b15af7291",
+      "lt_ff66d3733829",
+      "search_combined_square_row_bpair_f16"
+    ],
+    "all_executed_candidate_checks_passed": true,
+    "failed_checks": 0,
+    "graph_nodes": 20,
+    "warmup_rounds": 8,
+    "tflops": {
+      "gemmex": 230.5750410277217,
+      "lt_387df1fda99f": 232.53243909349962,
+      "lt_c136d3e61abd": 230.27834390252673,
+      "lt_da7700b505d3": 238.41856324834447,
+      "lt_b0bbce6015d7": 232.31107846000575,
+      "lt_9490a0cbc189": 228.04813203537756,
+      "lt_37abb4c47a90": 208.75298097224584,
+      "lt_de1b15af7291": 231.62952451816713,
+      "lt_78a4f24a141f": 233.62527970210627,
+      "lt_ff66d3733829": 231.5296271277469,
+      "lt_8807f3c96256": 147.27352778869556,
+      "search_combined_square_row_bpair_f16": 204.6157906787465
+    },
+    "scope": "public cuBLASLt heuristic candidates, not exhaustive autotuning or extraction of proprietary kernels; same-worker FP32-output baseline comparison",
+    "worker_rc": 0,
+    "worker_stdout": "{\n  \"dtype\": \"f16\",\n  \"passed\": true,\n  \"best\": {\n    \"0\": {\n      \"name\": \"lt_da7700b505d3\",\n      \"milliseconds\": 0.5764607906341552,\n      \"gemmex_over_best\": 1.0340172214029\n    },\n    \"33554432\": {\n      \"name\": \"lt_78a4f24a141f\",\n      \"milliseconds\": 0.5882880210876464,\n      \"gemmex_over_best\": 1.01322883283806\n    }\n  },\n  \"error\": null\n}\n",
+    "worker_stderr": "",
+    "dtype": "f16",
+    "recorded_utc": "20261103T235453.187530Z"
+  },
+  {
+    "header_validation": {
+      "path": "/usr/local/cuda/include/cublasLt.h",
+      "sha256": "a07f53474d47e4259f18f223264ebe2e383c7903aed20868ed336df378029b08",
+      "enums": {
+        "CUBLASLT_MATMUL_DESC_TRANSA": 3,
+        "CUBLASLT_MATMUL_DESC_TRANSB": 4,
+        "CUBLASLT_MATMUL_PREF_MAX_WORKSPACE_BYTES": 1,
+        "CUBLASLT_ALGO_CONFIG_ID": 0,
+        "CUBLASLT_ALGO_CONFIG_TILE_ID": 1,
+        "CUBLASLT_ALGO_CONFIG_SPLITK_NUM": 2,
+        "CUBLASLT_ALGO_CONFIG_REDUCTION_SCHEME": 3,
+        "CUBLASLT_ALGO_CONFIG_CTA_SWIZZLING": 4,
+        "CUBLASLT_ALGO_CONFIG_CUSTOM_OPTION": 5,
+        "CUBLASLT_ALGO_CONFIG_STAGES_ID": 6
+      },
+      "structs": {
+        "cublasLtMatmulAlgo_t": "uint64_t data[8];",
+        "cublasLtMatmulHeuristicResult_t": "cublasLtMatmulAlgo_t algo; size_t workspaceSize; cublasStatus_t state; float wavesCount; int reserved[4];"
+      },
+      "ctypes_algo_bytes": 64,
+      "ctypes_heuristic_bytes": 96,
+      "tile_names": {
+        "0": "CUBLASLT_MATMUL_TILE_UNDEFINED",
+        "1": "CUBLASLT_MATMUL_TILE_8x8",
+        "2": "CUBLASLT_MATMUL_TILE_8x16",
+        "3": "CUBLASLT_MATMUL_TILE_16x8",
+        "4": "CUBLASLT_MATMUL_TILE_8x32",
+        "5": "CUBLASLT_MATMUL_TILE_16x16",
+        "6": "CUBLASLT_MATMUL_TILE_32x8",
+        "7": "CUBLASLT_MATMUL_TILE_8x64",
+        "8": "CUBLASLT_MATMUL_TILE_16x32",
+        "9": "CUBLASLT_MATMUL_TILE_32x16",
+        "10": "CUBLASLT_MATMUL_TILE_64x8",
+        "11": "CUBLASLT_MATMUL_TILE_32x32",
+        "12": "CUBLASLT_MATMUL_TILE_32x64",
+        "13": "CUBLASLT_MATMUL_TILE_64x32",
+        "14": "CUBLASLT_MATMUL_TILE_32x128",
+        "15": "CUBLASLT_MATMUL_TILE_64x64",
+        "16": "CUBLASLT_MATMUL_TILE_128x32",
+        "17": "CUBLASLT_MATMUL_TILE_64x128",
+        "18": "CUBLASLT_MATMUL_TILE_128x64",
+        "19": "CUBLASLT_MATMUL_TILE_64x256",
+        "20": "CUBLASLT_MATMUL_TILE_128x128",
+        "21": "CUBLASLT_MATMUL_TILE_256x64",
+        "22": "CUBLASLT_MATMUL_TILE_64x512",
+        "23": "CUBLASLT_MATMUL_TILE_128x256",
+        "24": "CUBLASLT_MATMUL_TILE_256x128",
+        "25": "CUBLASLT_MATMUL_TILE_512x64",
+        "26": "CUBLASLT_MATMUL_TILE_64x96",
+        "27": "CUBLASLT_MATMUL_TILE_96x64",
+        "28": "CUBLASLT_MATMUL_TILE_96x128",
+        "29": "CUBLASLT_MATMUL_TILE_128x160",
+        "30": "CUBLASLT_MATMUL_TILE_160x128",
+        "31": "CUBLASLT_MATMUL_TILE_192x128",
+        "32": "CUBLASLT_MATMUL_TILE_128x192",
+        "33": "CUBLASLT_MATMUL_TILE_128x96",
+        "34": "CUBLASLT_MATMUL_TILE_32x256",
+        "35": "CUBLASLT_MATMUL_TILE_256x32",
+        "36": "CUBLASLT_MATMUL_TILE_8x128",
+        "37": "CUBLASLT_MATMUL_TILE_8x192",
+        "38": "CUBLASLT_MATMUL_TILE_8x256",
+        "39": "CUBLASLT_MATMUL_TILE_8x320",
+        "40": "CUBLASLT_MATMUL_TILE_8x384",
+        "41": "CUBLASLT_MATMUL_TILE_8x448",
+        "42": "CUBLASLT_MATMUL_TILE_8x512",
+        "43": "CUBLASLT_MATMUL_TILE_8x576",
+        "44": "CUBLASLT_MATMUL_TILE_8x640",
+        "45": "CUBLASLT_MATMUL_TILE_8x704",
+        "46": "CUBLASLT_MATMUL_TILE_8x768",
+        "47": "CUBLASLT_MATMUL_TILE_16x64",
+        "48": "CUBLASLT_MATMUL_TILE_16x128",
+        "49": "CUBLASLT_MATMUL_TILE_16x192",
+        "50": "CUBLASLT_MATMUL_TILE_16x256",
+        "51": "CUBLASLT_MATMUL_TILE_16x320",
+        "52": "CUBLASLT_MATMUL_TILE_16x384",
+        "53": "CUBLASLT_MATMUL_TILE_16x448",
+        "54": "CUBLASLT_MATMUL_TILE_16x512",
+        "55": "CUBLASLT_MATMUL_TILE_16x576",
+        "56": "CUBLASLT_MATMUL_TILE_16x640",
+        "57": "CUBLASLT_MATMUL_TILE_16x704",
+        "58": "CUBLASLT_MATMUL_TILE_16x768",
+        "59": "CUBLASLT_MATMUL_TILE_24x64",
+        "60": "CUBLASLT_MATMUL_TILE_24x128",
+        "61": "CUBLASLT_MATMUL_TILE_24x192",
+        "62": "CUBLASLT_MATMUL_TILE_24x256",
+        "63": "CUBLASLT_MATMUL_TILE_24x320",
+        "64": "CUBLASLT_MATMUL_TILE_24x384",
+        "65": "CUBLASLT_MATMUL_TILE_24x448",
+        "66": "CUBLASLT_MATMUL_TILE_24x512",
+        "67": "CUBLASLT_MATMUL_TILE_24x576",
+        "68": "CUBLASLT_MATMUL_TILE_24x640",
+        "69": "CUBLASLT_MATMUL_TILE_24x704",
+        "70": "CUBLASLT_MATMUL_TILE_24x768",
+        "71": "CUBLASLT_MATMUL_TILE_32x192",
+        "72": "CUBLASLT_MATMUL_TILE_32x320",
+        "73": "CUBLASLT_MATMUL_TILE_32x384",
+        "74": "CUBLASLT_MATMUL_TILE_32x448",
+        "75": "CUBLASLT_MATMUL_TILE_32x512",
+        "76": "CUBLASLT_MATMUL_TILE_32x576",
+        "77": "CUBLASLT_MATMUL_TILE_32x640",
+        "78": "CUBLASLT_MATMUL_TILE_32x704",
+        "79": "CUBLASLT_MATMUL_TILE_32x768",
+        "80": "CUBLASLT_MATMUL_TILE_40x64",
+        "81": "CUBLASLT_MATMUL_TILE_40x128",
+        "82": "CUBLASLT_MATMUL_TILE_40x192",
+        "83": "CUBLASLT_MATMUL_TILE_40x256",
+        "84": "CUBLASLT_MATMUL_TILE_40x320",
+        "85": "CUBLASLT_MATMUL_TILE_40x384",
+        "86": "CUBLASLT_MATMUL_TILE_40x448",
+        "87": "CUBLASLT_MATMUL_TILE_40x512",
+        "88": "CUBLASLT_MATMUL_TILE_40x576",
+        "89": "CUBLASLT_MATMUL_TILE_40x640",
+        "90": "CUBLASLT_MATMUL_TILE_40x704",
+        "91": "CUBLASLT_MATMUL_TILE_40x768",
+        "92": "CUBLASLT_MATMUL_TILE_48x64",
+        "93": "CUBLASLT_MATMUL_TILE_48x128",
+        "94": "CUBLASLT_MATMUL_TILE_48x192",
+        "95": "CUBLASLT_MATMUL_TILE_48x256",
+        "96": "CUBLASLT_MATMUL_TILE_48x320",
+        "97": "CUBLASLT_MATMUL_TILE_48x384",
+        "98": "CUBLASLT_MATMUL_TILE_48x448",
+        "99": "CUBLASLT_MATMUL_TILE_48x512",
+        "100": "CUBLASLT_MATMUL_TILE_48x576",
+        "101": "CUBLASLT_MATMUL_TILE_48x640",
+        "102": "CUBLASLT_MATMUL_TILE_48x704",
+        "103": "CUBLASLT_MATMUL_TILE_48x768",
+        "104": "CUBLASLT_MATMUL_TILE_56x64",
+        "105": "CUBLASLT_MATMUL_TILE_56x128",
+        "106": "CUBLASLT_MATMUL_TILE_56x192",
+        "107": "CUBLASLT_MATMUL_TILE_56x256",
+        "108": "CUBLASLT_MATMUL_TILE_56x320",
+        "109": "CUBLASLT_MATMUL_TILE_56x384",
+        "110": "CUBLASLT_MATMUL_TILE_56x448",
+        "111": "CUBLASLT_MATMUL_TILE_56x512",
+        "112": "CUBLASLT_MATMUL_TILE_56x576",
+        "113": "CUBLASLT_MATMUL_TILE_56x640",
+        "114": "CUBLASLT_MATMUL_TILE_56x704",
+        "115": "CUBLASLT_MATMUL_TILE_56x768",
+        "116": "CUBLASLT_MATMUL_TILE_64x192",
+        "117": "CUBLASLT_MATMUL_TILE_64x320",
+        "118": "CUBLASLT_MATMUL_TILE_64x384",
+        "119": "CUBLASLT_MATMUL_TILE_64x448",
+        "120": "CUBLASLT_MATMUL_TILE_64x576",
+        "121": "CUBLASLT_MATMUL_TILE_64x640",
+        "122": "CUBLASLT_MATMUL_TILE_64x704",
+        "123": "CUBLASLT_MATMUL_TILE_64x768",
+        "124": "CUBLASLT_MATMUL_TILE_72x64",
+        "125": "CUBLASLT_MATMUL_TILE_72x128",
+        "126": "CUBLASLT_MATMUL_TILE_72x192",
+        "127": "CUBLASLT_MATMUL_TILE_72x256",
+        "128": "CUBLASLT_MATMUL_TILE_72x320",
+        "129": "CUBLASLT_MATMUL_TILE_72x384",
+        "130": "CUBLASLT_MATMUL_TILE_72x448",
+        "131": "CUBLASLT_MATMUL_TILE_72x512",
+        "132": "CUBLASLT_MATMUL_TILE_72x576",
+        "133": "CUBLASLT_MATMUL_TILE_72x640",
+        "134": "CUBLASLT_MATMUL_TILE_80x64",
+        "135": "CUBLASLT_MATMUL_TILE_80x128",
+        "136": "CUBLASLT_MATMUL_TILE_80x192",
+        "137": "CUBLASLT_MATMUL_TILE_80x256",
+        "138": "CUBLASLT_MATMUL_TILE_80x320",
+        "139": "CUBLASLT_MATMUL_TILE_80x384",
+        "140": "CUBLASLT_MATMUL_TILE_80x448",
+        "141": "CUBLASLT_MATMUL_TILE_80x512",
+        "142": "CUBLASLT_MATMUL_TILE_80x576",
+        "143": "CUBLASLT_MATMUL_TILE_88x64",
+        "144": "CUBLASLT_MATMUL_TILE_88x128",
+        "145": "CUBLASLT_MATMUL_TILE_88x192",
+        "146": "CUBLASLT_MATMUL_TILE_88x256",
+        "147": "CUBLASLT_MATMUL_TILE_88x320",
+        "148": "CUBLASLT_MATMUL_TILE_88x384",
+        "149": "CUBLASLT_MATMUL_TILE_88x448",
+        "150": "CUBLASLT_MATMUL_TILE_88x512",
+        "151": "CUBLASLT_MATMUL_TILE_96x192",
+        "152": "CUBLASLT_MATMUL_TILE_96x256",
+        "153": "CUBLASLT_MATMUL_TILE_96x320",
+        "154": "CUBLASLT_MATMUL_TILE_96x384",
+        "155": "CUBLASLT_MATMUL_TILE_96x448",
+        "156": "CUBLASLT_MATMUL_TILE_96x512",
+        "157": "CUBLASLT_MATMUL_TILE_104x64",
+        "158": "CUBLASLT_MATMUL_TILE_104x128",
+        "159": "CUBLASLT_MATMUL_TILE_104x192",
+        "160": "CUBLASLT_MATMUL_TILE_104x256",
+        "161": "CUBLASLT_MATMUL_TILE_104x320",
+        "162": "CUBLASLT_MATMUL_TILE_104x384",
+        "163": "CUBLASLT_MATMUL_TILE_104x448",
+        "164": "CUBLASLT_MATMUL_TILE_112x64",
+        "165": "CUBLASLT_MATMUL_TILE_112x128",
+        "166": "CUBLASLT_MATMUL_TILE_112x192",
+        "167": "CUBLASLT_MATMUL_TILE_112x256",
+        "168": "CUBLASLT_MATMUL_TILE_112x320",
+        "169": "CUBLASLT_MATMUL_TILE_112x384",
+        "170": "CUBLASLT_MATMUL_TILE_120x64",
+        "171": "CUBLASLT_MATMUL_TILE_120x128",
+        "172": "CUBLASLT_MATMUL_TILE_120x192",
+        "173": "CUBLASLT_MATMUL_TILE_120x256",
+        "174": "CUBLASLT_MATMUL_TILE_120x320",
+        "175": "CUBLASLT_MATMUL_TILE_120x384",
+        "176": "CUBLASLT_MATMUL_TILE_128x320",
+        "177": "CUBLASLT_MATMUL_TILE_128x384",
+        "178": "CUBLASLT_MATMUL_TILE_136x64",
+        "179": "CUBLASLT_MATMUL_TILE_136x128",
+        "180": "CUBLASLT_MATMUL_TILE_136x192",
+        "181": "CUBLASLT_MATMUL_TILE_136x256",
+        "182": "CUBLASLT_MATMUL_TILE_136x320",
+        "183": "CUBLASLT_MATMUL_TILE_144x64",
+        "184": "CUBLASLT_MATMUL_TILE_144x128",
+        "185": "CUBLASLT_MATMUL_TILE_144x192",
+        "186": "CUBLASLT_MATMUL_TILE_144x256",
+        "187": "CUBLASLT_MATMUL_TILE_144x320",
+        "188": "CUBLASLT_MATMUL_TILE_152x64",
+        "189": "CUBLASLT_MATMUL_TILE_152x128",
+        "190": "CUBLASLT_MATMUL_TILE_152x192",
+        "191": "CUBLASLT_MATMUL_TILE_152x256",
+        "192": "CUBLASLT_MATMUL_TILE_152x320",
+        "193": "CUBLASLT_MATMUL_TILE_160x64",
+        "194": "CUBLASLT_MATMUL_TILE_160x192",
+        "195": "CUBLASLT_MATMUL_TILE_160x256",
+        "196": "CUBLASLT_MATMUL_TILE_168x64",
+        "197": "CUBLASLT_MATMUL_TILE_168x128",
+        "198": "CUBLASLT_MATMUL_TILE_168x192",
+        "199": "CUBLASLT_MATMUL_TILE_168x256",
+        "200": "CUBLASLT_MATMUL_TILE_176x64",
+        "201": "CUBLASLT_MATMUL_TILE_176x128",
+        "202": "CUBLASLT_MATMUL_TILE_176x192",
+        "203": "CUBLASLT_MATMUL_TILE_176x256",
+        "204": "CUBLASLT_MATMUL_TILE_184x64",
+        "205": "CUBLASLT_MATMUL_TILE_184x128",
+        "206": "CUBLASLT_MATMUL_TILE_184x192",
+        "207": "CUBLASLT_MATMUL_TILE_184x256",
+        "208": "CUBLASLT_MATMUL_TILE_192x64",
+        "209": "CUBLASLT_MATMUL_TILE_192x192",
+        "210": "CUBLASLT_MATMUL_TILE_192x256",
+        "211": "CUBLASLT_MATMUL_TILE_200x64",
+        "212": "CUBLASLT_MATMUL_TILE_200x128",
+        "213": "CUBLASLT_MATMUL_TILE_200x192",
+        "214": "CUBLASLT_MATMUL_TILE_208x64",
+        "215": "CUBLASLT_MATMUL_TILE_208x128",
+        "216": "CUBLASLT_MATMUL_TILE_208x192",
+        "217": "CUBLASLT_MATMUL_TILE_216x64",
+        "218": "CUBLASLT_MATMUL_TILE_216x128",
+        "219": "CUBLASLT_MATMUL_TILE_216x192",
+        "220": "CUBLASLT_MATMUL_TILE_224x64",
+        "221": "CUBLASLT_MATMUL_TILE_224x128",
+        "222": "CUBLASLT_MATMUL_TILE_224x192",
+        "223": "CUBLASLT_MATMUL_TILE_232x64",
+        "224": "CUBLASLT_MATMUL_TILE_232x128",
+        "225": "CUBLASLT_MATMUL_TILE_232x192",
+        "226": "CUBLASLT_MATMUL_TILE_240x64",
+        "227": "CUBLASLT_MATMUL_TILE_240x128",
+        "228": "CUBLASLT_MATMUL_TILE_240x192",
+        "229": "CUBLASLT_MATMUL_TILE_248x64",
+        "230": "CUBLASLT_MATMUL_TILE_248x128",
+        "231": "CUBLASLT_MATMUL_TILE_248x192",
+        "232": "CUBLASLT_MATMUL_TILE_256x192",
+        "233": "CUBLASLT_MATMUL_TILE_264x64",
+        "234": "CUBLASLT_MATMUL_TILE_264x128",
+        "235": "CUBLASLT_MATMUL_TILE_272x64",
+        "236": "CUBLASLT_MATMUL_TILE_272x128",
+        "237": "CUBLASLT_MATMUL_TILE_280x64",
+        "238": "CUBLASLT_MATMUL_TILE_280x128",
+        "239": "CUBLASLT_MATMUL_TILE_288x64",
+        "240": "CUBLASLT_MATMUL_TILE_288x128",
+        "241": "CUBLASLT_MATMUL_TILE_296x64",
+        "242": "CUBLASLT_MATMUL_TILE_296x128",
+        "243": "CUBLASLT_MATMUL_TILE_304x64",
+        "244": "CUBLASLT_MATMUL_TILE_304x128",
+        "245": "CUBLASLT_MATMUL_TILE_312x64",
+        "246": "CUBLASLT_MATMUL_TILE_312x128",
+        "247": "CUBLASLT_MATMUL_TILE_320x64",
+        "248": "CUBLASLT_MATMUL_TILE_320x128",
+        "249": "CUBLASLT_MATMUL_TILE_328x64",
+        "250": "CUBLASLT_MATMUL_TILE_328x128",
+        "251": "CUBLASLT_MATMUL_TILE_336x64",
+        "252": "CUBLASLT_MATMUL_TILE_336x128",
+        "253": "CUBLASLT_MATMUL_TILE_344x64",
+        "254": "CUBLASLT_MATMUL_TILE_344x128",
+        "255": "CUBLASLT_MATMUL_TILE_352x64",
+        "256": "CUBLASLT_MATMUL_TILE_352x128",
+        "257": "CUBLASLT_MATMUL_TILE_360x64",
+        "258": "CUBLASLT_MATMUL_TILE_360x128",
+        "259": "CUBLASLT_MATMUL_TILE_368x64",
+        "260": "CUBLASLT_MATMUL_TILE_368x128",
+        "261": "CUBLASLT_MATMUL_TILE_376x64",
+        "262": "CUBLASLT_MATMUL_TILE_376x128",
+        "263": "CUBLASLT_MATMUL_TILE_384x64",
+        "264": "CUBLASLT_MATMUL_TILE_384x128",
+        "265": "CUBLASLT_MATMUL_TILE_392x64",
+        "266": "CUBLASLT_MATMUL_TILE_400x64",
+        "267": "CUBLASLT_MATMUL_TILE_408x64",
+        "268": "CUBLASLT_MATMUL_TILE_416x64",
+        "269": "CUBLASLT_MATMUL_TILE_424x64",
+        "270": "CUBLASLT_MATMUL_TILE_432x64",
+        "271": "CUBLASLT_MATMUL_TILE_440x64",
+        "272": "CUBLASLT_MATMUL_TILE_448x64",
+        "273": "CUBLASLT_MATMUL_TILE_456x64",
+        "274": "CUBLASLT_MATMUL_TILE_464x64",
+        "275": "CUBLASLT_MATMUL_TILE_472x64",
+        "276": "CUBLASLT_MATMUL_TILE_480x64",
+        "277": "CUBLASLT_MATMUL_TILE_488x64",
+        "278": "CUBLASLT_MATMUL_TILE_496x64",
+        "279": "CUBLASLT_MATMUL_TILE_504x64",
+        "280": "CUBLASLT_MATMUL_TILE_520x64",
+        "281": "CUBLASLT_MATMUL_TILE_528x64",
+        "282": "CUBLASLT_MATMUL_TILE_536x64",
+        "283": "CUBLASLT_MATMUL_TILE_544x64",
+        "284": "CUBLASLT_MATMUL_TILE_552x64",
+        "285": "CUBLASLT_MATMUL_TILE_560x64",
+        "286": "CUBLASLT_MATMUL_TILE_568x64",
+        "287": "CUBLASLT_MATMUL_TILE_576x64",
+        "288": "CUBLASLT_MATMUL_TILE_584x64",
+        "289": "CUBLASLT_MATMUL_TILE_592x64",
+        "290": "CUBLASLT_MATMUL_TILE_600x64",
+        "291": "CUBLASLT_MATMUL_TILE_608x64",
+        "292": "CUBLASLT_MATMUL_TILE_616x64",
+        "293": "CUBLASLT_MATMUL_TILE_624x64",
+        "294": "CUBLASLT_MATMUL_TILE_632x64",
+        "295": "CUBLASLT_MATMUL_TILE_640x64",
+        "296": "CUBLASLT_MATMUL_TILE_648x64",
+        "297": "CUBLASLT_MATMUL_TILE_656x64",
+        "298": "CUBLASLT_MATMUL_TILE_664x64",
+        "299": "CUBLASLT_MATMUL_TILE_672x64",
+        "300": "CUBLASLT_MATMUL_TILE_680x64",
+        "301": "CUBLASLT_MATMUL_TILE_688x64",
+        "302": "CUBLASLT_MATMUL_TILE_696x64",
+        "303": "CUBLASLT_MATMUL_TILE_704x64",
+        "304": "CUBLASLT_MATMUL_TILE_712x64",
+        "305": "CUBLASLT_MATMUL_TILE_720x64",
+        "306": "CUBLASLT_MATMUL_TILE_728x64",
+        "307": "CUBLASLT_MATMUL_TILE_736x64",
+        "308": "CUBLASLT_MATMUL_TILE_744x64",
+        "309": "CUBLASLT_MATMUL_TILE_752x64",
+        "310": "CUBLASLT_MATMUL_TILE_760x64",
+        "311": "CUBLASLT_MATMUL_TILE_768x64",
+        "312": "CUBLASLT_MATMUL_TILE_64x16",
+        "313": "CUBLASLT_MATMUL_TILE_64x24",
+        "314": "CUBLASLT_MATMUL_TILE_64x40",
+        "315": "CUBLASLT_MATMUL_TILE_64x48",
+        "316": "CUBLASLT_MATMUL_TILE_64x56",
+        "317": "CUBLASLT_MATMUL_TILE_64x72",
+        "318": "CUBLASLT_MATMUL_TILE_64x80",
+        "319": "CUBLASLT_MATMUL_TILE_64x88",
+        "320": "CUBLASLT_MATMUL_TILE_64x104",
+        "321": "CUBLASLT_MATMUL_TILE_64x112",
+        "322": "CUBLASLT_MATMUL_TILE_64x120",
+        "323": "CUBLASLT_MATMUL_TILE_64x136",
+        "324": "CUBLASLT_MATMUL_TILE_64x144",
+        "325": "CUBLASLT_MATMUL_TILE_64x152",
+        "326": "CUBLASLT_MATMUL_TILE_64x160",
+        "327": "CUBLASLT_MATMUL_TILE_64x168",
+        "328": "CUBLASLT_MATMUL_TILE_64x176",
+        "329": "CUBLASLT_MATMUL_TILE_64x184",
+        "330": "CUBLASLT_MATMUL_TILE_64x200",
+        "331": "CUBLASLT_MATMUL_TILE_64x208",
+        "332": "CUBLASLT_MATMUL_TILE_64x216",
+        "333": "CUBLASLT_MATMUL_TILE_64x224",
+        "334": "CUBLASLT_MATMUL_TILE_64x232",
+        "335": "CUBLASLT_MATMUL_TILE_64x240",
+        "336": "CUBLASLT_MATMUL_TILE_64x248",
+        "337": "CUBLASLT_MATMUL_TILE_64x264",
+        "338": "CUBLASLT_MATMUL_TILE_64x272",
+        "339": "CUBLASLT_MATMUL_TILE_64x280",
+        "340": "CUBLASLT_MATMUL_TILE_64x288",
+        "341": "CUBLASLT_MATMUL_TILE_64x296",
+        "342": "CUBLASLT_MATMUL_TILE_64x304",
+        "343": "CUBLASLT_MATMUL_TILE_64x312",
+        "344": "CUBLASLT_MATMUL_TILE_64x328",
+        "345": "CUBLASLT_MATMUL_TILE_64x336",
+        "346": "CUBLASLT_MATMUL_TILE_64x344",
+        "347": "CUBLASLT_MATMUL_TILE_64x352",
+        "348": "CUBLASLT_MATMUL_TILE_64x360",
+        "349": "CUBLASLT_MATMUL_TILE_64x368",
+        "350": "CUBLASLT_MATMUL_TILE_64x376",
+        "351": "CUBLASLT_MATMUL_TILE_64x392",
+        "352": "CUBLASLT_MATMUL_TILE_64x400",
+        "353": "CUBLASLT_MATMUL_TILE_64x408",
+        "354": "CUBLASLT_MATMUL_TILE_64x416",
+        "355": "CUBLASLT_MATMUL_TILE_64x424",
+        "356": "CUBLASLT_MATMUL_TILE_64x432",
+        "357": "CUBLASLT_MATMUL_TILE_64x440",
+        "358": "CUBLASLT_MATMUL_TILE_64x456",
+        "359": "CUBLASLT_MATMUL_TILE_64x464",
+        "360": "CUBLASLT_MATMUL_TILE_64x472",
+        "361": "CUBLASLT_MATMUL_TILE_64x480",
+        "362": "CUBLASLT_MATMUL_TILE_64x488",
+        "363": "CUBLASLT_MATMUL_TILE_64x496",
+        "364": "CUBLASLT_MATMUL_TILE_64x504",
+        "365": "CUBLASLT_MATMUL_TILE_64x520",
+        "366": "CUBLASLT_MATMUL_TILE_64x528",
+        "367": "CUBLASLT_MATMUL_TILE_64x536",
+        "368": "CUBLASLT_MATMUL_TILE_64x544",
+        "369": "CUBLASLT_MATMUL_TILE_64x552",
+        "370": "CUBLASLT_MATMUL_TILE_64x560",
+        "371": "CUBLASLT_MATMUL_TILE_64x568",
+        "372": "CUBLASLT_MATMUL_TILE_64x584",
+        "373": "CUBLASLT_MATMUL_TILE_64x592",
+        "374": "CUBLASLT_MATMUL_TILE_64x600",
+        "375": "CUBLASLT_MATMUL_TILE_64x608",
+        "376": "CUBLASLT_MATMUL_TILE_64x616",
+        "377": "CUBLASLT_MATMUL_TILE_64x624",
+        "378": "CUBLASLT_MATMUL_TILE_64x632",
+        "379": "CUBLASLT_MATMUL_TILE_64x648",
+        "380": "CUBLASLT_MATMUL_TILE_64x656",
+        "381": "CUBLASLT_MATMUL_TILE_64x664",
+        "382": "CUBLASLT_MATMUL_TILE_64x672",
+        "383": "CUBLASLT_MATMUL_TILE_64x680",
+        "384": "CUBLASLT_MATMUL_TILE_64x688",
+        "385": "CUBLASLT_MATMUL_TILE_64x696",
+        "386": "CUBLASLT_MATMUL_TILE_64x712",
+        "387": "CUBLASLT_MATMUL_TILE_64x720",
+        "388": "CUBLASLT_MATMUL_TILE_64x728",
+        "389": "CUBLASLT_MATMUL_TILE_64x736",
+        "390": "CUBLASLT_MATMUL_TILE_64x744",
+        "391": "CUBLASLT_MATMUL_TILE_64x752",
+        "392": "CUBLASLT_MATMUL_TILE_64x760",
+        "393": "CUBLASLT_MATMUL_TILE_128x8",
+        "394": "CUBLASLT_MATMUL_TILE_128x16",
+        "395": "CUBLASLT_MATMUL_TILE_128x24",
+        "396": "CUBLASLT_MATMUL_TILE_128x40",
+        "397": "CUBLASLT_MATMUL_TILE_128x48",
+        "398": "CUBLASLT_MATMUL_TILE_128x56",
+        "399": "CUBLASLT_MATMUL_TILE_128x72",
+        "400": "CUBLASLT_MATMUL_TILE_128x80",
+        "401": "CUBLASLT_MATMUL_TILE_128x88",
+        "402": "CUBLASLT_MATMUL_TILE_128x104",
+        "403": "CUBLASLT_MATMUL_TILE_128x112",
+        "404": "CUBLASLT_MATMUL_TILE_128x120",
+        "405": "CUBLASLT_MATMUL_TILE_128x136",
+        "406": "CUBLASLT_MATMUL_TILE_128x144",
+        "407": "CUBLASLT_MATMUL_TILE_128x152",
+        "408": "CUBLASLT_MATMUL_TILE_128x168",
+        "409": "CUBLASLT_MATMUL_TILE_128x176",
+        "410": "CUBLASLT_MATMUL_TILE_128x184",
+        "411": "CUBLASLT_MATMUL_TILE_128x200",
+        "412": "CUBLASLT_MATMUL_TILE_128x208",
+        "413": "CUBLASLT_MATMUL_TILE_128x216",
+        "414": "CUBLASLT_MATMUL_TILE_128x224",
+        "415": "CUBLASLT_MATMUL_TILE_128x232",
+        "416": "CUBLASLT_MATMUL_TILE_128x240",
+        "417": "CUBLASLT_MATMUL_TILE_128x248",
+        "418": "CUBLASLT_MATMUL_TILE_128x264",
+        "419": "CUBLASLT_MATMUL_TILE_128x272",
+        "420": "CUBLASLT_MATMUL_TILE_128x280",
+        "421": "CUBLASLT_MATMUL_TILE_128x288",
+        "422": "CUBLASLT_MATMUL_TILE_128x296",
+        "423": "CUBLASLT_MATMUL_TILE_128x304",
+        "424": "CUBLASLT_MATMUL_TILE_128x312",
+        "425": "CUBLASLT_MATMUL_TILE_128x328",
+        "426": "CUBLASLT_MATMUL_TILE_128x336",
+        "427": "CUBLASLT_MATMUL_TILE_128x344",
+        "428": "CUBLASLT_MATMUL_TILE_128x352",
+        "429": "CUBLASLT_MATMUL_TILE_128x360",
+        "430": "CUBLASLT_MATMUL_TILE_128x368",
+        "431": "CUBLASLT_MATMUL_TILE_128x376",
+        "432": "CUBLASLT_MATMUL_TILE_128x392",
+        "433": "CUBLASLT_MATMUL_TILE_128x400",
+        "434": "CUBLASLT_MATMUL_TILE_128x408",
+        "435": "CUBLASLT_MATMUL_TILE_128x416",
+        "436": "CUBLASLT_MATMUL_TILE_128x424",
+        "437": "CUBLASLT_MATMUL_TILE_128x432",
+        "438": "CUBLASLT_MATMUL_TILE_128x440",
+        "439": "CUBLASLT_MATMUL_TILE_128x448",
+        "440": "CUBLASLT_MATMUL_TILE_128x456",
+        "441": "CUBLASLT_MATMUL_TILE_128x464",
+        "442": "CUBLASLT_MATMUL_TILE_128x472",
+        "443": "CUBLASLT_MATMUL_TILE_128x480",
+        "444": "CUBLASLT_MATMUL_TILE_128x488",
+        "445": "CUBLASLT_MATMUL_TILE_128x496",
+        "446": "CUBLASLT_MATMUL_TILE_128x504",
+        "447": "CUBLASLT_MATMUL_TILE_128x512",
+        "448": "CUBLASLT_MATMUL_TILE_192x8",
+        "449": "CUBLASLT_MATMUL_TILE_192x16",
+        "450": "CUBLASLT_MATMUL_TILE_192x24",
+        "451": "CUBLASLT_MATMUL_TILE_192x32",
+        "452": "CUBLASLT_MATMUL_TILE_192x40",
+        "453": "CUBLASLT_MATMUL_TILE_192x48",
+        "454": "CUBLASLT_MATMUL_TILE_192x56",
+        "455": "CUBLASLT_MATMUL_TILE_192x72",
+        "456": "CUBLASLT_MATMUL_TILE_192x80",
+        "457": "CUBLASLT_MATMUL_TILE_192x88",
+        "458": "CUBLASLT_MATMUL_TILE_192x96",
+        "459": "CUBLASLT_MATMUL_TILE_192x104",
+        "460": "CUBLASLT_MATMUL_TILE_192x112",
+        "461": "CUBLASLT_MATMUL_TILE_192x120",
+        "462": "CUBLASLT_MATMUL_TILE_192x136",
+        "463": "CUBLASLT_MATMUL_TILE_192x144",
+        "464": "CUBLASLT_MATMUL_TILE_192x152",
+        "465": "CUBLASLT_MATMUL_TILE_192x160",
+        "466": "CUBLASLT_MATMUL_TILE_192x168",
+        "467": "CUBLASLT_MATMUL_TILE_192x176",
+        "468": "CUBLASLT_MATMUL_TILE_192x184",
+        "469": "CUBLASLT_MATMUL_TILE_192x200",
+        "470": "CUBLASLT_MATMUL_TILE_192x208",
+        "471": "CUBLASLT_MATMUL_TILE_192x216",
+        "472": "CUBLASLT_MATMUL_TILE_192x224",
+        "473": "CUBLASLT_MATMUL_TILE_192x232",
+        "474": "CUBLASLT_MATMUL_TILE_192x240",
+        "475": "CUBLASLT_MATMUL_TILE_192x248",
+        "476": "CUBLASLT_MATMUL_TILE_192x264",
+        "477": "CUBLASLT_MATMUL_TILE_192x272",
+        "478": "CUBLASLT_MATMUL_TILE_192x280",
+        "479": "CUBLASLT_MATMUL_TILE_192x288",
+        "480": "CUBLASLT_MATMUL_TILE_192x296",
+        "481": "CUBLASLT_MATMUL_TILE_192x304",
+        "482": "CUBLASLT_MATMUL_TILE_192x312",
+        "483": "CUBLASLT_MATMUL_TILE_192x320",
+        "484": "CUBLASLT_MATMUL_TILE_192x328",
+        "485": "CUBLASLT_MATMUL_TILE_192x336",
+        "486": "CUBLASLT_MATMUL_TILE_256x8",
+        "487": "CUBLASLT_MATMUL_TILE_256x16",
+        "488": "CUBLASLT_MATMUL_TILE_256x24",
+        "489": "CUBLASLT_MATMUL_TILE_256x40",
+        "490": "CUBLASLT_MATMUL_TILE_256x48",
+        "491": "CUBLASLT_MATMUL_TILE_256x56",
+        "492": "CUBLASLT_MATMUL_TILE_256x72",
+        "493": "CUBLASLT_MATMUL_TILE_256x80",
+        "494": "CUBLASLT_MATMUL_TILE_256x88",
+        "495": "CUBLASLT_MATMUL_TILE_256x96",
+        "496": "CUBLASLT_MATMUL_TILE_256x104",
+        "497": "CUBLASLT_MATMUL_TILE_256x112",
+        "498": "CUBLASLT_MATMUL_TILE_256x120",
+        "499": "CUBLASLT_MATMUL_TILE_256x136",
+        "500": "CUBLASLT_MATMUL_TILE_256x144",
+        "501": "CUBLASLT_MATMUL_TILE_256x152",
+        "502": "CUBLASLT_MATMUL_TILE_256x160",
+        "503": "CUBLASLT_MATMUL_TILE_256x168",
+        "504": "CUBLASLT_MATMUL_TILE_256x176",
+        "505": "CUBLASLT_MATMUL_TILE_256x184",
+        "506": "CUBLASLT_MATMUL_TILE_256x200",
+        "507": "CUBLASLT_MATMUL_TILE_256x208",
+        "508": "CUBLASLT_MATMUL_TILE_256x216",
+        "509": "CUBLASLT_MATMUL_TILE_256x224",
+        "510": "CUBLASLT_MATMUL_TILE_256x232",
+        "511": "CUBLASLT_MATMUL_TILE_256x240",
+        "512": "CUBLASLT_MATMUL_TILE_256x248",
+        "513": "CUBLASLT_MATMUL_TILE_256x256",
+        "514": "CUBLASLT_MATMUL_TILE_320x8",
+        "515": "CUBLASLT_MATMUL_TILE_320x16",
+        "516": "CUBLASLT_MATMUL_TILE_320x24",
+        "517": "CUBLASLT_MATMUL_TILE_320x32",
+        "518": "CUBLASLT_MATMUL_TILE_320x40",
+        "519": "CUBLASLT_MATMUL_TILE_320x48",
+        "520": "CUBLASLT_MATMUL_TILE_320x56",
+        "521": "CUBLASLT_MATMUL_TILE_320x72",
+        "522": "CUBLASLT_MATMUL_TILE_320x80",
+        "523": "CUBLASLT_MATMUL_TILE_320x88",
+        "524": "CUBLASLT_MATMUL_TILE_320x96",
+        "525": "CUBLASLT_MATMUL_TILE_320x104",
+        "526": "CUBLASLT_MATMUL_TILE_320x112",
+        "527": "CUBLASLT_MATMUL_TILE_320x120",
+        "528": "CUBLASLT_MATMUL_TILE_320x136",
+        "529": "CUBLASLT_MATMUL_TILE_320x144",
+        "530": "CUBLASLT_MATMUL_TILE_320x152",
+        "531": "CUBLASLT_MATMUL_TILE_320x160",
+        "532": "CUBLASLT_MATMUL_TILE_320x168",
+        "533": "CUBLASLT_MATMUL_TILE_320x176",
+        "534": "CUBLASLT_MATMUL_TILE_320x184",
+        "535": "CUBLASLT_MATMUL_TILE_320x192",
+        "536": "CUBLASLT_MATMUL_TILE_320x200",
+        "537": "CUBLASLT_MATMUL_TILE_384x8",
+        "538": "CUBLASLT_MATMUL_TILE_384x16",
+        "539": "CUBLASLT_MATMUL_TILE_384x24",
+        "540": "CUBLASLT_MATMUL_TILE_384x32",
+        "541": "CUBLASLT_MATMUL_TILE_384x40",
+        "542": "CUBLASLT_MATMUL_TILE_384x48",
+        "543": "CUBLASLT_MATMUL_TILE_384x56",
+        "544": "CUBLASLT_MATMUL_TILE_384x72",
+        "545": "CUBLASLT_MATMUL_TILE_384x80",
+        "546": "CUBLASLT_MATMUL_TILE_384x88",
+        "547": "CUBLASLT_MATMUL_TILE_384x96",
+        "548": "CUBLASLT_MATMUL_TILE_384x104",
+        "549": "CUBLASLT_MATMUL_TILE_384x112",
+        "550": "CUBLASLT_MATMUL_TILE_384x120",
+        "551": "CUBLASLT_MATMUL_TILE_384x136",
+        "552": "CUBLASLT_MATMUL_TILE_384x144",
+        "553": "CUBLASLT_MATMUL_TILE_384x152",
+        "554": "CUBLASLT_MATMUL_TILE_384x160",
+        "555": "CUBLASLT_MATMUL_TILE_384x168",
+        "556": "CUBLASLT_MATMUL_TILE_448x8",
+        "557": "CUBLASLT_MATMUL_TILE_448x16",
+        "558": "CUBLASLT_MATMUL_TILE_448x24",
+        "559": "CUBLASLT_MATMUL_TILE_448x32",
+        "560": "CUBLASLT_MATMUL_TILE_448x40",
+        "561": "CUBLASLT_MATMUL_TILE_448x48",
+        "562": "CUBLASLT_MATMUL_TILE_448x56",
+        "563": "CUBLASLT_MATMUL_TILE_448x72",
+        "564": "CUBLASLT_MATMUL_TILE_448x80",
+        "565": "CUBLASLT_MATMUL_TILE_448x88",
+        "566": "CUBLASLT_MATMUL_TILE_448x96",
+        "567": "CUBLASLT_MATMUL_TILE_448x104",
+        "568": "CUBLASLT_MATMUL_TILE_448x112",
+        "569": "CUBLASLT_MATMUL_TILE_448x120",
+        "570": "CUBLASLT_MATMUL_TILE_448x128",
+        "571": "CUBLASLT_MATMUL_TILE_448x136",
+        "572": "CUBLASLT_MATMUL_TILE_448x144",
+        "573": "CUBLASLT_MATMUL_TILE_512x8",
+        "574": "CUBLASLT_MATMUL_TILE_512x16",
+        "575": "CUBLASLT_MATMUL_TILE_512x24",
+        "576": "CUBLASLT_MATMUL_TILE_512x32",
+        "577": "CUBLASLT_MATMUL_TILE_512x40",
+        "578": "CUBLASLT_MATMUL_TILE_512x48",
+        "579": "CUBLASLT_MATMUL_TILE_512x56",
+        "580": "CUBLASLT_MATMUL_TILE_512x72",
+        "581": "CUBLASLT_MATMUL_TILE_512x80",
+        "582": "CUBLASLT_MATMUL_TILE_512x88",
+        "583": "CUBLASLT_MATMUL_TILE_512x96",
+        "584": "CUBLASLT_MATMUL_TILE_512x104",
+        "585": "CUBLASLT_MATMUL_TILE_512x112",
+        "586": "CUBLASLT_MATMUL_TILE_512x120",
+        "587": "CUBLASLT_MATMUL_TILE_512x128",
+        "588": "CUBLASLT_MATMUL_TILE_576x8",
+        "589": "CUBLASLT_MATMUL_TILE_576x16",
+        "590": "CUBLASLT_MATMUL_TILE_576x24",
+        "591": "CUBLASLT_MATMUL_TILE_576x32",
+        "592": "CUBLASLT_MATMUL_TILE_576x40",
+        "593": "CUBLASLT_MATMUL_TILE_576x48",
+        "594": "CUBLASLT_MATMUL_TILE_576x56",
+        "595": "CUBLASLT_MATMUL_TILE_576x72",
+        "596": "CUBLASLT_MATMUL_TILE_576x80",
+        "597": "CUBLASLT_MATMUL_TILE_576x88",
+        "598": "CUBLASLT_MATMUL_TILE_576x96",
+        "599": "CUBLASLT_MATMUL_TILE_576x104",
+        "600": "CUBLASLT_MATMUL_TILE_576x112",
+        "601": "CUBLASLT_MATMUL_TILE_640x8",
+        "602": "CUBLASLT_MATMUL_TILE_640x16",
+        "603": "CUBLASLT_MATMUL_TILE_640x24",
+        "604": "CUBLASLT_MATMUL_TILE_640x32",
+        "605": "CUBLASLT_MATMUL_TILE_640x40",
+        "606": "CUBLASLT_MATMUL_TILE_640x48",
+        "607": "CUBLASLT_MATMUL_TILE_640x56",
+        "608": "CUBLASLT_MATMUL_TILE_640x72",
+        "609": "CUBLASLT_MATMUL_TILE_640x80",
+        "610": "CUBLASLT_MATMUL_TILE_640x88",
+        "611": "CUBLASLT_MATMUL_TILE_640x96",
+        "612": "CUBLASLT_MATMUL_TILE_704x8",
+        "613": "CUBLASLT_MATMUL_TILE_704x16",
+        "614": "CUBLASLT_MATMUL_TILE_704x24",
+        "615": "CUBLASLT_MATMUL_TILE_704x32",
+        "616": "CUBLASLT_MATMUL_TILE_704x40",
+        "617": "CUBLASLT_MATMUL_TILE_704x48",
+        "618": "CUBLASLT_MATMUL_TILE_704x56",
+        "619": "CUBLASLT_MATMUL_TILE_704x72",
+        "620": "CUBLASLT_MATMUL_TILE_704x80",
+        "621": "CUBLASLT_MATMUL_TILE_704x88",
+        "622": "CUBLASLT_MATMUL_TILE_768x8",
+        "623": "CUBLASLT_MATMUL_TILE_768x16",
+        "624": "CUBLASLT_MATMUL_TILE_768x24",
+        "625": "CUBLASLT_MATMUL_TILE_768x32",
+        "626": "CUBLASLT_MATMUL_TILE_768x40",
+        "627": "CUBLASLT_MATMUL_TILE_768x48",
+        "628": "CUBLASLT_MATMUL_TILE_768x56",
+        "629": "CUBLASLT_MATMUL_TILE_768x72",
+        "630": "CUBLASLT_MATMUL_TILE_768x80",
+        "631": "CUBLASLT_MATMUL_TILE_256x512",
+        "632": "CUBLASLT_MATMUL_TILE_256x1024",
+        "633": "CUBLASLT_MATMUL_TILE_512x512",
+        "634": "CUBLASLT_MATMUL_TILE_512x1024"
+      },
+      "stage_names": {
+        "0": "CUBLASLT_MATMUL_STAGES_UNDEFINED",
+        "1": "CUBLASLT_MATMUL_STAGES_16x1",
+        "2": "CUBLASLT_MATMUL_STAGES_16x2",
+        "3": "CUBLASLT_MATMUL_STAGES_16x3",
+        "4": "CUBLASLT_MATMUL_STAGES_16x4",
+        "5": "CUBLASLT_MATMUL_STAGES_16x5",
+        "6": "CUBLASLT_MATMUL_STAGES_16x6",
+        "7": "CUBLASLT_MATMUL_STAGES_32x1",
+        "8": "CUBLASLT_MATMUL_STAGES_32x2",
+        "9": "CUBLASLT_MATMUL_STAGES_32x3",
+        "10": "CUBLASLT_MATMUL_STAGES_32x4",
+        "11": "CUBLASLT_MATMUL_STAGES_32x5",
+        "12": "CUBLASLT_MATMUL_STAGES_32x6",
+        "13": "CUBLASLT_MATMUL_STAGES_64x1",
+        "14": "CUBLASLT_MATMUL_STAGES_64x2",
+        "15": "CUBLASLT_MATMUL_STAGES_64x3",
+        "16": "CUBLASLT_MATMUL_STAGES_64x4",
+        "17": "CUBLASLT_MATMUL_STAGES_64x5",
+        "18": "CUBLASLT_MATMUL_STAGES_64x6",
+        "19": "CUBLASLT_MATMUL_STAGES_128x1",
+        "20": "CUBLASLT_MATMUL_STAGES_128x2",
+        "21": "CUBLASLT_MATMUL_STAGES_128x3",
+        "22": "CUBLASLT_MATMUL_STAGES_128x4",
+        "23": "CUBLASLT_MATMUL_STAGES_128x5",
+        "24": "CUBLASLT_MATMUL_STAGES_128x6",
+        "25": "CUBLASLT_MATMUL_STAGES_32x10",
+        "26": "CUBLASLT_MATMUL_STAGES_8x4",
+        "27": "CUBLASLT_MATMUL_STAGES_16x10",
+        "28": "CUBLASLT_MATMUL_STAGES_8x5",
+        "31": "CUBLASLT_MATMUL_STAGES_8x3",
+        "32": "CUBLASLT_MATMUL_STAGES_8xAUTO",
+        "33": "CUBLASLT_MATMUL_STAGES_16xAUTO",
+        "34": "CUBLASLT_MATMUL_STAGES_32xAUTO",
+        "35": "CUBLASLT_MATMUL_STAGES_64xAUTO",
+        "36": "CUBLASLT_MATMUL_STAGES_128xAUTO",
+        "37": "CUBLASLT_MATMUL_STAGES_256xAUTO"
+      }
+    },
+    "configuration": {
+      "dtype": "bf16",
+      "shape": [
+        4096,
+        4096,
+        4096
+      ],
+      "requested": 32,
+      "graph_nodes": 20,
+      "warmup_rounds": 8,
+      "extras": [
+        {
+          "name": "search_combined_square_row_bpair_bf16",
+          "grid": [
+            32,
+            32,
+            1
+          ],
+          "threads": 128,
+          "smem": 65536,
+          "sha256": "d1b1591e8fd5c26bce117d9b2997c69f3dd3177b231fedd67f5c35786434cc31",
+          "build": "search_combined_square_row_bpair_bf16",
+          "resources": {
+            "max_threads": 256,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 232,
+            "ptx_version": 80,
+            "binary_version": 80
+          }
+        }
+      ],
+      "runner_source_sha256": {
+        "lt_abi.py": "f8bacce3d769b79563a13a748caf1f20d0624bc9e9550d385d776140f436b5f0",
+        "lt_worker.py": "db5c8833ba8363b39be353aab0f6b2ea8f76c1aff6018c58091b108b1ba32f0d",
+        "lt_modal.py": "5d12c3aaad3a20e85fc79e9cc9e93982fa5fb631bfb99d66a89f35b9cb7d56de"
+      }
+    },
+    "precision_policy": "quantized FP16/BF16 inputs; CUBLAS_COMPUTE_32F=68; FP32 accumulation/output; alpha=1,beta=0; default math mode",
+    "layout": "C^T[N,M] column-major; Lt A=Bstorage[K,N],transA=T; Lt B=Astorage[K,M],transB=N",
+    "heuristic_queries": [
+      {
+        "workspace_cap_bytes": 0,
+        "requested": 32,
+        "returned": 8,
+        "status": 0
+      },
+      {
+        "workspace_cap_bytes": 33554432,
+        "requested": 32,
+        "returned": 8,
+        "status": 0
+      }
+    ],
+    "candidates": [
+      {
+        "name": "lt_eff0c9d3f0b4",
+        "heuristic_rank": 0,
+        "workspace_cap_bytes": 0,
+        "workspace_required_bytes": 0,
+        "heuristic_state": 0,
+        "waves_count": 4.740740776062012,
+        "algo_bytes_hex": "06000000180000000f000000010000000000000001000000000000000000000001000000e3d701000e0000000e00000000000000440000000000000000000000",
+        "config": {
+          "id": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 6
+          },
+          "tile": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 24
+          },
+          "split_k": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 1
+          },
+          "reduction_scheme": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 0
+          },
+          "cta_swizzle": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 1
+          },
+          "custom_option": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 0
+          },
+          "stages": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 15
+          },
+          "tile_name": "CUBLASLT_MATMUL_TILE_256x128",
+          "stage_name": "CUBLASLT_MATMUL_STAGES_64x3"
+        },
+        "algo_check": {
+          "return_status": 0,
+          "state": 0,
+          "workspace_required_bytes": 0
+        }
+      },
+      {
+        "name": "lt_4b1b510caaea",
+        "heuristic_rank": 1,
+        "workspace_cap_bytes": 0,
+        "workspace_required_bytes": 0,
+        "heuristic_state": 0,
+        "waves_count": 4.740740776062012,
+        "algo_bytes_hex": "06000000170000000f000000010000000000000001000000000000000000000001000000e3d701000e0000000e00000000000000440000000000000000000000",
+        "config": {
+          "id": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 6
+          },
+          "tile": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 23
+          },
+          "split_k": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 1
+          },
+          "reduction_scheme": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 0
+          },
+          "cta_swizzle": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 1
+          },
+          "custom_option": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 0
+          },
+          "stages": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 15
+          },
+          "tile_name": "CUBLASLT_MATMUL_TILE_128x256",
+          "stage_name": "CUBLASLT_MATMUL_STAGES_64x3"
+        },
+        "algo_check": {
+          "return_status": 0,
+          "state": 0,
+          "workspace_required_bytes": 0
+        }
+      },
+      {
+        "name": "lt_89ccf1d832f7",
+        "heuristic_rank": 2,
+        "workspace_cap_bytes": 0,
+        "workspace_required_bytes": 0,
+        "heuristic_state": 0,
+        "waves_count": 4.740740776062012,
+        "algo_bytes_hex": "06000000140000000b000000010000000000000001000000000000000000000001000000e3d701000e0000000e00000000000000440000000000000000000000",
+        "config": {
+          "id": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 6
+          },
+          "tile": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 20
+          },
+          "split_k": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 1
+          },
+          "reduction_scheme": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 0
+          },
+          "cta_swizzle": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 1
+          },
+          "custom_option": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 0
+          },
+          "stages": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 11
+          },
+          "tile_name": "CUBLASLT_MATMUL_TILE_128x128",
+          "stage_name": "CUBLASLT_MATMUL_STAGES_32x5"
+        },
+        "algo_check": {
+          "return_status": 0,
+          "state": 0,
+          "workspace_required_bytes": 0
+        }
+      },
+      {
+        "name": "lt_21e7d084eb81",
+        "heuristic_rank": 3,
+        "workspace_cap_bytes": 0,
+        "workspace_required_bytes": 0,
+        "heuristic_state": 0,
+        "waves_count": 9.481481552124023,
+        "algo_bytes_hex": "06000000140000000f000000010000000000000001000000000000000000000001000000e3d701000e0000000e00000000000000440000000000000000000000",
+        "config": {
+          "id": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 6
+          },
+          "tile": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 20
+          },
+          "split_k": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 1
+          },
+          "reduction_scheme": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 0
+          },
+          "cta_swizzle": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 1
+          },
+          "custom_option": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 0
+          },
+          "stages": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 15
+          },
+          "tile_name": "CUBLASLT_MATMUL_TILE_128x128",
+          "stage_name": "CUBLASLT_MATMUL_STAGES_64x3"
+        },
+        "algo_check": {
+          "return_status": 0,
+          "state": 0,
+          "workspace_required_bytes": 0
+        }
+      },
+      {
+        "name": "lt_854ada55866e",
+        "heuristic_rank": 4,
+        "workspace_cap_bytes": 0,
+        "workspace_required_bytes": 0,
+        "heuristic_state": 0,
+        "waves_count": 9.481481552124023,
+        "algo_bytes_hex": "06000000150000000f000000010000000000000001000000000000000000000001000000e3d701000e0000000e00000000000000440000000000000000000000",
+        "config": {
+          "id": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 6
+          },
+          "tile": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 21
+          },
+          "split_k": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 1
+          },
+          "reduction_scheme": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 0
+          },
+          "cta_swizzle": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 1
+          },
+          "custom_option": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 0
+          },
+          "stages": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 15
+          },
+          "tile_name": "CUBLASLT_MATMUL_TILE_256x64",
+          "stage_name": "CUBLASLT_MATMUL_STAGES_64x3"
+        },
+        "algo_check": {
+          "return_status": 0,
+          "state": 0,
+          "workspace_required_bytes": 0
+        }
+      },
+      {
+        "name": "lt_958af29035a3",
+        "heuristic_rank": 5,
+        "workspace_cap_bytes": 0,
+        "workspace_required_bytes": 0,
+        "heuristic_state": 0,
+        "waves_count": 9.481481552124023,
+        "algo_bytes_hex": "150000001300000010000000010000000000000000000000000000000000000001000000e3d701000e0000000e00000000000000440000000000000000000000",
+        "config": {
+          "id": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 21
+          },
+          "tile": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 19
+          },
+          "split_k": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 1
+          },
+          "reduction_scheme": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 0
+          },
+          "cta_swizzle": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 0
+          },
+          "custom_option": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 0
+          },
+          "stages": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 16
+          },
+          "tile_name": "CUBLASLT_MATMUL_TILE_64x256",
+          "stage_name": "CUBLASLT_MATMUL_STAGES_64x4"
+        },
+        "algo_check": {
+          "return_status": 0,
+          "state": 0,
+          "workspace_required_bytes": 0
+        }
+      },
+      {
+        "name": "lt_1e44808f09a6",
+        "heuristic_rank": 6,
+        "workspace_cap_bytes": 0,
+        "workspace_required_bytes": 0,
+        "heuristic_state": 0,
+        "waves_count": 9.481481552124023,
+        "algo_bytes_hex": "06000000120000000f000000010000000000000001000000000000000000000001000000e3d701000e0000000e00000000000000440000000000000000000000",
+        "config": {
+          "id": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 6
+          },
+          "tile": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 18
+          },
+          "split_k": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 1
+          },
+          "reduction_scheme": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 0
+          },
+          "cta_swizzle": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 1
+          },
+          "custom_option": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 0
+          },
+          "stages": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 15
+          },
+          "tile_name": "CUBLASLT_MATMUL_TILE_128x64",
+          "stage_name": "CUBLASLT_MATMUL_STAGES_64x3"
+        },
+        "algo_check": {
+          "return_status": 0,
+          "state": 0,
+          "workspace_required_bytes": 0
+        }
+      },
+      {
+        "name": "lt_2b9e01baa6b5",
+        "heuristic_rank": 7,
+        "workspace_cap_bytes": 0,
+        "workspace_required_bytes": 0,
+        "heuristic_state": 0,
+        "waves_count": 18.962963104248047,
+        "algo_bytes_hex": "060000001100000010000000010000000000000001000000000000000000000001000000e3d701000e0000000e00000000000000440000000000000000000000",
+        "config": {
+          "id": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 6
+          },
+          "tile": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 17
+          },
+          "split_k": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 1
+          },
+          "reduction_scheme": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 0
+          },
+          "cta_swizzle": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 1
+          },
+          "custom_option": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 0
+          },
+          "stages": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 16
+          },
+          "tile_name": "CUBLASLT_MATMUL_TILE_64x128",
+          "stage_name": "CUBLASLT_MATMUL_STAGES_64x4"
+        },
+        "algo_check": {
+          "return_status": 0,
+          "state": 0,
+          "workspace_required_bytes": 0
+        }
+      },
+      {
+        "name": "lt_4b1b510caaea",
+        "heuristic_rank": 0,
+        "workspace_cap_bytes": 33554432,
+        "workspace_required_bytes": 0,
+        "heuristic_state": 0,
+        "waves_count": 4.740740776062012,
+        "algo_bytes_hex": "06000000170000000f000000010000000000000001000000000000000000000001000000e3d701000e0000000e00000000000000440000000000000000000000",
+        "config": {
+          "id": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 6
+          },
+          "tile": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 23
+          },
+          "split_k": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 1
+          },
+          "reduction_scheme": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 0
+          },
+          "cta_swizzle": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 1
+          },
+          "custom_option": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 0
+          },
+          "stages": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 15
+          },
+          "tile_name": "CUBLASLT_MATMUL_TILE_128x256",
+          "stage_name": "CUBLASLT_MATMUL_STAGES_64x3"
+        },
+        "algo_check": {
+          "return_status": 0,
+          "state": 0,
+          "workspace_required_bytes": 0
+        },
+        "duplicate_of": "lt_4b1b510caaea"
+      },
+      {
+        "name": "lt_99b3d966d56e",
+        "heuristic_rank": 1,
+        "workspace_cap_bytes": 33554432,
+        "workspace_required_bytes": 2048,
+        "heuristic_state": 0,
+        "waves_count": 9.481481552124023,
+        "algo_bytes_hex": "06000000170000000f000000020000000100000001000000000000000000000001000000e3d701000e0000000e00000000000000440000000000000000000000",
+        "config": {
+          "id": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 6
+          },
+          "tile": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 23
+          },
+          "split_k": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 2
+          },
+          "reduction_scheme": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 1
+          },
+          "cta_swizzle": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 1
+          },
+          "custom_option": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 0
+          },
+          "stages": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 15
+          },
+          "tile_name": "CUBLASLT_MATMUL_TILE_128x256",
+          "stage_name": "CUBLASLT_MATMUL_STAGES_64x3"
+        },
+        "algo_check": {
+          "return_status": 0,
+          "state": 0,
+          "workspace_required_bytes": 2048
+        }
+      },
+      {
+        "name": "lt_0dd66f782644",
+        "heuristic_rank": 2,
+        "workspace_cap_bytes": 33554432,
+        "workspace_required_bytes": 2048,
+        "heuristic_state": 0,
+        "waves_count": 14.222222328186035,
+        "algo_bytes_hex": "06000000170000000f000000030000000100000000000000000000000000000001000000e3d701000e0000000e00000000000000440000000000000000000000",
+        "config": {
+          "id": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 6
+          },
+          "tile": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 23
+          },
+          "split_k": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 3
+          },
+          "reduction_scheme": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 1
+          },
+          "cta_swizzle": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 0
+          },
+          "custom_option": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 0
+          },
+          "stages": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 15
+          },
+          "tile_name": "CUBLASLT_MATMUL_TILE_128x256",
+          "stage_name": "CUBLASLT_MATMUL_STAGES_64x3"
+        },
+        "algo_check": {
+          "return_status": 0,
+          "state": 0,
+          "workspace_required_bytes": 2048
+        }
+      },
+      {
+        "name": "lt_89ccf1d832f7",
+        "heuristic_rank": 3,
+        "workspace_cap_bytes": 33554432,
+        "workspace_required_bytes": 0,
+        "heuristic_state": 0,
+        "waves_count": 4.740740776062012,
+        "algo_bytes_hex": "06000000140000000b000000010000000000000001000000000000000000000001000000e3d701000e0000000e00000000000000440000000000000000000000",
+        "config": {
+          "id": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 6
+          },
+          "tile": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 20
+          },
+          "split_k": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 1
+          },
+          "reduction_scheme": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 0
+          },
+          "cta_swizzle": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 1
+          },
+          "custom_option": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 0
+          },
+          "stages": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 11
+          },
+          "tile_name": "CUBLASLT_MATMUL_TILE_128x128",
+          "stage_name": "CUBLASLT_MATMUL_STAGES_32x5"
+        },
+        "algo_check": {
+          "return_status": 0,
+          "state": 0,
+          "workspace_required_bytes": 0
+        },
+        "duplicate_of": "lt_89ccf1d832f7"
+      },
+      {
+        "name": "lt_315825fdd42a",
+        "heuristic_rank": 4,
+        "workspace_cap_bytes": 33554432,
+        "workspace_required_bytes": 4096,
+        "heuristic_state": 0,
+        "waves_count": 9.481481552124023,
+        "algo_bytes_hex": "06000000140000000b000000020000000100000001000000000000000000000001000000e3d701000e0000000e00000000000000440000000000000000000000",
+        "config": {
+          "id": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 6
+          },
+          "tile": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 20
+          },
+          "split_k": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 2
+          },
+          "reduction_scheme": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 1
+          },
+          "cta_swizzle": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 1
+          },
+          "custom_option": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 0
+          },
+          "stages": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 11
+          },
+          "tile_name": "CUBLASLT_MATMUL_TILE_128x128",
+          "stage_name": "CUBLASLT_MATMUL_STAGES_32x5"
+        },
+        "algo_check": {
+          "return_status": 0,
+          "state": 0,
+          "workspace_required_bytes": 4096
+        }
+      },
+      {
+        "name": "lt_bd0406d41798",
+        "heuristic_rank": 5,
+        "workspace_cap_bytes": 33554432,
+        "workspace_required_bytes": 4096,
+        "heuristic_state": 0,
+        "waves_count": 14.222222328186035,
+        "algo_bytes_hex": "06000000140000000b000000030000000100000001000000000000000000000001000000e3d701000e0000000e00000000000000440000000000000000000000",
+        "config": {
+          "id": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 6
+          },
+          "tile": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 20
+          },
+          "split_k": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 3
+          },
+          "reduction_scheme": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 1
+          },
+          "cta_swizzle": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 1
+          },
+          "custom_option": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 0
+          },
+          "stages": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 11
+          },
+          "tile_name": "CUBLASLT_MATMUL_TILE_128x128",
+          "stage_name": "CUBLASLT_MATMUL_STAGES_32x5"
+        },
+        "algo_check": {
+          "return_status": 0,
+          "state": 0,
+          "workspace_required_bytes": 4096
+        }
+      },
+      {
+        "name": "lt_958af29035a3",
+        "heuristic_rank": 6,
+        "workspace_cap_bytes": 33554432,
+        "workspace_required_bytes": 0,
+        "heuristic_state": 0,
+        "waves_count": 9.481481552124023,
+        "algo_bytes_hex": "150000001300000010000000010000000000000000000000000000000000000001000000e3d701000e0000000e00000000000000440000000000000000000000",
+        "config": {
+          "id": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 21
+          },
+          "tile": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 19
+          },
+          "split_k": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 1
+          },
+          "reduction_scheme": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 0
+          },
+          "cta_swizzle": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 0
+          },
+          "custom_option": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 0
+          },
+          "stages": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 16
+          },
+          "tile_name": "CUBLASLT_MATMUL_TILE_64x256",
+          "stage_name": "CUBLASLT_MATMUL_STAGES_64x4"
+        },
+        "algo_check": {
+          "return_status": 0,
+          "state": 0,
+          "workspace_required_bytes": 0
+        },
+        "duplicate_of": "lt_958af29035a3"
+      },
+      {
+        "name": "lt_c2f022f0055f",
+        "heuristic_rank": 7,
+        "workspace_cap_bytes": 33554432,
+        "workspace_required_bytes": 0,
+        "heuristic_state": 0,
+        "waves_count": 4.740740776062012,
+        "algo_bytes_hex": "15000000130000000a000000010000000000000000000000000000000000000001000000e3d701000e0000000e00000000000000440000000000000000000000",
+        "config": {
+          "id": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 21
+          },
+          "tile": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 19
+          },
+          "split_k": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 1
+          },
+          "reduction_scheme": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 0
+          },
+          "cta_swizzle": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 0
+          },
+          "custom_option": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 0
+          },
+          "stages": {
+            "status": 0,
+            "bytes_written": 4,
+            "value": 10
+          },
+          "tile_name": "CUBLASLT_MATMUL_TILE_64x256",
+          "stage_name": "CUBLASLT_MATMUL_STAGES_32x4"
+        },
+        "algo_check": {
+          "return_status": 0,
+          "state": 0,
+          "workspace_required_bytes": 0
+        }
+      }
+    ],
+    "checks": [
+      {
+        "name": "gemmex",
+        "pattern": "zero",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 0.0,
+        "full_max_abs_vs_gemmex": 0.0,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 0.0,
+        "sample_max_abs": 0.0,
+        "exact": true
+      },
+      {
+        "name": "lt_eff0c9d3f0b4",
+        "pattern": "zero",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 0.0,
+        "full_max_abs_vs_gemmex": 0.0,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 0.0,
+        "sample_max_abs": 0.0,
+        "exact": true
+      },
+      {
+        "name": "lt_4b1b510caaea",
+        "pattern": "zero",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 0.0,
+        "full_max_abs_vs_gemmex": 0.0,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 0.0,
+        "sample_max_abs": 0.0,
+        "exact": true
+      },
+      {
+        "name": "lt_89ccf1d832f7",
+        "pattern": "zero",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 0.0,
+        "full_max_abs_vs_gemmex": 0.0,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 0.0,
+        "sample_max_abs": 0.0,
+        "exact": true
+      },
+      {
+        "name": "lt_21e7d084eb81",
+        "pattern": "zero",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 0.0,
+        "full_max_abs_vs_gemmex": 0.0,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 0.0,
+        "sample_max_abs": 0.0,
+        "exact": true
+      },
+      {
+        "name": "lt_854ada55866e",
+        "pattern": "zero",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 0.0,
+        "full_max_abs_vs_gemmex": 0.0,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 0.0,
+        "sample_max_abs": 0.0,
+        "exact": true
+      },
+      {
+        "name": "lt_958af29035a3",
+        "pattern": "zero",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 0.0,
+        "full_max_abs_vs_gemmex": 0.0,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 0.0,
+        "sample_max_abs": 0.0,
+        "exact": true
+      },
+      {
+        "name": "lt_1e44808f09a6",
+        "pattern": "zero",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 0.0,
+        "full_max_abs_vs_gemmex": 0.0,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 0.0,
+        "sample_max_abs": 0.0,
+        "exact": true
+      },
+      {
+        "name": "lt_2b9e01baa6b5",
+        "pattern": "zero",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 0.0,
+        "full_max_abs_vs_gemmex": 0.0,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 0.0,
+        "sample_max_abs": 0.0,
+        "exact": true
+      },
+      {
+        "name": "lt_99b3d966d56e",
+        "pattern": "zero",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 0.0,
+        "full_max_abs_vs_gemmex": 0.0,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 0.0,
+        "sample_max_abs": 0.0,
+        "exact": true
+      },
+      {
+        "name": "lt_0dd66f782644",
+        "pattern": "zero",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 0.0,
+        "full_max_abs_vs_gemmex": 0.0,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 0.0,
+        "sample_max_abs": 0.0,
+        "exact": true
+      },
+      {
+        "name": "lt_315825fdd42a",
+        "pattern": "zero",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 0.0,
+        "full_max_abs_vs_gemmex": 0.0,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 0.0,
+        "sample_max_abs": 0.0,
+        "exact": true
+      },
+      {
+        "name": "lt_bd0406d41798",
+        "pattern": "zero",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 0.0,
+        "full_max_abs_vs_gemmex": 0.0,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 0.0,
+        "sample_max_abs": 0.0,
+        "exact": true
+      },
+      {
+        "name": "lt_c2f022f0055f",
+        "pattern": "zero",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 0.0,
+        "full_max_abs_vs_gemmex": 0.0,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 0.0,
+        "sample_max_abs": 0.0,
+        "exact": true
+      },
+      {
+        "name": "search_combined_square_row_bpair_bf16",
+        "pattern": "zero",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 0.0,
+        "full_max_abs_vs_gemmex": 0.0,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 0.0,
+        "sample_max_abs": 0.0,
+        "exact": true
+      },
+      {
+        "name": "gemmex",
+        "pattern": "integer",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 0.0,
+        "full_max_abs_vs_gemmex": 0.0,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 0.0,
+        "sample_max_abs": 0.0,
+        "exact": true
+      },
+      {
+        "name": "lt_eff0c9d3f0b4",
+        "pattern": "integer",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 0.0,
+        "full_max_abs_vs_gemmex": 0.0,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 0.0,
+        "sample_max_abs": 0.0,
+        "exact": true
+      },
+      {
+        "name": "lt_4b1b510caaea",
+        "pattern": "integer",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 0.0,
+        "full_max_abs_vs_gemmex": 0.0,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 0.0,
+        "sample_max_abs": 0.0,
+        "exact": true
+      },
+      {
+        "name": "lt_89ccf1d832f7",
+        "pattern": "integer",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 0.0,
+        "full_max_abs_vs_gemmex": 0.0,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 0.0,
+        "sample_max_abs": 0.0,
+        "exact": true
+      },
+      {
+        "name": "lt_21e7d084eb81",
+        "pattern": "integer",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 0.0,
+        "full_max_abs_vs_gemmex": 0.0,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 0.0,
+        "sample_max_abs": 0.0,
+        "exact": true
+      },
+      {
+        "name": "lt_854ada55866e",
+        "pattern": "integer",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 0.0,
+        "full_max_abs_vs_gemmex": 0.0,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 0.0,
+        "sample_max_abs": 0.0,
+        "exact": true
+      },
+      {
+        "name": "lt_958af29035a3",
+        "pattern": "integer",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 0.0,
+        "full_max_abs_vs_gemmex": 0.0,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 0.0,
+        "sample_max_abs": 0.0,
+        "exact": true
+      },
+      {
+        "name": "lt_1e44808f09a6",
+        "pattern": "integer",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 0.0,
+        "full_max_abs_vs_gemmex": 0.0,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 0.0,
+        "sample_max_abs": 0.0,
+        "exact": true
+      },
+      {
+        "name": "lt_2b9e01baa6b5",
+        "pattern": "integer",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 0.0,
+        "full_max_abs_vs_gemmex": 0.0,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 0.0,
+        "sample_max_abs": 0.0,
+        "exact": true
+      },
+      {
+        "name": "lt_99b3d966d56e",
+        "pattern": "integer",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 0.0,
+        "full_max_abs_vs_gemmex": 0.0,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 0.0,
+        "sample_max_abs": 0.0,
+        "exact": true
+      },
+      {
+        "name": "lt_0dd66f782644",
+        "pattern": "integer",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 0.0,
+        "full_max_abs_vs_gemmex": 0.0,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 0.0,
+        "sample_max_abs": 0.0,
+        "exact": true
+      },
+      {
+        "name": "lt_315825fdd42a",
+        "pattern": "integer",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 0.0,
+        "full_max_abs_vs_gemmex": 0.0,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 0.0,
+        "sample_max_abs": 0.0,
+        "exact": true
+      },
+      {
+        "name": "lt_bd0406d41798",
+        "pattern": "integer",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 0.0,
+        "full_max_abs_vs_gemmex": 0.0,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 0.0,
+        "sample_max_abs": 0.0,
+        "exact": true
+      },
+      {
+        "name": "lt_c2f022f0055f",
+        "pattern": "integer",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 0.0,
+        "full_max_abs_vs_gemmex": 0.0,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 0.0,
+        "sample_max_abs": 0.0,
+        "exact": true
+      },
+      {
+        "name": "search_combined_square_row_bpair_bf16",
+        "pattern": "integer",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 0.0,
+        "full_max_abs_vs_gemmex": 0.0,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 0.0,
+        "sample_max_abs": 0.0,
+        "exact": true
+      },
+      {
+        "name": "gemmex",
+        "pattern": "normal",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 0.0,
+        "full_max_abs_vs_gemmex": 0.0,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 5.3054284482110416e-06,
+        "sample_max_abs": 0.0014398116618394852,
+        "exact": false
+      },
+      {
+        "name": "lt_eff0c9d3f0b4",
+        "pattern": "normal",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 0.0,
+        "full_max_abs_vs_gemmex": 0.0,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 5.3054284482110416e-06,
+        "sample_max_abs": 0.0014398116618394852,
+        "exact": false
+      },
+      {
+        "name": "lt_4b1b510caaea",
+        "pattern": "normal",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 0.0,
+        "full_max_abs_vs_gemmex": 0.0,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 5.3054284482110416e-06,
+        "sample_max_abs": 0.0014398116618394852,
+        "exact": false
+      },
+      {
+        "name": "lt_89ccf1d832f7",
+        "pattern": "normal",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 0.0,
+        "full_max_abs_vs_gemmex": 0.0,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 5.3054284482110416e-06,
+        "sample_max_abs": 0.0014398116618394852,
+        "exact": false
+      },
+      {
+        "name": "lt_21e7d084eb81",
+        "pattern": "normal",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 0.0,
+        "full_max_abs_vs_gemmex": 0.0,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 5.3054284482110416e-06,
+        "sample_max_abs": 0.0014398116618394852,
+        "exact": false
+      },
+      {
+        "name": "lt_854ada55866e",
+        "pattern": "normal",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 0.0,
+        "full_max_abs_vs_gemmex": 0.0,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 5.3054284482110416e-06,
+        "sample_max_abs": 0.0014398116618394852,
+        "exact": false
+      },
+      {
+        "name": "lt_958af29035a3",
+        "pattern": "normal",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 0.0,
+        "full_max_abs_vs_gemmex": 0.0,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 5.3054284482110416e-06,
+        "sample_max_abs": 0.0014398116618394852,
+        "exact": false
+      },
+      {
+        "name": "lt_1e44808f09a6",
+        "pattern": "normal",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 0.0,
+        "full_max_abs_vs_gemmex": 0.0,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 5.3054284482110416e-06,
+        "sample_max_abs": 0.0014398116618394852,
+        "exact": false
+      },
+      {
+        "name": "lt_2b9e01baa6b5",
+        "pattern": "normal",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 0.0,
+        "full_max_abs_vs_gemmex": 0.0,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 5.3054284482110416e-06,
+        "sample_max_abs": 0.0014398116618394852,
+        "exact": false
+      },
+      {
+        "name": "lt_99b3d966d56e",
+        "pattern": "normal",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 3.3696376249281457e-06,
+        "full_max_abs_vs_gemmex": 0.00152587890625,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 2.455658942626118e-06,
+        "sample_max_abs": 0.0008142013102769852,
+        "exact": false
+      },
+      {
+        "name": "lt_0dd66f782644",
+        "pattern": "normal",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 4.055503723066067e-06,
+        "full_max_abs_vs_gemmex": 0.001861572265625,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 1.535723551348857e-06,
+        "sample_max_abs": 0.000305488909361884,
+        "exact": false
+      },
+      {
+        "name": "lt_315825fdd42a",
+        "pattern": "normal",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 3.3696376249281457e-06,
+        "full_max_abs_vs_gemmex": 0.00152587890625,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 2.455658942626118e-06,
+        "sample_max_abs": 0.0008142013102769852,
+        "exact": false
+      },
+      {
+        "name": "lt_bd0406d41798",
+        "pattern": "normal",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 4.055503723066067e-06,
+        "full_max_abs_vs_gemmex": 0.001861572265625,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 1.535723551348857e-06,
+        "sample_max_abs": 0.000305488909361884,
+        "exact": false
+      },
+      {
+        "name": "lt_c2f022f0055f",
+        "pattern": "normal",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 0.0,
+        "full_max_abs_vs_gemmex": 0.0,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 5.3054284482110416e-06,
+        "sample_max_abs": 0.0014398116618394852,
+        "exact": false
+      },
+      {
+        "name": "search_combined_square_row_bpair_bf16",
+        "pattern": "normal",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 0.0,
+        "full_max_abs_vs_gemmex": 0.0,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 5.3054284482110416e-06,
+        "sample_max_abs": 0.0014398116618394852,
+        "exact": false
+      },
+      {
+        "name": "gemmex",
+        "pattern": "scaled",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 0.0,
+        "full_max_abs_vs_gemmex": 0.0,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 5.419381767510093e-06,
+        "sample_max_abs": 0.0015290332958102226,
+        "exact": false
+      },
+      {
+        "name": "lt_eff0c9d3f0b4",
+        "pattern": "scaled",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 0.0,
+        "full_max_abs_vs_gemmex": 0.0,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 5.419381767510093e-06,
+        "sample_max_abs": 0.0015290332958102226,
+        "exact": false
+      },
+      {
+        "name": "lt_4b1b510caaea",
+        "pattern": "scaled",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 0.0,
+        "full_max_abs_vs_gemmex": 0.0,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 5.419381767510093e-06,
+        "sample_max_abs": 0.0015290332958102226,
+        "exact": false
+      },
+      {
+        "name": "lt_89ccf1d832f7",
+        "pattern": "scaled",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 0.0,
+        "full_max_abs_vs_gemmex": 0.0,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 5.419381767510093e-06,
+        "sample_max_abs": 0.0015290332958102226,
+        "exact": false
+      },
+      {
+        "name": "lt_21e7d084eb81",
+        "pattern": "scaled",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 0.0,
+        "full_max_abs_vs_gemmex": 0.0,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 5.419381767510093e-06,
+        "sample_max_abs": 0.0015290332958102226,
+        "exact": false
+      },
+      {
+        "name": "lt_854ada55866e",
+        "pattern": "scaled",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 0.0,
+        "full_max_abs_vs_gemmex": 0.0,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 5.419381767510093e-06,
+        "sample_max_abs": 0.0015290332958102226,
+        "exact": false
+      },
+      {
+        "name": "lt_958af29035a3",
+        "pattern": "scaled",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 0.0,
+        "full_max_abs_vs_gemmex": 0.0,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 5.419381767510093e-06,
+        "sample_max_abs": 0.0015290332958102226,
+        "exact": false
+      },
+      {
+        "name": "lt_1e44808f09a6",
+        "pattern": "scaled",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 0.0,
+        "full_max_abs_vs_gemmex": 0.0,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 5.419381767510093e-06,
+        "sample_max_abs": 0.0015290332958102226,
+        "exact": false
+      },
+      {
+        "name": "lt_2b9e01baa6b5",
+        "pattern": "scaled",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 0.0,
+        "full_max_abs_vs_gemmex": 0.0,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 5.419381767510093e-06,
+        "sample_max_abs": 0.0015290332958102226,
+        "exact": false
+      },
+      {
+        "name": "lt_99b3d966d56e",
+        "pattern": "scaled",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 3.371616912772879e-06,
+        "full_max_abs_vs_gemmex": 0.00177001953125,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 2.4526285403698843e-06,
+        "sample_max_abs": 0.0005324995145201683,
+        "exact": false
+      },
+      {
+        "name": "lt_0dd66f782644",
+        "pattern": "scaled",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 4.057196292706067e-06,
+        "full_max_abs_vs_gemmex": 0.00213623046875,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 1.5382131366465233e-06,
+        "sample_max_abs": 0.00033028796315193176,
+        "exact": false
+      },
+      {
+        "name": "lt_315825fdd42a",
+        "pattern": "scaled",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 3.371616912772879e-06,
+        "full_max_abs_vs_gemmex": 0.00177001953125,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 2.4526285403698843e-06,
+        "sample_max_abs": 0.0005324995145201683,
+        "exact": false
+      },
+      {
+        "name": "lt_bd0406d41798",
+        "pattern": "scaled",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 4.057196292706067e-06,
+        "full_max_abs_vs_gemmex": 0.00213623046875,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 1.5382131366465233e-06,
+        "sample_max_abs": 0.00033028796315193176,
+        "exact": false
+      },
+      {
+        "name": "lt_c2f022f0055f",
+        "pattern": "scaled",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 0.0,
+        "full_max_abs_vs_gemmex": 0.0,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 5.419381767510093e-06,
+        "sample_max_abs": 0.0015290332958102226,
+        "exact": false
+      },
+      {
+        "name": "search_combined_square_row_bpair_bf16",
+        "pattern": "scaled",
+        "passed": true,
+        "full_output_elements_checked": 16777216,
+        "guard_regions_passed": true,
+        "finite": true,
+        "full_relative_l2_vs_gemmex": 0.0,
+        "full_max_abs_vs_gemmex": 0.0,
+        "cpu_float64_oracle_sample_shape": [
+          32,
+          32
+        ],
+        "sample_relative_l2": 5.419381767510093e-06,
+        "sample_max_abs": 0.0015290332958102226,
+        "exact": false
+      }
+    ],
+    "device": {
+      "name": "NVIDIA A100-SXM4-40GB",
+      "cc": "8.0",
+      "driver": 13030,
+      "sm_count": 108,
+      "clock_khz": 1410000,
+      "mem_bytes": 42429251584
+    },
+    "torch": "2.7.1+cu128",
+    "libraries": {
+      "lt": "libcublasLt.so.12",
+      "blas": "libcublas.so.12"
+    },
+    "shape_mnk": [
+      4096,
+      4096,
+      4096
+    ],
+    "cublas_version": 120803,
+    "math_mode": 0,
+    "passed": true,
+    "milliseconds": {
+      "gemmex": 0.5745151996612549,
+      "lt_eff0c9d3f0b4": 0.5753344058990478,
+      "lt_4b1b510caaea": 0.5672448158264161,
+      "lt_89ccf1d832f7": 0.5639167785644531,
+      "lt_21e7d084eb81": 0.5761023998260498,
+      "lt_854ada55866e": 0.6141952037811279,
+      "lt_958af29035a3": 0.6393343925476074,
+      "lt_1e44808f09a6": 0.7043583869934082,
+      "lt_2b9e01baa6b5": 0.7313407897949219,
+      "lt_99b3d966d56e": 0.6520319938659668,
+      "lt_0dd66f782644": 0.7028736114501953,
+      "lt_315825fdd42a": 0.567961597442627,
+      "lt_bd0406d41798": 0.6089727878570557,
+      "lt_c2f022f0055f": 0.653875207901001,
+      "search_combined_square_row_bpair_bf16": 0.6554624080657959
+    },
+    "samples_ms": {
+      "gemmex": [
+        0.5668352127075196,
+        0.5745664119720459,
+        0.5785600185394287,
+        0.5674496173858643,
+        0.574617576599121,
+        0.5745151996612549,
+        0.5558271884918213
+      ],
+      "lt_eff0c9d3f0b4": [
+        0.5763072013854981,
+        0.574617576599121,
+        0.5753344058990478,
+        0.5652480125427246,
+        0.5698048114776612,
+        0.5825024127960206,
+        0.578611183166504
+      ],
+      "lt_4b1b510caaea": [
+        0.5611519813537598,
+        0.5746687889099121,
+        0.5611008167266845,
+        0.5672448158264161,
+        0.5676032066345215,
+        0.5609983921051025,
+        0.5763072013854981
+      ],
+      "lt_89ccf1d832f7": [
+        0.5639679908752442,
+        0.5695487976074218,
+        0.567193603515625,
+        0.5584896087646485,
+        0.5638656139373779,
+        0.5639167785644531,
+        0.551526403427124
+      ],
+      "lt_21e7d084eb81": [
+        0.5709311962127686,
+        0.5761023998260498,
+        0.5990399837493896,
+        0.5768703937530517,
+        0.5850624084472656,
+        0.5753344058990478,
+        0.5720064163208007
+      ],
+      "lt_854ada55866e": [
+        0.623360013961792,
+        0.6121471881866455,
+        0.6141952037811279,
+        0.6271488189697265,
+        0.6052351951599121,
+        0.6056960105895997,
+        0.6354432106018066
+      ],
+      "lt_958af29035a3": [
+        0.6330880165100098,
+        0.6333439826965332,
+        0.6449664115905762,
+        0.6404607772827149,
+        0.6393343925476074,
+        0.6329343795776368,
+        0.6396416187286377
+      ],
+      "lt_1e44808f09a6": [
+        0.7039487838745118,
+        0.7213568210601806,
+        0.7051263809204101,
+        0.7006720066070556,
+        0.7043583869934082,
+        0.712601613998413,
+        0.6958079814910889
+      ],
+      "lt_2b9e01baa6b5": [
+        0.7324672222137452,
+        0.7313407897949219,
+        0.7273983955383301,
+        0.733235216140747,
+        0.7261695861816406,
+        0.7503871917724609,
+        0.724019193649292
+      ],
+      "lt_99b3d966d56e": [
+        0.6523903846740723,
+        0.6377471923828125,
+        0.6582272052764893,
+        0.647372817993164,
+        0.6520319938659668,
+        0.652236795425415,
+        0.6515711784362793
+      ],
+      "lt_0dd66f782644": [
+        0.7078911781311035,
+        0.7007743835449218,
+        0.7031807899475098,
+        0.7106560230255127,
+        0.692633581161499,
+        0.7028736114501953,
+        0.6965760231018067
+      ],
+      "lt_315825fdd42a": [
+        0.567961597442627,
+        0.5747200012207031,
+        0.5645823955535889,
+        0.5681151866912841,
+        0.5647359848022461,
+        0.5644800186157226,
+        0.5808640003204346
+      ],
+      "lt_bd0406d41798": [
+        0.60349440574646,
+        0.6148096084594726,
+        0.6187520027160645,
+        0.6067200183868409,
+        0.602623987197876,
+        0.6089727878570557,
+        0.6148608207702637
+      ],
+      "lt_c2f022f0055f": [
+        0.6513663768768311,
+        0.653875207901001,
+        0.6660096168518066,
+        0.6567423820495606,
+        0.653004789352417,
+        0.6565375804901123,
+        0.6402048110961914
+      ],
+      "search_combined_square_row_bpair_bf16": [
+        0.6554624080657959,
+        0.6513152122497559,
+        0.6640639781951905,
+        0.6558720111846924,
+        0.6473216056823731,
+        0.6628352165222168,
+        0.6534143924713135
+      ]
+    },
+    "paired_round_orders": [
+      [
+        "lt_99b3d966d56e",
+        "lt_2b9e01baa6b5",
+        "lt_bd0406d41798",
+        "search_combined_square_row_bpair_bf16",
+        "lt_958af29035a3",
+        "lt_89ccf1d832f7",
+        "lt_c2f022f0055f",
+        "lt_0dd66f782644",
+        "lt_eff0c9d3f0b4",
+        "lt_854ada55866e",
+        "lt_1e44808f09a6",
+        "lt_4b1b510caaea",
+        "lt_315825fdd42a",
+        "lt_21e7d084eb81",
+        "gemmex"
+      ],
+      [
+        "lt_eff0c9d3f0b4",
+        "lt_315825fdd42a",
+        "lt_21e7d084eb81",
+        "lt_89ccf1d832f7",
+        "lt_c2f022f0055f",
+        "lt_1e44808f09a6",
+        "lt_bd0406d41798",
+        "gemmex",
+        "lt_4b1b510caaea",
+        "lt_0dd66f782644",
+        "lt_958af29035a3",
+        "lt_2b9e01baa6b5",
+        "search_combined_square_row_bpair_bf16",
+        "lt_854ada55866e",
+        "lt_99b3d966d56e"
+      ],
+      [
+        "lt_854ada55866e",
+        "lt_315825fdd42a",
+        "lt_0dd66f782644",
+        "gemmex",
+        "lt_89ccf1d832f7",
+        "lt_eff0c9d3f0b4",
+        "lt_bd0406d41798",
+        "lt_21e7d084eb81",
+        "lt_c2f022f0055f",
+        "lt_99b3d966d56e",
+        "lt_958af29035a3",
+        "search_combined_square_row_bpair_bf16",
+        "lt_1e44808f09a6",
+        "lt_2b9e01baa6b5",
+        "lt_4b1b510caaea"
+      ],
+      [
+        "lt_89ccf1d832f7",
+        "lt_1e44808f09a6",
+        "lt_bd0406d41798",
+        "lt_854ada55866e",
+        "lt_c2f022f0055f",
+        "lt_0dd66f782644",
+        "lt_958af29035a3",
+        "lt_99b3d966d56e",
+        "lt_2b9e01baa6b5",
+        "lt_eff0c9d3f0b4",
+        "lt_315825fdd42a",
+        "lt_21e7d084eb81",
+        "search_combined_square_row_bpair_bf16",
+        "gemmex",
+        "lt_4b1b510caaea"
+      ],
+      [
+        "lt_89ccf1d832f7",
+        "lt_958af29035a3",
+        "lt_21e7d084eb81",
+        "lt_c2f022f0055f",
+        "lt_99b3d966d56e",
+        "gemmex",
+        "lt_eff0c9d3f0b4",
+        "lt_4b1b510caaea",
+        "lt_1e44808f09a6",
+        "lt_2b9e01baa6b5",
+        "search_combined_square_row_bpair_bf16",
+        "lt_854ada55866e",
+        "lt_315825fdd42a",
+        "lt_0dd66f782644",
+        "lt_bd0406d41798"
+      ],
+      [
+        "lt_21e7d084eb81",
+        "lt_1e44808f09a6",
+        "gemmex",
+        "search_combined_square_row_bpair_bf16",
+        "lt_958af29035a3",
+        "lt_89ccf1d832f7",
+        "lt_bd0406d41798",
+        "lt_c2f022f0055f",
+        "lt_2b9e01baa6b5",
+        "lt_eff0c9d3f0b4",
+        "lt_99b3d966d56e",
+        "lt_0dd66f782644",
+        "lt_4b1b510caaea",
+        "lt_315825fdd42a",
+        "lt_854ada55866e"
+      ],
+      [
+        "lt_0dd66f782644",
+        "search_combined_square_row_bpair_bf16",
+        "lt_2b9e01baa6b5",
+        "lt_89ccf1d832f7",
+        "gemmex",
+        "lt_1e44808f09a6",
+        "lt_21e7d084eb81",
+        "lt_c2f022f0055f",
+        "lt_315825fdd42a",
+        "lt_4b1b510caaea",
+        "lt_854ada55866e",
+        "lt_eff0c9d3f0b4",
+        "lt_bd0406d41798",
+        "lt_99b3d966d56e",
+        "lt_958af29035a3"
+      ]
+    ],
+    "best_lt": "lt_89ccf1d832f7",
+    "best_by_workspace_cap": {
+      "0": {
+        "name": "lt_89ccf1d832f7",
+        "milliseconds": 0.5639167785644531,
+        "gemmex_over_best": 1.018794299974159
+      },
+      "33554432": {
+        "name": "lt_89ccf1d832f7",
+        "milliseconds": 0.5639167785644531,
+        "gemmex_over_best": 1.018794299974159
+      }
+    },
+    "unique_heuristics": 13,
+    "correctness_accepted": [
+      "gemmex",
+      "lt_0dd66f782644",
+      "lt_1e44808f09a6",
+      "lt_21e7d084eb81",
+      "lt_2b9e01baa6b5",
+      "lt_315825fdd42a",
+      "lt_4b1b510caaea",
+      "lt_854ada55866e",
+      "lt_89ccf1d832f7",
+      "lt_958af29035a3",
+      "lt_99b3d966d56e",
+      "lt_bd0406d41798",
+      "lt_c2f022f0055f",
+      "lt_eff0c9d3f0b4",
+      "search_combined_square_row_bpair_bf16"
+    ],
+    "all_executed_candidate_checks_passed": true,
+    "failed_checks": 0,
+    "graph_nodes": 20,
+    "warmup_rounds": 8,
+    "tflops": {
+      "gemmex": 239.22596574126607,
+      "lt_eff0c9d3f0b4": 238.88533705407494,
+      "lt_4b1b510caaea": 242.2921279091214,
+      "lt_89ccf1d832f7": 243.72205030301532,
+      "lt_21e7d084eb81": 238.5668824040635,
+      "lt_854ada55866e": 223.7708022236155,
+      "lt_958af29035a3": 214.97193811885498,
+      "lt_1e44808f09a6": 195.12645268364815,
+      "lt_2b9e01baa6b5": 187.9273731067835,
+      "lt_99b3d966d56e": 210.78559758564896,
+      "lt_0dd66f782644": 195.53864483321655,
+      "lt_315825fdd42a": 241.98634923707758,
+      "lt_bd0406d41798": 225.6898111254539,
+      "lt_c2f022f0055f": 210.1914123846224,
+      "search_combined_square_row_bpair_bf16": 209.68243453895187
+    },
+    "scope": "public cuBLASLt heuristic candidates, not exhaustive autotuning or extraction of proprietary kernels; same-worker FP32-output baseline comparison",
+    "worker_rc": 0,
+    "worker_stdout": "{\n  \"dtype\": \"bf16\",\n  \"passed\": true,\n  \"best\": {\n    \"0\": {\n      \"name\": \"lt_89ccf1d832f7\",\n      \"milliseconds\": 0.5639167785644531,\n      \"gemmex_over_best\": 1.018794299974159\n    },\n    \"33554432\": {\n      \"name\": \"lt_89ccf1d832f7\",\n      \"milliseconds\": 0.5639167785644531,\n      \"gemmex_over_best\": 1.018794299974159\n    }\n  },\n  \"error\": null\n}\n",
+    "worker_stderr": "",
+    "dtype": "bf16",
+    "recorded_utc": "20261103T235453.187530Z"
+  }
+]

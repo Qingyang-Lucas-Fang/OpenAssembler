@@ -1,0 +1,1156 @@
+{
+  "id": "https://openalex.org/W4390280317",
+  "doi": "https://doi.org/10.1109/pact58117.2023.00033",
+  "title": "INTERPRET: Inter-Warp Register Reuse for GPU Tensor Core",
+  "display_name": "INTERPRET: Inter-Warp Register Reuse for GPU Tensor Core",
+  "publication_year": 2023,
+  "publication_date": "2023-10-21",
+  "ids": {
+    "openalex": "https://openalex.org/W4390280317",
+    "doi": "https://doi.org/10.1109/pact58117.2023.00033"
+  },
+  "language": "en",
+  "primary_location": {
+    "id": "doi:10.1109/pact58117.2023.00033",
+    "doi": "https://doi.org/10.1109/pact58117.2023.00033",
+    "is_oa": false,
+    "landing_page_url": "https://doi.org/10.1109/pact58117.2023.00033",
+    "pdf_url": null,
+    "source": {
+      "id": "https://openalex.org/S4210194525",
+      "display_name": "International Conference on Parallel Architectures and Compilation Techniques (PACT)",
+      "issn_l": "1089-795X",
+      "issn": [
+        "1089-795X",
+        "2641-7944"
+      ],
+      "is_oa": false,
+      "is_in_doaj": false,
+      "is_core": false,
+      "listed_in": [],
+      "host_organization": "https://openalex.org/P4310319808",
+      "host_organization_name": "Institute of Electrical and Electronics Engineers",
+      "host_organization_lineage": [
+        "https://openalex.org/P4310319808"
+      ],
+      "host_organization_lineage_names": [
+        "Institute of Electrical and Electronics Engineers"
+      ],
+      "type": "conference"
+    },
+    "license": null,
+    "license_id": null,
+    "version": "publishedVersion",
+    "is_accepted": true,
+    "is_published": true,
+    "raw_source_name": "2023 32nd International Conference on Parallel Architectures and Compilation Techniques (PACT)",
+    "raw_type": "proceedings-article"
+  },
+  "volume": null,
+  "type": "conference-paper",
+  "indexed_in": [
+    "crossref"
+  ],
+  "open_access": {
+    "is_oa": false,
+    "oa_status": "closed",
+    "oa_url": null,
+    "any_repository_has_fulltext": false
+  },
+  "authorships": [
+    {
+      "author_position": "first",
+      "author": {
+        "id": null,
+        "display_name": "Jae Seok Kwak",
+        "orcid": null,
+        "observed_orcids": []
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I193775966",
+          "display_name": "Yonsei University",
+          "ror": "https://ror.org/01wjejq96",
+          "country_code": "KR",
+          "type": "education",
+          "lineage": [
+            "https://openalex.org/I193775966"
+          ]
+        }
+      ],
+      "countries": [
+        "KR"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "Jae Seok Kwak",
+      "raw_affiliation_strings": [
+        "School of Electrical and Electronic Engineering, Yonsei University, Seoul, Korea"
+      ],
+      "raw_orcid": null,
+      "affiliations": [
+        {
+          "raw_affiliation_string": "School of Electrical and Electronic Engineering, Yonsei University, Seoul, Korea",
+          "institution_ids": [
+            "https://openalex.org/I193775966"
+          ]
+        }
+      ]
+    },
+    {
+      "author_position": "middle",
+      "author": {
+        "id": "https://openalex.org/A5040253395",
+        "display_name": "Myung Kuk Yoon",
+        "orcid": "https://orcid.org/0000-0002-9332-0251",
+        "observed_orcids": [
+          "https://orcid.org/0000-0002-9332-0251"
+        ]
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I138925566",
+          "display_name": "Ewha Womans University",
+          "ror": "https://ror.org/053fp5c05",
+          "country_code": "KR",
+          "type": "education",
+          "lineage": [
+            "https://openalex.org/I138925566"
+          ]
+        }
+      ],
+      "countries": [
+        "KR"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "Myung Kuk Yoon",
+      "raw_affiliation_strings": [
+        "Ewha Womans University,Department of Computer Science and Engineering,Seoul,Korea",
+        "Department of Computer Science and Engineering, Ewha Womans University, Seoul, Korea"
+      ],
+      "raw_orcid": null,
+      "affiliations": [
+        {
+          "raw_affiliation_string": "Ewha Womans University,Department of Computer Science and Engineering,Seoul,Korea",
+          "institution_ids": [
+            "https://openalex.org/I138925566"
+          ]
+        },
+        {
+          "raw_affiliation_string": "Department of Computer Science and Engineering, Ewha Womans University, Seoul, Korea",
+          "institution_ids": [
+            "https://openalex.org/I138925566"
+          ]
+        }
+      ]
+    },
+    {
+      "author_position": "middle",
+      "author": {
+        "id": "https://openalex.org/A5012141172",
+        "display_name": "Ipoom Jeong",
+        "orcid": "https://orcid.org/0000-0001-7513-2858",
+        "observed_orcids": [
+          "https://orcid.org/0000-0001-7513-2858"
+        ]
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I157725225",
+          "display_name": "University of Illinois Urbana-Champaign",
+          "ror": "https://ror.org/047426m28",
+          "country_code": "US",
+          "type": "education",
+          "lineage": [
+            "https://openalex.org/I157725225"
+          ]
+        }
+      ],
+      "countries": [
+        "US"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "Ipoom Jeong",
+      "raw_affiliation_strings": [
+        "University of Illinois Urbana-Champaign, Champaign, USA"
+      ],
+      "raw_orcid": null,
+      "affiliations": [
+        {
+          "raw_affiliation_string": "University of Illinois Urbana-Champaign, Champaign, USA",
+          "institution_ids": [
+            "https://openalex.org/I157725225"
+          ]
+        }
+      ]
+    },
+    {
+      "author_position": "middle",
+      "author": {
+        "id": "https://openalex.org/A5102270464",
+        "display_name": "Seung\u2010Hyun Jin",
+        "orcid": "https://orcid.org/0000-0002-3883-9608",
+        "observed_orcids": [
+          "https://orcid.org/0000-0002-3883-9608"
+        ]
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I193775966",
+          "display_name": "Yonsei University",
+          "ror": "https://ror.org/01wjejq96",
+          "country_code": "KR",
+          "type": "education",
+          "lineage": [
+            "https://openalex.org/I193775966"
+          ]
+        }
+      ],
+      "countries": [
+        "KR"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "Seunghyun Jin",
+      "raw_affiliation_strings": [
+        "School of Electrical and Electronic Engineering, Yonsei University, Seoul, Korea"
+      ],
+      "raw_orcid": null,
+      "affiliations": [
+        {
+          "raw_affiliation_string": "School of Electrical and Electronic Engineering, Yonsei University, Seoul, Korea",
+          "institution_ids": [
+            "https://openalex.org/I193775966"
+          ]
+        }
+      ]
+    },
+    {
+      "author_position": "last",
+      "author": {
+        "id": "https://openalex.org/A5017913155",
+        "display_name": "Won Woo Ro",
+        "orcid": "https://orcid.org/0000-0001-5390-6445",
+        "observed_orcids": [
+          "https://orcid.org/0000-0001-5390-6445"
+        ]
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I193775966",
+          "display_name": "Yonsei University",
+          "ror": "https://ror.org/01wjejq96",
+          "country_code": "KR",
+          "type": "education",
+          "lineage": [
+            "https://openalex.org/I193775966"
+          ]
+        }
+      ],
+      "countries": [
+        "KR"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "Won Woo Ro",
+      "raw_affiliation_strings": [
+        "School of Electrical and Electronic Engineering, Yonsei University, Seoul, Korea"
+      ],
+      "raw_orcid": null,
+      "affiliations": [
+        {
+          "raw_affiliation_string": "School of Electrical and Electronic Engineering, Yonsei University, Seoul, Korea",
+          "institution_ids": [
+            "https://openalex.org/I193775966"
+          ]
+        }
+      ]
+    }
+  ],
+  "institutions": [],
+  "countries_distinct_count": 2,
+  "institutions_distinct_count": 3,
+  "corresponding_author_ids": [],
+  "corresponding_institution_ids": [],
+  "apc_list": null,
+  "apc_paid": null,
+  "fwci": 0.7124,
+  "has_fulltext": false,
+  "cited_by_count": 4,
+  "citation_normalized_percentile": {
+    "value": 0.72284644,
+    "is_in_top_1_percent": false,
+    "is_in_top_10_percent": false
+  },
+  "cited_by_percentile_year": {
+    "min": 93,
+    "max": 97
+  },
+  "biblio": {
+    "volume": null,
+    "issue": null,
+    "first_page": "309",
+    "last_page": "319"
+  },
+  "is_retracted": false,
+  "is_paratext": false,
+  "is_xpac": false,
+  "primary_topic": {
+    "id": "https://openalex.org/T10054",
+    "display_name": "Parallel Computing and Optimization Techniques",
+    "score": 0.9980000257492065,
+    "subfield": {
+      "id": "https://openalex.org/subfields/1708",
+      "display_name": "Hardware and Architecture"
+    },
+    "field": {
+      "id": "https://openalex.org/fields/17",
+      "display_name": "Computer Science"
+    },
+    "domain": {
+      "id": "https://openalex.org/domains/3",
+      "display_name": "Physical Sciences"
+    }
+  },
+  "topics": [
+    {
+      "id": "https://openalex.org/T10054",
+      "display_name": "Parallel Computing and Optimization Techniques",
+      "score": 0.9980000257492065,
+      "subfield": {
+        "id": "https://openalex.org/subfields/1708",
+        "display_name": "Hardware and Architecture"
+      },
+      "field": {
+        "id": "https://openalex.org/fields/17",
+        "display_name": "Computer Science"
+      },
+      "domain": {
+        "id": "https://openalex.org/domains/3",
+        "display_name": "Physical Sciences"
+      }
+    },
+    {
+      "id": "https://openalex.org/T10363",
+      "display_name": "Low-power high-performance VLSI design",
+      "score": 0.00039999998989515007,
+      "subfield": {
+        "id": "https://openalex.org/subfields/2208",
+        "display_name": "Electrical and Electronic Engineering"
+      },
+      "field": {
+        "id": "https://openalex.org/fields/22",
+        "display_name": "Engineering"
+      },
+      "domain": {
+        "id": "https://openalex.org/domains/3",
+        "display_name": "Physical Sciences"
+      }
+    },
+    {
+      "id": "https://openalex.org/T11697",
+      "display_name": "Numerical Methods and Algorithms",
+      "score": 0.0003000000142492354,
+      "subfield": {
+        "id": "https://openalex.org/subfields/1703",
+        "display_name": "Computational Theory and Mathematics"
+      },
+      "field": {
+        "id": "https://openalex.org/fields/17",
+        "display_name": "Computer Science"
+      },
+      "domain": {
+        "id": "https://openalex.org/domains/3",
+        "display_name": "Physical Sciences"
+      }
+    }
+  ],
+  "keywords": [
+    {
+      "id": "https://openalex.org/keywords/tensor-cores",
+      "display_name": "tensor cores",
+      "score": 0.7179999947547913
+    },
+    {
+      "id": "https://openalex.org/keywords/gpu-microarchitecture",
+      "display_name": "GPU microarchitecture",
+      "score": 0.8579999804496765
+    },
+    {
+      "id": "https://openalex.org/keywords/register-renaming",
+      "display_name": "register renaming",
+      "score": 0.7960000038146973
+    },
+    {
+      "id": "https://openalex.org/keywords/matrix-matrix-multiplication",
+      "display_name": "matrix-matrix multiplication",
+      "score": 0.9120000004768372
+    },
+    {
+      "id": "https://openalex.org/keywords/energy-efficiency",
+      "display_name": "energy efficiency",
+      "score": 0.5630000233650208
+    },
+    {
+      "id": "https://openalex.org/keywords/nvidia-gpus",
+      "display_name": "NVIDIA GPUs",
+      "score": 0.8320000171661377
+    }
+  ],
+  "concepts": [
+    {
+      "id": "https://openalex.org/C41008148",
+      "wikidata": "https://www.wikidata.org/wiki/Q21198",
+      "display_name": "Computer science",
+      "level": 0,
+      "score": 0.8473686575889587
+    },
+    {
+      "id": "https://openalex.org/C117280010",
+      "wikidata": "https://www.wikidata.org/wiki/Q180944",
+      "display_name": "Register file",
+      "level": 3,
+      "score": 0.7869365215301514
+    },
+    {
+      "id": "https://openalex.org/C173608175",
+      "wikidata": "https://www.wikidata.org/wiki/Q232661",
+      "display_name": "Parallel computing",
+      "level": 1,
+      "score": 0.7647495865821838
+    },
+    {
+      "id": "https://openalex.org/C17349429",
+      "wikidata": "https://www.wikidata.org/wiki/Q1049914",
+      "display_name": "Matrix multiplication",
+      "level": 3,
+      "score": 0.7045451998710632
+    },
+    {
+      "id": "https://openalex.org/C155281189",
+      "wikidata": "https://www.wikidata.org/wiki/Q3518150",
+      "display_name": "Tensor (intrinsic definition)",
+      "level": 2,
+      "score": 0.5028781294822693
+    },
+    {
+      "id": "https://openalex.org/C68339613",
+      "wikidata": "https://www.wikidata.org/wiki/Q1549489",
+      "display_name": "Speedup",
+      "level": 2,
+      "score": 0.4976358711719513
+    },
+    {
+      "id": "https://openalex.org/C78766204",
+      "wikidata": "https://www.wikidata.org/wiki/Q555032",
+      "display_name": "Multi-core processor",
+      "level": 2,
+      "score": 0.47093334794044495
+    },
+    {
+      "id": "https://openalex.org/C82876162",
+      "wikidata": "https://www.wikidata.org/wiki/Q17096504",
+      "display_name": "Latency (audio)",
+      "level": 2,
+      "score": 0.4552929699420929
+    },
+    {
+      "id": "https://openalex.org/C206588197",
+      "wikidata": "https://www.wikidata.org/wiki/Q846574",
+      "display_name": "Reuse",
+      "level": 2,
+      "score": 0.44140657782554626
+    },
+    {
+      "id": "https://openalex.org/C202491316",
+      "wikidata": "https://www.wikidata.org/wiki/Q272683",
+      "display_name": "Instruction set",
+      "level": 2,
+      "score": 0.200676828622818
+    },
+    {
+      "id": "https://openalex.org/C18903297",
+      "wikidata": "https://www.wikidata.org/wiki/Q7150",
+      "display_name": "Ecology",
+      "level": 1,
+      "score": 0.0
+    },
+    {
+      "id": "https://openalex.org/C62520636",
+      "wikidata": "https://www.wikidata.org/wiki/Q944",
+      "display_name": "Quantum mechanics",
+      "level": 1,
+      "score": 0.0
+    },
+    {
+      "id": "https://openalex.org/C76155785",
+      "wikidata": "https://www.wikidata.org/wiki/Q418",
+      "display_name": "Telecommunications",
+      "level": 1,
+      "score": 0.0
+    },
+    {
+      "id": "https://openalex.org/C121332964",
+      "wikidata": "https://www.wikidata.org/wiki/Q413",
+      "display_name": "Physics",
+      "level": 0,
+      "score": 0.0
+    },
+    {
+      "id": "https://openalex.org/C86803240",
+      "wikidata": "https://www.wikidata.org/wiki/Q420",
+      "display_name": "Biology",
+      "level": 0,
+      "score": 0.0
+    },
+    {
+      "id": "https://openalex.org/C33923547",
+      "wikidata": "https://www.wikidata.org/wiki/Q395",
+      "display_name": "Mathematics",
+      "level": 0,
+      "score": 0.0
+    },
+    {
+      "id": "https://openalex.org/C84114770",
+      "wikidata": "https://www.wikidata.org/wiki/Q46344",
+      "display_name": "Quantum",
+      "level": 2,
+      "score": 0.0
+    },
+    {
+      "id": "https://openalex.org/C202444582",
+      "wikidata": "https://www.wikidata.org/wiki/Q837863",
+      "display_name": "Pure mathematics",
+      "level": 1,
+      "score": 0.0
+    }
+  ],
+  "mesh": [],
+  "locations_count": 1,
+  "locations": [
+    {
+      "id": "doi:10.1109/pact58117.2023.00033",
+      "doi": "https://doi.org/10.1109/pact58117.2023.00033",
+      "is_oa": false,
+      "landing_page_url": "https://doi.org/10.1109/pact58117.2023.00033",
+      "pdf_url": null,
+      "source": {
+        "id": "https://openalex.org/S4210194525",
+        "display_name": "International Conference on Parallel Architectures and Compilation Techniques (PACT)",
+        "issn_l": "1089-795X",
+        "issn": [
+          "1089-795X",
+          "2641-7944"
+        ],
+        "is_oa": false,
+        "is_in_doaj": false,
+        "is_core": false,
+        "listed_in": [],
+        "host_organization": "https://openalex.org/P4310319808",
+        "host_organization_name": "Institute of Electrical and Electronics Engineers",
+        "host_organization_lineage": [
+          "https://openalex.org/P4310319808"
+        ],
+        "host_organization_lineage_names": [
+          "Institute of Electrical and Electronics Engineers"
+        ],
+        "type": "conference"
+      },
+      "license": null,
+      "license_id": null,
+      "version": "publishedVersion",
+      "is_accepted": true,
+      "is_published": true,
+      "raw_source_name": "2023 32nd International Conference on Parallel Architectures and Compilation Techniques (PACT)",
+      "raw_type": "proceedings-article"
+    }
+  ],
+  "best_oa_location": null,
+  "sustainable_development_goals": [],
+  "study_designs": [],
+  "awards": [
+    {
+      "id": "https://openalex.org/G8333790877",
+      "display_name": null,
+      "funder_award_id": "NRF-2021R1A2B5B01002932",
+      "funder_id": "https://openalex.org/F4320322120",
+      "funder_display_name": "National Research Foundation of Korea"
+    }
+  ],
+  "funders": [
+    {
+      "id": "https://openalex.org/F4320322120",
+      "display_name": "National Research Foundation of Korea",
+      "ror": "https://ror.org/013aysd81"
+    }
+  ],
+  "has_content": {
+    "grobid_xml": false,
+    "pdf": false
+  },
+  "content_urls": null,
+  "referenced_works_count": 32,
+  "referenced_works": [
+    "https://openalex.org/W639708223",
+    "https://openalex.org/W1828163288",
+    "https://openalex.org/W1924770834",
+    "https://openalex.org/W1979527452",
+    "https://openalex.org/W2130942839",
+    "https://openalex.org/W2163605009",
+    "https://openalex.org/W2194775991",
+    "https://openalex.org/W2293634267",
+    "https://openalex.org/W2512971201",
+    "https://openalex.org/W2559655401",
+    "https://openalex.org/W2583522611",
+    "https://openalex.org/W2605739168",
+    "https://openalex.org/W2626778328",
+    "https://openalex.org/W2775304348",
+    "https://openalex.org/W2791673912",
+    "https://openalex.org/W2795002137",
+    "https://openalex.org/W2796649226",
+    "https://openalex.org/W2896457183",
+    "https://openalex.org/W2900766348",
+    "https://openalex.org/W2920798074",
+    "https://openalex.org/W2946948417",
+    "https://openalex.org/W2947737663",
+    "https://openalex.org/W2963341956",
+    "https://openalex.org/W2963542991",
+    "https://openalex.org/W3030163527",
+    "https://openalex.org/W3042016589",
+    "https://openalex.org/W3043303806",
+    "https://openalex.org/W3081063065",
+    "https://openalex.org/W3081523786",
+    "https://openalex.org/W3102337469",
+    "https://openalex.org/W3128633047",
+    "https://openalex.org/W4234833047"
+  ],
+  "related_works": [
+    "https://openalex.org/W4295935130",
+    "https://openalex.org/W4312309118",
+    "https://openalex.org/W2895162358",
+    "https://openalex.org/W4409248728",
+    "https://openalex.org/W7203950016",
+    "https://openalex.org/W4319917399",
+    "https://openalex.org/W4389500474",
+    "https://openalex.org/W7162759803",
+    "https://openalex.org/W4389476163",
+    "https://openalex.org/W2900766348"
+  ],
+  "abstract_inverted_index": {
+    "Tensor": [
+      0
+    ],
+    "cores": [
+      1
+    ],
+    "in": [
+      2,
+      133
+    ],
+    "the": [
+      3,
+      9,
+      34,
+      54,
+      58,
+      102,
+      107,
+      120,
+      127,
+      134,
+      137,
+      152,
+      158,
+      167,
+      181,
+      185,
+      194,
+      201
+    ],
+    "recent": [
+      4
+    ],
+    "NVIDIA": [
+      5
+    ],
+    "GPUs": [
+      6
+    ],
+    "are": [
+      7
+    ],
+    "under": [
+      8
+    ],
+    "spotlight": [
+      10
+    ],
+    "due": [
+      11
+    ],
+    "to": [
+      12,
+      44,
+      67,
+      97,
+      101,
+      118
+    ],
+    "their": [
+      13
+    ],
+    "superior": [
+      14
+    ],
+    "computation": [
+      15
+    ],
+    "throughput": [
+      16
+    ],
+    "for": [
+      17,
+      27
+    ],
+    "general": [
+      18
+    ],
+    "matrix-matrix": [
+      19
+    ],
+    "multiplication": [
+      20
+    ],
+    "(GEMM)": [
+      21
+    ],
+    "that": [
+      22,
+      200
+    ],
+    "has": [
+      23
+    ],
+    "been": [
+      24
+    ],
+    "widely": [
+      25
+    ],
+    "used": [
+      26
+    ],
+    "deep": [
+      28
+    ],
+    "learning": [
+      29
+    ],
+    "applications.": [
+      30
+    ],
+    "For": [
+      31
+    ],
+    "massive-scale": [
+      32
+    ],
+    "GEMMs,": [
+      33
+    ],
+    "entire": [
+      35
+    ],
+    "matrix": [
+      36
+    ],
+    "is": [
+      37,
+      61,
+      163
+    ],
+    "practically": [
+      38
+    ],
+    "divided": [
+      39
+    ],
+    "into": [
+      40
+    ],
+    "sub-matrices": [
+      41
+    ],
+    "and": [
+      42,
+      48,
+      50,
+      78,
+      188,
+      210
+    ],
+    "assigned": [
+      43
+    ],
+    "multiple": [
+      45
+    ],
+    "thread": [
+      46
+    ],
+    "blocks": [
+      47
+    ],
+    "warps,": [
+      49
+    ],
+    "then": [
+      51
+    ],
+    "processed": [
+      52
+    ],
+    "by": [
+      53,
+      105,
+      150,
+      157,
+      214
+    ],
+    "tensor": [
+      55,
+      93,
+      148,
+      172,
+      189
+    ],
+    "cores.": [
+      56
+    ],
+    "Meanwhile,": [
+      57
+    ],
+    "same": [
+      59
+    ],
+    "sub-matrix": [
+      60
+    ],
+    "regularly": [
+      62
+    ],
+    "reused": [
+      63
+    ],
+    "as": [
+      64,
+      124,
+      126
+    ],
+    "an": [
+      65,
+      205
+    ],
+    "input": [
+      66
+    ],
+    "different": [
+      68,
+      76
+    ],
+    "sub-GEMMs,": [
+      69
+    ],
+    "which": [
+      70
+    ],
+    "causes": [
+      71
+    ],
+    "redundant": [
+      72,
+      121
+    ],
+    "load": [
+      73,
+      122,
+      140
+    ],
+    "operations": [
+      74,
+      174
+    ],
+    "from": [
+      75
+    ],
+    "warps": [
+      77
+    ],
+    "waste": [
+      79,
+      128
+    ],
+    "of": [
+      80,
+      129,
+      136,
+      171,
+      179,
+      184,
+      208
+    ],
+    "register": [
+      81,
+      115,
+      130,
+      153,
+      159,
+      186
+    ],
+    "file": [
+      82,
+      154
+    ],
+    "spaces.": [
+      83
+    ],
+    "To": [
+      84
+    ],
+    "tackle": [
+      85
+    ],
+    "this": [
+      86
+    ],
+    "issue,": [
+      87
+    ],
+    "we": [
+      88
+    ],
+    "propose": [
+      89
+    ],
+    "INTERPRET,": [
+      90
+    ],
+    "a": [
+      91,
+      114,
+      176
+    ],
+    "novel": [
+      92
+    ],
+    "core": [
+      94,
+      173
+    ],
+    "microarchitecture": [
+      95
+    ],
+    "designed": [
+      96
+    ],
+    "minimize": [
+      98
+    ],
+    "unnecessary": [
+      99
+    ],
+    "accesses": [
+      100
+    ],
+    "cache/memory": [
+      103
+    ],
+    "hierarchy": [
+      104
+    ],
+    "leveraging": [
+      106,
+      151
+    ],
+    "inter-warp": [
+      108
+    ],
+    "data": [
+      109,
+      139,
+      168
+    ],
+    "reuse": [
+      110
+    ],
+    "characteristics.": [
+      111
+    ],
+    "INTERPRET": [
+      112,
+      142,
+      162
+    ],
+    "adopts": [
+      113
+    ],
+    "renaming": [
+      116,
+      187
+    ],
+    "scheme": [
+      117
+    ],
+    "reduce": [
+      119
+    ],
+    "requests": [
+      123
+    ],
+    "well": [
+      125
+    ],
+    "files,": [
+      131
+    ],
+    "resulting": [
+      132
+    ],
+    "reduction": [
+      135
+    ],
+    "effective": [
+      138
+    ],
+    "latency.": [
+      141
+    ],
+    "further": [
+      143
+    ],
+    "improves": [
+      144
+    ],
+    "performance": [
+      145
+    ],
+    "via": [
+      146
+    ],
+    "non-speculative": [
+      147
+    ],
+    "preloading": [
+      149,
+      190
+    ],
+    "space": [
+      155
+    ],
+    "saved": [
+      156
+    ],
+    "renaming.": [
+      160
+    ],
+    "As": [
+      161
+    ],
+    "implemented": [
+      164
+    ],
+    "based": [
+      165
+    ],
+    "on": [
+      166
+    ],
+    "access": [
+      169
+    ],
+    "patterns": [
+      170
+    ],
+    "exhibiting": [
+      175
+    ],
+    "high": [
+      177
+    ],
+    "level": [
+      178
+    ],
+    "regularity,": [
+      180
+    ],
+    "synergistic": [
+      182
+    ],
+    "integration": [
+      183
+    ],
+    "can": [
+      191
+    ],
+    "significantly": [
+      192
+    ],
+    "improve": [
+      193
+    ],
+    "processing": [
+      195
+    ],
+    "efficiency.": [
+      196
+    ],
+    "Our": [
+      197
+    ],
+    "experiments": [
+      198
+    ],
+    "show": [
+      199
+    ],
+    "proposed": [
+      202
+    ],
+    "design": [
+      203
+    ],
+    "achieves": [
+      204
+    ],
+    "average": [
+      206
+    ],
+    "speedup": [
+      207
+    ],
+    "34.1%": [
+      209
+    ],
+    "reduces": [
+      211
+    ],
+    "energy": [
+      212
+    ],
+    "consumption": [
+      213
+    ],
+    "27.9%.": [
+      215
+    ]
+  },
+  "counts_by_year": [
+    {
+      "year": 2026,
+      "cited_by_count": 1
+    },
+    {
+      "year": 2025,
+      "cited_by_count": 3
+    }
+  ],
+  "updated_date": "2026-10-30T12:39:25.321706",
+  "created_date": "2023-12-28T00:00:00"
+}

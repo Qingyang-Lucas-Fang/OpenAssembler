@@ -314,6 +314,30 @@ def prepare_out_dir(out_dir: Path) -> Path:
     return out_dir.resolve()
 
 
+@contextlib.contextmanager
+def output_lock(out_dir: Path):
+    """Serialize writers to one output tree; independent trees remain independent.
+
+    Keep the lock inode after release: unlinking it would let a new process
+    acquire a different inode while an earlier writer still holds its lock.
+    """
+    import fcntl
+
+    root = prepare_out_dir(out_dir)
+    lock_path = root / '.build' / 'writer.lock'
+    lock_path.parent.mkdir(parents=True, exist_ok=True)
+    artifact_path(root, '.build/writer.lock')
+    with lock_path.open('a') as handle:
+        try:
+            fcntl.flock(handle, fcntl.LOCK_EX | fcntl.LOCK_NB)
+        except BlockingIOError:
+            raise ProjectError(f'output folder {root} is in use by another build; choose another --out-dir or retry') from None
+        try:
+            yield root
+        finally:
+            fcntl.flock(handle, fcntl.LOCK_UN)
+
+
 # Temp files of writes in flight; removed on any exception (incl. KeyboardInterrupt).
 _PENDING: set[Path] = set()
 
@@ -417,6 +441,17 @@ def load_manifest(out_dir: Path) -> dict | None:
             for key in ("cubin", "sass", "ptx"):
                 if kernel.get(key) is not None:
                     artifact_path(out_dir, kernel[key])
+        if (not isinstance(app.get('source'), str) or not app['source']
+                or type(app.get('seed')) is not int
+                or not isinstance(app.get('source_sha256'), str)
+                or not all(isinstance(app['runtime'].get(key), str) and app['runtime'][key]
+                           for key in ('torch', 'cuda', 'python', 'device'))
+                or app['runtime'].get('capability') != [8, 0]
+                or not all(type(app.get(key)) in (int, float) and 0 <= app[key] < float('inf')
+                           for key in ('rtol', 'atol', 'state_rtol', 'state_atol'))
+                or not isinstance(app.get('requirements', []), list)
+                or not all(isinstance(x, str) for x in app.get('requirements', []))):
+            raise ManifestError(f'{p}: invalid application runtime metadata; recompile')
     return m
 
 
@@ -436,6 +471,11 @@ def entry_source_abs(m: dict, e: dict) -> Path:
 
 def entry_outputs(e: dict) -> list[str]:
     return [e[k] for k in ("cubin", "sass", "ptx", "reference") if e.get(k)]
+
+
+def application_outputs(app: dict) -> list[str]:
+    return [app[key] for key in ('source_bundle', 'cache', 'report', 'graphs', 'config') if app.get(key)] + [
+        kernel[key] for kernel in app.get('kernels', []) for key in ('cubin', 'sass', 'ptx') if kernel.get(key)]
 
 
 def rel_source(src: Path, root: Path) -> str:

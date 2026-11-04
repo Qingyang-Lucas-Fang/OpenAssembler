@@ -1,0 +1,1856 @@
+[
+  {
+    "device": {
+      "name": "NVIDIA A100-SXM4-40GB",
+      "cc": "8.0",
+      "driver": 13030,
+      "sm_count": 108,
+      "clock_khz": 1410000,
+      "mem_bytes": 42429251584
+    },
+    "torch": "2.7.1+cu128",
+    "shape_mnk": [
+      4096,
+      4096,
+      4096
+    ],
+    "dtype": "f16",
+    "output_dtype": "f32",
+    "accumulation": "f32",
+    "layout": "A=MxK row-major; B=NxK row-major; C=A@B.T",
+    "checks": [
+      {
+        "pattern": "zero",
+        "seed": 17,
+        "method": "cublas",
+        "sample_shape": [
+          32,
+          32
+        ],
+        "max_abs": 0.0,
+        "relative_l2": 0.0,
+        "exact": true,
+        "full_output_relative_l2_vs_cublas": 0.0,
+        "full_output_elements_checked": 16777216
+      },
+      {
+        "pattern": "zero",
+        "seed": 17,
+        "method": "ours",
+        "sample_shape": [
+          32,
+          32
+        ],
+        "max_abs": 0.0,
+        "relative_l2": 0.0,
+        "exact": true,
+        "full_output_relative_l2_vs_cublas": 0.0,
+        "full_output_elements_checked": 16777216
+      },
+      {
+        "pattern": "zero",
+        "seed": 17,
+        "method": "ptxas",
+        "sample_shape": [
+          32,
+          32
+        ],
+        "max_abs": 0.0,
+        "relative_l2": 0.0,
+        "exact": true,
+        "full_output_relative_l2_vs_cublas": 0.0,
+        "full_output_elements_checked": 16777216
+      },
+      {
+        "pattern": "zero",
+        "seed": 17,
+        "method": "geometry_large_f16_wide64s2",
+        "sample_shape": [
+          32,
+          32
+        ],
+        "max_abs": 0.0,
+        "relative_l2": 0.0,
+        "exact": true,
+        "full_output_relative_l2_vs_cublas": 0.0,
+        "full_output_elements_checked": 16777216
+      },
+      {
+        "pattern": "zero",
+        "seed": 17,
+        "method": "geometry_large_f16_tall64s2",
+        "sample_shape": [
+          32,
+          32
+        ],
+        "max_abs": 0.0,
+        "relative_l2": 0.0,
+        "exact": true,
+        "full_output_relative_l2_vs_cublas": 0.0,
+        "full_output_elements_checked": 16777216
+      },
+      {
+        "pattern": "zero",
+        "seed": 17,
+        "method": "geometry_large_f16_wide32s3",
+        "sample_shape": [
+          32,
+          32
+        ],
+        "max_abs": 0.0,
+        "relative_l2": 0.0,
+        "exact": true,
+        "full_output_relative_l2_vs_cublas": 0.0,
+        "full_output_elements_checked": 16777216
+      },
+      {
+        "pattern": "zero",
+        "seed": 17,
+        "method": "geometry_large_f16_wide32s4",
+        "sample_shape": [
+          32,
+          32
+        ],
+        "max_abs": 0.0,
+        "relative_l2": 0.0,
+        "exact": true,
+        "full_output_relative_l2_vs_cublas": 0.0,
+        "full_output_elements_checked": 16777216
+      },
+      {
+        "pattern": "zero",
+        "seed": 17,
+        "method": "geometry_large_f16_wide32s5",
+        "sample_shape": [
+          32,
+          32
+        ],
+        "max_abs": 0.0,
+        "relative_l2": 0.0,
+        "exact": true,
+        "full_output_relative_l2_vs_cublas": 0.0,
+        "full_output_elements_checked": 16777216
+      },
+      {
+        "pattern": "zero",
+        "seed": 17,
+        "method": "geometry_large_f16_square32s5",
+        "sample_shape": [
+          32,
+          32
+        ],
+        "max_abs": 0.0,
+        "relative_l2": 0.0,
+        "exact": true,
+        "full_output_relative_l2_vs_cublas": 0.0,
+        "full_output_elements_checked": 16777216,
+        "ours_equals_ptxas": true
+      },
+      {
+        "pattern": "zero",
+        "seed": 29,
+        "method": "cublas",
+        "sample_shape": [
+          32,
+          32
+        ],
+        "max_abs": 0.0,
+        "relative_l2": 0.0,
+        "exact": true,
+        "full_output_relative_l2_vs_cublas": 0.0,
+        "full_output_elements_checked": 16777216
+      },
+      {
+        "pattern": "zero",
+        "seed": 29,
+        "method": "ours",
+        "sample_shape": [
+          32,
+          32
+        ],
+        "max_abs": 0.0,
+        "relative_l2": 0.0,
+        "exact": true,
+        "full_output_relative_l2_vs_cublas": 0.0,
+        "full_output_elements_checked": 16777216
+      },
+      {
+        "pattern": "zero",
+        "seed": 29,
+        "method": "ptxas",
+        "sample_shape": [
+          32,
+          32
+        ],
+        "max_abs": 0.0,
+        "relative_l2": 0.0,
+        "exact": true,
+        "full_output_relative_l2_vs_cublas": 0.0,
+        "full_output_elements_checked": 16777216
+      },
+      {
+        "pattern": "zero",
+        "seed": 29,
+        "method": "geometry_large_f16_wide64s2",
+        "sample_shape": [
+          32,
+          32
+        ],
+        "max_abs": 0.0,
+        "relative_l2": 0.0,
+        "exact": true,
+        "full_output_relative_l2_vs_cublas": 0.0,
+        "full_output_elements_checked": 16777216
+      },
+      {
+        "pattern": "zero",
+        "seed": 29,
+        "method": "geometry_large_f16_tall64s2",
+        "sample_shape": [
+          32,
+          32
+        ],
+        "max_abs": 0.0,
+        "relative_l2": 0.0,
+        "exact": true,
+        "full_output_relative_l2_vs_cublas": 0.0,
+        "full_output_elements_checked": 16777216
+      },
+      {
+        "pattern": "zero",
+        "seed": 29,
+        "method": "geometry_large_f16_wide32s3",
+        "sample_shape": [
+          32,
+          32
+        ],
+        "max_abs": 0.0,
+        "relative_l2": 0.0,
+        "exact": true,
+        "full_output_relative_l2_vs_cublas": 0.0,
+        "full_output_elements_checked": 16777216
+      },
+      {
+        "pattern": "zero",
+        "seed": 29,
+        "method": "geometry_large_f16_wide32s4",
+        "sample_shape": [
+          32,
+          32
+        ],
+        "max_abs": 0.0,
+        "relative_l2": 0.0,
+        "exact": true,
+        "full_output_relative_l2_vs_cublas": 0.0,
+        "full_output_elements_checked": 16777216
+      },
+      {
+        "pattern": "zero",
+        "seed": 29,
+        "method": "geometry_large_f16_wide32s5",
+        "sample_shape": [
+          32,
+          32
+        ],
+        "max_abs": 0.0,
+        "relative_l2": 0.0,
+        "exact": true,
+        "full_output_relative_l2_vs_cublas": 0.0,
+        "full_output_elements_checked": 16777216
+      },
+      {
+        "pattern": "zero",
+        "seed": 29,
+        "method": "geometry_large_f16_square32s5",
+        "sample_shape": [
+          32,
+          32
+        ],
+        "max_abs": 0.0,
+        "relative_l2": 0.0,
+        "exact": true,
+        "full_output_relative_l2_vs_cublas": 0.0,
+        "full_output_elements_checked": 16777216,
+        "ours_equals_ptxas": true
+      },
+      {
+        "pattern": "integer",
+        "seed": 17,
+        "method": "cublas",
+        "sample_shape": [
+          32,
+          32
+        ],
+        "max_abs": 0.0,
+        "relative_l2": 0.0,
+        "exact": true,
+        "full_output_relative_l2_vs_cublas": 0.0,
+        "full_output_elements_checked": 16777216
+      },
+      {
+        "pattern": "integer",
+        "seed": 17,
+        "method": "ours",
+        "sample_shape": [
+          32,
+          32
+        ],
+        "max_abs": 0.0,
+        "relative_l2": 0.0,
+        "exact": true,
+        "full_output_relative_l2_vs_cublas": 0.0,
+        "full_output_elements_checked": 16777216
+      },
+      {
+        "pattern": "integer",
+        "seed": 17,
+        "method": "ptxas",
+        "sample_shape": [
+          32,
+          32
+        ],
+        "max_abs": 0.0,
+        "relative_l2": 0.0,
+        "exact": true,
+        "full_output_relative_l2_vs_cublas": 0.0,
+        "full_output_elements_checked": 16777216
+      },
+      {
+        "pattern": "integer",
+        "seed": 17,
+        "method": "geometry_large_f16_wide64s2",
+        "sample_shape": [
+          32,
+          32
+        ],
+        "max_abs": 0.0,
+        "relative_l2": 0.0,
+        "exact": true,
+        "full_output_relative_l2_vs_cublas": 0.0,
+        "full_output_elements_checked": 16777216
+      },
+      {
+        "pattern": "integer",
+        "seed": 17,
+        "method": "geometry_large_f16_tall64s2",
+        "sample_shape": [
+          32,
+          32
+        ],
+        "max_abs": 0.0,
+        "relative_l2": 0.0,
+        "exact": true,
+        "full_output_relative_l2_vs_cublas": 0.0,
+        "full_output_elements_checked": 16777216
+      },
+      {
+        "pattern": "integer",
+        "seed": 17,
+        "method": "geometry_large_f16_wide32s3",
+        "sample_shape": [
+          32,
+          32
+        ],
+        "max_abs": 0.0,
+        "relative_l2": 0.0,
+        "exact": true,
+        "full_output_relative_l2_vs_cublas": 0.0,
+        "full_output_elements_checked": 16777216
+      },
+      {
+        "pattern": "integer",
+        "seed": 17,
+        "method": "geometry_large_f16_wide32s4",
+        "sample_shape": [
+          32,
+          32
+        ],
+        "max_abs": 0.0,
+        "relative_l2": 0.0,
+        "exact": true,
+        "full_output_relative_l2_vs_cublas": 0.0,
+        "full_output_elements_checked": 16777216
+      },
+      {
+        "pattern": "integer",
+        "seed": 17,
+        "method": "geometry_large_f16_wide32s5",
+        "sample_shape": [
+          32,
+          32
+        ],
+        "max_abs": 0.0,
+        "relative_l2": 0.0,
+        "exact": true,
+        "full_output_relative_l2_vs_cublas": 0.0,
+        "full_output_elements_checked": 16777216
+      },
+      {
+        "pattern": "integer",
+        "seed": 17,
+        "method": "geometry_large_f16_square32s5",
+        "sample_shape": [
+          32,
+          32
+        ],
+        "max_abs": 0.0,
+        "relative_l2": 0.0,
+        "exact": true,
+        "full_output_relative_l2_vs_cublas": 0.0,
+        "full_output_elements_checked": 16777216,
+        "ours_equals_ptxas": true
+      },
+      {
+        "pattern": "integer",
+        "seed": 29,
+        "method": "cublas",
+        "sample_shape": [
+          32,
+          32
+        ],
+        "max_abs": 0.0,
+        "relative_l2": 0.0,
+        "exact": true,
+        "full_output_relative_l2_vs_cublas": 0.0,
+        "full_output_elements_checked": 16777216
+      },
+      {
+        "pattern": "integer",
+        "seed": 29,
+        "method": "ours",
+        "sample_shape": [
+          32,
+          32
+        ],
+        "max_abs": 0.0,
+        "relative_l2": 0.0,
+        "exact": true,
+        "full_output_relative_l2_vs_cublas": 0.0,
+        "full_output_elements_checked": 16777216
+      },
+      {
+        "pattern": "integer",
+        "seed": 29,
+        "method": "ptxas",
+        "sample_shape": [
+          32,
+          32
+        ],
+        "max_abs": 0.0,
+        "relative_l2": 0.0,
+        "exact": true,
+        "full_output_relative_l2_vs_cublas": 0.0,
+        "full_output_elements_checked": 16777216
+      },
+      {
+        "pattern": "integer",
+        "seed": 29,
+        "method": "geometry_large_f16_wide64s2",
+        "sample_shape": [
+          32,
+          32
+        ],
+        "max_abs": 0.0,
+        "relative_l2": 0.0,
+        "exact": true,
+        "full_output_relative_l2_vs_cublas": 0.0,
+        "full_output_elements_checked": 16777216
+      },
+      {
+        "pattern": "integer",
+        "seed": 29,
+        "method": "geometry_large_f16_tall64s2",
+        "sample_shape": [
+          32,
+          32
+        ],
+        "max_abs": 0.0,
+        "relative_l2": 0.0,
+        "exact": true,
+        "full_output_relative_l2_vs_cublas": 0.0,
+        "full_output_elements_checked": 16777216
+      },
+      {
+        "pattern": "integer",
+        "seed": 29,
+        "method": "geometry_large_f16_wide32s3",
+        "sample_shape": [
+          32,
+          32
+        ],
+        "max_abs": 0.0,
+        "relative_l2": 0.0,
+        "exact": true,
+        "full_output_relative_l2_vs_cublas": 0.0,
+        "full_output_elements_checked": 16777216
+      },
+      {
+        "pattern": "integer",
+        "seed": 29,
+        "method": "geometry_large_f16_wide32s4",
+        "sample_shape": [
+          32,
+          32
+        ],
+        "max_abs": 0.0,
+        "relative_l2": 0.0,
+        "exact": true,
+        "full_output_relative_l2_vs_cublas": 0.0,
+        "full_output_elements_checked": 16777216
+      },
+      {
+        "pattern": "integer",
+        "seed": 29,
+        "method": "geometry_large_f16_wide32s5",
+        "sample_shape": [
+          32,
+          32
+        ],
+        "max_abs": 0.0,
+        "relative_l2": 0.0,
+        "exact": true,
+        "full_output_relative_l2_vs_cublas": 0.0,
+        "full_output_elements_checked": 16777216
+      },
+      {
+        "pattern": "integer",
+        "seed": 29,
+        "method": "geometry_large_f16_square32s5",
+        "sample_shape": [
+          32,
+          32
+        ],
+        "max_abs": 0.0,
+        "relative_l2": 0.0,
+        "exact": true,
+        "full_output_relative_l2_vs_cublas": 0.0,
+        "full_output_elements_checked": 16777216,
+        "ours_equals_ptxas": true
+      },
+      {
+        "pattern": "normal",
+        "seed": 17,
+        "method": "cublas",
+        "sample_shape": [
+          32,
+          32
+        ],
+        "max_abs": 0.0008377013436984271,
+        "relative_l2": 3.351526521464277e-06,
+        "exact": false,
+        "full_output_relative_l2_vs_cublas": 0.0,
+        "full_output_elements_checked": 16777216
+      },
+      {
+        "pattern": "normal",
+        "seed": 17,
+        "method": "ours",
+        "sample_shape": [
+          32,
+          32
+        ],
+        "max_abs": 0.00160198679077439,
+        "relative_l2": 6.68698851681154e-06,
+        "exact": false,
+        "full_output_relative_l2_vs_cublas": 3.979212578997249e-06,
+        "full_output_elements_checked": 16777216
+      },
+      {
+        "pattern": "normal",
+        "seed": 17,
+        "method": "ptxas",
+        "sample_shape": [
+          32,
+          32
+        ],
+        "max_abs": 0.00160198679077439,
+        "relative_l2": 6.68698851681154e-06,
+        "exact": false,
+        "full_output_relative_l2_vs_cublas": 3.979212578997249e-06,
+        "full_output_elements_checked": 16777216
+      },
+      {
+        "pattern": "normal",
+        "seed": 17,
+        "method": "geometry_large_f16_wide64s2",
+        "sample_shape": [
+          32,
+          32
+        ],
+        "max_abs": 0.00160198679077439,
+        "relative_l2": 6.68698851681154e-06,
+        "exact": false,
+        "full_output_relative_l2_vs_cublas": 3.979212578997249e-06,
+        "full_output_elements_checked": 16777216
+      },
+      {
+        "pattern": "normal",
+        "seed": 17,
+        "method": "geometry_large_f16_tall64s2",
+        "sample_shape": [
+          32,
+          32
+        ],
+        "max_abs": 0.00160198679077439,
+        "relative_l2": 6.68698851681154e-06,
+        "exact": false,
+        "full_output_relative_l2_vs_cublas": 3.979212578997249e-06,
+        "full_output_elements_checked": 16777216
+      },
+      {
+        "pattern": "normal",
+        "seed": 17,
+        "method": "geometry_large_f16_wide32s3",
+        "sample_shape": [
+          32,
+          32
+        ],
+        "max_abs": 0.00160198679077439,
+        "relative_l2": 6.68698851681154e-06,
+        "exact": false,
+        "full_output_relative_l2_vs_cublas": 3.979212578997249e-06,
+        "full_output_elements_checked": 16777216
+      },
+      {
+        "pattern": "normal",
+        "seed": 17,
+        "method": "geometry_large_f16_wide32s4",
+        "sample_shape": [
+          32,
+          32
+        ],
+        "max_abs": 0.00160198679077439,
+        "relative_l2": 6.68698851681154e-06,
+        "exact": false,
+        "full_output_relative_l2_vs_cublas": 3.979212578997249e-06,
+        "full_output_elements_checked": 16777216
+      },
+      {
+        "pattern": "normal",
+        "seed": 17,
+        "method": "geometry_large_f16_wide32s5",
+        "sample_shape": [
+          32,
+          32
+        ],
+        "max_abs": 0.00160198679077439,
+        "relative_l2": 6.68698851681154e-06,
+        "exact": false,
+        "full_output_relative_l2_vs_cublas": 3.979212578997249e-06,
+        "full_output_elements_checked": 16777216
+      },
+      {
+        "pattern": "normal",
+        "seed": 17,
+        "method": "geometry_large_f16_square32s5",
+        "sample_shape": [
+          32,
+          32
+        ],
+        "max_abs": 0.00160198679077439,
+        "relative_l2": 6.68698851681154e-06,
+        "exact": false,
+        "full_output_relative_l2_vs_cublas": 3.979212578997249e-06,
+        "full_output_elements_checked": 16777216,
+        "ours_equals_ptxas": true
+      },
+      {
+        "pattern": "normal",
+        "seed": 29,
+        "method": "cublas",
+        "sample_shape": [
+          32,
+          32
+        ],
+        "max_abs": 0.00101866913610138,
+        "relative_l2": 3.247686066847291e-06,
+        "exact": false,
+        "full_output_relative_l2_vs_cublas": 0.0,
+        "full_output_elements_checked": 16777216
+      },
+      {
+        "pattern": "normal",
+        "seed": 29,
+        "method": "ours",
+        "sample_shape": [
+          32,
+          32
+        ],
+        "max_abs": 0.00185790253453888,
+        "relative_l2": 6.56201556909705e-06,
+        "exact": false,
+        "full_output_relative_l2_vs_cublas": 3.981145255238516e-06,
+        "full_output_elements_checked": 16777216
+      },
+      {
+        "pattern": "normal",
+        "seed": 29,
+        "method": "ptxas",
+        "sample_shape": [
+          32,
+          32
+        ],
+        "max_abs": 0.00185790253453888,
+        "relative_l2": 6.56201556909705e-06,
+        "exact": false,
+        "full_output_relative_l2_vs_cublas": 3.981145255238516e-06,
+        "full_output_elements_checked": 16777216
+      },
+      {
+        "pattern": "normal",
+        "seed": 29,
+        "method": "geometry_large_f16_wide64s2",
+        "sample_shape": [
+          32,
+          32
+        ],
+        "max_abs": 0.00185790253453888,
+        "relative_l2": 6.56201556909705e-06,
+        "exact": false,
+        "full_output_relative_l2_vs_cublas": 3.981145255238516e-06,
+        "full_output_elements_checked": 16777216
+      },
+      {
+        "pattern": "normal",
+        "seed": 29,
+        "method": "geometry_large_f16_tall64s2",
+        "sample_shape": [
+          32,
+          32
+        ],
+        "max_abs": 0.00185790253453888,
+        "relative_l2": 6.56201556909705e-06,
+        "exact": false,
+        "full_output_relative_l2_vs_cublas": 3.981145255238516e-06,
+        "full_output_elements_checked": 16777216
+      },
+      {
+        "pattern": "normal",
+        "seed": 29,
+        "method": "geometry_large_f16_wide32s3",
+        "sample_shape": [
+          32,
+          32
+        ],
+        "max_abs": 0.00185790253453888,
+        "relative_l2": 6.56201556909705e-06,
+        "exact": false,
+        "full_output_relative_l2_vs_cublas": 3.981145255238516e-06,
+        "full_output_elements_checked": 16777216
+      },
+      {
+        "pattern": "normal",
+        "seed": 29,
+        "method": "geometry_large_f16_wide32s4",
+        "sample_shape": [
+          32,
+          32
+        ],
+        "max_abs": 0.00185790253453888,
+        "relative_l2": 6.56201556909705e-06,
+        "exact": false,
+        "full_output_relative_l2_vs_cublas": 3.981145255238516e-06,
+        "full_output_elements_checked": 16777216
+      },
+      {
+        "pattern": "normal",
+        "seed": 29,
+        "method": "geometry_large_f16_wide32s5",
+        "sample_shape": [
+          32,
+          32
+        ],
+        "max_abs": 0.00185790253453888,
+        "relative_l2": 6.56201556909705e-06,
+        "exact": false,
+        "full_output_relative_l2_vs_cublas": 3.981145255238516e-06,
+        "full_output_elements_checked": 16777216
+      },
+      {
+        "pattern": "normal",
+        "seed": 29,
+        "method": "geometry_large_f16_square32s5",
+        "sample_shape": [
+          32,
+          32
+        ],
+        "max_abs": 0.00185790253453888,
+        "relative_l2": 6.56201556909705e-06,
+        "exact": false,
+        "full_output_relative_l2_vs_cublas": 3.981145255238516e-06,
+        "full_output_elements_checked": 16777216,
+        "ours_equals_ptxas": true
+      },
+      {
+        "pattern": "scaled",
+        "seed": 17,
+        "method": "cublas",
+        "sample_shape": [
+          32,
+          32
+        ],
+        "max_abs": 0.000837662722915411,
+        "relative_l2": 3.3512336912070167e-06,
+        "exact": false,
+        "full_output_relative_l2_vs_cublas": 0.0,
+        "full_output_elements_checked": 16777216
+      },
+      {
+        "pattern": "scaled",
+        "seed": 17,
+        "method": "ours",
+        "sample_shape": [
+          32,
+          32
+        ],
+        "max_abs": 0.0016007570666261017,
+        "relative_l2": 6.690774598639118e-06,
+        "exact": false,
+        "full_output_relative_l2_vs_cublas": 3.979234406870091e-06,
+        "full_output_elements_checked": 16777216
+      },
+      {
+        "pattern": "scaled",
+        "seed": 17,
+        "method": "ptxas",
+        "sample_shape": [
+          32,
+          32
+        ],
+        "max_abs": 0.0016007570666261017,
+        "relative_l2": 6.690774598639118e-06,
+        "exact": false,
+        "full_output_relative_l2_vs_cublas": 3.979234406870091e-06,
+        "full_output_elements_checked": 16777216
+      },
+      {
+        "pattern": "scaled",
+        "seed": 17,
+        "method": "geometry_large_f16_wide64s2",
+        "sample_shape": [
+          32,
+          32
+        ],
+        "max_abs": 0.0016007570666261017,
+        "relative_l2": 6.690774598639118e-06,
+        "exact": false,
+        "full_output_relative_l2_vs_cublas": 3.979234406870091e-06,
+        "full_output_elements_checked": 16777216
+      },
+      {
+        "pattern": "scaled",
+        "seed": 17,
+        "method": "geometry_large_f16_tall64s2",
+        "sample_shape": [
+          32,
+          32
+        ],
+        "max_abs": 0.0016007570666261017,
+        "relative_l2": 6.690774598639118e-06,
+        "exact": false,
+        "full_output_relative_l2_vs_cublas": 3.979234406870091e-06,
+        "full_output_elements_checked": 16777216
+      },
+      {
+        "pattern": "scaled",
+        "seed": 17,
+        "method": "geometry_large_f16_wide32s3",
+        "sample_shape": [
+          32,
+          32
+        ],
+        "max_abs": 0.0016007570666261017,
+        "relative_l2": 6.690774598639118e-06,
+        "exact": false,
+        "full_output_relative_l2_vs_cublas": 3.979234406870091e-06,
+        "full_output_elements_checked": 16777216
+      },
+      {
+        "pattern": "scaled",
+        "seed": 17,
+        "method": "geometry_large_f16_wide32s4",
+        "sample_shape": [
+          32,
+          32
+        ],
+        "max_abs": 0.0016007570666261017,
+        "relative_l2": 6.690774598639118e-06,
+        "exact": false,
+        "full_output_relative_l2_vs_cublas": 3.979234406870091e-06,
+        "full_output_elements_checked": 16777216
+      },
+      {
+        "pattern": "scaled",
+        "seed": 17,
+        "method": "geometry_large_f16_wide32s5",
+        "sample_shape": [
+          32,
+          32
+        ],
+        "max_abs": 0.0016007570666261017,
+        "relative_l2": 6.690774598639118e-06,
+        "exact": false,
+        "full_output_relative_l2_vs_cublas": 3.979234406870091e-06,
+        "full_output_elements_checked": 16777216
+      },
+      {
+        "pattern": "scaled",
+        "seed": 17,
+        "method": "geometry_large_f16_square32s5",
+        "sample_shape": [
+          32,
+          32
+        ],
+        "max_abs": 0.0016007570666261017,
+        "relative_l2": 6.690774598639118e-06,
+        "exact": false,
+        "full_output_relative_l2_vs_cublas": 3.979234406870091e-06,
+        "full_output_elements_checked": 16777216,
+        "ours_equals_ptxas": true
+      },
+      {
+        "pattern": "scaled",
+        "seed": 29,
+        "method": "cublas",
+        "sample_shape": [
+          32,
+          32
+        ],
+        "max_abs": 0.0010178194497711957,
+        "relative_l2": 3.2475722583259616e-06,
+        "exact": false,
+        "full_output_relative_l2_vs_cublas": 0.0,
+        "full_output_elements_checked": 16777216
+      },
+      {
+        "pattern": "scaled",
+        "seed": 29,
+        "method": "ours",
+        "sample_shape": [
+          32,
+          32
+        ],
+        "max_abs": 0.0018570528482086957,
+        "relative_l2": 6.561455911110085e-06,
+        "exact": false,
+        "full_output_relative_l2_vs_cublas": 3.981153440690832e-06,
+        "full_output_elements_checked": 16777216
+      },
+      {
+        "pattern": "scaled",
+        "seed": 29,
+        "method": "ptxas",
+        "sample_shape": [
+          32,
+          32
+        ],
+        "max_abs": 0.0018570528482086957,
+        "relative_l2": 6.561455911110085e-06,
+        "exact": false,
+        "full_output_relative_l2_vs_cublas": 3.981153440690832e-06,
+        "full_output_elements_checked": 16777216
+      },
+      {
+        "pattern": "scaled",
+        "seed": 29,
+        "method": "geometry_large_f16_wide64s2",
+        "sample_shape": [
+          32,
+          32
+        ],
+        "max_abs": 0.0018570528482086957,
+        "relative_l2": 6.561455911110085e-06,
+        "exact": false,
+        "full_output_relative_l2_vs_cublas": 3.981153440690832e-06,
+        "full_output_elements_checked": 16777216
+      },
+      {
+        "pattern": "scaled",
+        "seed": 29,
+        "method": "geometry_large_f16_tall64s2",
+        "sample_shape": [
+          32,
+          32
+        ],
+        "max_abs": 0.0018570528482086957,
+        "relative_l2": 6.561455911110085e-06,
+        "exact": false,
+        "full_output_relative_l2_vs_cublas": 3.981153440690832e-06,
+        "full_output_elements_checked": 16777216
+      },
+      {
+        "pattern": "scaled",
+        "seed": 29,
+        "method": "geometry_large_f16_wide32s3",
+        "sample_shape": [
+          32,
+          32
+        ],
+        "max_abs": 0.0018570528482086957,
+        "relative_l2": 6.561455911110085e-06,
+        "exact": false,
+        "full_output_relative_l2_vs_cublas": 3.981153440690832e-06,
+        "full_output_elements_checked": 16777216
+      },
+      {
+        "pattern": "scaled",
+        "seed": 29,
+        "method": "geometry_large_f16_wide32s4",
+        "sample_shape": [
+          32,
+          32
+        ],
+        "max_abs": 0.0018570528482086957,
+        "relative_l2": 6.561455911110085e-06,
+        "exact": false,
+        "full_output_relative_l2_vs_cublas": 3.981153440690832e-06,
+        "full_output_elements_checked": 16777216
+      },
+      {
+        "pattern": "scaled",
+        "seed": 29,
+        "method": "geometry_large_f16_wide32s5",
+        "sample_shape": [
+          32,
+          32
+        ],
+        "max_abs": 0.0018570528482086957,
+        "relative_l2": 6.561455911110085e-06,
+        "exact": false,
+        "full_output_relative_l2_vs_cublas": 3.981153440690832e-06,
+        "full_output_elements_checked": 16777216
+      },
+      {
+        "pattern": "scaled",
+        "seed": 29,
+        "method": "geometry_large_f16_square32s5",
+        "sample_shape": [
+          32,
+          32
+        ],
+        "max_abs": 0.0018570528482086957,
+        "relative_l2": 6.561455911110085e-06,
+        "exact": false,
+        "full_output_relative_l2_vs_cublas": 3.981153440690832e-06,
+        "full_output_elements_checked": 16777216,
+        "ours_equals_ptxas": true
+      }
+    ],
+    "resources": {
+      "ours": {
+        "max_threads": 256,
+        "shared_bytes": 0,
+        "const_bytes": 0,
+        "local_bytes": 0,
+        "num_regs": 232,
+        "ptx_version": 80,
+        "binary_version": 80
+      },
+      "ptxas": {
+        "max_threads": 256,
+        "shared_bytes": 0,
+        "const_bytes": 0,
+        "local_bytes": 0,
+        "num_regs": 244,
+        "ptx_version": 80,
+        "binary_version": 80
+      },
+      "geometry_large_f16_wide64s2": {
+        "max_threads": 256,
+        "shared_bytes": 0,
+        "const_bytes": 0,
+        "local_bytes": 0,
+        "num_regs": 220,
+        "ptx_version": 80,
+        "binary_version": 80
+      },
+      "geometry_large_f16_tall64s2": {
+        "max_threads": 256,
+        "shared_bytes": 0,
+        "const_bytes": 0,
+        "local_bytes": 0,
+        "num_regs": 220,
+        "ptx_version": 80,
+        "binary_version": 80
+      },
+      "geometry_large_f16_wide32s3": {
+        "max_threads": 256,
+        "shared_bytes": 0,
+        "const_bytes": 0,
+        "local_bytes": 0,
+        "num_regs": 196,
+        "ptx_version": 80,
+        "binary_version": 80
+      },
+      "geometry_large_f16_wide32s4": {
+        "max_threads": 256,
+        "shared_bytes": 0,
+        "const_bytes": 0,
+        "local_bytes": 0,
+        "num_regs": 196,
+        "ptx_version": 80,
+        "binary_version": 80
+      },
+      "geometry_large_f16_wide32s5": {
+        "max_threads": 256,
+        "shared_bytes": 0,
+        "const_bytes": 0,
+        "local_bytes": 0,
+        "num_regs": 196,
+        "ptx_version": 80,
+        "binary_version": 80
+      },
+      "geometry_large_f16_square32s5": {
+        "max_threads": 256,
+        "shared_bytes": 0,
+        "const_bytes": 0,
+        "local_bytes": 0,
+        "num_regs": 204,
+        "ptx_version": 80,
+        "binary_version": 80
+      }
+    },
+    "milliseconds": {
+      "ours": 0.6327807903289795,
+      "ptxas": 0.5733888149261475,
+      "geometry_large_f16_wide64s2": 0.7151616096496582,
+      "geometry_large_f16_tall64s2": 0.7009791851043701,
+      "geometry_large_f16_wide32s3": 1.1125760078430176,
+      "geometry_large_f16_wide32s4": 1.0842111587524415,
+      "geometry_large_f16_wide32s5": 1.1224063873291015,
+      "geometry_large_f16_square32s5": 0.7726592063903809,
+      "cublas": 0.5584383964538574
+    },
+    "samples_ms": {
+      "ours": [
+        0.6396927833557129,
+        0.6264319896697998,
+        0.6668288230895996,
+        0.628172779083252,
+        0.6327807903289795,
+        0.6111231803894043,
+        0.6479360103607178
+      ],
+      "ptxas": [
+        0.6104576110839843,
+        0.5651455879211426,
+        0.5667840003967285,
+        0.5703167915344238,
+        0.5733888149261475,
+        0.5905407905578614,
+        0.5804543972015381
+      ],
+      "geometry_large_f16_wide64s2": [
+        0.6938111782073975,
+        0.7558144092559814,
+        0.7428607940673828,
+        0.7151616096496582,
+        0.7170559883117675,
+        0.7006207942962647,
+        0.6955520153045655
+      ],
+      "geometry_large_f16_tall64s2": [
+        0.6900735855102539,
+        0.7503871917724609,
+        0.6911488056182862,
+        0.7076352119445801,
+        0.6807551860809327,
+        0.7009791851043701,
+        0.7259136199951172
+      ],
+      "geometry_large_f16_wide32s3": [
+        1.1907072067260742,
+        1.1416576385498047,
+        1.1096063613891602,
+        1.1157504081726075,
+        1.094655990600586,
+        1.1125760078430176,
+        1.0876928329467774
+      ],
+      "geometry_large_f16_wide32s4": [
+        1.1048447608947753,
+        1.0842111587524415,
+        1.0801152229309081,
+        1.127014446258545,
+        1.0707455635070802,
+        1.0771967887878418,
+        1.1285504341125487
+      ],
+      "geometry_large_f16_wide32s5": [
+        1.124556827545166,
+        1.0703359603881837,
+        1.1224063873291015,
+        1.1802623748779297,
+        1.1783679962158202,
+        1.062758445739746,
+        1.0951168060302734
+      ],
+      "geometry_large_f16_square32s5": [
+        0.7678463935852051,
+        0.785971212387085,
+        0.8049152374267579,
+        0.7726592063903809,
+        0.8271871566772461,
+        0.767795181274414,
+        0.7698944091796875
+      ],
+      "cublas": [
+        0.5584383964538574,
+        0.5656576156616211,
+        0.5558784008026123,
+        0.5694464206695556,
+        0.5728767871856689,
+        0.5555712223052979,
+        0.5549568176269531
+      ]
+    },
+    "graph_nodes": 20,
+    "tflops": {
+      "ours": 217.1983656465712,
+      "ptxas": 239.69590946712512,
+      "geometry_large_f16_wide64s2": 192.17887484107024,
+      "geometry_large_f16_tall64s2": 196.06709641675945,
+      "geometry_large_f16_wide32s3": 123.53219241034756,
+      "geometry_large_f16_wide32s4": 126.7640093560239,
+      "geometry_large_f16_wide32s5": 122.45025957046823,
+      "geometry_large_f16_square32s5": 177.87784360206004,
+      "cublas": 246.113007889056
+    },
+    "name": "geometry_large_f16",
+    "worker_rc": 0,
+    "input_provenance": {
+      "build": "geometry_large_f16_base",
+      "grid": [
+        32,
+        32,
+        1
+      ],
+      "threads": 128,
+      "dynamic_shared_bytes": 65536,
+      "ours_sha256": "2efcf91f106c895a7144244e210466bf74183ac1d2ca1fb14e2e2a79ee928c83",
+      "ptxas_sha256": "1f43608a3fb88ccbf88c8267ddeff085779fbe7b24708ceee9edfc79b5c09a8b",
+      "ptx_sha256": "83de480dac0f33e28677d5b779fb7253cfe2a78a25a05309a4a910a32f5948b5",
+      "compilation": {
+        "compiler": "OpenAssembler isolated geometry experiment",
+        "fallback": false,
+        "reference_and_ELF_container": "NVIDIA ptxas on matching PTX",
+        "geometry": {
+          "m": 4096,
+          "n": 4096,
+          "k": 4096,
+          "bm": 128,
+          "bn": 128,
+          "bk": 64,
+          "wm": 64,
+          "wn": 64,
+          "stages": 2
+        },
+        "paired_b": true,
+        "row_pair_epilogue": true,
+        "nvdisasm_valid": true,
+        "source_sha256": "83de480dac0f33e28677d5b779fb7253cfe2a78a25a05309a4a910a32f5948b5",
+        "experiment_sha256": "930263288e8094f815bdace06b206f7b6deb46d09b857b809fa65947b709ac89",
+        "kernels": [
+          {
+            "kernel": "gemm",
+            "requested_opt_level": "safe",
+            "applied_schedule": "source-order-HMMA8-epoch-drain15",
+            "scalar_schedule": "mined",
+            "protected_scoreboard_recycling": true,
+            "ldsm_read_barrier": false,
+            "ldsm_address_war_uses_write_completion": true,
+            "list_schedule_with_tensor_ordering": false,
+            "tensor_reuse_hints": true,
+            "experimental_recycle_without_wait": false,
+            "inline_64bit_pointer_increments": true,
+            "optimize_local_homes": true,
+            "licm_ops_hoisted": 0,
+            "ptx_instructions": 1025,
+            "sass_instructions": 1128,
+            "registers": 232,
+            "stages": {
+              "select_ms": 53.85212495457381,
+              "licm_ms": 0.0019579892978072166,
+              "dce_coalesce_ms": 23.178500006906688,
+              "allocate_ms": 457.4567920062691,
+              "lower_ms": 27.43958297651261,
+              "schedule_ms": 77.31850002892315,
+              "encoder_setup_ms": 0.0016669509932398796,
+              "encode_ms": 11.71037508174777
+            }
+          }
+        ],
+        "sass_opcode_counts": {
+          "MOV": 219,
+          "ULDC.64": 1,
+          "S2R": 3,
+          "IMAD.SHL": 79,
+          "LOP3.LUT": 81,
+          "SHF.R.U32.HI": 29,
+          "IADD3": 177,
+          "IMAD": 48,
+          "IMAD.WIDE.U32": 24,
+          "LDGSTS.E.BYPASS.128": 32,
+          "LDGDEPBAR": 2,
+          "IADD3.X": 32,
+          "DEPBAR.LE": 2,
+          "BAR.SYNC.DEFER_BLOCKING": 4,
+          "LDSM.16.M88.4": 64,
+          "HMMA.16816.F32": 256,
+          "NOP": 15,
+          "ISETP.LT.U32.AND": 1,
+          "@P0": 1,
+          "STG.E.64": 64,
+          "EXIT": 1,
+          "BRA": 1
+        },
+        "cli_wall_ms": 6644.843750051223
+      },
+      "alternatives": [
+        {
+          "build": "geometry_large_f16_wide64s2",
+          "grid": [
+            32,
+            16,
+            1
+          ],
+          "threads": 256,
+          "dynamic_shared_bytes": 98304,
+          "ours_sha256": "c851576b73f10de0fdbed6a0c652ae82a2145f49724bf09970166729087a36cc",
+          "ptxas_sha256": "dd08e898abab3261bb1c5d1e4f59f41ef92598bcd46a291a008b2e76ca8b59eb",
+          "ptx_sha256": "a2413a11dc8f0bc8298b5f193775f1d36eeb3876ba7ff88b9af4d2678881d830",
+          "compilation": {
+            "compiler": "OpenAssembler isolated geometry experiment",
+            "fallback": false,
+            "reference_and_ELF_container": "NVIDIA ptxas on matching PTX",
+            "geometry": {
+              "m": 4096,
+              "n": 4096,
+              "k": 4096,
+              "bm": 128,
+              "bn": 256,
+              "bk": 64,
+              "wm": 64,
+              "wn": 64,
+              "stages": 2
+            },
+            "paired_b": true,
+            "row_pair_epilogue": true,
+            "nvdisasm_valid": true,
+            "source_sha256": "a2413a11dc8f0bc8298b5f193775f1d36eeb3876ba7ff88b9af4d2678881d830",
+            "experiment_sha256": "930263288e8094f815bdace06b206f7b6deb46d09b857b809fa65947b709ac89",
+            "kernels": [
+              {
+                "kernel": "gemm",
+                "requested_opt_level": "safe",
+                "applied_schedule": "source-order-HMMA8-epoch-drain15",
+                "scalar_schedule": "mined",
+                "protected_scoreboard_recycling": true,
+                "ldsm_read_barrier": false,
+                "ldsm_address_war_uses_write_completion": true,
+                "list_schedule_with_tensor_ordering": false,
+                "tensor_reuse_hints": true,
+                "experimental_recycle_without_wait": false,
+                "inline_64bit_pointer_increments": true,
+                "optimize_local_homes": true,
+                "licm_ops_hoisted": 0,
+                "ptx_instructions": 945,
+                "sass_instructions": 1025,
+                "registers": 220,
+                "stages": {
+                  "select_ms": 50.7509590825066,
+                  "licm_ms": 0.0013329554349184036,
+                  "dce_coalesce_ms": 21.38758299406618,
+                  "allocate_ms": 396.7912499792874,
+                  "lower_ms": 26.637542061507702,
+                  "schedule_ms": 62.70870799198747,
+                  "encoder_setup_ms": 0.0017919810488820076,
+                  "encode_ms": 10.519083007238805
+                }
+              }
+            ],
+            "sass_opcode_counts": {
+              "MOV": 200,
+              "ULDC.64": 1,
+              "S2R": 3,
+              "IMAD.SHL": 67,
+              "LOP3.LUT": 67,
+              "SHF.R.U32.HI": 25,
+              "IADD3": 151,
+              "IMAD": 40,
+              "IMAD.WIDE.U32": 20,
+              "LDGSTS.E.BYPASS.128": 24,
+              "LDGDEPBAR": 2,
+              "IADD3.X": 24,
+              "DEPBAR.LE": 2,
+              "BAR.SYNC.DEFER_BLOCKING": 4,
+              "LDSM.16.M88.4": 64,
+              "HMMA.16816.F32": 256,
+              "NOP": 14,
+              "ISETP.LT.U32.AND": 1,
+              "@P0": 1,
+              "STG.E.64": 64,
+              "EXIT": 1,
+              "BRA": 1
+            },
+            "cli_wall_ms": 5042.01837501023
+          }
+        },
+        {
+          "build": "geometry_large_f16_tall64s2",
+          "grid": [
+            16,
+            32,
+            1
+          ],
+          "threads": 256,
+          "dynamic_shared_bytes": 98304,
+          "ours_sha256": "e3d33b910ff9b42d2a43957393ea6194da389631c8dee1ef14cb1fbf6aea31bb",
+          "ptxas_sha256": "738aa4dca0bd64bdcb63156e841e21a8381517b408d71e7d061a62d58de604fe",
+          "ptx_sha256": "4e98aeded9b6a0686a83b6dec607346652f755fe3d2d8e3563eaaadf81350a4e",
+          "compilation": {
+            "compiler": "OpenAssembler isolated geometry experiment",
+            "fallback": false,
+            "reference_and_ELF_container": "NVIDIA ptxas on matching PTX",
+            "geometry": {
+              "m": 4096,
+              "n": 4096,
+              "k": 4096,
+              "bm": 256,
+              "bn": 128,
+              "bk": 64,
+              "wm": 64,
+              "wn": 64,
+              "stages": 2
+            },
+            "paired_b": true,
+            "row_pair_epilogue": true,
+            "nvdisasm_valid": true,
+            "source_sha256": "4e98aeded9b6a0686a83b6dec607346652f755fe3d2d8e3563eaaadf81350a4e",
+            "experiment_sha256": "930263288e8094f815bdace06b206f7b6deb46d09b857b809fa65947b709ac89",
+            "kernels": [
+              {
+                "kernel": "gemm",
+                "requested_opt_level": "safe",
+                "applied_schedule": "source-order-HMMA8-epoch-drain15",
+                "scalar_schedule": "mined",
+                "protected_scoreboard_recycling": true,
+                "ldsm_read_barrier": false,
+                "ldsm_address_war_uses_write_completion": true,
+                "list_schedule_with_tensor_ordering": false,
+                "tensor_reuse_hints": true,
+                "experimental_recycle_without_wait": false,
+                "inline_64bit_pointer_increments": true,
+                "optimize_local_homes": true,
+                "licm_ops_hoisted": 0,
+                "ptx_instructions": 945,
+                "sass_instructions": 1025,
+                "registers": 220,
+                "stages": {
+                  "select_ms": 50.61091703828424,
+                  "licm_ms": 0.0013329554349184036,
+                  "dce_coalesce_ms": 20.91904205735773,
+                  "allocate_ms": 398.4759170562029,
+                  "lower_ms": 25.679290993139148,
+                  "schedule_ms": 63.62366699613631,
+                  "encoder_setup_ms": 0.0014579854905605316,
+                  "encode_ms": 11.101208976469934
+                }
+              }
+            ],
+            "sass_opcode_counts": {
+              "MOV": 200,
+              "ULDC.64": 1,
+              "S2R": 3,
+              "IMAD.SHL": 67,
+              "LOP3.LUT": 67,
+              "SHF.R.U32.HI": 25,
+              "IADD3": 151,
+              "IMAD": 40,
+              "IMAD.WIDE.U32": 20,
+              "LDGSTS.E.BYPASS.128": 24,
+              "LDGDEPBAR": 2,
+              "IADD3.X": 24,
+              "DEPBAR.LE": 2,
+              "BAR.SYNC.DEFER_BLOCKING": 4,
+              "LDSM.16.M88.4": 64,
+              "HMMA.16816.F32": 256,
+              "NOP": 14,
+              "ISETP.LT.U32.AND": 1,
+              "@P0": 1,
+              "STG.E.64": 64,
+              "EXIT": 1,
+              "BRA": 1
+            },
+            "cli_wall_ms": 4950.107250013389
+          }
+        },
+        {
+          "build": "geometry_large_f16_wide32s3",
+          "grid": [
+            32,
+            16,
+            1
+          ],
+          "threads": 256,
+          "dynamic_shared_bytes": 73728,
+          "ours_sha256": "1d991666a739966a6f77a938a4e11327f8c61585a90d67686986e3f0a8251232",
+          "ptxas_sha256": "d833f96c1cb02e3728b9f2e2155c6b8e7c2f17d75c193c73f010fce032d7409c",
+          "ptx_sha256": "4a1d2e64f9f2a4b9e5f8508ba90c8969089492227b995f624decc1c6de37b242",
+          "compilation": {
+            "compiler": "OpenAssembler isolated geometry experiment",
+            "fallback": false,
+            "reference_and_ELF_container": "NVIDIA ptxas on matching PTX",
+            "geometry": {
+              "m": 4096,
+              "n": 4096,
+              "k": 4096,
+              "bm": 128,
+              "bn": 256,
+              "bk": 32,
+              "wm": 64,
+              "wn": 64,
+              "stages": 3
+            },
+            "paired_b": true,
+            "row_pair_epilogue": true,
+            "nvdisasm_valid": true,
+            "source_sha256": "4a1d2e64f9f2a4b9e5f8508ba90c8969089492227b995f624decc1c6de37b242",
+            "experiment_sha256": "930263288e8094f815bdace06b206f7b6deb46d09b857b809fa65947b709ac89",
+            "kernels": [
+              {
+                "kernel": "gemm",
+                "requested_opt_level": "safe",
+                "applied_schedule": "source-order-HMMA8-epoch-drain15",
+                "scalar_schedule": "mined",
+                "protected_scoreboard_recycling": true,
+                "ldsm_read_barrier": false,
+                "ldsm_address_war_uses_write_completion": true,
+                "list_schedule_with_tensor_ordering": false,
+                "tensor_reuse_hints": true,
+                "experimental_recycle_without_wait": false,
+                "inline_64bit_pointer_increments": true,
+                "optimize_local_homes": true,
+                "licm_ops_hoisted": 0,
+                "ptx_instructions": 725,
+                "sass_instructions": 785,
+                "registers": 196,
+                "stages": {
+                  "select_ms": 33.513000002130866,
+                  "licm_ms": 0.0006669433787465096,
+                  "dce_coalesce_ms": 15.054541057907045,
+                  "allocate_ms": 263.77924997359514,
+                  "lower_ms": 20.019749994389713,
+                  "schedule_ms": 51.43704195506871,
+                  "encoder_setup_ms": 0.0012919772416353226,
+                  "encode_ms": 7.69141607452184
+                }
+              }
+            ],
+            "sass_opcode_counts": {
+              "MOV": 185,
+              "ULDC.64": 1,
+              "S2R": 3,
+              "IMAD.SHL": 38,
+              "LOP3.LUT": 35,
+              "SHF.R.U32.HI": 16,
+              "IADD3": 102,
+              "IMAD": 24,
+              "IMAD.WIDE.U32": 14,
+              "LDGSTS.E.BYPASS.128": 18,
+              "LDGDEPBAR": 3,
+              "IADD3.X": 18,
+              "DEPBAR.LE": 3,
+              "BAR.SYNC.DEFER_BLOCKING": 6,
+              "LDSM.16.M88.4": 48,
+              "HMMA.16816.F32": 192,
+              "NOP": 12,
+              "ISETP.GE.U32.AND": 3,
+              "SEL": 3,
+              "ISETP.LT.U32.AND": 1,
+              "@P0": 1,
+              "STG.E.64": 64,
+              "EXIT": 1,
+              "BRA": 1
+            },
+            "cli_wall_ms": 4638.1465420126915
+          }
+        },
+        {
+          "build": "geometry_large_f16_wide32s4",
+          "grid": [
+            32,
+            16,
+            1
+          ],
+          "threads": 256,
+          "dynamic_shared_bytes": 98304,
+          "ours_sha256": "5cd74576725d2bc21aeac8a8ad2496076473fcc0f626d4273e5dd55a496ffa22",
+          "ptxas_sha256": "9e4894f33543b87105f2a64acd92828fd3267752e1f25f28003bd4e86955c4de",
+          "ptx_sha256": "123ad3b6f2ca370dd1c72d1108fddb8f2050c99b71064f51d7449e0eea5728d0",
+          "compilation": {
+            "compiler": "OpenAssembler isolated geometry experiment",
+            "fallback": false,
+            "reference_and_ELF_container": "NVIDIA ptxas on matching PTX",
+            "geometry": {
+              "m": 4096,
+              "n": 4096,
+              "k": 4096,
+              "bm": 128,
+              "bn": 256,
+              "bk": 32,
+              "wm": 64,
+              "wn": 64,
+              "stages": 4
+            },
+            "paired_b": true,
+            "row_pair_epilogue": true,
+            "nvdisasm_valid": true,
+            "source_sha256": "123ad3b6f2ca370dd1c72d1108fddb8f2050c99b71064f51d7449e0eea5728d0",
+            "experiment_sha256": "930263288e8094f815bdace06b206f7b6deb46d09b857b809fa65947b709ac89",
+            "kernels": [
+              {
+                "kernel": "gemm",
+                "requested_opt_level": "safe",
+                "applied_schedule": "source-order-HMMA8-epoch-drain15",
+                "scalar_schedule": "mined",
+                "protected_scoreboard_recycling": true,
+                "ldsm_read_barrier": false,
+                "ldsm_address_war_uses_write_completion": true,
+                "list_schedule_with_tensor_ordering": false,
+                "tensor_reuse_hints": true,
+                "experimental_recycle_without_wait": false,
+                "inline_64bit_pointer_increments": true,
+                "optimize_local_homes": true,
+                "licm_ops_hoisted": 0,
+                "ptx_instructions": 839,
+                "sass_instructions": 919,
+                "registers": 196,
+                "stages": {
+                  "select_ms": 43.09629101771861,
+                  "licm_ms": 0.001208973117172718,
+                  "dce_coalesce_ms": 17.18008308671415,
+                  "allocate_ms": 314.8792079882696,
+                  "lower_ms": 23.70583394076675,
+                  "schedule_ms": 60.37349998950958,
+                  "encoder_setup_ms": 0.0010830117389559746,
+                  "encode_ms": 9.297292097471654
+                }
+              }
+            ],
+            "sass_opcode_counts": {
+              "MOV": 198,
+              "ULDC.64": 1,
+              "S2R": 3,
+              "IMAD.SHL": 39,
+              "LOP3.LUT": 35,
+              "SHF.R.U32.HI": 17,
+              "IADD3": 121,
+              "IMAD": 24,
+              "IMAD.WIDE.U32": 14,
+              "LDGSTS.E.BYPASS.128": 24,
+              "LDGDEPBAR": 4,
+              "IADD3.X": 24,
+              "DEPBAR.LE": 4,
+              "BAR.SYNC.DEFER_BLOCKING": 8,
+              "LDSM.16.M88.4": 64,
+              "HMMA.16816.F32": 256,
+              "NOP": 8,
+              "ISETP.GE.U32.AND": 4,
+              "SEL": 4,
+              "ISETP.LT.U32.AND": 1,
+              "@P0": 1,
+              "STG.E.64": 64,
+              "EXIT": 1,
+              "BRA": 1
+            },
+            "cli_wall_ms": 4847.1615420421585
+          }
+        },
+        {
+          "build": "geometry_large_f16_wide32s5",
+          "grid": [
+            32,
+            16,
+            1
+          ],
+          "threads": 256,
+          "dynamic_shared_bytes": 122880,
+          "ours_sha256": "1c9bbe0caae1da02ff8429c5aee2726f0ce3e7539b6b755d6f3b71219f1f68cf",
+          "ptxas_sha256": "482be4407d8a047ae0bcb1fd4516053b0bbde343b0627b9e73f3547a92dc5fe9",
+          "ptx_sha256": "1d57291e480d7dd9238e19dfd2a2bbdb01bd6cea49454798aae247feee5db792",
+          "compilation": {
+            "compiler": "OpenAssembler isolated geometry experiment",
+            "fallback": false,
+            "reference_and_ELF_container": "NVIDIA ptxas on matching PTX",
+            "geometry": {
+              "m": 4096,
+              "n": 4096,
+              "k": 4096,
+              "bm": 128,
+              "bn": 256,
+              "bk": 32,
+              "wm": 64,
+              "wn": 64,
+              "stages": 5
+            },
+            "paired_b": true,
+            "row_pair_epilogue": true,
+            "nvdisasm_valid": true,
+            "source_sha256": "1d57291e480d7dd9238e19dfd2a2bbdb01bd6cea49454798aae247feee5db792",
+            "experiment_sha256": "930263288e8094f815bdace06b206f7b6deb46d09b857b809fa65947b709ac89",
+            "kernels": [
+              {
+                "kernel": "gemm",
+                "requested_opt_level": "safe",
+                "applied_schedule": "source-order-HMMA8-epoch-drain15",
+                "scalar_schedule": "mined",
+                "protected_scoreboard_recycling": true,
+                "ldsm_read_barrier": false,
+                "ldsm_address_war_uses_write_completion": true,
+                "list_schedule_with_tensor_ordering": false,
+                "tensor_reuse_hints": true,
+                "experimental_recycle_without_wait": false,
+                "inline_64bit_pointer_increments": true,
+                "optimize_local_homes": true,
+                "licm_ops_hoisted": 0,
+                "ptx_instructions": 953,
+                "sass_instructions": 1053,
+                "registers": 196,
+                "stages": {
+                  "select_ms": 60.75666705146432,
+                  "licm_ms": 0.0010830117389559746,
+                  "dce_coalesce_ms": 21.515124943107367,
+                  "allocate_ms": 420.5442500533536,
+                  "lower_ms": 35.93445895239711,
+                  "schedule_ms": 81.19816600810736,
+                  "encoder_setup_ms": 0.0021670712158083916,
+                  "encode_ms": 12.038332992233336
+                }
+              }
+            ],
+            "sass_opcode_counts": {
+              "MOV": 211,
+              "ULDC.64": 1,
+              "S2R": 3,
+              "IMAD.SHL": 40,
+              "LOP3.LUT": 35,
+              "SHF.R.U32.HI": 18,
+              "IADD3": 140,
+              "IMAD": 24,
+              "IMAD.WIDE.U32": 14,
+              "LDGSTS.E.BYPASS.128": 30,
+              "LDGDEPBAR": 5,
+              "IADD3.X": 30,
+              "DEPBAR.LE": 5,
+              "BAR.SYNC.DEFER_BLOCKING": 10,
+              "LDSM.16.M88.4": 80,
+              "HMMA.16816.F32": 320,
+              "NOP": 12,
+              "ISETP.GE.U32.AND": 5,
+              "SEL": 5,
+              "ISETP.LT.U32.AND": 1,
+              "@P0": 1,
+              "STG.E.64": 64,
+              "EXIT": 1,
+              "BRA": 1
+            },
+            "cli_wall_ms": 5139.599125017412
+          }
+        },
+        {
+          "build": "geometry_large_f16_square32s5",
+          "grid": [
+            32,
+            32,
+            1
+          ],
+          "threads": 128,
+          "dynamic_shared_bytes": 81920,
+          "ours_sha256": "c60485d9526b39c6568735d9c08cc537d9651790b570b16909a0cde76369339d",
+          "ptxas_sha256": "f826d1ea9ace9c5746b6970929ceec02c0fe95b5c958a2333923b3a49ef00e29",
+          "ptx_sha256": "3bd47f873d847e7f76c83d2e1e535e18cd146d55bd7b29cf04879ed97f4aa399",
+          "compilation": {
+            "compiler": "OpenAssembler isolated geometry experiment",
+            "fallback": false,
+            "reference_and_ELF_container": "NVIDIA ptxas on matching PTX",
+            "geometry": {
+              "m": 4096,
+              "n": 4096,
+              "k": 4096,
+              "bm": 128,
+              "bn": 128,
+              "bk": 32,
+              "wm": 64,
+              "wn": 64,
+              "stages": 5
+            },
+            "paired_b": true,
+            "row_pair_epilogue": true,
+            "nvdisasm_valid": true,
+            "source_sha256": "3bd47f873d847e7f76c83d2e1e535e18cd146d55bd7b29cf04879ed97f4aa399",
+            "experiment_sha256": "930263288e8094f815bdace06b206f7b6deb46d09b857b809fa65947b709ac89",
+            "kernels": [
+              {
+                "kernel": "gemm",
+                "requested_opt_level": "safe",
+                "applied_schedule": "source-order-HMMA8-epoch-drain15",
+                "scalar_schedule": "mined",
+                "protected_scoreboard_recycling": true,
+                "ldsm_read_barrier": false,
+                "ldsm_address_war_uses_write_completion": true,
+                "list_schedule_with_tensor_ordering": false,
+                "tensor_reuse_hints": true,
+                "experimental_recycle_without_wait": false,
+                "inline_64bit_pointer_increments": true,
+                "optimize_local_homes": true,
+                "licm_ops_hoisted": 0,
+                "ptx_instructions": 1011,
+                "sass_instructions": 1141,
+                "registers": 204,
+                "stages": {
+                  "select_ms": 80.38358297199011,
+                  "licm_ms": 0.001334003172814846,
+                  "dce_coalesce_ms": 27.361165964975953,
+                  "allocate_ms": 498.47012502141297,
+                  "lower_ms": 33.371167024597526,
+                  "schedule_ms": 81.56266692094505,
+                  "encoder_setup_ms": 0.0020830193534493446,
+                  "encode_ms": 12.12695799767971
+                }
+              }
+            ],
+            "sass_opcode_counts": {
+              "MOV": 233,
+              "ULDC.64": 1,
+              "S2R": 3,
+              "IMAD.SHL": 46,
+              "LOP3.LUT": 41,
+              "SHF.R.U32.HI": 20,
+              "IADD3": 166,
+              "IMAD": 28,
+              "IMAD.WIDE.U32": 16,
+              "LDGSTS.E.BYPASS.128": 40,
+              "LDGDEPBAR": 5,
+              "IADD3.X": 40,
+              "DEPBAR.LE": 5,
+              "BAR.SYNC.DEFER_BLOCKING": 10,
+              "LDSM.16.M88.4": 80,
+              "HMMA.16816.F32": 320,
+              "NOP": 12,
+              "ISETP.GE.U32.AND": 5,
+              "SEL": 5,
+              "ISETP.LT.U32.AND": 1,
+              "@P0": 1,
+              "STG.E.64": 64,
+              "EXIT": 1,
+              "BRA": 1
+            },
+            "cli_wall_ms": 5948.838584008627
+          }
+        }
+      ]
+    },
+    "recorded_utc": "20261103T234736.366337Z"
+  }
+]
