@@ -1,0 +1,3140 @@
+{
+  "seed_word": "0009e4000b901c440000000008107fae",
+  "seed_text": "LDGSTS.E.BYPASS.128 [R16], [R8.64]",
+  "seed_control": {
+    "stall": 2,
+    "yield_": false,
+    "wbar": 7,
+    "rbar": 4,
+    "wait": 0,
+    "reuse": 0
+  },
+  "bit_flips": [
+    {
+      "bit": 0,
+      "word": "0009e4000b901c440000000008107faf",
+      "text": null,
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 1,
+      "word": "0009e4000b901c440000000008107fac",
+      "text": null,
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 2,
+      "word": "0009e4000b901c440000000008107faa",
+      "text": null,
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 3,
+      "word": "0009e4000b901c440000000008107fa6",
+      "text": null,
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 4,
+      "word": "0009e4000b901c440000000008107fbe",
+      "text": null,
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 5,
+      "word": "0009e4000b901c440000000008107f8e",
+      "text": null,
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 6,
+      "word": "0009e4000b901c440000000008107fee",
+      "text": null,
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 7,
+      "word": "0009e4000b901c440000000008107f2e",
+      "text": null,
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 8,
+      "word": "0009e4000b901c440000000008107eae",
+      "text": null,
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 9,
+      "word": "0009e4000b901c440000000008107dae",
+      "text": "LDGSTS.E.BYPASS.128 [R16+UR4], [R8.64]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 10,
+      "word": "0009e4000b901c440000000008107bae",
+      "text": null,
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 11,
+      "word": "0009e4000b901c4400000000081077ae",
+      "text": null,
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 12,
+      "word": "0009e4000b901c440000000008106fae",
+      "text": "@P6 LDGSTS.E.BYPASS.128 [R16], [R8.64]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 13,
+      "word": "0009e4000b901c440000000008105fae",
+      "text": "@P5 LDGSTS.E.BYPASS.128 [R16], [R8.64]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 14,
+      "word": "0009e4000b901c440000000008103fae",
+      "text": "@P3 LDGSTS.E.BYPASS.128 [R16], [R8.64]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 15,
+      "word": "0009e4000b901c44000000000810ffae",
+      "text": "@!PT LDGSTS.E.BYPASS.128 [R16], [R8.64]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 16,
+      "word": "0009e4000b901c440000000008117fae",
+      "text": "LDGSTS.E.BYPASS.128 [R17], [R8.64]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 17,
+      "word": "0009e4000b901c440000000008127fae",
+      "text": "LDGSTS.E.BYPASS.128 [R18], [R8.64]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 18,
+      "word": "0009e4000b901c440000000008147fae",
+      "text": "LDGSTS.E.BYPASS.128 [R20], [R8.64]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 19,
+      "word": "0009e4000b901c440000000008187fae",
+      "text": "LDGSTS.E.BYPASS.128 [R24], [R8.64]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 20,
+      "word": "0009e4000b901c440000000008007fae",
+      "text": "LDGSTS.E.BYPASS.128 [R0], [R8.64]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 21,
+      "word": "0009e4000b901c440000000008307fae",
+      "text": "LDGSTS.E.BYPASS.128 [R48], [R8.64]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 22,
+      "word": "0009e4000b901c440000000008507fae",
+      "text": "LDGSTS.E.BYPASS.128 [R80], [R8.64]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 23,
+      "word": "0009e4000b901c440000000008907fae",
+      "text": "LDGSTS.E.BYPASS.128 [R144], [R8.64]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 24,
+      "word": "0009e4000b901c440000000009107fae",
+      "text": "LDGSTS.E.BYPASS.128 [R16], [R9.64]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 25,
+      "word": "0009e4000b901c44000000000a107fae",
+      "text": "LDGSTS.E.BYPASS.128 [R16], [R10.64]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 26,
+      "word": "0009e4000b901c44000000000c107fae",
+      "text": "LDGSTS.E.BYPASS.128 [R16], [R12.64]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 27,
+      "word": "0009e4000b901c440000000000107fae",
+      "text": "LDGSTS.E.BYPASS.128 [R16], [R0.64]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 28,
+      "word": "0009e4000b901c440000000018107fae",
+      "text": "LDGSTS.E.BYPASS.128 [R16], [R24.64]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 29,
+      "word": "0009e4000b901c440000000028107fae",
+      "text": "LDGSTS.E.BYPASS.128 [R16], [R40.64]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 30,
+      "word": "0009e4000b901c440000000048107fae",
+      "text": "LDGSTS.E.BYPASS.128 [R16], [R72.64]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 31,
+      "word": "0009e4000b901c440000000088107fae",
+      "text": "LDGSTS.E.BYPASS.128 [R16], [R136.64]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 32,
+      "word": "0009e4000b901c440000000108107fae",
+      "text": "LDGSTS.E.BYPASS.128 [R16], [R8.64+0x1]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 33,
+      "word": "0009e4000b901c440000000208107fae",
+      "text": "LDGSTS.E.BYPASS.128 [R16], [R8.64+0x2]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 34,
+      "word": "0009e4000b901c440000000408107fae",
+      "text": "LDGSTS.E.BYPASS.128 [R16], [R8.64+0x4]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 35,
+      "word": "0009e4000b901c440000000808107fae",
+      "text": "LDGSTS.E.BYPASS.128 [R16], [R8.64+0x8]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 36,
+      "word": "0009e4000b901c440000001008107fae",
+      "text": "LDGSTS.E.BYPASS.128 [R16], [R8.64+0x10]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 37,
+      "word": "0009e4000b901c440000002008107fae",
+      "text": "LDGSTS.E.BYPASS.128 [R16], [R8.64+0x20]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 38,
+      "word": "0009e4000b901c440000004008107fae",
+      "text": "LDGSTS.E.BYPASS.128 [R16], [R8.64+0x40]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 39,
+      "word": "0009e4000b901c440000008008107fae",
+      "text": "LDGSTS.E.BYPASS.128 [R16], [R8.64+0x80]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 40,
+      "word": "0009e4000b901c440000010008107fae",
+      "text": "LDGSTS.E.BYPASS.128 [R16], [R8.64+0x100]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 41,
+      "word": "0009e4000b901c440000020008107fae",
+      "text": "LDGSTS.E.BYPASS.128 [R16], [R8.64+0x200]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 42,
+      "word": "0009e4000b901c440000040008107fae",
+      "text": "LDGSTS.E.BYPASS.128 [R16], [R8.64+0x400]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 43,
+      "word": "0009e4000b901c440000080008107fae",
+      "text": "LDGSTS.E.BYPASS.128 [R16], [R8.64+-0x800]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 44,
+      "word": "0009e4000b901c440000100008107fae",
+      "text": "LDGSTS.E.BYPASS.128 [R16+0x1], [R8.64]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 45,
+      "word": "0009e4000b901c440000200008107fae",
+      "text": "LDGSTS.E.BYPASS.128 [R16+0x2], [R8.64]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 46,
+      "word": "0009e4000b901c440000400008107fae",
+      "text": "LDGSTS.E.BYPASS.128 [R16+0x4], [R8.64]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 47,
+      "word": "0009e4000b901c440000800008107fae",
+      "text": "LDGSTS.E.BYPASS.128 [R16+0x8], [R8.64]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 48,
+      "word": "0009e4000b901c440001000008107fae",
+      "text": "LDGSTS.E.BYPASS.128 [R16+0x10], [R8.64]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 49,
+      "word": "0009e4000b901c440002000008107fae",
+      "text": "LDGSTS.E.BYPASS.128 [R16+0x20], [R8.64]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 50,
+      "word": "0009e4000b901c440004000008107fae",
+      "text": "LDGSTS.E.BYPASS.128 [R16+0x40], [R8.64]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 51,
+      "word": "0009e4000b901c440008000008107fae",
+      "text": "LDGSTS.E.BYPASS.128 [R16+0x80], [R8.64]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 52,
+      "word": "0009e4000b901c440010000008107fae",
+      "text": "LDGSTS.E.BYPASS.128 [R16+0x100], [R8.64]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 53,
+      "word": "0009e4000b901c440020000008107fae",
+      "text": "LDGSTS.E.BYPASS.128 [R16+0x200], [R8.64]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 54,
+      "word": "0009e4000b901c440040000008107fae",
+      "text": "LDGSTS.E.BYPASS.128 [R16+0x400], [R8.64]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 55,
+      "word": "0009e4000b901c440080000008107fae",
+      "text": "LDGSTS.E.BYPASS.128 [R16+0x800], [R8.64]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 56,
+      "word": "0009e4000b901c440100000008107fae",
+      "text": "LDGSTS.E.BYPASS.128 [R16+0x1000], [R8.64]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 57,
+      "word": "0009e4000b901c440200000008107fae",
+      "text": "LDGSTS.E.BYPASS.128 [R16+0x2000], [R8.64]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 58,
+      "word": "0009e4000b901c440400000008107fae",
+      "text": "LDGSTS.E.BYPASS.128 [R16+0x4000], [R8.64]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 59,
+      "word": "0009e4000b901c440800000008107fae",
+      "text": "LDGSTS.E.BYPASS.128 [R16+0x8000], [R8.64]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 60,
+      "word": "0009e4000b901c441000000008107fae",
+      "text": "LDGSTS.E.BYPASS.128 [R16+0x10000], [R8.64]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 61,
+      "word": "0009e4000b901c442000000008107fae",
+      "text": "LDGSTS.E.BYPASS.128 [R16+0x20000], [R8.64]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 62,
+      "word": "0009e4000b901c444000000008107fae",
+      "text": "LDGSTS.E.BYPASS.128 [R16+0x40000], [R8.64]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 63,
+      "word": "0009e4000b901c448000000008107fae",
+      "text": "LDGSTS.E.BYPASS.128 [R16+-0x80000], [R8.64]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 64,
+      "word": "0009e4000b901c450000000008107fae",
+      "text": "LDGSTS.E.BYPASS.128 [R16], [R8.64]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 65,
+      "word": "0009e4000b901c460000000008107fae",
+      "text": "LDGSTS.E.BYPASS.128 [R16], [R8.64]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 66,
+      "word": "0009e4000b901c400000000008107fae",
+      "text": "LDGSTS.E.BYPASS.128 [R16], [R8.64]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 67,
+      "word": "0009e4000b901c4c0000000008107fae",
+      "text": "LDGSTS.E.BYPASS.128 [R16], [R8.64]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 68,
+      "word": "0009e4000b901c540000000008107fae",
+      "text": "LDGSTS.E.BYPASS.128 [R16], [R8.64]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 69,
+      "word": "0009e4000b901c640000000008107fae",
+      "text": "LDGSTS.E.BYPASS.128 [R16], [R8.64]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 70,
+      "word": "0009e4000b901c040000000008107fae",
+      "text": null,
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 71,
+      "word": "0009e4000b901cc40000000008107fae",
+      "text": "LDGSTS.E.BYPASS.LTC64B.128 [R16], [R8.64]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 72,
+      "word": "0009e4000b901d440000000008107fae",
+      "text": "LDGSTS.E.BYPASS.LTC128B.128 [R16], [R8.64]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 73,
+      "word": "0009e4000b901e440000000008107fae",
+      "text": "LDGSTS.E.BYPASS.INVALID7 [R16], [R8.64]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 74,
+      "word": "0009e4000b9018440000000008107fae",
+      "text": "LDGSTS.E.BYPASS [R16], [R8.64]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 75,
+      "word": "0009e4000b9014440000000008107fae",
+      "text": "LDGSTS.E.BYPASS.INVALID2 [R16], [R8.64]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 76,
+      "word": "0009e4000b900c440000000008107fae",
+      "text": "LDGSTS.E.BYPASS.128 [R16], [R8.64+UR4]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 77,
+      "word": "0009e4000b903c440000000008107fae",
+      "text": "LDGSTS.E.BYPASS.128.CONSTANT.PRIVATE [R16], [R8.64]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 78,
+      "word": "0009e4000b905c440000000008107fae",
+      "text": "LDGSTS.E.BYPASS.128.CONSTANT.CTA [R16], [R8.64]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 79,
+      "word": "0009e4000b909c440000000008107fae",
+      "text": "LDGSTS.E.BYPASS.128.CONSTANT [R16], [R8.64]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 80,
+      "word": "0009e4000b911c440000000008107fae",
+      "text": "LDGSTS.E.BYPASS.128.MMIO.SM [R16], [R8.64]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 81,
+      "word": "0009e4000b921c440000000008107fae",
+      "text": "LDGSTS.E.128 [R16], [R8.64]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 82,
+      "word": "0009e4000b941c440000000008107fae",
+      "text": "LDGSTS.E.BYPASS.128.ZFILL [R16], [R8.64]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 83,
+      "word": "0009e4000b981c440000000008107fae",
+      "text": "LDGSTS.E.BYPASS.128 [R16], [R8.64]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 84,
+      "word": "0009e4000b801c440000000008107fae",
+      "text": "LDGSTS.E.BYPASS.EF.128 [R16], [R8.64]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 85,
+      "word": "0009e4000bb01c440000000008107fae",
+      "text": "LDGSTS.E.BYPASS.LU.128 [R16], [R8.64]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 86,
+      "word": "0009e4000bd01c440000000008107fae",
+      "text": "LDGSTS.E.BYPASS.NA.128 [R16], [R8.64]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 87,
+      "word": "0009e4000b101c440000000008107fae",
+      "text": "LDGSTS.E.BYPASS.128 [R16], [R8.64], P6",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 88,
+      "word": "0009e4000a901c440000000008107fae",
+      "text": "LDGSTS.E.BYPASS.128 [R16], [R8.64], P5",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 89,
+      "word": "0009e40009901c440000000008107fae",
+      "text": "LDGSTS.E.BYPASS.128 [R16], [R8.64], P3",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 90,
+      "word": "0009e4000f901c440000000008107fae",
+      "text": "LDGSTS.E.BYPASS.128 [R16], [R8.64], !PT",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 91,
+      "word": "0009e40003901c440000000008107fae",
+      "text": null,
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 92,
+      "word": "0009e4001b901c440000000008107fae",
+      "text": "LDGSTS.E.BYPASS.128 [R16], [R8.64]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 93,
+      "word": "0009e4002b901c440000000008107fae",
+      "text": "LDGSTS.E.BYPASS.128 [R16], [R8.64]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 94,
+      "word": "0009e4004b901c440000000008107fae",
+      "text": "LDGSTS.E.BYPASS.128 [R16], [R8.64]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 95,
+      "word": "0009e4008b901c440000000008107fae",
+      "text": "LDGSTS.E.BYPASS.128 [R16], [R8.64]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 96,
+      "word": "0009e4010b901c440000000008107fae",
+      "text": "LDGSTS.E.BYPASS.128 [R16], [R8.64]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 97,
+      "word": "0009e4020b901c440000000008107fae",
+      "text": "LDGSTS.E.BYPASS.128 [R16], [R8.64]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 98,
+      "word": "0009e4040b901c440000000008107fae",
+      "text": "LDGSTS.E.BYPASS.128 [R16], [R8.64]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 99,
+      "word": "0009e4080b901c440000000008107fae",
+      "text": "LDGSTS.E.BYPASS.128 [R16], [R8.64]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 100,
+      "word": "0009e4100b901c440000000008107fae",
+      "text": "LDGSTS.E.BYPASS.128 [R16], [R8.64]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 101,
+      "word": "0009e4200b901c440000000008107fae",
+      "text": "LDGSTS.E.BYPASS.128 [R16], desc[UR4][R8.64]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 102,
+      "word": "0009e4400b901c440000000008107fae",
+      "text": "LDGSTS.E.BYPASS.128 [R16], [R8.64]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 103,
+      "word": "0009e4800b901c440000000008107fae",
+      "text": "LDGSTS.E.BYPASS.128 [R16], [R8.64]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 104,
+      "word": "0009e5000b901c440000000008107fae",
+      "text": "LDGSTS.E.BYPASS.128 [R16], [R8.64]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 105,
+      "word": "0009e6000b901c440000000008107fae",
+      "text": "LDGSTS.E.BYPASS.128 [R16], [R8.64]",
+      "control": {
+        "stall": 3,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 106,
+      "word": "0009e0000b901c440000000008107fae",
+      "text": null,
+      "control": {
+        "stall": 0,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 107,
+      "word": "0009ec000b901c440000000008107fae",
+      "text": "LDGSTS.E.BYPASS.128 [R16], [R8.64]",
+      "control": {
+        "stall": 6,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 108,
+      "word": "0009f4000b901c440000000008107fae",
+      "text": "LDGSTS.E.BYPASS.128 [R16], [R8.64]",
+      "control": {
+        "stall": 10,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 109,
+      "word": "0009c4000b901c440000000008107fae",
+      "text": "LDGSTS.E.BYPASS.128 [R16], [R8.64]",
+      "control": {
+        "stall": 2,
+        "yield_": true,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 110,
+      "word": "0009a4000b901c440000000008107fae",
+      "text": "LDGSTS.E.BYPASS.128 [R16], [R8.64]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 6,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 111,
+      "word": "000964000b901c440000000008107fae",
+      "text": "LDGSTS.E.BYPASS.128 [R16], [R8.64]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 5,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 112,
+      "word": "0008e4000b901c440000000008107fae",
+      "text": "LDGSTS.E.BYPASS.128 [R16], [R8.64]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 3,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 113,
+      "word": "000be4000b901c440000000008107fae",
+      "text": "LDGSTS.E.BYPASS.128 [R16], [R8.64]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 5,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 114,
+      "word": "000de4000b901c440000000008107fae",
+      "text": "LDGSTS.E.BYPASS.128 [R16], [R8.64]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 6,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 115,
+      "word": "0001e4000b901c440000000008107fae",
+      "text": "LDGSTS.E.BYPASS.128 [R16], [R8.64]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 0,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 116,
+      "word": "0019e4000b901c440000000008107fae",
+      "text": "LDGSTS.E.BYPASS.128 [R16], [R8.64]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 1,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 117,
+      "word": "0029e4000b901c440000000008107fae",
+      "text": "LDGSTS.E.BYPASS.128 [R16], [R8.64]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 2,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 118,
+      "word": "0049e4000b901c440000000008107fae",
+      "text": "LDGSTS.E.BYPASS.128 [R16], [R8.64]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 4,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 119,
+      "word": "0089e4000b901c440000000008107fae",
+      "text": "LDGSTS.E.BYPASS.128 [R16], [R8.64]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 8,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 120,
+      "word": "0109e4000b901c440000000008107fae",
+      "text": "LDGSTS.E.BYPASS.128 [R16], [R8.64]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 16,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 121,
+      "word": "0209e4000b901c440000000008107fae",
+      "text": "LDGSTS.E.BYPASS.128 [R16], [R8.64]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 32,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 122,
+      "word": "0409e4000b901c440000000008107fae",
+      "text": "LDGSTS.E.BYPASS.128 [R16], [R8.64]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 1
+      }
+    },
+    {
+      "bit": 123,
+      "word": "0809e4000b901c440000000008107fae",
+      "text": "LDGSTS.E.BYPASS.128 [R16], [R8.64]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 2
+      }
+    },
+    {
+      "bit": 124,
+      "word": "1009e4000b901c440000000008107fae",
+      "text": "LDGSTS.E.BYPASS.128 [R16], [R8.64]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 4
+      }
+    },
+    {
+      "bit": 125,
+      "word": "2009e4000b901c440000000008107fae",
+      "text": "LDGSTS.E.BYPASS.128 [R16], [R8.64]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 8
+      }
+    },
+    {
+      "bit": 126,
+      "word": "4009e4000b901c440000000008107fae",
+      "text": "LDGSTS.E.BYPASS.128 [R16], [R8.64]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "bit": 127,
+      "word": "8009e4000b901c440000000008107fae",
+      "text": "LDGSTS.E.BYPASS.128 [R16], [R8.64]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    }
+  ],
+  "immediate_fields": {
+    "global": {
+      "low_bit": 32,
+      "width": 12,
+      "signed": true,
+      "unit": "byte"
+    },
+    "shared": {
+      "low_bit": 44,
+      "width": 20,
+      "signed": true,
+      "unit": "byte"
+    },
+    "geometry_4096_required_global_chunk_offsets": [
+      0,
+      131072,
+      262144,
+      393216,
+      524288,
+      655360,
+      786432,
+      917504
+    ],
+    "geometry_4096_required_shared_chunk_offsets": [
+      0,
+      2048,
+      4096,
+      6144,
+      8192,
+      10240,
+      12288,
+      14336
+    ],
+    "global_chunk_folding_fits": false,
+    "shared_chunk_folding_fits": true
+  },
+  "roundtrips": [
+    {
+      "destination_register": 0,
+      "source_register": 0,
+      "shared_offset": -524288,
+      "global_offset": -2048,
+      "word": "0009e4000b901c448000080000007fae",
+      "text": "LDGSTS.E.BYPASS.128 [R0+-0x80000], [R0.64+-0x800]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "destination_register": 0,
+      "source_register": 0,
+      "shared_offset": -524288,
+      "global_offset": -16,
+      "word": "0009e4000b901c4480000ff000007fae",
+      "text": "LDGSTS.E.BYPASS.128 [R0+-0x80000], [R0.64+-0x10]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "destination_register": 0,
+      "source_register": 0,
+      "shared_offset": -524288,
+      "global_offset": 0,
+      "word": "0009e4000b901c448000000000007fae",
+      "text": "LDGSTS.E.BYPASS.128 [R0+-0x80000], [R0.64]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "destination_register": 0,
+      "source_register": 0,
+      "shared_offset": -524288,
+      "global_offset": 16,
+      "word": "0009e4000b901c448000001000007fae",
+      "text": "LDGSTS.E.BYPASS.128 [R0+-0x80000], [R0.64+0x10]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "destination_register": 0,
+      "source_register": 0,
+      "shared_offset": -524288,
+      "global_offset": 2032,
+      "word": "0009e4000b901c44800007f000007fae",
+      "text": "LDGSTS.E.BYPASS.128 [R0+-0x80000], [R0.64+0x7f0]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "destination_register": 0,
+      "source_register": 0,
+      "shared_offset": -16,
+      "global_offset": -2048,
+      "word": "0009e4000b901c44ffff080000007fae",
+      "text": "LDGSTS.E.BYPASS.128 [R0+-0x10], [R0.64+-0x800]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "destination_register": 0,
+      "source_register": 0,
+      "shared_offset": -16,
+      "global_offset": -16,
+      "word": "0009e4000b901c44ffff0ff000007fae",
+      "text": "LDGSTS.E.BYPASS.128 [R0+-0x10], [R0.64+-0x10]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "destination_register": 0,
+      "source_register": 0,
+      "shared_offset": -16,
+      "global_offset": 0,
+      "word": "0009e4000b901c44ffff000000007fae",
+      "text": "LDGSTS.E.BYPASS.128 [R0+-0x10], [R0.64]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "destination_register": 0,
+      "source_register": 0,
+      "shared_offset": -16,
+      "global_offset": 16,
+      "word": "0009e4000b901c44ffff001000007fae",
+      "text": "LDGSTS.E.BYPASS.128 [R0+-0x10], [R0.64+0x10]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "destination_register": 0,
+      "source_register": 0,
+      "shared_offset": -16,
+      "global_offset": 2032,
+      "word": "0009e4000b901c44ffff07f000007fae",
+      "text": "LDGSTS.E.BYPASS.128 [R0+-0x10], [R0.64+0x7f0]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "destination_register": 0,
+      "source_register": 0,
+      "shared_offset": 0,
+      "global_offset": -2048,
+      "word": "0009e4000b901c440000080000007fae",
+      "text": "LDGSTS.E.BYPASS.128 [R0], [R0.64+-0x800]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "destination_register": 0,
+      "source_register": 0,
+      "shared_offset": 0,
+      "global_offset": -16,
+      "word": "0009e4000b901c4400000ff000007fae",
+      "text": "LDGSTS.E.BYPASS.128 [R0], [R0.64+-0x10]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "destination_register": 0,
+      "source_register": 0,
+      "shared_offset": 0,
+      "global_offset": 0,
+      "word": "0009e4000b901c440000000000007fae",
+      "text": "LDGSTS.E.BYPASS.128 [R0], [R0.64]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "destination_register": 0,
+      "source_register": 0,
+      "shared_offset": 0,
+      "global_offset": 16,
+      "word": "0009e4000b901c440000001000007fae",
+      "text": "LDGSTS.E.BYPASS.128 [R0], [R0.64+0x10]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "destination_register": 0,
+      "source_register": 0,
+      "shared_offset": 0,
+      "global_offset": 2032,
+      "word": "0009e4000b901c44000007f000007fae",
+      "text": "LDGSTS.E.BYPASS.128 [R0], [R0.64+0x7f0]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "destination_register": 0,
+      "source_register": 0,
+      "shared_offset": 16,
+      "global_offset": -2048,
+      "word": "0009e4000b901c440001080000007fae",
+      "text": "LDGSTS.E.BYPASS.128 [R0+0x10], [R0.64+-0x800]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "destination_register": 0,
+      "source_register": 0,
+      "shared_offset": 16,
+      "global_offset": -16,
+      "word": "0009e4000b901c4400010ff000007fae",
+      "text": "LDGSTS.E.BYPASS.128 [R0+0x10], [R0.64+-0x10]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "destination_register": 0,
+      "source_register": 0,
+      "shared_offset": 16,
+      "global_offset": 0,
+      "word": "0009e4000b901c440001000000007fae",
+      "text": "LDGSTS.E.BYPASS.128 [R0+0x10], [R0.64]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "destination_register": 0,
+      "source_register": 0,
+      "shared_offset": 16,
+      "global_offset": 16,
+      "word": "0009e4000b901c440001001000007fae",
+      "text": "LDGSTS.E.BYPASS.128 [R0+0x10], [R0.64+0x10]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "destination_register": 0,
+      "source_register": 0,
+      "shared_offset": 16,
+      "global_offset": 2032,
+      "word": "0009e4000b901c44000107f000007fae",
+      "text": "LDGSTS.E.BYPASS.128 [R0+0x10], [R0.64+0x7f0]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "destination_register": 0,
+      "source_register": 0,
+      "shared_offset": 524272,
+      "global_offset": -2048,
+      "word": "0009e4000b901c447fff080000007fae",
+      "text": "LDGSTS.E.BYPASS.128 [R0+0x7fff0], [R0.64+-0x800]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "destination_register": 0,
+      "source_register": 0,
+      "shared_offset": 524272,
+      "global_offset": -16,
+      "word": "0009e4000b901c447fff0ff000007fae",
+      "text": "LDGSTS.E.BYPASS.128 [R0+0x7fff0], [R0.64+-0x10]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "destination_register": 0,
+      "source_register": 0,
+      "shared_offset": 524272,
+      "global_offset": 0,
+      "word": "0009e4000b901c447fff000000007fae",
+      "text": "LDGSTS.E.BYPASS.128 [R0+0x7fff0], [R0.64]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "destination_register": 0,
+      "source_register": 0,
+      "shared_offset": 524272,
+      "global_offset": 16,
+      "word": "0009e4000b901c447fff001000007fae",
+      "text": "LDGSTS.E.BYPASS.128 [R0+0x7fff0], [R0.64+0x10]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "destination_register": 0,
+      "source_register": 0,
+      "shared_offset": 524272,
+      "global_offset": 2032,
+      "word": "0009e4000b901c447fff07f000007fae",
+      "text": "LDGSTS.E.BYPASS.128 [R0+0x7fff0], [R0.64+0x7f0]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "destination_register": 167,
+      "source_register": 226,
+      "shared_offset": -429984,
+      "global_offset": 1312,
+      "word": "0009e4000b901c4497060520e2a77fae",
+      "text": "LDGSTS.E.BYPASS.128 [R167+-0x68fa0], [R226.64+0x520]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "destination_register": 128,
+      "source_register": 116,
+      "shared_offset": -168496,
+      "global_offset": -1584,
+      "word": "0009e4000b901c44d6dd09d074807fae",
+      "text": "LDGSTS.E.BYPASS.128 [R128+-0x29230], [R116.64+-0x630]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "destination_register": 46,
+      "source_register": 222,
+      "shared_offset": 88448,
+      "global_offset": 912,
+      "word": "0009e4000b901c4415980390de2e7fae",
+      "text": "LDGSTS.E.BYPASS.128 [R46+0x15980], [R222.64+0x390]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "destination_register": 223,
+      "source_register": 220,
+      "shared_offset": 75952,
+      "global_offset": -352,
+      "word": "0009e4000b901c44128b0ea0dcdf7fae",
+      "text": "LDGSTS.E.BYPASS.128 [R223+0x128b0], [R220.64+-0x160]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "destination_register": 239,
+      "source_register": 212,
+      "shared_offset": -197072,
+      "global_offset": 2032,
+      "word": "0009e4000b901c44cfe307f0d4ef7fae",
+      "text": "LDGSTS.E.BYPASS.128 [R239+-0x301d0], [R212.64+0x7f0]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "destination_register": 1,
+      "source_register": 156,
+      "shared_offset": 434144,
+      "global_offset": 976,
+      "word": "0009e4000b901c4469fe03d09c017fae",
+      "text": "LDGSTS.E.BYPASS.128 [R1+0x69fe0], [R156.64+0x3d0]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "destination_register": 101,
+      "source_register": 90,
+      "shared_offset": 336784,
+      "global_offset": 832,
+      "word": "0009e4000b901c44523903405a657fae",
+      "text": "LDGSTS.E.BYPASS.128 [R101+0x52390], [R90.64+0x340]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "destination_register": 140,
+      "source_register": 56,
+      "shared_offset": 318832,
+      "global_offset": -1600,
+      "word": "0009e4000b901c444dd709c0388c7fae",
+      "text": "LDGSTS.E.BYPASS.128 [R140+0x4dd70], [R56.64+-0x640]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "destination_register": 147,
+      "source_register": 12,
+      "shared_offset": -319728,
+      "global_offset": 1040,
+      "word": "0009e4000b901c44b1f104100c937fae",
+      "text": "LDGSTS.E.BYPASS.128 [R147+-0x4e0f0], [R12.64+0x410]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "destination_register": 229,
+      "source_register": 184,
+      "shared_offset": 100976,
+      "global_offset": 816,
+      "word": "0009e4000b901c4418a70330b8e57fae",
+      "text": "LDGSTS.E.BYPASS.128 [R229+0x18a70], [R184.64+0x330]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "destination_register": 204,
+      "source_register": 242,
+      "shared_offset": -513920,
+      "global_offset": 320,
+      "word": "0009e4000b901c4482880140f2cc7fae",
+      "text": "LDGSTS.E.BYPASS.128 [R204+-0x7d780], [R242.64+0x140]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "destination_register": 146,
+      "source_register": 242,
+      "shared_offset": 437232,
+      "global_offset": 1872,
+      "word": "0009e4000b901c446abf0750f2927fae",
+      "text": "LDGSTS.E.BYPASS.128 [R146+0x6abf0], [R242.64+0x750]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "destination_register": 105,
+      "source_register": 114,
+      "shared_offset": 386960,
+      "global_offset": -160,
+      "word": "0009e4000b901c445e790f6072697fae",
+      "text": "LDGSTS.E.BYPASS.128 [R105+0x5e790], [R114.64+-0xa0]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "destination_register": 1,
+      "source_register": 70,
+      "shared_offset": 300496,
+      "global_offset": -1136,
+      "word": "0009e4000b901c44495d0b9046017fae",
+      "text": "LDGSTS.E.BYPASS.128 [R1+0x495d0], [R70.64+-0x470]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "destination_register": 233,
+      "source_register": 54,
+      "shared_offset": -160832,
+      "global_offset": 1696,
+      "word": "0009e4000b901c44d8bc06a036e97fae",
+      "text": "LDGSTS.E.BYPASS.128 [R233+-0x27440], [R54.64+0x6a0]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "destination_register": 74,
+      "source_register": 244,
+      "shared_offset": 451504,
+      "global_offset": -1184,
+      "word": "0009e4000b901c446e3b0b60f44a7fae",
+      "text": "LDGSTS.E.BYPASS.128 [R74+0x6e3b0], [R244.64+-0x4a0]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "destination_register": 179,
+      "source_register": 112,
+      "shared_offset": -224144,
+      "global_offset": 960,
+      "word": "0009e4000b901c44c94703c070b37fae",
+      "text": "LDGSTS.E.BYPASS.128 [R179+-0x36b90], [R112.64+0x3c0]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "destination_register": 70,
+      "source_register": 216,
+      "shared_offset": 397488,
+      "global_offset": 1616,
+      "word": "0009e4000b901c44610b0650d8467fae",
+      "text": "LDGSTS.E.BYPASS.128 [R70+0x610b0], [R216.64+0x650]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "destination_register": 55,
+      "source_register": 82,
+      "shared_offset": -269120,
+      "global_offset": -1584,
+      "word": "0009e4000b901c44be4c09d052377fae",
+      "text": "LDGSTS.E.BYPASS.128 [R55+-0x41b40], [R82.64+-0x630]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "destination_register": 187,
+      "source_register": 132,
+      "shared_offset": 506464,
+      "global_offset": -1664,
+      "word": "0009e4000b901c447ba6098084bb7fae",
+      "text": "LDGSTS.E.BYPASS.128 [R187+0x7ba60], [R132.64+-0x680]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "destination_register": 72,
+      "source_register": 94,
+      "shared_offset": 358880,
+      "global_offset": -624,
+      "word": "0009e4000b901c44579e0d905e487fae",
+      "text": "LDGSTS.E.BYPASS.128 [R72+0x579e0], [R94.64+-0x270]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "destination_register": 208,
+      "source_register": 148,
+      "shared_offset": -189984,
+      "global_offset": 1760,
+      "word": "0009e4000b901c44d19e06e094d07fae",
+      "text": "LDGSTS.E.BYPASS.128 [R208+-0x2e620], [R148.64+0x6e0]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "destination_register": 115,
+      "source_register": 242,
+      "shared_offset": -156736,
+      "global_offset": 1584,
+      "word": "0009e4000b901c44d9bc0630f2737fae",
+      "text": "LDGSTS.E.BYPASS.128 [R115+-0x26440], [R242.64+0x630]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "destination_register": 186,
+      "source_register": 140,
+      "shared_offset": 18192,
+      "global_offset": 1776,
+      "word": "0009e4000b901c44047106f08cba7fae",
+      "text": "LDGSTS.E.BYPASS.128 [R186+0x4710], [R140.64+0x6f0]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "destination_register": 130,
+      "source_register": 186,
+      "shared_offset": -275888,
+      "global_offset": 96,
+      "word": "0009e4000b901c44bca50060ba827fae",
+      "text": "LDGSTS.E.BYPASS.128 [R130+-0x435b0], [R186.64+0x60]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "destination_register": 109,
+      "source_register": 182,
+      "shared_offset": -316304,
+      "global_offset": -1504,
+      "word": "0009e4000b901c44b2c70a20b66d7fae",
+      "text": "LDGSTS.E.BYPASS.128 [R109+-0x4d390], [R182.64+-0x5e0]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "destination_register": 215,
+      "source_register": 120,
+      "shared_offset": 64304,
+      "global_offset": -1904,
+      "word": "0009e4000b901c440fb3089078d77fae",
+      "text": "LDGSTS.E.BYPASS.128 [R215+0xfb30], [R120.64+-0x770]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "destination_register": 162,
+      "source_register": 68,
+      "shared_offset": 82656,
+      "global_offset": -1792,
+      "word": "0009e4000b901c44142e090044a27fae",
+      "text": "LDGSTS.E.BYPASS.128 [R162+0x142e0], [R68.64+-0x700]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "destination_register": 46,
+      "source_register": 156,
+      "shared_offset": 461440,
+      "global_offset": 192,
+      "word": "0009e4000b901c4470a800c09c2e7fae",
+      "text": "LDGSTS.E.BYPASS.128 [R46+0x70a80], [R156.64+0xc0]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "destination_register": 58,
+      "source_register": 48,
+      "shared_offset": -337664,
+      "global_offset": 464,
+      "word": "0009e4000b901c44ad9001d0303a7fae",
+      "text": "LDGSTS.E.BYPASS.128 [R58+-0x52700], [R48.64+0x1d0]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "destination_register": 120,
+      "source_register": 72,
+      "shared_offset": 4608,
+      "global_offset": 1488,
+      "word": "0009e4000b901c44012005d048787fae",
+      "text": "LDGSTS.E.BYPASS.128 [R120+0x1200], [R72.64+0x5d0]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "destination_register": 75,
+      "source_register": 126,
+      "shared_offset": 287088,
+      "global_offset": -2048,
+      "word": "0009e4000b901c44461708007e4b7fae",
+      "text": "LDGSTS.E.BYPASS.128 [R75+0x46170], [R126.64+-0x800]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "destination_register": 187,
+      "source_register": 128,
+      "shared_offset": -45408,
+      "global_offset": -1088,
+      "word": "0009e4000b901c44f4ea0bc080bb7fae",
+      "text": "LDGSTS.E.BYPASS.128 [R187+-0xb160], [R128.64+-0x440]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "destination_register": 79,
+      "source_register": 186,
+      "shared_offset": -147904,
+      "global_offset": -528,
+      "word": "0009e4000b901c44dbe40df0ba4f7fae",
+      "text": "LDGSTS.E.BYPASS.128 [R79+-0x241c0], [R186.64+-0x210]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "destination_register": 72,
+      "source_register": 230,
+      "shared_offset": 12528,
+      "global_offset": -560,
+      "word": "0009e4000b901c44030f0dd0e6487fae",
+      "text": "LDGSTS.E.BYPASS.128 [R72+0x30f0], [R230.64+-0x230]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "destination_register": 223,
+      "source_register": 146,
+      "shared_offset": -336000,
+      "global_offset": -96,
+      "word": "0009e4000b901c44adf80fa092df7fae",
+      "text": "LDGSTS.E.BYPASS.128 [R223+-0x52080], [R146.64+-0x60]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "destination_register": 160,
+      "source_register": 114,
+      "shared_offset": -344880,
+      "global_offset": 784,
+      "word": "0009e4000b901c44abcd031072a07fae",
+      "text": "LDGSTS.E.BYPASS.128 [R160+-0x54330], [R114.64+0x310]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "destination_register": 99,
+      "source_register": 182,
+      "shared_offset": 103552,
+      "global_offset": 1888,
+      "word": "0009e4000b901c4419480760b6637fae",
+      "text": "LDGSTS.E.BYPASS.128 [R99+0x19480], [R182.64+0x760]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "destination_register": 220,
+      "source_register": 10,
+      "shared_offset": 186992,
+      "global_offset": -592,
+      "word": "0009e4000b901c442da70db00adc7fae",
+      "text": "LDGSTS.E.BYPASS.128 [R220+0x2da70], [R10.64+-0x250]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "destination_register": 181,
+      "source_register": 104,
+      "shared_offset": -408544,
+      "global_offset": -1280,
+      "word": "0009e4000b901c449c420b0068b57fae",
+      "text": "LDGSTS.E.BYPASS.128 [R181+-0x63be0], [R104.64+-0x500]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "destination_register": 237,
+      "source_register": 220,
+      "shared_offset": -302352,
+      "global_offset": 960,
+      "word": "0009e4000b901c44b62f03c0dced7fae",
+      "text": "LDGSTS.E.BYPASS.128 [R237+-0x49d10], [R220.64+0x3c0]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "destination_register": 36,
+      "source_register": 192,
+      "shared_offset": -31376,
+      "global_offset": -768,
+      "word": "0009e4000b901c44f8570d00c0247fae",
+      "text": "LDGSTS.E.BYPASS.128 [R36+-0x7a90], [R192.64+-0x300]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "destination_register": 164,
+      "source_register": 184,
+      "shared_offset": -456688,
+      "global_offset": 2032,
+      "word": "0009e4000b901c44908107f0b8a47fae",
+      "text": "LDGSTS.E.BYPASS.128 [R164+-0x6f7f0], [R184.64+0x7f0]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "destination_register": 204,
+      "source_register": 18,
+      "shared_offset": -430736,
+      "global_offset": 1792,
+      "word": "0009e4000b901c4496d7070012cc7fae",
+      "text": "LDGSTS.E.BYPASS.128 [R204+-0x69290], [R18.64+0x700]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "destination_register": 193,
+      "source_register": 212,
+      "shared_offset": 25792,
+      "global_offset": 1184,
+      "word": "0009e4000b901c44064c04a0d4c17fae",
+      "text": "LDGSTS.E.BYPASS.128 [R193+0x64c0], [R212.64+0x4a0]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "destination_register": 28,
+      "source_register": 168,
+      "shared_offset": -310688,
+      "global_offset": -848,
+      "word": "0009e4000b901c44b4260cb0a81c7fae",
+      "text": "LDGSTS.E.BYPASS.128 [R28+-0x4bda0], [R168.64+-0x350]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "destination_register": 242,
+      "source_register": 164,
+      "shared_offset": 109168,
+      "global_offset": -640,
+      "word": "0009e4000b901c441aa70d80a4f27fae",
+      "text": "LDGSTS.E.BYPASS.128 [R242+0x1aa70], [R164.64+-0x280]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "destination_register": 130,
+      "source_register": 194,
+      "shared_offset": -339568,
+      "global_offset": 1056,
+      "word": "0009e4000b901c44ad190420c2827fae",
+      "text": "LDGSTS.E.BYPASS.128 [R130+-0x52e70], [R194.64+0x420]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "destination_register": 142,
+      "source_register": 36,
+      "shared_offset": -366288,
+      "global_offset": 800,
+      "word": "0009e4000b901c44a6930320248e7fae",
+      "text": "LDGSTS.E.BYPASS.128 [R142+-0x596d0], [R36.64+0x320]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "destination_register": 65,
+      "source_register": 102,
+      "shared_offset": 354448,
+      "global_offset": 656,
+      "word": "0009e4000b901c445689029066417fae",
+      "text": "LDGSTS.E.BYPASS.128 [R65+0x56890], [R102.64+0x290]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "destination_register": 117,
+      "source_register": 210,
+      "shared_offset": -15776,
+      "global_offset": 1360,
+      "word": "0009e4000b901c44fc260550d2757fae",
+      "text": "LDGSTS.E.BYPASS.128 [R117+-0x3da0], [R210.64+0x550]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "destination_register": 143,
+      "source_register": 92,
+      "shared_offset": 435680,
+      "global_offset": 752,
+      "word": "0009e4000b901c446a5e02f05c8f7fae",
+      "text": "LDGSTS.E.BYPASS.128 [R143+0x6a5e0], [R92.64+0x2f0]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "destination_register": 145,
+      "source_register": 100,
+      "shared_offset": -458544,
+      "global_offset": -512,
+      "word": "0009e4000b901c44900d0e0064917fae",
+      "text": "LDGSTS.E.BYPASS.128 [R145+-0x6ff30], [R100.64+-0x200]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "destination_register": 1,
+      "source_register": 236,
+      "shared_offset": 30400,
+      "global_offset": -128,
+      "word": "0009e4000b901c44076c0f80ec017fae",
+      "text": "LDGSTS.E.BYPASS.128 [R1+0x76c0], [R236.64+-0x80]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "destination_register": 157,
+      "source_register": 242,
+      "shared_offset": 328160,
+      "global_offset": -1632,
+      "word": "0009e4000b901c44501e09a0f29d7fae",
+      "text": "LDGSTS.E.BYPASS.128 [R157+0x501e0], [R242.64+-0x660]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "destination_register": 237,
+      "source_register": 188,
+      "shared_offset": 323136,
+      "global_offset": 1136,
+      "word": "0009e4000b901c444ee40470bced7fae",
+      "text": "LDGSTS.E.BYPASS.128 [R237+0x4ee40], [R188.64+0x470]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "destination_register": 80,
+      "source_register": 56,
+      "shared_offset": 34256,
+      "global_offset": 1664,
+      "word": "0009e4000b901c44085d068038507fae",
+      "text": "LDGSTS.E.BYPASS.128 [R80+0x85d0], [R56.64+0x680]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "destination_register": 97,
+      "source_register": 16,
+      "shared_offset": -266000,
+      "global_offset": -1504,
+      "word": "0009e4000b901c44bf0f0a2010617fae",
+      "text": "LDGSTS.E.BYPASS.128 [R97+-0x40f10], [R16.64+-0x5e0]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "destination_register": 136,
+      "source_register": 202,
+      "shared_offset": 522880,
+      "global_offset": 1296,
+      "word": "0009e4000b901c447fa80510ca887fae",
+      "text": "LDGSTS.E.BYPASS.128 [R136+0x7fa80], [R202.64+0x510]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "destination_register": 212,
+      "source_register": 4,
+      "shared_offset": 276160,
+      "global_offset": 1104,
+      "word": "0009e4000b901c44436c045004d47fae",
+      "text": "LDGSTS.E.BYPASS.128 [R212+0x436c0], [R4.64+0x450]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "destination_register": 232,
+      "source_register": 108,
+      "shared_offset": 292784,
+      "global_offset": -1744,
+      "word": "0009e4000b901c44477b09306ce87fae",
+      "text": "LDGSTS.E.BYPASS.128 [R232+0x477b0], [R108.64+-0x6d0]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "destination_register": 223,
+      "source_register": 0,
+      "shared_offset": 224928,
+      "global_offset": -1408,
+      "word": "0009e4000b901c4436ea0a8000df7fae",
+      "text": "LDGSTS.E.BYPASS.128 [R223+0x36ea0], [R0.64+-0x580]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "destination_register": 250,
+      "source_register": 232,
+      "shared_offset": 248288,
+      "global_offset": 176,
+      "word": "0009e4000b901c443c9e00b0e8fa7fae",
+      "text": "LDGSTS.E.BYPASS.128 [R250+0x3c9e0], [R232.64+0xb0]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    },
+    {
+      "destination_register": 86,
+      "source_register": 46,
+      "shared_offset": -333152,
+      "global_offset": -928,
+      "word": "0009e4000b901c44aeaa0c602e567fae",
+      "text": "LDGSTS.E.BYPASS.128 [R86+-0x51560], [R46.64+-0x3a0]",
+      "control": {
+        "stall": 2,
+        "yield_": false,
+        "wbar": 7,
+        "rbar": 4,
+        "wait": 0,
+        "reuse": 0
+      }
+    }
+  ]
+}

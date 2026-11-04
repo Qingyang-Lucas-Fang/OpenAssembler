@@ -4,6 +4,7 @@
     openassembler compile my_repo/                    # every kernel in a repo, mirrored into output/
     openassembler run [output] [--backend local|modal|user@host] [--dry-run]   # ours vs ptxas on a GPU
     openassembler cnr SRC [compile + run options]     # compile, then run what compiled
+    openassembler gemm --m M --n N --k K --dtype f16  # specialized A100 tensor GEMM
     openassembler status                              # headline results (docs/STATUS.md)
     openassembler corpus | check | bench | fastmm | gpu run   # research tooling (tools/*.py)
     openassembler                                     # no arguments: interactive shell
@@ -49,13 +50,19 @@ def _compile_opts(a: argparse.Namespace):
 def _application_root(src: Path) -> Path | None:
     from openassembler.torchfront.frontend import config_path
     root = Path(src).resolve()
-    root = root if root.is_dir() else root.parent
-    return root if config_path(root) else None
+    return root if root.is_dir() and config_path(root) else None
 
 
 def _application_compile_opts(a: argparse.Namespace) -> dict:
+    from openassembler.torchfront.frontend import ApplicationError
+    if a.arch != 'sm_80':
+        raise ApplicationError('PyTorch application capture supports only sm_80')
+    if a.kernel or a.fallback or a.include or a.nvcc_flag or a.dump_ptx or a.opt_level != 'opt' or a.trials != 6:
+        raise ApplicationError('--kernel, --fallback, -I, --nvcc-flag, --dump-ptx and nondefault '
+                               '--opt-level/--trials apply to standalone kernels, not PyTorch applications')
     return {'verify': a.verify, 'dry_run': a.dry_run,
-            'build_backend': a.build_backend, 'gpu': a.build_gpu, 'budget': a.build_budget}
+            'build_backend': a.build_backend, 'gpu': a.build_gpu, 'budget': a.build_budget,
+            'no_sass': a.no_sass}
 
 
 def cmd_compile(a: argparse.Namespace) -> int:
@@ -77,7 +84,23 @@ def cmd_compile(a: argparse.Namespace) -> int:
     if a.dry_run:
         print("error: --dry-run is only available for configured PyTorch application builds", file=sys.stderr)
         return 1
+    if a.build_backend or a.build_gpu or a.build_budget is not None:
+        print('error: --build-backend, --build-gpu and --build-budget require a configured application directory', file=sys.stderr)
+        return 1
     return compile_paths(Path(a.src), Path(a.out_dir), _compile_opts(a), a.out).rc
+
+
+def cmd_gemm(a: argparse.Namespace) -> int:
+    """Generate and compile a validated full-tile SM80 tensor GEMM."""
+    from openassembler.gemm import compile_gemm
+    from openassembler.kernels.gemm import GemmPlan
+    from openassembler.project import ProjectError
+    try:
+        plan = GemmPlan(m=a.m, n=a.n, k=a.k, dtype=a.dtype, schedule=a.schedule, arch=a.arch)
+        return compile_gemm(plan, Path(a.out_dir), a.out, no_sass=a.no_sass, emit_only=a.emit_only)
+    except (ValueError, TypeError, OSError, ProjectError) as exc:
+        print(f"error: {exc}", file=sys.stderr)
+        return 1
 
 
 def _run_opts(a: argparse.Namespace, out_dir: str, only=None):
@@ -87,7 +110,7 @@ def _run_opts(a: argparse.Namespace, out_dir: str, only=None):
     return RunOptions(out_dir=Path(out_dir), backend=backend, kernel=getattr(a, "run_kernel", None),
                       source=getattr(a, "source", None), spec=Path(a.spec) if a.spec else None, n=a.n,
                       reps=a.reps, gpu=a.gpu or "A100-40GB", budget=a.budget if a.budget is not None else 300,
-                      job_timeout=a.job_timeout, dry_run=a.dry_run,
+                      job_timeout=a.job_timeout if a.job_timeout is not None else 60, dry_run=a.dry_run,
                       save_jobs=Path(a.save_jobs) if a.save_jobs else None,
                       from_results=Path(a.from_results) if getattr(a, "from_results", None) else None,
                       only=only)
@@ -101,11 +124,25 @@ def cmd_run(a: argparse.Namespace) -> int:
     from openassembler.runner import run_command
 
     from openassembler.torchfront.frontend import ApplicationError, run_application
+    kernel_selection = a.kernel or a.source or a.spec or a.from_results or a.save_jobs
+    if a.application and kernel_selection:
+        print('error: --application cannot be combined with kernel selection, --spec, '
+              '--from-results or --save-jobs', file=sys.stderr)
+        return 1
+    if a.application and (a.n != 1 << 20 or a.reps != 20):
+        print('error: -n and --reps apply to standalone kernels; application arguments are saved in its bundle', file=sys.stderr)
+        return 1
+    if not a.application and (a.app_arg or a.verify_application):
+        print('error: --app-arg and --verify-application require --application NAME', file=sys.stderr)
+        return 1
+    if kernel_selection:
+        a.run_kernel = a.kernel
+        return run_command(_run_opts(a, a.outdir))
     try:
         application = run_application(Path(a.outdir), name=a.application, backend=a.backend,
                                        gpu=a.gpu, budget=a.budget, dry_run=a.dry_run,
-                                       extra_args=a.app_arg, verify=a.verify_application)
-    except ApplicationError as exc:
+                                       extra_args=a.app_arg, verify=a.verify_application, job_timeout=a.job_timeout)
+    except (ApplicationError, OSError) as exc:
         print(f"error: {exc}", file=sys.stderr)
         return 1
     if application is not None:
@@ -124,24 +161,40 @@ def cmd_cnr(a: argparse.Namespace) -> int:
     if (root := _application_root(Path(a.src))) is not None:
         from openassembler.torchfront.frontend import ApplicationError, compile_application, run_application
         try:
-            result = compile_application(root, Path(a.out_dir), output_name=a.out, verify=a.verify,
-                                         dry_run=a.dry_run, build_backend=a.build_backend,
-                                         gpu=a.build_gpu, budget=a.build_budget)
+            if a.spec or a.save_jobs:
+                raise ApplicationError('--spec and --save-jobs apply to standalone kernels')
+            if a.backend not in ('auto', 'local', 'modal'):
+                raise ApplicationError('PyTorch applications support --backend auto, local or modal')
+            if a.n != 1 << 20 or a.reps != 20:
+                raise ApplicationError('-n and --reps apply to standalone kernels')
+            from openassembler.torchfront.frontend import load_config
+            config = load_config(root / 'openassembler.toml')
+            duration = a.budget if a.budget is not None else (
+                a.build_budget if a.build_budget is not None else config['budget'])
+            if type(duration) not in (int, float) or not 30 <= duration <= 1800:
+                raise ApplicationError('application --budget must be between 30 and 1800 seconds')
+            if a.job_timeout is not None and not 0 < a.job_timeout <= duration:
+                raise ApplicationError('application --job-timeout must be finite, positive, and no greater than --budget')
+            result = compile_application(root, Path(a.out_dir), output_name=a.out,
+                                         **_application_compile_opts(a))
             if result.entry is None:
                 if a.dry_run:
-                    from openassembler.torchfront.frontend import load_config
-                    app_config = load_config(root / "openassembler.toml")
+                    app_config = result.config
                     backend = a.backend if a.backend != "auto" else (a.build_backend or app_config["build_backend"])
                     gpu = a.gpu or a.build_gpu or app_config["gpu"]
                     budget = a.budget or a.build_budget or app_config["budget"]
                     print(f"run: would replay {result.name} on {backend} with GPU {gpu} and budget {budget:g}s")
                 return result.rc
             return run_application(result.out_dir, name=result.name, backend=a.backend, gpu=a.gpu,
-                                   budget=a.budget, dry_run=a.dry_run, verify=a.verify) or result.rc
+                                   budget=a.budget, dry_run=a.dry_run, verify=a.verify,
+                                   job_timeout=a.job_timeout) or result.rc
         except (ApplicationError, OSError) as exc:
             print(f"error: {exc}", file=sys.stderr)
             return 1
 
+    if a.build_backend or a.build_gpu or a.build_budget is not None:
+        print('error: --build-backend, --build-gpu and --build-budget require a configured application directory', file=sys.stderr)
+        return 1
     res = compile_paths(Path(a.src), Path(a.out_dir), _compile_opts(a), a.out)
     if not res.built:
         print("error: nothing compiled, so nothing to run", file=sys.stderr)
@@ -333,6 +386,12 @@ In a directory: .ptx with .entry, .cu/.cuh/.cpp/.cc/.cxx with __global__ (compil
 CUDA by nvcc --ptx), and .py with an openassembler.pyfront @kernel are compiled; all
 other files (host code, shell scripts, docs, ...) are skipped and counted. In a git
 repo, .gitignore is respected. All kernels of one source file go into one cubin.
+
+A directory with [application] frontend="torch" in openassembler.toml uses the
+PyTorch capture frontend (TorchInductor/Triton). It executes the configured CUDA
+workload to build cubins, SASS and a Python runtime bundle. Files always use the
+standalone kernel frontend, even inside a configured application directory.
+Native tensor PTX selects the SM80 tensor backend; `gemm` generates its validated plan.
 """
 
 RUN_HELP = """Run the cubins of a previous compile on a real NVIDIA GPU: our cubin and
@@ -343,6 +402,7 @@ with the median time of each.
   openassembler run --backend modal --dry-run          # jobs, upload size and estimated cost
   openassembler run --backend me@gpubox --kernel relu  # any Linux box with an NVIDIA driver
   openassembler run --spec pipeline.json               # your own buffers / launches / pipeline
+  openassembler run --application training --backend modal  # saved PyTorch application
 
 Default inputs (auto-harness): every pointer parameter is a buffer of N (-n) 4-byte
 elements of random f32 data; integer parameters named n/count/size/len/num/length
@@ -353,6 +413,10 @@ are N, other integers 16, floats random; 1-D launch, block 256, grid ceil(N/256)
    "steps": [{"kernel": "relu", "grid": 16, "block": 256,
               "args": [{"buf": "x"}, {"buf": "y"}, {"i32": 4096}]}],
    "compare": ["y"], "reps": 20}
+Buffer dtypes: f32/i32/u32 (4 bytes), f16/bf16 (2 bytes). Half-precision random
+inputs are exact small integers. A validated gemm contract supplies its own
+half-precision sizes, 2-D launch and shared-memory requirement.
+With mixed kernel/application outputs, select the app with --application NAME.
 """
 
 CNR_HELP = """Compile SRC (file or directory, same options as `compile`) into --out-dir, then
@@ -373,7 +437,7 @@ def _add_compile_args(pc: argparse.ArgumentParser) -> None:
     pc.add_argument("--arch", default="sm_80")
     pc.add_argument("--opt-level", choices=OPT_LEVELS, default="opt")
     pc.add_argument("--verify", action="store_true",
-                    help="check every kernel on the SASS emulator against the PTX reference interpreter")
+                    help="check standalone kernels with emulator/PTX; applications compare eager/compiled state on CUDA")
     pc.add_argument("--trials", type=int, default=6)
     pc.add_argument("--fallback", choices=["ptxas"], default=None,
                     help="keep ptxas's code for kernels our backend can't compile (marked as such everywhere)")
@@ -403,7 +467,8 @@ def _add_run_args(pr: argparse.ArgumentParser, *, include_dry_run: bool = True) 
     pr.add_argument("--gpu", default=None, help="Modal GPU type (default: application config or A100-40GB)")
     pr.add_argument("--budget", type=float, default=None,
                     help="hard time limit in seconds (default 300 for kernels; application config for PyTorch)")
-    pr.add_argument("--job-timeout", type=float, default=60, help="per-job watchdog, seconds")
+    pr.add_argument("--job-timeout", type=float, default=None,
+                    help="per-job watchdog in seconds (default: 60 for kernels; application config for PyTorch)")
     if include_dry_run:
         pr.add_argument("--dry-run", action="store_true", help="print what would run (and the cost); touch no GPU")
     pr.add_argument("--save-jobs", default=None, metavar="FILE", help="also write the GPU jobs pickle here")
@@ -421,6 +486,22 @@ def build_parser() -> argparse.ArgumentParser:
     pc.add_argument("src", metavar="SRC", help="a .ptx/.py/.cu/.cuh/.cpp/.cc/.cxx file, or a directory (repo)")
     _add_compile_args(pc)
     pc.set_defaults(func=cmd_compile)
+
+    pm = sub.add_parser("gemm", help="compile a specialized A100 FP16/BF16 tensor GEMM",
+                        description="Compile C=A@B.T with FP16/BF16 inputs and FP32 accumulation/output. "
+                                    "A[M,K] and B[N,K] must be contiguous in K. M/N must be multiples "
+                                    "of 128, K a multiple of 128 and at least 128.")
+    for dim in ("m", "n", "k"):
+        pm.add_argument(f"--{dim}", type=int, required=True)
+    pm.add_argument("--dtype", choices=("f16", "bf16"), default="f16")
+    pm.add_argument("--arch", default="sm_80")
+    pm.add_argument("--schedule", choices=("stagepair", "combined"), default="stagepair",
+                    help="validated alternating-stage specialization (default), or its combined reference")
+    pm.add_argument("--out-dir", default="output")
+    pm.add_argument("-o", "--out", default="gemm", metavar="NAME")
+    pm.add_argument("--no-sass", action="store_true")
+    pm.add_argument("--emit-only", action="store_true", help="write generated PTX without invoking the toolkit")
+    pm.set_defaults(func=cmd_gemm)
 
     pr = sub.add_parser("run", help="run compiled cubins on a GPU: ours vs ptxas, bit-exact + timing",
                         description=RUN_HELP, formatter_class=argparse.RawDescriptionHelpFormatter)

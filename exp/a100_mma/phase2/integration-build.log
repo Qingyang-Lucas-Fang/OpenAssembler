@@ -1,0 +1,18 @@
+exp/a100_mma/build/p2_hook_256_256_320_f16/cubin/p2_hook_256_256_320_f16.cubin  (gemm: 1898 instructions, opt-level=safe, regs=228)
+exp/a100_mma/build/p2_hook_256_256_320_f16/sass/p2_hook_256_256_320_f16.sass  (SASS listing from nvdisasm)
+warning: gemm: 77 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R2, R2, 0x80, RZ' -> 'IMAD.SHL R2, R2, 0x80, RZ'
+exp/a100_mma/build/p2_hook_256_384_192_f16/cubin/p2_hook_256_384_192_f16.cubin  (gemm: 1898 instructions, opt-level=safe, regs=228)
+exp/a100_mma/build/p2_hook_256_384_192_f16/sass/p2_hook_256_384_192_f16.sass  (SASS listing from nvdisasm)
+warning: gemm: 77 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R2, R2, 0x80, RZ' -> 'IMAD.SHL R2, R2, 0x80, RZ'
+exp/a100_mma/build/p2_hook_256_384_256_f16/cubin/p2_hook_256_384_256_f16.cubin  (gemm: 1898 instructions, opt-level=safe, regs=228)
+exp/a100_mma/build/p2_hook_256_384_256_f16/sass/p2_hook_256_384_256_f16.sass  (SASS listing from nvdisasm)
+warning: gemm: 77 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R2, R2, 0x80, RZ' -> 'IMAD.SHL R2, R2, 0x80, RZ'
+exp/a100_mma/build/p2_hook_256_256_320_bf16/cubin/p2_hook_256_256_320_bf16.cubin  (gemm: 1898 instructions, opt-level=safe, regs=228)
+exp/a100_mma/build/p2_hook_256_256_320_bf16/sass/p2_hook_256_256_320_bf16.sass  (SASS listing from nvdisasm)
+warning: gemm: 77 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R2, R2, 0x80, RZ' -> 'IMAD.SHL R2, R2, 0x80, RZ'
+exp/a100_mma/build/p2_hook_256_384_192_bf16/cubin/p2_hook_256_384_192_bf16.cubin  (gemm: 1898 instructions, opt-level=safe, regs=228)
+exp/a100_mma/build/p2_hook_256_384_192_bf16/sass/p2_hook_256_384_192_bf16.sass  (SASS listing from nvdisasm)
+warning: gemm: 77 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R2, R2, 0x80, RZ' -> 'IMAD.SHL R2, R2, 0x80, RZ'
+exp/a100_mma/build/p2_hook_256_384_256_bf16/cubin/p2_hook_256_384_256_bf16.cubin  (gemm: 1898 instructions, opt-level=safe, regs=228)
+exp/a100_mma/build/p2_hook_256_384_256_bf16/sass/p2_hook_256_384_256_bf16.sass  (SASS listing from nvdisasm)
+warning: gemm: 77 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R2, R2, 0x80, RZ' -> 'IMAD.SHL R2, R2, 0x80, RZ'

@@ -1,0 +1,12 @@
+exp/a100_mma/build/p2_banks_a7_b7/cubin/p2_banks_a7_b7.cubin  (gemm: 1898 instructions, opt-level=safe, regs=228)
+exp/a100_mma/build/p2_banks_a7_b7/sass/p2_banks_a7_b7.sass  (SASS listing from nvdisasm)
+warning: gemm: 77 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R2, R2, 0x80, RZ' -> 'IMAD.SHL R2, R2, 0x80, RZ'
+exp/a100_mma/build/p2_banks_a7_b3/cubin/p2_banks_a7_b3.cubin  (gemm: 1898 instructions, opt-level=safe, regs=228)
+exp/a100_mma/build/p2_banks_a7_b3/sass/p2_banks_a7_b3.sass  (SASS listing from nvdisasm)
+warning: gemm: 77 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R2, R2, 0x80, RZ' -> 'IMAD.SHL R2, R2, 0x80, RZ'
+exp/a100_mma/build/p2_banks_a3_b7/cubin/p2_banks_a3_b7.cubin  (gemm: 1898 instructions, opt-level=safe, regs=228)
+exp/a100_mma/build/p2_banks_a3_b7/sass/p2_banks_a3_b7.sass  (SASS listing from nvdisasm)
+warning: gemm: 77 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R2, R2, 0x80, RZ' -> 'IMAD.SHL R2, R2, 0x80, RZ'
+exp/a100_mma/build/p2_banks_a0_b0/cubin/p2_banks_a0_b0.cubin  (gemm: 1898 instructions, opt-level=safe, regs=228)
+exp/a100_mma/build/p2_banks_a0_b0/sass/p2_banks_a0_b0.sass  (SASS listing from nvdisasm)
+warning: gemm: 77 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R2, R2, 0x80, RZ' -> 'IMAD.SHL R2, R2, 0x80, RZ'

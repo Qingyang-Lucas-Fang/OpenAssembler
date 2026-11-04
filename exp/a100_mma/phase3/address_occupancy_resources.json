@@ -1,0 +1,200 @@
+[
+  {
+    "build": "address_occupancy_large_f16_w64x32_unfolded",
+    "registers_per_thread": 136,
+    "rounded_registers_per_thread": 136,
+    "threads": 256,
+    "register_limited_ctas": 1,
+    "modeled_resident_ctas": 1,
+    "modeled_resident_warps": 8,
+    "shared_bytes_per_cta": 65536,
+    "limitation": "Static resource bound only; CUDA occupancy API and GPU timing remain necessary"
+  },
+  {
+    "build": "address_occupancy_large_f16_w64x32_folded",
+    "registers_per_thread": 128,
+    "rounded_registers_per_thread": 128,
+    "threads": 256,
+    "register_limited_ctas": 2,
+    "modeled_resident_ctas": 2,
+    "modeled_resident_warps": 16,
+    "shared_bytes_per_cta": 65536,
+    "limitation": "Static resource bound only; CUDA occupancy API and GPU timing remain necessary"
+  },
+  {
+    "build": "address_occupancy_large_f16_w32x64_unfolded",
+    "registers_per_thread": 136,
+    "rounded_registers_per_thread": 136,
+    "threads": 256,
+    "register_limited_ctas": 1,
+    "modeled_resident_ctas": 1,
+    "modeled_resident_warps": 8,
+    "shared_bytes_per_cta": 65536,
+    "limitation": "Static resource bound only; CUDA occupancy API and GPU timing remain necessary"
+  },
+  {
+    "build": "address_occupancy_large_f16_w32x64_folded",
+    "registers_per_thread": 128,
+    "rounded_registers_per_thread": 128,
+    "threads": 256,
+    "register_limited_ctas": 2,
+    "modeled_resident_ctas": 2,
+    "modeled_resident_warps": 16,
+    "shared_bytes_per_cta": 65536,
+    "limitation": "Static resource bound only; CUDA occupancy API and GPU timing remain necessary"
+  },
+  {
+    "build": "address_occupancy_large_bf16_w64x32_unfolded",
+    "registers_per_thread": 136,
+    "rounded_registers_per_thread": 136,
+    "threads": 256,
+    "register_limited_ctas": 1,
+    "modeled_resident_ctas": 1,
+    "modeled_resident_warps": 8,
+    "shared_bytes_per_cta": 65536,
+    "limitation": "Static resource bound only; CUDA occupancy API and GPU timing remain necessary"
+  },
+  {
+    "build": "address_occupancy_large_bf16_w64x32_folded",
+    "registers_per_thread": 128,
+    "rounded_registers_per_thread": 128,
+    "threads": 256,
+    "register_limited_ctas": 2,
+    "modeled_resident_ctas": 2,
+    "modeled_resident_warps": 16,
+    "shared_bytes_per_cta": 65536,
+    "limitation": "Static resource bound only; CUDA occupancy API and GPU timing remain necessary"
+  },
+  {
+    "build": "address_occupancy_large_bf16_w32x64_unfolded",
+    "registers_per_thread": 136,
+    "rounded_registers_per_thread": 136,
+    "threads": 256,
+    "register_limited_ctas": 1,
+    "modeled_resident_ctas": 1,
+    "modeled_resident_warps": 8,
+    "shared_bytes_per_cta": 65536,
+    "limitation": "Static resource bound only; CUDA occupancy API and GPU timing remain necessary"
+  },
+  {
+    "build": "address_occupancy_large_bf16_w32x64_folded",
+    "registers_per_thread": 128,
+    "rounded_registers_per_thread": 128,
+    "threads": 256,
+    "register_limited_ctas": 2,
+    "modeled_resident_ctas": 2,
+    "modeled_resident_warps": 16,
+    "shared_bytes_per_cta": 65536,
+    "limitation": "Static resource bound only; CUDA occupancy API and GPU timing remain necessary"
+  },
+  {
+    "build": "address_occupancy_smoke_f16_w64x64_baseline",
+    "registers_per_thread": 232,
+    "rounded_registers_per_thread": 232,
+    "threads": 128,
+    "register_limited_ctas": 2,
+    "modeled_resident_ctas": 2,
+    "modeled_resident_warps": 8,
+    "shared_bytes_per_cta": 65536,
+    "limitation": "Static resource bound only; CUDA occupancy API and GPU timing remain necessary"
+  },
+  {
+    "build": "address_occupancy_smoke_f16_w64x32_unfolded",
+    "registers_per_thread": 136,
+    "rounded_registers_per_thread": 136,
+    "threads": 256,
+    "register_limited_ctas": 1,
+    "modeled_resident_ctas": 1,
+    "modeled_resident_warps": 8,
+    "shared_bytes_per_cta": 65536,
+    "limitation": "Static resource bound only; CUDA occupancy API and GPU timing remain necessary"
+  },
+  {
+    "build": "address_occupancy_smoke_f16_w64x32_folded",
+    "registers_per_thread": 128,
+    "rounded_registers_per_thread": 128,
+    "threads": 256,
+    "register_limited_ctas": 2,
+    "modeled_resident_ctas": 2,
+    "modeled_resident_warps": 16,
+    "shared_bytes_per_cta": 65536,
+    "limitation": "Static resource bound only; CUDA occupancy API and GPU timing remain necessary"
+  },
+  {
+    "build": "address_occupancy_smoke_f16_w32x64_unfolded",
+    "registers_per_thread": 136,
+    "rounded_registers_per_thread": 136,
+    "threads": 256,
+    "register_limited_ctas": 1,
+    "modeled_resident_ctas": 1,
+    "modeled_resident_warps": 8,
+    "shared_bytes_per_cta": 65536,
+    "limitation": "Static resource bound only; CUDA occupancy API and GPU timing remain necessary"
+  },
+  {
+    "build": "address_occupancy_smoke_f16_w32x64_folded",
+    "registers_per_thread": 128,
+    "rounded_registers_per_thread": 128,
+    "threads": 256,
+    "register_limited_ctas": 2,
+    "modeled_resident_ctas": 2,
+    "modeled_resident_warps": 16,
+    "shared_bytes_per_cta": 65536,
+    "limitation": "Static resource bound only; CUDA occupancy API and GPU timing remain necessary"
+  },
+  {
+    "build": "address_occupancy_smoke_bf16_w64x64_baseline",
+    "registers_per_thread": 232,
+    "rounded_registers_per_thread": 232,
+    "threads": 128,
+    "register_limited_ctas": 2,
+    "modeled_resident_ctas": 2,
+    "modeled_resident_warps": 8,
+    "shared_bytes_per_cta": 65536,
+    "limitation": "Static resource bound only; CUDA occupancy API and GPU timing remain necessary"
+  },
+  {
+    "build": "address_occupancy_smoke_bf16_w64x32_unfolded",
+    "registers_per_thread": 136,
+    "rounded_registers_per_thread": 136,
+    "threads": 256,
+    "register_limited_ctas": 1,
+    "modeled_resident_ctas": 1,
+    "modeled_resident_warps": 8,
+    "shared_bytes_per_cta": 65536,
+    "limitation": "Static resource bound only; CUDA occupancy API and GPU timing remain necessary"
+  },
+  {
+    "build": "address_occupancy_smoke_bf16_w64x32_folded",
+    "registers_per_thread": 128,
+    "rounded_registers_per_thread": 128,
+    "threads": 256,
+    "register_limited_ctas": 2,
+    "modeled_resident_ctas": 2,
+    "modeled_resident_warps": 16,
+    "shared_bytes_per_cta": 65536,
+    "limitation": "Static resource bound only; CUDA occupancy API and GPU timing remain necessary"
+  },
+  {
+    "build": "address_occupancy_smoke_bf16_w32x64_unfolded",
+    "registers_per_thread": 136,
+    "rounded_registers_per_thread": 136,
+    "threads": 256,
+    "register_limited_ctas": 1,
+    "modeled_resident_ctas": 1,
+    "modeled_resident_warps": 8,
+    "shared_bytes_per_cta": 65536,
+    "limitation": "Static resource bound only; CUDA occupancy API and GPU timing remain necessary"
+  },
+  {
+    "build": "address_occupancy_smoke_bf16_w32x64_folded",
+    "registers_per_thread": 128,
+    "rounded_registers_per_thread": 128,
+    "threads": 256,
+    "register_limited_ctas": 2,
+    "modeled_resident_ctas": 2,
+    "modeled_resident_warps": 16,
+    "shared_bytes_per_cta": 65536,
+    "limitation": "Static resource bound only; CUDA occupancy API and GPU timing remain necessary"
+  }
+]

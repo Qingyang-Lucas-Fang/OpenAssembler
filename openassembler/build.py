@@ -90,6 +90,10 @@ def generate(kernel, arch: str, opt_level: str):
     from openassembler.backend.sched import list_schedule
     from openassembler.backend.unroll import unroll_loops
     from openassembler.container.cubin import required_regcount
+    from openassembler.backend import tensor
+
+    if tensor.needs_tensor(kernel):
+        return tensor.generate(kernel, arch, opt_level)
 
     if opt_level == "safe":
         code, st = ra.compile_kernel(kernel)
@@ -424,6 +428,8 @@ class KernelOut:
     words: object = None
 
     source_params: list[str] | None = None
+    tensor: dict | None = None
+    gemm: dict | None = None
 
     def record(self) -> dict:
         r = {"name": self.name, "params": [list(p) for p in self.params], "compiled_by": self.compiled_by,
@@ -432,6 +438,10 @@ class KernelOut:
             r["source_params"] = self.source_params
         if self.note:
             r["note"] = self.note
+        if self.tensor is not None:
+            r["tensor"] = self.tensor
+        if self.gemm is not None:
+            r["gemm"] = self.gemm
         return r
 
 
@@ -529,6 +539,8 @@ def build_source(src: Path, language: str, name: str, opt: Options, *, single: b
         sel = [opt.kernel]
 
     # 2. our backend (+ --verify) per kernel
+    from openassembler.gemm import contract_from_source
+    gemm_contract = contract_from_source(ptx)
     for kname in sel:
         k = KernelOut(kname, list(module.kernels[kname].params))
         if len(cnames.get(kname, ())) == len(k.params) and any(n != p[1] for n, p in zip(cnames.get(kname, ()), k.params)):
@@ -550,6 +562,13 @@ def build_source(src: Path, language: str, name: str, opt: Options, *, single: b
         else:
             k.code, k.labels, k.words = code, labels, (words, nregs, exits)
             k.instructions, k.registers = count_insns(code), nregs
+            from openassembler.backend.tensor import needs_tensor, policy
+            if needs_tensor(module.kernels[kname]):
+                k.tensor = {**policy(), "architecture": "sm_80",
+                            "async_scoreboard": 0, "ordinary_scoreboards": [1, 2, 3, 4, 5],
+                            "requested_opt_level": opt.opt_level}
+            if gemm_contract is not None and kname == "gemm":
+                k.gemm = gemm_contract
             if opt.verify:
                 try:
                     k.verify, k.verify_msg = verify_kernel(module, kname, code, labels, ptx, opt.trials)
@@ -623,6 +642,21 @@ def build_source(src: Path, language: str, name: str, opt: Options, *, single: b
             if sec is None:
                 so.warnings.append(f"nvdisasm listed no .text.{k.name} section")
             elif k.compiled_by == "openassembler":
+                if k.tensor is not None:
+                    # Alias spellings (e.g. IMAD.SHL) are expected. Compare
+                    # complete encoded words and controls, and independently
+                    # check the tensor/memory operands before publication.
+                    records = oracle.parse_listing(sec)
+                    if [r.word for r in records[:len(k.words[0])]] != k.words[0]:
+                        so.error, so.rc = f"{k.name}: tensor cubin words differ from our encoder output", 1
+                        return so
+                    norm = lambda text: re.sub(r"\s+", "", text.replace(".reuse", "").replace("+-", "-"))
+                    for (want, _), got in zip(k.code, records):
+                        if want.startswith(("HMMA", "LDSM", "LDGSTS", "LDGDEPBAR", "DEPBAR", "BAR", "STG")):
+                            if norm(want) != norm(got.text):
+                                so.error, so.rc = f"{k.name}: tensor instruction failed disassembly: {want} -> {got.text}", 1
+                                return so
+                    continue
                 if (w := sanity_check_listing(sec, k.code)):
                     so.warnings.append(f"{k.name}: {w}")
             else:
@@ -721,6 +755,21 @@ def _print_source(so: SourceOut, out_dir: Path, opt: Options, single: bool) -> N
 
 
 def compile_paths(src: Path, out_dir: Path, opt: Options, o_name: str | None = None) -> CompileResult:
+    """Compile into a tree held exclusively by this writer."""
+    if not Path(src).exists() or opt.arch != 'sm_80':
+        return _compile_paths(src, out_dir, opt, o_name)
+    if type(opt.trials) is not int or opt.trials < 1:
+        _err('--trials must be a positive integer')
+        return CompileResult(1)
+    try:
+        with P.output_lock(out_dir):
+            return _compile_paths(src, out_dir, opt, o_name)
+    except (P.ProjectError, OSError) as exc:
+        _err(str(exc))
+        return CompileResult(1)
+
+
+def _compile_paths(src: Path, out_dir: Path, opt: Options, o_name: str | None = None) -> CompileResult:
     """`openassembler compile SRC`: a file or a directory. Returns the exit code and what
     was written (cnr runs exactly those kernels)."""
     from openassembler.isa.encode import EncodeError
@@ -794,8 +843,15 @@ def compile_paths(src: Path, out_dir: Path, opt: Options, o_name: str | None = N
     try:
         old = P.load_manifest(out_dir_abs)
     except P.ManifestError as e:
-        print(f"warning: {e}; starting a new one (files it listed are left alone)", file=sys.stderr)
-        old = None
+        _err(str(e))
+        return CompileResult(1)
+    applications = old.get('applications', []) if old else []
+    application_files = {path.casefold() for app in applications for path in P.application_outputs(app)}
+    for _source, _lang, name in candidates:
+        if any(path.casefold() in application_files for path in (
+                f'cubin/{name}.cubin', f'sass/{name}.sass', f'.build/ptx/{name}.ptx')):
+            _err(f'output name {name!r} overlaps a compiled application; choose another -o or --out-dir')
+            return CompileResult(1)
     entries: dict[str, dict] = {}
     if old:
         if single and old.get("root") and P._inside(src_abs, Path(old["root"]).resolve()):
@@ -817,7 +873,7 @@ def compile_paths(src: Path, out_dir: Path, opt: Options, o_name: str | None = N
             P.remove_outputs(out_dir_abs, P.entry_outputs(e))
             print(f"removed outputs of {_show(s)} ({'source deleted' if gone else 'no longer compiled here'})")
             del entries[cub]
-    P.save_manifest(out_dir_abs, root, opt.arch, opt.opt_level, list(entries.values()))
+    P.save_manifest(out_dir_abs, root, opt.arch, opt.opt_level, list(entries.values()), applications=applications)
 
     # ---- build
     rc = 0
@@ -836,11 +892,11 @@ def compile_paths(src: Path, out_dir: Path, opt: Options, o_name: str | None = N
                     stale = set(P.entry_outputs(prev)) - set(P.entry_outputs(new))
                     P.remove_outputs(out_dir_abs, sorted(stale))
                 entries[new["cubin"]] = new
-                P.save_manifest(out_dir_abs, root, opt.arch, opt.opt_level, list(entries.values()))
+                P.save_manifest(out_dir_abs, root, opt.arch, opt.opt_level, list(entries.values()), applications=applications)
             built.append(so)
         elif (prev := entries.get(f"cubin/{name}.cubin")) and Path(prev["source"]).resolve() == s.resolve() and (so.error or so.failed):
             prev["build_failed"] = True
-            P.save_manifest(out_dir_abs, root, opt.arch, opt.opt_level, list(entries.values()))
+            P.save_manifest(out_dir_abs, root, opt.arch, opt.opt_level, list(entries.values()), applications=applications)
             so.warnings.append(f"kept the previous build of {_show(s)} in {prev['cubin']}; it is out of date")
         _print_source(so, out_dir_abs, opt, single)
         rc = 1 if 1 in (rc, so.rc) else max(rc, so.rc)

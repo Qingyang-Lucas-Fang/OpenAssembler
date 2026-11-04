@@ -1,0 +1,3930 @@
+[
+  {
+    "name": "strassen_2x2x2",
+    "block_shape": [
+      2,
+      2,
+      2
+    ],
+    "rank": 7,
+    "classical_block_products": 8,
+    "multiplication_only_speed_limit": 1.1428571428571428,
+    "direct_evaluation_additions": [
+      5,
+      5,
+      8
+    ],
+    "factors_are_compile_time_constants": true,
+    "dynamic_coefficient_loads": 0,
+    "precision_policy": "FP16/BF16 inputs; FP32 transforms then one quantization before MMA; FP32 accumulation/output; not algebraically identical to direct floating-point GEMM",
+    "transform_nodes": [
+      {
+        "id": "A0",
+        "operand": "A",
+        "expression": [
+          [
+            0,
+            "1"
+          ],
+          [
+            3,
+            "1"
+          ]
+        ]
+      },
+      {
+        "id": "B1",
+        "operand": "B",
+        "expression": [
+          [
+            0,
+            "1"
+          ],
+          [
+            3,
+            "1"
+          ]
+        ]
+      },
+      {
+        "id": "A2",
+        "operand": "A",
+        "expression": [
+          [
+            2,
+            "1"
+          ],
+          [
+            3,
+            "1"
+          ]
+        ]
+      },
+      {
+        "id": "B3",
+        "operand": "B",
+        "expression": [
+          [
+            0,
+            "1"
+          ]
+        ]
+      },
+      {
+        "id": "A4",
+        "operand": "A",
+        "expression": [
+          [
+            0,
+            "1"
+          ]
+        ]
+      },
+      {
+        "id": "B5",
+        "operand": "B",
+        "expression": [
+          [
+            1,
+            "1"
+          ],
+          [
+            3,
+            "-1"
+          ]
+        ]
+      },
+      {
+        "id": "A6",
+        "operand": "A",
+        "expression": [
+          [
+            3,
+            "1"
+          ]
+        ]
+      },
+      {
+        "id": "B7",
+        "operand": "B",
+        "expression": [
+          [
+            0,
+            "-1"
+          ],
+          [
+            2,
+            "1"
+          ]
+        ]
+      },
+      {
+        "id": "A8",
+        "operand": "A",
+        "expression": [
+          [
+            0,
+            "1"
+          ],
+          [
+            1,
+            "1"
+          ]
+        ]
+      },
+      {
+        "id": "B9",
+        "operand": "B",
+        "expression": [
+          [
+            3,
+            "1"
+          ]
+        ]
+      },
+      {
+        "id": "A10",
+        "operand": "A",
+        "expression": [
+          [
+            0,
+            "-1"
+          ],
+          [
+            2,
+            "1"
+          ]
+        ]
+      },
+      {
+        "id": "B11",
+        "operand": "B",
+        "expression": [
+          [
+            0,
+            "1"
+          ],
+          [
+            1,
+            "1"
+          ]
+        ]
+      },
+      {
+        "id": "A12",
+        "operand": "A",
+        "expression": [
+          [
+            1,
+            "1"
+          ],
+          [
+            3,
+            "-1"
+          ]
+        ]
+      },
+      {
+        "id": "B13",
+        "operand": "B",
+        "expression": [
+          [
+            2,
+            "1"
+          ],
+          [
+            3,
+            "1"
+          ]
+        ]
+      }
+    ],
+    "product_schedule": [
+      {
+        "product": 0,
+        "A": "A0",
+        "B": "B1",
+        "consume_immediately_into": [
+          {
+            "block": 0,
+            "coefficient": "1"
+          },
+          {
+            "block": 3,
+            "coefficient": "1"
+          }
+        ]
+      },
+      {
+        "product": 1,
+        "A": "A2",
+        "B": "B3",
+        "consume_immediately_into": [
+          {
+            "block": 2,
+            "coefficient": "1"
+          },
+          {
+            "block": 3,
+            "coefficient": "-1"
+          }
+        ]
+      },
+      {
+        "product": 2,
+        "A": "A4",
+        "B": "B5",
+        "consume_immediately_into": [
+          {
+            "block": 1,
+            "coefficient": "1"
+          },
+          {
+            "block": 3,
+            "coefficient": "1"
+          }
+        ]
+      },
+      {
+        "product": 3,
+        "A": "A6",
+        "B": "B7",
+        "consume_immediately_into": [
+          {
+            "block": 0,
+            "coefficient": "1"
+          },
+          {
+            "block": 2,
+            "coefficient": "1"
+          }
+        ]
+      },
+      {
+        "product": 4,
+        "A": "A8",
+        "B": "B9",
+        "consume_immediately_into": [
+          {
+            "block": 0,
+            "coefficient": "-1"
+          },
+          {
+            "block": 1,
+            "coefficient": "1"
+          }
+        ]
+      },
+      {
+        "product": 5,
+        "A": "A10",
+        "B": "B11",
+        "consume_immediately_into": [
+          {
+            "block": 3,
+            "coefficient": "1"
+          }
+        ]
+      },
+      {
+        "product": 6,
+        "A": "A12",
+        "B": "B13",
+        "consume_immediately_into": [
+          {
+            "block": 0,
+            "coefficient": "1"
+          }
+        ]
+      }
+    ],
+    "max_live_product_tiles": 1,
+    "implementation_gate": "No GPU low-rank speed claim until direct schedule and transform/reconstruction overhead are measured under matched precision"
+  },
+  {
+    "name": "at_2x2x2",
+    "block_shape": [
+      2,
+      2,
+      2
+    ],
+    "rank": 7,
+    "classical_block_products": 8,
+    "multiplication_only_speed_limit": 1.1428571428571428,
+    "direct_evaluation_additions": [
+      7,
+      7,
+      8
+    ],
+    "factors_are_compile_time_constants": true,
+    "dynamic_coefficient_loads": 0,
+    "precision_policy": "FP16/BF16 inputs; FP32 transforms then one quantization before MMA; FP32 accumulation/output; not algebraically identical to direct floating-point GEMM",
+    "transform_nodes": [
+      {
+        "id": "A0",
+        "operand": "A",
+        "expression": [
+          [
+            2,
+            "1"
+          ],
+          [
+            3,
+            "-1"
+          ]
+        ]
+      },
+      {
+        "id": "B1",
+        "operand": "B",
+        "expression": [
+          [
+            1,
+            "1"
+          ]
+        ]
+      },
+      {
+        "id": "A2",
+        "operand": "A",
+        "expression": [
+          [
+            0,
+            "1"
+          ],
+          [
+            2,
+            "1"
+          ],
+          [
+            3,
+            "-1"
+          ]
+        ]
+      },
+      {
+        "id": "B3",
+        "operand": "B",
+        "expression": [
+          [
+            1,
+            "1"
+          ],
+          [
+            2,
+            "1"
+          ],
+          [
+            3,
+            "1"
+          ]
+        ]
+      },
+      {
+        "id": "A4",
+        "operand": "A",
+        "expression": [
+          [
+            0,
+            "1"
+          ],
+          [
+            1,
+            "-1"
+          ],
+          [
+            2,
+            "1"
+          ],
+          [
+            3,
+            "-1"
+          ]
+        ]
+      },
+      {
+        "id": "B5",
+        "operand": "B",
+        "expression": [
+          [
+            2,
+            "1"
+          ],
+          [
+            3,
+            "1"
+          ]
+        ]
+      },
+      {
+        "id": "A6",
+        "operand": "A",
+        "expression": [
+          [
+            1,
+            "1"
+          ]
+        ]
+      },
+      {
+        "id": "B7",
+        "operand": "B",
+        "expression": [
+          [
+            2,
+            "1"
+          ]
+        ]
+      },
+      {
+        "id": "A8",
+        "operand": "A",
+        "expression": [
+          [
+            0,
+            "1"
+          ],
+          [
+            2,
+            "1"
+          ]
+        ]
+      },
+      {
+        "id": "B9",
+        "operand": "B",
+        "expression": [
+          [
+            0,
+            "1"
+          ],
+          [
+            1,
+            "1"
+          ],
+          [
+            2,
+            "1"
+          ],
+          [
+            3,
+            "1"
+          ]
+        ]
+      },
+      {
+        "id": "A10",
+        "operand": "A",
+        "expression": [
+          [
+            0,
+            "1"
+          ]
+        ]
+      },
+      {
+        "id": "B11",
+        "operand": "B",
+        "expression": [
+          [
+            0,
+            "1"
+          ]
+        ]
+      },
+      {
+        "id": "A12",
+        "operand": "A",
+        "expression": [
+          [
+            3,
+            "1"
+          ]
+        ]
+      },
+      {
+        "id": "B13",
+        "operand": "B",
+        "expression": [
+          [
+            1,
+            "1"
+          ],
+          [
+            3,
+            "1"
+          ]
+        ]
+      }
+    ],
+    "product_schedule": [
+      {
+        "product": 0,
+        "A": "A0",
+        "B": "B1",
+        "consume_immediately_into": [
+          {
+            "block": 1,
+            "coefficient": "-1"
+          },
+          {
+            "block": 3,
+            "coefficient": "1"
+          }
+        ]
+      },
+      {
+        "product": 1,
+        "A": "A2",
+        "B": "B3",
+        "consume_immediately_into": [
+          {
+            "block": 1,
+            "coefficient": "1"
+          },
+          {
+            "block": 2,
+            "coefficient": "-1"
+          }
+        ]
+      },
+      {
+        "product": 2,
+        "A": "A4",
+        "B": "B5",
+        "consume_immediately_into": [
+          {
+            "block": 1,
+            "coefficient": "-1"
+          }
+        ]
+      },
+      {
+        "product": 3,
+        "A": "A6",
+        "B": "B7",
+        "consume_immediately_into": [
+          {
+            "block": 0,
+            "coefficient": "1"
+          },
+          {
+            "block": 1,
+            "coefficient": "-1"
+          }
+        ]
+      },
+      {
+        "product": 4,
+        "A": "A8",
+        "B": "B9",
+        "consume_immediately_into": [
+          {
+            "block": 2,
+            "coefficient": "1"
+          }
+        ]
+      },
+      {
+        "product": 5,
+        "A": "A10",
+        "B": "B11",
+        "consume_immediately_into": [
+          {
+            "block": 0,
+            "coefficient": "1"
+          },
+          {
+            "block": 2,
+            "coefficient": "-1"
+          }
+        ]
+      },
+      {
+        "product": 6,
+        "A": "A12",
+        "B": "B13",
+        "consume_immediately_into": [
+          {
+            "block": 2,
+            "coefficient": "-1"
+          },
+          {
+            "block": 3,
+            "coefficient": "1"
+          }
+        ]
+      }
+    ],
+    "max_live_product_tiles": 1,
+    "implementation_gate": "No GPU low-rank speed claim until direct schedule and transform/reconstruction overhead are measured under matched precision"
+  },
+  {
+    "name": "at_gpu_4x4x4",
+    "block_shape": [
+      4,
+      4,
+      4
+    ],
+    "rank": 49,
+    "classical_block_products": 64,
+    "multiplication_only_speed_limit": 1.3061224489795917,
+    "direct_evaluation_additions": [
+      147,
+      147,
+      180
+    ],
+    "factors_are_compile_time_constants": true,
+    "dynamic_coefficient_loads": 0,
+    "precision_policy": "FP16/BF16 inputs; FP32 transforms then one quantization before MMA; FP32 accumulation/output; not algebraically identical to direct floating-point GEMM",
+    "transform_nodes": [
+      {
+        "id": "A0",
+        "operand": "A",
+        "expression": [
+          [
+            0,
+            "-1"
+          ],
+          [
+            1,
+            "1"
+          ],
+          [
+            2,
+            "1"
+          ],
+          [
+            3,
+            "-1"
+          ],
+          [
+            4,
+            "-1"
+          ],
+          [
+            5,
+            "1"
+          ],
+          [
+            6,
+            "1"
+          ],
+          [
+            7,
+            "-1"
+          ],
+          [
+            8,
+            "-1"
+          ],
+          [
+            9,
+            "1"
+          ],
+          [
+            10,
+            "1"
+          ],
+          [
+            11,
+            "-1"
+          ],
+          [
+            12,
+            "-1"
+          ],
+          [
+            13,
+            "1"
+          ],
+          [
+            14,
+            "1"
+          ],
+          [
+            15,
+            "-1"
+          ]
+        ]
+      },
+      {
+        "id": "B1",
+        "operand": "B",
+        "expression": [
+          [
+            9,
+            "1"
+          ]
+        ]
+      },
+      {
+        "id": "A2",
+        "operand": "A",
+        "expression": [
+          [
+            6,
+            "1"
+          ]
+        ]
+      },
+      {
+        "id": "B3",
+        "operand": "B",
+        "expression": [
+          [
+            0,
+            "-1"
+          ],
+          [
+            1,
+            "1"
+          ],
+          [
+            2,
+            "1"
+          ],
+          [
+            3,
+            "-1"
+          ],
+          [
+            4,
+            "-1"
+          ],
+          [
+            5,
+            "1"
+          ],
+          [
+            6,
+            "1"
+          ],
+          [
+            7,
+            "-1"
+          ],
+          [
+            8,
+            "-1"
+          ],
+          [
+            9,
+            "1"
+          ],
+          [
+            10,
+            "1"
+          ],
+          [
+            11,
+            "-1"
+          ],
+          [
+            12,
+            "-1"
+          ],
+          [
+            13,
+            "1"
+          ],
+          [
+            14,
+            "1"
+          ],
+          [
+            15,
+            "-1"
+          ]
+        ]
+      },
+      {
+        "id": "A4",
+        "operand": "A",
+        "expression": [
+          [
+            9,
+            "1"
+          ]
+        ]
+      },
+      {
+        "id": "B5",
+        "operand": "B",
+        "expression": [
+          [
+            6,
+            "1"
+          ]
+        ]
+      },
+      {
+        "id": "A6",
+        "operand": "A",
+        "expression": [
+          [
+            4,
+            "-1"
+          ],
+          [
+            5,
+            "1"
+          ],
+          [
+            12,
+            "-1"
+          ],
+          [
+            13,
+            "1"
+          ]
+        ]
+      },
+      {
+        "id": "B7",
+        "operand": "B",
+        "expression": [
+          [
+            4,
+            "1"
+          ],
+          [
+            5,
+            "-1"
+          ],
+          [
+            12,
+            "1"
+          ],
+          [
+            13,
+            "-1"
+          ]
+        ]
+      },
+      {
+        "id": "A8",
+        "operand": "A",
+        "expression": [
+          [
+            0,
+            "-1"
+          ],
+          [
+            2,
+            "1"
+          ],
+          [
+            8,
+            "-1"
+          ],
+          [
+            10,
+            "1"
+          ]
+        ]
+      },
+      {
+        "id": "B9",
+        "operand": "B",
+        "expression": [
+          [
+            8,
+            "1"
+          ]
+        ]
+      },
+      {
+        "id": "A10",
+        "operand": "A",
+        "expression": [
+          [
+            2,
+            "1"
+          ]
+        ]
+      },
+      {
+        "id": "B11",
+        "operand": "B",
+        "expression": [
+          [
+            0,
+            "-1"
+          ],
+          [
+            2,
+            "1"
+          ],
+          [
+            8,
+            "-1"
+          ],
+          [
+            10,
+            "1"
+          ]
+        ]
+      },
+      {
+        "id": "A12",
+        "operand": "A",
+        "expression": [
+          [
+            8,
+            "1"
+          ]
+        ]
+      },
+      {
+        "id": "B13",
+        "operand": "B",
+        "expression": [
+          [
+            2,
+            "1"
+          ]
+        ]
+      },
+      {
+        "id": "A14",
+        "operand": "A",
+        "expression": [
+          [
+            1,
+            "-1"
+          ],
+          [
+            3,
+            "1"
+          ],
+          [
+            4,
+            "1"
+          ],
+          [
+            5,
+            "-1"
+          ],
+          [
+            6,
+            "-1"
+          ],
+          [
+            7,
+            "1"
+          ],
+          [
+            9,
+            "-1"
+          ],
+          [
+            12,
+            "1"
+          ],
+          [
+            13,
+            "-1"
+          ]
+        ]
+      },
+      {
+        "id": "B15",
+        "operand": "B",
+        "expression": [
+          [
+            1,
+            "1"
+          ],
+          [
+            3,
+            "-1"
+          ],
+          [
+            4,
+            "-1"
+          ],
+          [
+            5,
+            "1"
+          ],
+          [
+            6,
+            "1"
+          ],
+          [
+            7,
+            "-1"
+          ],
+          [
+            9,
+            "1"
+          ],
+          [
+            12,
+            "-1"
+          ],
+          [
+            13,
+            "1"
+          ]
+        ]
+      },
+      {
+        "id": "A16",
+        "operand": "A",
+        "expression": [
+          [
+            1,
+            "1"
+          ],
+          [
+            5,
+            "1"
+          ],
+          [
+            9,
+            "1"
+          ],
+          [
+            13,
+            "1"
+          ]
+        ]
+      },
+      {
+        "id": "B17",
+        "operand": "B",
+        "expression": [
+          [
+            1,
+            "1"
+          ],
+          [
+            5,
+            "1"
+          ],
+          [
+            9,
+            "1"
+          ],
+          [
+            13,
+            "1"
+          ]
+        ]
+      },
+      {
+        "id": "A18",
+        "operand": "A",
+        "expression": [
+          [
+            3,
+            "1"
+          ]
+        ]
+      },
+      {
+        "id": "B19",
+        "operand": "B",
+        "expression": [
+          [
+            4,
+            "-1"
+          ],
+          [
+            6,
+            "1"
+          ],
+          [
+            12,
+            "-1"
+          ],
+          [
+            14,
+            "1"
+          ]
+        ]
+      },
+      {
+        "id": "A20",
+        "operand": "A",
+        "expression": [
+          [
+            8,
+            "1"
+          ],
+          [
+            9,
+            "-1"
+          ],
+          [
+            12,
+            "1"
+          ],
+          [
+            13,
+            "-1"
+          ]
+        ]
+      },
+      {
+        "id": "B21",
+        "operand": "B",
+        "expression": [
+          [
+            3,
+            "1"
+          ]
+        ]
+      },
+      {
+        "id": "A22",
+        "operand": "A",
+        "expression": [
+          [
+            4,
+            "-1"
+          ],
+          [
+            6,
+            "1"
+          ],
+          [
+            12,
+            "-1"
+          ],
+          [
+            14,
+            "1"
+          ]
+        ]
+      },
+      {
+        "id": "B23",
+        "operand": "B",
+        "expression": [
+          [
+            8,
+            "1"
+          ],
+          [
+            9,
+            "-1"
+          ],
+          [
+            12,
+            "1"
+          ],
+          [
+            13,
+            "-1"
+          ]
+        ]
+      },
+      {
+        "id": "A24",
+        "operand": "A",
+        "expression": [
+          [
+            9,
+            "-1"
+          ],
+          [
+            12,
+            "1"
+          ],
+          [
+            13,
+            "-1"
+          ]
+        ]
+      },
+      {
+        "id": "B25",
+        "operand": "B",
+        "expression": [
+          [
+            3,
+            "-1"
+          ],
+          [
+            6,
+            "1"
+          ],
+          [
+            7,
+            "-1"
+          ]
+        ]
+      },
+      {
+        "id": "A26",
+        "operand": "A",
+        "expression": [
+          [
+            1,
+            "1"
+          ],
+          [
+            3,
+            "-1"
+          ],
+          [
+            4,
+            "-1"
+          ],
+          [
+            5,
+            "1"
+          ],
+          [
+            6,
+            "1"
+          ],
+          [
+            7,
+            "-1"
+          ],
+          [
+            9,
+            "1"
+          ],
+          [
+            11,
+            "-1"
+          ],
+          [
+            12,
+            "-1"
+          ],
+          [
+            13,
+            "1"
+          ],
+          [
+            14,
+            "1"
+          ],
+          [
+            15,
+            "-1"
+          ]
+        ]
+      },
+      {
+        "id": "B27",
+        "operand": "B",
+        "expression": [
+          [
+            9,
+            "-1"
+          ],
+          [
+            12,
+            "1"
+          ],
+          [
+            13,
+            "-1"
+          ]
+        ]
+      },
+      {
+        "id": "A28",
+        "operand": "A",
+        "expression": [
+          [
+            3,
+            "-1"
+          ],
+          [
+            6,
+            "1"
+          ],
+          [
+            7,
+            "-1"
+          ]
+        ]
+      },
+      {
+        "id": "B29",
+        "operand": "B",
+        "expression": [
+          [
+            1,
+            "1"
+          ],
+          [
+            3,
+            "-1"
+          ],
+          [
+            4,
+            "-1"
+          ],
+          [
+            5,
+            "1"
+          ],
+          [
+            6,
+            "1"
+          ],
+          [
+            7,
+            "-1"
+          ],
+          [
+            9,
+            "1"
+          ],
+          [
+            11,
+            "-1"
+          ],
+          [
+            12,
+            "-1"
+          ],
+          [
+            13,
+            "1"
+          ],
+          [
+            14,
+            "1"
+          ],
+          [
+            15,
+            "-1"
+          ]
+        ]
+      },
+      {
+        "id": "A30",
+        "operand": "A",
+        "expression": [
+          [
+            4,
+            "1"
+          ],
+          [
+            12,
+            "1"
+          ]
+        ]
+      },
+      {
+        "id": "B31",
+        "operand": "B",
+        "expression": [
+          [
+            0,
+            "1"
+          ],
+          [
+            1,
+            "-1"
+          ],
+          [
+            4,
+            "1"
+          ],
+          [
+            5,
+            "-1"
+          ],
+          [
+            8,
+            "1"
+          ],
+          [
+            9,
+            "-1"
+          ],
+          [
+            12,
+            "1"
+          ],
+          [
+            13,
+            "-1"
+          ]
+        ]
+      },
+      {
+        "id": "A32",
+        "operand": "A",
+        "expression": [
+          [
+            1,
+            "1"
+          ],
+          [
+            9,
+            "1"
+          ]
+        ]
+      },
+      {
+        "id": "B33",
+        "operand": "B",
+        "expression": [
+          [
+            4,
+            "1"
+          ],
+          [
+            12,
+            "1"
+          ]
+        ]
+      },
+      {
+        "id": "A34",
+        "operand": "A",
+        "expression": [
+          [
+            0,
+            "1"
+          ],
+          [
+            1,
+            "-1"
+          ],
+          [
+            4,
+            "1"
+          ],
+          [
+            5,
+            "-1"
+          ],
+          [
+            8,
+            "1"
+          ],
+          [
+            9,
+            "-1"
+          ],
+          [
+            12,
+            "1"
+          ],
+          [
+            13,
+            "-1"
+          ]
+        ]
+      },
+      {
+        "id": "B35",
+        "operand": "B",
+        "expression": [
+          [
+            1,
+            "1"
+          ],
+          [
+            9,
+            "1"
+          ]
+        ]
+      },
+      {
+        "id": "A36",
+        "operand": "A",
+        "expression": [
+          [
+            11,
+            "-1"
+          ],
+          [
+            15,
+            "-1"
+          ]
+        ]
+      },
+      {
+        "id": "B37",
+        "operand": "B",
+        "expression": [
+          [
+            11,
+            "-1"
+          ],
+          [
+            15,
+            "-1"
+          ]
+        ]
+      },
+      {
+        "id": "A38",
+        "operand": "A",
+        "expression": [
+          [
+            4,
+            "1"
+          ],
+          [
+            5,
+            "-1"
+          ],
+          [
+            6,
+            "-1"
+          ],
+          [
+            7,
+            "1"
+          ],
+          [
+            12,
+            "1"
+          ],
+          [
+            13,
+            "-1"
+          ]
+        ]
+      },
+      {
+        "id": "B39",
+        "operand": "B",
+        "expression": [
+          [
+            4,
+            "1"
+          ],
+          [
+            5,
+            "-1"
+          ],
+          [
+            6,
+            "-1"
+          ],
+          [
+            7,
+            "1"
+          ],
+          [
+            12,
+            "1"
+          ],
+          [
+            13,
+            "-1"
+          ]
+        ]
+      },
+      {
+        "id": "A40",
+        "operand": "A",
+        "expression": [
+          [
+            14,
+            "1"
+          ]
+        ]
+      },
+      {
+        "id": "B41",
+        "operand": "B",
+        "expression": [
+          [
+            10,
+            "1"
+          ],
+          [
+            11,
+            "-1"
+          ],
+          [
+            14,
+            "1"
+          ],
+          [
+            15,
+            "-1"
+          ]
+        ]
+      },
+      {
+        "id": "A42",
+        "operand": "A",
+        "expression": [
+          [
+            11,
+            "1"
+          ]
+        ]
+      },
+      {
+        "id": "B43",
+        "operand": "B",
+        "expression": [
+          [
+            14,
+            "1"
+          ]
+        ]
+      },
+      {
+        "id": "A44",
+        "operand": "A",
+        "expression": [
+          [
+            10,
+            "1"
+          ],
+          [
+            11,
+            "-1"
+          ],
+          [
+            14,
+            "1"
+          ],
+          [
+            15,
+            "-1"
+          ]
+        ]
+      },
+      {
+        "id": "B45",
+        "operand": "B",
+        "expression": [
+          [
+            11,
+            "1"
+          ]
+        ]
+      },
+      {
+        "id": "A46",
+        "operand": "A",
+        "expression": [
+          [
+            0,
+            "1"
+          ],
+          [
+            2,
+            "-1"
+          ],
+          [
+            8,
+            "1"
+          ]
+        ]
+      },
+      {
+        "id": "B47",
+        "operand": "B",
+        "expression": [
+          [
+            0,
+            "-1"
+          ],
+          [
+            2,
+            "1"
+          ],
+          [
+            8,
+            "-1"
+          ]
+        ]
+      },
+      {
+        "id": "A48",
+        "operand": "A",
+        "expression": [
+          [
+            11,
+            "-1"
+          ],
+          [
+            14,
+            "1"
+          ],
+          [
+            15,
+            "-1"
+          ]
+        ]
+      },
+      {
+        "id": "B49",
+        "operand": "B",
+        "expression": [
+          [
+            11,
+            "-1"
+          ],
+          [
+            14,
+            "1"
+          ],
+          [
+            15,
+            "-1"
+          ]
+        ]
+      },
+      {
+        "id": "A50",
+        "operand": "A",
+        "expression": [
+          [
+            0,
+            "-1"
+          ],
+          [
+            2,
+            "1"
+          ]
+        ]
+      },
+      {
+        "id": "B51",
+        "operand": "B",
+        "expression": [
+          [
+            0,
+            "-1"
+          ],
+          [
+            2,
+            "1"
+          ]
+        ]
+      },
+      {
+        "id": "A52",
+        "operand": "A",
+        "expression": [
+          [
+            0,
+            "-1"
+          ],
+          [
+            1,
+            "1"
+          ],
+          [
+            2,
+            "1"
+          ],
+          [
+            3,
+            "-1"
+          ],
+          [
+            4,
+            "-1"
+          ],
+          [
+            5,
+            "1"
+          ],
+          [
+            6,
+            "1"
+          ],
+          [
+            7,
+            "-1"
+          ]
+        ]
+      },
+      {
+        "id": "B53",
+        "operand": "B",
+        "expression": [
+          [
+            1,
+            "-1"
+          ],
+          [
+            3,
+            "1"
+          ]
+        ]
+      },
+      {
+        "id": "A54",
+        "operand": "A",
+        "expression": [
+          [
+            4,
+            "1"
+          ],
+          [
+            6,
+            "-1"
+          ]
+        ]
+      },
+      {
+        "id": "B55",
+        "operand": "B",
+        "expression": [
+          [
+            0,
+            "-1"
+          ],
+          [
+            1,
+            "1"
+          ],
+          [
+            2,
+            "1"
+          ],
+          [
+            3,
+            "-1"
+          ],
+          [
+            4,
+            "-1"
+          ],
+          [
+            5,
+            "1"
+          ],
+          [
+            6,
+            "1"
+          ],
+          [
+            7,
+            "-1"
+          ]
+        ]
+      },
+      {
+        "id": "A56",
+        "operand": "A",
+        "expression": [
+          [
+            1,
+            "-1"
+          ],
+          [
+            3,
+            "1"
+          ]
+        ]
+      },
+      {
+        "id": "B57",
+        "operand": "B",
+        "expression": [
+          [
+            4,
+            "1"
+          ],
+          [
+            6,
+            "-1"
+          ]
+        ]
+      },
+      {
+        "id": "A58",
+        "operand": "A",
+        "expression": [
+          [
+            0,
+            "-1"
+          ],
+          [
+            8,
+            "-1"
+          ]
+        ]
+      },
+      {
+        "id": "B59",
+        "operand": "B",
+        "expression": [
+          [
+            0,
+            "1"
+          ],
+          [
+            8,
+            "1"
+          ]
+        ]
+      },
+      {
+        "id": "A60",
+        "operand": "A",
+        "expression": [
+          [
+            1,
+            "-1"
+          ],
+          [
+            3,
+            "1"
+          ],
+          [
+            5,
+            "-1"
+          ],
+          [
+            7,
+            "1"
+          ]
+        ]
+      },
+      {
+        "id": "B61",
+        "operand": "B",
+        "expression": [
+          [
+            1,
+            "1"
+          ],
+          [
+            3,
+            "-1"
+          ],
+          [
+            5,
+            "1"
+          ],
+          [
+            7,
+            "-1"
+          ]
+        ]
+      },
+      {
+        "id": "A62",
+        "operand": "A",
+        "expression": [
+          [
+            9,
+            "-1"
+          ],
+          [
+            13,
+            "-1"
+          ]
+        ]
+      },
+      {
+        "id": "B63",
+        "operand": "B",
+        "expression": [
+          [
+            3,
+            "1"
+          ],
+          [
+            7,
+            "1"
+          ]
+        ]
+      },
+      {
+        "id": "A64",
+        "operand": "A",
+        "expression": [
+          [
+            1,
+            "1"
+          ],
+          [
+            3,
+            "-1"
+          ],
+          [
+            5,
+            "1"
+          ],
+          [
+            7,
+            "-1"
+          ],
+          [
+            9,
+            "1"
+          ],
+          [
+            11,
+            "-1"
+          ],
+          [
+            13,
+            "1"
+          ],
+          [
+            15,
+            "-1"
+          ]
+        ]
+      },
+      {
+        "id": "B65",
+        "operand": "B",
+        "expression": [
+          [
+            9,
+            "-1"
+          ],
+          [
+            13,
+            "-1"
+          ]
+        ]
+      },
+      {
+        "id": "A66",
+        "operand": "A",
+        "expression": [
+          [
+            3,
+            "1"
+          ],
+          [
+            7,
+            "1"
+          ]
+        ]
+      },
+      {
+        "id": "B67",
+        "operand": "B",
+        "expression": [
+          [
+            1,
+            "1"
+          ],
+          [
+            3,
+            "-1"
+          ],
+          [
+            5,
+            "1"
+          ],
+          [
+            7,
+            "-1"
+          ],
+          [
+            9,
+            "1"
+          ],
+          [
+            11,
+            "-1"
+          ],
+          [
+            13,
+            "1"
+          ],
+          [
+            15,
+            "-1"
+          ]
+        ]
+      },
+      {
+        "id": "A68",
+        "operand": "A",
+        "expression": [
+          [
+            4,
+            "-1"
+          ],
+          [
+            5,
+            "1"
+          ],
+          [
+            6,
+            "1"
+          ],
+          [
+            7,
+            "-1"
+          ],
+          [
+            12,
+            "-1"
+          ],
+          [
+            13,
+            "1"
+          ],
+          [
+            14,
+            "1"
+          ],
+          [
+            15,
+            "-1"
+          ]
+        ]
+      },
+      {
+        "id": "B69",
+        "operand": "B",
+        "expression": [
+          [
+            12,
+            "1"
+          ],
+          [
+            13,
+            "-1"
+          ]
+        ]
+      },
+      {
+        "id": "A70",
+        "operand": "A",
+        "expression": [
+          [
+            6,
+            "-1"
+          ],
+          [
+            7,
+            "1"
+          ]
+        ]
+      },
+      {
+        "id": "B71",
+        "operand": "B",
+        "expression": [
+          [
+            4,
+            "-1"
+          ],
+          [
+            5,
+            "1"
+          ],
+          [
+            6,
+            "1"
+          ],
+          [
+            7,
+            "-1"
+          ],
+          [
+            12,
+            "-1"
+          ],
+          [
+            13,
+            "1"
+          ],
+          [
+            14,
+            "1"
+          ],
+          [
+            15,
+            "-1"
+          ]
+        ]
+      },
+      {
+        "id": "A72",
+        "operand": "A",
+        "expression": [
+          [
+            12,
+            "1"
+          ],
+          [
+            13,
+            "-1"
+          ]
+        ]
+      },
+      {
+        "id": "B73",
+        "operand": "B",
+        "expression": [
+          [
+            6,
+            "-1"
+          ],
+          [
+            7,
+            "1"
+          ]
+        ]
+      },
+      {
+        "id": "A74",
+        "operand": "A",
+        "expression": [
+          [
+            1,
+            "-1"
+          ],
+          [
+            3,
+            "1"
+          ],
+          [
+            5,
+            "-1"
+          ],
+          [
+            7,
+            "1"
+          ],
+          [
+            9,
+            "-1"
+          ],
+          [
+            13,
+            "-1"
+          ]
+        ]
+      },
+      {
+        "id": "B75",
+        "operand": "B",
+        "expression": [
+          [
+            1,
+            "-1"
+          ],
+          [
+            3,
+            "1"
+          ],
+          [
+            5,
+            "-1"
+          ],
+          [
+            7,
+            "1"
+          ],
+          [
+            9,
+            "-1"
+          ],
+          [
+            13,
+            "-1"
+          ]
+        ]
+      },
+      {
+        "id": "A76",
+        "operand": "A",
+        "expression": [
+          [
+            1,
+            "1"
+          ],
+          [
+            4,
+            "-1"
+          ],
+          [
+            5,
+            "1"
+          ],
+          [
+            9,
+            "1"
+          ],
+          [
+            12,
+            "-1"
+          ],
+          [
+            13,
+            "1"
+          ]
+        ]
+      },
+      {
+        "id": "B77",
+        "operand": "B",
+        "expression": [
+          [
+            1,
+            "-1"
+          ],
+          [
+            4,
+            "1"
+          ],
+          [
+            5,
+            "-1"
+          ],
+          [
+            9,
+            "-1"
+          ],
+          [
+            12,
+            "1"
+          ],
+          [
+            13,
+            "-1"
+          ]
+        ]
+      },
+      {
+        "id": "A78",
+        "operand": "A",
+        "expression": [
+          [
+            1,
+            "1"
+          ],
+          [
+            3,
+            "-1"
+          ],
+          [
+            4,
+            "-1"
+          ],
+          [
+            5,
+            "1"
+          ],
+          [
+            6,
+            "1"
+          ],
+          [
+            7,
+            "-1"
+          ]
+        ]
+      },
+      {
+        "id": "B79",
+        "operand": "B",
+        "expression": [
+          [
+            1,
+            "-1"
+          ],
+          [
+            3,
+            "1"
+          ],
+          [
+            4,
+            "1"
+          ],
+          [
+            5,
+            "-1"
+          ],
+          [
+            6,
+            "-1"
+          ],
+          [
+            7,
+            "1"
+          ]
+        ]
+      },
+      {
+        "id": "A80",
+        "operand": "A",
+        "expression": [
+          [
+            10,
+            "-1"
+          ]
+        ]
+      },
+      {
+        "id": "B81",
+        "operand": "B",
+        "expression": [
+          [
+            10,
+            "1"
+          ]
+        ]
+      },
+      {
+        "id": "A82",
+        "operand": "A",
+        "expression": [
+          [
+            0,
+            "-1"
+          ],
+          [
+            1,
+            "1"
+          ],
+          [
+            2,
+            "1"
+          ],
+          [
+            3,
+            "-1"
+          ],
+          [
+            4,
+            "-1"
+          ],
+          [
+            5,
+            "1"
+          ],
+          [
+            6,
+            "1"
+          ],
+          [
+            7,
+            "-1"
+          ],
+          [
+            8,
+            "-1"
+          ],
+          [
+            9,
+            "1"
+          ],
+          [
+            12,
+            "-1"
+          ],
+          [
+            13,
+            "1"
+          ]
+        ]
+      },
+      {
+        "id": "B83",
+        "operand": "B",
+        "expression": [
+          [
+            1,
+            "1"
+          ],
+          [
+            3,
+            "-1"
+          ],
+          [
+            9,
+            "1"
+          ]
+        ]
+      },
+      {
+        "id": "A84",
+        "operand": "A",
+        "expression": [
+          [
+            4,
+            "1"
+          ],
+          [
+            6,
+            "-1"
+          ],
+          [
+            12,
+            "1"
+          ]
+        ]
+      },
+      {
+        "id": "B85",
+        "operand": "B",
+        "expression": [
+          [
+            0,
+            "-1"
+          ],
+          [
+            1,
+            "1"
+          ],
+          [
+            2,
+            "1"
+          ],
+          [
+            3,
+            "-1"
+          ],
+          [
+            4,
+            "-1"
+          ],
+          [
+            5,
+            "1"
+          ],
+          [
+            6,
+            "1"
+          ],
+          [
+            7,
+            "-1"
+          ],
+          [
+            8,
+            "-1"
+          ],
+          [
+            9,
+            "1"
+          ],
+          [
+            12,
+            "-1"
+          ],
+          [
+            13,
+            "1"
+          ]
+        ]
+      },
+      {
+        "id": "A86",
+        "operand": "A",
+        "expression": [
+          [
+            1,
+            "1"
+          ],
+          [
+            3,
+            "-1"
+          ],
+          [
+            9,
+            "1"
+          ]
+        ]
+      },
+      {
+        "id": "B87",
+        "operand": "B",
+        "expression": [
+          [
+            4,
+            "1"
+          ],
+          [
+            6,
+            "-1"
+          ],
+          [
+            12,
+            "1"
+          ]
+        ]
+      },
+      {
+        "id": "A88",
+        "operand": "A",
+        "expression": [
+          [
+            14,
+            "-1"
+          ],
+          [
+            15,
+            "1"
+          ]
+        ]
+      },
+      {
+        "id": "B89",
+        "operand": "B",
+        "expression": [
+          [
+            14,
+            "1"
+          ],
+          [
+            15,
+            "-1"
+          ]
+        ]
+      },
+      {
+        "id": "A90",
+        "operand": "A",
+        "expression": [
+          [
+            4,
+            "-1"
+          ],
+          [
+            5,
+            "1"
+          ],
+          [
+            6,
+            "1"
+          ],
+          [
+            7,
+            "-1"
+          ]
+        ]
+      },
+      {
+        "id": "B91",
+        "operand": "B",
+        "expression": [
+          [
+            4,
+            "-1"
+          ],
+          [
+            5,
+            "1"
+          ],
+          [
+            6,
+            "1"
+          ],
+          [
+            7,
+            "-1"
+          ]
+        ]
+      },
+      {
+        "id": "A92",
+        "operand": "A",
+        "expression": [
+          [
+            1,
+            "1"
+          ],
+          [
+            3,
+            "-1"
+          ],
+          [
+            9,
+            "1"
+          ],
+          [
+            11,
+            "-1"
+          ]
+        ]
+      },
+      {
+        "id": "B93",
+        "operand": "B",
+        "expression": [
+          [
+            12,
+            "1"
+          ]
+        ]
+      },
+      {
+        "id": "A94",
+        "operand": "A",
+        "expression": [
+          [
+            2,
+            "-1"
+          ],
+          [
+            3,
+            "1"
+          ],
+          [
+            6,
+            "-1"
+          ],
+          [
+            7,
+            "1"
+          ]
+        ]
+      },
+      {
+        "id": "B95",
+        "operand": "B",
+        "expression": [
+          [
+            1,
+            "1"
+          ],
+          [
+            3,
+            "-1"
+          ],
+          [
+            9,
+            "1"
+          ],
+          [
+            11,
+            "-1"
+          ]
+        ]
+      },
+      {
+        "id": "A96",
+        "operand": "A",
+        "expression": [
+          [
+            12,
+            "1"
+          ]
+        ]
+      },
+      {
+        "id": "B97",
+        "operand": "B",
+        "expression": [
+          [
+            2,
+            "-1"
+          ],
+          [
+            3,
+            "1"
+          ],
+          [
+            6,
+            "-1"
+          ],
+          [
+            7,
+            "1"
+          ]
+        ]
+      }
+    ],
+    "product_schedule": [
+      {
+        "product": 0,
+        "A": "A0",
+        "B": "B1",
+        "consume_immediately_into": [
+          {
+            "block": 9,
+            "coefficient": "1"
+          }
+        ]
+      },
+      {
+        "product": 1,
+        "A": "A2",
+        "B": "B3",
+        "consume_immediately_into": [
+          {
+            "block": 6,
+            "coefficient": "1"
+          }
+        ]
+      },
+      {
+        "product": 2,
+        "A": "A4",
+        "B": "B5",
+        "consume_immediately_into": [
+          {
+            "block": 0,
+            "coefficient": "-1"
+          },
+          {
+            "block": 1,
+            "coefficient": "-1"
+          },
+          {
+            "block": 2,
+            "coefficient": "-1"
+          },
+          {
+            "block": 3,
+            "coefficient": "-1"
+          },
+          {
+            "block": 4,
+            "coefficient": "1"
+          },
+          {
+            "block": 5,
+            "coefficient": "1"
+          },
+          {
+            "block": 6,
+            "coefficient": "1"
+          },
+          {
+            "block": 7,
+            "coefficient": "1"
+          },
+          {
+            "block": 8,
+            "coefficient": "1"
+          },
+          {
+            "block": 9,
+            "coefficient": "1"
+          },
+          {
+            "block": 10,
+            "coefficient": "1"
+          },
+          {
+            "block": 11,
+            "coefficient": "1"
+          },
+          {
+            "block": 12,
+            "coefficient": "-1"
+          },
+          {
+            "block": 13,
+            "coefficient": "-1"
+          },
+          {
+            "block": 14,
+            "coefficient": "-1"
+          },
+          {
+            "block": 15,
+            "coefficient": "-1"
+          }
+        ]
+      },
+      {
+        "product": 3,
+        "A": "A6",
+        "B": "B7",
+        "consume_immediately_into": [
+          {
+            "block": 1,
+            "coefficient": "1"
+          },
+          {
+            "block": 3,
+            "coefficient": "1"
+          },
+          {
+            "block": 5,
+            "coefficient": "-1"
+          },
+          {
+            "block": 7,
+            "coefficient": "-1"
+          }
+        ]
+      },
+      {
+        "product": 4,
+        "A": "A8",
+        "B": "B9",
+        "consume_immediately_into": [
+          {
+            "block": 8,
+            "coefficient": "1"
+          }
+        ]
+      },
+      {
+        "product": 5,
+        "A": "A10",
+        "B": "B11",
+        "consume_immediately_into": [
+          {
+            "block": 2,
+            "coefficient": "1"
+          }
+        ]
+      },
+      {
+        "product": 6,
+        "A": "A12",
+        "B": "B13",
+        "consume_immediately_into": [
+          {
+            "block": 0,
+            "coefficient": "-1"
+          },
+          {
+            "block": 2,
+            "coefficient": "-1"
+          },
+          {
+            "block": 8,
+            "coefficient": "1"
+          },
+          {
+            "block": 10,
+            "coefficient": "1"
+          }
+        ]
+      },
+      {
+        "product": 7,
+        "A": "A14",
+        "B": "B15",
+        "consume_immediately_into": [
+          {
+            "block": 1,
+            "coefficient": "1"
+          },
+          {
+            "block": 3,
+            "coefficient": "1"
+          },
+          {
+            "block": 4,
+            "coefficient": "-1"
+          },
+          {
+            "block": 5,
+            "coefficient": "-1"
+          },
+          {
+            "block": 6,
+            "coefficient": "-1"
+          },
+          {
+            "block": 7,
+            "coefficient": "-1"
+          },
+          {
+            "block": 9,
+            "coefficient": "-1"
+          },
+          {
+            "block": 12,
+            "coefficient": "1"
+          },
+          {
+            "block": 13,
+            "coefficient": "1"
+          }
+        ]
+      },
+      {
+        "product": 8,
+        "A": "A16",
+        "B": "B17",
+        "consume_immediately_into": [
+          {
+            "block": 4,
+            "coefficient": "1"
+          },
+          {
+            "block": 5,
+            "coefficient": "1"
+          },
+          {
+            "block": 6,
+            "coefficient": "1"
+          },
+          {
+            "block": 7,
+            "coefficient": "1"
+          }
+        ]
+      },
+      {
+        "product": 9,
+        "A": "A18",
+        "B": "B19",
+        "consume_immediately_into": [
+          {
+            "block": 2,
+            "coefficient": "1"
+          },
+          {
+            "block": 3,
+            "coefficient": "1"
+          },
+          {
+            "block": 6,
+            "coefficient": "-1"
+          },
+          {
+            "block": 7,
+            "coefficient": "-1"
+          }
+        ]
+      },
+      {
+        "product": 10,
+        "A": "A20",
+        "B": "B21",
+        "consume_immediately_into": [
+          {
+            "block": 1,
+            "coefficient": "-1"
+          },
+          {
+            "block": 3,
+            "coefficient": "-1"
+          },
+          {
+            "block": 9,
+            "coefficient": "1"
+          },
+          {
+            "block": 11,
+            "coefficient": "1"
+          }
+        ]
+      },
+      {
+        "product": 11,
+        "A": "A22",
+        "B": "B23",
+        "consume_immediately_into": [
+          {
+            "block": 12,
+            "coefficient": "1"
+          }
+        ]
+      },
+      {
+        "product": 12,
+        "A": "A24",
+        "B": "B25",
+        "consume_immediately_into": [
+          {
+            "block": 1,
+            "coefficient": "-1"
+          },
+          {
+            "block": 3,
+            "coefficient": "-1"
+          },
+          {
+            "block": 4,
+            "coefficient": "1"
+          },
+          {
+            "block": 5,
+            "coefficient": "1"
+          },
+          {
+            "block": 6,
+            "coefficient": "1"
+          },
+          {
+            "block": 7,
+            "coefficient": "1"
+          },
+          {
+            "block": 9,
+            "coefficient": "1"
+          },
+          {
+            "block": 11,
+            "coefficient": "1"
+          },
+          {
+            "block": 12,
+            "coefficient": "-1"
+          },
+          {
+            "block": 13,
+            "coefficient": "-1"
+          },
+          {
+            "block": 14,
+            "coefficient": "-1"
+          },
+          {
+            "block": 15,
+            "coefficient": "-1"
+          }
+        ]
+      },
+      {
+        "product": 13,
+        "A": "A26",
+        "B": "B27",
+        "consume_immediately_into": [
+          {
+            "block": 9,
+            "coefficient": "1"
+          },
+          {
+            "block": 12,
+            "coefficient": "-1"
+          },
+          {
+            "block": 13,
+            "coefficient": "-1"
+          }
+        ]
+      },
+      {
+        "product": 14,
+        "A": "A28",
+        "B": "B29",
+        "consume_immediately_into": [
+          {
+            "block": 3,
+            "coefficient": "1"
+          },
+          {
+            "block": 6,
+            "coefficient": "-1"
+          },
+          {
+            "block": 7,
+            "coefficient": "-1"
+          }
+        ]
+      },
+      {
+        "product": 15,
+        "A": "A30",
+        "B": "B31",
+        "consume_immediately_into": [
+          {
+            "block": 4,
+            "coefficient": "1"
+          },
+          {
+            "block": 6,
+            "coefficient": "1"
+          }
+        ]
+      },
+      {
+        "product": 16,
+        "A": "A32",
+        "B": "B33",
+        "consume_immediately_into": [
+          {
+            "block": 0,
+            "coefficient": "1"
+          },
+          {
+            "block": 1,
+            "coefficient": "1"
+          },
+          {
+            "block": 2,
+            "coefficient": "1"
+          },
+          {
+            "block": 3,
+            "coefficient": "1"
+          },
+          {
+            "block": 4,
+            "coefficient": "-1"
+          },
+          {
+            "block": 5,
+            "coefficient": "-1"
+          },
+          {
+            "block": 6,
+            "coefficient": "-1"
+          },
+          {
+            "block": 7,
+            "coefficient": "-1"
+          }
+        ]
+      },
+      {
+        "product": 17,
+        "A": "A34",
+        "B": "B35",
+        "consume_immediately_into": [
+          {
+            "block": 1,
+            "coefficient": "1"
+          },
+          {
+            "block": 3,
+            "coefficient": "1"
+          }
+        ]
+      },
+      {
+        "product": 18,
+        "A": "A36",
+        "B": "B37",
+        "consume_immediately_into": [
+          {
+            "block": 14,
+            "coefficient": "1"
+          },
+          {
+            "block": 15,
+            "coefficient": "1"
+          }
+        ]
+      },
+      {
+        "product": 19,
+        "A": "A38",
+        "B": "B39",
+        "consume_immediately_into": [
+          {
+            "block": 1,
+            "coefficient": "1"
+          },
+          {
+            "block": 3,
+            "coefficient": "1"
+          },
+          {
+            "block": 5,
+            "coefficient": "-1"
+          },
+          {
+            "block": 7,
+            "coefficient": "-1"
+          },
+          {
+            "block": 9,
+            "coefficient": "-1"
+          },
+          {
+            "block": 13,
+            "coefficient": "1"
+          }
+        ]
+      },
+      {
+        "product": 20,
+        "A": "A40",
+        "B": "B41",
+        "consume_immediately_into": [
+          {
+            "block": 14,
+            "coefficient": "1"
+          }
+        ]
+      },
+      {
+        "product": 21,
+        "A": "A42",
+        "B": "B43",
+        "consume_immediately_into": [
+          {
+            "block": 10,
+            "coefficient": "1"
+          },
+          {
+            "block": 11,
+            "coefficient": "1"
+          },
+          {
+            "block": 14,
+            "coefficient": "-1"
+          },
+          {
+            "block": 15,
+            "coefficient": "-1"
+          }
+        ]
+      },
+      {
+        "product": 22,
+        "A": "A44",
+        "B": "B45",
+        "consume_immediately_into": [
+          {
+            "block": 11,
+            "coefficient": "1"
+          }
+        ]
+      },
+      {
+        "product": 23,
+        "A": "A46",
+        "B": "B47",
+        "consume_immediately_into": [
+          {
+            "block": 0,
+            "coefficient": "1"
+          },
+          {
+            "block": 2,
+            "coefficient": "1"
+          },
+          {
+            "block": 8,
+            "coefficient": "-1"
+          }
+        ]
+      },
+      {
+        "product": 24,
+        "A": "A48",
+        "B": "B49",
+        "consume_immediately_into": [
+          {
+            "block": 11,
+            "coefficient": "1"
+          },
+          {
+            "block": 14,
+            "coefficient": "-1"
+          },
+          {
+            "block": 15,
+            "coefficient": "-1"
+          }
+        ]
+      },
+      {
+        "product": 25,
+        "A": "A50",
+        "B": "B51",
+        "consume_immediately_into": [
+          {
+            "block": 0,
+            "coefficient": "1"
+          },
+          {
+            "block": 8,
+            "coefficient": "-1"
+          }
+        ]
+      },
+      {
+        "product": 26,
+        "A": "A52",
+        "B": "B53",
+        "consume_immediately_into": [
+          {
+            "block": 1,
+            "coefficient": "1"
+          },
+          {
+            "block": 9,
+            "coefficient": "-1"
+          }
+        ]
+      },
+      {
+        "product": 27,
+        "A": "A54",
+        "B": "B55",
+        "consume_immediately_into": [
+          {
+            "block": 4,
+            "coefficient": "-1"
+          },
+          {
+            "block": 12,
+            "coefficient": "1"
+          }
+        ]
+      },
+      {
+        "product": 28,
+        "A": "A56",
+        "B": "B57",
+        "consume_immediately_into": [
+          {
+            "block": 0,
+            "coefficient": "-1"
+          },
+          {
+            "block": 1,
+            "coefficient": "-1"
+          },
+          {
+            "block": 4,
+            "coefficient": "1"
+          },
+          {
+            "block": 5,
+            "coefficient": "1"
+          },
+          {
+            "block": 8,
+            "coefficient": "1"
+          },
+          {
+            "block": 9,
+            "coefficient": "1"
+          },
+          {
+            "block": 12,
+            "coefficient": "-1"
+          },
+          {
+            "block": 13,
+            "coefficient": "-1"
+          }
+        ]
+      },
+      {
+        "product": 29,
+        "A": "A58",
+        "B": "B59",
+        "consume_immediately_into": [
+          {
+            "block": 0,
+            "coefficient": "-1"
+          },
+          {
+            "block": 2,
+            "coefficient": "-1"
+          }
+        ]
+      },
+      {
+        "product": 30,
+        "A": "A60",
+        "B": "B61",
+        "consume_immediately_into": [
+          {
+            "block": 4,
+            "coefficient": "-1"
+          },
+          {
+            "block": 5,
+            "coefficient": "-1"
+          },
+          {
+            "block": 12,
+            "coefficient": "1"
+          },
+          {
+            "block": 13,
+            "coefficient": "1"
+          }
+        ]
+      },
+      {
+        "product": 31,
+        "A": "A62",
+        "B": "B63",
+        "consume_immediately_into": [
+          {
+            "block": 4,
+            "coefficient": "1"
+          },
+          {
+            "block": 5,
+            "coefficient": "1"
+          },
+          {
+            "block": 6,
+            "coefficient": "1"
+          },
+          {
+            "block": 7,
+            "coefficient": "1"
+          },
+          {
+            "block": 12,
+            "coefficient": "-1"
+          },
+          {
+            "block": 13,
+            "coefficient": "-1"
+          },
+          {
+            "block": 14,
+            "coefficient": "-1"
+          },
+          {
+            "block": 15,
+            "coefficient": "-1"
+          }
+        ]
+      },
+      {
+        "product": 32,
+        "A": "A64",
+        "B": "B65",
+        "consume_immediately_into": [
+          {
+            "block": 12,
+            "coefficient": "1"
+          },
+          {
+            "block": 13,
+            "coefficient": "1"
+          }
+        ]
+      },
+      {
+        "product": 33,
+        "A": "A66",
+        "B": "B67",
+        "consume_immediately_into": [
+          {
+            "block": 6,
+            "coefficient": "-1"
+          },
+          {
+            "block": 7,
+            "coefficient": "-1"
+          }
+        ]
+      },
+      {
+        "product": 34,
+        "A": "A68",
+        "B": "B69",
+        "consume_immediately_into": [
+          {
+            "block": 9,
+            "coefficient": "-1"
+          },
+          {
+            "block": 13,
+            "coefficient": "1"
+          }
+        ]
+      },
+      {
+        "product": 35,
+        "A": "A70",
+        "B": "B71",
+        "consume_immediately_into": [
+          {
+            "block": 3,
+            "coefficient": "1"
+          },
+          {
+            "block": 7,
+            "coefficient": "-1"
+          }
+        ]
+      },
+      {
+        "product": 36,
+        "A": "A72",
+        "B": "B73",
+        "consume_immediately_into": [
+          {
+            "block": 1,
+            "coefficient": "-1"
+          },
+          {
+            "block": 3,
+            "coefficient": "-1"
+          },
+          {
+            "block": 5,
+            "coefficient": "1"
+          },
+          {
+            "block": 7,
+            "coefficient": "1"
+          },
+          {
+            "block": 9,
+            "coefficient": "1"
+          },
+          {
+            "block": 11,
+            "coefficient": "1"
+          },
+          {
+            "block": 13,
+            "coefficient": "-1"
+          },
+          {
+            "block": 15,
+            "coefficient": "-1"
+          }
+        ]
+      },
+      {
+        "product": 37,
+        "A": "A74",
+        "B": "B75",
+        "consume_immediately_into": [
+          {
+            "block": 4,
+            "coefficient": "-1"
+          },
+          {
+            "block": 5,
+            "coefficient": "-1"
+          },
+          {
+            "block": 6,
+            "coefficient": "-1"
+          },
+          {
+            "block": 7,
+            "coefficient": "-1"
+          },
+          {
+            "block": 12,
+            "coefficient": "1"
+          },
+          {
+            "block": 13,
+            "coefficient": "1"
+          }
+        ]
+      },
+      {
+        "product": 38,
+        "A": "A76",
+        "B": "B77",
+        "consume_immediately_into": [
+          {
+            "block": 1,
+            "coefficient": "-1"
+          },
+          {
+            "block": 3,
+            "coefficient": "-1"
+          },
+          {
+            "block": 4,
+            "coefficient": "1"
+          },
+          {
+            "block": 5,
+            "coefficient": "1"
+          },
+          {
+            "block": 6,
+            "coefficient": "1"
+          },
+          {
+            "block": 7,
+            "coefficient": "1"
+          }
+        ]
+      },
+      {
+        "product": 39,
+        "A": "A78",
+        "B": "B79",
+        "consume_immediately_into": [
+          {
+            "block": 1,
+            "coefficient": "-1"
+          },
+          {
+            "block": 4,
+            "coefficient": "1"
+          },
+          {
+            "block": 5,
+            "coefficient": "1"
+          },
+          {
+            "block": 9,
+            "coefficient": "1"
+          },
+          {
+            "block": 12,
+            "coefficient": "-1"
+          },
+          {
+            "block": 13,
+            "coefficient": "-1"
+          }
+        ]
+      },
+      {
+        "product": 40,
+        "A": "A80",
+        "B": "B81",
+        "consume_immediately_into": [
+          {
+            "block": 10,
+            "coefficient": "-1"
+          }
+        ]
+      },
+      {
+        "product": 41,
+        "A": "A82",
+        "B": "B83",
+        "consume_immediately_into": [
+          {
+            "block": 1,
+            "coefficient": "1"
+          },
+          {
+            "block": 3,
+            "coefficient": "1"
+          },
+          {
+            "block": 9,
+            "coefficient": "-1"
+          }
+        ]
+      },
+      {
+        "product": 42,
+        "A": "A84",
+        "B": "B85",
+        "consume_immediately_into": [
+          {
+            "block": 4,
+            "coefficient": "1"
+          },
+          {
+            "block": 6,
+            "coefficient": "1"
+          },
+          {
+            "block": 12,
+            "coefficient": "-1"
+          }
+        ]
+      },
+      {
+        "product": 43,
+        "A": "A86",
+        "B": "B87",
+        "consume_immediately_into": [
+          {
+            "block": 0,
+            "coefficient": "-1"
+          },
+          {
+            "block": 1,
+            "coefficient": "-1"
+          },
+          {
+            "block": 2,
+            "coefficient": "-1"
+          },
+          {
+            "block": 3,
+            "coefficient": "-1"
+          },
+          {
+            "block": 4,
+            "coefficient": "1"
+          },
+          {
+            "block": 5,
+            "coefficient": "1"
+          },
+          {
+            "block": 6,
+            "coefficient": "1"
+          },
+          {
+            "block": 7,
+            "coefficient": "1"
+          },
+          {
+            "block": 8,
+            "coefficient": "1"
+          },
+          {
+            "block": 9,
+            "coefficient": "1"
+          },
+          {
+            "block": 12,
+            "coefficient": "-1"
+          },
+          {
+            "block": 13,
+            "coefficient": "-1"
+          }
+        ]
+      },
+      {
+        "product": 44,
+        "A": "A88",
+        "B": "B89",
+        "consume_immediately_into": [
+          {
+            "block": 11,
+            "coefficient": "1"
+          },
+          {
+            "block": 15,
+            "coefficient": "-1"
+          }
+        ]
+      },
+      {
+        "product": 45,
+        "A": "A90",
+        "B": "B91",
+        "consume_immediately_into": [
+          {
+            "block": 1,
+            "coefficient": "-1"
+          },
+          {
+            "block": 5,
+            "coefficient": "1"
+          },
+          {
+            "block": 9,
+            "coefficient": "1"
+          },
+          {
+            "block": 13,
+            "coefficient": "-1"
+          }
+        ]
+      },
+      {
+        "product": 46,
+        "A": "A92",
+        "B": "B93",
+        "consume_immediately_into": [
+          {
+            "block": 8,
+            "coefficient": "-1"
+          },
+          {
+            "block": 9,
+            "coefficient": "-1"
+          },
+          {
+            "block": 12,
+            "coefficient": "1"
+          },
+          {
+            "block": 13,
+            "coefficient": "1"
+          }
+        ]
+      },
+      {
+        "product": 47,
+        "A": "A94",
+        "B": "B95",
+        "consume_immediately_into": [
+          {
+            "block": 3,
+            "coefficient": "1"
+          }
+        ]
+      },
+      {
+        "product": 48,
+        "A": "A96",
+        "B": "B97",
+        "consume_immediately_into": [
+          {
+            "block": 4,
+            "coefficient": "1"
+          },
+          {
+            "block": 6,
+            "coefficient": "1"
+          },
+          {
+            "block": 12,
+            "coefficient": "-1"
+          },
+          {
+            "block": 14,
+            "coefficient": "-1"
+          }
+        ]
+      }
+    ],
+    "max_live_product_tiles": 1,
+    "implementation_gate": "No GPU low-rank speed claim until direct schedule and transform/reconstruction overhead are measured under matched precision"
+  }
+]

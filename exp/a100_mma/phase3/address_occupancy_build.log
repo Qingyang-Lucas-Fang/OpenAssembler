@@ -1,0 +1,74 @@
+exp/a100_mma/build/address_occupancy_large_f16_w64x32_unfolded/cubin/address_occupancy_large_f16_w64x32_unfolded.cubin  (gemm: 672 instructions, opt-level=safe, regs=136)
+exp/a100_mma/build/address_occupancy_large_f16_w64x32_unfolded/sass/address_occupancy_large_f16_w64x32_unfolded.sass  (SASS listing from nvdisasm)
+warning: gemm: 151 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R2, R2, 0x80, RZ' -> 'IMAD.SHL R2, R2, 0x80, RZ'
+RESOURCE address_occupancy_large_f16_w64x32_unfolded: {"registers_per_thread": 136, "rounded_registers_per_thread": 136, "threads": 256, "register_limited_ctas": 1, "modeled_resident_ctas": 1, "modeled_resident_warps": 8, "shared_bytes_per_cta": 65536, "limitation": "Static resource bound only; CUDA occupancy API and GPU timing remain necessary"}
+exp/a100_mma/build/address_occupancy_large_f16_w64x32_folded/cubin/address_occupancy_large_f16_w64x32_folded.cubin  (gemm: 654 instructions, opt-level=safe, regs=128)
+exp/a100_mma/build/address_occupancy_large_f16_w64x32_folded/sass/address_occupancy_large_f16_w64x32_folded.sass  (SASS listing from nvdisasm)
+warning: gemm: 151 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R2, R2, 0x80, RZ' -> 'IMAD.SHL R2, R2, 0x80, RZ'
+RESOURCE address_occupancy_large_f16_w64x32_folded: {"registers_per_thread": 128, "rounded_registers_per_thread": 128, "threads": 256, "register_limited_ctas": 2, "modeled_resident_ctas": 2, "modeled_resident_warps": 16, "shared_bytes_per_cta": 65536, "limitation": "Static resource bound only; CUDA occupancy API and GPU timing remain necessary"}
+exp/a100_mma/build/address_occupancy_large_f16_w32x64_unfolded/cubin/address_occupancy_large_f16_w32x64_unfolded.cubin  (gemm: 656 instructions, opt-level=safe, regs=136)
+exp/a100_mma/build/address_occupancy_large_f16_w32x64_unfolded/sass/address_occupancy_large_f16_w32x64_unfolded.sass  (SASS listing from nvdisasm)
+warning: gemm: 119 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R2, R2, 0x80, RZ' -> 'IMAD.SHL R2, R2, 0x80, RZ'
+RESOURCE address_occupancy_large_f16_w32x64_unfolded: {"registers_per_thread": 136, "rounded_registers_per_thread": 136, "threads": 256, "register_limited_ctas": 1, "modeled_resident_ctas": 1, "modeled_resident_warps": 8, "shared_bytes_per_cta": 65536, "limitation": "Static resource bound only; CUDA occupancy API and GPU timing remain necessary"}
+exp/a100_mma/build/address_occupancy_large_f16_w32x64_folded/cubin/address_occupancy_large_f16_w32x64_folded.cubin  (gemm: 638 instructions, opt-level=safe, regs=128)
+exp/a100_mma/build/address_occupancy_large_f16_w32x64_folded/sass/address_occupancy_large_f16_w32x64_folded.sass  (SASS listing from nvdisasm)
+warning: gemm: 119 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R2, R2, 0x80, RZ' -> 'IMAD.SHL R2, R2, 0x80, RZ'
+RESOURCE address_occupancy_large_f16_w32x64_folded: {"registers_per_thread": 128, "rounded_registers_per_thread": 128, "threads": 256, "register_limited_ctas": 2, "modeled_resident_ctas": 2, "modeled_resident_warps": 16, "shared_bytes_per_cta": 65536, "limitation": "Static resource bound only; CUDA occupancy API and GPU timing remain necessary"}
+exp/a100_mma/build/address_occupancy_large_bf16_w64x32_unfolded/cubin/address_occupancy_large_bf16_w64x32_unfolded.cubin  (gemm: 672 instructions, opt-level=safe, regs=136)
+exp/a100_mma/build/address_occupancy_large_bf16_w64x32_unfolded/sass/address_occupancy_large_bf16_w64x32_unfolded.sass  (SASS listing from nvdisasm)
+warning: gemm: 151 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R2, R2, 0x80, RZ' -> 'IMAD.SHL R2, R2, 0x80, RZ'
+RESOURCE address_occupancy_large_bf16_w64x32_unfolded: {"registers_per_thread": 136, "rounded_registers_per_thread": 136, "threads": 256, "register_limited_ctas": 1, "modeled_resident_ctas": 1, "modeled_resident_warps": 8, "shared_bytes_per_cta": 65536, "limitation": "Static resource bound only; CUDA occupancy API and GPU timing remain necessary"}
+exp/a100_mma/build/address_occupancy_large_bf16_w64x32_folded/cubin/address_occupancy_large_bf16_w64x32_folded.cubin  (gemm: 654 instructions, opt-level=safe, regs=128)
+exp/a100_mma/build/address_occupancy_large_bf16_w64x32_folded/sass/address_occupancy_large_bf16_w64x32_folded.sass  (SASS listing from nvdisasm)
+warning: gemm: 151 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R2, R2, 0x80, RZ' -> 'IMAD.SHL R2, R2, 0x80, RZ'
+RESOURCE address_occupancy_large_bf16_w64x32_folded: {"registers_per_thread": 128, "rounded_registers_per_thread": 128, "threads": 256, "register_limited_ctas": 2, "modeled_resident_ctas": 2, "modeled_resident_warps": 16, "shared_bytes_per_cta": 65536, "limitation": "Static resource bound only; CUDA occupancy API and GPU timing remain necessary"}
+exp/a100_mma/build/address_occupancy_large_bf16_w32x64_unfolded/cubin/address_occupancy_large_bf16_w32x64_unfolded.cubin  (gemm: 656 instructions, opt-level=safe, regs=136)
+exp/a100_mma/build/address_occupancy_large_bf16_w32x64_unfolded/sass/address_occupancy_large_bf16_w32x64_unfolded.sass  (SASS listing from nvdisasm)
+warning: gemm: 119 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R2, R2, 0x80, RZ' -> 'IMAD.SHL R2, R2, 0x80, RZ'
+RESOURCE address_occupancy_large_bf16_w32x64_unfolded: {"registers_per_thread": 136, "rounded_registers_per_thread": 136, "threads": 256, "register_limited_ctas": 1, "modeled_resident_ctas": 1, "modeled_resident_warps": 8, "shared_bytes_per_cta": 65536, "limitation": "Static resource bound only; CUDA occupancy API and GPU timing remain necessary"}
+exp/a100_mma/build/address_occupancy_large_bf16_w32x64_folded/cubin/address_occupancy_large_bf16_w32x64_folded.cubin  (gemm: 638 instructions, opt-level=safe, regs=128)
+exp/a100_mma/build/address_occupancy_large_bf16_w32x64_folded/sass/address_occupancy_large_bf16_w32x64_folded.sass  (SASS listing from nvdisasm)
+warning: gemm: 119 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R2, R2, 0x80, RZ' -> 'IMAD.SHL R2, R2, 0x80, RZ'
+RESOURCE address_occupancy_large_bf16_w32x64_folded: {"registers_per_thread": 128, "rounded_registers_per_thread": 128, "threads": 256, "register_limited_ctas": 2, "modeled_resident_ctas": 2, "modeled_resident_warps": 16, "shared_bytes_per_cta": 65536, "limitation": "Static resource bound only; CUDA occupancy API and GPU timing remain necessary"}
+/Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/phase3/address_occupancy_large_suite.json
+exp/a100_mma/build/address_occupancy_smoke_f16_w64x64_baseline/cubin/address_occupancy_smoke_f16_w64x64_baseline.cubin  (gemm: 1120 instructions, opt-level=safe, regs=232)
+exp/a100_mma/build/address_occupancy_smoke_f16_w64x64_baseline/sass/address_occupancy_smoke_f16_w64x64_baseline.sass  (SASS listing from nvdisasm)
+warning: gemm: 271 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R2, R2, 0x80, RZ' -> 'IMAD.SHL R2, R2, 0x80, RZ'
+RESOURCE address_occupancy_smoke_f16_w64x64_baseline: {"registers_per_thread": 232, "rounded_registers_per_thread": 232, "threads": 128, "register_limited_ctas": 2, "modeled_resident_ctas": 2, "modeled_resident_warps": 8, "shared_bytes_per_cta": 65536, "limitation": "Static resource bound only; CUDA occupancy API and GPU timing remain necessary"}
+exp/a100_mma/build/address_occupancy_smoke_f16_w64x32_unfolded/cubin/address_occupancy_smoke_f16_w64x32_unfolded.cubin  (gemm: 672 instructions, opt-level=safe, regs=136)
+exp/a100_mma/build/address_occupancy_smoke_f16_w64x32_unfolded/sass/address_occupancy_smoke_f16_w64x32_unfolded.sass  (SASS listing from nvdisasm)
+warning: gemm: 151 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R2, R2, 0x80, RZ' -> 'IMAD.SHL R2, R2, 0x80, RZ'
+RESOURCE address_occupancy_smoke_f16_w64x32_unfolded: {"registers_per_thread": 136, "rounded_registers_per_thread": 136, "threads": 256, "register_limited_ctas": 1, "modeled_resident_ctas": 1, "modeled_resident_warps": 8, "shared_bytes_per_cta": 65536, "limitation": "Static resource bound only; CUDA occupancy API and GPU timing remain necessary"}
+exp/a100_mma/build/address_occupancy_smoke_f16_w64x32_folded/cubin/address_occupancy_smoke_f16_w64x32_folded.cubin  (gemm: 654 instructions, opt-level=safe, regs=128)
+exp/a100_mma/build/address_occupancy_smoke_f16_w64x32_folded/sass/address_occupancy_smoke_f16_w64x32_folded.sass  (SASS listing from nvdisasm)
+warning: gemm: 151 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R2, R2, 0x80, RZ' -> 'IMAD.SHL R2, R2, 0x80, RZ'
+RESOURCE address_occupancy_smoke_f16_w64x32_folded: {"registers_per_thread": 128, "rounded_registers_per_thread": 128, "threads": 256, "register_limited_ctas": 2, "modeled_resident_ctas": 2, "modeled_resident_warps": 16, "shared_bytes_per_cta": 65536, "limitation": "Static resource bound only; CUDA occupancy API and GPU timing remain necessary"}
+exp/a100_mma/build/address_occupancy_smoke_f16_w32x64_unfolded/cubin/address_occupancy_smoke_f16_w32x64_unfolded.cubin  (gemm: 656 instructions, opt-level=safe, regs=136)
+exp/a100_mma/build/address_occupancy_smoke_f16_w32x64_unfolded/sass/address_occupancy_smoke_f16_w32x64_unfolded.sass  (SASS listing from nvdisasm)
+warning: gemm: 119 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R2, R2, 0x80, RZ' -> 'IMAD.SHL R2, R2, 0x80, RZ'
+RESOURCE address_occupancy_smoke_f16_w32x64_unfolded: {"registers_per_thread": 136, "rounded_registers_per_thread": 136, "threads": 256, "register_limited_ctas": 1, "modeled_resident_ctas": 1, "modeled_resident_warps": 8, "shared_bytes_per_cta": 65536, "limitation": "Static resource bound only; CUDA occupancy API and GPU timing remain necessary"}
+exp/a100_mma/build/address_occupancy_smoke_f16_w32x64_folded/cubin/address_occupancy_smoke_f16_w32x64_folded.cubin  (gemm: 638 instructions, opt-level=safe, regs=128)
+exp/a100_mma/build/address_occupancy_smoke_f16_w32x64_folded/sass/address_occupancy_smoke_f16_w32x64_folded.sass  (SASS listing from nvdisasm)
+warning: gemm: 119 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R2, R2, 0x80, RZ' -> 'IMAD.SHL R2, R2, 0x80, RZ'
+RESOURCE address_occupancy_smoke_f16_w32x64_folded: {"registers_per_thread": 128, "rounded_registers_per_thread": 128, "threads": 256, "register_limited_ctas": 2, "modeled_resident_ctas": 2, "modeled_resident_warps": 16, "shared_bytes_per_cta": 65536, "limitation": "Static resource bound only; CUDA occupancy API and GPU timing remain necessary"}
+exp/a100_mma/build/address_occupancy_smoke_bf16_w64x64_baseline/cubin/address_occupancy_smoke_bf16_w64x64_baseline.cubin  (gemm: 1120 instructions, opt-level=safe, regs=232)
+exp/a100_mma/build/address_occupancy_smoke_bf16_w64x64_baseline/sass/address_occupancy_smoke_bf16_w64x64_baseline.sass  (SASS listing from nvdisasm)
+warning: gemm: 271 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R2, R2, 0x80, RZ' -> 'IMAD.SHL R2, R2, 0x80, RZ'
+RESOURCE address_occupancy_smoke_bf16_w64x64_baseline: {"registers_per_thread": 232, "rounded_registers_per_thread": 232, "threads": 128, "register_limited_ctas": 2, "modeled_resident_ctas": 2, "modeled_resident_warps": 8, "shared_bytes_per_cta": 65536, "limitation": "Static resource bound only; CUDA occupancy API and GPU timing remain necessary"}
+exp/a100_mma/build/address_occupancy_smoke_bf16_w64x32_unfolded/cubin/address_occupancy_smoke_bf16_w64x32_unfolded.cubin  (gemm: 672 instructions, opt-level=safe, regs=136)
+exp/a100_mma/build/address_occupancy_smoke_bf16_w64x32_unfolded/sass/address_occupancy_smoke_bf16_w64x32_unfolded.sass  (SASS listing from nvdisasm)
+warning: gemm: 151 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R2, R2, 0x80, RZ' -> 'IMAD.SHL R2, R2, 0x80, RZ'
+RESOURCE address_occupancy_smoke_bf16_w64x32_unfolded: {"registers_per_thread": 136, "rounded_registers_per_thread": 136, "threads": 256, "register_limited_ctas": 1, "modeled_resident_ctas": 1, "modeled_resident_warps": 8, "shared_bytes_per_cta": 65536, "limitation": "Static resource bound only; CUDA occupancy API and GPU timing remain necessary"}
+exp/a100_mma/build/address_occupancy_smoke_bf16_w64x32_folded/cubin/address_occupancy_smoke_bf16_w64x32_folded.cubin  (gemm: 654 instructions, opt-level=safe, regs=128)
+exp/a100_mma/build/address_occupancy_smoke_bf16_w64x32_folded/sass/address_occupancy_smoke_bf16_w64x32_folded.sass  (SASS listing from nvdisasm)
+warning: gemm: 151 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R2, R2, 0x80, RZ' -> 'IMAD.SHL R2, R2, 0x80, RZ'
+RESOURCE address_occupancy_smoke_bf16_w64x32_folded: {"registers_per_thread": 128, "rounded_registers_per_thread": 128, "threads": 256, "register_limited_ctas": 2, "modeled_resident_ctas": 2, "modeled_resident_warps": 16, "shared_bytes_per_cta": 65536, "limitation": "Static resource bound only; CUDA occupancy API and GPU timing remain necessary"}
+exp/a100_mma/build/address_occupancy_smoke_bf16_w32x64_unfolded/cubin/address_occupancy_smoke_bf16_w32x64_unfolded.cubin  (gemm: 656 instructions, opt-level=safe, regs=136)
+exp/a100_mma/build/address_occupancy_smoke_bf16_w32x64_unfolded/sass/address_occupancy_smoke_bf16_w32x64_unfolded.sass  (SASS listing from nvdisasm)
+warning: gemm: 119 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R2, R2, 0x80, RZ' -> 'IMAD.SHL R2, R2, 0x80, RZ'
+RESOURCE address_occupancy_smoke_bf16_w32x64_unfolded: {"registers_per_thread": 136, "rounded_registers_per_thread": 136, "threads": 256, "register_limited_ctas": 1, "modeled_resident_ctas": 1, "modeled_resident_warps": 8, "shared_bytes_per_cta": 65536, "limitation": "Static resource bound only; CUDA occupancy API and GPU timing remain necessary"}
+exp/a100_mma/build/address_occupancy_smoke_bf16_w32x64_folded/cubin/address_occupancy_smoke_bf16_w32x64_folded.cubin  (gemm: 638 instructions, opt-level=safe, regs=128)
+exp/a100_mma/build/address_occupancy_smoke_bf16_w32x64_folded/sass/address_occupancy_smoke_bf16_w32x64_folded.sass  (SASS listing from nvdisasm)
+warning: gemm: 119 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R2, R2, 0x80, RZ' -> 'IMAD.SHL R2, R2, 0x80, RZ'
+RESOURCE address_occupancy_smoke_bf16_w32x64_folded: {"registers_per_thread": 128, "rounded_registers_per_thread": 128, "threads": 256, "register_limited_ctas": 2, "modeled_resident_ctas": 2, "modeled_resident_warps": 16, "shared_bytes_per_cta": 65536, "limitation": "Static resource bound only; CUDA occupancy API and GPU timing remain necessary"}
+/Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/phase3/address_occupancy_smoke_suite.json

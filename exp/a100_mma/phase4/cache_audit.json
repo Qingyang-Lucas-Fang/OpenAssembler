@@ -1,0 +1,132 @@
+{
+  "passed": true,
+  "cases": 6,
+  "new_variants": 10,
+  "random_operand_roundtrips": 80,
+  "functional_copy_checks": 8,
+  "variants": [
+    {
+      "name": "cache_l2_64_square_f16",
+      "hint_bytes": 64,
+      "copies": 64,
+      "changed_bits": [
+        71
+      ],
+      "full_cubin_only_expected_bytes_changed": true,
+      "all_schedule_controls_exact": true,
+      "register_count_unchanged": true,
+      "native_cubin_sha256": "5d372b3efb30b472144d1129b0efd8eda09b871bfe6c7ed7c8e668ac1f42e5ae"
+    },
+    {
+      "name": "cache_l2_128_square_f16",
+      "hint_bytes": 128,
+      "copies": 64,
+      "changed_bits": [
+        72
+      ],
+      "full_cubin_only_expected_bytes_changed": true,
+      "all_schedule_controls_exact": true,
+      "register_count_unchanged": true,
+      "native_cubin_sha256": "becada625ac8a6d7076699ae9895e4a5f208cb4b9eb2a34bdf010fc2c5dd741e"
+    },
+    {
+      "name": "cache_l2_256_square_f16",
+      "hint_bytes": 256,
+      "copies": 64,
+      "changed_bits": [
+        71,
+        72
+      ],
+      "full_cubin_only_expected_bytes_changed": true,
+      "all_schedule_controls_exact": true,
+      "register_count_unchanged": true,
+      "native_cubin_sha256": "5440736d5e4a5e4c2e94f3874614eba818c5f0ba0afe9a71c363a4c446af0539"
+    },
+    {
+      "name": "cache_l2_128_confirm_mlp_f16",
+      "hint_bytes": 128,
+      "copies": 64,
+      "changed_bits": [
+        72
+      ],
+      "full_cubin_only_expected_bytes_changed": true,
+      "all_schedule_controls_exact": true,
+      "register_count_unchanged": true,
+      "native_cubin_sha256": "b64f2c4c6c83989c3873de7b40c08c52b74c45483dae8b74bb0fb0c5cf981d55"
+    },
+    {
+      "name": "cache_l2_128_confirm_tall_f16",
+      "hint_bytes": 128,
+      "copies": 64,
+      "changed_bits": [
+        72
+      ],
+      "full_cubin_only_expected_bytes_changed": true,
+      "all_schedule_controls_exact": true,
+      "register_count_unchanged": true,
+      "native_cubin_sha256": "becada625ac8a6d7076699ae9895e4a5f208cb4b9eb2a34bdf010fc2c5dd741e"
+    },
+    {
+      "name": "cache_l2_64_square_bf16",
+      "hint_bytes": 64,
+      "copies": 64,
+      "changed_bits": [
+        71
+      ],
+      "full_cubin_only_expected_bytes_changed": true,
+      "all_schedule_controls_exact": true,
+      "register_count_unchanged": true,
+      "native_cubin_sha256": "58c58b5d5e8f676526987c2dc630fa387874d23e25238cceba00a81eea8cfa36"
+    },
+    {
+      "name": "cache_l2_128_square_bf16",
+      "hint_bytes": 128,
+      "copies": 64,
+      "changed_bits": [
+        72
+      ],
+      "full_cubin_only_expected_bytes_changed": true,
+      "all_schedule_controls_exact": true,
+      "register_count_unchanged": true,
+      "native_cubin_sha256": "d0c4a0233c1114368c26a86149e154a3fc1e53f98f199d4d02784b84519b359e"
+    },
+    {
+      "name": "cache_l2_256_square_bf16",
+      "hint_bytes": 256,
+      "copies": 64,
+      "changed_bits": [
+        71,
+        72
+      ],
+      "full_cubin_only_expected_bytes_changed": true,
+      "all_schedule_controls_exact": true,
+      "register_count_unchanged": true,
+      "native_cubin_sha256": "752d8c7d7f784e0d00d02ef8742036254b53080ffc222ae1b760914f1e4a8fa5"
+    },
+    {
+      "name": "cache_l2_128_confirm_mlp_bf16",
+      "hint_bytes": 128,
+      "copies": 64,
+      "changed_bits": [
+        72
+      ],
+      "full_cubin_only_expected_bytes_changed": true,
+      "all_schedule_controls_exact": true,
+      "register_count_unchanged": true,
+      "native_cubin_sha256": "128cedbc6cc58bdccaeaa849e638585c0bb8dd25e592120ad79778d0f08ec37a"
+    },
+    {
+      "name": "cache_l2_128_confirm_tall_bf16",
+      "hint_bytes": 128,
+      "copies": 64,
+      "changed_bits": [
+        72
+      ],
+      "full_cubin_only_expected_bytes_changed": true,
+      "all_schedule_controls_exact": true,
+      "register_count_unchanged": true,
+      "native_cubin_sha256": "d0c4a0233c1114368c26a86149e154a3fc1e53f98f199d4d02784b84519b359e"
+    }
+  ],
+  "scope": "static/probe functional verification; whole-GEMM GPU correctness and performance pending"
+}

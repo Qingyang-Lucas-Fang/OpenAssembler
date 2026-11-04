@@ -1,0 +1,340 @@
+FFFFFFFF                                                                 [100%]
+=================================== FAILURES ===================================
+_ test_all_eight_warps_match_full_integer_oracle_with_poison[w64x32_unfolded-64-32-False-f16] _
+
+dtype = 'f16', family = 'w64x32_unfolded', wm = 64, wn = 32, folded = False
+
+    @pytest.mark.parametrize("dtype",["f16","bf16"])
+    @pytest.mark.parametrize("family,wm,wn,folded",experiment.FAMILIES)
+    def test_all_eight_warps_match_full_integer_oracle_with_poison(dtype,family,wm,wn,folded):
+        experiment.combined.search.configure(gap=8,reuse=True)
+        m,n,k = 128,128,128
+        source = experiment.make_source(m,n,k,dtype,wm,wn,folded)
+        with experiment.context(folded):
+            code,labels,words,exits,regs = experiment.combined.search.backend.generate(
+                parse_module(source).kernels["gemm"],"sm_80","safe")
+        rng = random.Random(226)
+        av = [rng.randrange(-2,3) for _ in range(m*k)]
+        bv = [rng.randrange(-2,3) for _ in range(n*k)]
+        expected = [sum(av[r*k+i]*bv[c*k+i] for i in range(k))
+                    for r in range(m) for c in range(n)]
+        def pack(values):
+            if dtype == "f16":
+                return b"".join(struct.pack("<e",value) for value in values)
+            return b"".join(struct.pack("<H",struct.unpack("<I",struct.pack("<f",value))[0]>>16)
+                            for value in values)
+        a,b,c = 0x100000,0x200000,0x300000
+        memory = Memory(); memory.write_bytes(a,pack(av)); memory.write_bytes(b,pack(bv))
+        memory.write_bytes(c,b"\x00\x00\xc0\x7f"*(m*n))
+        program = load_listing(listing(code,labels))
+        Machine(program,Launch(grid=(1,1,1),block=(256,1,1),
+                               params=struct.pack("<QQQ",a,b,c),smem_static=65536,
+                               poison=0xDEADBEEF),memory).run(max_steps=6000000)
+        got = [struct.unpack("<f",struct.pack("<I",memory.read(c+4*i,4)))[0]
+               for i in range(m*n)]
+        assert got == expected
+        assert sum(text.startswith("STG.E.64") for text,ctl in code) == 32
+        assert all(not text.startswith("LDSM.16.M88.2") for text,ctl in code)
+>       assert len(words) == len(code)
+E       AssertionError: assert 688 == 680
+E        +  where 688 = len([82468277448518527441023563523521026, 82468277448494915608675185995315897, 74720396980008591935756372029765913, 76018471194661188308820474693056793, 77316545409299617582435968420641049, 414775278732753343957119197696391204, ...])
+E        +  and   680 = len([('MOV R1, c[0x0][0x28]', Control(stall=1, yield_=False, wbar=7, rbar=7, wait=0, reuse=0)), ('ULDC.64 UR4, c[0x0][0x11...=7, wait=0, reuse=0)), ('IMAD R2, R2, 0x80, RZ', Control(stall=1, yield_=False, wbar=7, rbar=7, wait=4, reuse=0)), ...])
+
+exp/a100_mma/phase3/address_occupancy_test.py:50: AssertionError
+_ test_all_eight_warps_match_full_integer_oracle_with_poison[w64x32_unfolded-64-32-False-bf16] _
+
+dtype = 'bf16', family = 'w64x32_unfolded', wm = 64, wn = 32, folded = False
+
+    @pytest.mark.parametrize("dtype",["f16","bf16"])
+    @pytest.mark.parametrize("family,wm,wn,folded",experiment.FAMILIES)
+    def test_all_eight_warps_match_full_integer_oracle_with_poison(dtype,family,wm,wn,folded):
+        experiment.combined.search.configure(gap=8,reuse=True)
+        m,n,k = 128,128,128
+        source = experiment.make_source(m,n,k,dtype,wm,wn,folded)
+        with experiment.context(folded):
+            code,labels,words,exits,regs = experiment.combined.search.backend.generate(
+                parse_module(source).kernels["gemm"],"sm_80","safe")
+        rng = random.Random(226)
+        av = [rng.randrange(-2,3) for _ in range(m*k)]
+        bv = [rng.randrange(-2,3) for _ in range(n*k)]
+        expected = [sum(av[r*k+i]*bv[c*k+i] for i in range(k))
+                    for r in range(m) for c in range(n)]
+        def pack(values):
+            if dtype == "f16":
+                return b"".join(struct.pack("<e",value) for value in values)
+            return b"".join(struct.pack("<H",struct.unpack("<I",struct.pack("<f",value))[0]>>16)
+                            for value in values)
+        a,b,c = 0x100000,0x200000,0x300000
+        memory = Memory(); memory.write_bytes(a,pack(av)); memory.write_bytes(b,pack(bv))
+        memory.write_bytes(c,b"\x00\x00\xc0\x7f"*(m*n))
+        program = load_listing(listing(code,labels))
+        Machine(program,Launch(grid=(1,1,1),block=(256,1,1),
+                               params=struct.pack("<QQQ",a,b,c),smem_static=65536,
+                               poison=0xDEADBEEF),memory).run(max_steps=6000000)
+        got = [struct.unpack("<f",struct.pack("<I",memory.read(c+4*i,4)))[0]
+               for i in range(m*n)]
+        assert got == expected
+        assert sum(text.startswith("STG.E.64") for text,ctl in code) == 32
+        assert all(not text.startswith("LDSM.16.M88.2") for text,ctl in code)
+>       assert len(words) == len(code)
+E       AssertionError: assert 688 == 680
+E        +  where 688 = len([82468277448518527441023563523521026, 82468277448494915608675185995315897, 74720396980008591935756372029765913, 76018471194661188308820474693056793, 77316545409299617582435968420641049, 414775278732753343957119197696391204, ...])
+E        +  and   680 = len([('MOV R1, c[0x0][0x28]', Control(stall=1, yield_=False, wbar=7, rbar=7, wait=0, reuse=0)), ('ULDC.64 UR4, c[0x0][0x11...=7, wait=0, reuse=0)), ('IMAD R2, R2, 0x80, RZ', Control(stall=1, yield_=False, wbar=7, rbar=7, wait=4, reuse=0)), ...])
+
+exp/a100_mma/phase3/address_occupancy_test.py:50: AssertionError
+_ test_all_eight_warps_match_full_integer_oracle_with_poison[w64x32_folded-64-32-True-f16] _
+
+dtype = 'f16', family = 'w64x32_folded', wm = 64, wn = 32, folded = True
+
+    @pytest.mark.parametrize("dtype",["f16","bf16"])
+    @pytest.mark.parametrize("family,wm,wn,folded",experiment.FAMILIES)
+    def test_all_eight_warps_match_full_integer_oracle_with_poison(dtype,family,wm,wn,folded):
+        experiment.combined.search.configure(gap=8,reuse=True)
+        m,n,k = 128,128,128
+        source = experiment.make_source(m,n,k,dtype,wm,wn,folded)
+        with experiment.context(folded):
+            code,labels,words,exits,regs = experiment.combined.search.backend.generate(
+                parse_module(source).kernels["gemm"],"sm_80","safe")
+        rng = random.Random(226)
+        av = [rng.randrange(-2,3) for _ in range(m*k)]
+        bv = [rng.randrange(-2,3) for _ in range(n*k)]
+        expected = [sum(av[r*k+i]*bv[c*k+i] for i in range(k))
+                    for r in range(m) for c in range(n)]
+        def pack(values):
+            if dtype == "f16":
+                return b"".join(struct.pack("<e",value) for value in values)
+            return b"".join(struct.pack("<H",struct.unpack("<I",struct.pack("<f",value))[0]>>16)
+                            for value in values)
+        a,b,c = 0x100000,0x200000,0x300000
+        memory = Memory(); memory.write_bytes(a,pack(av)); memory.write_bytes(b,pack(bv))
+        memory.write_bytes(c,b"\x00\x00\xc0\x7f"*(m*n))
+        program = load_listing(listing(code,labels))
+        Machine(program,Launch(grid=(1,1,1),block=(256,1,1),
+                               params=struct.pack("<QQQ",a,b,c),smem_static=65536,
+                               poison=0xDEADBEEF),memory).run(max_steps=6000000)
+        got = [struct.unpack("<f",struct.pack("<I",memory.read(c+4*i,4)))[0]
+               for i in range(m*n)]
+        assert got == expected
+        assert sum(text.startswith("STG.E.64") for text,ctl in code) == 32
+        assert all(not text.startswith("LDSM.16.M88.2") for text,ctl in code)
+>       assert len(words) == len(code)
+E       AssertionError: assert 664 == 662
+E        +  where 664 = len([82468277448518527441023563523521026, 82468277448494915608675185995315897, 74720396980008591935756372029765913, 76018471194661188308820474693056793, 77316545409299617582435968420641049, 414775278732753343957119197696391204, ...])
+E        +  and   662 = len([('MOV R1, c[0x0][0x28]', Control(stall=1, yield_=False, wbar=7, rbar=7, wait=0, reuse=0)), ('ULDC.64 UR4, c[0x0][0x11...=7, wait=0, reuse=0)), ('IMAD R2, R2, 0x80, RZ', Control(stall=1, yield_=False, wbar=7, rbar=7, wait=4, reuse=0)), ...])
+
+exp/a100_mma/phase3/address_occupancy_test.py:50: AssertionError
+_ test_all_eight_warps_match_full_integer_oracle_with_poison[w64x32_folded-64-32-True-bf16] _
+
+dtype = 'bf16', family = 'w64x32_folded', wm = 64, wn = 32, folded = True
+
+    @pytest.mark.parametrize("dtype",["f16","bf16"])
+    @pytest.mark.parametrize("family,wm,wn,folded",experiment.FAMILIES)
+    def test_all_eight_warps_match_full_integer_oracle_with_poison(dtype,family,wm,wn,folded):
+        experiment.combined.search.configure(gap=8,reuse=True)
+        m,n,k = 128,128,128
+        source = experiment.make_source(m,n,k,dtype,wm,wn,folded)
+        with experiment.context(folded):
+            code,labels,words,exits,regs = experiment.combined.search.backend.generate(
+                parse_module(source).kernels["gemm"],"sm_80","safe")
+        rng = random.Random(226)
+        av = [rng.randrange(-2,3) for _ in range(m*k)]
+        bv = [rng.randrange(-2,3) for _ in range(n*k)]
+        expected = [sum(av[r*k+i]*bv[c*k+i] for i in range(k))
+                    for r in range(m) for c in range(n)]
+        def pack(values):
+            if dtype == "f16":
+                return b"".join(struct.pack("<e",value) for value in values)
+            return b"".join(struct.pack("<H",struct.unpack("<I",struct.pack("<f",value))[0]>>16)
+                            for value in values)
+        a,b,c = 0x100000,0x200000,0x300000
+        memory = Memory(); memory.write_bytes(a,pack(av)); memory.write_bytes(b,pack(bv))
+        memory.write_bytes(c,b"\x00\x00\xc0\x7f"*(m*n))
+        program = load_listing(listing(code,labels))
+        Machine(program,Launch(grid=(1,1,1),block=(256,1,1),
+                               params=struct.pack("<QQQ",a,b,c),smem_static=65536,
+                               poison=0xDEADBEEF),memory).run(max_steps=6000000)
+        got = [struct.unpack("<f",struct.pack("<I",memory.read(c+4*i,4)))[0]
+               for i in range(m*n)]
+        assert got == expected
+        assert sum(text.startswith("STG.E.64") for text,ctl in code) == 32
+        assert all(not text.startswith("LDSM.16.M88.2") for text,ctl in code)
+>       assert len(words) == len(code)
+E       AssertionError: assert 664 == 662
+E        +  where 664 = len([82468277448518527441023563523521026, 82468277448494915608675185995315897, 74720396980008591935756372029765913, 76018471194661188308820474693056793, 77316545409299617582435968420641049, 414775278732753343957119197696391204, ...])
+E        +  and   662 = len([('MOV R1, c[0x0][0x28]', Control(stall=1, yield_=False, wbar=7, rbar=7, wait=0, reuse=0)), ('ULDC.64 UR4, c[0x0][0x11...=7, wait=0, reuse=0)), ('IMAD R2, R2, 0x80, RZ', Control(stall=1, yield_=False, wbar=7, rbar=7, wait=4, reuse=0)), ...])
+
+exp/a100_mma/phase3/address_occupancy_test.py:50: AssertionError
+_ test_all_eight_warps_match_full_integer_oracle_with_poison[w32x64_unfolded-32-64-False-f16] _
+
+dtype = 'f16', family = 'w32x64_unfolded', wm = 32, wn = 64, folded = False
+
+    @pytest.mark.parametrize("dtype",["f16","bf16"])
+    @pytest.mark.parametrize("family,wm,wn,folded",experiment.FAMILIES)
+    def test_all_eight_warps_match_full_integer_oracle_with_poison(dtype,family,wm,wn,folded):
+        experiment.combined.search.configure(gap=8,reuse=True)
+        m,n,k = 128,128,128
+        source = experiment.make_source(m,n,k,dtype,wm,wn,folded)
+        with experiment.context(folded):
+            code,labels,words,exits,regs = experiment.combined.search.backend.generate(
+                parse_module(source).kernels["gemm"],"sm_80","safe")
+        rng = random.Random(226)
+        av = [rng.randrange(-2,3) for _ in range(m*k)]
+        bv = [rng.randrange(-2,3) for _ in range(n*k)]
+        expected = [sum(av[r*k+i]*bv[c*k+i] for i in range(k))
+                    for r in range(m) for c in range(n)]
+        def pack(values):
+            if dtype == "f16":
+                return b"".join(struct.pack("<e",value) for value in values)
+            return b"".join(struct.pack("<H",struct.unpack("<I",struct.pack("<f",value))[0]>>16)
+                            for value in values)
+        a,b,c = 0x100000,0x200000,0x300000
+        memory = Memory(); memory.write_bytes(a,pack(av)); memory.write_bytes(b,pack(bv))
+        memory.write_bytes(c,b"\x00\x00\xc0\x7f"*(m*n))
+        program = load_listing(listing(code,labels))
+        Machine(program,Launch(grid=(1,1,1),block=(256,1,1),
+                               params=struct.pack("<QQQ",a,b,c),smem_static=65536,
+                               poison=0xDEADBEEF),memory).run(max_steps=6000000)
+        got = [struct.unpack("<f",struct.pack("<I",memory.read(c+4*i,4)))[0]
+               for i in range(m*n)]
+        assert got == expected
+        assert sum(text.startswith("STG.E.64") for text,ctl in code) == 32
+        assert all(not text.startswith("LDSM.16.M88.2") for text,ctl in code)
+>       assert len(words) == len(code)
+E       AssertionError: assert 672 == 664
+E        +  where 672 = len([82468277448518527441023563523521026, 82468277448494915608675185995315897, 74720396980008591935756372029765913, 76018471194661188308820474693056793, 77316545409299617582435968420641049, 414775278732753343957119197696391204, ...])
+E        +  and   664 = len([('MOV R1, c[0x0][0x28]', Control(stall=1, yield_=False, wbar=7, rbar=7, wait=0, reuse=0)), ('ULDC.64 UR4, c[0x0][0x11...=7, wait=0, reuse=0)), ('IMAD R2, R2, 0x80, RZ', Control(stall=1, yield_=False, wbar=7, rbar=7, wait=4, reuse=0)), ...])
+
+exp/a100_mma/phase3/address_occupancy_test.py:50: AssertionError
+_ test_all_eight_warps_match_full_integer_oracle_with_poison[w32x64_unfolded-32-64-False-bf16] _
+
+dtype = 'bf16', family = 'w32x64_unfolded', wm = 32, wn = 64, folded = False
+
+    @pytest.mark.parametrize("dtype",["f16","bf16"])
+    @pytest.mark.parametrize("family,wm,wn,folded",experiment.FAMILIES)
+    def test_all_eight_warps_match_full_integer_oracle_with_poison(dtype,family,wm,wn,folded):
+        experiment.combined.search.configure(gap=8,reuse=True)
+        m,n,k = 128,128,128
+        source = experiment.make_source(m,n,k,dtype,wm,wn,folded)
+        with experiment.context(folded):
+            code,labels,words,exits,regs = experiment.combined.search.backend.generate(
+                parse_module(source).kernels["gemm"],"sm_80","safe")
+        rng = random.Random(226)
+        av = [rng.randrange(-2,3) for _ in range(m*k)]
+        bv = [rng.randrange(-2,3) for _ in range(n*k)]
+        expected = [sum(av[r*k+i]*bv[c*k+i] for i in range(k))
+                    for r in range(m) for c in range(n)]
+        def pack(values):
+            if dtype == "f16":
+                return b"".join(struct.pack("<e",value) for value in values)
+            return b"".join(struct.pack("<H",struct.unpack("<I",struct.pack("<f",value))[0]>>16)
+                            for value in values)
+        a,b,c = 0x100000,0x200000,0x300000
+        memory = Memory(); memory.write_bytes(a,pack(av)); memory.write_bytes(b,pack(bv))
+        memory.write_bytes(c,b"\x00\x00\xc0\x7f"*(m*n))
+        program = load_listing(listing(code,labels))
+        Machine(program,Launch(grid=(1,1,1),block=(256,1,1),
+                               params=struct.pack("<QQQ",a,b,c),smem_static=65536,
+                               poison=0xDEADBEEF),memory).run(max_steps=6000000)
+        got = [struct.unpack("<f",struct.pack("<I",memory.read(c+4*i,4)))[0]
+               for i in range(m*n)]
+        assert got == expected
+        assert sum(text.startswith("STG.E.64") for text,ctl in code) == 32
+        assert all(not text.startswith("LDSM.16.M88.2") for text,ctl in code)
+>       assert len(words) == len(code)
+E       AssertionError: assert 672 == 664
+E        +  where 672 = len([82468277448518527441023563523521026, 82468277448494915608675185995315897, 74720396980008591935756372029765913, 76018471194661188308820474693056793, 77316545409299617582435968420641049, 414775278732753343957119197696391204, ...])
+E        +  and   664 = len([('MOV R1, c[0x0][0x28]', Control(stall=1, yield_=False, wbar=7, rbar=7, wait=0, reuse=0)), ('ULDC.64 UR4, c[0x0][0x11...=7, wait=0, reuse=0)), ('IMAD R2, R2, 0x80, RZ', Control(stall=1, yield_=False, wbar=7, rbar=7, wait=4, reuse=0)), ...])
+
+exp/a100_mma/phase3/address_occupancy_test.py:50: AssertionError
+_ test_all_eight_warps_match_full_integer_oracle_with_poison[w32x64_folded-32-64-True-f16] _
+
+dtype = 'f16', family = 'w32x64_folded', wm = 32, wn = 64, folded = True
+
+    @pytest.mark.parametrize("dtype",["f16","bf16"])
+    @pytest.mark.parametrize("family,wm,wn,folded",experiment.FAMILIES)
+    def test_all_eight_warps_match_full_integer_oracle_with_poison(dtype,family,wm,wn,folded):
+        experiment.combined.search.configure(gap=8,reuse=True)
+        m,n,k = 128,128,128
+        source = experiment.make_source(m,n,k,dtype,wm,wn,folded)
+        with experiment.context(folded):
+            code,labels,words,exits,regs = experiment.combined.search.backend.generate(
+                parse_module(source).kernels["gemm"],"sm_80","safe")
+        rng = random.Random(226)
+        av = [rng.randrange(-2,3) for _ in range(m*k)]
+        bv = [rng.randrange(-2,3) for _ in range(n*k)]
+        expected = [sum(av[r*k+i]*bv[c*k+i] for i in range(k))
+                    for r in range(m) for c in range(n)]
+        def pack(values):
+            if dtype == "f16":
+                return b"".join(struct.pack("<e",value) for value in values)
+            return b"".join(struct.pack("<H",struct.unpack("<I",struct.pack("<f",value))[0]>>16)
+                            for value in values)
+        a,b,c = 0x100000,0x200000,0x300000
+        memory = Memory(); memory.write_bytes(a,pack(av)); memory.write_bytes(b,pack(bv))
+        memory.write_bytes(c,b"\x00\x00\xc0\x7f"*(m*n))
+        program = load_listing(listing(code,labels))
+        Machine(program,Launch(grid=(1,1,1),block=(256,1,1),
+                               params=struct.pack("<QQQ",a,b,c),smem_static=65536,
+                               poison=0xDEADBEEF),memory).run(max_steps=6000000)
+        got = [struct.unpack("<f",struct.pack("<I",memory.read(c+4*i,4)))[0]
+               for i in range(m*n)]
+        assert got == expected
+        assert sum(text.startswith("STG.E.64") for text,ctl in code) == 32
+        assert all(not text.startswith("LDSM.16.M88.2") for text,ctl in code)
+>       assert len(words) == len(code)
+E       AssertionError: assert 648 == 646
+E        +  where 648 = len([82468277448518527441023563523521026, 82468277448494915608675185995315897, 74720396980008591935756372029765913, 76018471194661188308820474693056793, 77316545409299617582435968420641049, 414775278732753343957119197696391204, ...])
+E        +  and   646 = len([('MOV R1, c[0x0][0x28]', Control(stall=1, yield_=False, wbar=7, rbar=7, wait=0, reuse=0)), ('ULDC.64 UR4, c[0x0][0x11...=7, wait=0, reuse=0)), ('IMAD R2, R2, 0x80, RZ', Control(stall=1, yield_=False, wbar=7, rbar=7, wait=4, reuse=0)), ...])
+
+exp/a100_mma/phase3/address_occupancy_test.py:50: AssertionError
+_ test_all_eight_warps_match_full_integer_oracle_with_poison[w32x64_folded-32-64-True-bf16] _
+
+dtype = 'bf16', family = 'w32x64_folded', wm = 32, wn = 64, folded = True
+
+    @pytest.mark.parametrize("dtype",["f16","bf16"])
+    @pytest.mark.parametrize("family,wm,wn,folded",experiment.FAMILIES)
+    def test_all_eight_warps_match_full_integer_oracle_with_poison(dtype,family,wm,wn,folded):
+        experiment.combined.search.configure(gap=8,reuse=True)
+        m,n,k = 128,128,128
+        source = experiment.make_source(m,n,k,dtype,wm,wn,folded)
+        with experiment.context(folded):
+            code,labels,words,exits,regs = experiment.combined.search.backend.generate(
+                parse_module(source).kernels["gemm"],"sm_80","safe")
+        rng = random.Random(226)
+        av = [rng.randrange(-2,3) for _ in range(m*k)]
+        bv = [rng.randrange(-2,3) for _ in range(n*k)]
+        expected = [sum(av[r*k+i]*bv[c*k+i] for i in range(k))
+                    for r in range(m) for c in range(n)]
+        def pack(values):
+            if dtype == "f16":
+                return b"".join(struct.pack("<e",value) for value in values)
+            return b"".join(struct.pack("<H",struct.unpack("<I",struct.pack("<f",value))[0]>>16)
+                            for value in values)
+        a,b,c = 0x100000,0x200000,0x300000
+        memory = Memory(); memory.write_bytes(a,pack(av)); memory.write_bytes(b,pack(bv))
+        memory.write_bytes(c,b"\x00\x00\xc0\x7f"*(m*n))
+        program = load_listing(listing(code,labels))
+        Machine(program,Launch(grid=(1,1,1),block=(256,1,1),
+                               params=struct.pack("<QQQ",a,b,c),smem_static=65536,
+                               poison=0xDEADBEEF),memory).run(max_steps=6000000)
+        got = [struct.unpack("<f",struct.pack("<I",memory.read(c+4*i,4)))[0]
+               for i in range(m*n)]
+        assert got == expected
+        assert sum(text.startswith("STG.E.64") for text,ctl in code) == 32
+        assert all(not text.startswith("LDSM.16.M88.2") for text,ctl in code)
+>       assert len(words) == len(code)
+E       AssertionError: assert 648 == 646
+E        +  where 648 = len([82468277448518527441023563523521026, 82468277448494915608675185995315897, 74720396980008591935756372029765913, 76018471194661188308820474693056793, 77316545409299617582435968420641049, 414775278732753343957119197696391204, ...])
+E        +  and   646 = len([('MOV R1, c[0x0][0x28]', Control(stall=1, yield_=False, wbar=7, rbar=7, wait=0, reuse=0)), ('ULDC.64 UR4, c[0x0][0x11...=7, wait=0, reuse=0)), ('IMAD R2, R2, 0x80, RZ', Control(stall=1, yield_=False, wbar=7, rbar=7, wait=4, reuse=0)), ...])
+
+exp/a100_mma/phase3/address_occupancy_test.py:50: AssertionError
+=========================== short test summary info ============================
+FAILED exp/a100_mma/phase3/address_occupancy_test.py::test_all_eight_warps_match_full_integer_oracle_with_poison[w64x32_unfolded-64-32-False-f16]
+FAILED exp/a100_mma/phase3/address_occupancy_test.py::test_all_eight_warps_match_full_integer_oracle_with_poison[w64x32_unfolded-64-32-False-bf16]
+FAILED exp/a100_mma/phase3/address_occupancy_test.py::test_all_eight_warps_match_full_integer_oracle_with_poison[w64x32_folded-64-32-True-f16]
+FAILED exp/a100_mma/phase3/address_occupancy_test.py::test_all_eight_warps_match_full_integer_oracle_with_poison[w64x32_folded-64-32-True-bf16]
+FAILED exp/a100_mma/phase3/address_occupancy_test.py::test_all_eight_warps_match_full_integer_oracle_with_poison[w32x64_unfolded-32-64-False-f16]
+FAILED exp/a100_mma/phase3/address_occupancy_test.py::test_all_eight_warps_match_full_integer_oracle_with_poison[w32x64_unfolded-32-64-False-bf16]
+FAILED exp/a100_mma/phase3/address_occupancy_test.py::test_all_eight_warps_match_full_integer_oracle_with_poison[w32x64_folded-32-64-True-f16]
+FAILED exp/a100_mma/phase3/address_occupancy_test.py::test_all_eight_warps_match_full_integer_oracle_with_poison[w32x64_folded-32-64-True-bf16]
+8 failed in 88.31s (0:01:28)

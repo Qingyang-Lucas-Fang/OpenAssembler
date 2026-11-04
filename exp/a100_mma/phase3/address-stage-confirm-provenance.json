@@ -1,0 +1,354 @@
+{
+  "input_suite_sha256": "be66954fa9f850509a1c4f72b889b7ac5bdad7de521a891246aafd666529d902",
+  "builder_sha256": "faccb6a73d43656f62ab2199242ad125504f92dac60ea22823438c1e73658916",
+  "cases": [
+    {
+      "shape": "square",
+      "dtype": "f16",
+      "baseline": {
+        "build": "search_combined_square_row_bpair_f16",
+        "ptx_sha256": "83de480dac0f33e28677d5b779fb7253cfe2a78a25a05309a4a910a32f5948b5",
+        "cubin_sha256": "2efcf91f106c895a7144244e210466bf74183ac1d2ca1fb14e2e2a79ee928c83",
+        "geometry": {
+          "m": 4096,
+          "n": 4096,
+          "k": 4096,
+          "bm": 128,
+          "bn": 128,
+          "bk": 64,
+          "wm": 64,
+          "wn": 64,
+          "stages": 2
+        },
+        "candidate": {
+          "paired_b": true,
+          "paired_preaddress": false,
+          "row": true,
+          "role_bias": 0,
+          "gap": 8,
+          "reuse": true
+        },
+        "scheduled_instructions": 1128,
+        "registers": 232
+      },
+      "candidate": {
+        "build": "address_stagepair_square_f16",
+        "ptx_sha256": "25df2a8950638940c87ab9460c01dd92883610f0e93b26159e410e9f8b6adb6a",
+        "cubin_sha256": "b08cdb5a6d3678f2eb5b453b23816ae7593655e35ee903c3a87fbd1d67e4d763",
+        "geometry": {
+          "m": 4096,
+          "n": 4096,
+          "k": 4096,
+          "bm": 128,
+          "bn": 128,
+          "bk": 64,
+          "wm": 64,
+          "wn": 64,
+          "stages": 2
+        },
+        "candidate": {
+          "shared_chunk_immediates": true,
+          "global_chunk_immediates": false,
+          "stage_pair": true,
+          "paired_b": true,
+          "row_epilogue": true,
+          "gap": 8,
+          "reuse": true
+        },
+        "scheduled_instructions": 1595,
+        "registers": 216
+      },
+      "candidate_reused": true
+    },
+    {
+      "shape": "mlp",
+      "dtype": "f16",
+      "baseline": {
+        "build": "search_combined_mlp_row_bpair_f16",
+        "ptx_sha256": "9ac76ad843b01ed51dd0e2efde6285ddb52d33f5d4a949d268fae6b1417e1c32",
+        "cubin_sha256": "f11234522b600f21752811807698263f967b7544d62bc34724a462a26d74065d",
+        "geometry": {
+          "m": 4096,
+          "n": 16384,
+          "k": 4096,
+          "bm": 128,
+          "bn": 128,
+          "bk": 64,
+          "wm": 64,
+          "wn": 64,
+          "stages": 2
+        },
+        "candidate": {
+          "paired_b": true,
+          "paired_preaddress": false,
+          "row": true,
+          "role_bias": 0,
+          "gap": 8,
+          "reuse": true
+        },
+        "scheduled_instructions": 1128,
+        "registers": 232
+      },
+      "candidate": {
+        "build": "address_stagepair_confirm_mlp_f16",
+        "ptx_sha256": "6b63b83c78663c9c74cdb7e9bbaa9984ba4395cdd8f8b43f483ec687c270c920",
+        "cubin_sha256": "eabb78689874fc8efb62abe21f87aa70ad7532c6329ba8332027f8aee996be38",
+        "geometry": {
+          "m": 4096,
+          "n": 16384,
+          "k": 4096,
+          "bm": 128,
+          "bn": 128,
+          "bk": 64,
+          "wm": 64,
+          "wn": 64,
+          "stages": 2
+        },
+        "candidate": {
+          "shared_chunk_immediates": true,
+          "global_chunk_immediates": false,
+          "stage_pair": true,
+          "paired_b": true,
+          "row_epilogue": true,
+          "gap": 8,
+          "reuse": true
+        },
+        "scheduled_instructions": 1595,
+        "registers": 216
+      },
+      "candidate_reused": false
+    },
+    {
+      "shape": "tall",
+      "dtype": "f16",
+      "baseline": {
+        "build": "search_combined_tall_row_bpair_f16",
+        "ptx_sha256": "83de480dac0f33e28677d5b779fb7253cfe2a78a25a05309a4a910a32f5948b5",
+        "cubin_sha256": "2efcf91f106c895a7144244e210466bf74183ac1d2ca1fb14e2e2a79ee928c83",
+        "geometry": {
+          "m": 16384,
+          "n": 4096,
+          "k": 4096,
+          "bm": 128,
+          "bn": 128,
+          "bk": 64,
+          "wm": 64,
+          "wn": 64,
+          "stages": 2
+        },
+        "candidate": {
+          "paired_b": true,
+          "paired_preaddress": false,
+          "row": true,
+          "role_bias": 0,
+          "gap": 8,
+          "reuse": true
+        },
+        "scheduled_instructions": 1128,
+        "registers": 232
+      },
+      "candidate": {
+        "build": "address_stagepair_confirm_tall_f16",
+        "ptx_sha256": "25df2a8950638940c87ab9460c01dd92883610f0e93b26159e410e9f8b6adb6a",
+        "cubin_sha256": "b08cdb5a6d3678f2eb5b453b23816ae7593655e35ee903c3a87fbd1d67e4d763",
+        "geometry": {
+          "m": 16384,
+          "n": 4096,
+          "k": 4096,
+          "bm": 128,
+          "bn": 128,
+          "bk": 64,
+          "wm": 64,
+          "wn": 64,
+          "stages": 2
+        },
+        "candidate": {
+          "shared_chunk_immediates": true,
+          "global_chunk_immediates": false,
+          "stage_pair": true,
+          "paired_b": true,
+          "row_epilogue": true,
+          "gap": 8,
+          "reuse": true
+        },
+        "scheduled_instructions": 1595,
+        "registers": 216
+      },
+      "candidate_reused": false
+    },
+    {
+      "shape": "square",
+      "dtype": "bf16",
+      "baseline": {
+        "build": "search_combined_square_row_bpair_bf16",
+        "ptx_sha256": "237f31cfd6a1586847150e2072b6bf6004ee8f2d46d2d99b3fb2428c4ea21490",
+        "cubin_sha256": "d1b1591e8fd5c26bce117d9b2997c69f3dd3177b231fedd67f5c35786434cc31",
+        "geometry": {
+          "m": 4096,
+          "n": 4096,
+          "k": 4096,
+          "bm": 128,
+          "bn": 128,
+          "bk": 64,
+          "wm": 64,
+          "wn": 64,
+          "stages": 2
+        },
+        "candidate": {
+          "paired_b": true,
+          "paired_preaddress": false,
+          "row": true,
+          "role_bias": 0,
+          "gap": 8,
+          "reuse": true
+        },
+        "scheduled_instructions": 1128,
+        "registers": 232
+      },
+      "candidate": {
+        "build": "address_stagepair_square_bf16",
+        "ptx_sha256": "8966bd075c2cc65bf433744ed12e606743d5898be29fffae8c38c71ec3a76550",
+        "cubin_sha256": "7d6b079b919e4ef190ef4df529dd6b5788da8ffc99a884ad3809b2e40a07d736",
+        "geometry": {
+          "m": 4096,
+          "n": 4096,
+          "k": 4096,
+          "bm": 128,
+          "bn": 128,
+          "bk": 64,
+          "wm": 64,
+          "wn": 64,
+          "stages": 2
+        },
+        "candidate": {
+          "shared_chunk_immediates": true,
+          "global_chunk_immediates": false,
+          "stage_pair": true,
+          "paired_b": true,
+          "row_epilogue": true,
+          "gap": 8,
+          "reuse": true
+        },
+        "scheduled_instructions": 1595,
+        "registers": 216
+      },
+      "candidate_reused": true
+    },
+    {
+      "shape": "mlp",
+      "dtype": "bf16",
+      "baseline": {
+        "build": "search_combined_mlp_row_bpair_bf16",
+        "ptx_sha256": "c0f526ec1e7559a11725f31fad8bbbfea197f0d8706e38fa9668dbd3318b0042",
+        "cubin_sha256": "c85e0879c7bf043504ba5b3740b824a6e29e76dbf54f4ec3552561e6b701721f",
+        "geometry": {
+          "m": 4096,
+          "n": 16384,
+          "k": 4096,
+          "bm": 128,
+          "bn": 128,
+          "bk": 64,
+          "wm": 64,
+          "wn": 64,
+          "stages": 2
+        },
+        "candidate": {
+          "paired_b": true,
+          "paired_preaddress": false,
+          "row": true,
+          "role_bias": 0,
+          "gap": 8,
+          "reuse": true
+        },
+        "scheduled_instructions": 1128,
+        "registers": 232
+      },
+      "candidate": {
+        "build": "address_stagepair_confirm_mlp_bf16",
+        "ptx_sha256": "11a4203c26ddb9e64a741abb52d01c44a078f6e9c8b7e3a86d541f9a9f8d3fc9",
+        "cubin_sha256": "f3e2aafecb8de6d3e7b5929722276882736f02f2b70acba42ca05b1847997028",
+        "geometry": {
+          "m": 4096,
+          "n": 16384,
+          "k": 4096,
+          "bm": 128,
+          "bn": 128,
+          "bk": 64,
+          "wm": 64,
+          "wn": 64,
+          "stages": 2
+        },
+        "candidate": {
+          "shared_chunk_immediates": true,
+          "global_chunk_immediates": false,
+          "stage_pair": true,
+          "paired_b": true,
+          "row_epilogue": true,
+          "gap": 8,
+          "reuse": true
+        },
+        "scheduled_instructions": 1595,
+        "registers": 216
+      },
+      "candidate_reused": false
+    },
+    {
+      "shape": "tall",
+      "dtype": "bf16",
+      "baseline": {
+        "build": "search_combined_tall_row_bpair_bf16",
+        "ptx_sha256": "237f31cfd6a1586847150e2072b6bf6004ee8f2d46d2d99b3fb2428c4ea21490",
+        "cubin_sha256": "d1b1591e8fd5c26bce117d9b2997c69f3dd3177b231fedd67f5c35786434cc31",
+        "geometry": {
+          "m": 16384,
+          "n": 4096,
+          "k": 4096,
+          "bm": 128,
+          "bn": 128,
+          "bk": 64,
+          "wm": 64,
+          "wn": 64,
+          "stages": 2
+        },
+        "candidate": {
+          "paired_b": true,
+          "paired_preaddress": false,
+          "row": true,
+          "role_bias": 0,
+          "gap": 8,
+          "reuse": true
+        },
+        "scheduled_instructions": 1128,
+        "registers": 232
+      },
+      "candidate": {
+        "build": "address_stagepair_confirm_tall_bf16",
+        "ptx_sha256": "8966bd075c2cc65bf433744ed12e606743d5898be29fffae8c38c71ec3a76550",
+        "cubin_sha256": "7d6b079b919e4ef190ef4df529dd6b5788da8ffc99a884ad3809b2e40a07d736",
+        "geometry": {
+          "m": 16384,
+          "n": 4096,
+          "k": 4096,
+          "bm": 128,
+          "bn": 128,
+          "bk": 64,
+          "wm": 64,
+          "wn": 64,
+          "stages": 2
+        },
+        "candidate": {
+          "shared_chunk_immediates": true,
+          "global_chunk_immediates": false,
+          "stage_pair": true,
+          "paired_b": true,
+          "row_epilogue": true,
+          "gap": 8,
+          "reuse": true
+        },
+        "scheduled_instructions": 1595,
+        "registers": 216
+      },
+      "candidate_reused": false
+    }
+  ]
+}

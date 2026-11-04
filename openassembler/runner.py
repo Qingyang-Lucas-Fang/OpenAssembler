@@ -67,7 +67,7 @@ N_LIKE = {"n", "count", "size", "len", "num", "length"}
 SMALL_INT = 16
 DEFAULT_N = 1 << 20
 BLOCK = 256
-DTYPES = {"f32": "<f", "i32": "<i", "u32": "<I"}
+DTYPES = {"f32": "<f", "i32": "<i", "u32": "<I", "f16": "<e", "bf16": "<H"}
 _PRICE_FALLBACK = {"A100-40GB": 0.000583, "A100": 0.000583, "A100-80GB": 0.000694, "A10": 0.000306,
                    "L4": 0.000222, "T4": 0.000164, "L40S": 0.000542, "H100": 0.001097}
 FAULT_HINT = ("if the auto-harness guessed this kernel's launch wrong (2-D grid, other buffer sizes, "
@@ -207,6 +207,13 @@ def _job(name: str, modules: dict, buffers: dict, init: dict, init_rand: dict, s
 def auto_case(t: Target, out_dir: Path, n: int, reps: int, plan: Plan) -> None:
     """The verify.py-style harness for one kernel: see this module's docstring."""
     k = t.kernel
+    if k.get("gemm") is not None:
+        return gemm_case(t, out_dir, reps, plan)
+    if k.get("tensor") is not None:
+        plan.cases.append(Case(k["name"], t.entry["source"], -1, -1, [],
+                               skip="tensor kernels need --spec with their actual buffers, precision, "
+                                    "grid and shared memory, or a validated `gemm` launch contract"))
+        return
     buffers, init_rand, args, desc = {}, {}, [], []
     rng = random.Random(_seed(t.entry["cubin"], k["name"], n))
     src_names = k.get("source_params") or [p[1] for p in k["params"]]
@@ -255,6 +262,39 @@ def auto_case(t: Target, out_dir: Path, n: int, reps: int, plan: Plan) -> None:
                            describe=f"grid {grid} x block {BLOCK}; " + ", ".join(desc)))
 
 
+def gemm_case(t: Target, out_dir: Path, reps: int, plan: Plan) -> None:
+    """Use the checked generated GEMM contract, with exact small-integer inputs."""
+    from openassembler.kernels.gemm import GemmPlan
+    contract = t.kernel["gemm"]
+    try:
+        allowed = ("m", "n", "k", "dtype", "schedule", "output_dtype", "layout", "arch")
+        g = GemmPlan(**{key: contract[key] for key in allowed})
+        if contract.get("schema") != 1 or contract.get("launch") != g.launch:
+            raise ValueError("launch contract differs from its validated plan")
+        if 9 * g.k > 2**24:
+            raise ValueError("K exceeds the exact small-integer smoke comparison range; use --spec")
+    except (ValueError, TypeError, KeyError) as exc:
+        raise RunError(f"invalid GEMM launch contract for {t.label}: {exc}") from None
+    buffers = {"A": 2*g.m*g.k, "B": 2*g.n*g.k, "C": 4*g.m*g.n}
+    initialize = {"A": (_seed("gemm", g.dtype, "A"), g.m*g.k, g.dtype),
+                  "B": (_seed("gemm", g.dtype, "B"), g.n*g.k, g.dtype)}
+    args = [("buf", name, 0) for name in ("A", "B", "C")]
+    outputs = {"C": [(0, buffers["C"])]}
+    i = len(plan.jobs)
+    for method, field in (("ours", "cubin"), ("ptxas", "reference")):
+        module = (out_dir/t.entry[field]).read_bytes()
+        steps = [(method, t.label, tuple(g.launch["grid"]), (g.launch["threads"], 1, 1),
+                  g.launch["smem"], args)]
+        job = _job(f"{t.entry['cubin']}:{t.label}#{method}", {method: module}, buffers, {}, {},
+                   steps, outputs, reps)
+        job["init_tensor16"] = initialize
+        plan.jobs.append(job)
+    plan.cases.append(Case(t.label, t.entry["source"], i, i+1, ["C"],
+                           note="exact small-integer smoke comparison; floating accuracy uses separate GPU tests",
+                           describe=f"{g.m}x{g.n}x{g.k} {g.dtype}->f32, grid {g.launch['grid']}, "
+                                    f"block {g.launch['threads']}, {g.launch['smem']} shared bytes"))
+
+
 def _dim(v, what: str) -> tuple[int, int, int]:
     if type(v) is int and v > 0:
         return (v, 1, 1)
@@ -279,7 +319,7 @@ def load_spec(path: Path) -> dict:
 
 def spec_case(spec: dict, m: dict, out_dir: Path, reps: int, plan: Plan, label: str,
               only: set[tuple[str, str]] | None = None) -> None:
-    buffers, init, init_rand = {}, {}, {}
+    buffers, init, init_rand, init_tensor16 = {}, {}, {}, {}
     for bi, (name, b) in enumerate(spec["buffers"].items()):
         if not isinstance(name, str) or not name or not isinstance(b, dict) or type(b.get("count")) is not int or b["count"] <= 0:
             raise RunError(f"spec: buffer {name!r} needs a positive integer \"count\"")
@@ -287,12 +327,14 @@ def spec_case(spec: dict, m: dict, out_dir: Path, reps: int, plan: Plan, label: 
         if not isinstance(dt, str) or dt not in DTYPES:
             raise RunError(f"spec: buffer {name!r} dtype {dt!r}; use one of {', '.join(DTYPES)}")
         cnt, how = b["count"], b.get("init", "random")
-        buffers[name] = 4 * cnt
+        buffers[name] = struct.calcsize(DTYPES[dt]) * cnt
         if how == "zeros":
             pass
         elif how == "random":
             if dt == "f32":
                 init_rand[name] = (_seed("spec", name, bi), cnt)
+            elif dt in ('f16', 'bf16'):
+                init_tensor16[name] = (_seed('spec', name, bi), cnt, dt)
             else:
                 r = random.Random(_seed("spec", name, bi))
                 init[name] = struct.pack(f"<{cnt}{'i' if dt == 'i32' else 'I'}",
@@ -303,15 +345,18 @@ def spec_case(spec: dict, m: dict, out_dir: Path, reps: int, plan: Plan, label: 
             try:
                 values = []
                 for value in how:
-                    if dt == "f32":
+                    if dt in ('f32', 'f16', 'bf16'):
                         if type(value) not in (int, float):
-                            raise ValueError("f32 initialization values must be numbers")
+                            raise ValueError(f"{dt} initialization values must be numbers")
                         values.append(float(value))
                     else:
                         lo, hi = (-2**31, 2**31) if dt == "i32" else (0, 2**32)
                         if type(value) is not int or not lo <= value < hi:
                             raise ValueError(f"{dt} initialization values must be integers in [{lo}, {hi})")
                         values.append(value)
+                if dt == 'bf16':
+                    from openassembler.emu.fp import BF16, F32, decode, encode
+                    values = [encode(decode(_f32bits(value), F32), BF16) for value in values]
                 init[name] = b"".join(struct.pack(DTYPES[dt], value) for value in values)
             except (struct.error, TypeError, ValueError, OverflowError) as e:
                 raise RunError(f"spec: buffer {name!r} init values don't fit {dt}: {e}") from None
@@ -350,10 +395,12 @@ def spec_case(spec: dict, m: dict, out_dir: Path, reps: int, plan: Plan, label: 
                 raise RunError(f"spec: step {si} arg {a!r}: use {{\"buf\": name}}, {{\"i32\": v}}, "
                                "{\"u32\": v}, {\"f32\": v} or {\"u64\": v}")
             if "buf" in a:
-                if a["buf"] not in buffers:
+                if not isinstance(a['buf'], str) or a["buf"] not in buffers:
                     raise RunError(f"spec: step {si} uses buffer {a['buf']!r}, not in \"buffers\"")
                 off = a.get("offset", 0)
-                if set(a) - {"buf", "offset"} or type(off) is not int or not 0 <= off <= buffers[a["buf"]] or off % 4:
+                element_size = struct.calcsize(DTYPES[spec['buffers'][a['buf']].get('dtype', 'f32')])
+                if (set(a) - {"buf", "offset"} or type(off) is not int
+                        or not 0 <= off < buffers[a["buf"]] or off % element_size):
                     raise RunError(f"spec: step {si} buffer offset must be aligned and inside the buffer")
                 args.append(("buf", a["buf"], off))
             elif "i32" in a or "u32" in a:
@@ -394,6 +441,9 @@ def spec_case(spec: dict, m: dict, out_dir: Path, reps: int, plan: Plan, label: 
     i = len(plan.jobs)
     plan.jobs.append(_job(label + "#ours", mods_ours, buffers, init, init_rand, steps_ours, outputs, r))
     plan.jobs.append(_job(label + "#ptxas", mods_ref, buffers, init, init_rand, steps_ref, outputs, r))
+    if init_tensor16:
+        for job in plan.jobs[-2:]:
+            job['init_tensor16'] = init_tensor16
     kern = " -> ".join(s[1] for s in steps_ours)
     plan.cases.append(Case(kern, label, i, i + 1, compare, note="; ".join(sorted(notes)),
                            describe=f"{len(steps_ours)} step(s), buffers {', '.join(buffers)}"))

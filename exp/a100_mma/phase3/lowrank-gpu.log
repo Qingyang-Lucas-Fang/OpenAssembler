@@ -1,0 +1,38 @@
+✓ Initialized. View run at 
+https://modal.com/apps/qingyang-lucas-fang/main/ap-jJOOFkFRJNRC8j97mfbHFm
+✓ Created objects.
+├── ✓ Uploaded 
+│   /Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/phase3/lowrank_modal.py
+├── ✓ Uploaded 
+│   /Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/phase3/lowrank_worker.py
+├── ✓ Uploaded 
+│   /Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/phase3/lowrank_oracle.py
+├── ✓ Uploaded PythonPackage:openassembler
+└── ✓ Created Function execute.
+
+==========
+== CUDA ==
+==========
+
+CUDA Version 12.8.0
+
+Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+
+This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+By pulling and using the container, you accept the terms and conditions of this license:
+https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+
+A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
+
+/Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/phase3/lowrank_gpu_20261103T233948.418796Z.json
+{
+  "passed": true,
+  "paired_speed_ratios": {
+    "ours_naive_over_strassen": 1.0134529522541211,
+    "ptxas_naive_over_strassen": 1.0097087412932217
+  },
+  "error": null
+}
+Stopping app - local entrypoint completed.
+✓ App completed. View run at 
+https://modal.com/apps/qingyang-lucas-fang/main/ap-jJOOFkFRJNRC8j97mfbHFm

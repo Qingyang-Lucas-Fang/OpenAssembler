@@ -1,0 +1,15 @@
+exp/a100_mma/phase3/producer_build/producer_k32_w32x32_p1_smoke/cubin/producer_producer_k32_w32x32_p1_smoke.cubin  (gemm: 1212 instructions, opt-level=safe, regs=104)
+exp/a100_mma/phase3/producer_build/producer_k32_w32x32_p1_smoke/sass/producer_producer_k32_w32x32_p1_smoke.sass  (SASS listing from nvdisasm)
+warning: gemm: 130 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R2, R2, 0x80, RZ' -> 'IMAD.SHL R2, R2, 0x80, RZ'
+exp/a100_mma/phase3/producer_build/producer_k32_w64x32_p1_smoke/cubin/producer_producer_k32_w64x32_p1_smoke.cubin  (gemm: 1476 instructions, opt-level=safe, regs=106)
+exp/a100_mma/phase3/producer_build/producer_k32_w64x32_p1_smoke/sass/producer_producer_k32_w64x32_p1_smoke.sass  (SASS listing from nvdisasm)
+warning: gemm: 162 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R2, R2, 0x80, RZ' -> 'IMAD.SHL R2, R2, 0x80, RZ'
+exp/a100_mma/phase3/producer_build/producer_k64_w64x64_p1_smoke/cubin/producer_producer_k64_w64x64_p1_smoke.cubin  (gemm: 3066 instructions, opt-level=safe, regs=200)
+exp/a100_mma/phase3/producer_build/producer_k64_w64x64_p1_smoke/sass/producer_producer_k64_w64x64_p1_smoke.sass  (SASS listing from nvdisasm)
+warning: gemm: 414 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R2, R2, 0x80, RZ' -> 'IMAD.SHL R2, R2, 0x80, RZ'
+exp/a100_mma/phase3/producer_build/producer_k64_w64x64_p2_smoke/cubin/producer_producer_k64_w64x64_p2_smoke.cubin  (gemm: 2234 instructions, opt-level=safe, regs=182)
+exp/a100_mma/phase3/producer_build/producer_k64_w64x64_p2_smoke/sass/producer_producer_k64_w64x64_p2_smoke.sass  (SASS listing from nvdisasm)
+warning: gemm: 318 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R2, R2, 0x80, RZ' -> 'IMAD.SHL R2, R2, 0x80, RZ'
+exp/a100_mma/phase3/producer_build/producer_k64_w64x64_p4_smoke/cubin/producer_producer_k64_w64x64_p4_smoke.cubin  (gemm: 1818 instructions, opt-level=safe, regs=182)
+exp/a100_mma/phase3/producer_build/producer_k64_w64x64_p4_smoke/sass/producer_producer_k64_w64x64_p4_smoke.sass  (SASS listing from nvdisasm)
+warning: gemm: 270 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R2, R2, 0x80, RZ' -> 'IMAD.SHL R2, R2, 0x80, RZ'

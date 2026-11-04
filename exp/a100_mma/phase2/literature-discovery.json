@@ -1,0 +1,1389 @@
+[
+  {
+    "query": "A100 Ampere microbenchmark Tensor Cores",
+    "source": "https://api.crossref.org/works?rows=6&query=A100%20Ampere%20microbenchmark%20Tensor%20Cores",
+    "results": [
+      {
+        "title": [
+          "3.2 The A100 Datacenter GPU and Ampere Architecture"
+        ],
+        "DOI": "10.1109/isscc42613.2021.9365803",
+        "URL": "https://doi.org/10.1109/isscc42613.2021.9365803",
+        "published": {
+          "date-parts": [
+            [
+              2021,
+              2,
+              13
+            ]
+          ]
+        },
+        "author": [
+          {
+            "given": "Jack",
+            "family": "Choquette",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Edward",
+            "family": "Lee",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Ronny",
+            "family": "Krashinsky",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Vishnu",
+            "family": "Balan",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Brucek",
+            "family": "Khailany",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "publisher": "IEEE",
+        "link": [
+          {
+            "URL": "http://xplorestaging.ieee.org/ielx7/9365732/9365735/09365803.pdf?arnumber=9365803",
+            "content-type": "unspecified",
+            "content-version": "vor",
+            "intended-application": "similarity-checking"
+          }
+        ]
+      },
+      {
+        "title": [
+          "Microbenchmark"
+        ],
+        "DOI": "10.1007/springerreference_66224",
+        "URL": "https://doi.org/10.1007/springerreference_66224",
+        "published": null,
+        "author": null,
+        "publisher": "Springer-Verlag",
+        "link": null
+      },
+      {
+        "title": null,
+        "DOI": "10.1117/12.2568234.6181984726001",
+        "URL": "https://doi.org/10.1117/12.2568234.6181984726001",
+        "published": null,
+        "author": null,
+        "publisher": "SPIE-Intl Soc Optical Eng",
+        "link": null
+      },
+      {
+        "title": [
+          "Peer Review #2 of \"Numerical behavior of NVIDIA tensor cores (v0.1)\""
+        ],
+        "DOI": "10.7287/peerj-cs.330v0.1/reviews/2",
+        "URL": "https://doi.org/10.7287/peerj-cs.330v0.1/reviews/2",
+        "published": {
+          "date-parts": [
+            [
+              2021,
+              2,
+              10
+            ]
+          ]
+        },
+        "author": null,
+        "publisher": "PeerJ",
+        "link": null
+      },
+      {
+        "title": [
+          "Peer Review #3 of \"Numerical behavior of NVIDIA tensor cores (v0.2)\""
+        ],
+        "DOI": "10.7287/peerj-cs.330v0.2/reviews/3",
+        "URL": "https://doi.org/10.7287/peerj-cs.330v0.2/reviews/3",
+        "published": {
+          "date-parts": [
+            [
+              2021,
+              2,
+              10
+            ]
+          ]
+        },
+        "author": null,
+        "publisher": "PeerJ",
+        "link": null
+      },
+      {
+        "title": [
+          "Peer Review #1 of \"Numerical behavior of NVIDIA tensor cores (v0.2)\""
+        ],
+        "DOI": "10.7287/peerj-cs.330v0.2/reviews/1",
+        "URL": "https://doi.org/10.7287/peerj-cs.330v0.2/reviews/1",
+        "published": {
+          "date-parts": [
+            [
+              2021,
+              2,
+              10
+            ]
+          ]
+        },
+        "author": null,
+        "publisher": "PeerJ",
+        "link": null
+      }
+    ]
+  },
+  {
+    "query": "Strassen matrix multiplication GPU tensor cores",
+    "source": "https://api.crossref.org/works?rows=6&query=Strassen%20matrix%20multiplication%20GPU%20tensor%20cores",
+    "results": [
+      {
+        "title": [
+          "Accelerating sparse matrix\u2013matrix multiplication with GPU Tensor Cores"
+        ],
+        "DOI": "10.1016/j.compeleceng.2020.106848",
+        "URL": "https://doi.org/10.1016/j.compeleceng.2020.106848",
+        "published": {
+          "date-parts": [
+            [
+              2020,
+              12
+            ]
+          ]
+        },
+        "author": [
+          {
+            "given": "Orestis",
+            "family": "Zachariadis",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "ORCID": "https://orcid.org/0000-0001-5400-040X",
+            "authenticated-orcid": false,
+            "given": "Nitin",
+            "family": "Satpute",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "ORCID": "https://orcid.org/0000-0002-6514-1571",
+            "authenticated-orcid": false,
+            "given": "Juan",
+            "family": "G\u00f3mez-Luna",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Joaqu\u00edn",
+            "family": "Olivares",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "publisher": "Elsevier BV",
+        "link": [
+          {
+            "URL": "https://api.elsevier.com/content/article/PII:S0045790620307011?httpAccept=text/xml",
+            "content-type": "text/xml",
+            "content-version": "vor",
+            "intended-application": "text-mining"
+          },
+          {
+            "URL": "https://api.elsevier.com/content/article/PII:S0045790620307011?httpAccept=text/plain",
+            "content-type": "text/plain",
+            "content-version": "vor",
+            "intended-application": "text-mining"
+          }
+        ]
+      },
+      {
+        "title": [
+          "Grothendieck constant is norm of Strassen matrix multiplication tensor"
+        ],
+        "DOI": "10.1007/s00211-019-01070-6",
+        "URL": "https://doi.org/10.1007/s00211-019-01070-6",
+        "published": {
+          "date-parts": [
+            [
+              2019,
+              8,
+              22
+            ]
+          ]
+        },
+        "author": [
+          {
+            "given": "Shmuel",
+            "family": "Friedland",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Lek-Heng",
+            "family": "Lim",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Jinjie",
+            "family": "Zhang",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          }
+        ],
+        "publisher": "Springer Science and Business Media LLC",
+        "link": [
+          {
+            "URL": "http://link.springer.com/content/pdf/10.1007/s00211-019-01070-6.pdf",
+            "content-type": "application/pdf",
+            "content-version": "vor",
+            "intended-application": "text-mining"
+          },
+          {
+            "URL": "http://link.springer.com/article/10.1007/s00211-019-01070-6/fulltext.html",
+            "content-type": "text/html",
+            "content-version": "vor",
+            "intended-application": "text-mining"
+          },
+          {
+            "URL": "http://link.springer.com/content/pdf/10.1007/s00211-019-01070-6.pdf",
+            "content-type": "application/pdf",
+            "content-version": "vor",
+            "intended-application": "similarity-checking"
+          }
+        ]
+      },
+      {
+        "title": [
+          "TSR-GEMM: Tile-Selective Precision Recovery for Robust Mixed-Precision Matrix Multiplication on GPU Tensor Cores"
+        ],
+        "DOI": "10.55041/isjem06493",
+        "URL": "https://doi.org/10.55041/isjem06493",
+        "published": {
+          "date-parts": [
+            [
+              2026,
+              4,
+              20
+            ]
+          ]
+        },
+        "author": [
+          {
+            "given": "Abhinav",
+            "family": "Rai",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Dr. Pavithra",
+            "family": "L",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Vedant Singh",
+            "family": "Chauhan",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Ananya",
+            "family": "Singh",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Vinayak",
+            "family": "Shrivastava",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          }
+        ],
+        "publisher": "Edtech Publishers (OPC) Private Limited",
+        "link": null
+      },
+      {
+        "title": [
+          "Secure Strassen-Winograd Matrix Multiplication with MapReduce"
+        ],
+        "DOI": "10.5220/0007916302200227",
+        "URL": "https://doi.org/10.5220/0007916302200227",
+        "published": {
+          "date-parts": [
+            [
+              2019
+            ]
+          ]
+        },
+        "author": [
+          {
+            "given": "Radu",
+            "family": "Ciucanu",
+            "sequence": "first",
+            "affiliation": [
+              {
+                "name": "INSA Centre Val de Loire, Univ. Orl\u00e9ans, LIFO EA 4022, Bourges and France, --- Select a Country ---"
+              }
+            ],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Matthieu",
+            "family": "Giraud",
+            "sequence": "first",
+            "affiliation": [
+              {
+                "name": "LIMOS, UMR 6158, Universit\u00e9 Clermont Auvergne, Aubi\u00e8re and France, --- Select a Country ---"
+              }
+            ],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Pascal",
+            "family": "Lafourcade",
+            "sequence": "first",
+            "affiliation": [
+              {
+                "name": "LIMOS, UMR 6158, Universit\u00e9 Clermont Auvergne, Aubi\u00e8re and France, --- Select a Country ---"
+              }
+            ],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Lihua",
+            "family": "Ye",
+            "sequence": "first",
+            "affiliation": [
+              {
+                "name": "Harbin Institute of Technology and China, --- Select a Country ---"
+              }
+            ],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          }
+        ],
+        "publisher": "SCITEPRESS - Science and Technology Publications",
+        "link": null
+      },
+      {
+        "title": [
+          "HC-SpMM: Accelerating Sparse Matrix-Matrix Multiplication for Graphs with Hybrid GPU Cores"
+        ],
+        "DOI": "10.1109/icde65448.2025.00044",
+        "URL": "https://doi.org/10.1109/icde65448.2025.00044",
+        "published": {
+          "date-parts": [
+            [
+              2025,
+              5,
+              19
+            ]
+          ]
+        },
+        "author": [
+          {
+            "given": "Zhonggen",
+            "family": "Li",
+            "sequence": "first",
+            "affiliation": [
+              {
+                "name": "Zhejiang University"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Xiangyu",
+            "family": "Ke",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Zhejiang University"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Yifan",
+            "family": "Zhu",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Zhejiang University"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Yunjun",
+            "family": "Gao",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Zhejiang University"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Yaofeng",
+            "family": "Tu",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "ZTE Corporation"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "publisher": "IEEE",
+        "link": [
+          {
+            "URL": "http://xplorestaging.ieee.org/ielx8/11112833/11112834/11112857.pdf?arnumber=11112857",
+            "content-type": "unspecified",
+            "content-version": "vor",
+            "intended-application": "similarity-checking"
+          }
+        ]
+      },
+      {
+        "title": [
+          "Exploiting Tensor Cores in Sparse Matrix-Multivector Multiplication via Block-Sparsity-Aware Clustering"
+        ],
+        "DOI": "10.1109/ipdpsw63119.2024.00199",
+        "URL": "https://doi.org/10.1109/ipdpsw63119.2024.00199",
+        "published": {
+          "date-parts": [
+            [
+              2024,
+              5,
+              27
+            ]
+          ]
+        },
+        "author": [
+          {
+            "given": "Eunji",
+            "family": "Lee",
+            "sequence": "first",
+            "affiliation": [
+              {
+                "name": "Sogang University,Seoul,Republic of Korea"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Yoonsang",
+            "family": "Han",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Sogang University,Seoul,Republic of Korea"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Gordon Euhyun",
+            "family": "Moon",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Sogang University,Seoul,Republic of Korea"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "publisher": "IEEE",
+        "link": [
+          {
+            "URL": "http://xplorestaging.ieee.org/ielx8/10596331/10596332/10596533.pdf?arnumber=10596533",
+            "content-type": "unspecified",
+            "content-version": "vor",
+            "intended-application": "similarity-checking"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "query": "tensor core register bank conflict",
+    "source": "https://api.crossref.org/works?rows=6&query=tensor%20core%20register%20bank%20conflict",
+    "results": [
+      {
+        "title": [
+          "Conflict-Free Code Block Scheduling to Hide SpMT Inter-Core Register Sync Delay"
+        ],
+        "DOI": "10.1109/pdcat.2014.14",
+        "URL": "https://doi.org/10.1109/pdcat.2014.14",
+        "published": {
+          "date-parts": [
+            [
+              2014,
+              12
+            ]
+          ]
+        },
+        "author": [
+          {
+            "given": "John",
+            "family": "Ye",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Jason",
+            "family": "Chen",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Tianzhou",
+            "family": "Chen",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Qingsong",
+            "family": "Shi",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          }
+        ],
+        "publisher": "IEEE",
+        "link": [
+          {
+            "URL": "http://xplorestaging.ieee.org/ielx7/7174419/7174746/07174763.pdf?arnumber=7174763",
+            "content-type": "unspecified",
+            "content-version": "vor",
+            "intended-application": "similarity-checking"
+          }
+        ]
+      },
+      {
+        "title": [
+          "Bank stealing for conflict mitigation in GPGPU Register File"
+        ],
+        "DOI": "10.1109/islped.2015.7273490",
+        "URL": "https://doi.org/10.1109/islped.2015.7273490",
+        "published": {
+          "date-parts": [
+            [
+              2015,
+              7
+            ]
+          ]
+        },
+        "author": [
+          {
+            "family": "Naifeng Jing",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "family": "Shuang Chen",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "family": "Shunning Jiang",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "family": "Li Jiang",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "family": "Chao Li",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "family": "Xiaoyao Liang",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          }
+        ],
+        "publisher": "IEEE",
+        "link": [
+          {
+            "URL": "http://xplorestaging.ieee.org/ielx7/7257319/7273468/07273490.pdf?arnumber=7273490",
+            "content-type": "unspecified",
+            "content-version": "vor",
+            "intended-application": "similarity-checking"
+          }
+        ]
+      },
+      {
+        "title": null,
+        "DOI": "10.1117/12.2647179.6321434525112",
+        "URL": "https://doi.org/10.1117/12.2647179.6321434525112",
+        "published": null,
+        "author": null,
+        "publisher": "SPIE-Intl Soc Optical Eng",
+        "link": null
+      },
+      {
+        "title": [
+          "INTERPRET: Inter-Warp Register Reuse for GPU Tensor Core"
+        ],
+        "DOI": "10.1109/pact58117.2023.00033",
+        "URL": "https://doi.org/10.1109/pact58117.2023.00033",
+        "published": {
+          "date-parts": [
+            [
+              2023,
+              10,
+              21
+            ]
+          ]
+        },
+        "author": [
+          {
+            "given": "Jae Seok",
+            "family": "Kwak",
+            "sequence": "first",
+            "affiliation": [
+              {
+                "name": "School of Electrical and Electronic Engineering, Yonsei University,Seoul,Korea"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Myung Kuk",
+            "family": "Yoon",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Ewha Womans University,Department of Computer Science and Engineering,Seoul,Korea"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Ipoom",
+            "family": "Jeong",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "University of Illinois Urbana-Champaign,Champaign,USA"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Seunghyun",
+            "family": "Jin",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "School of Electrical and Electronic Engineering, Yonsei University,Seoul,Korea"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "given": "Won Woo",
+            "family": "Ro",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "School of Electrical and Electronic Engineering, Yonsei University,Seoul,Korea"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "publisher": "IEEE",
+        "link": [
+          {
+            "URL": "http://xplorestaging.ieee.org/ielx7/10364561/10364563/10364590.pdf?arnumber=10364590",
+            "content-type": "unspecified",
+            "content-version": "vor",
+            "intended-application": "similarity-checking"
+          }
+        ]
+      },
+      {
+        "title": [
+          "Judgments. Divorce. Conflict of Laws"
+        ],
+        "DOI": "10.2307/1100369",
+        "URL": "https://doi.org/10.2307/1100369",
+        "published": {
+          "date-parts": [
+            [
+              1903,
+              6
+            ]
+          ]
+        },
+        "author": null,
+        "publisher": "JSTOR",
+        "link": null
+      },
+      {
+        "title": [
+          "Conflict of Laws. Exemption Laws"
+        ],
+        "DOI": "10.2307/1102275",
+        "URL": "https://doi.org/10.2307/1102275",
+        "published": {
+          "date-parts": [
+            [
+              1906,
+              7
+            ]
+          ]
+        },
+        "author": null,
+        "publisher": "JSTOR",
+        "link": null
+      }
+    ]
+  },
+  {
+    "query": "matrix multiplication mixed precision accumulation Tensor Cores",
+    "source": "https://api.crossref.org/works?rows=6&query=matrix%20multiplication%20mixed%20precision%20accumulation%20Tensor%20Cores",
+    "results": [
+      {
+        "title": [
+          "TSR-GEMM: Tile-Selective Precision Recovery for Robust Mixed-Precision Matrix Multiplication on GPU Tensor Cores"
+        ],
+        "DOI": "10.55041/isjem06493",
+        "URL": "https://doi.org/10.55041/isjem06493",
+        "published": {
+          "date-parts": [
+            [
+              2026,
+              4,
+              20
+            ]
+          ]
+        },
+        "author": [
+          {
+            "given": "Abhinav",
+            "family": "Rai",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Dr. Pavithra",
+            "family": "L",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Vedant Singh",
+            "family": "Chauhan",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Ananya",
+            "family": "Singh",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Vinayak",
+            "family": "Shrivastava",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          }
+        ],
+        "publisher": "Edtech Publishers (OPC) Private Limited",
+        "link": null
+      },
+      {
+        "title": [
+          "An SMT Formalization of\u00a0Mixed-Precision Matrix Multiplication"
+        ],
+        "DOI": "10.1007/978-3-031-93706-4_21",
+        "URL": "https://doi.org/10.1007/978-3-031-93706-4_21",
+        "published": {
+          "date-parts": [
+            [
+              2025
+            ]
+          ]
+        },
+        "author": [
+          {
+            "ORCID": "https://orcid.org/0000-0002-2245-3022",
+            "authenticated-orcid": false,
+            "given": "Benjamin",
+            "family": "Valpey",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "ORCID": "https://orcid.org/0009-0005-7276-7715",
+            "authenticated-orcid": false,
+            "given": "Xinyi",
+            "family": "Li",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "ORCID": "https://orcid.org/0000-0002-3691-7238",
+            "authenticated-orcid": false,
+            "given": "Sreepathi",
+            "family": "Pai",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "ORCID": "https://orcid.org/0000-0002-4161-9278",
+            "authenticated-orcid": false,
+            "given": "Ganesh",
+            "family": "Gopalakrishnan",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "publisher": "Springer Nature Switzerland",
+        "link": [
+          {
+            "URL": "https://link.springer.com/content/pdf/10.1007/978-3-031-93706-4_21",
+            "content-type": "unspecified",
+            "content-version": "vor",
+            "intended-application": "similarity-checking"
+          }
+        ]
+      },
+      {
+        "title": [
+          "Mixed Precision Fermi-Operator Expansion on Tensor Cores from a Machine Learning Perspective"
+        ],
+        "DOI": "10.1021/acs.jctc.1c00057.s001",
+        "URL": "https://doi.org/10.1021/acs.jctc.1c00057.s001",
+        "published": null,
+        "author": null,
+        "publisher": "American Chemical Society (ACS)",
+        "link": null
+      },
+      {
+        "title": [
+          "Mixed precision algorithms for low-rank matrix and tensor approximations"
+        ],
+        "DOI": "10.70675/ae1985e2z7097z4167z80f9z958ba9b8ed3f",
+        "URL": "https://doi.org/10.70675/ae1985e2z7097z4167z80f9z958ba9b8ed3f",
+        "published": null,
+        "author": [
+          {
+            "ORCID": "https://orcid.org/0009-0002-5755-1818",
+            "authenticated-orcid": false,
+            "given": "Matthieu",
+            "family": "Robeyns",
+            "sequence": "first",
+            "affiliation": [
+              {
+                "id": [
+                  {
+                    "id": "https://ror.org/03xjwb503",
+                    "id-type": "ROR",
+                    "asserted-by": "publisher"
+                  }
+                ],
+                "name": "universit\u00e9 Paris-Saclay"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "publisher": "Agence Bibliographique de l'Enseignement Sup\u00e9rieur",
+        "link": null
+      },
+      {
+        "title": [
+          "Mixed-Precision Architecture for GPU Tensor Cores"
+        ],
+        "DOI": "10.1109/swc57546.2023.10448789",
+        "URL": "https://doi.org/10.1109/swc57546.2023.10448789",
+        "published": {
+          "date-parts": [
+            [
+              2023,
+              8,
+              28
+            ]
+          ]
+        },
+        "author": [
+          {
+            "given": "Mohammad",
+            "family": "Hafezan",
+            "sequence": "first",
+            "affiliation": [
+              {
+                "name": "Lakehead University,Electrical Engineering Department,Thunder Bay,Canada"
+              }
+            ],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          },
+          {
+            "given": "Ehsan",
+            "family": "Atoofian",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Lakehead University,Electrical Engineering Department,Thunder Bay,Canada"
+              }
+            ],
+            "role": [
+              {
+                "role": "author",
+                "vocabulary": "crossref"
+              }
+            ]
+          }
+        ],
+        "publisher": "IEEE",
+        "link": [
+          {
+            "URL": "http://xplorestaging.ieee.org/ielx7/10447020/10448518/10448789.pdf?arnumber=10448789",
+            "content-type": "unspecified",
+            "content-version": "vor",
+            "intended-application": "similarity-checking"
+          }
+        ]
+      },
+      {
+        "title": [
+          "TileSpMM: A Variable-Size Tiled Algorithm for Sparse Matrix-Matrix Multiplication on Tensor Cores"
+        ],
+        "DOI": "10.1145/3832810.3832918",
+        "URL": "https://doi.org/10.1145/3832810.3832918",
+        "published": {
+          "date-parts": [
+            [
+              2026,
+              9,
+              27
+            ]
+          ]
+        },
+        "author": [
+          {
+            "ORCID": "https://orcid.org/0009-0005-7504-4758",
+            "authenticated-orcid": false,
+            "given": "Hongwei",
+            "family": "Zeng",
+            "sequence": "first",
+            "affiliation": [
+              {
+                "name": "China University of Petroleum-Beijing, Beijing, China"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "ORCID": "https://orcid.org/0009-0006-5160-7349",
+            "authenticated-orcid": false,
+            "given": "Shuqin",
+            "family": "Feng",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "China University of Petroleum-Beijing, Beijing, China"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "ORCID": "https://orcid.org/0009-0003-0364-6333",
+            "authenticated-orcid": false,
+            "given": "Haocheng",
+            "family": "Lian",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "China University of Petroleum-Beijing, Beijing, China"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "ORCID": "https://orcid.org/0009-0008-6387-8116",
+            "authenticated-orcid": false,
+            "given": "Yuechen",
+            "family": "Lu",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "China University of Petroleum-Beijing, Beijing, China"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          },
+          {
+            "ORCID": "https://orcid.org/0000-0002-2150-5759",
+            "authenticated-orcid": false,
+            "given": "Weifeng",
+            "family": "Liu",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "China University of Petroleum-Beijing, Beijing, China"
+              }
+            ],
+            "role": [
+              {
+                "vocabulary": "crossref",
+                "role": "author"
+              }
+            ]
+          }
+        ],
+        "publisher": "ACM",
+        "link": null
+      }
+    ]
+  }
+]

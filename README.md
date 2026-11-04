@@ -20,16 +20,20 @@ of a general LLM or training speedup.
 [What we found](#what-we-found-on-real-hardware) ·
 [How it works](#how-it-works) ·
 [NN study](docs/NN_OPTIMIZATION_STUDY.md) ·
+[Integration review](docs/INTEGRATION_REVIEW.md) ·
 [Results](#results) ·
 [Reproduce it](REPRODUCING.md)
 
 </div>
 
 ---
-## Painpoint Addressing
-**Do you always feel like when the newest nvidia GPU come out with unbearable high price while your existing older GPUs are making you left behind in model serving and training?**
+## Why OpenAssembler
 
-We provide a more efficient compiler eith optimization kernels that reduce the number of instruction down by up to 50% comparing to the NVIDIA ptxas compiler, and reach an approximate 13% speed up in LLM inferencing and training comparing to using the SASS/cubin compiled by the nvidia compiler on various existing architectures (A100, H100 etc). Our goal is to create efficient and fast compiler and low level assembly language/binary file so that you can (without buying expensive frontier GPUs) with a ~30% speedup in training speed. We currently support single file compilation (including Python, CUDA C, CUDA C++ down to SASS and further down to CUDA Binary file, which is directly executable on your NVIDIA GPUs). We are currently working on more optimization kernels and supporting complete compilation of a whole repo. 
+Our goal is to improve useful GPU work on existing hardware by controlling
+instruction selection, registers, data movement and scheduling. Current evidence
+targets A100/sm_80. Selected kernels improve on ptxas; that does not establish a
+general LLM training speedup or H100 support. The native SM80 tensor compiler
+and its retained experiments make the remaining cuBLAS performance gap explicit.
 
 ## What this is
 
@@ -229,22 +233,26 @@ Everything here was measured on an A100-SXM4-40GB rented by the minute
 through [Modal](https://modal.com) (see [REPRODUCING.md](REPRODUCING.md) for
 cost and the exact commands). A few findings that surprised us:
 
-- **`ptxas`'s own "mined minimum distances" are not real latencies.** Two
-  instructions that `ptxas` sometimes schedules 4 cycles apart actually need
-  5 on real hardware; using 4 gives wrong results. We measured the real
-  numbers directly: **4 cycles within a pipe, 5 across pipes**, and a
-  **13-cycle minimum** from a predicate write to any instruction that guards
-  on it — confirmed by sweeping every `stall` field from 1–15 against the
-  A100 (`corpus/sm_80/hw_latency.json`).
+- **Compiler-mined issue gaps are not hardware latency measurements.** The
+  corrected [42-case A100 sweep](docs/research/a100-latency/corpus/sm_80/latency-summary.json)
+  found 4/5-cycle thresholds for tested ALU/FMA pairs and a 13-cycle threshold
+  for tested predicate-to-guard cases. These are operand- and encoding-specific
+  observations. New [clocked HMMA and LDSM probes](exp/a100_mma/phase2/REPORT.md)
+  separately measure elapsed cycles; short encoded HMMA gaps can be hidden by
+  hardware interlocks.
 - **The register count declared in the cubin isn't just advisory.** Writing
   register `Rd` faults with `CUDA_ILLEGAL_INSTRUCTION` unless the declared
   count is ≥ `Rd + 3` — and that count lives in **two places**: the
   `EIATTR_REGCOUNT` record *and* bits 24–31 of the `.text.<kernel>` section's
   ELF `sh_info`. We only found the second one by faulting a real GPU
   (`corpus/sm_80/gpu_a100_40gb_bisect5.json`, 77 variants).
-- **Tensor-core accumulation is truncating, not rounding, per term**, and the
-  model below matches **100% of 512 recorded A100 lanes** per data type
-  (f16/bf16/tf32/s8/f64) — the next-best model we tried only matched ~70%:
+- **Tensor-core arithmetic needs an explicit numerical model.** The repo's
+  fitted model reproduces its recorded A100 inputs, but that does not establish
+  universal rounding semantics. A new hardware discriminant returns `32` for
+  `32 - 2**-40`, whereas global IEEE round-toward-zero would return the preceding
+  FP32 value. This distinction agrees with the [2025 formal-model study](https://arxiv.org/html/2502.15999).
+  The illustration below describes the fitted model; special values, guard bits
+  and accumulation order need broader adversarial validation.
 
   <p align="center"><img src="figs/nv_tiling.png" width="820" alt="How an HMMA/IMMA tensor-core instruction actually builds its f32 sum: multiply at nominal exponent, align, truncate to a 24-bit window below the max exponent, sum exactly, round once."></p>
 
@@ -259,6 +267,58 @@ The full list of discoveries regarding the closed source nvidia assembly languag
 ---
 
 ## Results
+
+### Native A100 MMA compiler
+
+The CLI now compiles SM80 FP16/BF16 tensor kernels using HMMA, LDSM, pipelined
+asynchronous shared-memory copies and OpenAssembler's encoder. The standard
+`compile` command detects supported tensor PTX; `gemm` generates the validated
+specialized plan. It uses ptxas for the ELF container and reference binary.
+The PyTorch application path remains separate.
+
+```sh
+openassembler gemm --m 4096 --n 16384 --k 4096 --dtype f16 --out-dir output
+openassembler run output --backend modal --budget 300 --job-timeout 120
+```
+
+The operation is `C=A@B.T`, with contiguous K in A/B, FP32 accumulation/output,
+M/N multiples of128 and K a multiple of128. The generated manifest supplies the
+launch and64-KiB shared-memory contract. `run` performs a bitwise small-integer
+smoke comparison; full floating-output and graph-timing evidence is retained
+separately. See [supported forms and API](docs/TENSOR_GEMM.md).
+
+| M × N × K | Input / accumulator / output | OpenAssembler | cuBLAS |
+|---|---|---:|---:|
+| 4096 × 4096 × 4096 | FP16 / FP32 / FP32 | 0.642 ms | 0.595 ms |
+| 4096 × 16384 × 4096 | FP16 / FP32 / FP32 | 2.461 ms | 2.434 ms |
+| 16384 × 4096 × 4096 | FP16 / FP32 / FP32 | 2.727 ms | 2.351 ms |
+| 4096 × 4096 × 4096 | BF16 / FP32 / FP32 | 0.628 ms | 0.556 ms |
+| 4096 × 16384 × 4096 | BF16 / FP32 / FP32 | 2.439 ms | 2.136 ms |
+| 16384 × 4096 × 4096 | BF16 / FP32 / FP32 | 2.665 ms | 2.125 ms |
+
+The fixed paired-fragment/vector-epilogue/stage-specialized schedule passed complete
+output checks and reduced time by 16.1–26.7% versus the prior direct schedule across
+six workloads, with component gains confirmed independently. Throughput is 80–99%
+of matched default cuBLAS in this final run. These are specialized full-tile GEMMs;
+a whole training step is still
+unmeasured. CUDA graph timing excludes Python launch overhead; clocks were not
+locked. The [latest report](exp/a100_mma/phase3/REPORT.md) records matched layouts,
+numerical tolerances, immutable evidence, stronger cuBLASLt comparisons and
+rejected experiments. See [reproduction instructions](REPRODUCING.md#further-a100-mma-experiments).
+
+Follow-on hardware-counter, scheduler and multistage-pipeline research is kept in
+[`exp/a100_mma/phase2/REPORT.md`](exp/a100_mma/phase2/REPORT.md). A paired six-workload
+test found that direct loop-carried pointer updates improve square/MLP kernels
+by about 5%, and tall kernels by 0.9–1.5%. Three/four stages and alternate bank
+layouts were tested too; more stages did not help this kernel. The report also
+includes [primary literature and hardware feasibility](exp/a100_mma/phase2/LITERATURE.md).
+Phase three also studies actual cuBLAS dispatch/SASS, paired LDSM/register layouts,
+producer warps, five-stage pipelines, proven LDGSTS immediate fields, and fused
+Strassen staging. Counters show tensor-pipe activity rising from 63.5% to 75.5%
+for the improved direct kernel. Phase four promotes the validated schedule into
+the CLI and verifies exact instruction-stream equality plus full A100 outputs.
+New cache-prefetch and fragment-window candidates passed correctness but did
+not establish additional speedups; they remain in the experiments.
 
 ### Our compiler vs. `ptxas`, same PTX, A100-measured wall-clock
 
@@ -346,6 +406,9 @@ for unsupported kernels and is labelled in every artifact record.
 Four optimization levels are available end to end
 (`--opt-level safe|mined|sched|opt`), matching the `safe/mined/sched/opt`
 columns in the benchmark table above.
+Tensor kernels use their separately validated source-order policy at every
+optimization level; PyTorch graphs use TorchInductor/Triton. Those paths do not
+inherit the scalar compiler's unrolling or scheduling automatically.
 
 ---
 
@@ -361,10 +424,11 @@ Here are a list of possible further improvements:
   loop counter increment and branch test inside the dependent chain; our
   unrolled loop pays a 13-cycle predicate wait per trip. Software-pipelining
   the next trip's predicate one iteration early should close this.
-- **Base GEMM is ~4% behind cuBLAS** at n = 8192, which every fast-matmul
-  plan inherits. A tensor-core (TF32/HMMA) GEMM using our bit-exact HMMA
-  model, plus `cp.async` pipelining, is the next step — with a GEMM at
-  parity, the measured 2.7% Strassen gain would put us *ahead* of cuBLAS.
+- **Tensor GEMM coverage and training integration:** native FP16/BF16 full-tile
+  A100 kernels are available through `gemm`. TF32, tails, broader layouts and
+  substitution into PyTorch forward/backward graphs remain future work.
+  Historical FP32 fast-matmul gains do not predict a gain against current
+  tensor-core cuBLAS or a complete training step.
 - **4×4×4 schemes lose at n = 8192**: the block GEMMs are too small to fill
   108 SMs (only 2.4 waves). Larger n, or fusing two Strassen levels, is
   untested.

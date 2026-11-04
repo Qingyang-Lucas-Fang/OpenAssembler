@@ -1,0 +1,168 @@
+{
+  "suite": "phase3/address_occupancy_large_suite.json",
+  "suite_sha256": "904792287c124bd0fd63a0199b8afe7864c5c3c7781ed51ea5cab69c74829f6a",
+  "suite_case": "address_occupancy_large_f16",
+  "index": 1,
+  "config": {
+    "build": "address_occupancy_large_f16_w64x32_unfolded",
+    "name": "address_occupancy_large_f16_w64x32_unfolded",
+    "m": 4096,
+    "n": 4096,
+    "k": 4096,
+    "dtype": "f16",
+    "tile_m": 128,
+    "tile_n": 128,
+    "threads": 256,
+    "smem": 65536
+  },
+  "dtype": "f16",
+  "shape_mnk": [
+    4096,
+    4096,
+    4096
+  ],
+  "grid": [
+    32,
+    32,
+    1
+  ],
+  "threads": 256,
+  "dynamic_shared_bytes": 65536,
+  "profile_contract": "OA and ptxas generated from this exact same source PTX",
+  "remote_function": "phase2/profile_modal.py:profile",
+  "requested_metrics": [
+    "gpu__time_duration.sum",
+    "sm__pipe_tensor_cycles_active.avg.pct_of_peak_sustained_active",
+    "sm__warps_active.avg.pct_of_peak_sustained_active",
+    "smsp__inst_executed.sum",
+    "smsp__warp_issue_stalled_short_scoreboard_per_warp_active.pct",
+    "smsp__warp_issue_stalled_long_scoreboard_per_warp_active.pct",
+    "smsp__warp_issue_stalled_barrier_per_warp_active.pct",
+    "smsp__warp_issue_stalled_math_pipe_throttle_per_warp_active.pct",
+    "smsp__warp_issue_stalled_mio_throttle_per_warp_active.pct",
+    "smsp__warp_issue_stalled_wait_per_warp_active.pct",
+    "smsp__warp_issue_stalled_not_selected_per_warp_active.pct",
+    "l1tex__data_bank_conflicts_pipe_lsu_mem_shared_op_ld.sum",
+    "l1tex__data_bank_conflicts_pipe_lsu_mem_shared_op_st.sum",
+    "dram__bytes.sum",
+    "lts__t_sector_hit_rate.pct",
+    "smsp__inst_executed_pipe_tensor.sum",
+    "l1tex__data_pipe_lsu_wavefronts_mem_shared_op_ld.sum",
+    "l1tex__t_requests_pipe_lsu_mem_shared_op_ld.sum",
+    "smsp__warps_eligible.avg.per_cycle_active"
+  ],
+  "input_provenance": {
+    "build": "address_occupancy_large_f16_w64x32_unfolded",
+    "grid": [
+      32,
+      32,
+      1
+    ],
+    "threads": 256,
+    "dynamic_shared_bytes": 65536,
+    "ours_sha256": "941b9dcdaef191510677a58cd2260079946d129404de10f5687683041bcf1e9e",
+    "ptxas_sha256": "27edc5c1a2728106b582ca68a016d21688e0f49915d5964e4cf709eca8490038",
+    "ptx_sha256": "7701e44d1a01c5093e4dd5ad461624d6dd8405e06c163aee5e3d9cfcde812dde",
+    "compilation": {
+      "compiler": "OpenAssembler bounded warp-layout/address-folding experiment",
+      "fallback": false,
+      "reference_and_ELF_container": "NVIDIA ptxas on matching PTX",
+      "candidate": {
+        "shared_chunk_immediates": false,
+        "paired_b": true,
+        "row_epilogue": true,
+        "gap": 8,
+        "reuse": true
+      },
+      "geometry": {
+        "m": 4096,
+        "n": 4096,
+        "k": 4096,
+        "bm": 128,
+        "bn": 128,
+        "bk": 64,
+        "wm": 64,
+        "wn": 32,
+        "stages": 2
+      },
+      "resource_model": {
+        "registers_per_thread": 136,
+        "rounded_registers_per_thread": 136,
+        "threads": 256,
+        "register_limited_ctas": 1,
+        "modeled_resident_ctas": 1,
+        "modeled_resident_warps": 8,
+        "shared_bytes_per_cta": 65536,
+        "limitation": "Static resource bound only; CUDA occupancy API and GPU timing remain necessary"
+      },
+      "source_ptx_sha256": "7701e44d1a01c5093e4dd5ad461624d6dd8405e06c163aee5e3d9cfcde812dde",
+      "compiler_source_hashes": {
+        "exp/a100_mma/phase3/address_occupancy.py": "08835aea539c3a48c7a1bc1cf85d7b46d8e86b9830f814e561059074a99cfb80",
+        "exp/a100_mma/phase3/address_shared.py": "2343f42ed9321804cbc0835730c7f27dc5941ea2dc6f33a445d5c8996b6ab674",
+        "exp/a100_mma/phase3/search_combined.py": "8a06158ecd2e657bab801b977fdbf8a375dde20d123e3df5c2e88b950aac2ff6",
+        "exp/a100_mma/phase3/search_sequences.py": "4ec826e51a60c86eb96764b2a3175483656eb21a02841b5000903575d6f2ae3d",
+        "exp/a100_mma/phase3/epilogue.py": "495a537d20cb63bd5a85d5dacf53875347340c0888d4700f603df850f2b2ea49",
+        "exp/a100_mma/backend.py": "755f6bf4f36f331fb636e2cd7314e4149762d9120f007f2567489858f49fdd69",
+        "exp/a100_mma/pipeline.py": "77769b4f4f433df23826b482d16386f4d0003afaade8ab863a1d5f5345d8b28e",
+        "openassembler/backend/ra.py": "6ed4a3f999f20e5d2317ece1bf4ef47a7e9a2019d461394df486e228797c14fc"
+      },
+      "cli_wall_ms": 5478.786749998108,
+      "kernels": [
+        {
+          "kernel": "gemm",
+          "requested_opt_level": "safe",
+          "applied_schedule": "source-order-HMMA8-epoch-drain15",
+          "scalar_schedule": "mined",
+          "protected_scoreboard_recycling": true,
+          "ldsm_read_barrier": false,
+          "ldsm_address_war_uses_write_completion": true,
+          "list_schedule_with_tensor_ordering": false,
+          "tensor_reuse_hints": true,
+          "experimental_recycle_without_wait": false,
+          "inline_64bit_pointer_increments": true,
+          "optimize_local_homes": true,
+          "licm_ops_hoisted": 0,
+          "ptx_instructions": 625,
+          "sass_instructions": 680,
+          "registers": 136,
+          "stages": {
+            "select_ms": 17.588416929356754,
+            "licm_ms": 0.0014579854905605316,
+            "dce_coalesce_ms": 9.549917071126401,
+            "allocate_ms": 161.6769169922918,
+            "lower_ms": 12.341041001491249,
+            "schedule_ms": 46.0044170031324,
+            "encoder_setup_ms": 2432.1887500118464,
+            "encode_ms": 7.560791913419962
+          }
+        }
+      ],
+      "sass_opcode_counts": {
+        "MOV": 115,
+        "ULDC.64": 1,
+        "S2R": 3,
+        "IMAD.SHL": 55,
+        "LOP3.LUT": 57,
+        "SHF.R.U32.HI": 21,
+        "IADD3": 121,
+        "IMAD": 32,
+        "IMAD.WIDE.U32": 16,
+        "LDGSTS.E.BYPASS.128": 16,
+        "LDGDEPBAR": 2,
+        "IADD3.X": 16,
+        "DEPBAR.LE": 2,
+        "BAR.SYNC.DEFER_BLOCKING": 4,
+        "LDSM.16.M88.4": 48,
+        "HMMA.16816.F32": 128,
+        "NOP": 15,
+        "ISETP.LT.U32.AND": 1,
+        "@P0": 1,
+        "STG.E.64": 32,
+        "EXIT": 1,
+        "BRA": 1
+      },
+      "exact_nvdisasm_tensor_memory_store_operands": true,
+      "spliced_words_and_controls_exact": true
+    }
+  }
+}

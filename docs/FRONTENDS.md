@@ -39,6 +39,14 @@ compatibility, `.cubin` or `.sass` suffixes are stripped with a notice. Use
 `--out-dir DIR` to relocate all artifacts. A directory compile mirrors its source
 paths and does not accept `-o`. Same-stem sources retain their source extensions;
 remaining case-insensitive collisions receive a deterministic suffix.
+Configured PyTorch application directories accept `-o NAME` for their bundle;
+individual files always use the standalone-kernel compilation route.
+
+Builds serialize writes to each output directory with `.build/writer.lock`.
+A competing writer fails with a clear message; separate output roots remain
+independent. Locks release on interruption or process exit. The lock file can
+remain after release and must not be deleted while a writer is active. Corrupt
+manifests are refused before compilation changes their recorded outputs.
 
 Repository discovery uses Git's tracked and non-ignored file list when available,
 otherwise a recursive walk. It recognizes `.ptx` with `.entry`, CUDA
@@ -71,6 +79,8 @@ specializations are explicit. Capture executes the configured training workload
 on a CUDA GPU. `--verify` runs the same workload eagerly and compiled in separate
 seeded processes, then compares observed model outputs, final parameters,
 gradients, optimizer state, and step counts within the configured tolerance.
+Output snapshots cover the first two calls of each observed owning model; final
+model state includes nested submodules. Multiple instances receive stable names.
 This checks the selected arguments, shapes, and observed branches; it does not
 prove correctness for unobserved workloads.
 `rtol`/`atol` apply to outputs and gradients; `state_rtol`/`state_atol` apply to
@@ -120,6 +130,25 @@ entry point, arguments, backend, GPU, and budget without executing training.
 `--build-backend`, `--build-gpu`, and `--build-budget` override the manifest for
 one build. Runtime replay uses the bundled cache only; an uncaptured shape or
 Triton kernel fails and requires recompilation.
+`--no-sass` omits application listings. Scalar kernel selectors, include/nvcc
+flags, fallback and nondefault optimization levels are rejected on this route.
+`--verify` fails when verification is disabled in the application config.
+Backend `auto` chooses Modal on macOS, or local execution on Linux when PyTorch
+is installed; local still requires a compatible CUDA GPU and pinned runtime.
+
+Use `run --application NAME` to select an application in a mixed output tree.
+Kernel selectors, `--spec`, `--from-results` and `--save-jobs` select standalone
+execution and cannot be combined with `--application`. App replay accepts a
+finite `--budget` of 30..1800 seconds and a positive `--job-timeout` no greater
+than its budget; defaults come from the saved config. `--verify-application`
+reruns state comparison. Source/cache/cubin checksums are checked before GPU
+execution. Reports are saved to `run.json` and timestamped `runs/` files.
+
+Source/cache archives are bounded to 256 MiB and 20,000 files each; verification
+tensor snapshots are bounded to 128 MiB. Distributed training, unrestricted
+shapes, and automatic native-GEMM substitution are not implemented.
+
+The options in this table apply to standalone kernel compilation:
 
 | Option | Meaning |
 |---|---|
@@ -255,12 +284,16 @@ A complete spec is [examples/run_spec.json](../examples/run_spec.json). Its sche
 }
 ```
 
-Buffer dtypes: `f32`, `i32`, `u32`. Initialization: `random`, `zeros`, or an explicit
+Buffer dtypes: `f32`, `i32`, `u32` (four bytes), `f16`, `bf16` (two bytes).
+Half-precision `random` uses exact integers in [-3, 3]; explicit values round to
+input precision, with BF16 ties to even. Initialization: `random`, `zeros`, or an explicit
 list (remaining elements stay zero). Arguments: `buf` plus optional byte `offset`,
 `i32`, `u32`, `u64`, or `f32`. Argument order is the kernel's declared order.
 Dimensions are a positive integer or a list of up to three positive integers.
 `smem` is dynamic shared-memory bytes. Steps execute sequentially and share named
 buffers. `compare` defaults to all buffers; a specified list must be nonempty.
+Offsets lie inside the buffer and align to its element size; tensor/vector
+accesses may require stricter alignment in their kernel contract.
 Timing repetitions execute the sequence repeatedly without resetting buffers;
 use idempotent workloads when interpreting timing. Correctness is captured after
 the first sequence. Missing outputs and faulted jobs are failures, never passes.

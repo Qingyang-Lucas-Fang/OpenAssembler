@@ -1,0 +1,29 @@
+✓ Initialized. View run at 
+https://modal.com/apps/qingyang-lucas-fang/main/ap-oBcR950DmZcIRuQ1XZuoDo
+✓ Created objects.
+├── ✓ Uploaded /Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/modal_run.py
+├── ✓ Uploaded 
+│   /Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/triton_kernel.py
+├── ✓ Uploaded /Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/gpu_worker.py
+├── ✓ Uploaded PythonPackage:openassembler
+└── ✓ Created Function execute.
+
+==========
+== CUDA ==
+==========
+
+CUDA Version 12.8.0
+
+Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+
+This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+By pulling and using the container, you accept the terms and conditions of this license:
+https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+
+A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
+
+p2_scheduling_paired {'ours': 0.7831552028656006, 'ptxas': 0.6311423778533936, 'p2_schedule_column_all': 0.781056022644043, 'p2_schedule_column_reuse': 0.7571455955505371, 'p2_schedule_window4_reuse': 0.7912960052490234, 'p2_schedule_list_safe': 0.7655935764312745, 'p2_shape_w32x64': 0.8328191757202148, 'p2_shape_w32x32': 1.5046655654907226, 'cublas': 0.5578239917755127}
+/Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/results/p2_scheduling_paired.json
+Stopping app - local entrypoint completed.
+✓ App completed. View run at 
+https://modal.com/apps/qingyang-lucas-fang/main/ap-oBcR950DmZcIRuQ1XZuoDo

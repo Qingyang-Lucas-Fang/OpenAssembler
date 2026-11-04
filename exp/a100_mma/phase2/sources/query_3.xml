@@ -1,0 +1,238 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/jxYKNkKPLvWooy++4KJ+iLxHAdk</id>
+  <title>arXiv Query: search_query=all:"tensor core" AND ti:"mixed precision"&amp;id_list=&amp;start=0&amp;max_results=8</title>
+  <updated>2026-11-03T11:30:50Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=all:%22tensor+core%22+AND+ti:%22mixed+precision%22&amp;start=0&amp;max_results=8&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>8</opensearch:itemsPerPage>
+  <opensearch:totalResults>18</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2610.30480v1</id>
+    <title>FIGFLEX: A Mixed-Precision FP-INT GEMM Accelerator Co-Designed with Low-Bit LLM Quantization</title>
+    <updated>2026-10-21T21:59:47Z</updated>
+    <link href="https://arxiv.org/abs/2610.30480v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2610.30480v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Weight-only quantization keeps LLM activations in floating point and stores weights as low-bit integers, turning the dominant workload into floating-point-integer (FP-INT) general matrix multiplication. Recent quantizers reach a 2-3-bit average with mixed precision, but hardware has not kept pace: GPUs dequantize weights to FP16 before the tensor-core multiply-accumulate, and bit-parallel FP-INT accelerators run at a single weight precision, so fewer bits save memory but not computation. In this paper, we present FIGFLEX, an algorithm-hardware co-designed mixed-precision accelerator whose bit-parallel datapath scales throughput as precision falls. FIGFLEX contributes (1) a shift-add, radix-4 reformulation of FP-INT multiplication that fuses the multiply-accumulate into a unified, precision-flexible partial-product reduction and roughly halves the partial products, together with a novel INT3 optimization that reclaims the idle datapath radix-4 leaves at that precision; and (2) a mixed-precision quantizer that assigns each channel group its bit-width according to the error GPTQ cannot compensate, with a per-input-channel column scaling whose power-of-two normalization keeps the scaled activations out of the FP16 subnormal range, so that the quantized model maps directly onto FIGFLEX's datapath with the same accuracy as on a GPU. On LLaMA-2-7B, FIGFLEX attains 5.85 and 8.77 WikiText-2 perplexity at 3- and 2-bit average precision, lower than GPTQ, AWQ, SliM-LLM, AMQ, and QuIP# (without fine-tuning), while delivering 1.56x and 1.42x higher whole-chip throughput per area on the linear GEMMs of a 3-bit mixed-precision model than AxCore and FIGLUT, respectively.</summary>
+    <category term="cs.AR" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.LG" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-10-21T21:59:47Z</published>
+    <arxiv:comment>15 pages, 12 Figures</arxiv:comment>
+    <arxiv:primary_category term="cs.AR"/>
+    <author>
+      <name>Faraz Tahmasebi</name>
+    </author>
+    <author>
+      <name>Haocheng Xu</name>
+    </author>
+    <author>
+      <name>Andrew Trauger</name>
+    </author>
+    <author>
+      <name>Yomal Perera</name>
+    </author>
+    <author>
+      <name>Zhenyu Tang</name>
+    </author>
+    <author>
+      <name>Nael Chowdhury</name>
+    </author>
+    <author>
+      <name>Sitao Huang</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2607.25884v1</id>
+    <title>CONQuER: Hardware-Aware Mixed-Precision Quantisation with Online-Calibrated Surrogates</title>
+    <updated>2026-07-28T15:45:26Z</updated>
+    <link href="https://arxiv.org/abs/2607.25884v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2607.25884v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Deploying deep neural networks on resource-constrained hardware relies on mixed-precision quantisation (MPQ). current deployment toolchains severely fragment this process. Quantisation typically occurs as a hardware-agnostic preprocessing step in front-end frameworks, disconnected from the downstream compilers that generate the physical machine code. This separation leads to suboptimal configurations where assigned bit-widths map poorly to the target machine's heterogeneous hardware execution blocks such as tensor cores and variable-width vector units, incurring severe runtime execution penalties. Furthermore, evaluating these configurations via exhaustive hardware-in-the-loop (HIL) testing is intractable due to the exponentially large search space. We present CONQuER, a unified compiler-integrated infrastructure for hardware-aware MPQ. CONQuER shifts quantisation into the compiler pipeline at the TOSA level, enabling intelligent configuration handling based on compiler support. To evaluate this combinatorial search space of different of model layers within practical compilation budgets, CONQuER couples an NSGA-II evolutionary algorithm with a dual-surrogate prescreening engine. This engine evaluates theoretical cache memory bounds and feature space isotropy to discard non-viable configurations. CONQuER then executes only the strongest candidate policies on hardware via IREE, feeding the execution metrics into an online calibrator. This calibrator aligns the surrogate models with the true hardware behaviour during an NSGA-II evolutionary search. Evaluation across mobile and laptop CPUs, and server GPUs demonstrates that optimal quantisation policies are hardware-dependent. By coupling quantisation with compiler lowering and physical execution, CONQuER discovers Pareto-optimal configurations up to 12.19x faster inference with top-1 accuracy within 1.44% of the unquantised baseline.</summary>
+    <category term="cs.SE" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-07-28T15:45:26Z</published>
+    <arxiv:comment>11 pages, 3 figures, 5 tables</arxiv:comment>
+    <arxiv:primary_category term="cs.SE"/>
+    <author>
+      <name>Aidan Dakhama</name>
+      <arxiv:affiliation>University of Edinburgh</arxiv:affiliation>
+    </author>
+    <author>
+      <name>Ajitha Rajan</name>
+      <arxiv:affiliation>University of Edinburgh</arxiv:affiliation>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2512.00053v3</id>
+    <title>Ten-Four: An Open-Source Fused Dot Product Unit for Mixed-Precision GPGPU Tensor Cores</title>
+    <updated>2026-06-11T16:28:07Z</updated>
+    <link href="https://arxiv.org/abs/2512.00053v3" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2512.00053v3" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Efficient mixed-precision MMA operations are critical for accelerating deep learning workloads on GPGPUs. However, existing open-source Tensor Core implementations rely on discrete arithmetic unit designs, leading to high latency, accumulated rounding errors, and poor resource utilization. To address these challenges, we propose Ten-Four, a configurable mixed-precision fused dot product unit integrating both floating-point and integer arithmetic pipelines within a unified architecture, implemented as part of the open-source RISC-V-based Vortex GPGPU's Tensor Core Unit extension. It supports low-precision multiplication in TF32/FP16/BF16/FP8/BF8/INT8/INT4 with higher-precision FP32/INT32 accumulation, native Microscaling (MX) support, and sparse lane clock-gating for dynamic power reduction, while matching NVIDIA Tensor Core numerical accuracy. Ten-Four achieves 4-cycle latency at 300 MHz Fmax on the Xilinx U55C FPGA, delivering 130.368 GFLOPS peak throughput per Tensor Core and 2.7x-7.9x speedup over equivalent Berkeley HardFloat and FPnew based implementations at less than 60% the area cost. ASIC synthesis in 7nm FinFET achieves 2.771 TFLOPS/W peak efficiency at 1.58 GHz Fmax.</summary>
+    <category term="cs.AR" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-11-19T15:57:09Z</published>
+    <arxiv:comment>8 pages, 9 figures, 3 tables</arxiv:comment>
+    <arxiv:primary_category term="cs.AR"/>
+    <author>
+      <name>Nikhil Rout</name>
+    </author>
+    <author>
+      <name>Blaise Tine</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2508.21230v1</id>
+    <title>Fast and Scalable Mixed Precision Euclidean Distance Calculations Using GPU Tensor Cores</title>
+    <updated>2025-08-28T21:46:35Z</updated>
+    <link href="https://arxiv.org/abs/2508.21230v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2508.21230v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Modern GPUs are equipped with tensor cores (TCs) that are commonly used for matrix multiplication in artificial intelligence workloads. However, because they have high computational throughput, they can lead to significant performance gains in other algorithms if they can be successfully exploited. We examine using TCs to compute Euclidean distance calculations, which are used in many data analytics applications. Prior work has only investigated using 64 bit floating point (FP64) data for computation; however, TCs can operate on lower precision floating point data (i.e., 16 bit matrix multiplication and 32 bit accumulation), which we refer to as FP16-32. FP16-32 TC peak throughput is so high that TCs are easily starved of data. We propose a Fast and Scalable Tensor core Euclidean Distance (FaSTED) algorithm. To achieve high computational throughput, we design FaSTED for significant hierarchical reuse of data and maximize memory utilization at every level (global memory, shared memory, and registers). We apply FaSTED to the application of similarity searches, which typically employ an indexing data structure to eliminate superfluous Euclidean distance calculations. We compare to the state-of-the-art (SOTA) TC Euclidean distance algorithm in the literature that employs FP64, as well as to two single precision (FP32) CUDA core algorithms that both employ an index. We find that across four real-world high-dimensional datasets spanning 128-960 dimensions, the mixed-precision brute force approach achieves a speedup over the SOTA algorithms of 2.5-51x. We also quantify the accuracy loss of our mixed precision algorithm to be less than &lt;0.06% when compared to the FP64 baseline.</summary>
+    <category term="cs.DC" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.PF" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-08-28T21:46:35Z</published>
+    <arxiv:comment>To appear in the proceedings of the International Conference on Parallel Processing 2025</arxiv:comment>
+    <arxiv:primary_category term="cs.DC"/>
+    <author>
+      <name>Brian Curless</name>
+    </author>
+    <author>
+      <name>Michael Gowanlock</name>
+    </author>
+    <arxiv:doi>10.1145/3754598.3754636</arxiv:doi>
+    <link rel="related" href="https://doi.org/10.1145/3754598.3754636" title="doi"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2508.03063v1</id>
+    <title>Mixed Precision Photonic Computing with 3D Electronic-Photonic Integrated Circuits</title>
+    <updated>2025-08-05T04:24:36Z</updated>
+    <link href="https://arxiv.org/abs/2508.03063v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2508.03063v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>We propose advancing photonic in-memory computing through three-dimensional photonic-electronic integrated circuits using phase-change materials (PCM) and AlGaAs-CMOS technology. These circuits offer high precision (greater than 12 bits), scalability (greater than 1024 by 1024), and massive parallelism (greater than 1 million operations) across the wavelength, spatial, and temporal domains at ultra-low power (less than 1 watt per PetaOPS). Monolithically integrated hybrid PCM-AlGaAs memory resonators handle coarse-precision iterations (greater than 5-bit most significant bit precision) through reversible PCM phase transitions. Electro-optic memristive tuning enables fine-precision updates (greater than 8-bit least significant bit precision), resulting in over 12-bit precision for in-memory computing. The use of low-loss PCM (less than 0.01 dB per cm) and electro-optical tuning yields memristive optical resonators with high Q-factors (greater than 1 million), low insertion loss, and low tuning power. A W by W photonic tensor core composed of PCM-AlGaAs memresonators performs general matrix multiplication (GEMM) across W wavelengths from optical frequency combs, with minimal crosstalk and loss. Hierarchical scaling in the wavelength domain (K) and spatial domain (L) enables this system to address high-dimensional (N) scientific partial differential equation (PDE) problems in a single constant-time operation, compared to the conventional quadratic-time (N squared) computational complexity.</summary>
+    <category term="physics.optics" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="physics.app-ph" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-08-05T04:24:36Z</published>
+    <arxiv:primary_category term="physics.optics"/>
+    <author>
+      <name>Georgios Charalampous</name>
+    </author>
+    <author>
+      <name>Rui Chen</name>
+    </author>
+    <author>
+      <name>Mehmet Berkay On</name>
+    </author>
+    <author>
+      <name>Aslan Nasirov</name>
+    </author>
+    <author>
+      <name>Chun-Yi Cheng</name>
+    </author>
+    <author>
+      <name>Mahmoud AbdelGhany</name>
+    </author>
+    <author>
+      <name>Arka Majumdar</name>
+    </author>
+    <author>
+      <name>Ji Wang</name>
+    </author>
+    <author>
+      <name>Jennifer A. Black</name>
+    </author>
+    <author>
+      <name>Rajkumar Chinnakonda Kubendran</name>
+    </author>
+    <author>
+      <name>Caglar Oskay</name>
+    </author>
+    <author>
+      <name>Zhaojun Bai</name>
+    </author>
+    <author>
+      <name>Sam Palermo</name>
+    </author>
+    <author>
+      <name>Scott B. Papp</name>
+    </author>
+    <author>
+      <name>S. J. Ben Yoo</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2508.02343v2</id>
+    <title>MicroMix: Efficient Mixed-Precision Quantization with Microscaling Formats for Large Language Models</title>
+    <updated>2026-03-30T09:16:28Z</updated>
+    <link href="https://arxiv.org/abs/2508.02343v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2508.02343v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Quantization significantly accelerates inference in large language models (LLMs) by replacing original high-precision matrices with low-precision counterparts. Recent advances in weight-activation quantization have primarily focused on mapping both weights and activations to the INT4 format. Although the new FP4 Tensor Cores in NVIDIA's Blackwell architecture offer up to 4x speedup over FP16, existing INT4-based kernels fail to fully exploit this capability due to mismatched data formats. To bridge this gap, we propose MicroMix, a co-designed mixed-precision quantization algorithm and GEMM kernel based on Microscaling (MX) data formats. Tailored for the Blackwell architecture, the MicroMix kernel supports arbitrary combinations of MXFP4, MXFP6, and MXFP8 channels, and produces BFloat16 outputs. To achieve a favorable trade-off between accuracy and efficiency for each linear layer, we introduce quantization thresholds that identify activation elements where lower-precision formats (MXFP4 or MXFP6) incur excessive quantization error. Our algorithm selectively allocates higher-precision channels to preserve accuracy while maintaining compute efficiency. On the Llama and Qwen model families, MicroMix achieves near-FP16 performance across diverse downstream tasks with an average precision of 5 bits. In particular, Qwen2.5-32B-Base, Coder and Math exhibit lossless accuracy on zero-shot, code generation, and mathematical reasoning benchmarks. In addition, on RTX 5070Ti laptop and RTX 5090 GPUs, our kernel achieves 2.29-3.38x acceleration compared to TensorRT-FP16. Our code is available at https://github.com/lwy2020/MicroMix.</summary>
+    <category term="cs.LG" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-08-04T12:22:39Z</published>
+    <arxiv:primary_category term="cs.LG"/>
+    <arxiv:journal_ref>ICLR 2026</arxiv:journal_ref>
+    <author>
+      <name>Wenyuan Liu</name>
+    </author>
+    <author>
+      <name>Haoqian Meng</name>
+    </author>
+    <author>
+      <name>Yilun Luo</name>
+    </author>
+    <author>
+      <name>Yafei Zhao</name>
+    </author>
+    <author>
+      <name>Peng Zhang</name>
+    </author>
+    <author>
+      <name>Xindian Ma</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2502.15999v1</id>
+    <title>An SMT Formalization of Mixed-Precision Matrix Multiplication: Modeling Three Generations of Tensor Cores</title>
+    <updated>2025-02-21T23:22:56Z</updated>
+    <link href="https://arxiv.org/abs/2502.15999v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2502.15999v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Many recent computational accelerators provide non-standard (e.g., reduced precision) arithmetic operations to enhance performance for floating-point matrix multiplication. Unfortunately, the properties of these accelerators are not widely understood and lack sufficient descriptions of their behavior. This makes it difficult for tool builders beyond the original vendor to target or simulate the hardware correctly, or for algorithm designers to be confident in their code. To address these gaps, prior studies have probed the behavior of these units with manually crafted tests. Such tests are cumbersome to design, and adapting them as the accelerators evolve requires repeated manual effort.
+  We present a formal model for the tensor cores of Nvidia's Volta, Turing, and Ampere GPUs. We identify specific properties -- rounding mode, precision, and accumulation order -- that drive these cores' behavior. We formalize these properties and then use the formalization to automatically generate discriminating inputs that illustrate differences among machines. Our results confirm many of the findings of previous tensor core studies, but also identify subtle disagreements. In particular, Nvidia's machines do not, as previously reported, use round-to-zero for accumulation, and their 5-term accumulator requires 3 extra carry-out bits for full accuracy. Using our formal model, we analyze two existing algorithms that use half-precision tensor cores to accelerate single-precision multiplication with error correction. Our analysis reveals that the newer algorithm, designed to be more accurate than the first, is actually less accurate for certain inputs.</summary>
+    <category term="cs.AR" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="math.NA" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-02-21T23:22:56Z</published>
+    <arxiv:comment>To appear in the 17th NASA Formal Methods Symposium (June 11-13, 2025)</arxiv:comment>
+    <arxiv:primary_category term="cs.AR"/>
+    <author>
+      <name>Benjamin Valpey</name>
+    </author>
+    <author>
+      <name>Xinyi Li</name>
+    </author>
+    <author>
+      <name>Sreepathi Pai</name>
+    </author>
+    <author>
+      <name>Ganesh Gopalakrishnan</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2412.14590v2</id>
+    <title>MixLLM: LLM Quantization with Global Mixed-precision between Output-features and Highly-efficient System Design</title>
+    <updated>2026-04-22T15:43:48Z</updated>
+    <link href="https://arxiv.org/abs/2412.14590v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2412.14590v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Quantization has become one of the most effective methodologies to compress LLMs into smaller size. However, the existing quantization solutions still show limitations of either non-negligible accuracy drop or low system efficiency. In this paper, we propose MixLLM that explores the optimization space of mixed-precision quantization between output features, based on the insight that different features matter differently in the model. MixLLM identifies the important output features in the global view rather than within each single layer, effectively assigning larger bit-width to output features that need it the most to achieve high accuracy and low memory usage. We present the sweet spot of quantization configuration of algorithm-system co-design with high accuracy and system efficiency. To address the system challenge, we design the two-step dequantization to make use of the Tensor Core easily and fast data type conversion to reduce dequantization overhead, and present the software pipeline to overlap the memory access, dequantization and the MatMul to the best. Extensive experiments show that with only 10\% more bits, the perplexity increase can be reduced from about 0.5 in SOTA to within 0.2 for Llama 3.1 70B, while MMLU-Pro loss can be reduced from 1.92 to 0.99 over the SOTA of three popular models. Besides its superior accuracy, MixLLM also achieves state-of-the-art system efficiency. Code is released at https://github.com/microsoft/MixLLM.</summary>
+    <category term="cs.LG" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2024-12-19T07:15:15Z</published>
+    <arxiv:comment>Accepted at MLSys 2026</arxiv:comment>
+    <arxiv:primary_category term="cs.LG"/>
+    <author>
+      <name>Zhen Zheng</name>
+    </author>
+    <author>
+      <name>Xiaonan Song</name>
+    </author>
+    <author>
+      <name>Chuanjie Liu</name>
+    </author>
+  </entry>
+</feed>

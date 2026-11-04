@@ -1,0 +1,51 @@
+{
+ "openassembler": "0.2.0",
+ "schema": 1,
+ "arch": "sm_80",
+ "opt_level": "opt",
+ "root": "/Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/phase2/final-pytest-temp/test_python_and_cuda_c_compile0",
+ "entries": [
+  {
+   "source": "external.cu",
+   "source_sha256": "ee4fc51b66dc77c981bf324d95919bb3b115bd59dba2d896dc0d0a6aa4b8faf2",
+   "language": "cuda",
+   "cubin": "cubin/custom.cubin",
+   "sass": "sass/custom.sass",
+   "ptx": ".build/ptx/custom.ptx",
+   "reference": ".build/reference/custom.cubin",
+   "kernels": [
+    {
+     "name": "vector_add",
+     "params": [
+      [
+       "u64",
+       "vector_add_param_0"
+      ],
+      [
+       "u64",
+       "vector_add_param_1"
+      ],
+      [
+       "u64",
+       "vector_add_param_2"
+      ],
+      [
+       "u32",
+       "vector_add_param_3"
+      ]
+     ],
+     "compiled_by": "openassembler",
+     "instructions": 18,
+     "registers": 16,
+     "verify": "not-run",
+     "source_params": [
+      "a",
+      "b",
+      "out",
+      "n"
+     ]
+    }
+   ]
+  }
+ ]
+}

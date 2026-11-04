@@ -1,0 +1,37 @@
+✓ Initialized. View run at 
+https://modal.com/apps/qingyang-lucas-fang/main/ap-476lR6Twcso8nIkH7plisL
+✓ Created objects.
+├── ✓ Uploaded 
+│   /Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/phase2/integration_modal
+│   .py
+├── ✓ Uploaded 
+│   /Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/phase2/integration_worke
+│   r.py
+├── ✓ Uploaded PythonPackage:openassembler
+└── ✓ Created Function execute.
+
+==========
+== CUDA ==
+==========
+
+CUDA Version 12.8.0
+
+Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+
+This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+By pulling and using the container, you accept the terms and conditions of this license:
+https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+
+A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
+
+[
+  {
+    "error": "Traceback (most recent call last):\n  File \"/root/exp/integration_worker.py\", line 120, in <module>\n    try:result=run(json.loads(Path(sys.argv[1]).read_text()))\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/root/exp/integration_worker.py\", line 49, in run\n    engine=CompilerGemm(case['binaries'])\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/root/exp/integration_worker.py\", line 19, in __init__\n    module=self.drv.load(base64.b64decode(record['binary']));self.handles.append(module)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/root/openassembler/gpu/cuda_driver.py\", line 117, in load\n    self.ck(self.cu.cuModuleLoadDataEx(C.byref(mod), img, 0, None, None), \"cuModuleLoadData\")\n  File \"/root/openassembler/gpu/cuda_driver.py\", line 65, in ck\n    raise CudaError(what, r, self.errname(r))\nopenassembler.gpu.cuda_driver.CudaError: cuModuleLoadData: CUDA_ERROR_INVALID_CONTEXT (201)\n",
+    "name": "linear_boundary_f16"
+  },
+  {
+    "error": "Traceback (most recent call last):\n  File \"/root/exp/integration_worker.py\", line 120, in <module>\n    try:result=run(json.loads(Path(sys.argv[1]).read_text()))\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/root/exp/integration_worker.py\", line 49, in run\n    engine=CompilerGemm(case['binaries'])\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/root/exp/integration_worker.py\", line 19, in __init__\n    module=self.drv.load(base64.b64decode(record['binary']));self.handles.append(module)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/root/openassembler/gpu/cuda_driver.py\", line 117, in load\n    self.ck(self.cu.cuModuleLoadDataEx(C.byref(mod), img, 0, None, None), \"cuModuleLoadData\")\n  File \"/root/openassembler/gpu/cuda_driver.py\", line 65, in ck\n    raise CudaError(what, r, self.errname(r))\nopenassembler.gpu.cuda_driver.CudaError: cuModuleLoadData: CUDA_ERROR_INVALID_CONTEXT (201)\n",
+    "name": "linear_boundary_bf16"
+  }
+]
+Stopping app - uncaught exception raised locally: SystemExit(1).

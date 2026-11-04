@@ -20,10 +20,11 @@ def unpack(blob: bytes, destination: Path) -> None:
         for item in items:
             path = PurePosixPath(item.filename)
             mode = item.external_attr >> 16
+            normalized = path.as_posix()
             if (path.is_absolute() or not path.parts or '..' in path.parts or '\\' in item.filename
-                    or stat.S_ISLNK(mode) or item.filename in names):
+                    or stat.S_ISLNK(mode) or normalized in names):
                 raise ValueError(f"unsafe application archive member: {item.filename!r}")
-            names.add(item.filename)
+            names.add(normalized)
             target = root.joinpath(*path.parts)
             if not target.resolve().is_relative_to(root):
                 raise ValueError(f"application archive member escapes its root: {item.filename!r}")

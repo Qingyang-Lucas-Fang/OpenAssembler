@@ -1,0 +1,212 @@
+[
+  {
+    "build": "search_smoke_f16_baseline",
+    "exact_words": 1824,
+    "exact_controls": 1820,
+    "exact_tensor_memory_operands": true,
+    "registers": 228
+  },
+  {
+    "build": "search_smoke_f16_bpair",
+    "exact_words": 1808,
+    "exact_controls": 1800,
+    "exact_tensor_memory_operands": true,
+    "registers": 232
+  },
+  {
+    "build": "search_smoke_f16_bpair_row",
+    "exact_words": 1808,
+    "exact_controls": 1800,
+    "exact_tensor_memory_operands": true,
+    "registers": 232
+  },
+  {
+    "build": "search_smoke_f16_overlap",
+    "exact_words": 1840,
+    "exact_controls": 1838,
+    "exact_tensor_memory_operands": true,
+    "registers": 246
+  },
+  {
+    "build": "search_smoke_f16_bpair_overlap",
+    "exact_words": 1824,
+    "exact_controls": 1818,
+    "exact_tensor_memory_operands": true,
+    "registers": 248
+  },
+  {
+    "build": "search_smoke_f16_role1",
+    "exact_words": 1824,
+    "exact_controls": 1820,
+    "exact_tensor_memory_operands": true,
+    "registers": 228
+  },
+  {
+    "build": "search_smoke_f16_role2",
+    "exact_words": 1824,
+    "exact_controls": 1820,
+    "exact_tensor_memory_operands": true,
+    "registers": 228
+  },
+  {
+    "build": "search_smoke_f16_quadshift1",
+    "exact_words": 1824,
+    "exact_controls": 1820,
+    "exact_tensor_memory_operands": true,
+    "registers": 228
+  },
+  {
+    "build": "search_smoke_f16_quadshift3",
+    "exact_words": 1824,
+    "exact_controls": 1820,
+    "exact_tensor_memory_operands": true,
+    "registers": 226
+  },
+  {
+    "build": "search_smoke_f16_bpair_role1",
+    "exact_words": 1808,
+    "exact_controls": 1800,
+    "exact_tensor_memory_operands": true,
+    "registers": 236
+  },
+  {
+    "build": "search_smoke_f16_bpair_swizzle3_7",
+    "exact_words": 1808,
+    "exact_controls": 1800,
+    "exact_tensor_memory_operands": true,
+    "registers": 232
+  },
+  {
+    "build": "search_smoke_f16_bpair_swizzle7_3",
+    "exact_words": 1808,
+    "exact_controls": 1800,
+    "exact_tensor_memory_operands": true,
+    "registers": 232
+  },
+  {
+    "build": "search_smoke_f16_bpair_gap4",
+    "exact_words": 1808,
+    "exact_controls": 1800,
+    "exact_tensor_memory_operands": true,
+    "registers": 232
+  },
+  {
+    "build": "search_smoke_f16_bpair_no_reuse",
+    "exact_words": 1808,
+    "exact_controls": 1800,
+    "exact_tensor_memory_operands": true,
+    "registers": 232
+  },
+  {
+    "build": "search_smoke_f16_bpair_preaddress",
+    "exact_words": 1800,
+    "exact_controls": 1794,
+    "exact_tensor_memory_operands": true,
+    "registers": 228
+  },
+  {
+    "build": "search_smoke_bf16_baseline",
+    "exact_words": 1824,
+    "exact_controls": 1820,
+    "exact_tensor_memory_operands": true,
+    "registers": 228
+  },
+  {
+    "build": "search_smoke_bf16_bpair",
+    "exact_words": 1808,
+    "exact_controls": 1800,
+    "exact_tensor_memory_operands": true,
+    "registers": 232
+  },
+  {
+    "build": "search_smoke_bf16_bpair_row",
+    "exact_words": 1808,
+    "exact_controls": 1800,
+    "exact_tensor_memory_operands": true,
+    "registers": 232
+  },
+  {
+    "build": "search_smoke_bf16_overlap",
+    "exact_words": 1840,
+    "exact_controls": 1838,
+    "exact_tensor_memory_operands": true,
+    "registers": 246
+  },
+  {
+    "build": "search_smoke_bf16_bpair_overlap",
+    "exact_words": 1824,
+    "exact_controls": 1818,
+    "exact_tensor_memory_operands": true,
+    "registers": 248
+  },
+  {
+    "build": "search_smoke_bf16_role1",
+    "exact_words": 1824,
+    "exact_controls": 1820,
+    "exact_tensor_memory_operands": true,
+    "registers": 228
+  },
+  {
+    "build": "search_smoke_bf16_role2",
+    "exact_words": 1824,
+    "exact_controls": 1820,
+    "exact_tensor_memory_operands": true,
+    "registers": 228
+  },
+  {
+    "build": "search_smoke_bf16_quadshift1",
+    "exact_words": 1824,
+    "exact_controls": 1820,
+    "exact_tensor_memory_operands": true,
+    "registers": 228
+  },
+  {
+    "build": "search_smoke_bf16_quadshift3",
+    "exact_words": 1824,
+    "exact_controls": 1820,
+    "exact_tensor_memory_operands": true,
+    "registers": 226
+  },
+  {
+    "build": "search_smoke_bf16_bpair_role1",
+    "exact_words": 1808,
+    "exact_controls": 1800,
+    "exact_tensor_memory_operands": true,
+    "registers": 236
+  },
+  {
+    "build": "search_smoke_bf16_bpair_swizzle3_7",
+    "exact_words": 1808,
+    "exact_controls": 1800,
+    "exact_tensor_memory_operands": true,
+    "registers": 232
+  },
+  {
+    "build": "search_smoke_bf16_bpair_swizzle7_3",
+    "exact_words": 1808,
+    "exact_controls": 1800,
+    "exact_tensor_memory_operands": true,
+    "registers": 232
+  },
+  {
+    "build": "search_smoke_bf16_bpair_gap4",
+    "exact_words": 1808,
+    "exact_controls": 1800,
+    "exact_tensor_memory_operands": true,
+    "registers": 232
+  },
+  {
+    "build": "search_smoke_bf16_bpair_no_reuse",
+    "exact_words": 1808,
+    "exact_controls": 1800,
+    "exact_tensor_memory_operands": true,
+    "registers": 232
+  },
+  {
+    "build": "search_smoke_bf16_bpair_preaddress",
+    "exact_words": 1800,
+    "exact_controls": 1794,
+    "exact_tensor_memory_operands": true,
+    "registers": 228
+  }
+]

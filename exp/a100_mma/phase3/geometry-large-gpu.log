@@ -1,0 +1,31 @@
+✓ Initialized. View run at 
+https://modal.com/apps/qingyang-lucas-fang/main/ap-YmkaLNaEorhMzwky5jv1oK
+✓ Created objects.
+├── ✓ Uploaded /Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/modal_run.py
+├── ✓ Uploaded 
+│   /Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/triton_kernel.py
+├── ✓ Uploaded /Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/gpu_worker.py
+├── ✓ Uploaded PythonPackage:openassembler
+└── ✓ Created Function execute.
+
+==========
+== CUDA ==
+==========
+
+CUDA Version 12.8.0
+
+Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+
+This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+By pulling and using the container, you accept the terms and conditions of this license:
+https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+
+A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
+
+geometry_large_f16 {'ours': 0.6327807903289795, 'ptxas': 0.5733888149261475, 'geometry_large_f16_wide64s2': 0.7151616096496582, 'geometry_large_f16_tall64s2': 0.7009791851043701, 'geometry_large_f16_wide32s3': 1.1125760078430176, 'geometry_large_f16_wide32s4': 1.0842111587524415, 'geometry_large_f16_wide32s5': 1.1224063873291015, 'geometry_large_f16_square32s5': 0.7726592063903809, 'cublas': 0.5584383964538574}
+geometry_large_bf16 {'ours': 0.6309375762939453, 'ptxas': 0.5650944232940673, 'geometry_large_bf16_wide64s2': 0.7018496036529541, 'geometry_large_bf16_tall64s2': 0.6880767822265625, 'geometry_large_bf16_wide32s3': 1.0897407531738281, 'geometry_large_bf16_wide32s4': 1.0747903823852538, 'geometry_large_bf16_wide32s5': 1.0967552185058593, 'geometry_large_bf16_square32s5': 0.7713280200958252, 'cublas': 0.5303296089172364}
+/Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/results/geometry_large_f16.json
+/Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/results/geometry_large_bf16.json
+Stopping app - local entrypoint completed.
+✓ App completed. View run at 
+https://modal.com/apps/qingyang-lucas-fang/main/ap-YmkaLNaEorhMzwky5jv1oK

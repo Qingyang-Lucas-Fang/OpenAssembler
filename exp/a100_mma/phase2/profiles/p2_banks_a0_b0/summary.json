@@ -1,0 +1,150 @@
+{
+  "ours": {
+    "gpu__time_duration.sum": {
+      "value": "2.196672",
+      "unit": "ms"
+    },
+    "sm__pipe_tensor_cycles_active.avg.pct_of_peak_sustained_active": {
+      "value": "21.972980",
+      "unit": "%"
+    },
+    "sm__warps_active.avg.pct_of_peak_sustained_active": {
+      "value": "12.466880",
+      "unit": "%"
+    },
+    "smsp__inst_executed.sum": {
+      "value": "90849280.000000",
+      "unit": "inst"
+    },
+    "smsp__warp_issue_stalled_short_scoreboard_per_warp_active.pct": {
+      "value": "65.348404",
+      "unit": "%"
+    },
+    "smsp__warp_issue_stalled_long_scoreboard_per_warp_active.pct": {
+      "value": "9.066943",
+      "unit": "%"
+    },
+    "smsp__warp_issue_stalled_barrier_per_warp_active.pct": {
+      "value": "2.126655",
+      "unit": "%"
+    },
+    "smsp__warp_issue_stalled_math_pipe_throttle_per_warp_active.pct": {
+      "value": "2.660199",
+      "unit": "%"
+    },
+    "smsp__warp_issue_stalled_mio_throttle_per_warp_active.pct": {
+      "value": "1.410869",
+      "unit": "%"
+    },
+    "smsp__warp_issue_stalled_wait_per_warp_active.pct": {
+      "value": "14.745919",
+      "unit": "%"
+    },
+    "smsp__warp_issue_stalled_not_selected_per_warp_active.pct": {
+      "value": "0.367452",
+      "unit": "%"
+    },
+    "l1tex__data_bank_conflicts_pipe_lsu_mem_shared_op_ld.sum": {
+      "value": "234889476",
+      "unit": ""
+    },
+    "l1tex__data_bank_conflicts_pipe_lsu_mem_shared_op_st.sum": {
+      "value": "0",
+      "unit": ""
+    },
+    "dram__bytes.sum": {
+      "value": "263.911936",
+      "unit": "Mbyte"
+    },
+    "lts__t_sector_hit_rate.pct": {
+      "value": "85.115386",
+      "unit": "%"
+    },
+    "smsp__inst_executed_pipe_tensor.sum": {
+      "value": "33554432.000000",
+      "unit": "inst"
+    },
+    "l1tex__data_pipe_lsu_wavefronts_mem_shared_op_ld.sum": {
+      "value": "268443908",
+      "unit": ""
+    },
+    "smsp__warps_eligible.avg.per_cycle_active": {
+      "value": "0.081585",
+      "unit": "warp"
+    }
+  },
+  "ptxas": {
+    "gpu__time_duration.sum": {
+      "value": "2.161536",
+      "unit": "ms"
+    },
+    "sm__pipe_tensor_cycles_active.avg.pct_of_peak_sustained_active": {
+      "value": "22.994098",
+      "unit": "%"
+    },
+    "sm__warps_active.avg.pct_of_peak_sustained_active": {
+      "value": "12.040369",
+      "unit": "%"
+    },
+    "smsp__inst_executed.sum": {
+      "value": "69468160.000000",
+      "unit": "inst"
+    },
+    "smsp__warp_issue_stalled_short_scoreboard_per_warp_active.pct": {
+      "value": "18.758540",
+      "unit": "%"
+    },
+    "smsp__warp_issue_stalled_long_scoreboard_per_warp_active.pct": {
+      "value": "6.004769",
+      "unit": "%"
+    },
+    "smsp__warp_issue_stalled_barrier_per_warp_active.pct": {
+      "value": "11.123775",
+      "unit": "%"
+    },
+    "smsp__warp_issue_stalled_math_pipe_throttle_per_warp_active.pct": {
+      "value": "0.650502",
+      "unit": "%"
+    },
+    "smsp__warp_issue_stalled_mio_throttle_per_warp_active.pct": {
+      "value": "47.105229",
+      "unit": "%"
+    },
+    "smsp__warp_issue_stalled_wait_per_warp_active.pct": {
+      "value": "10.730218",
+      "unit": "%"
+    },
+    "smsp__warp_issue_stalled_not_selected_per_warp_active.pct": {
+      "value": "0.488760",
+      "unit": "%"
+    },
+    "l1tex__data_bank_conflicts_pipe_lsu_mem_shared_op_ld.sum": {
+      "value": "234945436",
+      "unit": ""
+    },
+    "l1tex__data_bank_conflicts_pipe_lsu_mem_shared_op_st.sum": {
+      "value": "0",
+      "unit": ""
+    },
+    "dram__bytes.sum": {
+      "value": "404.274304",
+      "unit": "Mbyte"
+    },
+    "lts__t_sector_hit_rate.pct": {
+      "value": "78.007633",
+      "unit": "%"
+    },
+    "smsp__inst_executed_pipe_tensor.sum": {
+      "value": "33554432.000000",
+      "unit": "inst"
+    },
+    "l1tex__data_pipe_lsu_wavefronts_mem_shared_op_ld.sum": {
+      "value": "268502741",
+      "unit": ""
+    },
+    "smsp__warps_eligible.avg.per_cycle_active": {
+      "value": "0.068934",
+      "unit": "warp"
+    }
+  }
+}

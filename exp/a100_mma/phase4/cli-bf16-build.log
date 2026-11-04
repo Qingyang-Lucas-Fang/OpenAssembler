@@ -1,0 +1,4 @@
+exp/a100_mma/phase4/cli_smoke_bf16/cubin/gemm.cubin  (gemm: 1579 instructions, opt-level=opt, regs=216)
+exp/a100_mma/phase4/cli_smoke_bf16/sass/gemm.sass  (SASS listing from nvdisasm)
+launch: grid [1, 2, 1], block 128, dynamic shared memory 65536 bytes
+run: openassembler run exp/a100_mma/phase4/cli_smoke_bf16

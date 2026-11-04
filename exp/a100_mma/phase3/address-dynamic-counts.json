@@ -1,0 +1,134 @@
+[
+  {
+    "build": "search_combined_square_row_bpair_f16",
+    "shape_mnk": [
+      4096,
+      4096,
+      4096
+    ],
+    "regions": {
+      "prefix": {
+        "static_instructions": 560,
+        "executions": 1
+      },
+      "loop": {
+        "static_instructions": 283,
+        "executions": 63
+      },
+      "tail": {
+        "static_instructions": 285,
+        "executions": 1
+      }
+    },
+    "dynamic_warp_instruction_count": 18674,
+    "dynamic_opcode_counts": {
+      "MOV": 2203,
+      "ULDC": 1,
+      "S2R": 3,
+      "IMAD": 213,
+      "LOP3": 205,
+      "SHF": 91,
+      "IADD3": 3991,
+      "LDGSTS": 1024,
+      "LDGDEPBAR": 64,
+      "DEPBAR": 64,
+      "BAR": 128,
+      "LDSM": 2048,
+      "HMMA": 8192,
+      "NOP": 256,
+      "ISETP": 63,
+      "BRA": 63,
+      "STG": 64,
+      "EXIT": 1
+    },
+    "limitation": "Analytical path counts with uniform loop bounds; not measured issue cycles, stalls or latency"
+  },
+  {
+    "build": "address_shared_square_f16",
+    "shape_mnk": [
+      4096,
+      4096,
+      4096
+    ],
+    "regions": {
+      "prefix": {
+        "static_instructions": 532,
+        "executions": 1
+      },
+      "loop": {
+        "static_instructions": 269,
+        "executions": 63
+      },
+      "tail": {
+        "static_instructions": 285,
+        "executions": 1
+      }
+    },
+    "dynamic_warp_instruction_count": 17764,
+    "dynamic_opcode_counts": {
+      "MOV": 2203,
+      "ULDC": 1,
+      "S2R": 3,
+      "IMAD": 213,
+      "LOP3": 205,
+      "SHF": 91,
+      "IADD3": 3081,
+      "LDGSTS": 1024,
+      "LDGDEPBAR": 64,
+      "DEPBAR": 64,
+      "BAR": 128,
+      "LDSM": 2048,
+      "HMMA": 8192,
+      "NOP": 256,
+      "ISETP": 63,
+      "BRA": 63,
+      "STG": 64,
+      "EXIT": 1
+    },
+    "limitation": "Analytical path counts with uniform loop bounds; not measured issue cycles, stalls or latency"
+  },
+  {
+    "build": "address_stagepair_square_f16",
+    "shape_mnk": [
+      4096,
+      4096,
+      4096
+    ],
+    "regions": {
+      "prefix": {
+        "static_instructions": 531,
+        "executions": 1
+      },
+      "loop": {
+        "static_instructions": 531,
+        "executions": 31
+      },
+      "tail": {
+        "static_instructions": 533,
+        "executions": 1
+      }
+    },
+    "dynamic_warp_instruction_count": 17525,
+    "dynamic_opcode_counts": {
+      "MOV": 2202,
+      "ULDC": 1,
+      "S2R": 3,
+      "IMAD": 213,
+      "LOP3": 79,
+      "SHF": 91,
+      "IADD3": 3033,
+      "LDGSTS": 1024,
+      "LDGDEPBAR": 64,
+      "DEPBAR": 64,
+      "BAR": 128,
+      "LDSM": 2048,
+      "HMMA": 8192,
+      "NOP": 256,
+      "ISETP": 31,
+      "BRA": 31,
+      "STG": 64,
+      "EXIT": 1
+    },
+    "limitation": "Analytical path counts with uniform loop bounds; not measured issue cycles, stalls or latency"
+  }
+]

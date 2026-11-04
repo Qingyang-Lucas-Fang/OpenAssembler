@@ -1,0 +1,78 @@
+[
+  {
+    "name": "truncation_ours",
+    "family": "numerical-capability",
+    "steps": 1,
+    "expected_raw": 1107296256,
+    "exact_real_expression": "32 - 2**-40",
+    "global_IEEE_RTZ_f32": 1107296255,
+    "cubin_path": "phase2/numeric/ours.cubin",
+    "sha256": "be28371830242ec6d17860c1de70de72a0d3dcda3a59368ab710ed8e64e98103",
+    "device": {
+      "name": "NVIDIA A100-SXM4-40GB",
+      "cc": "8.0",
+      "driver": 13030,
+      "sm_count": 108,
+      "clock_khz": 1410000,
+      "mem_bytes": 42429251584
+    },
+    "checksum_ok": true,
+    "oob_bytes": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "scope": "single paper-motivated truncation discriminant; no general numerical model proof"
+  },
+  {
+    "name": "truncation_ptxas",
+    "family": "numerical-capability",
+    "steps": 1,
+    "expected_raw": 1107296256,
+    "exact_real_expression": "32 - 2**-40",
+    "global_IEEE_RTZ_f32": 1107296255,
+    "cubin_path": "phase2/numeric/ptxas.cubin",
+    "sha256": "869d13fd5d5e386b224376cd4dd5f438999ac003485a828d82c4f5f05e419f09",
+    "device": {
+      "name": "NVIDIA A100-SXM4-40GB",
+      "cc": "8.0",
+      "driver": 13030,
+      "sm_count": 108,
+      "clock_khz": 1410000,
+      "mem_bytes": 42429251584
+    },
+    "checksum_ok": true,
+    "oob_bytes": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "scope": "single paper-motivated truncation discriminant; no general numerical model proof"
+  }
+]

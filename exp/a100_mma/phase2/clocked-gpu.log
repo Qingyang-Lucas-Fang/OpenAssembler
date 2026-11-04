@@ -1,0 +1,52 @@
+✓ Initialized. View run at 
+https://modal.com/apps/qingyang-lucas-fang/main/ap-Coek1mVfGOas2jMhfi8Rqq
+✓ Created objects.
+├── ✓ Uploaded 
+│   /Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/phase2/clock_modal.py
+├── ✓ Uploaded PythonPackage:openassembler
+└── ✓ Created Function execute.
+[
+  {
+    "name": "clock_dependent_8",
+    "median_cycles": 247.0
+  },
+  {
+    "name": "clock_dependent_32",
+    "median_cycles": 1015.0
+  },
+  {
+    "name": "clock_dependent_64",
+    "median_cycles": 2039.0
+  },
+  {
+    "name": "clock_dependent_128",
+    "median_cycles": 4087.0
+  },
+  {
+    "name": "clock_dependent_256",
+    "median_cycles": 8183.0
+  },
+  {
+    "name": "clock_independent_8",
+    "median_cycles": 303.0
+  },
+  {
+    "name": "clock_independent_32",
+    "median_cycles": 1071.0
+  },
+  {
+    "name": "clock_independent_64",
+    "median_cycles": 2095.0
+  },
+  {
+    "name": "clock_independent_128",
+    "median_cycles": 4143.0
+  },
+  {
+    "name": "clock_independent_256",
+    "median_cycles": 8239.0
+  }
+]
+Stopping app - local entrypoint completed.
+✓ App completed. View run at 
+https://modal.com/apps/qingyang-lucas-fang/main/ap-Coek1mVfGOas2jMhfi8Rqq

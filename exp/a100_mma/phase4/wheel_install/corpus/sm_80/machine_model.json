@@ -1,0 +1,1542 @@
+{
+ "insns": 13824,
+ "classes": {
+  "ATOMG": {
+   "fixed_min": null,
+   "fixed_samples": 0,
+   "fixed_hist": {},
+   "scoreboarded": 15,
+   "wsb": {
+    "2": 4,
+    "3": 11,
+    "5": 1
+   },
+   "rsb": {
+    "0": 1
+   }
+  },
+  "ATOMG.64": {
+   "fixed_min": null,
+   "fixed_samples": 0,
+   "fixed_hist": {},
+   "scoreboarded": 2,
+   "wsb": {
+    "2": 2
+   },
+   "rsb": {}
+  },
+  "ATOMG.F32": {
+   "fixed_min": null,
+   "fixed_samples": 0,
+   "fixed_hist": {},
+   "scoreboarded": 1,
+   "wsb": {
+    "3": 1
+   },
+   "rsb": {}
+  },
+  "ATOMS": {
+   "fixed_min": null,
+   "fixed_samples": 0,
+   "fixed_hist": {},
+   "scoreboarded": 10,
+   "wsb": {
+    "0": 2,
+    "1": 1,
+    "3": 8
+   },
+   "rsb": {
+    "0": 1
+   }
+  },
+  "B2R": {
+   "fixed_min": null,
+   "fixed_samples": 0,
+   "fixed_hist": {},
+   "scoreboarded": 1,
+   "wsb": {
+    "0": 2
+   },
+   "rsb": {}
+  },
+  "BMSK": {
+   "fixed_min": 6,
+   "fixed_samples": 1,
+   "fixed_hist": {
+    "6": 1
+   },
+   "scoreboarded": 0,
+   "wsb": {},
+   "rsb": {}
+  },
+  "BREV": {
+   "fixed_min": null,
+   "fixed_samples": 0,
+   "fixed_hist": {},
+   "scoreboarded": 1,
+   "wsb": {
+    "3": 1
+   },
+   "rsb": {}
+  },
+  "CS2R": {
+   "fixed_min": 5,
+   "fixed_samples": 3,
+   "fixed_hist": {
+    "5": 3
+   },
+   "scoreboarded": 0,
+   "wsb": {},
+   "rsb": {}
+  },
+  "DADD": {
+   "fixed_min": null,
+   "fixed_samples": 0,
+   "fixed_hist": {},
+   "scoreboarded": 1,
+   "wsb": {
+    "1": 2
+   },
+   "rsb": {
+    "0": 2
+   }
+  },
+  "DFMA": {
+   "fixed_min": 10,
+   "fixed_samples": 5,
+   "fixed_hist": {
+    "10": 2,
+    "13": 1,
+    "29": 1,
+    "35": 1
+   },
+   "scoreboarded": 59,
+   "wsb": {
+    "0": 36,
+    "1": 9
+   },
+   "rsb": {
+    "0": 8
+   }
+  },
+  "DMMA": {
+   "fixed_min": null,
+   "fixed_samples": 0,
+   "fixed_hist": {},
+   "scoreboarded": 1,
+   "wsb": {
+    "1": 1
+   },
+   "rsb": {
+    "0": 1
+   }
+  },
+  "DMUL": {
+   "fixed_min": null,
+   "fixed_samples": 0,
+   "fixed_hist": {},
+   "scoreboarded": 30,
+   "wsb": {
+    "0": 14,
+    "1": 2
+   },
+   "rsb": {
+    "0": 2
+   }
+  },
+  "DSETP": {
+   "fixed_min": null,
+   "fixed_samples": 0,
+   "fixed_hist": {},
+   "scoreboarded": 14,
+   "wsb": {
+    "0": 7,
+    "1": 3
+   },
+   "rsb": {
+    "0": 3
+   }
+  },
+  "F2F.F32": {
+   "fixed_min": null,
+   "fixed_samples": 0,
+   "fixed_hist": {},
+   "scoreboarded": 2,
+   "wsb": {
+    "0": 2
+   },
+   "rsb": {}
+  },
+  "F2FP": {
+   "fixed_min": 4,
+   "fixed_samples": 3,
+   "fixed_hist": {
+    "4": 1,
+    "5": 2
+   },
+   "scoreboarded": 0,
+   "wsb": {},
+   "rsb": {}
+  },
+  "F2I": {
+   "fixed_min": null,
+   "fixed_samples": 0,
+   "fixed_hist": {},
+   "scoreboarded": 16,
+   "wsb": {
+    "3": 4,
+    "0": 12
+   },
+   "rsb": {}
+  },
+  "F2I.U32": {
+   "fixed_min": null,
+   "fixed_samples": 0,
+   "fixed_hist": {},
+   "scoreboarded": 38,
+   "wsb": {
+    "3": 4,
+    "0": 4,
+    "1": 10,
+    "4": 2
+   },
+   "rsb": {
+    "0": 10,
+    "1": 2
+   }
+  },
+  "FADD": {
+   "fixed_min": 4,
+   "fixed_samples": 36,
+   "fixed_hist": {
+    "4": 5,
+    "5": 27,
+    "6": 2,
+    "16": 1,
+    "24": 1
+   },
+   "scoreboarded": 0,
+   "wsb": {},
+   "rsb": {}
+  },
+  "FCHK": {
+   "fixed_min": 11,
+   "fixed_samples": 2,
+   "fixed_hist": {
+    "11": 1,
+    "15": 1
+   },
+   "scoreboarded": 1,
+   "wsb": {
+    "1": 1
+   },
+   "rsb": {}
+  },
+  "FFMA": {
+   "fixed_min": 4,
+   "fixed_samples": 45,
+   "fixed_hist": {
+    "4": 17,
+    "5": 15,
+    "6": 2,
+    "7": 1,
+    "8": 3,
+    "9": 2,
+    "11": 1,
+    "12": 1,
+    "14": 2,
+    "20": 1
+   },
+   "scoreboarded": 0,
+   "wsb": {},
+   "rsb": {}
+  },
+  "FLO.U32": {
+   "fixed_min": null,
+   "fixed_samples": 0,
+   "fixed_hist": {},
+   "scoreboarded": 1,
+   "wsb": {
+    "0": 1
+   },
+   "rsb": {}
+  },
+  "FMNMX": {
+   "fixed_min": 5,
+   "fixed_samples": 9,
+   "fixed_hist": {
+    "5": 9
+   },
+   "scoreboarded": 0,
+   "wsb": {},
+   "rsb": {}
+  },
+  "FMUL": {
+   "fixed_min": 4,
+   "fixed_samples": 30,
+   "fixed_hist": {
+    "4": 8,
+    "5": 14,
+    "6": 4,
+    "8": 2,
+    "10": 1,
+    "12": 1
+   },
+   "scoreboarded": 0,
+   "wsb": {},
+   "rsb": {}
+  },
+  "FRND": {
+   "fixed_min": null,
+   "fixed_samples": 0,
+   "fixed_hist": {},
+   "scoreboarded": 1,
+   "wsb": {
+    "3": 1
+   },
+   "rsb": {}
+  },
+  "FSEL": {
+   "fixed_min": 4,
+   "fixed_samples": 3,
+   "fixed_hist": {
+    "4": 1,
+    "5": 1,
+    "13": 1
+   },
+   "scoreboarded": 0,
+   "wsb": {},
+   "rsb": {}
+  },
+  "FSETP": {
+   "fixed_min": 4,
+   "fixed_samples": 74,
+   "fixed_hist": {
+    "4": 39,
+    "6": 2,
+    "9": 1,
+    "10": 1,
+    "11": 1,
+    "13": 12,
+    "14": 2,
+    "15": 2,
+    "17": 1,
+    "19": 5,
+    "21": 1,
+    "23": 1,
+    "27": 2,
+    "28": 1,
+    "31": 1,
+    "35": 1,
+    "72": 1
+   },
+   "scoreboarded": 0,
+   "wsb": {},
+   "rsb": {}
+  },
+  "HADD2": {
+   "fixed_min": 5,
+   "fixed_samples": 2,
+   "fixed_hist": {
+    "5": 2
+   },
+   "scoreboarded": 0,
+   "wsb": {},
+   "rsb": {}
+  },
+  "HADD2.F32": {
+   "fixed_min": 5,
+   "fixed_samples": 1,
+   "fixed_hist": {
+    "5": 1
+   },
+   "scoreboarded": 0,
+   "wsb": {},
+   "rsb": {}
+  },
+  "HFMA2": {
+   "fixed_min": 5,
+   "fixed_samples": 1,
+   "fixed_hist": {
+    "5": 1
+   },
+   "scoreboarded": 0,
+   "wsb": {},
+   "rsb": {}
+  },
+  "HFMA2.MMA": {
+   "fixed_min": 7,
+   "fixed_samples": 994,
+   "fixed_hist": {
+    "7": 19,
+    "8": 2,
+    "10": 500,
+    "16": 113,
+    "17": 63,
+    "18": 61,
+    "20": 199,
+    "21": 14,
+    "22": 2,
+    "24": 1,
+    "25": 1,
+    "27": 1,
+    "28": 6,
+    "31": 4,
+    "32": 3,
+    "35": 3,
+    "62": 1,
+    "64": 1
+   },
+   "scoreboarded": 0,
+   "wsb": {},
+   "rsb": {}
+  },
+  "HMMA.F32": {
+   "fixed_min": 24,
+   "fixed_samples": 6,
+   "fixed_hist": {
+    "24": 3,
+    "29": 3
+   },
+   "scoreboarded": 0,
+   "wsb": {},
+   "rsb": {}
+  },
+  "HMNMX2": {
+   "fixed_min": 5,
+   "fixed_samples": 4,
+   "fixed_hist": {
+    "5": 4
+   },
+   "scoreboarded": 0,
+   "wsb": {},
+   "rsb": {}
+  },
+  "HMUL2": {
+   "fixed_min": 5,
+   "fixed_samples": 1,
+   "fixed_hist": {
+    "5": 1
+   },
+   "scoreboarded": 0,
+   "wsb": {},
+   "rsb": {}
+  },
+  "I2F": {
+   "fixed_min": null,
+   "fixed_samples": 0,
+   "fixed_hist": {},
+   "scoreboarded": 17,
+   "wsb": {
+    "3": 2,
+    "0": 13,
+    "1": 1
+   },
+   "rsb": {}
+  },
+  "I2F.U32": {
+   "fixed_min": 1,
+   "fixed_samples": 2,
+   "fixed_hist": {
+    "1": 2
+   },
+   "scoreboarded": 14,
+   "wsb": {
+    "3": 2,
+    "0": 4,
+    "1": 6
+   },
+   "rsb": {}
+  },
+  "IABS": {
+   "fixed_min": 4,
+   "fixed_samples": 38,
+   "fixed_hist": {
+    "4": 4,
+    "5": 5,
+    "9": 2,
+    "10": 1,
+    "11": 1,
+    "13": 1,
+    "15": 1,
+    "27": 2,
+    "28": 3,
+    "36": 1,
+    "40": 1,
+    "46": 1,
+    "47": 2,
+    "48": 1,
+    "51": 1,
+    "53": 1,
+    "60": 2,
+    "64": 2,
+    "65": 1,
+    "66": 1,
+    "69": 1,
+    "71": 1,
+    "78": 1,
+    "84": 1
+   },
+   "scoreboarded": 0,
+   "wsb": {},
+   "rsb": {}
+  },
+  "IADD3": {
+   "fixed_min": 4,
+   "fixed_samples": 123,
+   "fixed_hist": {
+    "4": 34,
+    "5": 30,
+    "6": 19,
+    "7": 1,
+    "8": 2,
+    "9": 4,
+    "11": 1,
+    "12": 1,
+    "13": 1,
+    "14": 1,
+    "15": 5,
+    "17": 5,
+    "18": 3,
+    "19": 5,
+    "20": 4,
+    "22": 1,
+    "23": 1,
+    "25": 2,
+    "26": 1,
+    "28": 1,
+    "43": 1
+   },
+   "scoreboarded": 0,
+   "wsb": {},
+   "rsb": {}
+  },
+  "IADD3.X": {
+   "fixed_min": 5,
+   "fixed_samples": 3,
+   "fixed_hist": {
+    "5": 3
+   },
+   "scoreboarded": 0,
+   "wsb": {},
+   "rsb": {}
+  },
+  "IDP": {
+   "fixed_min": 5,
+   "fixed_samples": 1,
+   "fixed_hist": {
+    "5": 1
+   },
+   "scoreboarded": 0,
+   "wsb": {},
+   "rsb": {}
+  },
+  "IMAD": {
+   "fixed_min": 4,
+   "fixed_samples": 53,
+   "fixed_hist": {
+    "4": 4,
+    "5": 28,
+    "6": 1,
+    "9": 5,
+    "15": 1,
+    "18": 12,
+    "19": 1,
+    "27": 1
+   },
+   "scoreboarded": 0,
+   "wsb": {},
+   "rsb": {}
+  },
+  "IMAD.HI": {
+   "fixed_min": 5,
+   "fixed_samples": 6,
+   "fixed_hist": {
+    "5": 6
+   },
+   "scoreboarded": 0,
+   "wsb": {},
+   "rsb": {}
+  },
+  "IMAD.HI.U32": {
+   "fixed_min": 4,
+   "fixed_samples": 36,
+   "fixed_hist": {
+    "4": 10,
+    "5": 8,
+    "6": 12,
+    "24": 3,
+    "27": 1,
+    "28": 1,
+    "30": 1
+   },
+   "scoreboarded": 0,
+   "wsb": {},
+   "rsb": {}
+  },
+  "IMAD.IADD": {
+   "fixed_min": 4,
+   "fixed_samples": 17,
+   "fixed_hist": {
+    "4": 1,
+    "5": 13,
+    "18": 2,
+    "40": 1
+   },
+   "scoreboarded": 0,
+   "wsb": {},
+   "rsb": {}
+  },
+  "IMAD.IADD.U32": {
+   "fixed_min": 5,
+   "fixed_samples": 9,
+   "fixed_hist": {
+    "5": 5,
+    "12": 4
+   },
+   "scoreboarded": 0,
+   "wsb": {},
+   "rsb": {}
+  },
+  "IMAD.MOV": {
+   "fixed_min": 4,
+   "fixed_samples": 15,
+   "fixed_hist": {
+    "4": 8,
+    "5": 3,
+    "7": 1,
+    "8": 1,
+    "18": 1,
+    "27": 1
+   },
+   "scoreboarded": 0,
+   "wsb": {},
+   "rsb": {}
+  },
+  "IMAD.MOV.U32": {
+   "fixed_min": 4,
+   "fixed_samples": 154,
+   "fixed_hist": {
+    "4": 54,
+    "5": 9,
+    "6": 9,
+    "7": 7,
+    "8": 3,
+    "9": 8,
+    "10": 40,
+    "11": 3,
+    "15": 4,
+    "17": 3,
+    "18": 2,
+    "19": 2,
+    "21": 1,
+    "22": 1,
+    "23": 1,
+    "24": 1,
+    "29": 1,
+    "54": 1,
+    "75": 1,
+    "84": 1,
+    "96": 1,
+    "97": 1
+   },
+   "scoreboarded": 0,
+   "wsb": {},
+   "rsb": {}
+  },
+  "IMAD.SHL.U32": {
+   "fixed_min": 5,
+   "fixed_samples": 2,
+   "fixed_hist": {
+    "5": 2
+   },
+   "scoreboarded": 0,
+   "wsb": {},
+   "rsb": {}
+  },
+  "IMAD.WIDE": {
+   "fixed_min": 5,
+   "fixed_samples": 3,
+   "fixed_hist": {
+    "5": 3
+   },
+   "scoreboarded": 0,
+   "wsb": {},
+   "rsb": {}
+  },
+  "IMAD.WIDE.U32": {
+   "fixed_min": 5,
+   "fixed_samples": 1329,
+   "fixed_hist": {
+    "5": 603,
+    "6": 160,
+    "7": 49,
+    "8": 76,
+    "9": 296,
+    "10": 24,
+    "11": 9,
+    "12": 2,
+    "13": 22,
+    "14": 29,
+    "15": 2,
+    "16": 11,
+    "17": 2,
+    "18": 5,
+    "20": 2,
+    "21": 3,
+    "22": 7,
+    "23": 7,
+    "24": 2,
+    "25": 9,
+    "27": 1,
+    "39": 1,
+    "40": 2,
+    "77": 2,
+    "81": 1,
+    "82": 1,
+    "90": 1
+   },
+   "scoreboarded": 0,
+   "wsb": {},
+   "rsb": {}
+  },
+  "IMAD.X": {
+   "fixed_min": 6,
+   "fixed_samples": 2,
+   "fixed_hist": {
+    "6": 1,
+    "20": 1
+   },
+   "scoreboarded": 0,
+   "wsb": {},
+   "rsb": {}
+  },
+  "IMMA": {
+   "fixed_min": 23,
+   "fixed_samples": 1,
+   "fixed_hist": {
+    "23": 1
+   },
+   "scoreboarded": 0,
+   "wsb": {},
+   "rsb": {}
+  },
+  "IMNMX": {
+   "fixed_min": 4,
+   "fixed_samples": 8,
+   "fixed_hist": {
+    "4": 1,
+    "5": 7
+   },
+   "scoreboarded": 0,
+   "wsb": {},
+   "rsb": {}
+  },
+  "IMNMX.U32": {
+   "fixed_min": 5,
+   "fixed_samples": 6,
+   "fixed_hist": {
+    "5": 6
+   },
+   "scoreboarded": 0,
+   "wsb": {},
+   "rsb": {}
+  },
+  "ISETP": {
+   "fixed_min": 4,
+   "fixed_samples": 77,
+   "fixed_hist": {
+    "4": 36,
+    "6": 4,
+    "10": 1,
+    "12": 1,
+    "13": 10,
+    "14": 3,
+    "15": 2,
+    "16": 1,
+    "17": 2,
+    "18": 2,
+    "21": 1,
+    "22": 1,
+    "23": 2,
+    "24": 1,
+    "28": 1,
+    "29": 1,
+    "32": 1,
+    "36": 1,
+    "43": 1,
+    "46": 1,
+    "47": 1,
+    "54": 1,
+    "76": 1,
+    "81": 1
+   },
+   "scoreboarded": 0,
+   "wsb": {},
+   "rsb": {}
+  },
+  "ISETP.U32": {
+   "fixed_min": 4,
+   "fixed_samples": 111,
+   "fixed_hist": {
+    "4": 32,
+    "9": 1,
+    "13": 53,
+    "14": 5,
+    "15": 9,
+    "17": 1,
+    "19": 2,
+    "21": 2,
+    "44": 1,
+    "47": 1,
+    "74": 1,
+    "76": 1,
+    "78": 2
+   },
+   "scoreboarded": 0,
+   "wsb": {},
+   "rsb": {}
+  },
+  "LDC": {
+   "fixed_min": null,
+   "fixed_samples": 0,
+   "fixed_hist": {},
+   "scoreboarded": 2,
+   "wsb": {
+    "1": 1,
+    "3": 1
+   },
+   "rsb": {}
+  },
+  "LDG": {
+   "fixed_min": null,
+   "fixed_samples": 0,
+   "fixed_hist": {},
+   "scoreboarded": 472,
+   "wsb": {
+    "2": 315,
+    "3": 161,
+    "5": 22
+   },
+   "rsb": {
+    "0": 34,
+    "2": 1
+   }
+  },
+  "LDG.128": {
+   "fixed_min": null,
+   "fixed_samples": 0,
+   "fixed_hist": {},
+   "scoreboarded": 664,
+   "wsb": {
+    "2": 229
+   },
+   "rsb": {
+    "0": 4
+   }
+  },
+  "LDG.64": {
+   "fixed_min": null,
+   "fixed_samples": 0,
+   "fixed_hist": {},
+   "scoreboarded": 40,
+   "wsb": {
+    "2": 37
+   },
+   "rsb": {}
+  },
+  "LDL": {
+   "fixed_min": null,
+   "fixed_samples": 0,
+   "fixed_hist": {},
+   "scoreboarded": 4,
+   "wsb": {
+    "2": 4
+   },
+   "rsb": {}
+  },
+  "LDL.64": {
+   "fixed_min": null,
+   "fixed_samples": 0,
+   "fixed_hist": {},
+   "scoreboarded": 3,
+   "wsb": {
+    "2": 3
+   },
+   "rsb": {}
+  },
+  "LDS": {
+   "fixed_min": null,
+   "fixed_samples": 0,
+   "fixed_hist": {},
+   "scoreboarded": 15,
+   "wsb": {
+    "0": 4,
+    "3": 8,
+    "2": 2
+   },
+   "rsb": {}
+  },
+  "LDS.64": {
+   "fixed_min": null,
+   "fixed_samples": 0,
+   "fixed_hist": {},
+   "scoreboarded": 3,
+   "wsb": {
+    "0": 3
+   },
+   "rsb": {}
+  },
+  "LDSM": {
+   "fixed_min": null,
+   "fixed_samples": 0,
+   "fixed_hist": {},
+   "scoreboarded": 2,
+   "wsb": {
+    "0": 2
+   },
+   "rsb": {}
+  },
+  "LEA": {
+   "fixed_min": 5,
+   "fixed_samples": 15,
+   "fixed_hist": {
+    "5": 7,
+    "7": 1,
+    "9": 7
+   },
+   "scoreboarded": 0,
+   "wsb": {},
+   "rsb": {}
+  },
+  "LOP3": {
+   "fixed_min": 4,
+   "fixed_samples": 99,
+   "fixed_hist": {
+    "4": 39,
+    "5": 37,
+    "6": 3,
+    "7": 3,
+    "8": 1,
+    "9": 1,
+    "10": 1,
+    "11": 1,
+    "12": 2,
+    "13": 3,
+    "14": 1,
+    "15": 1,
+    "18": 1,
+    "20": 1,
+    "23": 1,
+    "24": 1,
+    "30": 1,
+    "43": 1
+   },
+   "scoreboarded": 0,
+   "wsb": {},
+   "rsb": {}
+  },
+  "MATCH": {
+   "fixed_min": null,
+   "fixed_samples": 0,
+   "fixed_hist": {},
+   "scoreboarded": 2,
+   "wsb": {
+    "3": 2
+   },
+   "rsb": {}
+  },
+  "MOV": {
+   "fixed_min": 4,
+   "fixed_samples": 211,
+   "fixed_hist": {
+    "4": 51,
+    "5": 44,
+    "6": 28,
+    "7": 11,
+    "8": 15,
+    "9": 5,
+    "10": 1,
+    "11": 27,
+    "12": 2,
+    "13": 1,
+    "14": 2,
+    "15": 3,
+    "16": 2,
+    "17": 1,
+    "18": 1,
+    "19": 1,
+    "21": 1,
+    "24": 12,
+    "29": 3
+   },
+   "scoreboarded": 0,
+   "wsb": {},
+   "rsb": {}
+  },
+  "MUFU.COS": {
+   "fixed_min": null,
+   "fixed_samples": 0,
+   "fixed_hist": {},
+   "scoreboarded": 1,
+   "wsb": {
+    "3": 1
+   },
+   "rsb": {}
+  },
+  "MUFU.EX2": {
+   "fixed_min": null,
+   "fixed_samples": 0,
+   "fixed_hist": {},
+   "scoreboarded": 1,
+   "wsb": {
+    "0": 1
+   },
+   "rsb": {}
+  },
+  "MUFU.LG2": {
+   "fixed_min": null,
+   "fixed_samples": 0,
+   "fixed_hist": {},
+   "scoreboarded": 1,
+   "wsb": {
+    "0": 1
+   },
+   "rsb": {}
+  },
+  "MUFU.RCP": {
+   "fixed_min": null,
+   "fixed_samples": 0,
+   "fixed_hist": {},
+   "scoreboarded": 25,
+   "wsb": {
+    "0": 17,
+    "1": 3
+   },
+   "rsb": {
+    "0": 1
+   }
+  },
+  "MUFU.RCP64H": {
+   "fixed_min": null,
+   "fixed_samples": 0,
+   "fixed_hist": {},
+   "scoreboarded": 10,
+   "wsb": {
+    "0": 5
+   },
+   "rsb": {}
+  },
+  "MUFU.RSQ": {
+   "fixed_min": null,
+   "fixed_samples": 0,
+   "fixed_hist": {},
+   "scoreboarded": 3,
+   "wsb": {
+    "0": 3,
+    "1": 1
+   },
+   "rsb": {
+    "0": 1
+   }
+  },
+  "MUFU.RSQ64H": {
+   "fixed_min": null,
+   "fixed_samples": 0,
+   "fixed_hist": {},
+   "scoreboarded": 6,
+   "wsb": {
+    "0": 2
+   },
+   "rsb": {}
+  },
+  "MUFU.SIN": {
+   "fixed_min": null,
+   "fixed_samples": 0,
+   "fixed_hist": {},
+   "scoreboarded": 1,
+   "wsb": {
+    "3": 1
+   },
+   "rsb": {}
+  },
+  "MUFU.SQRT": {
+   "fixed_min": null,
+   "fixed_samples": 0,
+   "fixed_hist": {},
+   "scoreboarded": 1,
+   "wsb": {
+    "0": 1
+   },
+   "rsb": {}
+  },
+  "MUFU.TANH": {
+   "fixed_min": null,
+   "fixed_samples": 0,
+   "fixed_hist": {},
+   "scoreboarded": 1,
+   "wsb": {
+    "3": 1
+   },
+   "rsb": {}
+  },
+  "PLOP3": {
+   "fixed_min": 4,
+   "fixed_samples": 7,
+   "fixed_hist": {
+    "4": 2,
+    "13": 5
+   },
+   "scoreboarded": 0,
+   "wsb": {},
+   "rsb": {}
+  },
+  "POPC": {
+   "fixed_min": null,
+   "fixed_samples": 0,
+   "fixed_hist": {},
+   "scoreboarded": 1,
+   "wsb": {
+    "3": 1
+   },
+   "rsb": {}
+  },
+  "PRMT": {
+   "fixed_min": 4,
+   "fixed_samples": 21,
+   "fixed_hist": {
+    "4": 6,
+    "5": 8,
+    "6": 4,
+    "8": 1,
+    "9": 2
+   },
+   "scoreboarded": 0,
+   "wsb": {},
+   "rsb": {}
+  },
+  "QSPC": {
+   "fixed_min": null,
+   "fixed_samples": 0,
+   "fixed_hist": {},
+   "scoreboarded": 1,
+   "wsb": {
+    "0": 1
+   },
+   "rsb": {}
+  },
+  "REDUX": {
+   "fixed_min": null,
+   "fixed_samples": 0,
+   "fixed_hist": {},
+   "scoreboarded": 6,
+   "wsb": {
+    "0": 6
+   },
+   "rsb": {}
+  },
+  "S2R": {
+   "fixed_min": null,
+   "fixed_samples": 0,
+   "fixed_hist": {},
+   "scoreboarded": 1086,
+   "wsb": {
+    "0": 542,
+    "1": 2,
+    "2": 10
+   },
+   "rsb": {}
+  },
+  "SEL": {
+   "fixed_min": 4,
+   "fixed_samples": 106,
+   "fixed_hist": {
+    "4": 4,
+    "5": 96,
+    "7": 3,
+    "11": 1,
+    "16": 2
+   },
+   "scoreboarded": 0,
+   "wsb": {},
+   "rsb": {}
+  },
+  "SGXT.U32": {
+   "fixed_min": 5,
+   "fixed_samples": 2,
+   "fixed_hist": {
+    "5": 2
+   },
+   "scoreboarded": 0,
+   "wsb": {},
+   "rsb": {}
+  },
+  "SHF": {
+   "fixed_min": 7,
+   "fixed_samples": 1,
+   "fixed_hist": {
+    "7": 1
+   },
+   "scoreboarded": 0,
+   "wsb": {},
+   "rsb": {}
+  },
+  "SHF.HI": {
+   "fixed_min": 5,
+   "fixed_samples": 7,
+   "fixed_hist": {
+    "5": 6,
+    "7": 1
+   },
+   "scoreboarded": 0,
+   "wsb": {},
+   "rsb": {}
+  },
+  "SHF.U32": {
+   "fixed_min": 4,
+   "fixed_samples": 11,
+   "fixed_hist": {
+    "4": 3,
+    "5": 4,
+    "8": 2,
+    "9": 1,
+    "25": 1
+   },
+   "scoreboarded": 0,
+   "wsb": {},
+   "rsb": {}
+  },
+  "SHF.U32.HI": {
+   "fixed_min": 4,
+   "fixed_samples": 16,
+   "fixed_hist": {
+    "4": 6,
+    "5": 4,
+    "6": 2,
+    "8": 1,
+    "14": 1,
+    "15": 1,
+    "29": 1
+   },
+   "scoreboarded": 0,
+   "wsb": {},
+   "rsb": {}
+  },
+  "SHFL": {
+   "fixed_min": 6,
+   "fixed_samples": 1,
+   "fixed_hist": {
+    "6": 1
+   },
+   "scoreboarded": 17,
+   "wsb": {
+    "0": 11,
+    "1": 1,
+    "3": 4
+   },
+   "rsb": {}
+  },
+  "VABSDIFF.U32": {
+   "fixed_min": 5,
+   "fixed_samples": 1,
+   "fixed_hist": {
+    "5": 1
+   },
+   "scoreboarded": 0,
+   "wsb": {},
+   "rsb": {}
+  },
+  "VOTE": {
+   "fixed_min": 4,
+   "fixed_samples": 6,
+   "fixed_hist": {
+    "4": 4,
+    "5": 1,
+    "6": 1
+   },
+   "scoreboarded": 0,
+   "wsb": {},
+   "rsb": {}
+  }
+ },
+ "pairs": {
+  "BMSK->LOP3": 6,
+  "CS2R->STG.64": 5,
+  "DFMA->DFMA": 10,
+  "DFMA->DMUL": 29,
+  "DFMA->LOP3": 13,
+  "F2FP->PRMT": 4,
+  "F2FP->STG.64": 5,
+  "FADD->ATOMS": 6,
+  "FADD->FFMA": 4,
+  "FADD->STG.64": 5,
+  "FCHK->FFMA": 11,
+  "FFMA->FADD": 4,
+  "FFMA->FFMA": 4,
+  "FFMA->FMUL": 4,
+  "FFMA->FSETP": 5,
+  "FFMA->LOP3": 5,
+  "FFMA->MUFU.RCP": 9,
+  "FFMA->MUFU.RSQ": 4,
+  "FFMA->SHF.U32.HI": 5,
+  "FFMA->STG.64": 5,
+  "FMNMX->STG.64": 5,
+  "FMUL->FADD": 4,
+  "FMUL->FFMA": 4,
+  "FMUL->FMUL": 6,
+  "FMUL->MUFU.COS": 4,
+  "FMUL->MUFU.EX2": 4,
+  "FMUL->MUFU.LG2": 4,
+  "FMUL->MUFU.RCP": 6,
+  "FMUL->MUFU.RSQ": 4,
+  "FMUL->MUFU.SIN": 4,
+  "FMUL->MUFU.SQRT": 4,
+  "FMUL->STG.64": 5,
+  "FSEL->FMUL": 5,
+  "FSEL->FSEL": 4,
+  "FSETP->BRA": 13,
+  "FSETP->FADD": 13,
+  "FSETP->FFMA": 13,
+  "FSETP->FMUL": 13,
+  "FSETP->FSEL": 4,
+  "FSETP->MOV": 13,
+  "FSETP->MUFU.RSQ": 17,
+  "FSETP->PLOP3": 4,
+  "FSETP->SEL": 4,
+  "HADD2->PRMT": 5,
+  "HADD2->STG.64": 5,
+  "HADD2.F32->STG.64": 5,
+  "HFMA2->STG.64": 5,
+  "HFMA2.MMA->FSEL": 10,
+  "HFMA2.MMA->IMAD.HI": 10,
+  "HFMA2.MMA->IMAD.HI.U32": 10,
+  "HFMA2.MMA->IMAD.WIDE.U32": 10,
+  "HFMA2.MMA->STG.64": 7,
+  "HMMA.F32->MOV": 24,
+  "HMMA.F32->STG.64": 29,
+  "HMNMX2->STG.64": 5,
+  "HMUL2->STG.64": 5,
+  "I2F.U32->IMAD.WIDE.U32": 1,
+  "IABS->I2F": 4,
+  "IABS->IADD3": 11,
+  "IABS->IMAD": 9,
+  "IABS->IMAD.HI.U32": 5,
+  "IABS->IMAD.IADD": 60,
+  "IABS->IMAD.MOV": 10,
+  "IABS->ISETP.U32": 47,
+  "IABS->MOV": 27,
+  "IABS->STG.64": 5,
+  "IADD3->DFMA": 6,
+  "IADD3->DMUL": 6,
+  "IADD3->F2I.U32": 6,
+  "IADD3->FSEL": 23,
+  "IADD3->FSETP": 4,
+  "IADD3->IADD3": 4,
+  "IADD3->IADD3.X": 4,
+  "IADD3->IMAD": 5,
+  "IADD3->IMAD.IADD": 6,
+  "IADD3->IMAD.MOV": 5,
+  "IADD3->IMAD.MOV.U32": 5,
+  "IADD3->IMAD.SHL.U32": 5,
+  "IADD3->IMAD.X": 5,
+  "IADD3->ISETP.U32": 4,
+  "IADD3->LEA": 14,
+  "IADD3->LOP3": 4,
+  "IADD3->MOV": 4,
+  "IADD3->MUFU.RCP64H": 4,
+  "IADD3->SHF.U32": 12,
+  "IADD3->SHF.U32.HI": 43,
+  "IADD3->STG.64": 5,
+  "IADD3.X->STG.64": 5,
+  "IDP->STG.64": 5,
+  "IMAD->FFMA": 15,
+  "IMAD->IADD3": 5,
+  "IMAD->IMAD": 6,
+  "IMAD->IMAD.HI.U32": 4,
+  "IMAD->IMAD.IADD": 18,
+  "IMAD->ISETP.U32": 5,
+  "IMAD->STG.64": 5,
+  "IMAD.HI->STG.64": 5,
+  "IMAD.HI.U32->IADD3": 5,
+  "IMAD.HI.U32->IMAD": 4,
+  "IMAD.HI.U32->IMAD.HI.U32": 6,
+  "IMAD.HI.U32->IMAD.MOV": 4,
+  "IMAD.HI.U32->STG.64": 5,
+  "IMAD.IADD->FADD": 5,
+  "IMAD.IADD->IADD3": 5,
+  "IMAD.IADD->IMAD.IADD": 40,
+  "IMAD.IADD->IMNMX": 5,
+  "IMAD.IADD->ISETP.U32": 5,
+  "IMAD.IADD->LOP3": 5,
+  "IMAD.IADD->MUFU.RCP": 4,
+  "IMAD.IADD->STG.64": 5,
+  "IMAD.IADD.U32->IMAD.IADD.U32": 12,
+  "IMAD.IADD.U32->MOV": 5,
+  "IMAD.MOV->DFMA": 8,
+  "IMAD.MOV->IMAD": 4,
+  "IMAD.MOV->ISETP": 5,
+  "IMAD.MOV->LOP3": 5,
+  "IMAD.MOV->SEL": 7,
+  "IMAD.MOV->STG.64": 5,
+  "IMAD.MOV.U32->DADD": 6,
+  "IMAD.MOV.U32->DFMA": 6,
+  "IMAD.MOV.U32->DMUL": 6,
+  "IMAD.MOV.U32->DSETP": 7,
+  "IMAD.MOV.U32->FSEL": 9,
+  "IMAD.MOV.U32->HMMA.F32": 10,
+  "IMAD.MOV.U32->IADD3": 5,
+  "IMAD.MOV.U32->IMAD.HI.U32": 6,
+  "IMAD.MOV.U32->IMAD.IADD": 4,
+  "IMAD.MOV.U32->IMAD.WIDE.U32": 4,
+  "IMAD.MOV.U32->ISETP.U32": 5,
+  "IMAD.MOV.U32->SEL": 15,
+  "IMAD.MOV.U32->SHF.U32": 5,
+  "IMAD.MOV.U32->STG.64": 5,
+  "IMAD.SHL.U32->ISETP": 5,
+  "IMAD.SHL.U32->LOP3": 5,
+  "IMAD.WIDE->STG.64": 5,
+  "IMAD.WIDE.U32->ATOMG": 9,
+  "IMAD.WIDE.U32->ATOMG.64": 9,
+  "IMAD.WIDE.U32->ATOMG.F32": 13,
+  "IMAD.WIDE.U32->CCTL": 13,
+  "IMAD.WIDE.U32->F2F.F32": 8,
+  "IMAD.WIDE.U32->F2I": 8,
+  "IMAD.WIDE.U32->I2F": 8,
+  "IMAD.WIDE.U32->I2F.U32": 8,
+  "IMAD.WIDE.U32->IADD3": 9,
+  "IMAD.WIDE.U32->LDG": 5,
+  "IMAD.WIDE.U32->LDG.128": 5,
+  "IMAD.WIDE.U32->LDG.64": 5,
+  "IMAD.WIDE.U32->LDGSTS": 9,
+  "IMAD.WIDE.U32->LDGSTS.128": 9,
+  "IMAD.WIDE.U32->QSPC": 9,
+  "IMAD.WIDE.U32->RED": 13,
+  "IMAD.WIDE.U32->STG": 7,
+  "IMAD.WIDE.U32->STG.128": 5,
+  "IMAD.WIDE.U32->STG.64": 5,
+  "IMAD.X->DFMA": 6,
+  "IMAD.X->FSEL": 20,
+  "IMMA->STG.64": 23,
+  "IMNMX->IMAD.IADD": 5,
+  "IMNMX->IMNMX": 4,
+  "IMNMX->STG.64": 5,
+  "IMNMX.U32->STG.64": 5,
+  "ISETP->BRA": 13,
+  "ISETP->FADD": 28,
+  "ISETP->FFMA": 13,
+  "ISETP->IADD3": 13,
+  "ISETP->IMAD.MOV": 43,
+  "ISETP->IMAD.MOV.U32": 13,
+  "ISETP->ISETP": 4,
+  "ISETP->LOP3": 13,
+  "ISETP->MOV": 14,
+  "ISETP->MUFU.RCP": 14,
+  "ISETP->PLOP3": 4,
+  "ISETP->SEL": 4,
+  "ISETP.U32->ATOMS": 13,
+  "ISETP.U32->BAR": 13,
+  "ISETP.U32->BRA": 13,
+  "ISETP.U32->EXIT": 13,
+  "ISETP.U32->IADD3": 13,
+  "ISETP.U32->IMAD": 13,
+  "ISETP.U32->IMAD.IADD": 13,
+  "ISETP.U32->IMAD.MOV.U32": 13,
+  "ISETP.U32->ISETP": 4,
+  "ISETP.U32->ISETP.U32": 4,
+  "ISETP.U32->LOP3": 13,
+  "ISETP.U32->PLOP3": 13,
+  "ISETP.U32->SEL": 4,
+  "ISETP.U32->VOTE": 13,
+  "LEA->LDL": 9,
+  "LEA->LDL.64": 9,
+  "LEA->STL": 5,
+  "LOP3->BRA": 13,
+  "LOP3->DFMA": 6,
+  "LOP3->FFMA": 6,
+  "LOP3->FSEL": 13,
+  "LOP3->IADD3": 4,
+  "LOP3->IMAD.IADD": 5,
+  "LOP3->IMAD.MOV.U32": 5,
+  "LOP3->IMAD.SHL.U32": 5,
+  "LOP3->ISETP": 4,
+  "LOP3->ISETP.U32": 4,
+  "LOP3->LEA": 4,
+  "LOP3->LOP3": 4,
+  "LOP3->MOV": 13,
+  "LOP3->MUFU.RCP": 4,
+  "LOP3->PLOP3": 4,
+  "LOP3->SHF.U32": 4,
+  "LOP3->SHF.U32.HI": 4,
+  "LOP3->STG": 9,
+  "LOP3->STG.64": 5,
+  "MOV->ATOMG": 5,
+  "MOV->ATOMS": 5,
+  "MOV->DADD": 7,
+  "MOV->DFMA": 6,
+  "MOV->DMUL": 7,
+  "MOV->DSETP": 6,
+  "MOV->F2F.F32": 4,
+  "MOV->F2I": 4,
+  "MOV->F2I.U32": 4,
+  "MOV->FFMA": 5,
+  "MOV->FSEL": 8,
+  "MOV->FSETP": 4,
+  "MOV->I2F": 4,
+  "MOV->I2F.U32": 24,
+  "MOV->IADD3": 5,
+  "MOV->IDP": 5,
+  "MOV->IMAD": 5,
+  "MOV->IMAD.HI.U32": 9,
+  "MOV->IMAD.MOV.U32": 5,
+  "MOV->IMAD.WIDE.U32": 5,
+  "MOV->ISETP": 4,
+  "MOV->ISETP.U32": 4,
+  "MOV->LOP3": 4,
+  "MOV->MOV": 4,
+  "MOV->PRMT": 4,
+  "MOV->SEL": 4,
+  "MOV->SHF.U32": 4,
+  "MOV->SHF.U32.HI": 4,
+  "MOV->SHFL": 5,
+  "MOV->STG.64": 5,
+  "MOV->STS.128": 5,
+  "MOV->STS.64": 5,
+  "MOV->VABSDIFF.U32": 4,
+  "PLOP3->BRA": 13,
+  "PLOP3->ISETP.U32": 13,
+  "PLOP3->SEL": 4,
+  "PRMT->BMSK": 4,
+  "PRMT->PRMT": 4,
+  "PRMT->SGXT.U32": 6,
+  "PRMT->SHF.HI": 4,
+  "PRMT->SHF.U32": 8,
+  "PRMT->SHF.U32.HI": 4,
+  "PRMT->STG.64": 5,
+  "SEL->IMAD.IADD": 11,
+  "SEL->IMAD.MOV": 5,
+  "SEL->LOP3": 4,
+  "SEL->SHF.U32.HI": 4,
+  "SEL->STG.64": 5,
+  "SGXT.U32->STG.64": 5,
+  "SHF->STG.64": 7,
+  "SHF.HI->STG.64": 5,
+  "SHF.U32->ISETP": 4,
+  "SHF.U32->LDGSTS": 8,
+  "SHF.U32->LDGSTS.128": 8,
+  "SHF.U32->LDSM": 9,
+  "SHF.U32->LOP3": 4,
+  "SHF.U32->STG.64": 5,
+  "SHF.U32.HI->IADD3": 29,
+  "SHF.U32.HI->IMAD.IADD": 15,
+  "SHF.U32.HI->ISETP.U32": 4,
+  "SHF.U32.HI->LOP3": 4,
+  "SHF.U32.HI->SGXT.U32": 4,
+  "SHF.U32.HI->SHF.U32.HI": 4,
+  "SHF.U32.HI->STG.64": 5,
+  "SHFL->IADD3": 6,
+  "VABSDIFF.U32->STG.64": 5,
+  "VOTE->ISETP.U32": 4,
+  "VOTE->SEL": 4,
+  "VOTE->STG.64": 5
+ }
+}

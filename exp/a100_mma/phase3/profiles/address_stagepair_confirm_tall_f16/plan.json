@@ -1,0 +1,161 @@
+{
+  "suite": "phase3/address-stage-confirm-suite.json",
+  "suite_sha256": "5ff9c51aecaa0e9e9db88638dffb7a50eb591a9ad01c2334fd1e70c111489b24",
+  "suite_case": "address_stage_confirm_tall_f16",
+  "index": 1,
+  "config": {
+    "build": "address_stagepair_confirm_tall_f16",
+    "name": "address_stagepair_confirm_tall_f16",
+    "m": 16384,
+    "n": 4096,
+    "k": 4096,
+    "dtype": "f16",
+    "tile_m": 128,
+    "tile_n": 128,
+    "threads": 128,
+    "smem": 65536
+  },
+  "dtype": "f16",
+  "shape_mnk": [
+    16384,
+    4096,
+    4096
+  ],
+  "grid": [
+    128,
+    32,
+    1
+  ],
+  "threads": 128,
+  "dynamic_shared_bytes": 65536,
+  "profile_contract": "OA and ptxas generated from this exact same source PTX",
+  "remote_function": "phase2/profile_modal.py:profile",
+  "requested_metrics": [
+    "gpu__time_duration.sum",
+    "sm__pipe_tensor_cycles_active.avg.pct_of_peak_sustained_active",
+    "sm__warps_active.avg.pct_of_peak_sustained_active",
+    "smsp__inst_executed.sum",
+    "smsp__warp_issue_stalled_short_scoreboard_per_warp_active.pct",
+    "smsp__warp_issue_stalled_long_scoreboard_per_warp_active.pct",
+    "smsp__warp_issue_stalled_barrier_per_warp_active.pct",
+    "smsp__warp_issue_stalled_math_pipe_throttle_per_warp_active.pct",
+    "smsp__warp_issue_stalled_mio_throttle_per_warp_active.pct",
+    "smsp__warp_issue_stalled_wait_per_warp_active.pct",
+    "smsp__warp_issue_stalled_not_selected_per_warp_active.pct",
+    "l1tex__data_bank_conflicts_pipe_lsu_mem_shared_op_ld.sum",
+    "l1tex__data_bank_conflicts_pipe_lsu_mem_shared_op_st.sum",
+    "dram__bytes.sum",
+    "lts__t_sector_hit_rate.pct",
+    "smsp__inst_executed_pipe_tensor.sum",
+    "l1tex__data_pipe_lsu_wavefronts_mem_shared_op_ld.sum",
+    "l1tex__t_requests_pipe_lsu_mem_shared_op_ld.sum",
+    "smsp__warps_eligible.avg.per_cycle_active"
+  ],
+  "input_provenance": {
+    "build": "address_stagepair_confirm_tall_f16",
+    "grid": [
+      128,
+      32,
+      1
+    ],
+    "threads": 128,
+    "dynamic_shared_bytes": 65536,
+    "ours_sha256": "b08cdb5a6d3678f2eb5b453b23816ae7593655e35ee903c3a87fbd1d67e4d763",
+    "ptxas_sha256": "318311614de65b2bf13118306e996a716ceb02fec35f29ac768bb0e735a9a15d",
+    "ptx_sha256": "25df2a8950638940c87ab9460c01dd92883610f0e93b26159e410e9f8b6adb6a",
+    "compilation": {
+      "compiler": "OpenAssembler isolated LDGSTS shared-immediate experiment",
+      "fallback": false,
+      "reference_and_ELF_container": "NVIDIA ptxas on matching PTX",
+      "candidate": {
+        "shared_chunk_immediates": true,
+        "global_chunk_immediates": false,
+        "stage_pair": true,
+        "paired_b": true,
+        "row_epilogue": true,
+        "gap": 8,
+        "reuse": true
+      },
+      "geometry": {
+        "m": 16384,
+        "n": 4096,
+        "k": 4096,
+        "bm": 128,
+        "bn": 128,
+        "bk": 64,
+        "wm": 64,
+        "wn": 64,
+        "stages": 2
+      },
+      "source_ptx_sha256": "25df2a8950638940c87ab9460c01dd92883610f0e93b26159e410e9f8b6adb6a",
+      "compiler_source_hashes": {
+        "exp/a100_mma/phase3/address_shared.py": "2343f42ed9321804cbc0835730c7f27dc5941ea2dc6f33a445d5c8996b6ab674",
+        "exp/a100_mma/phase3/address_stage.py": "ae5c2e8cd5e27a59dadd22a8a5138ad2c2c86795daf847cb91da532034fc9f09",
+        "exp/a100_mma/phase3/search_sequences.py": "4ec826e51a60c86eb96764b2a3175483656eb21a02841b5000903575d6f2ae3d",
+        "exp/a100_mma/phase3/search_combined.py": "8a06158ecd2e657bab801b977fdbf8a375dde20d123e3df5c2e88b950aac2ff6",
+        "exp/a100_mma/phase3/epilogue.py": "495a537d20cb63bd5a85d5dacf53875347340c0888d4700f603df850f2b2ea49",
+        "exp/a100_mma/backend.py": "755f6bf4f36f331fb636e2cd7314e4149762d9120f007f2567489858f49fdd69",
+        "exp/a100_mma/pipeline.py": "77769b4f4f433df23826b482d16386f4d0003afaade8ab863a1d5f5345d8b28e",
+        "openassembler/backend/ra.py": "6ed4a3f999f20e5d2317ece1bf4ef47a7e9a2019d461394df486e228797c14fc"
+      },
+      "cli_wall_ms": 2337.942957994528,
+      "kernels": [
+        {
+          "kernel": "gemm",
+          "requested_opt_level": "safe",
+          "applied_schedule": "source-order-HMMA8-epoch-drain15",
+          "scalar_schedule": "mined",
+          "protected_scoreboard_recycling": true,
+          "ldsm_read_barrier": false,
+          "ldsm_address_war_uses_write_completion": true,
+          "list_schedule_with_tensor_ordering": false,
+          "tensor_reuse_hints": true,
+          "experimental_recycle_without_wait": false,
+          "inline_64bit_pointer_increments": true,
+          "optimize_local_homes": true,
+          "licm_ops_hoisted": 0,
+          "ptx_instructions": 1419,
+          "sass_instructions": 1595,
+          "registers": 216,
+          "stages": {
+            "select_ms": 122.09712492767721,
+            "licm_ms": 0.0013330718502402306,
+            "dce_coalesce_ms": 33.1307080341503,
+            "allocate_ms": 599.1454169852659,
+            "lower_ms": 44.30254199542105,
+            "schedule_ms": 101.96566593367606,
+            "encoder_setup_ms": 0.0019170111045241356,
+            "encode_ms": 16.025542048737407
+          }
+        }
+      ],
+      "sass_opcode_counts": {
+        "MOV": 282,
+        "ULDC.64": 1,
+        "S2R": 3,
+        "IMAD.SHL": 81,
+        "LOP3.LUT": 79,
+        "SHF.R.U32.HI": 31,
+        "IADD3": 195,
+        "IMAD": 48,
+        "IMAD.WIDE.U32": 24,
+        "LDGSTS.E.BYPASS.128": 64,
+        "LDGDEPBAR": 4,
+        "IADD3.X": 48,
+        "DEPBAR.LE": 4,
+        "BAR.SYNC.DEFER_BLOCKING": 8,
+        "LDSM.16.M88.4": 128,
+        "HMMA.16816.F32": 512,
+        "NOP": 20,
+        "ISETP.LT.U32.AND": 1,
+        "@P0": 1,
+        "STG.E.64": 64,
+        "EXIT": 1,
+        "BRA": 1
+      },
+      "exact_nvdisasm_tensor_memory_store_operands": true,
+      "spliced_words_and_controls_exact": true,
+      "address_field_evidence_sha256": "5168b037a21ffd74cfa9d6bc4644a7bd7acd471d4862b3145f59b5e507199044"
+    }
+  }
+}

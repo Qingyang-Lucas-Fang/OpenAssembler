@@ -1,0 +1,249 @@
+document.documentElement.classList.add('js');
+[2104.08378] Accelerating Sparse Deep Neural Networks
+Skip to main content
+Search
+Submit
+Donate
+Log in
+Search arXiv
+
+      Press Enter to search · 
+Advanced search
+Computer Science > Machine Learning
+arXiv:2104.08378
+ (cs)
+    
+
+  [Submitted on 16 Apr 2021]
+Title:
+Accelerating Sparse Deep Neural Networks
+Authors:
+Asit Mishra
+, 
+Jorge Albericio Latorre
+, 
+Jeff Pool
+, 
+Darko Stosic
+, 
+Dusan Stosic
+, 
+Ganesh Venkatesh
+, 
+Chong Yu
+, 
+Paulius Micikevicius
+View a PDF of the paper titled Accelerating Sparse Deep Neural Networks, by Asit Mishra and 7 other authors
+View PDF
+HTML (experimental)
+Abstract:
+As neural network model sizes have dramatically increased, so has the interest in various techniques to reduce their parameter counts and accelerate their execution. An active area of research in this field is sparsity - encouraging zero values in parameters that can then be discarded from storage or computations. While most research focuses on high levels of sparsity, there are challenges in universally maintaining model accuracy as well as achieving significant speedups over modern matrix-math hardware. To make sparsity adoption practical, the NVIDIA Ampere GPU architecture introduces sparsity support in its matrix-math units, Tensor Cores. We present the design and behavior of Sparse Tensor Cores, which exploit a 2:4 (50%) sparsity pattern that leads to twice the math throughput of dense matrix units. We also describe a simple workflow for training networks that both satisfy 2:4 sparsity pattern requirements and maintain accuracy, verifying it on a wide range of common tasks and model architectures. This workflow makes it easy to prepare accurate models for efficient deployment on Sparse Tensor Cores.
+    
+Subjects:
+Machine Learning (cs.LG)
+; Artificial Intelligence (cs.AI); Hardware Architecture (cs.AR)
+Cite as:
+arXiv:2104.08378
+ [cs.LG]
+(or 
+arXiv:2104.08378v1
+ [cs.LG]
+ for this version)
+          
+https://doi.org/10.48550/arXiv.2104.08378
+Focus to learn more
+                  arXiv-issued DOI via DataCite
+Submission history
+ From: Jeff Pool [
+view email
+]      
+[v1]
+
+        Fri, 16 Apr 2021 21:27:32 UTC (375 KB)
+Full-text links:
+Access Paper:
+
+View a PDF of the paper titled Accelerating Sparse Deep Neural Networks, by Asit Mishra and 7 other authors
+View PDF
+HTML (experimental)
+TeX Source
+ 
+view license
+Additional Features
+Audio Summary
+Current browse context:
+cs.LG
+< prev
+  |  
+next >
+new
+ | 
+recent
+ | 
+2021-04
+
+    Change to browse by:
+    
+cs
+cs.AI
+cs.AR
+References & Citations
+SciX
+Google Scholar
+Semantic Scholar
+DBLP
+ - CS Bibliography
+listing
+ | 
+bibtex
+Asit K. Mishra
+Jeff Pool
+Ganesh Venkatesh
+Paulius Micikevicius
+export BibTeX citation
+Loading...
+BibTeX formatted citation
+×
+loading...
+Data provided by: 
+Bookmark
+Bibliographic Tools
+Bibliographic and Citation Tools
+Bibliographic Explorer Toggle
+Bibliographic Explorer
+(
+What is the Explorer?
+)
+Connected Papers Toggle
+Connected Papers
+(
+What is Connected Papers?
+)
+Litmaps Toggle
+Litmaps
+(
+What is Litmaps?
+)
+scite.ai Toggle
+scite Smart Citations
+(
+What are Smart Citations?
+)
+Code, Data, Media
+Code, Data and Media Associated with this Article
+alphaXiv Toggle
+alphaXiv
+(
+What is alphaXiv?
+)
+Links to Code Toggle
+CatalyzeX Code Finder for Papers
+(
+What is CatalyzeX?
+)
+DagsHub Toggle
+DagsHub
+(
+What is DagsHub?
+)
+GotitPub Toggle
+Gotit.pub
+(
+What is GotitPub?
+)
+Huggingface Toggle
+Hugging Face
+(
+What is Huggingface?
+)
+ScienceCast Toggle
+ScienceCast
+(
+What is ScienceCast?
+)
+Demos
+Demos
+Replicate Toggle
+Replicate
+(
+What is Replicate?
+)
+Spaces Toggle
+Hugging Face Spaces
+(
+What is Spaces?
+)
+Spaces Toggle
+TXYZ.AI
+(
+What is TXYZ.AI?
+)
+Related Papers
+Recommenders and Search Tools
+Link to Influence Flower
+Influence Flower
+(
+What are Influence Flowers?
+)
+Core recommender toggle
+CORE Recommender
+(
+What is CORE?
+)
+IArxiv recommender toggle
+IArxiv Recommender
+(
+What is IArxiv?
+)
+Author
+Venue
+Institution
+Topic
+
+        About arXivLabs
+      
+arXivLabs: experimental projects with community collaborators
+arXivLabs is a framework that allows collaborators to develop and share new arXiv features directly on our website.
+Both individuals and organizations that work with arXivLabs have embraced and accepted our values of openness, community, excellence, and user data privacy. arXiv is committed to these values and only works with partners that adhere to them.
+Have an idea for a project that will add value for arXiv's community? 
+Learn more about arXivLabs
+.
+Which authors of this paper are endorsers?
+ |
+    
+Disable MathJax
+ (
+What is MathJax?
+)
+    
+mathjaxToggle();
+
+        We gratefully acknowledge support from our 
+major funders
+,
+        
+member institutions
+, 
+,
+        and all contributors.
+      
+About
+·
+Help
+·
+Contact
+·
+Subscribe
+·
+Copyright
+·
+Privacy
+·
+Accessibility
+·
+Operational Status
+ (opens in new tab)
+Major funding support from
+ (opens in new tab)
+ (opens in new tab)
+ (opens in new tab)

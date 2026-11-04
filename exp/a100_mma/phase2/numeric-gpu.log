@@ -1,0 +1,18 @@
+✓ Initialized. View run at 
+https://modal.com/apps/qingyang-lucas-fang/main/ap-vRJ0VPEbom8lOhiDiyv5js
+✓ Created objects.
+├── ✓ Uploaded 
+│   /Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/phase2/clock_modal.py
+├── ✓ Uploaded PythonPackage:openassembler
+└── ✓ Created Function execute.
+[
+  {
+    "name": "truncation_ours"
+  },
+  {
+    "name": "truncation_ptxas"
+  }
+]
+Stopping app - local entrypoint completed.
+✓ App completed. View run at 
+https://modal.com/apps/qingyang-lucas-fang/main/ap-vRJ0VPEbom8lOhiDiyv5js

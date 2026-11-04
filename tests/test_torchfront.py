@@ -68,6 +68,15 @@ def test_archive_unpack_rejects_duplicate_paths(tmp_path):
         unpack(data.getvalue(), tmp_path / "source")
 
 
+def test_archive_unpack_rejects_normalized_path_aliases(tmp_path):
+    data = io.BytesIO()
+    with zipfile.ZipFile(data, 'w') as archive:
+        archive.writestr('src/main.py', 'first')
+        archive.writestr('src//main.py', 'second')
+    with pytest.raises(ValueError, match='unsafe application archive member'):
+        unpack(data.getvalue(), tmp_path / 'source')
+
+
 def test_manifest_rejects_application_paths_that_escape_output(tmp_path):
     import json
 

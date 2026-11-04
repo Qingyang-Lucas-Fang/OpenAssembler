@@ -8,6 +8,8 @@ names=['validated_square_f16','validated_square_bf16','validated_mlp_f16',
 records=[json.loads((HERE/'results'/f'{name}.json').read_text())[0] for name in names]
 assert all('error' not in r for r in records)
 lines=['# A100 MMA compiler experiment: measured progress, remaining gap',
+       '', 'Follow-on results: [phase2/REPORT.md](phase2/REPORT.md), with primary',
+       'literature and hardware feasibility in [phase2/LITERATURE.md](phase2/LITERATURE.md).',
        '', '2026-11-03. All work is isolated under `exp/a100_mma/`. No production',
        'source, specifications, existing dirty file, branch, or commit was changed.',
        '', '## Result', '',

@@ -1,0 +1,79 @@
+[
+  {
+    "key": "ampere_microbench",
+    "url": "https://arxiv.org/abs/2208.11174",
+    "resolved_url": "https://arxiv.org/abs/2208.11174",
+    "title": "[2208.11174] Demystifying the Nvidia Ampere Architecture through Microbenchmarking and Instruction-level Analysis",
+    "abstract": "Abstract: Graphics processing units (GPUs) are now considered the leading hardware to accelerate general-purpose workloads such as AI, data analytics, and HPC. Over the last decade, researchers have focused on demystifying and evaluating the microarchitecture features of various GPU architectures beyond what vendors reveal. This line of work is necessary to understand the hardware better and build more efficient workloads and applications. Many works have studied the recent Nvidia architectures, such as Volta and Turing, comparing them to their successor, Ampere. However, some microarchitecture features, such as the clock cycles for the different instructions, have not been extensively studied for the Ampere architecture. In this paper, we study the clock cycles per instructions with various data types found in the instruction-set architecture (ISA) of Nvidia GPUs. Using microbenchmarks, we measure the clock cycles for PTX ISA instructions and their SASS ISA instructions counterpart. we further calculate the clock cycle needed to access each memory unit. We also demystify the new version of the tensor core unit found in the Ampere architecture by using the WMMA API and measuring its clock cycles per instruction and throughput for the different data types and input shapes. The results found in this work should guide software developers and hardware architects. Furthermore, the clock cycles per instructions are widely used by performance modeling simulators and tools to model and predict the performance of the hardware."
+  },
+  {
+    "key": "tensor_microbench",
+    "url": "https://arxiv.org/abs/2206.02874",
+    "resolved_url": "https://arxiv.org/abs/2206.02874",
+    "title": "[2206.02874] Dissecting Tensor Cores via Microbenchmarks: Latency, Throughput and Numeric Behaviors",
+    "abstract": "Abstract: Tensor Cores have been an important unit to accelerate Fused Matrix Multiplication Accumulation (MMA) in all NVIDIA GPUs since Volta Architecture. To program Tensor Cores, users have to use either legacy wmma APIs or current mma APIs. Legacy wmma APIs are more easy-to-use but can only exploit limited features and power of Tensor Cores. Specifically, wmma APIs support fewer operand shapes and can not leverage the new sparse matrix multiplication feature of the newest Ampere Tensor Cores. However, the performance of current programming interface has not been well explored. Furthermore, the computation numeric behaviors of low-precision floating points (TF32, BF16, and FP16) supported by the newest Ampere Tensor Cores are also mysterious. In this paper, we explore the throughput and latency of current programming APIs. We also intuitively study the numeric behaviors of Tensor Cores MMA and profile the intermediate operations including multiplication, addition of inner product, and accumulation. All codes used in this work can be found in  this https URL ."
+  },
+  {
+    "key": "flashattention2",
+    "url": "https://arxiv.org/abs/2307.08691",
+    "resolved_url": "https://arxiv.org/abs/2307.08691",
+    "title": "[2307.08691] FlashAttention-2: Faster Attention with Better Parallelism and Work Partitioning",
+    "abstract": "Abstract: Scaling Transformers to longer sequence lengths has been a major problem in the last several years, promising to improve performance in language modeling and high-resolution image understanding, as well as to unlock new applications in code, audio, and video generation. The attention layer is the main bottleneck in scaling to longer sequences, as its runtime and memory increase quadratically in the sequence length. FlashAttention exploits the asymmetric GPU memory hierarchy to bring significant memory saving (linear instead of quadratic) and runtime speedup (2-4$\\times$ compared to optimized baselines), with no approximation. However, FlashAttention is still not nearly as fast as optimized matrix-multiply (GEMM) operations, reaching only 25-40\\% of the theoretical maximum FLOPs/s. We observe that the inefficiency is due to suboptimal work partitioning between different thread blocks and warps on the GPU, causing either low-occupancy or unnecessary shared memory reads/writes. We propose FlashAttention-2, with better work partitioning to address these issues. In particular, we (1) tweak the algorithm to reduce the number of non-matmul FLOPs (2) parallelize the attention computation, even for a single head, across different thread blocks to increase occupancy, and (3) within each thread block, distribute the work between warps to reduce communication through shared memory. These yield around 2$\\times$ speedup compared to FlashAttention, reaching 50-73\\% of the theoretical maximum FLOPs/s on A100 and getting close to the efficiency of GEMM operations. We empirically validate that when used end-to-end to train GPT-style models, FlashAttention-2 reaches training speed of up to 225 TFLOPs/s per A100 GPU (72\\% model FLOPs utilization)."
+  },
+  {
+    "key": "flashattention3",
+    "url": "https://arxiv.org/abs/2407.08608",
+    "resolved_url": "https://arxiv.org/abs/2407.08608",
+    "title": "[2407.08608] FlashAttention-3: Fast and Accurate Attention with Asynchrony and Low-precision",
+    "abstract": "Abstract: Attention, as a core layer of the ubiquitous Transformer architecture, is the bottleneck for large language models and long-context applications. FlashAttention elaborated an approach to speed up attention on GPUs through minimizing memory reads/writes. However, it has yet to take advantage of new capabilities present in recent hardware, with FlashAttention-2 achieving only 35% utilization on the H100 GPU. We develop three main techniques to speed up attention on Hopper GPUs: exploiting asynchrony of the Tensor Cores and TMA to (1) overlap overall computation and data movement via warp-specialization and (2) interleave block-wise matmul and softmax operations, and (3) block quantization and incoherent processing that leverages hardware support for FP8 low-precision. We demonstrate that our method, FlashAttention-3, achieves speedup on H100 GPUs by 1.5-2.0$\\times$ with FP16 reaching up to 740 TFLOPs/s (75% utilization), and with FP8 reaching close to 1.2 PFLOPs/s. We validate that FP8 FlashAttention-3 achieves 2.6$\\times$ lower numerical error than a baseline FP8 attention."
+  },
+  {
+    "key": "thunderkittens",
+    "url": "https://arxiv.org/abs/2410.20399",
+    "resolved_url": "https://arxiv.org/abs/2410.20399",
+    "title": "[2410.20399] ThunderKittens: Simple, Fast, and Adorable AI Kernels",
+    "abstract": "Abstract: The challenge of mapping AI architectures to GPU hardware is creating a critical bottleneck in AI progress. Despite substantial efforts, hand-written custom kernels fail to meet their theoretical performance thresholds, even on well-established operations like linear attention. The diverse hardware capabilities of GPUs might suggest that we need a wide variety of techniques to achieve high performance. However, our work explores whether a small number of key abstractions can drastically simplify the process. We present ThunderKittens (TK), a framework for writing performant AI kernels while remaining easy to use and maintain. Our abstractions map to the three levels of the GPU hierarchy: (1) at the warp-level, we provide 16x16 matrix tiles as basic data structures and PyTorch-like parallel compute operations over tiles, (2) at the thread-block level, we provide a template for overlapping asynchronous operations across parallel warps, and (3) at the grid-level, we provide support to help hide the block launch and tear-down, and memory costs. We show the value of TK by providing kernels that match or outperform prior kernels for a range of AI operations. We match CuBLAS and FlashAttention-3 on GEMM and attention inference performance and outperform the strongest baselines by $10-40\\%$ on attention backwards, $8\\times$ on state space models, and $14\\times$ on linear attention."
+  },
+  {
+    "key": "markidis_mixed",
+    "url": "https://arxiv.org/abs/1803.04014",
+    "resolved_url": "https://arxiv.org/abs/1803.04014",
+    "title": "[1803.04014] NVIDIA Tensor Core Programmability, Performance &amp; Precision",
+    "abstract": "Abstract: The NVIDIA Volta GPU microarchitecture introduces a specialized unit, called &#34;Tensor Core&#34; that performs one matrix-multiply-and-accumulate on 4x4 matrices per clock cycle. The NVIDIA Tesla V100 accelerator, featuring the Volta microarchitecture, provides 640 Tensor Cores with a theoretical peak performance of 125 Tflops/s in mixed precision. In this paper, we investigate current approaches to program NVIDIA Tensor Cores, their performances and the precision loss due to computation in mixed precision.\n Currently, NVIDIA provides three different ways of programming matrix-multiply-and-accumulate on Tensor Cores: the CUDA Warp Matrix Multiply Accumulate (WMMA) API, CUTLASS, a templated library based on WMMA, and cuBLAS GEMM. After experimenting with different approaches, we found that NVIDIA Tensor Cores can deliver up to 83 Tflops/s in mixed precision on a Tesla V100 GPU, seven and three times the performance in single and half precision respectively. A WMMA implementation of batched GEMM reaches a performance of 4 Tflops/s. While precision loss due to matrix multiplication with half precision input might be critical in many HPC applications, it can be considerably reduced at the cost of increased computation. Our results indicate that HPC applications using matrix multiplications can strongly benefit from using of NVIDIA Tensor Cores."
+  },
+  {
+    "key": "strassen_reloaded",
+    "url": "https://arxiv.org/abs/1605.01078",
+    "resolved_url": "https://arxiv.org/abs/1605.01078",
+    "title": "[1605.01078] Implementing Strassen&#39;s Algorithm with BLIS",
+    "abstract": "Abstract: We dispel with &#34;street wisdom&#34; regarding the practical implementation of Strassen&#39;s algorithm for matrix-matrix multiplication (DGEMM). Conventional wisdom: it is only practical for very large matrices. Our implementation is practical for small matrices. Conventional wisdom: the matrices being multiplied should be relatively square. Our implementation is practical for rank-k updates, where k is relatively small (a shape of importance for libraries like LAPACK). Conventional wisdom: it inherently requires substantial workspace. Our implementation requires no workspace beyond buffers already incorporated into conventional high-performance DGEMM implementations. Conventional wisdom: a Strassen DGEMM interface must pass in workspace. Our implementation requires no such workspace and can be plug-compatible with the standard DGEMM interface. Conventional wisdom: it is hard to demonstrate speedup on multi-core architectures. Our implementation demonstrates speedup over conventional DGEMM even on an Intel(R) Xeon Phi(TM) coprocessor utilizing 240 threads. We show how a distributed memory matrix-matrix multiplication also benefits from these advances."
+  },
+  {
+    "key": "alphatensor",
+    "url": "https://www.nature.com/articles/s41586-022-05172-4",
+    "resolved_url": "https://www.nature.com/articles/s41586-022-05172-4",
+    "title": "Client Challenge",
+    "abstract": null
+  },
+  {
+    "key": "hopper_architecture",
+    "url": "https://developer.nvidia.com/blog/nvidia-hopper-architecture-in-depth/",
+    "resolved_url": "https://developer.nvidia.com/blog/nvidia-hopper-architecture-in-depth/",
+    "title": "NVIDIA Hopper Architecture In&#x2d;Depth | NVIDIA Technical Blog",
+    "abstract": null
+  },
+  {
+    "key": "ampere_architecture",
+    "url": "https://developer.nvidia.com/blog/nvidia-ampere-architecture-in-depth/",
+    "resolved_url": "https://developer.nvidia.com/blog/nvidia-ampere-architecture-in-depth/",
+    "title": "NVIDIA Ampere Architecture In&#x2d;Depth | NVIDIA Technical Blog",
+    "abstract": null
+  },
+  {
+    "key": "sparse_training",
+    "url": "https://arxiv.org/abs/2104.08378",
+    "resolved_url": "https://arxiv.org/abs/2104.08378",
+    "title": "[2104.08378] Accelerating Sparse Deep Neural Networks",
+    "abstract": "Abstract: As neural network model sizes have dramatically increased, so has the interest in various techniques to reduce their parameter counts and accelerate their execution. An active area of research in this field is sparsity - encouraging zero values in parameters that can then be discarded from storage or computations. While most research focuses on high levels of sparsity, there are challenges in universally maintaining model accuracy as well as achieving significant speedups over modern matrix-math hardware. To make sparsity adoption practical, the NVIDIA Ampere GPU architecture introduces sparsity support in its matrix-math units, Tensor Cores. We present the design and behavior of Sparse Tensor Cores, which exploit a 2:4 (50%) sparsity pattern that leads to twice the math throughput of dense matrix units. We also describe a simple workflow for training networks that both satisfy 2:4 sparsity pattern requirements and maintain accuracy, verifying it on a wide range of common tasks and model architectures. This workflow makes it easy to prepare accurate models for efficient deployment on Sparse Tensor Cores."
+  }
+]

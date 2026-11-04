@@ -81,6 +81,8 @@ def project_files(root: Path, output: Path) -> dict[str, bytes]:
     total = 0
     for path in files:
         rel = path.relative_to(root).as_posix()
+        if path.stat().st_size + total > MAX_BYTES or len(entries) >= MAX_FILES:
+            raise ApplicationError(f'application source exceeds the bundle limit ({MAX_BYTES // 1024 // 1024} MiB, {MAX_FILES} files)')
         data = path.read_bytes()
         total += len(data)
         if total > MAX_BYTES or len(entries) == MAX_FILES:
@@ -189,14 +191,29 @@ def _worker_request(request: dict, config: dict, repo_root: Path) -> dict:
 def compile_application(root: Path, out_dir: Path, *, output_name: str | None = None,
                         verify: bool = True, dry_run: bool = False,
                         build_backend: str | None = None, gpu: str | None = None,
-                        budget: float | None = None):
+                        budget: float | None = None, no_sass: bool = False):
     """Capture the configured CUDA training run and publish cubins, SASS and runtime."""
     from openassembler import project
     root, out_dir = Path(root).resolve(), Path(out_dir).resolve()
+    if root.is_relative_to(out_dir):
+        raise ApplicationError('application source is inside the output folder; choose another --out-dir')
+    try:
+        name, note = project.single_output_name(Path('application.py'), output_name or safe_name(root))
+    except project.ProjectError as exc:
+        raise ApplicationError(str(exc)) from None
+    if note:
+        print(note)
+    if (not name or name in ('.', '..') or len(name) > 80
+            or any(c not in 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_.-' for c in name)):
+        raise ApplicationError('application output name must contain 1..80 letters, numbers, dots, dashes or underscores')
+    if out_dir.exists() and not out_dir.is_dir():
+        raise ApplicationError(f'output folder {out_dir} exists and is a file')
     config_file = config_path(root)
     if config_file is None:
         raise ApplicationError(f"{root} has no openassembler.toml application configuration")
     config = load_config(config_file)
+    if verify and config['verification'] == 'none':
+        raise ApplicationError("--verify requires application.verification='state'; it is disabled in openassembler.toml")
     entrypoint = (root / config['entrypoint']).resolve()
     if not entrypoint.is_relative_to(root) or not entrypoint.is_file():
         raise ApplicationError(f"configured application entrypoint is missing or escapes the repository: {config['entrypoint']}")
@@ -228,22 +245,22 @@ def compile_application(root: Path, out_dir: Path, *, output_name: str | None = 
         config['job_timeout'] = min(config['job_timeout'], budget)
     if config['build_backend'] == 'auto':
         import importlib.util
-        config['build_backend'] = 'local' if importlib.util.find_spec('torch') and os.name == 'posix' else 'modal'
+        import platform
+        config['build_backend'] = 'local' if platform.system() == 'Linux' and importlib.util.find_spec('torch') else 'modal'
+    source, digest, file_names = source_blob(root, out_dir, config)
+    for rel in config['requirements']:
+        if rel not in file_names:
+            raise ApplicationError(f'configured requirements file is missing from the source bundle: {rel}')
     if dry_run:
-        source, digest, files = source_blob(root, out_dir, config)
-        print(f"PyTorch application {output_name or safe_name(root)}: {len(files)} files, {len(source) / 1024:.1f} KiB source")
+        print(f"PyTorch application {name}: {len(file_names)} files, {len(source) / 1024:.1f} KiB source")
         print(f"entrypoint: {config['entrypoint']} {' '.join(config['args'])}")
         print(f"build: {config['build_backend']}, GPU {config['gpu']}, torch=={config['torch']}, budget {config['budget']:g}s, "
               f"eager/compiled state verification {'on' if verify and config['verification'] == 'state' else 'off'}")
         print("capture executes the configured training workload to produce compiler specializations")
-        return ApplicationBuildResult(0, out_dir, output_name or safe_name(root), None)
+        return ApplicationBuildResult(0, out_dir, name, None, config)
 
-    name = output_name or safe_name(root)
-    if not name or any(c not in 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_.-' for c in name):
-        raise ApplicationError("application output name may contain letters, numbers, dot, dash, underscore")
-    source, digest, file_names = source_blob(root, out_dir, config)
     request = {'mode': 'compile', 'config': config, 'source': base64.b64encode(source).decode('ascii'),
-               'digest': digest, 'budget': config['budget'],
+               'digest': digest, 'budget': config['budget'], 'no_sass': no_sass,
                'verify': verify and config['verification'] == 'state'}
     started = time.monotonic()
     raw = _worker_request(request, config, root)
@@ -307,40 +324,54 @@ def compile_application(root: Path, out_dir: Path, *, output_name: str | None = 
              'build_backend': config['build_backend'], 'verification': report['verification'],
              'compiled_by': 'torch-inductor-triton', 'kernels': kernel_records}
     published[f'{app_rel}/config.json'] = json.dumps(entry, indent=1) + '\n'
-    project.prepare_out_dir(out_dir)
-    old = project.load_manifest(out_dir)
-    entries = ([{**entry, 'source': str(project.entry_source_abs(old, entry))}
-                for entry in old['entries']] if old else [])
-    old_apps = old.get('applications', []) if old else []
-    stale = [a for a in old_apps if a.get('name') == name]
-    apps = [a for a in old_apps if a.get('name') != name]
-    stale_outputs = []
-    for previous in stale:
-        paths = [previous.get(key) for key in ('source_bundle', 'cache', 'report', 'graphs', 'config')]
-        paths.extend(value for kernel in previous.get('kernels', [])
-                     for value in (kernel.get('cubin'), kernel.get('sass'), kernel.get('ptx')))
-        stale_outputs.extend(value for value in paths if value and value not in published)
-    with project.defer_sigint():
-        project.write_group(out_dir, published)
-        manifest_root = Path(old['root']) if old and entries else root
-        arch = old.get('arch', 'sm_80') if old else 'sm_80'
-        opt_level = old.get('opt_level', 'application') if old and entries else 'application'
-        project.save_manifest(out_dir, manifest_root, arch, opt_level, entries, applications=apps + [entry])
-    project.remove_outputs(out_dir, stale_outputs)
+    _publish_application(out_dir, root, name, published, entry)
     print(f"PyTorch application {name}: captured {len(report['graphs'])} graphs and {len(kernel_records)} generated CUDA kernels")
     print(f"compiled by torch-inductor-triton for {report['runtime']['device']}; runtime bundle {app_rel}")
     if report.get('verification', {}).get('status') == 'ok':
         print(f"eager/compiled verification: {report['verification']['tensors_checked']} tensors")
-    return ApplicationBuildResult(0, out_dir, name, entry)
+    return ApplicationBuildResult(0, out_dir, name, entry, config)
+
+
+def _publish_application(out_dir, root, name, published, entry):
+    from openassembler import project
+    try:
+        with project.output_lock(out_dir):
+            old = project.load_manifest(out_dir)
+            entries = ([{**entry, 'source': str(project.entry_source_abs(old, entry))}
+                        for entry in old['entries']] if old else [])
+            old_apps = old.get('applications', []) if old else []
+            if any(a['name'].casefold() == name.casefold() and a['name'] != name for a in old_apps):
+                raise ApplicationError('application output name differs only by letter case from an existing build')
+            owned = {path.casefold() for e in entries for path in project.entry_outputs(e)}
+            if any(path.casefold() in owned for path in published):
+                raise ApplicationError('application outputs overlap standalone kernel files; choose another -o or --out-dir')
+            stale = [a for a in old_apps if a.get('name') == name]
+            apps = [a for a in old_apps if a.get('name') != name]
+            stale_outputs = []
+            for previous in stale:
+                paths = [previous.get(key) for key in ('source_bundle', 'cache', 'report', 'graphs', 'config')]
+                paths.extend(value for kernel in previous.get('kernels', [])
+                             for value in (kernel.get('cubin'), kernel.get('sass'), kernel.get('ptx')))
+                stale_outputs.extend(value for value in paths if value and value not in published)
+            with project.defer_sigint():
+                project.write_group(out_dir, published)
+                manifest_root = Path(old['root']) if old and entries else root
+                arch = old.get('arch', 'sm_80') if old else 'sm_80'
+                opt_level = old.get('opt_level', 'application') if old and entries else 'application'
+                project.save_manifest(out_dir, manifest_root, arch, opt_level, entries, applications=apps + [entry])
+            project.remove_outputs(out_dir, stale_outputs)
+    except project.ProjectError as exc:
+        raise ApplicationError(str(exc)) from None
 
 
 class ApplicationBuildResult:
-    def __init__(self, rc, out_dir, name, entry):
+    def __init__(self, rc, out_dir, name, entry, config=None):
         self.rc, self.out_dir, self.name, self.entry = rc, out_dir, name, entry
+        self.config = config
 
 
 def run_application(out_dir: Path, *, name: str | None = None, backend: str = 'auto', gpu=None,
-                    budget=None, dry_run=False, extra_args=(), verify=False):
+                    budget=None, dry_run=False, extra_args=(), verify=False, job_timeout=None):
     """Replay a compiled application using its bundled Inductor/Triton cache."""
     from openassembler import project
     out_dir = Path(out_dir).resolve()
@@ -354,13 +385,13 @@ def run_application(out_dir: Path, *, name: str | None = None, backend: str = 'a
     if name:
         apps = [a for a in apps if a.get('name') == name]
     if not apps:
-        if manifest is not None and manifest.get('applications'):
+        if name is not None:
             raise ApplicationError(f"no application {name!r} in {out_dir}/manifest.json")
         return None
     if len(apps) != 1:
         raise ApplicationError('select one application with --application; found ' + ', '.join(a['name'] for a in apps))
     app = apps[0]
-    if extra_args:
+    if extra_args and list(extra_args) != app['args']:
         raise ApplicationError('application runtime args are fixed by the bundle; edit openassembler.toml and recompile')
     if backend == 'auto':
         backend = app.get('build_backend', 'modal')
@@ -385,6 +416,9 @@ def run_application(out_dir: Path, *, name: str | None = None, backend: str = 'a
     duration = budget if budget is not None else app.get('budget', 900)
     if type(duration) not in (int, float) or not 30 <= duration <= 1800:
         raise ApplicationError('application --budget must be between 30 and 1800 seconds')
+    watchdog = job_timeout if job_timeout is not None else min(app.get('job_timeout', duration), duration)
+    if type(watchdog) not in (int, float) or not 0 < watchdog <= duration:
+        raise ApplicationError('application --job-timeout must be finite, positive, and no greater than --budget')
     if dry_run:
         print(f"application {app['name']}: {len(app['kernels'])} kernels, runtime torch=={app['runtime']['torch']}, "
               f"{backend}, GPU {chosen_gpu}, budget {duration:g}s")
@@ -396,7 +430,7 @@ def run_application(out_dir: Path, *, name: str | None = None, backend: str = 'a
     request = {'mode': 'run', 'config': {'entrypoint': app['entrypoint'], 'args': app['args'],
                 'seed': app['seed'], 'torch': app['runtime']['torch'], 'rtol': app['rtol'], 'atol': app['atol'],
                 'state_rtol': app.get('state_rtol', 1e-3), 'state_atol': app.get('state_atol', 1e-3),
-                'job_timeout': min(app.get('job_timeout', duration), duration)},
+                'job_timeout': watchdog},
                 'requirements': app.get('requirements', []),
                 'source': base64.b64encode(source_blob).decode(),
                 'cache': base64.b64encode(pack(cache_files)).decode(), 'digest': app['source_sha256'],
@@ -407,6 +441,16 @@ def run_application(out_dir: Path, *, name: str | None = None, backend: str = 'a
     report = result.get('report', {})
     if report.get('status') != 'ok' or report.get('new_gpu_codegen') != 0:
         raise ApplicationError('application runtime did not confirm an exact cache-only replay')
+    from datetime import datetime, timezone
+    from openassembler import __version__
+    stamp = datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S.%fZ')
+    saved = {'openassembler': __version__, 'timestamp': stamp, 'application': app['name'],
+             'backend': backend, 'source_sha256': app['source_sha256'], **report}
+    project.write_atomic(out_dir / 'runs' / f'{stamp}.json', json.dumps(saved, indent=1) + '\n')
+    project.write_atomic(out_dir / 'run.json', json.dumps(saved, indent=1) + '\n')
     print(f"application {app['name']} replayed on {report['runtime']['device']}; {report['optimizer_steps']} optimizer steps")
+    print(f"new GPU code generation: {report['new_gpu_codegen']}")
+    if report.get('verification', {}).get('status') == 'ok':
+        print(f"eager/compiled verification: {report['verification']['tensors_checked']} tensors")
     return 0
 

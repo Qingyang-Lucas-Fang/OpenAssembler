@@ -1,0 +1,47 @@
+✓ Initialized. View run at 
+https://modal.com/apps/qingyang-lucas-fang/main/ap-fbKAcQmOqYn3WyVvJvq46T
+✓ Created objects.
+├── ✓ Uploaded /Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/modal_run.py
+├── ✓ Uploaded 
+│   /Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/triton_kernel.py
+├── ✓ Uploaded /Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/gpu_worker.py
+├── ✓ Uploaded PythonPackage:openassembler
+└── ✓ Created Function execute.
+
+==========
+== CUDA ==
+==========
+
+CUDA Version 12.8.0
+
+Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+
+This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+By pulling and using the container, you accept the terms and conditions of this license:
+https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+
+A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
+
+producer_k32_w32x32_p1_smoke Traceback (most recent call last):
+  File "/root/exp/a100_mma/gpu_worker.py", line 228, in <module>
+    result = run_hmma(case) if case.get("kind") == "hmma" else run(case)
+                                                               ^^^^^^^^^
+  File "/root/exp/a100_mma/gpu_worker.py", line 147, in run
+    launch(); torch.cuda.synchronize()
+    ^^^^^^^^
+  File "/root/exp/a100_mma/gpu_worker.py", line 73, in launch
+    drv.ck(drv.cu.cuLaunchKernel(fn, *grid, *block, case.get("smem", 0), stream, params, None), "launch")
+  File "/root/openassembler/gpu/cuda_driver.py", line 65, in ck
+    raise CudaError(what, r, self.errname(r))
+openassembler.gpu.cuda_driver.CudaError: launch: CUDA_ERROR_LAUNCH_OUT_OF_RESOURCES (701)
+
+producer_k32_w64x32_p1_smoke {'ours': 0.021247999370098115, 'ptxas': 0.018534399569034576, 'cublas': 0.006092799827456474}
+producer_k64_w64x64_p1_smoke {'ours': 0.020684799551963805, 'ptxas': 0.015718400478363037, 'cublas': 0.006092799827456474}
+producer_k64_w64x64_p2_smoke {'ours': 0.017510400712490083, 'ptxas': 0.015411199629306793, 'cublas': 0.006092799827456474}
+producer_k64_w64x64_p4_smoke {'ours': 0.016947199404239655, 'ptxas': 0.015667200088500977, 'cublas': 0.006092799827456474}
+/Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/results/producer_k32_w32x32_p1_smoke.json
+/Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/results/producer_k32_w64x32_p1_smoke.json
+/Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/results/producer_k64_w64x64_p1_smoke.json
+/Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/results/producer_k64_w64x64_p2_smoke.json
+/Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/results/producer_k64_w64x64_p4_smoke.json
+Stopping app - uncaught exception raised locally: SystemExit(1).

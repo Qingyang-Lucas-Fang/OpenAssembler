@@ -1,0 +1,35 @@
+✓ Initialized. View run at 
+https://modal.com/apps/qingyang-lucas-fang/main/ap-uVjr2lSA5xTCKFZYAUmHec
+✓ Created objects.
+├── ✓ Uploaded /Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/modal_run.py
+├── ✓ Uploaded 
+│   /Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/triton_kernel.py
+├── ✓ Uploaded /Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/gpu_worker.py
+├── ✓ Uploaded PythonPackage:openassembler
+└── ✓ Created Function execute.
+
+==========
+== CUDA ==
+==========
+
+CUDA Version 12.8.0
+
+Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+
+This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+By pulling and using the container, you accept the terms and conditions of this license:
+https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+
+A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
+
+producer_k32_w64x32_p1_large {'ours': 1.9431423187255858, 'ptxas': 1.975449562072754, 'cublas': 0.5378560066223145}
+producer_k64_w64x64_p1_large {'ours': 1.368934440612793, 'ptxas': 1.1572735786437989, 'cublas': 0.5390336036682128}
+producer_k64_w64x64_p2_large {'ours': 1.0193408012390137, 'ptxas': 0.7426047801971436, 'cublas': 0.5768703937530517}
+producer_k64_w64x64_p4_large {'ours': 1.0579456329345702, 'ptxas': 1.1158528327941895, 'cublas': 0.5555200099945068}
+/Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/results/producer_k32_w64x32_p1_large.json
+/Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/results/producer_k64_w64x64_p1_large.json
+/Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/results/producer_k64_w64x64_p2_large.json
+/Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/results/producer_k64_w64x64_p4_large.json
+Stopping app - local entrypoint completed.
+✓ App completed. View run at 
+https://modal.com/apps/qingyang-lucas-fang/main/ap-uVjr2lSA5xTCKFZYAUmHec

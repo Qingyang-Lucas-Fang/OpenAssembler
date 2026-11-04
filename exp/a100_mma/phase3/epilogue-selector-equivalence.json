@@ -1,0 +1,9 @@
+{
+  "same_code": true,
+  "same_words": true,
+  "same_register_count": true,
+  "instructions": [
+    1148,
+    1148
+  ]
+}

@@ -1,0 +1,31 @@
+✓ Initialized. View run at 
+https://modal.com/apps/qingyang-lucas-fang/main/ap-Rfx9Zgrjx5AzZO9CcEg2Rf
+✓ Created objects.
+├── ✓ Uploaded /Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/modal_run.py
+├── ✓ Uploaded 
+│   /Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/triton_kernel.py
+├── ✓ Uploaded /Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/gpu_worker.py
+├── ✓ Uploaded PythonPackage:openassembler
+└── ✓ Created Function execute.
+
+==========
+== CUDA ==
+==========
+
+CUDA Version 12.8.0
+
+Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+
+This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+By pulling and using the container, you accept the terms and conditions of this license:
+https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+
+A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
+
+p3_epilogue_large_f16 {'ours': 0.8145407676696778, 'ptxas': 0.6712831974029541, 'p3_epilogue_pair_packed_4096_4096_4096_f16': 0.7740416049957275, 'p3_epilogue_pair_native_4096_4096_4096_f16': 0.7734784126281739, 'p3_epilogue_row_native_4096_4096_4096_f16': 0.7716351985931397, 'cublas': 0.5875711917877198}
+p3_epilogue_large_bf16 {'ours': 0.8004096031188965, 'ptxas': 0.6529535770416259, 'p3_epilogue_pair_packed_4096_4096_4096_bf16': 0.7465983867645264, 'p3_epilogue_pair_native_4096_4096_4096_bf16': 0.7468031883239746, 'p3_epilogue_row_native_4096_4096_4096_bf16': 0.7499775886535645, 'cublas': 0.5684224128723144}
+/Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/results/p3_epilogue_large_f16.json
+/Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/results/p3_epilogue_large_bf16.json
+Stopping app - local entrypoint completed.
+✓ App completed. View run at 
+https://modal.com/apps/qingyang-lucas-fang/main/ap-Rfx9Zgrjx5AzZO9CcEg2Rf

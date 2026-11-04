@@ -1,0 +1,76 @@
+{
+ "openassembler": "0.2.0",
+ "schema": 1,
+ "arch": "sm_80",
+ "opt_level": "opt",
+ "root": "/Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/phase4/cli_smoke_f16/.build/generated",
+ "entries": [
+  {
+   "source": "gemm.ptx",
+   "source_sha256": "dec62846cd85abe0770cedabe92c20b1ee90a7d5366ee25b739cd0ea41129c7f",
+   "language": "ptx",
+   "cubin": "cubin/gemm.cubin",
+   "sass": "sass/gemm.sass",
+   "ptx": ".build/ptx/gemm.ptx",
+   "reference": ".build/reference/gemm.cubin",
+   "kernels": [
+    {
+     "name": "gemm",
+     "params": [
+      [
+       "u64",
+       "A"
+      ],
+      [
+       "u64",
+       "B"
+      ],
+      [
+       "u64",
+       "C"
+      ]
+     ],
+     "compiled_by": "openassembler",
+     "instructions": 906,
+     "registers": 184,
+     "verify": "not-run",
+     "tensor": {
+      "architecture": "sm_80",
+      "schedule": "source-order-hmma8-epoch-drain15",
+      "async_scoreboard": 0,
+      "ordinary_scoreboards": [
+       1,
+       2,
+       3,
+       4,
+       5
+      ],
+      "requested_opt_level": "opt"
+     },
+     "gemm": {
+      "schema": 1,
+      "m": 128,
+      "n": 128,
+      "k": 128,
+      "dtype": "f16",
+      "schedule": "stagepair",
+      "output_dtype": "f32",
+      "layout": "rcr",
+      "arch": "sm_80",
+      "launch": {
+       "grid": [
+        1,
+        1,
+        1
+       ],
+       "threads": 128,
+       "smem": 65536
+      },
+      "input_layout": "A[M,K] and B[N,K], contiguous in K; C=A@B.T",
+      "accumulation": "f32"
+     }
+    }
+   ]
+  }
+ ]
+}

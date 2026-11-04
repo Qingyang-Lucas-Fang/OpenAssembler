@@ -1,0 +1,67 @@
+// openassembler 0.2.0: external.cu -> cubin/custom.cubin (sm_80, opt-level=opt); listing by nvdisasm
+// kernel vector_add: compiled by openassembler
+	.headerflags	@"EF_CUDA_TEXMODE_UNIFIED EF_CUDA_64BIT_ADDRESS EF_CUDA_SM80 EF_CUDA_VIRTUAL_SM(EF_CUDA_SM80)"
+	.elftype	@"ET_EXEC"
+
+
+//--------------------- .text.vector_add          --------------------------
+	.section	.text.vector_add,"ax",@progbits
+	.sectioninfo	@"SHI_REGISTERS=16"
+	.align	128
+        .global         vector_add
+        .type           vector_add,@function
+        .size           vector_add,(.L_x_2 - vector_add)
+        .other          vector_add,@"STO_CUDA_ENTRY STV_DEFAULT"
+vector_add:
+.text.vector_add:
+        /*0000*/                   ULDC.64 UR4, c[0x0][0x118] ;                  /* 0x0000460000047ab9 */
+                                                                                 /* 0x000fe20000000a00 */
+        /*0010*/                   S2R R0, SR_CTAID.X ;                          /* 0x0000000000007919 */
+                                                                                 /* 0x000e240000002500 */
+        /*0020*/                   S2R R2, SR_TID.X ;                            /* 0x0000000000027919 */
+                                                                                 /* 0x000e640000002100 */
+        /*0030*/                   MOV R1, c[0x0][0x28] ;                        /* 0x00000a0000017a02 */
+                                                                                 /* 0x000fe20000000f00 */
+        /*0040*/                   IMAD R0, R0, c[0x0][0x0], R2 ;                /* 0x0000000000007a24 */
+                                                                                 /* 0x003fea00078e0202 */
+        /*0050*/                   ISETP.GE.AND P0, PT, R0, c[0x0][0x178], PT ;  /* 0x00005e0000007a0c */
+                                                                                 /* 0x000fda0003f06270 */
+        /*0060*/               @P0 BRA `(.L_x_0) ;                               /* 0x000000a000000947 */
+                                                                                 /* 0x000fea0003800000 */
+        /*0070*/                   MOV R4, 0x4 ;                                 /* 0x0000000400047802 */
+                                                                                 /* 0x000fe20000000f00 */
+        /*0080*/                   MOV R2, 0x4 ;                                 /* 0x0000000400027802 */
+                                                                                 /* 0x000fe80000000f00 */
+        /*0090*/                   IMAD.WIDE R4, R0, R4, c[0x0][0x168] ;         /* 0x00005a0000047625 */
+                                                                                 /* 0x000fe200078e0204 */
+        /*00a0*/                   IMAD.WIDE R2, R0, R2, c[0x0][0x160] ;         /* 0x0000580000027625 */
+                                                                                 /* 0x000fe800078e0202 */
+        /*00b0*/                   LDG.E R4, [R4.64] ;                           /* 0x0000000404047981 */
+                                                                                 /* 0x0006a4000c1e1900 */
+        /*00c0*/                   LDG.E R2, [R2.64] ;                           /* 0x0000000402027981 */
+                                                                                 /* 0x000b24000c1e1900 */
+        /*00d0*/                   MOV R3, 0x4 ;                                 /* 0x0000000400037802 */
+                                                                                 /* 0x020fe20000000f00 */
+        /*00e0*/                   FADD R2, R2, R4 ;                             /* 0x0000000402027221 */
+                                                                                 /* 0x014fe80000000000 */
+        /*00f0*/                   IMAD.WIDE R4, R0, R3, c[0x0][0x170] ;         /* 0x00005c0000047625 */
+                                                                                 /* 0x008fea00078e0203 */
+        /*0100*/                   STG.E [R4.64], R2 ;                           /* 0x0000000204007986 */
+                                                                                 /* 0x0001e4000c101904 */
+.L_x_0:
+        /*0110*/                   EXIT ;                                        /* 0x000000000000794d */
+                                                                                 /* 0x001fea0003800000 */
+.L_x_1:
+        /*0120*/                   BRA `(.L_x_1);                                /* 0xfffffff000007947 */
+                                                                                 /* 0x000fc0000383ffff */
+        /*0130*/                   NOP;                                          /* 0x0000000000007918 */
+                                                                                 /* 0x000fc00000000000 */
+        /*0140*/                   NOP;                                          /* 0x0000000000007918 */
+                                                                                 /* 0x000fc00000000000 */
+        /*0150*/                   NOP;                                          /* 0x0000000000007918 */
+                                                                                 /* 0x000fc00000000000 */
+        /*0160*/                   NOP;                                          /* 0x0000000000007918 */
+                                                                                 /* 0x000fc00000000000 */
+        /*0170*/                   NOP;                                          /* 0x0000000000007918 */
+                                                                                 /* 0x000fc00000000000 */
+.L_x_2:

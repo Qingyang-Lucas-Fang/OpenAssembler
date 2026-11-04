@@ -1,0 +1,31 @@
+✓ Initialized. View run at 
+https://modal.com/apps/qingyang-lucas-fang/main/ap-i4mjaJJIBN1bqdrAZtngLA
+✓ Created objects.
+├── ✓ Uploaded /Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/modal_run.py
+├── ✓ Uploaded 
+│   /Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/triton_kernel.py
+├── ✓ Uploaded /Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/gpu_worker.py
+├── ✓ Uploaded PythonPackage:openassembler
+└── ✓ Created Function execute.
+
+==========
+== CUDA ==
+==========
+
+CUDA Version 12.8.0
+
+Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+
+This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+By pulling and using the container, you accept the terms and conditions of this license:
+https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+
+A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
+
+address_occupancy_large_f16 {'ours': 0.663808012008667, 'ptxas': 0.6030848026275635, 'address_occupancy_large_f16_w64x32_unfolded': 0.8655360221862793, 'address_occupancy_large_f16_w64x32_folded': 0.689305591583252, 'address_occupancy_large_f16_w32x64_unfolded': 0.8462847709655762, 'address_occupancy_large_f16_w32x64_folded': 0.6822912216186523, 'cublas': 0.5850624084472656}
+address_occupancy_large_bf16 {'ours': 0.6428671836853027, 'ptxas': 0.587007999420166, 'address_occupancy_large_bf16_w64x32_unfolded': 0.8455167770385742, 'address_occupancy_large_bf16_w64x32_folded': 0.6787583827972412, 'address_occupancy_large_bf16_w32x64_unfolded': 0.8339967727661133, 'address_occupancy_large_bf16_w32x64_folded': 0.6671872138977051, 'cublas': 0.5490176200866699}
+/Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/results/address_occupancy_large_f16.json
+/Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/results/address_occupancy_large_bf16.json
+Stopping app - local entrypoint completed.
+✓ App completed. View run at 
+https://modal.com/apps/qingyang-lucas-fang/main/ap-i4mjaJJIBN1bqdrAZtngLA

@@ -1,0 +1,31 @@
+✓ Initialized. View run at 
+https://modal.com/apps/qingyang-lucas-fang/main/ap-ijrEauBrmshYk4JBuE44HG
+✓ Created objects.
+├── ✓ Uploaded /Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/modal_run.py
+├── ✓ Uploaded 
+│   /Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/triton_kernel.py
+├── ✓ Uploaded /Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/gpu_worker.py
+├── ✓ Uploaded PythonPackage:openassembler
+└── ✓ Created Function execute.
+
+==========
+== CUDA ==
+==========
+
+CUDA Version 12.8.0
+
+Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+
+This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+By pulling and using the container, you accept the terms and conditions of this license:
+https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+
+A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
+
+search_smoke_f16 {'ours': 0.01817599982023239, 'ptxas': 0.014079999923706055, 'search_smoke_f16_bpair': 0.017664000391960144, 'search_smoke_f16_bpair_row': 0.017766399681568144, 'search_smoke_f16_overlap': 0.01822720021009445, 'search_smoke_f16_bpair_overlap': 0.01791999936103821, 'search_smoke_f16_role1': 0.01822720021009445, 'search_smoke_f16_role2': 0.01822720021009445, 'search_smoke_f16_quadshift1': 0.01817599982023239, 'search_smoke_f16_quadshift3': 0.01817599982023239, 'search_smoke_f16_bpair_role1': 0.017715199291706084, 'search_smoke_f16_bpair_swizzle3_7': 0.018432000279426576, 'search_smoke_f16_bpair_swizzle7_3': 0.01797119975090027, 'search_smoke_f16_bpair_gap4': 0.017664000391960144, 'search_smoke_f16_bpair_no_reuse': 0.017715199291706084, 'search_smoke_f16_bpair_preaddress': 0.01797119975090027, 'cublas': 0.006092799827456474}
+search_smoke_bf16 {'ours': 0.01812479943037033, 'ptxas': 0.014028799533843995, 'search_smoke_bf16_bpair': 0.017664000391960144, 'search_smoke_bf16_bpair_row': 0.017766399681568144, 'search_smoke_bf16_overlap': 0.01822720021009445, 'search_smoke_bf16_bpair_overlap': 0.017868800461292265, 'search_smoke_bf16_role1': 0.01817599982023239, 'search_smoke_bf16_role2': 0.01817599982023239, 'search_smoke_bf16_quadshift1': 0.01817599982023239, 'search_smoke_bf16_quadshift3': 0.01817599982023239, 'search_smoke_bf16_bpair_role1': 0.017664000391960144, 'search_smoke_bf16_bpair_swizzle3_7': 0.018380799889564516, 'search_smoke_bf16_bpair_swizzle7_3': 0.01791999936103821, 'search_smoke_bf16_bpair_gap4': 0.017612800002098083, 'search_smoke_bf16_bpair_no_reuse': 0.017664000391960144, 'search_smoke_bf16_bpair_preaddress': 0.01797119975090027, 'cublas': 0.006297600269317627}
+/Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/results/search_smoke_f16.json
+/Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/results/search_smoke_bf16.json
+Stopping app - local entrypoint completed.
+✓ App completed. View run at 
+https://modal.com/apps/qingyang-lucas-fang/main/ap-ijrEauBrmshYk4JBuE44HG

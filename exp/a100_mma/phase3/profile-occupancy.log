@@ -1,0 +1,91 @@
+✓ Initialized. View run at 
+https://modal.com/apps/qingyang-lucas-fang/main/ap-v6V92WVk07u5LYTqLnv6QE
+✓ Created objects.
+├── ✓ Uploaded 
+│   /Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/phase2/profile_modal.py
+├── ✓ Uploaded 
+│   /Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/phase2/profile_target.py
+├── ✓ Uploaded PythonPackage:openassembler
+└── ✓ Created Function profile.
+{
+  "suite_case": "address_occupancy_large_f16",
+  "index": 1,
+  "dtype": "f16",
+  "shape_mnk": [
+    4096,
+    4096,
+    4096
+  ],
+  "grid": [
+    32,
+    32,
+    1
+  ],
+  "threads": 256,
+  "dynamic_shared_bytes": 65536
+}
+
+==========
+== CUDA ==
+==========
+
+CUDA Version 12.8.0
+
+Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+
+This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+By pulling and using the container, you accept the terms and conditions of this license:
+https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+
+A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
+
+{
+  "build": "address_occupancy_large_f16_w64x32_unfolded",
+  "results": {
+    "ours": {
+      "rc": 0,
+      "stderr": "",
+      "import_rc": 0
+    },
+    "ptxas": {
+      "rc": 0,
+      "stderr": "",
+      "import_rc": 0
+    }
+  }
+}
+{
+  "suite_case": "address_occupancy_large_f16",
+  "index": 2,
+  "dtype": "f16",
+  "shape_mnk": [
+    4096,
+    4096,
+    4096
+  ],
+  "grid": [
+    32,
+    32,
+    1
+  ],
+  "threads": 256,
+  "dynamic_shared_bytes": 65536
+}
+{
+  "build": "address_occupancy_large_f16_w64x32_folded",
+  "results": {
+    "ours": {
+      "rc": 0,
+      "stderr": "",
+      "import_rc": 0
+    },
+    "ptxas": {
+      "rc": 0,
+      "stderr": "",
+      "import_rc": 0
+    }
+  }
+}
+Stopping app - local entrypoint completed.
+✓ App completed. View run at 
+https://modal.com/apps/qingyang-lucas-fang/main/ap-v6V92WVk07u5LYTqLnv6QE

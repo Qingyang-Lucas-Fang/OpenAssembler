@@ -27,10 +27,11 @@ def process(request_text: str) -> str:
 
 
 @app.local_entrypoint()
-def main(request: str, result: str, gpu: str = 'A100-40GB', budget: int = 900) -> None:
+def main(request: str, result: str, gpu: str = 'A100-40GB', budget: float = 900) -> None:
     from pathlib import Path
+    import math
     request_text = Path(request).read_text()
-    fn = process.with_options(gpu=gpu, timeout=budget + 60)
+    fn = process.with_options(gpu=gpu, timeout=math.ceil(budget) + 60)
     try:
         response = fn.remote(request_text)
     except modal.exception.FunctionTimeoutError:
