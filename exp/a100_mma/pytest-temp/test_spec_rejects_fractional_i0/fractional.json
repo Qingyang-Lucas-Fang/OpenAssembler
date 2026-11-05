@@ -1,1 +1,0 @@
-{"buffers": {"x": {"dtype": "i32", "count": 1, "init": [1.5]}}, "steps": [{"kernel": "k"}]}

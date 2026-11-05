@@ -1,9 +1,0 @@
-exp/a100_mma/build/reuse_baseline/cubin/reuse_baseline.cubin  (gemm: 1898 instructions, opt-level=safe, regs=228)
-exp/a100_mma/build/reuse_baseline/sass/reuse_baseline.sass  (SASS listing from nvdisasm)
-warning: gemm: 77 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R2, R2, 0x80, RZ' -> 'IMAD.SHL R2, R2, 0x80, RZ'
-exp/a100_mma/build/reuse8/cubin/reuse8.cubin  (gemm: 1898 instructions, opt-level=safe, regs=228)
-exp/a100_mma/build/reuse8/sass/reuse8.sass  (SASS listing from nvdisasm)
-warning: gemm: 301 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R2, R2, 0x80, RZ' -> 'IMAD.SHL R2, R2, 0x80, RZ'
-exp/a100_mma/build/reuse4/cubin/reuse4.cubin  (gemm: 1898 instructions, opt-level=safe, regs=228)
-exp/a100_mma/build/reuse4/sass/reuse4.sass  (SASS listing from nvdisasm)
-warning: gemm: 301 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R2, R2, 0x80, RZ' -> 'IMAD.SHL R2, R2, 0x80, RZ'

@@ -51,6 +51,42 @@ def test_invalid_or_unimplemented_contract_is_rejected(change):
         GemmPlan(**args)
 
 
+@pytest.mark.parametrize("change",[
+    {"cta_order":"unknown"}, {"epilogue":"strassen"},
+    {"cta_order":"morton8","m":128,"n":1024},
+])
+def test_new_plan_options_reject_unsupported_modes_and_incomplete_morton_groups(change):
+    args=dict(m=128,n=128,k=128)
+    args.update(change)
+    with pytest.raises(ValueError):
+        GemmPlan(**args)
+
+
+def test_morton8_emitted_coordinate_program_is_a_full_grid_bijection():
+    from openassembler.ptx.interp import Launch, run_kernel
+
+    plan=GemmPlan(1024,1024,128,cta_order="morton8")
+    source=generate(plan)
+    prefix=source.split("and.b32 %r3,%r0,31;",1)[0]+"ret;\n}\n"
+    module=parse_module(prefix)
+    mapped=[]
+    for by in range(8):
+        for bx in range(8):
+            interp=run_kernel(module,"gemm",Launch(block=(32,1,1),grid=(8,8,1),
+                              ctaid=(bx,by,0),params={"A":0x1000,"B":0x2000,"C":0x3000}),None)
+            regs=interp.warps[0][0].regs
+            mapped.append((regs["%r1"]//128,regs["%r2"]//128))
+    expected=[]
+    for by in range(8):
+        for bx in range(8):
+            local=by*8+bx
+            tm=sum(((local>>(2*bit))&1)<<bit for bit in range(3))
+            tn=sum(((local>>(2*bit+1))&1)<<bit for bit in range(3))
+            expected.append((tm,tn))
+    assert mapped==expected
+    assert len(set(mapped))==64
+
+
 def test_plan_is_immutable_and_launch_metadata_is_independent():
     plan = GemmPlan(256,384,256,"bf16")
     assert plan.launch == {"grid":[2,3,1],"threads":128,"smem":65536}
@@ -215,3 +251,36 @@ def test_native_stagepair_backend_matches_complete_integer_oracle(dtype,k):
     assert len(words) >= len(code) and len(words) % 8 == 0 and exits
     assert registers <= 255
     assert sum(text.startswith("STG.E.64") for text,ctl in code) == 64
+
+
+def test_native_fused_bias_residual_relu_matches_full_integer_oracle():
+    from openassembler.backend.tensor import generate as compile_tensor
+    from openassembler.emu.machine import Launch,Machine,Memory
+    from openassembler.emu.program import load_listing
+    from tests.backend_harness import listing
+
+    plan=GemmPlan(128,128,128,"f16",epilogue="bias_residual_relu")
+    kernel=parse_module(generate(plan)).kernels["gemm"]
+    code,labels,words,exits,registers=compile_tensor(kernel,"sm_80","safe")
+    av=[(i%5)-2 for i in range(plan.m*plan.k)]
+    bv=[(i%7)-3 for i in range(plan.n*plan.k)]
+    bias=[(i%9)-4 for i in range(plan.n)]
+    residual=[(i%11)-5 for i in range(plan.m*plan.n)]
+    expected=[]
+    for row in range(plan.m):
+        for col in range(plan.n):
+            value=sum(av[row*plan.k+i]*bv[col*plan.k+i] for i in range(plan.k))
+            expected.append(max(0,value+bias[col]+residual[row*plan.n+col]))
+    pack_half=lambda values:b"".join(struct.pack("<e",value) for value in values)
+    pack_float=lambda values:b"".join(struct.pack("<f",value) for value in values)
+    a,b,c,bi,res=0x100000,0x200000,0x300000,0x400000,0x500000
+    memory=Memory()
+    memory.write_bytes(a,pack_half(av));memory.write_bytes(b,pack_half(bv))
+    memory.write_bytes(bi,pack_float(bias));memory.write_bytes(res,pack_float(residual))
+    memory.write_bytes(c,b"\x00\x00\xc0\x7f"*(plan.m*plan.n))
+    Machine(load_listing(listing(code,labels)),Launch(grid=(1,1,1),block=(128,1,1),
+           params=struct.pack("<QQQQQ",a,b,c,bi,res),smem_static=65536,poison=0xDEADBEEF),memory).run(max_steps=6000000)
+    got=[struct.unpack("<f",struct.pack("<I",memory.read(c+4*i,4)))[0]
+         for i in range(plan.m*plan.n)]
+    assert got==expected
+    assert len(words)>=len(code) and len(words)%8==0 and exits and registers<=255

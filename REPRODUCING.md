@@ -208,6 +208,17 @@ openassembler compile output/.build/generated/gemm.ptx --out-dir recompiled
 # Larger measured plan; compilation still needs no GPU.
 openassembler gemm --m 4096 --n 16384 --k 4096 --dtype bf16 --out-dir output_bf16
 
+# A100 CTA-locality result: tall GEMM only; Morton requires M,N multiples of 1024.
+openassembler gemm --m 16384 --n 4096 --k 4096 --dtype f16 \
+  --cta-order morton8 --out-dir output_tall_morton
+
+# Fused FP32 bias + residual, optionally followed by ReLU.
+openassembler gemm --m 4096 --n 4096 --k 4096 --dtype bf16 \
+  --epilogue bias_residual_relu --out-dir output_square_fused
+
+# Full A100 output/canary checks and shuffled CUDA-graph timing for promoted options.
+python3 -m modal run exp/a100_mma/phase6/validate_modal.py
+
 # Production backend/generator/CLI tests, including exact words and poison checks.
 PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m pytest -q \
   tests/test_backend_tensor.py tests/test_gemm_codegen.py tests/test_cli_gemm.py
@@ -219,6 +230,13 @@ in [TENSOR_GEMM.md](docs/TENSOR_GEMM.md). Production code has no `exp/` dependen
 and compares every FP32 output bitwise with ptxas. This is a smoke check, not the
 full floating validation or CUDA graph benchmark below. Tensor kernels without
 a validated generated contract require `--spec`.
+
+`--cta-order morton8` and `--epilogue bias_residual[_relu]` are explicit,
+opt-in SM80 choices. Morton is limited to complete 8×8 CTA grids; the fused
+signature takes FP32 bias `[N]` and residual `[M,N]` buffers. The Modal validator
+checks all outputs and canaries for zero, integer and normal data, compares the
+production cubins with ptxas and same-compiler controls, then reports shuffled
+graph medians. See the phase-six report for exact results and limitations.
 
 Full native CLI promotion evidence can be reproduced with the retained builders:
 

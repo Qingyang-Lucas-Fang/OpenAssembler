@@ -8,9 +8,7 @@
 
 Compile GPU kernels from a file or a repository, inspect their SASS, and execute
 compiled outputs locally, over SSH, or on Modal. The backend targets **sm_80**.
-Performance varies by workload: recorded microbenchmarks span 0.92×–1.36× ptxas,
-while the naive MLP remains slower. These are kernel measurements, not a claim
-of a general LLM or training speedup.
+Performance varies by workload: recorded microbenchmarks span 0.92×–1.36× ptxas.
 
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue)](LICENSE)
 [![Arch](https://img.shields.io/badge/arch-sm__80%20(Ampere)-76b900)](#)
@@ -280,6 +278,13 @@ The PyTorch application path remains separate.
 openassembler gemm --m 4096 --n 16384 --k 4096 --dtype f16 --out-dir output
 openassembler run output --backend modal --budget 300 --job-timeout 120
 ```
+
+The A100 GEMM CLI also exposes two validated opt-in paths: `--cta-order morton8`
+for complete 8×8 CTA groups (currently measured on the tall 16384×4096×4096
+case), and `--epilogue bias_residual` or `bias_residual_relu` for FP32 bias and
+residual fusion on square workloads. Both preserve the default `m_fast` and
+unfused behavior unless selected explicitly. Full-output A100 evidence and
+reproduction commands are in [`exp/a100_mma/phase6/REPORT.md`](exp/a100_mma/phase6/REPORT.md).
 
 The operation is `C=A@B.T`, with contiguous K in A/B, FP32 accumulation/output,
 M/N multiples of128 and K a multiple of128. The generated manifest supplies the

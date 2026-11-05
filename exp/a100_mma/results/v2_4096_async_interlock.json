@@ -1,7 +1,0 @@
-[
-  {
-    "error": "Traceback (most recent call last):\n  File \"/root/exp/a100_mma/gpu_worker.py\", line 211, in <module>\n    result = run_hmma(case) if case.get(\"kind\") == \"hmma\" else run(case)\n                                                               ^^^^^^^^^\n  File \"/root/exp/a100_mma/gpu_worker.py\", line 146, in run\n    raise AssertionError(f\"{name} full-output comparison failed for {pattern}; relative_l2={full_rel}\")\nAssertionError: ours full-output comparison failed for integer; relative_l2=0.0007481776410713792\n",
-    "name": "v2_4096_async_interlock",
-    "worker_rc": 1
-  }
-]

@@ -1,1 +1,0 @@
-.visible .entry k(.param .u64 out, .param .u64 in, .param .u32 n) { ret; }

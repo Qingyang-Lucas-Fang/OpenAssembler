@@ -1,5 +1,0 @@
-warning: gemm: 219 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R2, R2, 0x80, RZ' -> 'IMAD.SHL R2, R2, 0x80, RZ'
-exp/a100_mma/phase4/cli_smoke_f16/cubin/gemm.cubin  (gemm: 906 instructions, opt-level=opt, regs=184)
-exp/a100_mma/phase4/cli_smoke_f16/sass/gemm.sass  (SASS listing from nvdisasm)
-launch: grid [1, 1, 1], block 128, dynamic shared memory 65536 bytes
-run: openassembler run exp/a100_mma/phase4/cli_smoke_f16

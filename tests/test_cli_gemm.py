@@ -55,10 +55,13 @@ def test_gemm_run_plan_keeps_half_precision_sizes_and_launch(tmp_path):
     for name in ("ours.cubin", "ref.cubin"):
         (tmp_path/name).write_bytes(b"test cubin")
     from openassembler import project
+    legacy_contract=contract_from_source(source.read_text())
+    legacy_contract.pop("cta_order")
+    legacy_contract.pop("epilogue")
     project.save_manifest(tmp_path, tmp_path, "sm_80", "opt", [{
         "source": str(source), "cubin": "ours.cubin", "reference": "ref.cubin",
         "kernels": [{"name": "gemm", "params": [["u64", x] for x in ("A", "B", "C")],
-                     "compiled_by": "openassembler", "gemm": contract_from_source(source.read_text())}]}])
+                     "compiled_by": "openassembler", "gemm": legacy_contract}]}])
     plan, _ = build_plan(RunOptions(out_dir=tmp_path, n=1, reps=0))
     assert len(plan.jobs) == 2
     for job in plan.jobs:
@@ -66,6 +69,25 @@ def test_gemm_run_plan_keeps_half_precision_sizes_and_launch(tmp_path):
         assert job["steps"][0][2:5] == ((1, 2, 1), (128, 1, 1), 65536)
         assert job["init_tensor16"]["B"][1:] == (32768, "bf16")
         assert job["outputs"] == {"C": [(0, 131072)]}
+
+
+def test_fused_gemm_run_plan_allocates_bias_and_residual_without_host_random_fill(tmp_path):
+    from openassembler.runner import RunOptions, build_plan
+    g=GemmPlan(128,128,128,"f16",epilogue="bias_residual_relu")
+    source=tmp_path/"gemm.ptx";source.write_text(source_for(g))
+    for name in ("ours.cubin","ref.cubin"):(tmp_path/name).write_bytes(b"test cubin")
+    from openassembler import project
+    project.save_manifest(tmp_path,tmp_path,"sm_80","opt",[{
+        "source":str(source),"cubin":"ours.cubin","reference":"ref.cubin",
+        "kernels":[{"name":"gemm","params":[["u64",x] for x in ("A","B","C","Bias","Residual")],
+                    "compiled_by":"openassembler","gemm":contract_from_source(source.read_text())}]}])
+    plan,_=build_plan(RunOptions(out_dir=tmp_path,n=1,reps=0))
+    assert len(plan.jobs)==2
+    for job in plan.jobs:
+        assert job["buffers"]=={"A":32768,"B":32768,"C":65536,"Bias":512,"Residual":65536}
+        assert job["init_rand"]=={}
+        assert job["steps"][0][5]==[("buf",name,0) for name in ("A","B","C","Bias","Residual")]
+        assert job["outputs"]=={"C":[(0,65536)]}
 
 
 @pytest.mark.parametrize('dtype,expected', [('f16', b'\x00\x3c'), ('bf16', b'\x80\x3f')])
@@ -158,3 +180,22 @@ def test_gemm_cli_build_and_plain_recompile_use_native_tensor_backend(tmp_path):
     second = json.loads((again/"manifest.json").read_text())["entries"][0]
     assert second["kernels"][0]["gemm"] == kernel["gemm"]
     assert (out/entry["cubin"]).read_bytes() == (again/second["cubin"]).read_bytes()
+
+
+@pytest.mark.skipif(not all(oracle.available(t) for t in ("ptxas", "nvdisasm")), reason=oracle.NEEDS_TOOLKIT)
+def test_gemm_cli_compiles_and_recompiles_morton_fused_contract(tmp_path):
+    out=tmp_path/"morton_fused"
+    assert main(["gemm","--m","1024","--n","1024","--k","128","--dtype","bf16",
+                 "--cta-order","morton8","--epilogue","bias_residual_relu","--out-dir",str(out)])==0
+    manifest=json.loads((out/"manifest.json").read_text())
+    entry=manifest["entries"][0];kernel=entry["kernels"][0]
+    assert kernel["gemm"]["cta_order"]=="morton8"
+    assert kernel["gemm"]["epilogue"]=="bias_residual_relu"
+    assert [name for _,name in kernel["params"]]==["A","B","C","Bias","Residual"]
+    source=out/".build/generated/gemm.ptx"
+    assert "ld.global.v2.f32" in source.read_text()
+    again=tmp_path/"recompiled"
+    assert main(["compile",str(source),"--out-dir",str(again)])==0
+    second=json.loads((again/"manifest.json").read_text())["entries"][0]
+    assert second["kernels"][0]["gemm"]==kernel["gemm"]
+    assert (out/entry["cubin"]).read_bytes()==(again/second["cubin"]).read_bytes()

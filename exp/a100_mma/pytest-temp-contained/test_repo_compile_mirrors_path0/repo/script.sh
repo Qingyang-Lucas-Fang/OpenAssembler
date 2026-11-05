@@ -1,1 +1,0 @@
-echo not a kernel

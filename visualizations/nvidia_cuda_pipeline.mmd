@@ -1,0 +1,88 @@
+%% NVIDIA CUDA toolchain and execution pipeline
+%% This diagram separates user compilation, library dispatch, and driver execution.
+
+flowchart LR
+  subgraph U["User and framework inputs"]
+    PY["Python / PyTorch / JAX\nhost program"]
+    CU["CUDA C/C++\n__global__ kernels"]
+    PTXIN["Hand-written PTX\ninline PTX or .ptx"]
+    LIBAPI["cuBLAS / cuBLASLt / cuDNN / CUTLASS API"]
+  end
+
+  subgraph F["Frontends and graph compilers"]
+    DISPATCH["Framework dispatch\noperator graph + shapes + dtype"]
+    DYNAMO["TorchDynamo / AOTAutograd\noptional graph capture"]
+    INDUCTOR["TorchInductor / Triton\nshape-specialized kernel generation"]
+    HOSTCC["Host compiler\nclang/g++ + CUDA runtime stubs"]
+    NVCC["nvcc driver\npreprocess + host/device split"]
+    NVVM["NVVM IR / LLVM device IR\noptimization and lowering"]
+    PTX["PTX virtual ISA\nforward-compatible device code"]
+    CUBLA["Library algorithm chooser\nheuristics, workspace, autotuning"]
+    PREBUILT["NVIDIA library cubins/PTX\nprecompiled per SM or JIT-ready"]
+    DISPATCH --> DYNAMO --> INDUCTOR --> PTX
+    CU --> NVCC --> HOSTCC
+    NVCC --> NVVM --> PTX
+    PTXIN --> PTX
+    LIBAPI --> CUBLA --> PREBUILT
+  end
+  PY --> DISPATCH
+
+  subgraph B["Device code generation and packaging"]
+    PTXAS["ptxas\nPTX -> optimized SM-specific SASS"]
+    SASS["SASS machine instructions\nregister allocation, scheduling, control bits"]
+    CUBIN["cubin ELF\n.text.<kernel>, .nv.info, constants, symbols"]
+    FATBIN["fatbin / fatbinary\nmultiple cubins + PTX fallback\nembedded in host object/executable"]
+    JIT["Driver JIT\nPTX -> SASS when exact cubin is absent\nCUDA cache stores result"]
+    PTX --> PTXAS --> SASS --> CUBIN --> FATBIN
+    PTX --> FATBIN
+    PREBUILT --> FATBIN
+    PTX -. runtime fallback .-> JIT
+  end
+
+  subgraph R["Runtime, driver, and real NVIDIA pipeline"]
+    HOST["Host process\nCUDA Runtime API / Driver API"]
+    LOAD["cuModuleLoad / fatbin selection\nchoose cubin for compute capability"]
+    LAUNCH["Kernel launch\nparams, grid, block, dynamic shared memory"]
+    SCHED["GPU front end\nGPC -> TPC -> SM warp schedulers"]
+    SM["SM execution\nissue SASS to FP/INT/SFU/Tensor/LDST"]
+    MEM["Memory hierarchy\nregisters -> shared/L1 -> L2 -> HBM"]
+    SYNC["Events, streams, CUDA graphs\ncompletion + synchronization"]
+    HOST --> LOAD --> LAUNCH --> SCHED --> SM
+    SM <--> MEM
+    SM --> SYNC --> HOST
+  end
+  FATBIN --> LOAD
+  JIT --> LOAD
+
+  subgraph L["Library execution path (important distinction)"]
+    HANDLE["cublasCreate / handle\nstream + math mode + workspace"]
+    SELECT["cuBLAS/cuBLASLt selects\nGEMM algorithm, tile, epilogue"]
+    LIBKERNEL["Library kernel launch\nprebuilt cubin or PTX-JIT module"]
+    LIBRESULT["Tensor Core / CUDA Core execution\nresults return through stream"]
+    LIBAPI --> HANDLE --> SELECT --> LIBKERNEL --> LIBRESULT
+  end
+  LIBKERNEL --> LOAD
+  LIBRESULT --> SYNC
+
+  subgraph O["Artifacts and observability"]
+    ASM["cuobjdump / nvdisasm\nPTX, SASS, ELF metadata"]
+    PROF["Nsight Systems / Compute\noccupancy, stalls, counters, memory"]
+    TEST["cuda-memcheck / sanitizers\ncorrectness and fault diagnosis"]
+  end
+  CUBIN --> ASM
+  SM --> PROF
+  MEM --> PROF
+  SYNC --> TEST
+
+  classDef source fill:#e8f1ff,stroke:#2563eb,stroke-width:1.5px,color:#0f172a;
+  classDef compile fill:#eefce8,stroke:#4d7c0f,stroke-width:1.5px,color:#17210b;
+  classDef codegen fill:#fff4df,stroke:#c2410c,stroke-width:1.5px,color:#3b1f0b;
+  classDef run fill:#ffe8ea,stroke:#be123c,stroke-width:1.5px,color:#3b101b;
+  classDef lib fill:#f4e8ff,stroke:#7e22ce,stroke-width:1.5px,color:#281034;
+  classDef obs fill:#e8fbf6,stroke:#0f766e,stroke-width:1.5px,color:#0f2924;
+  class PY,CU,PTXIN,LIBAPI source;
+  class DISPATCH,DYNAMO,INDUCTOR,HOSTCC,NVCC,NVVM,PTX,CUBLA,PREBUILT compile;
+  class PTXAS,SASS,CUBIN,FATBIN,JIT codegen;
+  class HOST,LOAD,LAUNCH,SCHED,SM,MEM,SYNC run;
+  class HANDLE,SELECT,LIBKERNEL,LIBRESULT lib;
+  class ASM,PROF,TEST obs;

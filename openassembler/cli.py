@@ -96,7 +96,8 @@ def cmd_gemm(a: argparse.Namespace) -> int:
     from openassembler.kernels.gemm import GemmPlan
     from openassembler.project import ProjectError
     try:
-        plan = GemmPlan(m=a.m, n=a.n, k=a.k, dtype=a.dtype, schedule=a.schedule, arch=a.arch)
+        plan = GemmPlan(m=a.m, n=a.n, k=a.k, dtype=a.dtype, schedule=a.schedule, arch=a.arch,
+                        cta_order=a.cta_order, epilogue=a.epilogue)
         return compile_gemm(plan, Path(a.out_dir), a.out, no_sass=a.no_sass, emit_only=a.emit_only)
     except (ValueError, TypeError, OSError, ProjectError) as exc:
         print(f"error: {exc}", file=sys.stderr)
@@ -497,6 +498,10 @@ def build_parser() -> argparse.ArgumentParser:
     pm.add_argument("--arch", default="sm_80")
     pm.add_argument("--schedule", choices=("stagepair", "combined"), default="stagepair",
                     help="validated alternating-stage specialization (default), or its combined reference")
+    pm.add_argument("--cta-order", choices=("m_fast", "morton8"), default="m_fast",
+                    help="A100 logical CTA traversal; morton8 requires complete 8x8 tile groups")
+    pm.add_argument("--epilogue", choices=("none", "bias_residual", "bias_residual_relu"), default="none",
+                    help="fuse FP32 bias and residual, optionally ReLU, into the output epilogue")
     pm.add_argument("--out-dir", default="output")
     pm.add_argument("-o", "--out", default="gemm", metavar="NAME")
     pm.add_argument("--no-sass", action="store_true")

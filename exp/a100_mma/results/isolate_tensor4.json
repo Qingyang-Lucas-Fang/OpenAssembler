@@ -1,7 +1,0 @@
-[
-  {
-    "error": "Traceback (most recent call last):\n  File \"/root/exp/a100_mma/gpu_worker.py\", line 196, in <module>\n    result = run_hmma(case) if case.get(\"kind\") == \"hmma\" else run(case)\n                                                               ^^^^^^^^^\n  File \"/root/exp/a100_mma/gpu_worker.py\", line 140, in run\n    raise AssertionError(f\"{name} failed exact {pattern} case: max_abs={float(error.abs().max())}; \"\nAssertionError: ours failed exact integer case: max_abs=49.0; actual=[8.0, -45.0, 77.0, -88.0, 0.0, -78.0, -1.0, 69.0, 40.0, -25.0, -8.0, 44.0, 32.0, -99.0, 8.0, -106.0]; expected=[8.0, -45.0, 77.0, -88.0, 0.0, -78.0, -1.0, 69.0, 40.0, -25.0, -8.0, 44.0, 32.0, -99.0, 8.0, -106.0]\n",
-    "name": "isolate_tensor4",
-    "worker_rc": 1
-  }
-]

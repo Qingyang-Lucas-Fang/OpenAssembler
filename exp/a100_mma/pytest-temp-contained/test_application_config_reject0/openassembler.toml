@@ -1,3 +1,0 @@
-[application]
-frontend="torch"
-entrypoint="../outside.py"

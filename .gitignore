@@ -45,3 +45,12 @@ corpus/.tmp/
 # Compiler artifacts and local environments
 output/
 .venv/
+
+# research documentations and unnecessary docs for opensource
+docs/
+exp/
+media/
+checkpoint.md
+out.cubin
+out.sass
+WORKFLOW.md

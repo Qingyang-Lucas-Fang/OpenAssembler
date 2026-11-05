@@ -1,6 +1,0 @@
-exp/a100_mma/build/p2_unsafe_recycle_w64x32/cubin/p2_unsafe_recycle_w64x32.cubin  (gemm: 1042 instructions, opt-level=safe, regs=132)
-exp/a100_mma/build/p2_unsafe_recycle_w64x32/sass/p2_unsafe_recycle_w64x32.sass  (SASS listing from nvdisasm)
-warning: gemm: 53 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R2, R2, 0x80, RZ' -> 'IMAD.SHL R2, R2, 0x80, RZ'
-exp/a100_mma/build/p2_unsafe_recycle_w64x64/cubin/p2_unsafe_recycle_w64x64.cubin  (gemm: 1898 instructions, opt-level=safe, regs=228)
-exp/a100_mma/build/p2_unsafe_recycle_w64x64/sass/p2_unsafe_recycle_w64x64.sass  (SASS listing from nvdisasm)
-warning: gemm: 77 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R2, R2, 0x80, RZ' -> 'IMAD.SHL R2, R2, 0x80, RZ'

@@ -1,7 +1,0 @@
-exp/a100_mma/build/address_stagepair_square_f16/cubin/address_stagepair_square_f16.cubin  (gemm: 1579 instructions, opt-level=safe, regs=216)
-exp/a100_mma/build/address_stagepair_square_f16/sass/address_stagepair_square_f16.sass  (SASS listing from nvdisasm)
-warning: gemm: 465 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R2, R2, 0x80, RZ' -> 'IMAD.SHL R2, R2, 0x80, RZ'
-exp/a100_mma/build/address_stagepair_square_bf16/cubin/address_stagepair_square_bf16.cubin  (gemm: 1579 instructions, opt-level=safe, regs=216)
-exp/a100_mma/build/address_stagepair_square_bf16/sass/address_stagepair_square_bf16.sass  (SASS listing from nvdisasm)
-warning: gemm: 465 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R2, R2, 0x80, RZ' -> 'IMAD.SHL R2, R2, 0x80, RZ'
-/Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/phase3/address-stage-suite.json

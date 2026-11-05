@@ -1,7 +1,0 @@
-[
-  {
-    "error": "Traceback (most recent call last):\n  File \"/root/exp/a100_mma/gpu_worker.py\", line 196, in <module>\n    result = run_hmma(case) if case.get(\"kind\") == \"hmma\" else run(case)\n                                                               ^^^^^^^^^\n  File \"/root/exp/a100_mma/gpu_worker.py\", line 143, in run\n    raise AssertionError(f\"{name} relative L2 error {rel} exceeds 2e-5\")\nAssertionError: ours relative L2 error 0.02343665379513492 exceeds 2e-5\n",
-    "name": "isolate_tensor2",
-    "worker_rc": 1
-  }
-]

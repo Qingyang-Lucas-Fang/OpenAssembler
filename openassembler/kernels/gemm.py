@@ -32,6 +32,8 @@ class GemmPlan:
     output_dtype: str = "f32"
     layout: str = "rcr"
     arch: str = "sm_80"
+    cta_order: str = "m_fast"
+    epilogue: str = "none"
 
     def __post_init__(self) -> None:
         for name in ("m", "n", "k"):
@@ -42,6 +44,12 @@ class GemmPlan:
             raise ValueError("GEMM input dtype must be f16 or bf16")
         if self.schedule not in ("stagepair", "combined"):
             raise ValueError("GEMM schedule must be stagepair or combined")
+        if self.cta_order not in ("m_fast", "morton8"):
+            raise ValueError("CTA order must be m_fast or morton8")
+        if self.epilogue not in ("none", "bias_residual", "bias_residual_relu"):
+            raise ValueError("epilogue must be none, bias_residual or bias_residual_relu")
+        if self.epilogue != "none" and self.schedule != "stagepair":
+            raise ValueError("fused training epilogues require the validated stagepair schedule")
         if self.output_dtype != "f32" or self.layout != "rcr" or self.arch != "sm_80":
             raise ValueError("GEMM requires f32 output, rcr layout and sm_80")
         # The proven generator computes element offsets with mad.lo.u32 before
@@ -50,6 +58,8 @@ class GemmPlan:
             raise ValueError("GEMM element indices must fit in unsigned 32 bits")
         if self.n//128 > 65535:
             raise ValueError("GEMM N tile count exceeds the CUDA grid-y limit")
+        if self.cta_order == "morton8" and (self.m//128 % 8 or self.n//128 % 8):
+            raise ValueError("morton8 requires complete 8x8 CTA groups")
 
     @property
     def launch(self) -> dict:
@@ -62,17 +72,36 @@ class GemmPlan:
         return {"kernel": "gemm", "arch": self.arch, "m": self.m, "n": self.n,
                 "k": self.k, "dtype": self.dtype, "output_dtype": self.output_dtype,
                 "accumulation": "f32", "layout": self.layout, "schedule": self.schedule,
+                "cta_order": self.cta_order, "epilogue": self.epilogue,
                 "tile_mnk": [128, 128, 64], "warp_mn": [64, 64], "stages": 2,
                 "shared_swizzle": [7, 7], "input_alignment": 16, "output_alignment": 8}
 
 
 def _prologue(plan: GemmPlan) -> list[str]:
+    entry = ".visible .entry gemm(.param .u64 A,.param .u64 B,.param .u64 C) {"
+    regs = ".reg .b32 %r<1000>; .reg .b64 %d<100>; .reg .f32 %c<128>; .reg .f32 %fBias<32>;"
+    if plan.epilogue != "none":
+        entry = entry.replace(") {", ",.param .u64 Bias,.param .u64 Residual) {")
+        regs += " .reg .f32 %fBatch<8>;"
     lines = [".version 8.7\n.target sm_80\n.address_size 64\n.extern .shared .align 16 .b8 smem[];",
-             ".visible .entry gemm(.param .u64 A,.param .u64 B,.param .u64 C) {",
-             ".reg .b32 %r<1000>; .reg .b64 %d<100>; .reg .f32 %c<128>; .reg .f32 %fBias<32>; .reg .pred %p; .reg .pred %pstage;",
+             entry, regs + " .reg .pred %p; .reg .pred %pstage;",
              "", "ld.param.u64 %d0,[A]; ld.param.u64 %d1,[B]; ld.param.u64 %d2,[C];",
-             "mov.u32 %r0,%tid.x; mov.u32 %r1,%ctaid.x; mov.u32 %r2,%ctaid.y;",
-             "mul.lo.u32 %r1,%r1,128; mul.lo.u32 %r2,%r2,128;",
+             "mov.u32 %r0,%tid.x; mov.u32 %r1,%ctaid.x; mov.u32 %r2,%ctaid.y;"]
+    if plan.cta_order == "morton8":
+        tm = plan.m // 128
+        lines += [f"mad.lo.u32 %r700,%r2,{tm},%r1;", "shr.u32 %r701,%r700,6;",
+                  "and.b32 %r702,%r700,63;"]
+        if tm == 8:
+            lines += ["mov.u32 %r703,0;", "mov.u32 %r704,%r701;"]
+        else:
+            lines += [f"rem.u32 %r703,%r701,{tm // 8};", f"div.u32 %r704,%r701,{tm // 8};"]
+        lines += ["mov.u32 %r705,0;", "mov.u32 %r706,0;"]
+        for bit in range(3):
+            for target, shift in ((705, 2 * bit), (706, 2 * bit + 1)):
+                lines += [f"shr.u32 %r707,%r702,{shift};", "and.b32 %r707,%r707,1;",
+                          f"mad.lo.u32 %r{target},%r707,{1 << bit},%r{target};"]
+        lines += ["mad.lo.u32 %r1,%r703,8,%r705;", "mad.lo.u32 %r2,%r704,8,%r706;"]
+    lines += ["mul.lo.u32 %r1,%r1,128; mul.lo.u32 %r2,%r2,128;",
              "and.b32 %r3,%r0,31; shr.u32 %r4,%r0,5;",
              "shr.u32 %r5,%r4,1; mul.lo.u32 %r5,%r5,64;",
              "and.b32 %r6,%r4,1; mul.lo.u32 %r6,%r6,64;",
@@ -194,4 +223,38 @@ def generate(plan: GemmPlan) -> str:
         lines += ["add.u32 %r8,%r8,64; xor.b32 %r9,%r9,32768;",
                   f"setp.lt.u32 %p,%r8,{plan.k-64}; @%p bra LOOP;",
                   "cp.async.wait_group 0; bar.sync 0;"]+_compute(plan.dtype, "%r9")+["bar.sync 0;"]
-    return "\n".join(lines+_epilogue(plan.n)+["ret;", "}", ""])
+    source = "\n".join(lines + _epilogue(plan.n) + ["ret;", "}", ""])
+    return _fused_epilogue(plan, source) if plan.epilogue != "none" else source
+
+
+def _fused_epilogue(plan: GemmPlan, source: str) -> str:
+    """Emit the A100-validated batched bias/residual epilogue."""
+    marker = "shr.u32 %r50,%r3,2; add.u32 %r50,%r50,%r5; add.u32 %r50,%r50,%r1;"
+    if source.count(marker) != 1:
+        raise ValueError("unexpected GEMM epilogue boundary")
+    prefix, _ = source.split(marker, 1)
+    lines = [marker,
+             "and.b32 %r51,%r3,3; mul.lo.u32 %r51,%r51,2; add.u32 %r51,%r51,%r6; add.u32 %r51,%r51,%r2;",
+             "ld.param.u64 %d30,[Bias]; ld.param.u64 %d31,[Residual];",
+             "mul.wide.u32 %d32,%r51,4; add.u64 %d33,%d30,%d32;"]
+    for ni in range(8):
+        off = f"+{ni * 32}" if ni else ""
+        lines.append(f"ld.global.v2.f32 {{%fBias{ni * 2},%fBias{ni * 2 + 1}}},[%d33{off}];")
+    for mi in range(4):
+        for j, dr in ((0, 0), (2, 8)):
+            lines += [f"add.u32 %r52,%r50,{mi * 16 + dr}; mad.lo.u32 %r53,%r52,{plan.n},%r51;",
+                      "mul.wide.u32 %d3,%r53,4; add.u64 %d4,%d2,%d3; add.u64 %d35,%d31,%d3;"]
+            for start in (0, 4):
+                for slot, ni in enumerate(range(start, start + 4)):
+                    off = f"+{ni * 32}" if ni else ""
+                    lines.append(f"ld.global.v2.f32 {{%fBatch{2 * slot},%fBatch{2 * slot + 1}}},[%d35{off}];")
+                for slot, ni in enumerate(range(start, start + 4)):
+                    c = (mi * 8 + ni) * 4 + j
+                    for dc in (0, 1):
+                        lines += [f"add.f32 %c{c + dc},%c{c + dc},%fBias{ni * 2 + dc};",
+                                  f"add.f32 %c{c + dc},%c{c + dc},%fBatch{2 * slot + dc};"]
+                        if plan.epilogue == "bias_residual_relu":
+                            lines.append(f"max.f32 %c{c + dc},%c{c + dc},0f00000000;")
+                    off = f"+{ni * 32}" if ni else ""
+                    lines.append(f"st.global.v2.f32 [%d4{off}],{{%c{c},%c{c + 1}}};")
+    return prefix + "\n".join(lines + ["ret;", "}", ""])

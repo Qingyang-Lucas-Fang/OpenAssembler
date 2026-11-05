@@ -1,6 +1,0 @@
-exp/a100_mma/build/wide_tile/cubin/wide_tile.cubin  (gemm: 1775 instructions, opt-level=safe, regs=218)
-exp/a100_mma/build/wide_tile/sass/wide_tile.sass  (SASS listing from nvdisasm)
-warning: gemm: 65 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R2, R2, 0x80, RZ' -> 'IMAD.SHL R2, R2, 0x80, RZ'
-exp/a100_mma/build/tall_tile/cubin/tall_tile.cubin  (gemm: 1775 instructions, opt-level=safe, regs=218)
-exp/a100_mma/build/tall_tile/sass/tall_tile.sass  (SASS listing from nvdisasm)
-warning: gemm: 65 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R2, R2, 0x100, RZ' -> 'IMAD.SHL R2, R2, 0x100, RZ'

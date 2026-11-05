@@ -1,1 +1,0 @@
-Command '['/Users/lucasfang/Desktop/OpenAssembler/env/cuda.sh', 'ptxas', '-arch=sm_80', '-o', 'exp/a100_mma/scratch/build_12420_5a0d4d78.cubin', 'exp/a100_mma/scratch/build_12420_5a0d4d78.ptx']' returned non-zero exit status 1.

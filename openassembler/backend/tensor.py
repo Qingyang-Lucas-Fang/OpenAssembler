@@ -137,6 +137,19 @@ class TensorSelector(ra.Selector):
             return self.async_copy(ins)
         return super().select(ins)
 
+    def load_global(self, ins, t):
+        if (ins.guard is None and ins.mods == ("global", "v2", "f32")
+                and len(ins.args) == 2 and isinstance(ins.args[0], Vec)
+                and len(ins.args[0].elems) == 2
+                and all(isinstance(value, Var) for value in ins.args[0].elems)):
+            base, off = self._addr(ins.args[1])
+            group = (self.new(), self.new())
+            self.emit(f"LDG.E.64 {{d0}}, [{{s0}}.64{off}]", [group], [base], var_lat=True)
+            for dest, value in zip(ins.args[0].elems, group):
+                self.bind(dest.name, value)
+            return
+        return super().load_global(ins, t)
+
     def async_copy(self, ins):
         if ins.mods != ("async", "cg", "shared", "global"):
             return self._copy_group(ins)

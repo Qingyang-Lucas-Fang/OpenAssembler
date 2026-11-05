@@ -1,0 +1,128 @@
+%% OpenAssembler 0.2.0: source-to-execution pipeline
+%% Evidence map: README.md, docs/FRONTENDS.md, docs/TENSOR_GEMM.md,
+%% docs/STATUS.md, docs/research/02-control-bits-and-containers.md,
+%% openassembler/build.py, openassembler/backend/*, openassembler/runner.py
+
+flowchart LR
+  subgraph S0["1. Inputs and project capture"]
+    CLI["openassembler compile SRC\n-o NAME --out-dir DIR"]
+    FILE["Single file or repository\nmanifest + source hashes"]
+    APP["Configured PyTorch app\nopenassembler.toml"]
+    DISC["Static discovery\n.ptx / .py @kernel / .cu .cpp __global__"]
+    CLI --> FILE --> DISC
+    APP --> DISC
+  end
+
+  subgraph S1["2. Frontends: every path converges to PTX"]
+    PTX["PTX input\nparse as-is"]
+    PY["Python subset\npyfront AST -> typed PTX"]
+    CUDA["CUDA C/C++\nnvcc --ptx -> PTX"]
+    TORCH["PyTorch application\nDynamo/AOTAutograd -> Inductor/Triton\n(captured kernels + runtime cache)"]
+    MERGE["PTX module\nall selected .entry kernels"]
+    PTX --> MERGE
+    PY --> MERGE
+    CUDA --> MERGE
+    TORCH --> MERGE
+  end
+  DISC --> PTX
+  DISC --> PY
+  DISC --> CUDA
+  DISC --> TORCH
+
+  subgraph S2["3. PTX parsing and contracts"]
+    PARSE["openassembler.ptx.parse\nPTX module -> kernels, params, CFG"]
+    CONTRACT["Validate kernel shape\nscalar ABI or exact GEMM contract"]
+    DETECT{"mma / ldmatrix / cp.async?"}
+    PARSE --> CONTRACT --> DETECT
+  end
+  MERGE --> PARSE
+
+  subgraph SC["4A. Scalar backend: PTX -> scheduled SASS"]
+    SEL["ra.Selector\nPTX idioms -> virtual-register IR\nV, PV, constants, labels"]
+    FRAG["Arithmetic fragments\nrecorded ptxas sequences\nfloat/div/sqrt/casts"]
+    DCE["DCE + CFG liveness\nguarded defs and loop-carried values"]
+    COAL["Copy coalescing\nwide operand renaming"]
+    RA["Linear-scan allocation\nconsecutive groups + predicate coloring\ncopy-affinity retries"]
+    UNROLL["opt only: counted-loop unroll x4\nhide predicate latency and branch work"]
+    LIST["sched/opt: basic-block list scheduler\ncritical-path + measured latency edges"]
+    CTRL["Scalar scheduler\nstall / yield / write SB / read SB\nwait mask / reuse flags"]
+    LOWER["Lower to physical SASS text\nreads, writes, variable-latency tags"]
+    SEL --> FRAG --> DCE --> COAL --> RA --> LOWER
+    UNROLL -. optional .-> SEL
+    LIST -. sched/opt .-> LOWER
+    CTRL --> LOWER
+    RA --> LIST
+    LOWER --> CTRL
+  end
+  DETECT -->|"no"| SEL
+
+  subgraph TC["4B. Native SM80 tensor backend"]
+    TSEL["TensorSelector\nstrict m16n8k16 FP16/BF16 subset"]
+    ASYNC["cp.async / LDGSTS\ncommit_group + wait_group"]
+    LDSM["Paired LDSM.x4/x2\nXOR-swizzled shared tiles"]
+    HMMA["HMMA source-order issue\nFP32 accumulator groups"]
+    STAGE["Stage-pair pipeline\n128x128x64 CTA, 4x 64x64 warp tiles\npeeled final pair"]
+    SCORE["Scoreboard policy\nSB0 async copies; SB1..5 ordinary\nprotected recycling + address WAR"]
+    DRAIN["Epoch drains before scalar/memory/CF observers\nBAR/DEPBAR measured gaps preserved"]
+    TSEL --> ASYNC --> LDSM --> HMMA --> STAGE --> SCORE --> DRAIN
+  end
+  DETECT -->|"yes"| TSEL
+
+  subgraph ALG["4C. Algorithmic acceleration paths"]
+    DIV["opt.divconst\nconstant div/rem -> multiply-high magic\nSMT-proven sequence"]
+    GEMM["gemm plan\nshape-specialized native tensor PTX"]
+    FAST["fastmm\nAlphaTensor/Strassen factors\nlincomb + fused sgemm tiles"]
+    DIV -. feeds scalar selection .-> SEL
+    GEMM --> TSEL
+    FAST --> GEMM
+  end
+
+  subgraph S5["5. Encode and package"]
+    ENCODE["sm_80 Encoder\n128-bit instruction words\nopcode/operand/control fields"]
+    PAD["Append self-loop BRA + NOP\n16-byte alignment"]
+    PTXAS["ptxas -O3 on same PTX\nreference cubin + ELF container"]
+    SPLICE["splice_text / splice_kernels\nreplace .text.<kernel> with ours"]
+    INFO["Repair CUDA metadata\n.nv.info REGCOUNT + .text sh_info\nEXIT offsets, params, symbols"]
+    DISASM["nvdisasm\nfinal .sass listing + word round-trip"]
+    ENCODE --> PAD --> SPLICE --> INFO --> DISASM
+    PTXAS --> SPLICE
+  end
+  LOWER --> ENCODE
+  DRAIN --> ENCODE
+  MERGE --> PTXAS
+
+  subgraph S6["6. Verification and publication"]
+    EMU["SASS emulator\npoisoned registers + lane execution"]
+    PTXREF["PTX reference interpreter\nrun_and_diff / probe ABI"]
+    VERIFY["--verify\nbit-exact when modeled; explicit not-verified otherwise"]
+    OUT["output/\ncubin/*.cubin\nsass/*.sass\n.build/ptx/*.ptx\n.build/reference/*.cubin\nmanifest.json"]
+    EMU --> VERIFY
+    PTXREF --> VERIFY
+    VERIFY --> OUT
+    DISASM --> OUT
+  end
+  LOWER -. verify .-> EMU
+  MERGE --> PTXREF
+
+  subgraph S7["7. Execute and compare"]
+    RUN["openassembler run / cnr\nload manifest + explicit spec/contract"]
+    BACKENDS["local GPU | SSH | Modal\njob bundle + deterministic inputs"]
+    DRIVER["CUDA driver loads cubin\nmodule, params, grid/block, shared memory"]
+    SM["A100 / SM80\nwarp schedulers, registers, shared/L1/L2, HBM\nSASS executes"]
+    COMPARE["ours vs ptxas reference\noutputs, canaries, timings, report"]
+    RUN --> BACKENDS --> DRIVER --> SM --> COMPARE
+  end
+  OUT --> RUN
+
+  classDef input fill:#e8f1ff,stroke:#2563eb,stroke-width:1.5px,color:#0f172a;
+  classDef frontend fill:#eefce8,stroke:#4d7c0f,stroke-width:1.5px,color:#17210b;
+  classDef backend fill:#fff4df,stroke:#c2410c,stroke-width:1.5px,color:#3b1f0b;
+  classDef tensor fill:#f4e8ff,stroke:#7e22ce,stroke-width:1.5px,color:#281034;
+  classDef package fill:#e8fbf6,stroke:#0f766e,stroke-width:1.5px,color:#0f2924;
+  classDef runtime fill:#ffe8ea,stroke:#be123c,stroke-width:1.5px,color:#3b101b;
+  class CLI,FILE,APP,DISC input;
+  class PTX,PY,CUDA,TORCH,MERGE frontend;
+  class PARSE,CONTRACT,DETECT,SEL,FRAG,DCE,COAL,RA,UNROLL,LIST,CTRL,LOWER,DIV backend;
+  class TSEL,ASYNC,LDSM,HMMA,STAGE,SCORE,DRAIN,GEMM,FAST tensor;
+  class ENCODE,PAD,PTXAS,SPLICE,INFO,DISASM,EMU,PTXREF,VERIFY,OUT package;
+  class RUN,BACKENDS,DRIVER,SM,COMPARE runtime;

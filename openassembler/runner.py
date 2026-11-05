@@ -267,8 +267,9 @@ def gemm_case(t: Target, out_dir: Path, reps: int, plan: Plan) -> None:
     from openassembler.kernels.gemm import GemmPlan
     contract = t.kernel["gemm"]
     try:
-        allowed = ("m", "n", "k", "dtype", "schedule", "output_dtype", "layout", "arch")
-        g = GemmPlan(**{key: contract[key] for key in allowed})
+        allowed = ("m", "n", "k", "dtype", "schedule", "output_dtype", "layout", "arch",
+                   "cta_order", "epilogue")
+        g = GemmPlan(**{key: contract[key] for key in allowed if key in contract})
         if contract.get("schema") != 1 or contract.get("launch") != g.launch:
             raise ValueError("launch contract differs from its validated plan")
         if 9 * g.k > 2**24:
@@ -278,7 +279,11 @@ def gemm_case(t: Target, out_dir: Path, reps: int, plan: Plan) -> None:
     buffers = {"A": 2*g.m*g.k, "B": 2*g.n*g.k, "C": 4*g.m*g.n}
     initialize = {"A": (_seed("gemm", g.dtype, "A"), g.m*g.k, g.dtype),
                   "B": (_seed("gemm", g.dtype, "B"), g.n*g.k, g.dtype)}
-    args = [("buf", name, 0) for name in ("A", "B", "C")]
+    names = ["A", "B", "C"]
+    if g.epilogue != "none":
+        buffers.update({"Bias": 4*g.n, "Residual": 4*g.m*g.n})
+        names += ["Bias", "Residual"]
+    args = [("buf", name, 0) for name in names]
     outputs = {"C": [(0, buffers["C"])]}
     i = len(plan.jobs)
     for method, field in (("ours", "cubin"), ("ptxas", "reference")):
@@ -290,7 +295,8 @@ def gemm_case(t: Target, out_dir: Path, reps: int, plan: Plan) -> None:
         job["init_tensor16"] = initialize
         plan.jobs.append(job)
     plan.cases.append(Case(t.label, t.entry["source"], i, i+1, ["C"],
-                           note="exact small-integer smoke comparison; floating accuracy uses separate GPU tests",
+                           note=("exact small-integer smoke comparison; floating accuracy uses separate GPU tests"
+                                 if g.epilogue == "none" else "fused epilogue smoke uses zero bias/residual inputs"),
                            describe=f"{g.m}x{g.n}x{g.k} {g.dtype}->f32, grid {g.launch['grid']}, "
                                     f"block {g.launch['threads']}, {g.launch['smem']} shared bytes"))
 

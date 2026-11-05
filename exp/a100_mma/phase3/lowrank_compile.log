@@ -1,6 +1,0 @@
-exp/a100_mma/phase3/lowrank_build/lowrank_strassen_96x96x32/cubin/lowrank_strassen_96x96x32.cubin  (gemm: 940 instructions, opt-level=safe, regs=94)
-exp/a100_mma/phase3/lowrank_build/lowrank_strassen_96x96x32/sass/lowrank_strassen_96x96x32.sass  (SASS listing from nvdisasm)
-warning: gemm: 49 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R2, R2, 0x20, RZ' -> 'IMAD.SHL R2, R2, 0x20, RZ'
-exp/a100_mma/phase3/lowrank_build/lowrank_naive_96x96x32/cubin/lowrank_naive_96x96x32.cubin  (gemm: 879 instructions, opt-level=safe, regs=74)
-exp/a100_mma/phase3/lowrank_build/lowrank_naive_96x96x32/sass/lowrank_naive_96x96x32.sass  (SASS listing from nvdisasm)
-warning: gemm: 49 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R2, R2, 0x20, RZ' -> 'IMAD.SHL R2, R2, 0x20, RZ'
