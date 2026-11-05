@@ -1,0 +1,45 @@
+{
+ "openassembler": "0.2.0",
+ "schema": 1,
+ "arch": "sm_80",
+ "opt_level": "safe",
+ "root": "/Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/phase5",
+ "entries": [
+  {
+   "source": "fusion_square_post_bias_residual_relu.ptx",
+   "source_sha256": "fa085a3f1f994fed212586034821e338022d62fd24b61445356d34a6c411631a",
+   "language": "ptx",
+   "cubin": "cubin/square_post_bias_residual_relu.cubin",
+   "sass": "sass/square_post_bias_residual_relu.sass",
+   "ptx": ".build/ptx/square_post_bias_residual_relu.ptx",
+   "reference": ".build/reference/square_post_bias_residual_relu.cubin",
+   "kernels": [
+    {
+     "name": "postprocess",
+     "params": [
+      [
+       "u64",
+       "X"
+      ],
+      [
+       "u64",
+       "Bias"
+      ],
+      [
+       "u64",
+       "Residual"
+      ],
+      [
+       "u64",
+       "Y"
+      ]
+     ],
+     "compiled_by": "openassembler",
+     "instructions": 27,
+     "registers": 16,
+     "verify": "not-run"
+    }
+   ]
+  }
+ ]
+}

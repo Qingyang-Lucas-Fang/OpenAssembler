@@ -1,0 +1,47 @@
+{
+  "passed": true,
+  "traces": [
+    {
+      "seed": 17,
+      "phases": 1024,
+      "per_slot_phase_count": 512,
+      "per_slot_parity_wraps": 256,
+      "overlap_opportunities": 524,
+      "passed": true
+    },
+    {
+      "seed": 31,
+      "phases": 1024,
+      "per_slot_phase_count": 512,
+      "per_slot_parity_wraps": 256,
+      "overlap_opportunities": 494,
+      "passed": true
+    },
+    {
+      "seed": 319,
+      "phases": 1024,
+      "per_slot_phase_count": 512,
+      "per_slot_parity_wraps": 256,
+      "overlap_opportunities": 511,
+      "passed": true
+    },
+    {
+      "seed": 1024,
+      "phases": 1024,
+      "per_slot_phase_count": 512,
+      "per_slot_parity_wraps": 256,
+      "overlap_opportunities": 536,
+      "passed": true
+    }
+  ],
+  "layout": {
+    "shared_bytes": 2080,
+    "barrier_bytes": 32,
+    "slot_tile_bytes_each": 1024,
+    "slots_overlap": false,
+    "tile_barrier_overlap": false,
+    "integer_reference_values": 512,
+    "passed": true,
+    "scope": "exhaustive shared-address and copied-value reference; actual mbarrier/warp pipeline execution requires GPU"
+  }
+}

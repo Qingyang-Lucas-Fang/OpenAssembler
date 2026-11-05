@@ -1,0 +1,374 @@
+[
+  {
+    "build": "p4_cli_square_f16",
+    "argv": [
+      "/Users/lucasfang/Desktop/OpenAssembler/.venv/bin/python",
+      "-m",
+      "openassembler",
+      "gemm",
+      "--m",
+      "4096",
+      "--n",
+      "4096",
+      "--k",
+      "4096",
+      "--dtype",
+      "f16",
+      "--out-dir",
+      "/Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/build/p4_cli_square_f16",
+      "-o",
+      "gemm"
+    ],
+    "native_cli": true,
+    "phase3_reference": "address_stagepair_square_f16",
+    "text_equal": true,
+    "text_sha256": "7db39cc746df3370ccb8158a8394ffa886024bc229a77fee0f53b63b7c475ddd",
+    "cubin_sha256": "b08cdb5a6d3678f2eb5b453b23816ae7593655e35ee903c3a87fbd1d67e4d763",
+    "registers": 216,
+    "geometry": {
+      "m": 4096,
+      "n": 4096,
+      "k": 4096,
+      "bm": 128,
+      "bn": 128,
+      "bk": 64,
+      "wm": 64,
+      "wn": 64,
+      "stages": 2
+    },
+    "compiler": "OpenAssembler production CLI SM80 tensor backend",
+    "fallback": false,
+    "contract": {
+      "schema": 1,
+      "m": 4096,
+      "n": 4096,
+      "k": 4096,
+      "dtype": "f16",
+      "schedule": "stagepair",
+      "output_dtype": "f32",
+      "layout": "rcr",
+      "arch": "sm_80",
+      "launch": {
+        "grid": [
+          32,
+          32,
+          1
+        ],
+        "threads": 128,
+        "smem": 65536
+      },
+      "input_layout": "A[M,K] and B[N,K], contiguous in K; C=A@B.T",
+      "accumulation": "f32"
+    }
+  },
+  {
+    "build": "p4_cli_mlp_f16",
+    "argv": [
+      "/Users/lucasfang/Desktop/OpenAssembler/.venv/bin/python",
+      "-m",
+      "openassembler",
+      "gemm",
+      "--m",
+      "4096",
+      "--n",
+      "16384",
+      "--k",
+      "4096",
+      "--dtype",
+      "f16",
+      "--out-dir",
+      "/Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/build/p4_cli_mlp_f16",
+      "-o",
+      "gemm"
+    ],
+    "native_cli": true,
+    "phase3_reference": "address_stagepair_confirm_mlp_f16",
+    "text_equal": true,
+    "text_sha256": "a84a7705738b89ae2aa2cfc903db92c0ef34bc7b88726ffc75c95f066927a144",
+    "cubin_sha256": "eabb78689874fc8efb62abe21f87aa70ad7532c6329ba8332027f8aee996be38",
+    "registers": 216,
+    "geometry": {
+      "m": 4096,
+      "n": 16384,
+      "k": 4096,
+      "bm": 128,
+      "bn": 128,
+      "bk": 64,
+      "wm": 64,
+      "wn": 64,
+      "stages": 2
+    },
+    "compiler": "OpenAssembler production CLI SM80 tensor backend",
+    "fallback": false,
+    "contract": {
+      "schema": 1,
+      "m": 4096,
+      "n": 16384,
+      "k": 4096,
+      "dtype": "f16",
+      "schedule": "stagepair",
+      "output_dtype": "f32",
+      "layout": "rcr",
+      "arch": "sm_80",
+      "launch": {
+        "grid": [
+          32,
+          128,
+          1
+        ],
+        "threads": 128,
+        "smem": 65536
+      },
+      "input_layout": "A[M,K] and B[N,K], contiguous in K; C=A@B.T",
+      "accumulation": "f32"
+    }
+  },
+  {
+    "build": "p4_cli_tall_f16",
+    "argv": [
+      "/Users/lucasfang/Desktop/OpenAssembler/.venv/bin/python",
+      "-m",
+      "openassembler",
+      "gemm",
+      "--m",
+      "16384",
+      "--n",
+      "4096",
+      "--k",
+      "4096",
+      "--dtype",
+      "f16",
+      "--out-dir",
+      "/Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/build/p4_cli_tall_f16",
+      "-o",
+      "gemm"
+    ],
+    "native_cli": true,
+    "phase3_reference": "address_stagepair_confirm_tall_f16",
+    "text_equal": true,
+    "text_sha256": "7db39cc746df3370ccb8158a8394ffa886024bc229a77fee0f53b63b7c475ddd",
+    "cubin_sha256": "b08cdb5a6d3678f2eb5b453b23816ae7593655e35ee903c3a87fbd1d67e4d763",
+    "registers": 216,
+    "geometry": {
+      "m": 16384,
+      "n": 4096,
+      "k": 4096,
+      "bm": 128,
+      "bn": 128,
+      "bk": 64,
+      "wm": 64,
+      "wn": 64,
+      "stages": 2
+    },
+    "compiler": "OpenAssembler production CLI SM80 tensor backend",
+    "fallback": false,
+    "contract": {
+      "schema": 1,
+      "m": 16384,
+      "n": 4096,
+      "k": 4096,
+      "dtype": "f16",
+      "schedule": "stagepair",
+      "output_dtype": "f32",
+      "layout": "rcr",
+      "arch": "sm_80",
+      "launch": {
+        "grid": [
+          128,
+          32,
+          1
+        ],
+        "threads": 128,
+        "smem": 65536
+      },
+      "input_layout": "A[M,K] and B[N,K], contiguous in K; C=A@B.T",
+      "accumulation": "f32"
+    }
+  },
+  {
+    "build": "p4_cli_square_bf16",
+    "argv": [
+      "/Users/lucasfang/Desktop/OpenAssembler/.venv/bin/python",
+      "-m",
+      "openassembler",
+      "gemm",
+      "--m",
+      "4096",
+      "--n",
+      "4096",
+      "--k",
+      "4096",
+      "--dtype",
+      "bf16",
+      "--out-dir",
+      "/Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/build/p4_cli_square_bf16",
+      "-o",
+      "gemm"
+    ],
+    "native_cli": true,
+    "phase3_reference": "address_stagepair_square_bf16",
+    "text_equal": true,
+    "text_sha256": "1573a311b93c91342d9c4437ef954624d350a07a07d2d2700ce1c31f2cef41d3",
+    "cubin_sha256": "7d6b079b919e4ef190ef4df529dd6b5788da8ffc99a884ad3809b2e40a07d736",
+    "registers": 216,
+    "geometry": {
+      "m": 4096,
+      "n": 4096,
+      "k": 4096,
+      "bm": 128,
+      "bn": 128,
+      "bk": 64,
+      "wm": 64,
+      "wn": 64,
+      "stages": 2
+    },
+    "compiler": "OpenAssembler production CLI SM80 tensor backend",
+    "fallback": false,
+    "contract": {
+      "schema": 1,
+      "m": 4096,
+      "n": 4096,
+      "k": 4096,
+      "dtype": "bf16",
+      "schedule": "stagepair",
+      "output_dtype": "f32",
+      "layout": "rcr",
+      "arch": "sm_80",
+      "launch": {
+        "grid": [
+          32,
+          32,
+          1
+        ],
+        "threads": 128,
+        "smem": 65536
+      },
+      "input_layout": "A[M,K] and B[N,K], contiguous in K; C=A@B.T",
+      "accumulation": "f32"
+    }
+  },
+  {
+    "build": "p4_cli_mlp_bf16",
+    "argv": [
+      "/Users/lucasfang/Desktop/OpenAssembler/.venv/bin/python",
+      "-m",
+      "openassembler",
+      "gemm",
+      "--m",
+      "4096",
+      "--n",
+      "16384",
+      "--k",
+      "4096",
+      "--dtype",
+      "bf16",
+      "--out-dir",
+      "/Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/build/p4_cli_mlp_bf16",
+      "-o",
+      "gemm"
+    ],
+    "native_cli": true,
+    "phase3_reference": "address_stagepair_confirm_mlp_bf16",
+    "text_equal": true,
+    "text_sha256": "40927857547bb35ddae11575264f1f4c300bd4a8772a1c4cfe82c07518257db4",
+    "cubin_sha256": "f3e2aafecb8de6d3e7b5929722276882736f02f2b70acba42ca05b1847997028",
+    "registers": 216,
+    "geometry": {
+      "m": 4096,
+      "n": 16384,
+      "k": 4096,
+      "bm": 128,
+      "bn": 128,
+      "bk": 64,
+      "wm": 64,
+      "wn": 64,
+      "stages": 2
+    },
+    "compiler": "OpenAssembler production CLI SM80 tensor backend",
+    "fallback": false,
+    "contract": {
+      "schema": 1,
+      "m": 4096,
+      "n": 16384,
+      "k": 4096,
+      "dtype": "bf16",
+      "schedule": "stagepair",
+      "output_dtype": "f32",
+      "layout": "rcr",
+      "arch": "sm_80",
+      "launch": {
+        "grid": [
+          32,
+          128,
+          1
+        ],
+        "threads": 128,
+        "smem": 65536
+      },
+      "input_layout": "A[M,K] and B[N,K], contiguous in K; C=A@B.T",
+      "accumulation": "f32"
+    }
+  },
+  {
+    "build": "p4_cli_tall_bf16",
+    "argv": [
+      "/Users/lucasfang/Desktop/OpenAssembler/.venv/bin/python",
+      "-m",
+      "openassembler",
+      "gemm",
+      "--m",
+      "16384",
+      "--n",
+      "4096",
+      "--k",
+      "4096",
+      "--dtype",
+      "bf16",
+      "--out-dir",
+      "/Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/build/p4_cli_tall_bf16",
+      "-o",
+      "gemm"
+    ],
+    "native_cli": true,
+    "phase3_reference": "address_stagepair_confirm_tall_bf16",
+    "text_equal": true,
+    "text_sha256": "1573a311b93c91342d9c4437ef954624d350a07a07d2d2700ce1c31f2cef41d3",
+    "cubin_sha256": "7d6b079b919e4ef190ef4df529dd6b5788da8ffc99a884ad3809b2e40a07d736",
+    "registers": 216,
+    "geometry": {
+      "m": 16384,
+      "n": 4096,
+      "k": 4096,
+      "bm": 128,
+      "bn": 128,
+      "bk": 64,
+      "wm": 64,
+      "wn": 64,
+      "stages": 2
+    },
+    "compiler": "OpenAssembler production CLI SM80 tensor backend",
+    "fallback": false,
+    "contract": {
+      "schema": 1,
+      "m": 16384,
+      "n": 4096,
+      "k": 4096,
+      "dtype": "bf16",
+      "schedule": "stagepair",
+      "output_dtype": "f32",
+      "layout": "rcr",
+      "arch": "sm_80",
+      "launch": {
+        "grid": [
+          128,
+          32,
+          1
+        ],
+        "threads": 128,
+        "smem": 65536
+      },
+      "input_layout": "A[M,K] and B[N,K], contiguous in K; C=A@B.T",
+      "accumulation": "f32"
+    }
+  }
+]

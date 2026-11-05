@@ -25,7 +25,8 @@ from openassembler.emu import fp
 from openassembler.emu.machine import M32, Unsupported
 from openassembler.emu.operands import Reg
 
-# Fitted on A100 (corpus/sm_80/gpu_a100_40gb_tensor.raw.json.gz, corpus/.tmp/fit_nominal.py):
+# Fitted to retained finite-input A100 tensor-lane observations; methods and
+# evidence limits are documented in docs/research/REVERSE_ENGINEERING.md.
 # 1024/1024 lanes bit-exact for each type; the next-best model in the family scores ~70%.
 #   per step of `block` products: every product a*b is aligned at its NOMINAL exponent
 #   e(a)+e(b) (not renormalized), together with the running f32 accumulator; each term

@@ -65,26 +65,30 @@ def test_new_plan_options_reject_unsupported_modes_and_incomplete_morton_groups(
 def test_morton8_emitted_coordinate_program_is_a_full_grid_bijection():
     from openassembler.ptx.interp import Launch, run_kernel
 
-    plan=GemmPlan(1024,1024,128,cta_order="morton8")
+    plan=GemmPlan(2048,3072,128,cta_order="morton8")
     source=generate(plan)
     prefix=source.split("and.b32 %r3,%r0,31;",1)[0]+"ret;\n}\n"
     module=parse_module(prefix)
     mapped=[]
-    for by in range(8):
-        for bx in range(8):
-            interp=run_kernel(module,"gemm",Launch(block=(32,1,1),grid=(8,8,1),
+    tile_m,tile_n=plan.m//128,plan.n//128
+    for by in range(tile_n):
+        for bx in range(tile_m):
+            interp=run_kernel(module,"gemm",Launch(block=(32,1,1),grid=(tile_m,tile_n,1),
                               ctaid=(bx,by,0),params={"A":0x1000,"B":0x2000,"C":0x3000}),None)
             regs=interp.warps[0][0].regs
             mapped.append((regs["%r1"]//128,regs["%r2"]//128))
     expected=[]
-    for by in range(8):
-        for bx in range(8):
-            local=by*8+bx
-            tm=sum(((local>>(2*bit))&1)<<bit for bit in range(3))
-            tn=sum(((local>>(2*bit+1))&1)<<bit for bit in range(3))
-            expected.append((tm,tn))
+    for by in range(tile_n):
+        for bx in range(tile_m):
+            linear=by*tile_m+bx
+            group=linear>>6
+            local=linear&63
+            local_m=sum(((local>>(2*bit))&1)<<bit for bit in range(3))
+            local_n=sum(((local>>(2*bit+1))&1)<<bit for bit in range(3))
+            expected.append(((group%(tile_m//8))*8+local_m,
+                             (group//(tile_m//8))*8+local_n))
     assert mapped==expected
-    assert len(set(mapped))==64
+    assert len(set(mapped))==tile_m*tile_n
 
 
 def test_plan_is_immutable_and_launch_metadata_is_independent():

@@ -12,7 +12,7 @@ from openassembler.isa.encode import Encoder, EncodeError, Template, key
 from openassembler.isa.word import set_bits
 
 # Input hashes make the experimental field/seed evidence auditable.
-EVIDENCE = {'corpus/sm_80/pairs.jsonl': 'c619303020b016b27eb8b93eb68652563f11c7a7a78bf7eaba4eca5d172bb491', 'specs/sm_80/synth_templates.json': 'd6debb40dba5b8c74c45d3e6da608dad5ac30fbe196a11907242e8248708ac24', 'specs/sm_80/arithmetic_templates.json': '1c3fc5163ab05bc4305260c12d51bfc270ab83d89fbb487fcbe5854c9179bfe1', 'exp/a100_mma/templates.json': 'dc8057a8d83e027c8a90959d60f3fb3e246753e1f9b4bdc0ea09a51f7bdee82f', 'exp/a100_mma/phase3/address-ldgsts-roundtrips.json': '5168b037a21ffd74cfa9d6bc4644a7bd7acd471d4862b3145f59b5e507199044', 'exp/a100_mma/phase2/depbar-fields.json': '4d247c2c75c230d183cddb05135d20ea68e1d4697bbfeba2f01f4bdb8db6aab6', 'exp/a100_mma/fieldmaps.json': '926822ee069b8eef6c0ad75bd79b1cc4e2af4dd33ccc898d2f06a3749bd806a0'}
+EVIDENCE = {'corpus/sm_80/pairs.jsonl': 'c619303020b016b27eb8b93eb68652563f11c7a7a78bf7eaba4eca5d172bb491', 'specs/sm_80/synth_templates.json': 'd6debb40dba5b8c74c45d3e6da608dad5ac30fbe196a11907242e8248708ac24', 'specs/sm_80/arithmetic_templates.json': '1c3fc5163ab05bc4305260c12d51bfc270ab83d89fbb487fcbe5854c9179bfe1', 'docs/evidence/a100-mma/encoding/templates.json': 'dc8057a8d83e027c8a90959d60f3fb3e246753e1f9b4bdc0ea09a51f7bdee82f', 'docs/evidence/a100-mma/encoding/address-ldgsts-roundtrips.json': '5168b037a21ffd74cfa9d6bc4644a7bd7acd471d4862b3145f59b5e507199044', 'docs/evidence/a100-mma/encoding/depbar-fields.json': '4d247c2c75c230d183cddb05135d20ea68e1d4697bbfeba2f01f4bdb8db6aab6', 'docs/evidence/a100-mma/encoding/fieldmaps.json': '926822ee069b8eef6c0ad75bd79b1cc4e2af4dd33ccc898d2f06a3749bd806a0'}
 
 # (verified seed text, 128-bit word, learned operand slots)
 _TEMPLATES = (
@@ -110,7 +110,7 @@ class TensorEncoder(Encoder):
                     or ins.ops[0].text != "SB0" or not isinstance(ins.ops[1], Imm)
                     or ins.ops[1].int32() not in (0, 1, 2)):
                 raise EncodeError("only DEPBAR.LE SB0 thresholds 0,1,2 are supported")
-            # phase2/depbar-fields.json independently identifies bits38:43.
+            # The retained encoding evidence independently identifies bits38:43.
             word = set_bits(int("000fc80000000000000080000000791a", 16), 38, 6,
                             ins.ops[1].int32())
             return self._ctl(word, ctl) if ctl is not None else word

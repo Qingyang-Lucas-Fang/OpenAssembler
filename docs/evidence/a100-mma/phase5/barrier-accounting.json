@@ -1,0 +1,90 @@
+[
+  {
+    "mode": "inc",
+    "seed": 2,
+    "phases": 1024,
+    "parity_wraps": 512,
+    "async_copy_arrivals": 32768,
+    "ordinary_ready_arrivals": 32768,
+    "maximum_pending_ready": 49,
+    "passed": true,
+    "scope": "abstract sequencing/count model, not timing or GPU memory-consistency simulation"
+  },
+  {
+    "mode": "inc",
+    "seed": 71,
+    "phases": 1024,
+    "parity_wraps": 512,
+    "async_copy_arrivals": 32768,
+    "ordinary_ready_arrivals": 32768,
+    "maximum_pending_ready": 49,
+    "passed": true,
+    "scope": "abstract sequencing/count model, not timing or GPU memory-consistency simulation"
+  },
+  {
+    "mode": "inc",
+    "seed": 909,
+    "phases": 1024,
+    "parity_wraps": 512,
+    "async_copy_arrivals": 32768,
+    "ordinary_ready_arrivals": 32768,
+    "maximum_pending_ready": 49,
+    "passed": true,
+    "scope": "abstract sequencing/count model, not timing or GPU memory-consistency simulation"
+  },
+  {
+    "mode": "inc",
+    "seed": 1024,
+    "phases": 1024,
+    "parity_wraps": 512,
+    "async_copy_arrivals": 32768,
+    "ordinary_ready_arrivals": 32768,
+    "maximum_pending_ready": 49,
+    "passed": true,
+    "scope": "abstract sequencing/count model, not timing or GPU memory-consistency simulation"
+  },
+  {
+    "mode": "noinc",
+    "seed": 2,
+    "phases": 1024,
+    "parity_wraps": 512,
+    "async_copy_arrivals": 32768,
+    "ordinary_ready_arrivals": 0,
+    "maximum_pending_ready": 32,
+    "passed": true,
+    "scope": "abstract sequencing/count model, not timing or GPU memory-consistency simulation"
+  },
+  {
+    "mode": "noinc",
+    "seed": 71,
+    "phases": 1024,
+    "parity_wraps": 512,
+    "async_copy_arrivals": 32768,
+    "ordinary_ready_arrivals": 0,
+    "maximum_pending_ready": 32,
+    "passed": true,
+    "scope": "abstract sequencing/count model, not timing or GPU memory-consistency simulation"
+  },
+  {
+    "mode": "noinc",
+    "seed": 909,
+    "phases": 1024,
+    "parity_wraps": 512,
+    "async_copy_arrivals": 32768,
+    "ordinary_ready_arrivals": 0,
+    "maximum_pending_ready": 32,
+    "passed": true,
+    "scope": "abstract sequencing/count model, not timing or GPU memory-consistency simulation"
+  },
+  {
+    "mode": "noinc",
+    "seed": 1024,
+    "phases": 1024,
+    "parity_wraps": 512,
+    "async_copy_arrivals": 32768,
+    "ordinary_ready_arrivals": 0,
+    "maximum_pending_ready": 32,
+    "passed": true,
+    "scope": "abstract sequencing/count model, not timing or GPU memory-consistency simulation"
+  }
+]

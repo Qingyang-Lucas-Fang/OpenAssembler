@@ -1,0 +1,287 @@
+{
+  "repository_commit": "dbe017722194bb33bafadfbcbb4a65ab6df95dc3",
+  "family": "kernels/a100_F32F16F16F32",
+  "sampled_files": 5,
+  "family_files": 1000,
+  "limitation": "Source-level sample only; not a numerical execution or audit of all1000 kernels.",
+  "cases": [
+    {
+      "source": {
+        "path": "kernels/a100_F32F16F16F32/4096_4096_4096.cu",
+        "url": "https://raw.githubusercontent.com/ornith-ai/CUDA-L2/dbe017722194bb33bafadfbcbb4a65ab6df95dc3/kernels/a100_F32F16F16F32/4096_4096_4096.cu",
+        "local": "cudal2_kernels_a100_F32F16F16F32_4096_4096_4096.cu",
+        "bytes": 11503,
+        "sha256": "94e5d7ea6ce765dce795f462a8274b15327d3c94925313c8f6e0c4d87a75b99b"
+      },
+      "shape_mnk": [
+        4096,
+        4096,
+        4096
+      ],
+      "tile": {
+        "BM": 160,
+        "BN": 128,
+        "BK": 32
+      },
+      "inputs": "f16",
+      "accumulator": "f32",
+      "output": "f16",
+      "matched_to_oa_f32_output": false,
+      "exact_input_memory_interpretation": "A[M,K] row-major; Bpacked[N,K] row-major; mathematical C=A@Bpacked.T",
+      "fp32_to_half_epilogue": true,
+      "prefetch_next_fragment": true,
+      "async_copy": true,
+      "ldsm_x4": true,
+      "block_swizzle": true,
+      "shared_swizzle": [
+        "3, 3, 3",
+        "3, 3, 3"
+      ],
+      "source_lines": {
+        "block_order": [
+          32
+        ],
+        "prefetch": [
+          114
+        ],
+        "output_narrowing": [
+          143
+        ],
+        "tile": [
+          185
+        ],
+        "mma": [
+          200
+        ],
+        "output_check": [
+          295
+        ]
+      },
+      "benchmark_padded_mnk": [
+        4160,
+        4096,
+        4096
+      ],
+      "padded_arithmetic_ratio": 1.015625,
+      "stages": 3,
+      "logical_operand_stage_bytes": 55296
+    },
+    {
+      "source": {
+        "path": "kernels/a100_F32F16F16F32/16384_4096_4096.cu",
+        "url": "https://raw.githubusercontent.com/ornith-ai/CUDA-L2/dbe017722194bb33bafadfbcbb4a65ab6df95dc3/kernels/a100_F32F16F16F32/16384_4096_4096.cu",
+        "local": "cudal2_kernels_a100_F32F16F16F32_16384_4096_4096.cu",
+        "bytes": 11441,
+        "sha256": "3359e856edfbb1decc134135d37c1e506d4589620b7273fdad1bddde493267d2"
+      },
+      "shape_mnk": [
+        16384,
+        4096,
+        4096
+      ],
+      "tile": {
+        "BM": 128,
+        "BN": 128,
+        "BK": 32
+      },
+      "inputs": "f16",
+      "accumulator": "f32",
+      "output": "f16",
+      "matched_to_oa_f32_output": false,
+      "exact_input_memory_interpretation": "A[M,K] row-major; Bpacked[N,K] row-major; mathematical C=A@Bpacked.T",
+      "fp32_to_half_epilogue": true,
+      "prefetch_next_fragment": true,
+      "async_copy": true,
+      "ldsm_x4": true,
+      "block_swizzle": true,
+      "shared_swizzle": [
+        "2, 3, 3",
+        "2, 3, 3"
+      ],
+      "source_lines": {
+        "block_order": [
+          25
+        ],
+        "prefetch": [
+          105
+        ],
+        "output_narrowing": [
+          134
+        ],
+        "tile": [
+          174
+        ],
+        "mma": [
+          188
+        ],
+        "output_check": [
+          287
+        ]
+      },
+      "benchmark_padded_mnk": [
+        16384,
+        4096,
+        4096
+      ],
+      "padded_arithmetic_ratio": 1.0,
+      "stages": 4,
+      "logical_operand_stage_bytes": 65536
+    },
+    {
+      "source": {
+        "path": "kernels/a100_F32F16F16F32/4096_16384_4096.cu",
+        "url": "https://raw.githubusercontent.com/ornith-ai/CUDA-L2/dbe017722194bb33bafadfbcbb4a65ab6df95dc3/kernels/a100_F32F16F16F32/4096_16384_4096.cu",
+        "local": "cudal2_kernels_a100_F32F16F16F32_4096_16384_4096.cu",
+        "bytes": 11291,
+        "sha256": "0ad83f56581ace6809f6c85e82443e11fb05e64b4a8dd7a8e62da6eea358e1bf"
+      },
+      "shape_mnk": [
+        4096,
+        16384,
+        4096
+      ],
+      "tile": {
+        "BM": 128,
+        "BN": 128,
+        "BK": 32
+      },
+      "inputs": "f16",
+      "accumulator": "f32",
+      "output": "f16",
+      "matched_to_oa_f32_output": false,
+      "exact_input_memory_interpretation": "A[M,K] row-major; Bpacked[N,K] row-major; mathematical C=A@Bpacked.T",
+      "fp32_to_half_epilogue": true,
+      "prefetch_next_fragment": true,
+      "async_copy": true,
+      "ldsm_x4": true,
+      "block_swizzle": true,
+      "shared_swizzle": [
+        "2, 3, 3",
+        "2, 3, 3"
+      ],
+      "source_lines": {
+        "block_order": [
+          23
+        ],
+        "prefetch": [
+          104
+        ],
+        "output_narrowing": [
+          133
+        ],
+        "tile": [
+          178
+        ],
+        "mma": [
+          193
+        ],
+        "output_check": [
+          289
+        ]
+      },
+      "benchmark_padded_mnk": [
+        4096,
+        16384,
+        4096
+      ],
+      "padded_arithmetic_ratio": 1.0,
+      "stages": 4,
+      "logical_operand_stage_bytes": 65536
+    },
+    {
+      "source": {
+        "path": "kernels/a100_F32F16F16F32/64_4096_64.cu",
+        "url": "https://raw.githubusercontent.com/ornith-ai/CUDA-L2/dbe017722194bb33bafadfbcbb4a65ab6df95dc3/kernels/a100_F32F16F16F32/64_4096_64.cu",
+        "local": "cudal2_kernels_a100_F32F16F16F32_64_4096_64.cu",
+        "bytes": 10549,
+        "sha256": "865450f8651aab821cb840ec566226ce42fdbf2e297dae516b63cb79908a8a50"
+      },
+      "shape_mnk": [
+        64,
+        4096,
+        64
+      ],
+      "tile": {
+        "BM": 64,
+        "BN": 128,
+        "BK": 32
+      },
+      "inputs": "f16",
+      "accumulator": "f32",
+      "output": "f16",
+      "matched_to_oa_f32_output": false,
+      "exact_input_memory_interpretation": "A[M,K] row-major; Bpacked[N,K] row-major; mathematical C=A@Bpacked.T",
+      "fp32_to_half_epilogue": true,
+      "prefetch_next_fragment": true,
+      "async_copy": true,
+      "ldsm_x4": true,
+      "block_swizzle": false,
+      "shared_swizzle": [
+        "3, 3, 3",
+        "3, 3, 3"
+      ],
+      "source_lines": {
+        "block_order": [
+          23
+        ],
+        "prefetch": [
+          105
+        ],
+        "output_narrowing": [
+          134
+        ],
+        "tile": [
+          175
+        ],
+        "mma": [
+          190
+        ],
+        "output_check": [
+          278
+        ]
+      },
+      "benchmark_padded_mnk": [
+        64,
+        4096,
+        64
+      ],
+      "padded_arithmetic_ratio": 1.0,
+      "stages": 3,
+      "logical_operand_stage_bytes": 36864
+    },
+    {
+      "source": {
+        "path": "kernels/a100_F32F16F16F32/64_64_64.cu",
+        "url": "https://raw.githubusercontent.com/ornith-ai/CUDA-L2/dbe017722194bb33bafadfbcbb4a65ab6df95dc3/kernels/a100_F32F16F16F32/64_64_64.cu",
+        "local": "cudal2_kernels_a100_F32F16F16F32_64_64_64.cu",
+        "bytes": 2312,
+        "sha256": "851fb0a2c7994c8ae53807d76d938a49fe9a5dc07cd5b942dd7fe9cbf942c0a1"
+      },
+      "shape_mnk": [
+        64,
+        64,
+        64
+      ],
+      "tile": {},
+      "inputs": "f16",
+      "accumulator": "f16",
+      "output": "f16",
+      "matched_to_oa_f32_output": false,
+      "exact_input_memory_interpretation": "A[M,K] row-major; Bpacked[N,K] row-major; mathematical C=A@Bpacked.T",
+      "fp32_to_half_epilogue": false,
+      "prefetch_next_fragment": false,
+      "async_copy": false,
+      "ldsm_x4": false,
+      "block_swizzle": false,
+      "shared_swizzle": [],
+      "source_lines": {
+        "half_accumulator": [
+          25
+        ],
+        "output_check": [
+          57
+        ]
+      }
+    }
+  ]
+}

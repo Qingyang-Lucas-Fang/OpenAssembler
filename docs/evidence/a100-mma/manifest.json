@@ -1,0 +1,604 @@
+{
+  "schema": 1,
+  "generated": "2026-11-05",
+  "files": [
+    {
+      "path": "docs/evidence/a100-mma/README.md",
+      "sha256": "4264e7859b4979b7ca9a78cb2474e33b2c1a042b4faa7dfe456b9b0fcc28fd1e",
+      "bytes": 5282
+    },
+    {
+      "path": "docs/evidence/a100-mma/current-validation/controls/square_bf16_gemm/gemm.ptx",
+      "sha256": "8966bd075c2cc65bf433744ed12e606743d5898be29fffae8c38c71ec3a76550",
+      "bytes": 102346,
+      "source_path": "exp/a100_mma/phase6/controls/square_bf16_gemm/gemm.ptx"
+    },
+    {
+      "path": "docs/evidence/a100-mma/current-validation/controls/square_bf16_gemm/manifest.json",
+      "sha256": "7f21df3e947398c8a3c9c29d9dd52cbfb6cd99f5302a01b239cbe33ad6413182",
+      "bytes": 1305,
+      "source_path": "exp/a100_mma/phase6/controls/square_bf16_gemm/manifest.json"
+    },
+    {
+      "path": "docs/evidence/a100-mma/current-validation/controls/square_bf16_gemm/openassembler.cubin",
+      "sha256": "7d6b079b919e4ef190ef4df529dd6b5788da8ffc99a884ad3809b2e40a07d736",
+      "bytes": 47936,
+      "source_path": "exp/a100_mma/phase6/controls/square_bf16_gemm/openassembler.cubin"
+    },
+    {
+      "path": "docs/evidence/a100-mma/current-validation/controls/square_bf16_gemm/ptxas.cubin",
+      "sha256": "0184568d4124991ba68ce49d07aa9fe7d14ae6554e37bd359225a4efd3fec4c1",
+      "bytes": 20128,
+      "source_path": "exp/a100_mma/phase6/controls/square_bf16_gemm/ptxas.cubin"
+    },
+    {
+      "path": "docs/evidence/a100-mma/current-validation/controls/square_f16_gemm/gemm.ptx",
+      "sha256": "25df2a8950638940c87ab9460c01dd92883610f0e93b26159e410e9f8b6adb6a",
+      "bytes": 101322,
+      "source_path": "exp/a100_mma/phase6/controls/square_f16_gemm/gemm.ptx"
+    },
+    {
+      "path": "docs/evidence/a100-mma/current-validation/controls/square_f16_gemm/manifest.json",
+      "sha256": "4b804203ac10a74800a6b299a6778420c26445a546f0b5015f5a6669e62600b6",
+      "bytes": 1300,
+      "source_path": "exp/a100_mma/phase6/controls/square_f16_gemm/manifest.json"
+    },
+    {
+      "path": "docs/evidence/a100-mma/current-validation/controls/square_f16_gemm/openassembler.cubin",
+      "sha256": "b08cdb5a6d3678f2eb5b453b23816ae7593655e35ee903c3a87fbd1d67e4d763",
+      "bytes": 47936,
+      "source_path": "exp/a100_mma/phase6/controls/square_f16_gemm/openassembler.cubin"
+    },
+    {
+      "path": "docs/evidence/a100-mma/current-validation/controls/square_f16_gemm/ptxas.cubin",
+      "sha256": "318311614de65b2bf13118306e996a716ceb02fec35f29ac768bb0e735a9a15d",
+      "bytes": 20128,
+      "source_path": "exp/a100_mma/phase6/controls/square_f16_gemm/ptxas.cubin"
+    },
+    {
+      "path": "docs/evidence/a100-mma/current-validation/controls/square_post_bias_residual/manifest.json",
+      "sha256": "8199cbed9bb48b9edc58030b31f36ffcdcd8fd599a72feeb43c83f7cd092449b",
+      "bytes": 941,
+      "source_path": "exp/a100_mma/phase6/controls/square_post_bias_residual/manifest.json"
+    },
+    {
+      "path": "docs/evidence/a100-mma/current-validation/controls/square_post_bias_residual/openassembler.cubin",
+      "sha256": "8568efc0ca8f393cbc444a7e8efd17a52d6dea8047e2e8a78790e16b22d8d299",
+      "bytes": 6016,
+      "source_path": "exp/a100_mma/phase6/controls/square_post_bias_residual/openassembler.cubin"
+    },
+    {
+      "path": "docs/evidence/a100-mma/current-validation/controls/square_post_bias_residual/postprocess.ptx",
+      "sha256": "76107ecbddf06f582d0ea2922c8370ff51fda9558932e9e637237cc0963cbaf8",
+      "bytes": 797,
+      "source_path": "exp/a100_mma/phase6/controls/square_post_bias_residual/postprocess.ptx"
+    },
+    {
+      "path": "docs/evidence/a100-mma/current-validation/controls/square_post_bias_residual/ptxas.cubin",
+      "sha256": "c790c5bce105c0a880e24aa647663b091e03e87935eba9005103f4c6043548ba",
+      "bytes": 3240,
+      "source_path": "exp/a100_mma/phase6/controls/square_post_bias_residual/ptxas.cubin"
+    },
+    {
+      "path": "docs/evidence/a100-mma/current-validation/controls/square_post_bias_residual_relu/manifest.json",
+      "sha256": "dadc20e46e5240dcde1de49617be922c0d5cdf7c6891be223e864064613bad66",
+      "bytes": 966,
+      "source_path": "exp/a100_mma/phase6/controls/square_post_bias_residual_relu/manifest.json"
+    },
+    {
+      "path": "docs/evidence/a100-mma/current-validation/controls/square_post_bias_residual_relu/openassembler.cubin",
+      "sha256": "71b3599ceb066f62b21f11df21aafc0c36b89cfd77fc6cc85875cdc17fbc86ff",
+      "bytes": 6016,
+      "source_path": "exp/a100_mma/phase6/controls/square_post_bias_residual_relu/openassembler.cubin"
+    },
+    {
+      "path": "docs/evidence/a100-mma/current-validation/controls/square_post_bias_residual_relu/postprocess.ptx",
+      "sha256": "fa085a3f1f994fed212586034821e338022d62fd24b61445356d34a6c411631a",
+      "bytes": 853,
+      "source_path": "exp/a100_mma/phase6/controls/square_post_bias_residual_relu/postprocess.ptx"
+    },
+    {
+      "path": "docs/evidence/a100-mma/current-validation/controls/square_post_bias_residual_relu/ptxas.cubin",
+      "sha256": "f2b48d359980448b721eef896c0d29eca24b760d707d6ff01f42b3811f932c1f",
+      "bytes": 3240,
+      "source_path": "exp/a100_mma/phase6/controls/square_post_bias_residual_relu/ptxas.cubin"
+    },
+    {
+      "path": "docs/evidence/a100-mma/current-validation/square_fused_linear_bf16/.build/reference/gemm.cubin",
+      "sha256": "a161d0d570d28169b1089de5d1d95fabf972a04a689fb18acae47ef1ab881799",
+      "bytes": 25632,
+      "source_path": "exp/a100_mma/phase6/square_fused_linear_bf16/.build/reference/gemm.cubin"
+    },
+    {
+      "path": "docs/evidence/a100-mma/current-validation/square_fused_linear_bf16/cubin/gemm.cubin",
+      "sha256": "795345988064169779f777c7f8b0890491ec1e0fc7c3a8913bcc3aedf48ee75d",
+      "bytes": 58944,
+      "source_path": "exp/a100_mma/phase6/square_fused_linear_bf16/cubin/gemm.cubin"
+    },
+    {
+      "path": "docs/evidence/a100-mma/current-validation/square_fused_linear_bf16/manifest.json",
+      "sha256": "d69f90a490b370b8f42b3bb498a0d684adb56bb4003d7b20107604be150f54aa",
+      "bytes": 1887,
+      "source_path": "exp/a100_mma/phase6/square_fused_linear_bf16/manifest.json"
+    },
+    {
+      "path": "docs/evidence/a100-mma/current-validation/square_fused_linear_bf16-manifest.json",
+      "sha256": "d69f90a490b370b8f42b3bb498a0d684adb56bb4003d7b20107604be150f54aa",
+      "bytes": 1887,
+      "source_path": "exp/a100_mma/phase6/square_fused_linear_bf16-manifest.json"
+    },
+    {
+      "path": "docs/evidence/a100-mma/current-validation/square_fused_linear_f16/.build/reference/gemm.cubin",
+      "sha256": "b3647905558fef6ffd0bf785881532f3ccd4a2306ed0a1ddd51e7001994fb4ef",
+      "bytes": 25632,
+      "source_path": "exp/a100_mma/phase6/square_fused_linear_f16/.build/reference/gemm.cubin"
+    },
+    {
+      "path": "docs/evidence/a100-mma/current-validation/square_fused_linear_f16/cubin/gemm.cubin",
+      "sha256": "acdd9257ca10605dfdb8aa31869e40a4e056b03d79cb86a3dadfc703955befac",
+      "bytes": 58944,
+      "source_path": "exp/a100_mma/phase6/square_fused_linear_f16/cubin/gemm.cubin"
+    },
+    {
+      "path": "docs/evidence/a100-mma/current-validation/square_fused_linear_f16/manifest.json",
+      "sha256": "9a355f06198655e4ce5b53ca934f7619fab38f0848b96b9949f36884f81f51c3",
+      "bytes": 1885,
+      "source_path": "exp/a100_mma/phase6/square_fused_linear_f16/manifest.json"
+    },
+    {
+      "path": "docs/evidence/a100-mma/current-validation/square_fused_linear_f16-manifest.json",
+      "sha256": "9a355f06198655e4ce5b53ca934f7619fab38f0848b96b9949f36884f81f51c3",
+      "bytes": 1885,
+      "source_path": "exp/a100_mma/phase6/square_fused_linear_f16-manifest.json"
+    },
+    {
+      "path": "docs/evidence/a100-mma/current-validation/square_fused_relu_bf16/.build/reference/gemm.cubin",
+      "sha256": "6c1c64dfa0e3070f4f7efffefcabda7c62a9fcd5c107f7ca3d40bf0b2fb99000",
+      "bytes": 27680,
+      "source_path": "exp/a100_mma/phase6/square_fused_relu_bf16/.build/reference/gemm.cubin"
+    },
+    {
+      "path": "docs/evidence/a100-mma/current-validation/square_fused_relu_bf16/cubin/gemm.cubin",
+      "sha256": "381ad428db5a20b3748ef8b9accbd766afc520b32a7ca193965e73f5917875d6",
+      "bytes": 63040,
+      "source_path": "exp/a100_mma/phase6/square_fused_relu_bf16/cubin/gemm.cubin"
+    },
+    {
+      "path": "docs/evidence/a100-mma/current-validation/square_fused_relu_bf16/manifest.json",
+      "sha256": "3263aae77e98d57f3c07150aa263bb74f81b2281f16c6a73198174567f02790a",
+      "bytes": 1890,
+      "source_path": "exp/a100_mma/phase6/square_fused_relu_bf16/manifest.json"
+    },
+    {
+      "path": "docs/evidence/a100-mma/current-validation/square_fused_relu_bf16-manifest.json",
+      "sha256": "3263aae77e98d57f3c07150aa263bb74f81b2281f16c6a73198174567f02790a",
+      "bytes": 1890,
+      "source_path": "exp/a100_mma/phase6/square_fused_relu_bf16-manifest.json"
+    },
+    {
+      "path": "docs/evidence/a100-mma/current-validation/square_fused_relu_f16/.build/reference/gemm.cubin",
+      "sha256": "70a756fe10696bb54d5f79b98017e13cba554a04a83b554062aa4e02a87c0af6",
+      "bytes": 27680,
+      "source_path": "exp/a100_mma/phase6/square_fused_relu_f16/.build/reference/gemm.cubin"
+    },
+    {
+      "path": "docs/evidence/a100-mma/current-validation/square_fused_relu_f16/cubin/gemm.cubin",
+      "sha256": "40d7e7f18899011dd4052b77621050abc23eabfea6e257bc3b5408309bd5457d",
+      "bytes": 63040,
+      "source_path": "exp/a100_mma/phase6/square_fused_relu_f16/cubin/gemm.cubin"
+    },
+    {
+      "path": "docs/evidence/a100-mma/current-validation/square_fused_relu_f16/manifest.json",
+      "sha256": "749c30869efee20f5df011016b573d1e75d346e309ef4b02383e899e5cb6e393",
+      "bytes": 1888,
+      "source_path": "exp/a100_mma/phase6/square_fused_relu_f16/manifest.json"
+    },
+    {
+      "path": "docs/evidence/a100-mma/current-validation/square_fused_relu_f16-manifest.json",
+      "sha256": "749c30869efee20f5df011016b573d1e75d346e309ef4b02383e899e5cb6e393",
+      "bytes": 1888,
+      "source_path": "exp/a100_mma/phase6/square_fused_relu_f16-manifest.json"
+    },
+    {
+      "path": "docs/evidence/a100-mma/current-validation/tall_mfast_bf16/.build/reference/gemm.cubin",
+      "sha256": "0184568d4124991ba68ce49d07aa9fe7d14ae6554e37bd359225a4efd3fec4c1",
+      "bytes": 20128,
+      "source_path": "exp/a100_mma/phase6/tall_mfast_bf16/.build/reference/gemm.cubin"
+    },
+    {
+      "path": "docs/evidence/a100-mma/current-validation/tall_mfast_bf16/cubin/gemm.cubin",
+      "sha256": "7d6b079b919e4ef190ef4df529dd6b5788da8ffc99a884ad3809b2e40a07d736",
+      "bytes": 47936,
+      "source_path": "exp/a100_mma/phase6/tall_mfast_bf16/cubin/gemm.cubin"
+    },
+    {
+      "path": "docs/evidence/a100-mma/current-validation/tall_mfast_bf16/manifest.json",
+      "sha256": "ffdfa7e60c242dc74c78cb69b04b1ca42fcc1d51f5bbc6e22e338d568d662224",
+      "bytes": 1777,
+      "source_path": "exp/a100_mma/phase6/tall_mfast_bf16/manifest.json"
+    },
+    {
+      "path": "docs/evidence/a100-mma/current-validation/tall_mfast_bf16-manifest.json",
+      "sha256": "ffdfa7e60c242dc74c78cb69b04b1ca42fcc1d51f5bbc6e22e338d568d662224",
+      "bytes": 1777,
+      "source_path": "exp/a100_mma/phase6/tall_mfast_bf16-manifest.json"
+    },
+    {
+      "path": "docs/evidence/a100-mma/current-validation/tall_mfast_f16/.build/reference/gemm.cubin",
+      "sha256": "318311614de65b2bf13118306e996a716ceb02fec35f29ac768bb0e735a9a15d",
+      "bytes": 20128,
+      "source_path": "exp/a100_mma/phase6/tall_mfast_f16/.build/reference/gemm.cubin"
+    },
+    {
+      "path": "docs/evidence/a100-mma/current-validation/tall_mfast_f16/cubin/gemm.cubin",
+      "sha256": "b08cdb5a6d3678f2eb5b453b23816ae7593655e35ee903c3a87fbd1d67e4d763",
+      "bytes": 47936,
+      "source_path": "exp/a100_mma/phase6/tall_mfast_f16/cubin/gemm.cubin"
+    },
+    {
+      "path": "docs/evidence/a100-mma/current-validation/tall_mfast_f16/manifest.json",
+      "sha256": "46fcd1507518fd06cadbe4eca21f9e308ff6e3f23d3c7855d5ddb3ae81c24620",
+      "bytes": 1775,
+      "source_path": "exp/a100_mma/phase6/tall_mfast_f16/manifest.json"
+    },
+    {
+      "path": "docs/evidence/a100-mma/current-validation/tall_mfast_f16-manifest.json",
+      "sha256": "46fcd1507518fd06cadbe4eca21f9e308ff6e3f23d3c7855d5ddb3ae81c24620",
+      "bytes": 1775,
+      "source_path": "exp/a100_mma/phase6/tall_mfast_f16-manifest.json"
+    },
+    {
+      "path": "docs/evidence/a100-mma/current-validation/tall_morton_bf16/.build/reference/gemm.cubin",
+      "sha256": "b267f3307c7e27293fd2c5c20b0c9cb78d29107e85c126811fb4f06ae02a0743",
+      "bytes": 20640,
+      "source_path": "exp/a100_mma/phase6/tall_morton_bf16/.build/reference/gemm.cubin"
+    },
+    {
+      "path": "docs/evidence/a100-mma/current-validation/tall_morton_bf16/cubin/gemm.cubin",
+      "sha256": "5266b8204cf131d757e13e9424899f85832384c68d3b643f2d0a76559d5ebd4a",
+      "bytes": 48832,
+      "source_path": "exp/a100_mma/phase6/tall_morton_bf16/cubin/gemm.cubin"
+    },
+    {
+      "path": "docs/evidence/a100-mma/current-validation/tall_morton_bf16/manifest.json",
+      "sha256": "e5132b53b4b0dfa2e291c68965e7faa273c1d7d403800ae680f23fe5971e17b7",
+      "bytes": 1779,
+      "source_path": "exp/a100_mma/phase6/tall_morton_bf16/manifest.json"
+    },
+    {
+      "path": "docs/evidence/a100-mma/current-validation/tall_morton_bf16-manifest.json",
+      "sha256": "e5132b53b4b0dfa2e291c68965e7faa273c1d7d403800ae680f23fe5971e17b7",
+      "bytes": 1779,
+      "source_path": "exp/a100_mma/phase6/tall_morton_bf16-manifest.json"
+    },
+    {
+      "path": "docs/evidence/a100-mma/current-validation/tall_morton_f16/.build/reference/gemm.cubin",
+      "sha256": "d98a23dfba51222fb567dc2a9acd1cc70f14b0fc22009702120920f22fe1b2da",
+      "bytes": 20640,
+      "source_path": "exp/a100_mma/phase6/tall_morton_f16/.build/reference/gemm.cubin"
+    },
+    {
+      "path": "docs/evidence/a100-mma/current-validation/tall_morton_f16/cubin/gemm.cubin",
+      "sha256": "771b4bf33a7c2b1fad3f9cdeca27c194f85eaabcfab22f6c3e621fbc610d6b39",
+      "bytes": 48832,
+      "source_path": "exp/a100_mma/phase6/tall_morton_f16/cubin/gemm.cubin"
+    },
+    {
+      "path": "docs/evidence/a100-mma/current-validation/tall_morton_f16/manifest.json",
+      "sha256": "e71e12014318156c6537a698776a6ae6716e4dd875c0460e5fc13080b27436f2",
+      "bytes": 1777,
+      "source_path": "exp/a100_mma/phase6/tall_morton_f16/manifest.json"
+    },
+    {
+      "path": "docs/evidence/a100-mma/current-validation/tall_morton_f16-manifest.json",
+      "sha256": "e71e12014318156c6537a698776a6ae6716e4dd875c0460e5fc13080b27436f2",
+      "bytes": 1777,
+      "source_path": "exp/a100_mma/phase6/tall_morton_f16-manifest.json"
+    },
+    {
+      "path": "docs/evidence/a100-mma/current-validation/validate_modal.py",
+      "sha256": "d12b5880425660334ad6519bde722dcc28c2658861ee2cc82ebfbec44cdab3fb",
+      "bytes": 12307,
+      "source_path": "exp/a100_mma/phase6/validate_modal.py"
+    },
+    {
+      "path": "docs/evidence/a100-mma/current-validation/validation_20261105T074142.327676Z.json",
+      "sha256": "2044a83becb2ad61cee871a8cbd8c42d5ff77e1fb1cb7277a7a08ead37876bc0",
+      "bytes": 28016,
+      "source_path": "exp/a100_mma/phase6/validation_20261105T074142.327676Z.json"
+    },
+    {
+      "path": "docs/evidence/a100-mma/encoding/address-ldgsts-fields.json",
+      "sha256": "6e01d4a84c17ff596b2e66064c337df6d0c517f9c3a3f3fd9b934b865e088b1e",
+      "bytes": 35978,
+      "source_path": "exp/a100_mma/phase3/address-ldgsts-fields.json"
+    },
+    {
+      "path": "docs/evidence/a100-mma/encoding/address-ldgsts-roundtrips.json",
+      "sha256": "5168b037a21ffd74cfa9d6bc4644a7bd7acd471d4862b3145f59b5e507199044",
+      "bytes": 72283,
+      "source_path": "exp/a100_mma/phase3/address-ldgsts-roundtrips.json"
+    },
+    {
+      "path": "docs/evidence/a100-mma/encoding/depbar-fields.json",
+      "sha256": "4d247c2c75c230d183cddb05135d20ea68e1d4697bbfeba2f01f4bdb8db6aab6",
+      "bytes": 395,
+      "source_path": "exp/a100_mma/phase2/depbar-fields.json"
+    },
+    {
+      "path": "docs/evidence/a100-mma/encoding/fieldmaps.json",
+      "sha256": "926822ee069b8eef6c0ad75bd79b1cc4e2af4dd33ccc898d2f06a3749bd806a0",
+      "bytes": 29033,
+      "source_path": "exp/a100_mma/fieldmaps.json"
+    },
+    {
+      "path": "docs/evidence/a100-mma/encoding/phase4-ldgsts-encoding.json",
+      "sha256": "11689636ae4be43237a5ff5c76b8810ce7e6eab482cce47a6e00a6d3100520d5",
+      "bytes": 1272,
+      "source_path": "exp/a100_mma/phase4/ldgsts-encoding.json"
+    },
+    {
+      "path": "docs/evidence/a100-mma/encoding/templates.json",
+      "sha256": "dc8057a8d83e027c8a90959d60f3fb3e246753e1f9b4bdc0ea09a51f7bdee82f",
+      "bytes": 91,
+      "source_path": "exp/a100_mma/templates.json"
+    },
+    {
+      "path": "docs/evidence/a100-mma/initial-triton-lowrank-artifacts-metadata.json",
+      "sha256": "0224720fe178b2dce5ae526138a635de5ce6dc8fa0b4bc5ddf89e0dce3f76053",
+      "bytes": 11565,
+      "source_path": "docs/research/initial-triton-lowrank-artifacts-metadata.json"
+    },
+    {
+      "path": "docs/evidence/a100-mma/initial-triton-lowrank-artifacts.tar.gz",
+      "sha256": "30619f741ec7c4ee7de0c77ef001c33993d2a88e411dcb57e2416750490ec75e",
+      "bytes": 1987995,
+      "source_path": "docs/research/initial-triton-lowrank-artifacts.tar.gz"
+    },
+    {
+      "path": "docs/evidence/a100-mma/initial-triton-lowrank-results.json",
+      "sha256": "7ea3af727cfd490947fa5afc72b1418a9f096f53287f3d75ba50f1591573d79e",
+      "bytes": 25171,
+      "source_path": "docs/research/a100-mma-results.json"
+    },
+    {
+      "path": "docs/evidence/a100-mma/legacy-overview.json",
+      "sha256": "1a08e013111fe45eb9c72db7cf82b886855d5c3e65e1576a49bcfc16ae1ed93c",
+      "bytes": 82774,
+      "source_path": "exp/a100_mma/evidence-summary.json"
+    },
+    {
+      "path": "docs/evidence/a100-mma/phase2/clocked-exact.json",
+      "sha256": "9fe96621db3d9655010b26e69bc7ad53803446d65036a60005dcd21dbab6faef",
+      "bytes": 30089,
+      "source_path": "exp/a100_mma/phase2/clocked-exact.json"
+    },
+    {
+      "path": "docs/evidence/a100-mma/phase2/integration-results.json",
+      "sha256": "dd86285844a55ab01081f0b65918ece89b94c2a9da715830c98e72393b63f5cd",
+      "bytes": 3746,
+      "source_path": "exp/a100_mma/phase2/integration-results.json"
+    },
+    {
+      "path": "docs/evidence/a100-mma/phase2/literature-discovery.json",
+      "sha256": "4d431afe765cdc5e03a74328938c57b8fbc024795e396d043ce951e76691b4d2",
+      "bytes": 30798,
+      "source_path": "exp/a100_mma/phase2/literature-discovery.json"
+    },
+    {
+      "path": "docs/evidence/a100-mma/phase2/sparse-results.json",
+      "sha256": "4981cd39b45ba76ab763b11f83f7b4d8e22d10be842ffad7edd5cef79e6ba847",
+      "bytes": 2434,
+      "source_path": "exp/a100_mma/phase2/sparse-results.json"
+    },
+    {
+      "path": "docs/evidence/a100-mma/phase2/summary.json",
+      "sha256": "888481af3e2690b21f8165b41ad5369f22ca804fe9fa0793adcae54a6f598488",
+      "bytes": 295751,
+      "source_path": "exp/a100_mma/phase2/summary.json"
+    },
+    {
+      "path": "docs/evidence/a100-mma/phase3/address-confirmation.json",
+      "sha256": "02ec0a2aa0e55ee13614a7c80d17fdab87dee80dda450703740a63291600d908",
+      "bytes": 9335,
+      "source_path": "exp/a100_mma/phase3/address-confirmation.json"
+    },
+    {
+      "path": "docs/evidence/a100-mma/phase3/cublas-dispatch.json",
+      "sha256": "e780061fa3a10ef0cda86182d30b40d7a2b04c024b3f31e113710f0d99a4e7b1",
+      "bytes": 266183,
+      "source_path": "exp/a100_mma/phase3/cublas-dispatch.json"
+    },
+    {
+      "path": "docs/evidence/a100-mma/phase3/cublas-observation.json",
+      "sha256": "a013dec0b69e83a7f21166abe104df1e07069575f8b804058fd4e1b91634c136",
+      "bytes": 74744,
+      "source_path": "exp/a100_mma/phase3/cublas-observation.json"
+    },
+    {
+      "path": "docs/evidence/a100-mma/phase3/cublaslt-results.json",
+      "sha256": "a4de90ffb3319b5b780b6a97003285bc547479c0c15e25845eca7da701f4676d",
+      "bytes": 179478,
+      "source_path": "exp/a100_mma/phase3/cublaslt-results.json"
+    },
+    {
+      "path": "docs/evidence/a100-mma/phase3/epilogue-summary.json",
+      "sha256": "7e06772b4586c59238902317889097d58fa362e422c77ee5e8ff759acb409985",
+      "bytes": 3096,
+      "source_path": "exp/a100_mma/phase3/epilogue-summary.json"
+    },
+    {
+      "path": "docs/evidence/a100-mma/phase3/evidence-summary.json",
+      "sha256": "ca49ba4f43a63714ad865aed9a324322d83c2590f5d4ddd1d19abe67d86dfba0",
+      "bytes": 30674,
+      "source_path": "exp/a100_mma/phase3/evidence-summary.json"
+    },
+    {
+      "path": "docs/evidence/a100-mma/phase3/lowrank-emulation.json",
+      "sha256": "260eb6b82b12d86938869454d7107868deb00c2ad4f25abef2058e0957d3f6dc",
+      "bytes": 3284,
+      "source_path": "exp/a100_mma/phase3/lowrank-emulation.json"
+    },
+    {
+      "path": "docs/evidence/a100-mma/phase3/lowrank-result.json",
+      "sha256": "9467a66c5b73b16aba656097e4399035dbb67a0cb7d84b39264340af85354f4d",
+      "bytes": 13456,
+      "source_path": "exp/a100_mma/phase3/lowrank-result.json"
+    },
+    {
+      "path": "docs/evidence/a100-mma/phase3/producer-emulation.json",
+      "sha256": "be7638b94172d42da2728ac875c6de10a5bd24fb05be13851ea1a3167702c547",
+      "bytes": 2389,
+      "source_path": "exp/a100_mma/phase3/producer-emulation.json"
+    },
+    {
+      "path": "docs/evidence/a100-mma/phase3/profile-followup.json",
+      "sha256": "7cf433cb9c8a02e8c092d3c7e72d3517751475d85ba167d5da48577d332ac5b7",
+      "bytes": 95900,
+      "source_path": "exp/a100_mma/phase3/profile-followup.json"
+    },
+    {
+      "path": "docs/evidence/a100-mma/phase3/search-summary.json",
+      "sha256": "21aa40ebbe2bada5fb0a592ad5ae2894e2177688861dbbabc9306ee6ddd59c64",
+      "bytes": 26857,
+      "source_path": "exp/a100_mma/phase3/search-summary.json"
+    },
+    {
+      "path": "docs/evidence/a100-mma/phase4/cache-results.json",
+      "sha256": "64c3835327a8b0d396a83c785535dabd7ce61354c703bbd1913bcf3cc48048a9",
+      "bytes": 7902,
+      "source_path": "exp/a100_mma/phase4/cache-results.json"
+    },
+    {
+      "path": "docs/evidence/a100-mma/phase4/fragment-results.json",
+      "sha256": "4c4d7e87665907b031d2f0e16c0a6fd9ba114f3e8244b58266b1b20d4b2dd18e",
+      "bytes": 4186,
+      "source_path": "exp/a100_mma/phase4/fragment-results.json"
+    },
+    {
+      "path": "docs/evidence/a100-mma/phase4/native-build-evidence.json",
+      "sha256": "e4e960a93b5203134c4f71c9030f2e860c53ee39d9ab00d9bdc94a50765c4ec6",
+      "bytes": 8718,
+      "source_path": "exp/a100_mma/phase4/native-build-evidence.json"
+    },
+    {
+      "path": "docs/evidence/a100-mma/phase4/native-results.json",
+      "sha256": "4bb11d84c152402eeac479f340d65dfea807176c716e5ca92af0820d018f672e",
+      "bytes": 4545,
+      "source_path": "exp/a100_mma/phase4/native-gpu-summary.json"
+    },
+    {
+      "path": "docs/evidence/a100-mma/phase5/barrier-accounting.json",
+      "sha256": "b405354ede97e944deb4e82b2fd34771edc297cec95617e8dfe11400a664abaa",
+      "bytes": 2479,
+      "source_path": "exp/a100_mma/phase5/barrier-accounting.json"
+    },
+    {
+      "path": "docs/evidence/a100-mma/phase5/barrier-layout-check.json",
+      "sha256": "38fd3c27da568a29890b96e100d6895cf3bb7204dba241f99c276637d5bc2bd9",
+      "bytes": 521,
+      "source_path": "exp/a100_mma/phase5/barrier-layout-check.json"
+    },
+    {
+      "path": "docs/evidence/a100-mma/phase5/barrier-pipeline-static-check.json",
+      "sha256": "46d692adfe0ddd5ef52b4bc5fd04d6ff3d3e40bca2c61312c264cb133d648c31",
+      "bytes": 1112,
+      "source_path": "exp/a100_mma/phase5/barrier-pipeline-static-check.json"
+    },
+    {
+      "path": "docs/evidence/a100-mma/phase5/barrier-single-slot.json",
+      "sha256": "f9812da47db6ecea3d9590bdbb7152a02e3e09857bca21443e70706e55c1554c",
+      "bytes": 232834,
+      "source_path": "exp/a100_mma/phase5/barrier-single-slot.json"
+    },
+    {
+      "path": "docs/evidence/a100-mma/phase5/barrier-two-slot.json",
+      "sha256": "5230f40fd83203d9dda4abec914edd2295d2b909b35f081623450bc3410b445e",
+      "bytes": 150195,
+      "source_path": "exp/a100_mma/phase5/barrier-two-slot.json"
+    },
+    {
+      "path": "docs/evidence/a100-mma/phase5/cuda-l2-contracts.json",
+      "sha256": "8be24fd7264864c6f233c364f7db15b73b2180734b40cdfe3b89e611a818a8c4",
+      "bytes": 7502,
+      "source_path": "exp/a100_mma/phase5/cuda-l2-contracts.json"
+    },
+    {
+      "path": "docs/evidence/a100-mma/phase5/cuda-l2-source-manifest.json",
+      "sha256": "4c47586d808a474aea224d61f4f2134b1302262770775b233192df4ddca680e9",
+      "bytes": 4262,
+      "source_path": "exp/a100_mma/phase5/cuda-l2-source-manifest.json"
+    },
+    {
+      "path": "docs/evidence/a100-mma/phase5/fusion-failed-harness.json",
+      "sha256": "3867de3c85219ff601cd483597b2ba7435d42e99105598cdebec547a4c7db429",
+      "bytes": 2898,
+      "source_path": "exp/a100_mma/phase5/fusion-failed-harness.json"
+    },
+    {
+      "path": "docs/evidence/a100-mma/phase5/fusion-mlp-results.json",
+      "sha256": "8c27db7a9728de9ffd7079cd2fab0f7eddbcb78cf2e4b36d55a525626d144113",
+      "bytes": 235665,
+      "source_path": "exp/a100_mma/phase5/fusion-mlp-results.json"
+    },
+    {
+      "path": "docs/evidence/a100-mma/phase5/fusion-smoke-results.json",
+      "sha256": "c3183ffdda4bbb72845a8cb3849263ad5614d4204236cf73ac83c212dd93b7ac",
+      "bytes": 237094,
+      "source_path": "exp/a100_mma/phase5/fusion-smoke-results.json"
+    },
+    {
+      "path": "docs/evidence/a100-mma/phase5/fusion-square-confirmation.json",
+      "sha256": "84c7726d787dc74874e616dc6bbd7928f677603ff95f1263a7ee47a081856960",
+      "bytes": 245491,
+      "source_path": "exp/a100_mma/phase5/fusion-square-confirmation.json"
+    },
+    {
+      "path": "docs/evidence/a100-mma/phase5/fusion-square-results.json",
+      "sha256": "bc19c9fa48a33b6bedb7b9b892f330bfc0435cdf6efa33f870edbac2af4b9cb3",
+      "bytes": 236640,
+      "source_path": "exp/a100_mma/phase5/fusion-square-results.json"
+    },
+    {
+      "path": "docs/evidence/a100-mma/phase5/fusion-summary.json",
+      "sha256": "d53c0a795e9cdb8de000bbcacc7aeacaecc4a25e7168bb51ed9884c5f07bc121",
+      "bytes": 36968,
+      "source_path": "exp/a100_mma/phase5/fusion_optimized_summary.json"
+    },
+    {
+      "path": "docs/evidence/a100-mma/phase5/l2-refine-results.json",
+      "sha256": "17ec84bf017579aa2f9ef5416c7150d7f2082c5f4b484842cd52573b192092df",
+      "bytes": 25288,
+      "source_path": "exp/a100_mma/phase5/l2-refine-results.json"
+    },
+    {
+      "path": "docs/evidence/a100-mma/phase5/l2-results.json",
+      "sha256": "c1323869169b18887da9a3ce6675436c662d728469566fb7b5fdc499a39ccfd3",
+      "bytes": 57890,
+      "source_path": "exp/a100_mma/phase5/l2-results.json"
+    },
+    {
+      "path": "docs/evidence/a100-mma/phase5/l2-summary.json",
+      "sha256": "c4ff04a021bc75e696ecb8e287e3d02f134e289b968ca40395ce5071fab5af42",
+      "bytes": 16053,
+      "source_path": "exp/a100_mma/phase5/l2-summary.json"
+    },
+    {
+      "path": "docs/evidence/a100-mma/phase5/layout-counters.json",
+      "sha256": "d6010687e70cdf2edf45dfd894c6be3ff46f5c697467ec7a6d5e99f10878471c",
+      "bytes": 42451,
+      "source_path": "exp/a100_mma/phase5/layout-counters.json"
+    },
+    {
+      "path": "docs/evidence/a100-mma/phase5/layout-results.json",
+      "sha256": "25c2354d084a06cb048ac46e2cff79808511f14e0595a0a3f61dfdda0a459d9e",
+      "bytes": 33339,
+      "source_path": "exp/a100_mma/phase5/layout-results.json"
+    },
+    {
+      "path": "docs/evidence/a100-mma/phase6-validation-20261104-superseded.json",
+      "sha256": "2ba8951be6d692bf99cf3e31f6b45fbf03b51c9cbc11aa2683bbdd4986f1cdb8",
+      "bytes": 28003
+    }
+  ]
+}

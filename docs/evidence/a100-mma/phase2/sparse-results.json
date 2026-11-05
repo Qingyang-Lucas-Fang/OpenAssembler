@@ -1,0 +1,113 @@
+[
+  {
+    "name": "sparse_ones",
+    "family": "native-sparse-capability",
+    "steps": 1,
+    "expected_raw": 1098907648,
+    "cubin_path": "phase2/sparse/ones.cubin",
+    "sha256": "4d4f824e36f457d94e2c63fd97830960b5995e0c034086935d5e57a84dfac00c",
+    "compiler": "NVIDIA ptxas capability oracle only",
+    "device": {
+      "name": "NVIDIA A100-SXM4-40GB",
+      "cc": "8.0",
+      "driver": 13030,
+      "sm_count": 108,
+      "clock_khz": 1410000,
+      "mem_bytes": 42429251584
+    },
+    "checksum_ok": true,
+    "oob_bytes": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "scope": "uniform compressed-A/B sparse-MMA capability probe; no speed or general sparse-kernel correctness claim"
+  },
+  {
+    "name": "sparse_negative_b",
+    "family": "native-sparse-capability",
+    "steps": 1,
+    "expected_raw": 3246391296,
+    "cubin_path": "phase2/sparse/negative_b.cubin",
+    "sha256": "037aef26d248952a2afd706264d9828844bfdef8dcb6bcc9aa9c40d9afafeab2",
+    "compiler": "NVIDIA ptxas capability oracle only",
+    "device": {
+      "name": "NVIDIA A100-SXM4-40GB",
+      "cc": "8.0",
+      "driver": 13030,
+      "sm_count": 108,
+      "clock_khz": 1410000,
+      "mem_bytes": 42429251584
+    },
+    "checksum_ok": true,
+    "oob_bytes": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "scope": "uniform compressed-A/B sparse-MMA capability probe; no speed or general sparse-kernel correctness claim"
+  },
+  {
+    "name": "sparse_zero_b",
+    "family": "native-sparse-capability",
+    "steps": 1,
+    "expected_raw": 0,
+    "cubin_path": "phase2/sparse/zero_b.cubin",
+    "sha256": "d309921d8953de6d1b38a7409f45a692795817a27347cf26c5afff3b11e814eb",
+    "compiler": "NVIDIA ptxas capability oracle only",
+    "device": {
+      "name": "NVIDIA A100-SXM4-40GB",
+      "cc": "8.0",
+      "driver": 13030,
+      "sm_count": 108,
+      "clock_khz": 1410000,
+      "mem_bytes": 42429251584
+    },
+    "checksum_ok": true,
+    "oob_bytes": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "scope": "uniform compressed-A/B sparse-MMA capability probe; no speed or general sparse-kernel correctness claim"
+  }
+]

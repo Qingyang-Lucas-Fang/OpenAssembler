@@ -1,0 +1,83 @@
+{
+ "openassembler": "0.2.0",
+ "schema": 1,
+ "arch": "sm_80",
+ "opt_level": "opt",
+ "root": "/Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/phase6/tall_morton_f16/.build/generated",
+ "entries": [
+  {
+   "source": "gemm.ptx",
+   "source_sha256": "4ffa823d3c85ed97f2e829d337f3ed61b4b6a4bccce293d681b459898b02dc05",
+   "language": "ptx",
+   "cubin": "cubin/gemm.cubin",
+   "sass": "sass/gemm.sass",
+   "ptx": ".build/ptx/gemm.ptx",
+   "reference": ".build/reference/gemm.cubin",
+   "kernels": [
+    {
+     "name": "gemm",
+     "params": [
+      [
+       "u64",
+       "A"
+      ],
+      [
+       "u64",
+       "B"
+      ],
+      [
+       "u64",
+       "C"
+      ]
+     ],
+     "compiled_by": "openassembler",
+     "instructions": 1606,
+     "registers": 216,
+     "verify": "not-run",
+     "tensor": {
+      "backend": "sm80-tensor",
+      "schedule": "source-order-hmma8-epoch-drain15",
+      "copy_group_scoreboard": 0,
+      "protected_scoreboard_recycling": true,
+      "ldsm_address_war_uses_write_completion": true,
+      "tensor_reuse_hints": true,
+      "architecture": "sm_80",
+      "async_scoreboard": 0,
+      "ordinary_scoreboards": [
+       1,
+       2,
+       3,
+       4,
+       5
+      ],
+      "requested_opt_level": "opt"
+     },
+     "gemm": {
+      "schema": 1,
+      "m": 16384,
+      "n": 4096,
+      "k": 4096,
+      "dtype": "f16",
+      "schedule": "stagepair",
+      "output_dtype": "f32",
+      "layout": "rcr",
+      "arch": "sm_80",
+      "cta_order": "morton8",
+      "epilogue": "none",
+      "launch": {
+       "grid": [
+        128,
+        32,
+        1
+       ],
+       "threads": 128,
+       "smem": 65536
+      },
+      "input_layout": "A[M,K] and B[N,K], contiguous in K; C=A@B.T",
+      "accumulation": "f32"
+     }
+    }
+   ]
+  }
+ ]
+}

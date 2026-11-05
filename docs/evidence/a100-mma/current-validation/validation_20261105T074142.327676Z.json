@@ -1,0 +1,1220 @@
+[
+  {
+    "name": "tall_morton_f16",
+    "passed": true,
+    "device": {
+      "name": "NVIDIA A100-SXM4-40GB",
+      "cc": "8.0",
+      "driver": 13030,
+      "sm_count": 108,
+      "clock_khz": 1410000,
+      "mem_bytes": 42429251584
+    },
+    "shape": [
+      16384,
+      4096,
+      4096
+    ],
+    "dtype": "f16",
+    "cta_order": "morton8",
+    "epilogue": "none",
+    "checks": [
+      {
+        "pattern": "zero",
+        "passed": true,
+        "relative_l2": 0.0,
+        "ptxas_bitwise_equal": true,
+        "relative_l2_vs_ptxas": 0.0,
+        "same_compiler_control_bitwise_equal": true,
+        "integer_or_zero_exact": true,
+        "canaries": true,
+        "elements_checked": 67108864
+      },
+      {
+        "pattern": "integer",
+        "passed": true,
+        "relative_l2": 0.0,
+        "ptxas_bitwise_equal": true,
+        "relative_l2_vs_ptxas": 0.0,
+        "same_compiler_control_bitwise_equal": true,
+        "integer_or_zero_exact": true,
+        "canaries": true,
+        "elements_checked": 67108864
+      },
+      {
+        "pattern": "normal",
+        "passed": true,
+        "relative_l2": 6.670302354905289e-06,
+        "ptxas_bitwise_equal": true,
+        "relative_l2_vs_ptxas": 0.0,
+        "same_compiler_control_bitwise_equal": true,
+        "integer_or_zero_exact": false,
+        "canaries": true,
+        "elements_checked": 67108864
+      }
+    ],
+    "resources": {
+      "ours": {
+        "max_threads": 256,
+        "shared_bytes": 0,
+        "const_bytes": 0,
+        "local_bytes": 0,
+        "num_regs": 216,
+        "ptx_version": 80,
+        "binary_version": 80
+      },
+      "ptxas": {
+        "max_threads": 256,
+        "shared_bytes": 0,
+        "const_bytes": 0,
+        "local_bytes": 0,
+        "num_regs": 236,
+        "ptx_version": 80,
+        "binary_version": 80
+      },
+      "oa_m_fast_control": {
+        "max_threads": 256,
+        "shared_bytes": 0,
+        "const_bytes": 0,
+        "local_bytes": 0,
+        "num_regs": 216,
+        "ptx_version": 80,
+        "binary_version": 80
+      }
+    },
+    "milliseconds": {
+      "ours": 2.5282560348510743,
+      "ptxas": 2.368921661376953,
+      "oa_m_fast_control": 2.728447914123535
+    },
+    "samples_ms": {
+      "ours": [
+        2.5652223587036134,
+        2.5282560348510743,
+        2.5578496932983397,
+        2.527743911743164,
+        2.5465856552124024,
+        2.5268224716186523,
+        2.507673645019531,
+        2.5030656814575196,
+        2.5482240676879884
+      ],
+      "ptxas": [
+        2.389708709716797,
+        2.351308822631836,
+        2.3983104705810545,
+        2.36943359375,
+        2.3987199783325197,
+        2.3638015747070313,
+        2.349772834777832,
+        2.3610368728637696,
+        2.368921661376953
+      ],
+      "oa_m_fast_control": [
+        2.734284782409668,
+        2.7056127548217774,
+        2.755788803100586,
+        2.7296768188476563,
+        2.728447914123535,
+        2.7271167755126955,
+        2.7190271377563477,
+        2.698854446411133,
+        2.7303936004638674
+      ]
+    },
+    "paired_orders": [
+      [
+        "oa_m_fast_control",
+        "ours",
+        "ptxas"
+      ],
+      [
+        "ours",
+        "ptxas",
+        "oa_m_fast_control"
+      ],
+      [
+        "ptxas",
+        "oa_m_fast_control",
+        "ours"
+      ],
+      [
+        "oa_m_fast_control",
+        "ours",
+        "ptxas"
+      ],
+      [
+        "oa_m_fast_control",
+        "ptxas",
+        "ours"
+      ],
+      [
+        "oa_m_fast_control",
+        "ours",
+        "ptxas"
+      ],
+      [
+        "oa_m_fast_control",
+        "ours",
+        "ptxas"
+      ],
+      [
+        "ours",
+        "oa_m_fast_control",
+        "ptxas"
+      ],
+      [
+        "oa_m_fast_control",
+        "ours",
+        "ptxas"
+      ]
+    ]
+  },
+  {
+    "name": "tall_morton_bf16",
+    "passed": true,
+    "device": {
+      "name": "NVIDIA A100-SXM4-40GB",
+      "cc": "8.0",
+      "driver": 13030,
+      "sm_count": 108,
+      "clock_khz": 1410000,
+      "mem_bytes": 42429251584
+    },
+    "shape": [
+      16384,
+      4096,
+      4096
+    ],
+    "dtype": "bf16",
+    "cta_order": "morton8",
+    "epilogue": "none",
+    "checks": [
+      {
+        "pattern": "zero",
+        "passed": true,
+        "relative_l2": 0.0,
+        "ptxas_bitwise_equal": true,
+        "relative_l2_vs_ptxas": 0.0,
+        "same_compiler_control_bitwise_equal": true,
+        "integer_or_zero_exact": true,
+        "canaries": true,
+        "elements_checked": 67108864
+      },
+      {
+        "pattern": "integer",
+        "passed": true,
+        "relative_l2": 0.0,
+        "ptxas_bitwise_equal": true,
+        "relative_l2_vs_ptxas": 0.0,
+        "same_compiler_control_bitwise_equal": true,
+        "integer_or_zero_exact": true,
+        "canaries": true,
+        "elements_checked": 67108864
+      },
+      {
+        "pattern": "normal",
+        "passed": true,
+        "relative_l2": 5.306533239490818e-06,
+        "ptxas_bitwise_equal": true,
+        "relative_l2_vs_ptxas": 0.0,
+        "same_compiler_control_bitwise_equal": true,
+        "integer_or_zero_exact": false,
+        "canaries": true,
+        "elements_checked": 67108864
+      }
+    ],
+    "resources": {
+      "ours": {
+        "max_threads": 256,
+        "shared_bytes": 0,
+        "const_bytes": 0,
+        "local_bytes": 0,
+        "num_regs": 216,
+        "ptx_version": 80,
+        "binary_version": 80
+      },
+      "ptxas": {
+        "max_threads": 256,
+        "shared_bytes": 0,
+        "const_bytes": 0,
+        "local_bytes": 0,
+        "num_regs": 236,
+        "ptx_version": 80,
+        "binary_version": 80
+      },
+      "oa_m_fast_control": {
+        "max_threads": 256,
+        "shared_bytes": 0,
+        "const_bytes": 0,
+        "local_bytes": 0,
+        "num_regs": 216,
+        "ptx_version": 80,
+        "binary_version": 80
+      }
+    },
+    "milliseconds": {
+      "ours": 2.4781824111938477,
+      "ptxas": 2.3267328262329103,
+      "oa_m_fast_control": 2.65164794921875
+    },
+    "samples_ms": {
+      "ours": [
+        2.5266176223754884,
+        2.46374397277832,
+        2.4976383209228517,
+        2.4647680282592774,
+        2.495692825317383,
+        2.4633344650268554,
+        2.4781824111938477,
+        2.448179244995117,
+        2.4959999084472657
+      ],
+      "ptxas": [
+        2.3351295471191404,
+        2.295193672180176,
+        2.3267328262329103,
+        2.309119987487793,
+        2.3326719284057615,
+        2.29171199798584,
+        2.310655975341797,
+        2.3371776580810546,
+        2.327449607849121
+      ],
+      "oa_m_fast_control": [
+        2.675712013244629,
+        2.6299392700195314,
+        2.6785791397094725,
+        2.65850887298584,
+        2.649804878234863,
+        2.65164794921875,
+        2.6233856201171877,
+        2.637004852294922,
+        2.678374481201172
+      ]
+    },
+    "paired_orders": [
+      [
+        "oa_m_fast_control",
+        "ours",
+        "ptxas"
+      ],
+      [
+        "ours",
+        "ptxas",
+        "oa_m_fast_control"
+      ],
+      [
+        "ptxas",
+        "oa_m_fast_control",
+        "ours"
+      ],
+      [
+        "oa_m_fast_control",
+        "ours",
+        "ptxas"
+      ],
+      [
+        "oa_m_fast_control",
+        "ptxas",
+        "ours"
+      ],
+      [
+        "oa_m_fast_control",
+        "ours",
+        "ptxas"
+      ],
+      [
+        "oa_m_fast_control",
+        "ours",
+        "ptxas"
+      ],
+      [
+        "ours",
+        "oa_m_fast_control",
+        "ptxas"
+      ],
+      [
+        "oa_m_fast_control",
+        "ours",
+        "ptxas"
+      ]
+    ]
+  },
+  {
+    "name": "square_fused_linear_f16",
+    "passed": true,
+    "device": {
+      "name": "NVIDIA A100-SXM4-40GB",
+      "cc": "8.0",
+      "driver": 13030,
+      "sm_count": 108,
+      "clock_khz": 1410000,
+      "mem_bytes": 42429251584
+    },
+    "shape": [
+      4096,
+      4096,
+      4096
+    ],
+    "dtype": "f16",
+    "cta_order": "m_fast",
+    "epilogue": "bias_residual",
+    "checks": [
+      {
+        "pattern": "zero",
+        "passed": true,
+        "relative_l2": 0.0,
+        "ptxas_bitwise_equal": true,
+        "relative_l2_vs_ptxas": 0.0,
+        "same_compiler_control_bitwise_equal": true,
+        "integer_or_zero_exact": true,
+        "canaries": true,
+        "elements_checked": 16777216
+      },
+      {
+        "pattern": "integer",
+        "passed": true,
+        "relative_l2": 0.0,
+        "ptxas_bitwise_equal": true,
+        "relative_l2_vs_ptxas": 0.0,
+        "same_compiler_control_bitwise_equal": true,
+        "integer_or_zero_exact": true,
+        "canaries": true,
+        "elements_checked": 16777216
+      },
+      {
+        "pattern": "normal",
+        "passed": true,
+        "relative_l2": 6.671623850706965e-06,
+        "ptxas_bitwise_equal": true,
+        "relative_l2_vs_ptxas": 0.0,
+        "same_compiler_control_bitwise_equal": true,
+        "integer_or_zero_exact": false,
+        "canaries": true,
+        "elements_checked": 16777216
+      }
+    ],
+    "resources": {
+      "ours": {
+        "max_threads": 256,
+        "shared_bytes": 0,
+        "const_bytes": 0,
+        "local_bytes": 0,
+        "num_regs": 216,
+        "ptx_version": 80,
+        "binary_version": 80
+      },
+      "ptxas": {
+        "max_threads": 256,
+        "shared_bytes": 0,
+        "const_bytes": 0,
+        "local_bytes": 0,
+        "num_regs": 255,
+        "ptx_version": 80,
+        "binary_version": 80
+      },
+      "oa_base": {
+        "max_threads": 256,
+        "shared_bytes": 0,
+        "const_bytes": 0,
+        "local_bytes": 0,
+        "num_regs": 216,
+        "ptx_version": 80,
+        "binary_version": 80
+      },
+      "oa_pointwise": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "const_bytes": 0,
+        "local_bytes": 0,
+        "num_regs": 16,
+        "ptx_version": 80,
+        "binary_version": 80
+      },
+      "ptxas_base": {
+        "max_threads": 256,
+        "shared_bytes": 0,
+        "const_bytes": 0,
+        "local_bytes": 0,
+        "num_regs": 234,
+        "ptx_version": 80,
+        "binary_version": 80
+      },
+      "ptxas_pointwise": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "const_bytes": 0,
+        "local_bytes": 0,
+        "num_regs": 15,
+        "ptx_version": 80,
+        "binary_version": 80
+      }
+    },
+    "milliseconds": {
+      "ours": 0.7427072048187255,
+      "ptxas": 0.6388735771179199,
+      "oa_gemm_plus_pointwise": 0.7814144134521485,
+      "ptxas_separate": 0.7422976016998291
+    },
+    "samples_ms": {
+      "ours": [
+        0.7376895904541015,
+        0.7373824119567871,
+        0.7378943920135498,
+        0.7459839820861817,
+        0.7427072048187255,
+        0.7430143833160401,
+        0.7345151901245117,
+        0.7507967948913574,
+        0.7543807983398437
+      ],
+      "ptxas": [
+        0.6364160060882569,
+        0.6388735771179199,
+        0.6354944229125976,
+        0.6370304107666016,
+        0.6407167911529541,
+        0.6396927833557129,
+        0.6388735771179199,
+        0.646451187133789,
+        0.6501376152038574
+      ],
+      "oa_gemm_plus_pointwise": [
+        0.7775231838226319,
+        0.785100793838501,
+        0.7769087791442871,
+        0.7848959922790527,
+        0.7809023857116699,
+        0.7814144134521485,
+        0.7792640209197998,
+        0.7883776187896728,
+        0.7928832054138184
+      ],
+      "ptxas_separate": [
+        0.7422976016998291,
+        0.7390207767486572,
+        0.7388160228729248,
+        0.7390207767486572,
+        0.7457791805267334,
+        0.7430143833160401,
+        0.7359488010406494,
+        0.7530496120452881,
+        0.752947187423706
+      ]
+    },
+    "paired_orders": [
+      [
+        "ptxas_separate",
+        "ptxas",
+        "ours",
+        "oa_gemm_plus_pointwise"
+      ],
+      [
+        "oa_gemm_plus_pointwise",
+        "ptxas",
+        "ptxas_separate",
+        "ours"
+      ],
+      [
+        "oa_gemm_plus_pointwise",
+        "ptxas_separate",
+        "ours",
+        "ptxas"
+      ],
+      [
+        "ptxas_separate",
+        "ptxas",
+        "ours",
+        "oa_gemm_plus_pointwise"
+      ],
+      [
+        "ptxas_separate",
+        "oa_gemm_plus_pointwise",
+        "ptxas",
+        "ours"
+      ],
+      [
+        "ptxas",
+        "ours",
+        "oa_gemm_plus_pointwise",
+        "ptxas_separate"
+      ],
+      [
+        "ptxas",
+        "ptxas_separate",
+        "ours",
+        "oa_gemm_plus_pointwise"
+      ],
+      [
+        "oa_gemm_plus_pointwise",
+        "ptxas",
+        "ours",
+        "ptxas_separate"
+      ],
+      [
+        "ptxas",
+        "oa_gemm_plus_pointwise",
+        "ours",
+        "ptxas_separate"
+      ]
+    ]
+  },
+  {
+    "name": "square_fused_linear_bf16",
+    "passed": true,
+    "device": {
+      "name": "NVIDIA A100-SXM4-40GB",
+      "cc": "8.0",
+      "driver": 13030,
+      "sm_count": 108,
+      "clock_khz": 1410000,
+      "mem_bytes": 42429251584
+    },
+    "shape": [
+      4096,
+      4096,
+      4096
+    ],
+    "dtype": "bf16",
+    "cta_order": "m_fast",
+    "epilogue": "bias_residual",
+    "checks": [
+      {
+        "pattern": "zero",
+        "passed": true,
+        "relative_l2": 0.0,
+        "ptxas_bitwise_equal": true,
+        "relative_l2_vs_ptxas": 0.0,
+        "same_compiler_control_bitwise_equal": true,
+        "integer_or_zero_exact": true,
+        "canaries": true,
+        "elements_checked": 16777216
+      },
+      {
+        "pattern": "integer",
+        "passed": true,
+        "relative_l2": 0.0,
+        "ptxas_bitwise_equal": true,
+        "relative_l2_vs_ptxas": 0.0,
+        "same_compiler_control_bitwise_equal": true,
+        "integer_or_zero_exact": true,
+        "canaries": true,
+        "elements_checked": 16777216
+      },
+      {
+        "pattern": "normal",
+        "passed": true,
+        "relative_l2": 5.307448191160802e-06,
+        "ptxas_bitwise_equal": true,
+        "relative_l2_vs_ptxas": 0.0,
+        "same_compiler_control_bitwise_equal": true,
+        "integer_or_zero_exact": false,
+        "canaries": true,
+        "elements_checked": 16777216
+      }
+    ],
+    "resources": {
+      "ours": {
+        "max_threads": 256,
+        "shared_bytes": 0,
+        "const_bytes": 0,
+        "local_bytes": 0,
+        "num_regs": 216,
+        "ptx_version": 80,
+        "binary_version": 80
+      },
+      "ptxas": {
+        "max_threads": 256,
+        "shared_bytes": 0,
+        "const_bytes": 0,
+        "local_bytes": 0,
+        "num_regs": 255,
+        "ptx_version": 80,
+        "binary_version": 80
+      },
+      "oa_base": {
+        "max_threads": 256,
+        "shared_bytes": 0,
+        "const_bytes": 0,
+        "local_bytes": 0,
+        "num_regs": 216,
+        "ptx_version": 80,
+        "binary_version": 80
+      },
+      "oa_pointwise": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "const_bytes": 0,
+        "local_bytes": 0,
+        "num_regs": 16,
+        "ptx_version": 80,
+        "binary_version": 80
+      },
+      "ptxas_base": {
+        "max_threads": 256,
+        "shared_bytes": 0,
+        "const_bytes": 0,
+        "local_bytes": 0,
+        "num_regs": 234,
+        "ptx_version": 80,
+        "binary_version": 80
+      },
+      "ptxas_pointwise": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "const_bytes": 0,
+        "local_bytes": 0,
+        "num_regs": 15,
+        "ptx_version": 80,
+        "binary_version": 80
+      }
+    },
+    "milliseconds": {
+      "ours": 0.729088020324707,
+      "ptxas": 0.6269951820373535,
+      "oa_gemm_plus_pointwise": 0.769536018371582,
+      "ptxas_separate": 0.7325695991516114
+    },
+    "samples_ms": {
+      "ours": [
+        0.7263232231140136,
+        0.7312384128570557,
+        0.7272448062896728,
+        0.727449607849121,
+        0.729088020324707,
+        0.7280640125274658,
+        0.7312384128570557,
+        0.7310336112976075,
+        0.7305215835571289
+      ],
+      "ptxas": [
+        0.6242303848266602,
+        0.6303743839263916,
+        0.626585578918457,
+        0.6269951820373535,
+        0.6264832019805908,
+        0.6266880035400391,
+        0.6301695823669433,
+        0.6300672054290771,
+        0.6299647808074951
+      ],
+      "oa_gemm_plus_pointwise": [
+        0.7708672046661377,
+        0.769536018371582,
+        0.7685120105743408,
+        0.7660543918609619,
+        0.7668735980987549,
+        0.7667712211608887,
+        0.7719935894012451,
+        0.7697408199310303,
+        0.7699456214904785
+      ],
+      "ptxas_separate": [
+        0.729804801940918,
+        0.7327744007110596,
+        0.729702377319336,
+        0.729702377319336,
+        0.7294976234436035,
+        0.7326720237731934,
+        0.7325695991516114,
+        0.7329792022705078,
+        0.7332863807678223
+      ]
+    },
+    "paired_orders": [
+      [
+        "ptxas_separate",
+        "ptxas",
+        "ours",
+        "oa_gemm_plus_pointwise"
+      ],
+      [
+        "oa_gemm_plus_pointwise",
+        "ptxas",
+        "ptxas_separate",
+        "ours"
+      ],
+      [
+        "oa_gemm_plus_pointwise",
+        "ptxas_separate",
+        "ours",
+        "ptxas"
+      ],
+      [
+        "ptxas_separate",
+        "ptxas",
+        "ours",
+        "oa_gemm_plus_pointwise"
+      ],
+      [
+        "ptxas_separate",
+        "oa_gemm_plus_pointwise",
+        "ptxas",
+        "ours"
+      ],
+      [
+        "ptxas",
+        "ours",
+        "oa_gemm_plus_pointwise",
+        "ptxas_separate"
+      ],
+      [
+        "ptxas",
+        "ptxas_separate",
+        "ours",
+        "oa_gemm_plus_pointwise"
+      ],
+      [
+        "oa_gemm_plus_pointwise",
+        "ptxas",
+        "ours",
+        "ptxas_separate"
+      ],
+      [
+        "ptxas",
+        "oa_gemm_plus_pointwise",
+        "ours",
+        "ptxas_separate"
+      ]
+    ]
+  },
+  {
+    "name": "square_fused_relu_f16",
+    "passed": true,
+    "device": {
+      "name": "NVIDIA A100-SXM4-40GB",
+      "cc": "8.0",
+      "driver": 13030,
+      "sm_count": 108,
+      "clock_khz": 1410000,
+      "mem_bytes": 42429251584
+    },
+    "shape": [
+      4096,
+      4096,
+      4096
+    ],
+    "dtype": "f16",
+    "cta_order": "m_fast",
+    "epilogue": "bias_residual_relu",
+    "checks": [
+      {
+        "pattern": "zero",
+        "passed": true,
+        "relative_l2": 0.0,
+        "ptxas_bitwise_equal": true,
+        "relative_l2_vs_ptxas": 0.0,
+        "same_compiler_control_bitwise_equal": true,
+        "integer_or_zero_exact": true,
+        "canaries": true,
+        "elements_checked": 16777216
+      },
+      {
+        "pattern": "integer",
+        "passed": true,
+        "relative_l2": 0.0,
+        "ptxas_bitwise_equal": true,
+        "relative_l2_vs_ptxas": 0.0,
+        "same_compiler_control_bitwise_equal": true,
+        "integer_or_zero_exact": true,
+        "canaries": true,
+        "elements_checked": 16777216
+      },
+      {
+        "pattern": "normal",
+        "passed": true,
+        "relative_l2": 6.670077709713951e-06,
+        "ptxas_bitwise_equal": true,
+        "relative_l2_vs_ptxas": 0.0,
+        "same_compiler_control_bitwise_equal": true,
+        "integer_or_zero_exact": false,
+        "canaries": true,
+        "elements_checked": 16777216
+      }
+    ],
+    "resources": {
+      "ours": {
+        "max_threads": 256,
+        "shared_bytes": 0,
+        "const_bytes": 0,
+        "local_bytes": 0,
+        "num_regs": 216,
+        "ptx_version": 80,
+        "binary_version": 80
+      },
+      "ptxas": {
+        "max_threads": 256,
+        "shared_bytes": 0,
+        "const_bytes": 0,
+        "local_bytes": 0,
+        "num_regs": 255,
+        "ptx_version": 80,
+        "binary_version": 80
+      },
+      "oa_base": {
+        "max_threads": 256,
+        "shared_bytes": 0,
+        "const_bytes": 0,
+        "local_bytes": 0,
+        "num_regs": 216,
+        "ptx_version": 80,
+        "binary_version": 80
+      },
+      "oa_pointwise": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "const_bytes": 0,
+        "local_bytes": 0,
+        "num_regs": 16,
+        "ptx_version": 80,
+        "binary_version": 80
+      },
+      "ptxas_base": {
+        "max_threads": 256,
+        "shared_bytes": 0,
+        "const_bytes": 0,
+        "local_bytes": 0,
+        "num_regs": 234,
+        "ptx_version": 80,
+        "binary_version": 80
+      },
+      "ptxas_pointwise": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "const_bytes": 0,
+        "local_bytes": 0,
+        "num_regs": 16,
+        "ptx_version": 80,
+        "binary_version": 80
+      }
+    },
+    "milliseconds": {
+      "ours": 0.7409664154052734,
+      "ptxas": 0.6304768085479736,
+      "oa_gemm_plus_pointwise": 0.7827455997467041,
+      "ptxas_separate": 0.7460864067077637
+    },
+    "samples_ms": {
+      "ours": [
+        0.7361536026000977,
+        0.7352320194244385,
+        0.7372799873352051,
+        0.7383039951324463,
+        0.7409664154052734,
+        0.7481344223022461,
+        0.7477248191833497,
+        0.7601151943206788,
+        0.7668735980987549
+      ],
+      "ptxas": [
+        0.6286335945129394,
+        0.6277120113372803,
+        0.6278143882751465,
+        0.6273024082183838,
+        0.6304768085479736,
+        0.6379519939422608,
+        0.6377471923828125,
+        0.6477824211120605,
+        0.6553599834442139
+      ],
+      "oa_gemm_plus_pointwise": [
+        0.7747583866119385,
+        0.7750656127929687,
+        0.7739391803741456,
+        0.7827455997467041,
+        0.7784448146820069,
+        0.784281587600708,
+        0.7854080200195312,
+        0.7846911907196045,
+        0.8044544219970703
+      ],
+      "ptxas_separate": [
+        0.7407616138458252,
+        0.7362559795379638,
+        0.7364607810974121,
+        0.7367680072784424,
+        0.7460864067077637,
+        0.7465983867645264,
+        0.7460864067077637,
+        0.7636991977691651,
+        0.7649280071258545
+      ]
+    },
+    "paired_orders": [
+      [
+        "ptxas_separate",
+        "ptxas",
+        "ours",
+        "oa_gemm_plus_pointwise"
+      ],
+      [
+        "oa_gemm_plus_pointwise",
+        "ptxas",
+        "ptxas_separate",
+        "ours"
+      ],
+      [
+        "oa_gemm_plus_pointwise",
+        "ptxas_separate",
+        "ours",
+        "ptxas"
+      ],
+      [
+        "ptxas_separate",
+        "ptxas",
+        "ours",
+        "oa_gemm_plus_pointwise"
+      ],
+      [
+        "ptxas_separate",
+        "oa_gemm_plus_pointwise",
+        "ptxas",
+        "ours"
+      ],
+      [
+        "ptxas",
+        "ours",
+        "oa_gemm_plus_pointwise",
+        "ptxas_separate"
+      ],
+      [
+        "ptxas",
+        "ptxas_separate",
+        "ours",
+        "oa_gemm_plus_pointwise"
+      ],
+      [
+        "oa_gemm_plus_pointwise",
+        "ptxas",
+        "ours",
+        "ptxas_separate"
+      ],
+      [
+        "ptxas",
+        "oa_gemm_plus_pointwise",
+        "ours",
+        "ptxas_separate"
+      ]
+    ]
+  },
+  {
+    "name": "square_fused_relu_bf16",
+    "passed": true,
+    "device": {
+      "name": "NVIDIA A100-SXM4-40GB",
+      "cc": "8.0",
+      "driver": 13030,
+      "sm_count": 108,
+      "clock_khz": 1410000,
+      "mem_bytes": 42429251584
+    },
+    "shape": [
+      4096,
+      4096,
+      4096
+    ],
+    "dtype": "bf16",
+    "cta_order": "m_fast",
+    "epilogue": "bias_residual_relu",
+    "checks": [
+      {
+        "pattern": "zero",
+        "passed": true,
+        "relative_l2": 0.0,
+        "ptxas_bitwise_equal": true,
+        "relative_l2_vs_ptxas": 0.0,
+        "same_compiler_control_bitwise_equal": true,
+        "integer_or_zero_exact": true,
+        "canaries": true,
+        "elements_checked": 16777216
+      },
+      {
+        "pattern": "integer",
+        "passed": true,
+        "relative_l2": 0.0,
+        "ptxas_bitwise_equal": true,
+        "relative_l2_vs_ptxas": 0.0,
+        "same_compiler_control_bitwise_equal": true,
+        "integer_or_zero_exact": true,
+        "canaries": true,
+        "elements_checked": 16777216
+      },
+      {
+        "pattern": "normal",
+        "passed": true,
+        "relative_l2": 5.3063517952978145e-06,
+        "ptxas_bitwise_equal": true,
+        "relative_l2_vs_ptxas": 0.0,
+        "same_compiler_control_bitwise_equal": true,
+        "integer_or_zero_exact": false,
+        "canaries": true,
+        "elements_checked": 16777216
+      }
+    ],
+    "resources": {
+      "ours": {
+        "max_threads": 256,
+        "shared_bytes": 0,
+        "const_bytes": 0,
+        "local_bytes": 0,
+        "num_regs": 216,
+        "ptx_version": 80,
+        "binary_version": 80
+      },
+      "ptxas": {
+        "max_threads": 256,
+        "shared_bytes": 0,
+        "const_bytes": 0,
+        "local_bytes": 0,
+        "num_regs": 255,
+        "ptx_version": 80,
+        "binary_version": 80
+      },
+      "oa_base": {
+        "max_threads": 256,
+        "shared_bytes": 0,
+        "const_bytes": 0,
+        "local_bytes": 0,
+        "num_regs": 216,
+        "ptx_version": 80,
+        "binary_version": 80
+      },
+      "oa_pointwise": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "const_bytes": 0,
+        "local_bytes": 0,
+        "num_regs": 16,
+        "ptx_version": 80,
+        "binary_version": 80
+      },
+      "ptxas_base": {
+        "max_threads": 256,
+        "shared_bytes": 0,
+        "const_bytes": 0,
+        "local_bytes": 0,
+        "num_regs": 234,
+        "ptx_version": 80,
+        "binary_version": 80
+      },
+      "ptxas_pointwise": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "const_bytes": 0,
+        "local_bytes": 0,
+        "num_regs": 16,
+        "ptx_version": 80,
+        "binary_version": 80
+      }
+    },
+    "milliseconds": {
+      "ours": 0.7286784172058105,
+      "ptxas": 0.6240255832672119,
+      "oa_gemm_plus_pointwise": 0.7683072090148926,
+      "ptxas_separate": 0.7344128131866455
+    },
+    "samples_ms": {
+      "ours": [
+        0.7269375801086426,
+        0.7195648193359375,
+        0.7193600177764893,
+        0.7262207984924316,
+        0.7286784172058105,
+        0.729088020324707,
+        0.7294976234436035,
+        0.7323647975921631,
+        0.743833589553833
+      ],
+      "ptxas": [
+        0.6234111785888672,
+        0.6240255832672119,
+        0.6173696041107177,
+        0.6195199966430665,
+        0.6234111785888672,
+        0.6263807773590088,
+        0.6259712219238281,
+        0.6268928050994873,
+        0.6320127964019775
+      ],
+      "oa_gemm_plus_pointwise": [
+        0.7683072090148926,
+        0.7670783996582031,
+        0.7605247974395752,
+        0.7667712211608887,
+        0.7665664196014405,
+        0.7701504230499268,
+        0.7714816093444824,
+        0.7705599784851074,
+        0.7773183822631836
+      ],
+      "ptxas_separate": [
+        0.7344128131866455,
+        0.7261184215545654,
+        0.7256063938140869,
+        0.7256063938140869,
+        0.7322624206542969,
+        0.73471999168396,
+        0.7345151901245117,
+        0.7406591892242431,
+        0.7478271961212158
+      ]
+    },
+    "paired_orders": [
+      [
+        "ptxas_separate",
+        "ptxas",
+        "ours",
+        "oa_gemm_plus_pointwise"
+      ],
+      [
+        "oa_gemm_plus_pointwise",
+        "ptxas",
+        "ptxas_separate",
+        "ours"
+      ],
+      [
+        "oa_gemm_plus_pointwise",
+        "ptxas_separate",
+        "ours",
+        "ptxas"
+      ],
+      [
+        "ptxas_separate",
+        "ptxas",
+        "ours",
+        "oa_gemm_plus_pointwise"
+      ],
+      [
+        "ptxas_separate",
+        "oa_gemm_plus_pointwise",
+        "ptxas",
+        "ours"
+      ],
+      [
+        "ptxas",
+        "ours",
+        "oa_gemm_plus_pointwise",
+        "ptxas_separate"
+      ],
+      [
+        "ptxas",
+        "ptxas_separate",
+        "ours",
+        "oa_gemm_plus_pointwise"
+      ],
+      [
+        "oa_gemm_plus_pointwise",
+        "ptxas",
+        "ours",
+        "ptxas_separate"
+      ],
+      [
+        "ptxas",
+        "oa_gemm_plus_pointwise",
+        "ours",
+        "ptxas_separate"
+      ]
+    ]
+  }
+]

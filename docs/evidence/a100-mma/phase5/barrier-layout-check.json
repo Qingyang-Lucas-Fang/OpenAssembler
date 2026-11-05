@@ -1,0 +1,27 @@
+{
+  "passed": true,
+  "single_shared_object_bytes": 1040,
+  "regions": {
+    "ready": [
+      0,
+      8
+    ],
+    "free": [
+      8,
+      16
+    ],
+    "A": [
+      16,
+      528
+    ],
+    "B": [
+      528,
+      1040
+    ]
+  },
+  "producer_copy_bytes_covered_once": 1024,
+  "consumer_load_bytes_covered": 1024,
+  "barrier_tile_overlap_bytes": 0,
+  "sources_checked": 12,
+  "initial_failure": "original rawoffsettile addressed0..1023 and overwrote separatelyallocated ready/free; archivedinbarrier_initial_failure"
+}

@@ -1,0 +1,25 @@
+.version 8.7
+.target sm_80
+.address_size 64
+.visible .entry postprocess(.param .u64 X,.param .u64 Bias,.param .u64 Residual,.param .u64 Y) {
+.reg .u32 %r<8>; .reg .b64 %d<12>; .reg .f32 %f<16>; .reg .pred %p0; .reg .pred %p1;
+mov.u32 %r0,%tid.x; mov.u32 %r1,%ctaid.x;
+mad.lo.u32 %r2,%r1,256,%r0; mul.lo.u32 %r2,%r2,2;
+mul.wide.u32 %d0,%r2,4;
+ld.param.u64 %d1,[X];
+ld.param.u64 %d2,[Bias];
+ld.param.u64 %d3,[Residual];
+ld.param.u64 %d4,[Y];
+add.u64 %d5,%d1,%d0; ld.global.v2.f32 {%f0,%f1},[%d5];
+rem.u32 %r3,%r2,4096; mul.wide.u32 %d8,%r3,4; add.u64 %d6,%d2,%d8;
+ld.global.v2.f32 {%f2,%f3},[%d6]; add.u64 %d9,%d3,%d0;
+ld.global.v2.f32 {%f6,%f7},[%d9]; add.u64 %d7,%d4,%d0;
+add.f32 %f4,%f0,%f2;
+add.f32 %f4,%f4,%f6;
+max.f32 %f4,%f4,0f00000000;
+add.f32 %f5,%f1,%f3;
+add.f32 %f5,%f5,%f7;
+max.f32 %f5,%f5,0f00000000;
+st.global.v2.f32 [%d7],{%f4,%f5};
+ret;
+}

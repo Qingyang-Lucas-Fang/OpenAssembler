@@ -1,0 +1,59 @@
+{
+ "openassembler": "0.2.0",
+ "schema": 1,
+ "arch": "sm_80",
+ "opt_level": "safe",
+ "root": "/Users/lucasfang/Desktop/OpenAssembler/exp/a100_mma/phase5",
+ "entries": [
+  {
+   "source": "fusion_square_f16_gemm.ptx",
+   "source_sha256": "25df2a8950638940c87ab9460c01dd92883610f0e93b26159e410e9f8b6adb6a",
+   "language": "ptx",
+   "cubin": "cubin/square_f16_gemm.cubin",
+   "sass": "sass/square_f16_gemm.sass",
+   "ptx": ".build/ptx/square_f16_gemm.ptx",
+   "reference": ".build/reference/square_f16_gemm.cubin",
+   "kernels": [
+    {
+     "name": "gemm",
+     "params": [
+      [
+       "u64",
+       "A"
+      ],
+      [
+       "u64",
+       "B"
+      ],
+      [
+       "u64",
+       "C"
+      ]
+     ],
+     "compiled_by": "openassembler",
+     "instructions": 1579,
+     "registers": 216,
+     "verify": "not-run",
+     "tensor": {
+      "backend": "sm80-tensor",
+      "schedule": "source-order-hmma8-epoch-drain15",
+      "copy_group_scoreboard": 0,
+      "protected_scoreboard_recycling": true,
+      "ldsm_address_war_uses_write_completion": true,
+      "tensor_reuse_hints": true,
+      "architecture": "sm_80",
+      "async_scoreboard": 0,
+      "ordinary_scoreboards": [
+       1,
+       2,
+       3,
+       4,
+       5
+      ],
+      "requested_opt_level": "safe"
+     }
+    }
+   ]
+  }
+ ]
+}

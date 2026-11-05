@@ -1,0 +1,978 @@
+[
+  {
+    "passed": true,
+    "device": {
+      "name": "NVIDIA A100-SXM4-40GB",
+      "cc": "8.0",
+      "driver": 13030,
+      "sm_count": 108,
+      "clock_khz": 1410000,
+      "mem_bytes": 42429251584
+    },
+    "shape": [
+      16384,
+      4096,
+      4096
+    ],
+    "dtype": "f16",
+    "capabilities": {
+      "max_set_aside": 26214400,
+      "max_window": 134213632,
+      "l2_bytes": 41943040
+    },
+    "initial_limit": 7864320,
+    "policies": {
+      "no_reserve": {
+        "target": "B",
+        "window_bytes": 0,
+        "hit_ratio": 0.0,
+        "reservation": 0,
+        "actual_reservation": 0,
+        "verified_kernel_nodes": 20
+      },
+      "B_8MiB_ratio_quarter": {
+        "target": "B",
+        "window_bytes": 33554432,
+        "hit_ratio": 0.25,
+        "reservation": 8388608,
+        "actual_reservation": 10485760,
+        "verified_kernel_nodes": 20
+      },
+      "B_16MiB_ratio_half": {
+        "target": "B",
+        "window_bytes": 33554432,
+        "hit_ratio": 0.5,
+        "reservation": 16777216,
+        "actual_reservation": 18350080,
+        "verified_kernel_nodes": 20
+      },
+      "B_max_matched_ratio": {
+        "target": "B",
+        "window_bytes": 33554432,
+        "hit_ratio": 0.78125,
+        "reservation": 26214400,
+        "actual_reservation": 26214400,
+        "verified_kernel_nodes": 20
+      }
+    },
+    "checks": [
+      {
+        "policy": "no_reserve",
+        "pattern": "zero",
+        "seed": 17,
+        "elements": 67108864,
+        "relative_l2": 0.0,
+        "cpu_sample_relative_l2": 0.0,
+        "exact": true,
+        "canaries": true
+      },
+      {
+        "policy": "B_8MiB_ratio_quarter",
+        "pattern": "zero",
+        "seed": 17,
+        "elements": 67108864,
+        "relative_l2": 0.0,
+        "cpu_sample_relative_l2": 0.0,
+        "exact": true,
+        "canaries": true
+      },
+      {
+        "policy": "B_16MiB_ratio_half",
+        "pattern": "zero",
+        "seed": 17,
+        "elements": 67108864,
+        "relative_l2": 0.0,
+        "cpu_sample_relative_l2": 0.0,
+        "exact": true,
+        "canaries": true
+      },
+      {
+        "policy": "B_max_matched_ratio",
+        "pattern": "zero",
+        "seed": 17,
+        "elements": 67108864,
+        "relative_l2": 0.0,
+        "cpu_sample_relative_l2": 0.0,
+        "exact": true,
+        "canaries": true
+      },
+      {
+        "policy": "no_reserve",
+        "pattern": "zero",
+        "seed": 29,
+        "elements": 67108864,
+        "relative_l2": 0.0,
+        "cpu_sample_relative_l2": 0.0,
+        "exact": true,
+        "canaries": true
+      },
+      {
+        "policy": "B_8MiB_ratio_quarter",
+        "pattern": "zero",
+        "seed": 29,
+        "elements": 67108864,
+        "relative_l2": 0.0,
+        "cpu_sample_relative_l2": 0.0,
+        "exact": true,
+        "canaries": true
+      },
+      {
+        "policy": "B_16MiB_ratio_half",
+        "pattern": "zero",
+        "seed": 29,
+        "elements": 67108864,
+        "relative_l2": 0.0,
+        "cpu_sample_relative_l2": 0.0,
+        "exact": true,
+        "canaries": true
+      },
+      {
+        "policy": "B_max_matched_ratio",
+        "pattern": "zero",
+        "seed": 29,
+        "elements": 67108864,
+        "relative_l2": 0.0,
+        "cpu_sample_relative_l2": 0.0,
+        "exact": true,
+        "canaries": true
+      },
+      {
+        "policy": "no_reserve",
+        "pattern": "integer",
+        "seed": 17,
+        "elements": 67108864,
+        "relative_l2": 0.0,
+        "cpu_sample_relative_l2": 0.0,
+        "exact": true,
+        "canaries": true
+      },
+      {
+        "policy": "B_8MiB_ratio_quarter",
+        "pattern": "integer",
+        "seed": 17,
+        "elements": 67108864,
+        "relative_l2": 0.0,
+        "cpu_sample_relative_l2": 0.0,
+        "exact": true,
+        "canaries": true
+      },
+      {
+        "policy": "B_16MiB_ratio_half",
+        "pattern": "integer",
+        "seed": 17,
+        "elements": 67108864,
+        "relative_l2": 0.0,
+        "cpu_sample_relative_l2": 0.0,
+        "exact": true,
+        "canaries": true
+      },
+      {
+        "policy": "B_max_matched_ratio",
+        "pattern": "integer",
+        "seed": 17,
+        "elements": 67108864,
+        "relative_l2": 0.0,
+        "cpu_sample_relative_l2": 0.0,
+        "exact": true,
+        "canaries": true
+      },
+      {
+        "policy": "no_reserve",
+        "pattern": "integer",
+        "seed": 29,
+        "elements": 67108864,
+        "relative_l2": 0.0,
+        "cpu_sample_relative_l2": 0.0,
+        "exact": true,
+        "canaries": true
+      },
+      {
+        "policy": "B_8MiB_ratio_quarter",
+        "pattern": "integer",
+        "seed": 29,
+        "elements": 67108864,
+        "relative_l2": 0.0,
+        "cpu_sample_relative_l2": 0.0,
+        "exact": true,
+        "canaries": true
+      },
+      {
+        "policy": "B_16MiB_ratio_half",
+        "pattern": "integer",
+        "seed": 29,
+        "elements": 67108864,
+        "relative_l2": 0.0,
+        "cpu_sample_relative_l2": 0.0,
+        "exact": true,
+        "canaries": true
+      },
+      {
+        "policy": "B_max_matched_ratio",
+        "pattern": "integer",
+        "seed": 29,
+        "elements": 67108864,
+        "relative_l2": 0.0,
+        "cpu_sample_relative_l2": 0.0,
+        "exact": true,
+        "canaries": true
+      },
+      {
+        "policy": "no_reserve",
+        "pattern": "normal",
+        "seed": 17,
+        "elements": 67108864,
+        "relative_l2": 3.980057044827845e-06,
+        "cpu_sample_relative_l2": 6.740927267428163e-06,
+        "exact": false,
+        "canaries": true
+      },
+      {
+        "policy": "B_8MiB_ratio_quarter",
+        "pattern": "normal",
+        "seed": 17,
+        "elements": 67108864,
+        "relative_l2": 3.980057044827845e-06,
+        "cpu_sample_relative_l2": 6.740927267428163e-06,
+        "exact": false,
+        "canaries": true
+      },
+      {
+        "policy": "B_16MiB_ratio_half",
+        "pattern": "normal",
+        "seed": 17,
+        "elements": 67108864,
+        "relative_l2": 3.980057044827845e-06,
+        "cpu_sample_relative_l2": 6.740927267428163e-06,
+        "exact": false,
+        "canaries": true
+      },
+      {
+        "policy": "B_max_matched_ratio",
+        "pattern": "normal",
+        "seed": 17,
+        "elements": 67108864,
+        "relative_l2": 3.980057044827845e-06,
+        "cpu_sample_relative_l2": 6.740927267428163e-06,
+        "exact": false,
+        "canaries": true
+      },
+      {
+        "policy": "no_reserve",
+        "pattern": "normal",
+        "seed": 29,
+        "elements": 67108864,
+        "relative_l2": 3.980753717769403e-06,
+        "cpu_sample_relative_l2": 6.644145889332136e-06,
+        "exact": false,
+        "canaries": true
+      },
+      {
+        "policy": "B_8MiB_ratio_quarter",
+        "pattern": "normal",
+        "seed": 29,
+        "elements": 67108864,
+        "relative_l2": 3.980753717769403e-06,
+        "cpu_sample_relative_l2": 6.644145889332136e-06,
+        "exact": false,
+        "canaries": true
+      },
+      {
+        "policy": "B_16MiB_ratio_half",
+        "pattern": "normal",
+        "seed": 29,
+        "elements": 67108864,
+        "relative_l2": 3.980753717769403e-06,
+        "cpu_sample_relative_l2": 6.644145889332136e-06,
+        "exact": false,
+        "canaries": true
+      },
+      {
+        "policy": "B_max_matched_ratio",
+        "pattern": "normal",
+        "seed": 29,
+        "elements": 67108864,
+        "relative_l2": 3.980753717769403e-06,
+        "cpu_sample_relative_l2": 6.644145889332136e-06,
+        "exact": false,
+        "canaries": true
+      },
+      {
+        "policy": "no_reserve",
+        "pattern": "scaled",
+        "seed": 17,
+        "elements": 67108864,
+        "relative_l2": 3.980062047048705e-06,
+        "cpu_sample_relative_l2": 6.739002039238111e-06,
+        "exact": false,
+        "canaries": true
+      },
+      {
+        "policy": "B_8MiB_ratio_quarter",
+        "pattern": "scaled",
+        "seed": 17,
+        "elements": 67108864,
+        "relative_l2": 3.980062047048705e-06,
+        "cpu_sample_relative_l2": 6.739002039238111e-06,
+        "exact": false,
+        "canaries": true
+      },
+      {
+        "policy": "B_16MiB_ratio_half",
+        "pattern": "scaled",
+        "seed": 17,
+        "elements": 67108864,
+        "relative_l2": 3.980062047048705e-06,
+        "cpu_sample_relative_l2": 6.739002039238111e-06,
+        "exact": false,
+        "canaries": true
+      },
+      {
+        "policy": "B_max_matched_ratio",
+        "pattern": "scaled",
+        "seed": 17,
+        "elements": 67108864,
+        "relative_l2": 3.980062047048705e-06,
+        "cpu_sample_relative_l2": 6.739002039238111e-06,
+        "exact": false,
+        "canaries": true
+      },
+      {
+        "policy": "no_reserve",
+        "pattern": "scaled",
+        "seed": 29,
+        "elements": 67108864,
+        "relative_l2": 3.980745987064438e-06,
+        "cpu_sample_relative_l2": 6.648392532325371e-06,
+        "exact": false,
+        "canaries": true
+      },
+      {
+        "policy": "B_8MiB_ratio_quarter",
+        "pattern": "scaled",
+        "seed": 29,
+        "elements": 67108864,
+        "relative_l2": 3.980745987064438e-06,
+        "cpu_sample_relative_l2": 6.648392532325371e-06,
+        "exact": false,
+        "canaries": true
+      },
+      {
+        "policy": "B_16MiB_ratio_half",
+        "pattern": "scaled",
+        "seed": 29,
+        "elements": 67108864,
+        "relative_l2": 3.980745987064438e-06,
+        "cpu_sample_relative_l2": 6.648392532325371e-06,
+        "exact": false,
+        "canaries": true
+      },
+      {
+        "policy": "B_max_matched_ratio",
+        "pattern": "scaled",
+        "seed": 29,
+        "elements": 67108864,
+        "relative_l2": 3.980745987064438e-06,
+        "cpu_sample_relative_l2": 6.648392532325371e-06,
+        "exact": false,
+        "canaries": true
+      }
+    ],
+    "samples_ms": {
+      "no_reserve": [
+        2.746009635925293,
+        2.7846656799316407,
+        2.75860481262207,
+        2.7560447692871093,
+        2.7890687942504884,
+        2.847795104980469,
+        2.767206382751465
+      ],
+      "B_8MiB_ratio_quarter": [
+        2.78287353515625,
+        2.7638784408569337,
+        2.8067840576171874,
+        2.812825584411621,
+        2.7823104858398438,
+        2.7840511322021486,
+        2.772889518737793
+      ],
+      "B_16MiB_ratio_half": [
+        3.006719970703125,
+        2.98787841796875,
+        3.0304256439208985,
+        3.0221824645996094,
+        3.0128639221191404,
+        3.007027244567871,
+        2.996940803527832
+      ],
+      "B_max_matched_ratio": [
+        3.937945556640625,
+        3.9360511779785154,
+        3.93994255065918,
+        3.9373825073242186,
+        3.9389694213867186,
+        3.9405567169189455,
+        3.9404544830322266
+      ]
+    },
+    "milliseconds": {
+      "no_reserve": 2.767206382751465,
+      "B_8MiB_ratio_quarter": 2.78287353515625,
+      "B_16MiB_ratio_half": 3.007027244567871,
+      "B_max_matched_ratio": 3.9389694213867186
+    },
+    "graph_nodes": 20,
+    "round_orders": [
+      [
+        "B_max_matched_ratio",
+        "B_8MiB_ratio_quarter",
+        "no_reserve",
+        "B_16MiB_ratio_half"
+      ],
+      [
+        "no_reserve",
+        "B_16MiB_ratio_half",
+        "B_max_matched_ratio",
+        "B_8MiB_ratio_quarter"
+      ],
+      [
+        "B_max_matched_ratio",
+        "B_16MiB_ratio_half",
+        "B_8MiB_ratio_quarter",
+        "no_reserve"
+      ],
+      [
+        "B_16MiB_ratio_half",
+        "no_reserve",
+        "B_max_matched_ratio",
+        "B_8MiB_ratio_quarter"
+      ],
+      [
+        "B_max_matched_ratio",
+        "B_16MiB_ratio_half",
+        "B_8MiB_ratio_quarter",
+        "no_reserve"
+      ],
+      [
+        "B_max_matched_ratio",
+        "B_16MiB_ratio_half",
+        "B_8MiB_ratio_quarter",
+        "no_reserve"
+      ],
+      [
+        "no_reserve",
+        "B_16MiB_ratio_half",
+        "B_8MiB_ratio_quarter",
+        "B_max_matched_ratio"
+      ]
+    ],
+    "resources": {
+      "max_threads": 256,
+      "shared_bytes": 0,
+      "const_bytes": 0,
+      "local_bytes": 0,
+      "num_regs": 216,
+      "ptx_version": 80,
+      "binary_version": 80
+    },
+    "cubin_sha256": "b08cdb5a6d3678f2eb5b453b23816ae7593655e35ee903c3a87fbd1d67e4d763",
+    "header_sha256": "4568cc9e7a321e47707cd6403980f21ac2e2e55170500d0e0a3f54feb03a9acb",
+    "abi_enums": {
+      "CU_DEVICE_ATTRIBUTE_MAX_PERSISTING_L2_CACHE_SIZE": 108,
+      "CU_DEVICE_ATTRIBUTE_MAX_ACCESS_POLICY_WINDOW_SIZE": 109,
+      "CU_LIMIT_PERSISTING_L2_CACHE_SIZE": 6,
+      "CU_KERNEL_NODE_ATTRIBUTE_ACCESS_POLICY_WINDOW": 1
+    },
+    "name": "p4_cli_tall_f16",
+    "worker_rc": 0,
+    "stderr": ""
+  },
+  {
+    "passed": true,
+    "device": {
+      "name": "NVIDIA A100-SXM4-40GB",
+      "cc": "8.0",
+      "driver": 13030,
+      "sm_count": 108,
+      "clock_khz": 1410000,
+      "mem_bytes": 42429251584
+    },
+    "shape": [
+      16384,
+      4096,
+      4096
+    ],
+    "dtype": "bf16",
+    "capabilities": {
+      "max_set_aside": 26214400,
+      "max_window": 134213632,
+      "l2_bytes": 41943040
+    },
+    "initial_limit": 7864320,
+    "policies": {
+      "no_reserve": {
+        "target": "B",
+        "window_bytes": 0,
+        "hit_ratio": 0.0,
+        "reservation": 0,
+        "actual_reservation": 0,
+        "verified_kernel_nodes": 20
+      },
+      "B_8MiB_ratio_quarter": {
+        "target": "B",
+        "window_bytes": 33554432,
+        "hit_ratio": 0.25,
+        "reservation": 8388608,
+        "actual_reservation": 10485760,
+        "verified_kernel_nodes": 20
+      },
+      "B_16MiB_ratio_half": {
+        "target": "B",
+        "window_bytes": 33554432,
+        "hit_ratio": 0.5,
+        "reservation": 16777216,
+        "actual_reservation": 18350080,
+        "verified_kernel_nodes": 20
+      },
+      "B_max_matched_ratio": {
+        "target": "B",
+        "window_bytes": 33554432,
+        "hit_ratio": 0.78125,
+        "reservation": 26214400,
+        "actual_reservation": 26214400,
+        "verified_kernel_nodes": 20
+      }
+    },
+    "checks": [
+      {
+        "policy": "no_reserve",
+        "pattern": "zero",
+        "seed": 17,
+        "elements": 67108864,
+        "relative_l2": 0.0,
+        "cpu_sample_relative_l2": 0.0,
+        "exact": true,
+        "canaries": true
+      },
+      {
+        "policy": "B_8MiB_ratio_quarter",
+        "pattern": "zero",
+        "seed": 17,
+        "elements": 67108864,
+        "relative_l2": 0.0,
+        "cpu_sample_relative_l2": 0.0,
+        "exact": true,
+        "canaries": true
+      },
+      {
+        "policy": "B_16MiB_ratio_half",
+        "pattern": "zero",
+        "seed": 17,
+        "elements": 67108864,
+        "relative_l2": 0.0,
+        "cpu_sample_relative_l2": 0.0,
+        "exact": true,
+        "canaries": true
+      },
+      {
+        "policy": "B_max_matched_ratio",
+        "pattern": "zero",
+        "seed": 17,
+        "elements": 67108864,
+        "relative_l2": 0.0,
+        "cpu_sample_relative_l2": 0.0,
+        "exact": true,
+        "canaries": true
+      },
+      {
+        "policy": "no_reserve",
+        "pattern": "zero",
+        "seed": 29,
+        "elements": 67108864,
+        "relative_l2": 0.0,
+        "cpu_sample_relative_l2": 0.0,
+        "exact": true,
+        "canaries": true
+      },
+      {
+        "policy": "B_8MiB_ratio_quarter",
+        "pattern": "zero",
+        "seed": 29,
+        "elements": 67108864,
+        "relative_l2": 0.0,
+        "cpu_sample_relative_l2": 0.0,
+        "exact": true,
+        "canaries": true
+      },
+      {
+        "policy": "B_16MiB_ratio_half",
+        "pattern": "zero",
+        "seed": 29,
+        "elements": 67108864,
+        "relative_l2": 0.0,
+        "cpu_sample_relative_l2": 0.0,
+        "exact": true,
+        "canaries": true
+      },
+      {
+        "policy": "B_max_matched_ratio",
+        "pattern": "zero",
+        "seed": 29,
+        "elements": 67108864,
+        "relative_l2": 0.0,
+        "cpu_sample_relative_l2": 0.0,
+        "exact": true,
+        "canaries": true
+      },
+      {
+        "policy": "no_reserve",
+        "pattern": "integer",
+        "seed": 17,
+        "elements": 67108864,
+        "relative_l2": 0.0,
+        "cpu_sample_relative_l2": 0.0,
+        "exact": true,
+        "canaries": true
+      },
+      {
+        "policy": "B_8MiB_ratio_quarter",
+        "pattern": "integer",
+        "seed": 17,
+        "elements": 67108864,
+        "relative_l2": 0.0,
+        "cpu_sample_relative_l2": 0.0,
+        "exact": true,
+        "canaries": true
+      },
+      {
+        "policy": "B_16MiB_ratio_half",
+        "pattern": "integer",
+        "seed": 17,
+        "elements": 67108864,
+        "relative_l2": 0.0,
+        "cpu_sample_relative_l2": 0.0,
+        "exact": true,
+        "canaries": true
+      },
+      {
+        "policy": "B_max_matched_ratio",
+        "pattern": "integer",
+        "seed": 17,
+        "elements": 67108864,
+        "relative_l2": 0.0,
+        "cpu_sample_relative_l2": 0.0,
+        "exact": true,
+        "canaries": true
+      },
+      {
+        "policy": "no_reserve",
+        "pattern": "integer",
+        "seed": 29,
+        "elements": 67108864,
+        "relative_l2": 0.0,
+        "cpu_sample_relative_l2": 0.0,
+        "exact": true,
+        "canaries": true
+      },
+      {
+        "policy": "B_8MiB_ratio_quarter",
+        "pattern": "integer",
+        "seed": 29,
+        "elements": 67108864,
+        "relative_l2": 0.0,
+        "cpu_sample_relative_l2": 0.0,
+        "exact": true,
+        "canaries": true
+      },
+      {
+        "policy": "B_16MiB_ratio_half",
+        "pattern": "integer",
+        "seed": 29,
+        "elements": 67108864,
+        "relative_l2": 0.0,
+        "cpu_sample_relative_l2": 0.0,
+        "exact": true,
+        "canaries": true
+      },
+      {
+        "policy": "B_max_matched_ratio",
+        "pattern": "integer",
+        "seed": 29,
+        "elements": 67108864,
+        "relative_l2": 0.0,
+        "cpu_sample_relative_l2": 0.0,
+        "exact": true,
+        "canaries": true
+      },
+      {
+        "policy": "no_reserve",
+        "pattern": "normal",
+        "seed": 17,
+        "elements": 67108864,
+        "relative_l2": 0.0,
+        "cpu_sample_relative_l2": 5.3768380506747775e-06,
+        "exact": true,
+        "canaries": true
+      },
+      {
+        "policy": "B_8MiB_ratio_quarter",
+        "pattern": "normal",
+        "seed": 17,
+        "elements": 67108864,
+        "relative_l2": 0.0,
+        "cpu_sample_relative_l2": 5.3768380506747775e-06,
+        "exact": true,
+        "canaries": true
+      },
+      {
+        "policy": "B_16MiB_ratio_half",
+        "pattern": "normal",
+        "seed": 17,
+        "elements": 67108864,
+        "relative_l2": 0.0,
+        "cpu_sample_relative_l2": 5.3768380506747775e-06,
+        "exact": true,
+        "canaries": true
+      },
+      {
+        "policy": "B_max_matched_ratio",
+        "pattern": "normal",
+        "seed": 17,
+        "elements": 67108864,
+        "relative_l2": 0.0,
+        "cpu_sample_relative_l2": 5.3768380506747775e-06,
+        "exact": true,
+        "canaries": true
+      },
+      {
+        "policy": "no_reserve",
+        "pattern": "normal",
+        "seed": 29,
+        "elements": 67108864,
+        "relative_l2": 0.0,
+        "cpu_sample_relative_l2": 5.292454923324422e-06,
+        "exact": true,
+        "canaries": true
+      },
+      {
+        "policy": "B_8MiB_ratio_quarter",
+        "pattern": "normal",
+        "seed": 29,
+        "elements": 67108864,
+        "relative_l2": 0.0,
+        "cpu_sample_relative_l2": 5.292454923324422e-06,
+        "exact": true,
+        "canaries": true
+      },
+      {
+        "policy": "B_16MiB_ratio_half",
+        "pattern": "normal",
+        "seed": 29,
+        "elements": 67108864,
+        "relative_l2": 0.0,
+        "cpu_sample_relative_l2": 5.292454923324422e-06,
+        "exact": true,
+        "canaries": true
+      },
+      {
+        "policy": "B_max_matched_ratio",
+        "pattern": "normal",
+        "seed": 29,
+        "elements": 67108864,
+        "relative_l2": 0.0,
+        "cpu_sample_relative_l2": 5.292454923324422e-06,
+        "exact": true,
+        "canaries": true
+      },
+      {
+        "policy": "no_reserve",
+        "pattern": "scaled",
+        "seed": 17,
+        "elements": 67108864,
+        "relative_l2": 0.0,
+        "cpu_sample_relative_l2": 5.3768380506747775e-06,
+        "exact": true,
+        "canaries": true
+      },
+      {
+        "policy": "B_8MiB_ratio_quarter",
+        "pattern": "scaled",
+        "seed": 17,
+        "elements": 67108864,
+        "relative_l2": 0.0,
+        "cpu_sample_relative_l2": 5.3768380506747775e-06,
+        "exact": true,
+        "canaries": true
+      },
+      {
+        "policy": "B_16MiB_ratio_half",
+        "pattern": "scaled",
+        "seed": 17,
+        "elements": 67108864,
+        "relative_l2": 0.0,
+        "cpu_sample_relative_l2": 5.3768380506747775e-06,
+        "exact": true,
+        "canaries": true
+      },
+      {
+        "policy": "B_max_matched_ratio",
+        "pattern": "scaled",
+        "seed": 17,
+        "elements": 67108864,
+        "relative_l2": 0.0,
+        "cpu_sample_relative_l2": 5.3768380506747775e-06,
+        "exact": true,
+        "canaries": true
+      },
+      {
+        "policy": "no_reserve",
+        "pattern": "scaled",
+        "seed": 29,
+        "elements": 67108864,
+        "relative_l2": 0.0,
+        "cpu_sample_relative_l2": 5.292454923324422e-06,
+        "exact": true,
+        "canaries": true
+      },
+      {
+        "policy": "B_8MiB_ratio_quarter",
+        "pattern": "scaled",
+        "seed": 29,
+        "elements": 67108864,
+        "relative_l2": 0.0,
+        "cpu_sample_relative_l2": 5.292454923324422e-06,
+        "exact": true,
+        "canaries": true
+      },
+      {
+        "policy": "B_16MiB_ratio_half",
+        "pattern": "scaled",
+        "seed": 29,
+        "elements": 67108864,
+        "relative_l2": 0.0,
+        "cpu_sample_relative_l2": 5.292454923324422e-06,
+        "exact": true,
+        "canaries": true
+      },
+      {
+        "policy": "B_max_matched_ratio",
+        "pattern": "scaled",
+        "seed": 29,
+        "elements": 67108864,
+        "relative_l2": 0.0,
+        "cpu_sample_relative_l2": 5.292454923324422e-06,
+        "exact": true,
+        "canaries": true
+      }
+    ],
+    "samples_ms": {
+      "no_reserve": [
+        2.7092992782592775,
+        2.7393024444580076,
+        2.719897651672363,
+        2.690662384033203,
+        2.740889549255371,
+        2.7650047302246095,
+        2.7336191177368163
+      ],
+      "B_8MiB_ratio_quarter": [
+        2.7546623229980467,
+        2.711756706237793,
+        2.7345407485961912,
+        2.7550207138061524,
+        2.731417655944824,
+        2.7181568145751953,
+        2.725734329223633
+      ],
+      "B_16MiB_ratio_half": [
+        2.951219177246094,
+        2.9498367309570312,
+        2.956185531616211,
+        2.9471744537353515,
+        2.986854362487793,
+        2.9507072448730467,
+        2.941747283935547
+      ],
+      "B_max_matched_ratio": [
+        3.9281665802001955,
+        3.922995376586914,
+        3.9263233184814452,
+        3.924991989135742,
+        3.921356964111328,
+        3.926732635498047,
+        3.9217151641845702
+      ]
+    },
+    "milliseconds": {
+      "no_reserve": 2.7336191177368163,
+      "B_8MiB_ratio_quarter": 2.731417655944824,
+      "B_16MiB_ratio_half": 2.9507072448730467,
+      "B_max_matched_ratio": 3.924991989135742
+    },
+    "graph_nodes": 20,
+    "round_orders": [
+      [
+        "B_max_matched_ratio",
+        "B_8MiB_ratio_quarter",
+        "no_reserve",
+        "B_16MiB_ratio_half"
+      ],
+      [
+        "no_reserve",
+        "B_16MiB_ratio_half",
+        "B_max_matched_ratio",
+        "B_8MiB_ratio_quarter"
+      ],
+      [
+        "B_max_matched_ratio",
+        "B_16MiB_ratio_half",
+        "B_8MiB_ratio_quarter",
+        "no_reserve"
+      ],
+      [
+        "B_16MiB_ratio_half",
+        "no_reserve",
+        "B_max_matched_ratio",
+        "B_8MiB_ratio_quarter"
+      ],
+      [
+        "B_max_matched_ratio",
+        "B_16MiB_ratio_half",
+        "B_8MiB_ratio_quarter",
+        "no_reserve"
+      ],
+      [
+        "B_max_matched_ratio",
+        "B_16MiB_ratio_half",
+        "B_8MiB_ratio_quarter",
+        "no_reserve"
+      ],
+      [
+        "no_reserve",
+        "B_16MiB_ratio_half",
+        "B_8MiB_ratio_quarter",
+        "B_max_matched_ratio"
+      ]
+    ],
+    "resources": {
+      "max_threads": 256,
+      "shared_bytes": 0,
+      "const_bytes": 0,
+      "local_bytes": 0,
+      "num_regs": 216,
+      "ptx_version": 80,
+      "binary_version": 80
+    },
+    "cubin_sha256": "7d6b079b919e4ef190ef4df529dd6b5788da8ffc99a884ad3809b2e40a07d736",
+    "header_sha256": "4568cc9e7a321e47707cd6403980f21ac2e2e55170500d0e0a3f54feb03a9acb",
+    "abi_enums": {
+      "CU_DEVICE_ATTRIBUTE_MAX_PERSISTING_L2_CACHE_SIZE": 108,
+      "CU_DEVICE_ATTRIBUTE_MAX_ACCESS_POLICY_WINDOW_SIZE": 109,
+      "CU_LIMIT_PERSISTING_L2_CACHE_SIZE": 6,
+      "CU_KERNEL_NODE_ATTRIBUTE_ACCESS_POLICY_WINDOW": 1
+    },
+    "name": "p4_cli_tall_bf16",
+    "worker_rc": 0,
+    "stderr": ""
+  }
+]

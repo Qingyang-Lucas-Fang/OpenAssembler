@@ -1,0 +1,576 @@
+[
+  {
+    "source": "l2-results.json",
+    "source_sha256": "c1323869169b18887da9a3ce6675436c662d728469566fb7b5fdc499a39ccfd3",
+    "dtype": "f16",
+    "shape_mnk": [
+      4096,
+      4096,
+      4096
+    ],
+    "device": {
+      "name": "NVIDIA A100-SXM4-40GB",
+      "cc": "8.0",
+      "driver": 13030,
+      "sm_count": 108,
+      "clock_khz": 1410000,
+      "mem_bytes": 42429251584
+    },
+    "capabilities": {
+      "max_set_aside": 26214400,
+      "max_window": 134213632,
+      "l2_bytes": 41943040
+    },
+    "initial_limit": 7864320,
+    "cubin_sha256": "b08cdb5a6d3678f2eb5b453b23816ae7593655e35ee903c3a87fbd1d67e4d763",
+    "checks": 40,
+    "baseline_ms": 0.6381055831909179,
+    "candidates": [
+      {
+        "name": "no_reserve",
+        "policy": {
+          "target": "B",
+          "window_bytes": 0,
+          "hit_ratio": 0.0,
+          "reservation": 0,
+          "verified_kernel_nodes": 20
+        },
+        "milliseconds": 0.6381055831909179,
+        "latency_reduction_pct": 0.0,
+        "paired_speedup_median": 1.0,
+        "rounds_faster": 0
+      },
+      {
+        "name": "reserve_only",
+        "policy": {
+          "target": "B",
+          "window_bytes": 0,
+          "hit_ratio": 0.0,
+          "reservation": 26214400,
+          "verified_kernel_nodes": 20
+        },
+        "milliseconds": 0.6914559841156006,
+        "latency_reduction_pct": -8.360748178678845,
+        "paired_speedup_median": 0.9224342007221951,
+        "rounds_faster": 0
+      },
+      {
+        "name": "B_half",
+        "policy": {
+          "target": "B",
+          "window_bytes": 33554432,
+          "hit_ratio": 0.5,
+          "reservation": 26214400,
+          "verified_kernel_nodes": 20
+        },
+        "milliseconds": 0.7026688098907471,
+        "latency_reduction_pct": -10.117953580185524,
+        "paired_speedup_median": 0.9076296515665374,
+        "rounds_faster": 0
+      },
+      {
+        "name": "B_full",
+        "policy": {
+          "target": "B",
+          "window_bytes": 33554432,
+          "hit_ratio": 1.0,
+          "reservation": 26214400,
+          "verified_kernel_nodes": 20
+        },
+        "milliseconds": 0.6881279945373535,
+        "latency_reduction_pct": -7.839206028615675,
+        "paired_speedup_median": 0.924255964033209,
+        "rounds_faster": 0
+      },
+      {
+        "name": "A_half",
+        "policy": {
+          "target": "A",
+          "window_bytes": 33554432,
+          "hit_ratio": 0.5,
+          "reservation": 26214400,
+          "verified_kernel_nodes": 20
+        },
+        "milliseconds": 0.7203328132629394,
+        "latency_reduction_pct": -12.886148035382327,
+        "paired_speedup_median": 0.8867012249185349,
+        "rounds_faster": 0
+      }
+    ]
+  },
+  {
+    "source": "l2-results.json",
+    "source_sha256": "c1323869169b18887da9a3ce6675436c662d728469566fb7b5fdc499a39ccfd3",
+    "dtype": "f16",
+    "shape_mnk": [
+      16384,
+      4096,
+      4096
+    ],
+    "device": {
+      "name": "NVIDIA A100-SXM4-40GB",
+      "cc": "8.0",
+      "driver": 13030,
+      "sm_count": 108,
+      "clock_khz": 1410000,
+      "mem_bytes": 42429251584
+    },
+    "capabilities": {
+      "max_set_aside": 26214400,
+      "max_window": 134213632,
+      "l2_bytes": 41943040
+    },
+    "initial_limit": 7864320,
+    "cubin_sha256": "b08cdb5a6d3678f2eb5b453b23816ae7593655e35ee903c3a87fbd1d67e4d763",
+    "checks": 40,
+    "baseline_ms": 2.806425666809082,
+    "candidates": [
+      {
+        "name": "no_reserve",
+        "policy": {
+          "target": "B",
+          "window_bytes": 0,
+          "hit_ratio": 0.0,
+          "reservation": 0,
+          "verified_kernel_nodes": 20
+        },
+        "milliseconds": 2.806425666809082,
+        "latency_reduction_pct": 0.0,
+        "paired_speedup_median": 1.0,
+        "rounds_faster": 0
+      },
+      {
+        "name": "reserve_only",
+        "policy": {
+          "target": "B",
+          "window_bytes": 0,
+          "hit_ratio": 0.0,
+          "reservation": 26214400,
+          "verified_kernel_nodes": 20
+        },
+        "milliseconds": 3.8004222869873048,
+        "latency_reduction_pct": -35.41859782476979,
+        "paired_speedup_median": 0.7384510075152227,
+        "rounds_faster": 0
+      },
+      {
+        "name": "B_half",
+        "policy": {
+          "target": "B",
+          "window_bytes": 33554432,
+          "hit_ratio": 0.5,
+          "reservation": 26214400,
+          "verified_kernel_nodes": 20
+        },
+        "milliseconds": 4.132659149169922,
+        "latency_reduction_pct": -47.257032247313106,
+        "paired_speedup_median": 0.67943829088376,
+        "rounds_faster": 0
+      },
+      {
+        "name": "B_full",
+        "policy": {
+          "target": "B",
+          "window_bytes": 33554432,
+          "hit_ratio": 1.0,
+          "reservation": 26214400,
+          "verified_kernel_nodes": 20
+        },
+        "milliseconds": 3.7286911010742188,
+        "latency_reduction_pct": -32.86263538609082,
+        "paired_speedup_median": 0.7529258111537849,
+        "rounds_faster": 0
+      },
+      {
+        "name": "A_half",
+        "policy": {
+          "target": "A",
+          "window_bytes": 134213632,
+          "hit_ratio": 0.5,
+          "reservation": 26214400,
+          "verified_kernel_nodes": 20
+        },
+        "milliseconds": 3.6822017669677733,
+        "latency_reduction_pct": -31.206103568545696,
+        "paired_speedup_median": 0.7608231737713603,
+        "rounds_faster": 0
+      }
+    ]
+  },
+  {
+    "source": "l2-results.json",
+    "source_sha256": "c1323869169b18887da9a3ce6675436c662d728469566fb7b5fdc499a39ccfd3",
+    "dtype": "bf16",
+    "shape_mnk": [
+      4096,
+      4096,
+      4096
+    ],
+    "device": {
+      "name": "NVIDIA A100-SXM4-40GB",
+      "cc": "8.0",
+      "driver": 13030,
+      "sm_count": 108,
+      "clock_khz": 1410000,
+      "mem_bytes": 42429251584
+    },
+    "capabilities": {
+      "max_set_aside": 26214400,
+      "max_window": 134213632,
+      "l2_bytes": 41943040
+    },
+    "initial_limit": 7864320,
+    "cubin_sha256": "7d6b079b919e4ef190ef4df529dd6b5788da8ffc99a884ad3809b2e40a07d736",
+    "checks": 40,
+    "baseline_ms": 0.6318592071533203,
+    "candidates": [
+      {
+        "name": "no_reserve",
+        "policy": {
+          "target": "B",
+          "window_bytes": 0,
+          "hit_ratio": 0.0,
+          "reservation": 0,
+          "verified_kernel_nodes": 20
+        },
+        "milliseconds": 0.6318592071533203,
+        "latency_reduction_pct": 0.0,
+        "paired_speedup_median": 1.0,
+        "rounds_faster": 0
+      },
+      {
+        "name": "reserve_only",
+        "policy": {
+          "target": "B",
+          "window_bytes": 0,
+          "hit_ratio": 0.0,
+          "reservation": 26214400,
+          "verified_kernel_nodes": 20
+        },
+        "milliseconds": 0.6854656219482422,
+        "latency_reduction_pct": -8.48391764938139,
+        "paired_speedup_median": 0.9193729481286933,
+        "rounds_faster": 0
+      },
+      {
+        "name": "B_half",
+        "policy": {
+          "target": "B",
+          "window_bytes": 33554432,
+          "hit_ratio": 0.5,
+          "reservation": 26214400,
+          "verified_kernel_nodes": 20
+        },
+        "milliseconds": 0.6931968212127686,
+        "latency_reduction_pct": -9.707481249784934,
+        "paired_speedup_median": 0.9139520581528714,
+        "rounds_faster": 0
+      },
+      {
+        "name": "B_full",
+        "policy": {
+          "target": "B",
+          "window_bytes": 33554432,
+          "hit_ratio": 1.0,
+          "reservation": 26214400,
+          "verified_kernel_nodes": 20
+        },
+        "milliseconds": 0.6819839954376221,
+        "latency_reduction_pct": -7.932904627618886,
+        "paired_speedup_median": 0.9267267276505827,
+        "rounds_faster": 0
+      },
+      {
+        "name": "A_half",
+        "policy": {
+          "target": "A",
+          "window_bytes": 33554432,
+          "hit_ratio": 0.5,
+          "reservation": 26214400,
+          "verified_kernel_nodes": 20
+        },
+        "milliseconds": 0.7171072006225586,
+        "latency_reduction_pct": -13.491612135130747,
+        "paired_speedup_median": 0.880707781254807,
+        "rounds_faster": 0
+      }
+    ]
+  },
+  {
+    "source": "l2-results.json",
+    "source_sha256": "c1323869169b18887da9a3ce6675436c662d728469566fb7b5fdc499a39ccfd3",
+    "dtype": "bf16",
+    "shape_mnk": [
+      16384,
+      4096,
+      4096
+    ],
+    "device": {
+      "name": "NVIDIA A100-SXM4-40GB",
+      "cc": "8.0",
+      "driver": 13030,
+      "sm_count": 108,
+      "clock_khz": 1410000,
+      "mem_bytes": 42429251584
+    },
+    "capabilities": {
+      "max_set_aside": 26214400,
+      "max_window": 134213632,
+      "l2_bytes": 41943040
+    },
+    "initial_limit": 7864320,
+    "cubin_sha256": "7d6b079b919e4ef190ef4df529dd6b5788da8ffc99a884ad3809b2e40a07d736",
+    "checks": 40,
+    "baseline_ms": 2.7259904861450197,
+    "candidates": [
+      {
+        "name": "no_reserve",
+        "policy": {
+          "target": "B",
+          "window_bytes": 0,
+          "hit_ratio": 0.0,
+          "reservation": 0,
+          "verified_kernel_nodes": 20
+        },
+        "milliseconds": 2.7259904861450197,
+        "latency_reduction_pct": 0.0,
+        "paired_speedup_median": 1.0,
+        "rounds_faster": 0
+      },
+      {
+        "name": "reserve_only",
+        "policy": {
+          "target": "B",
+          "window_bytes": 0,
+          "hit_ratio": 0.0,
+          "reservation": 26214400,
+          "verified_kernel_nodes": 20
+        },
+        "milliseconds": 3.789209747314453,
+        "latency_reduction_pct": -39.00304372202681,
+        "paired_speedup_median": 0.7180020048937735,
+        "rounds_faster": 0
+      },
+      {
+        "name": "B_half",
+        "policy": {
+          "target": "B",
+          "window_bytes": 33554432,
+          "hit_ratio": 0.5,
+          "reservation": 26214400,
+          "verified_kernel_nodes": 20
+        },
+        "milliseconds": 4.119039916992188,
+        "latency_reduction_pct": -51.10250523350723,
+        "paired_speedup_median": 0.6615967693135524,
+        "rounds_faster": 0
+      },
+      {
+        "name": "B_full",
+        "policy": {
+          "target": "B",
+          "window_bytes": 33554432,
+          "hit_ratio": 1.0,
+          "reservation": 26214400,
+          "verified_kernel_nodes": 20
+        },
+        "milliseconds": 3.7195777893066406,
+        "latency_reduction_pct": -36.448670977084376,
+        "paired_speedup_median": 0.7311352853204806,
+        "rounds_faster": 0
+      },
+      {
+        "name": "A_half",
+        "policy": {
+          "target": "A",
+          "window_bytes": 134213632,
+          "hit_ratio": 0.5,
+          "reservation": 26214400,
+          "verified_kernel_nodes": 20
+        },
+        "milliseconds": 3.6831745147705077,
+        "latency_reduction_pct": -35.1132563921416,
+        "paired_speedup_median": 0.7425662792537906,
+        "rounds_faster": 0
+      }
+    ]
+  },
+  {
+    "source": "l2-refine-results.json",
+    "source_sha256": "17ec84bf017579aa2f9ef5416c7150d7f2082c5f4b484842cd52573b192092df",
+    "dtype": "f16",
+    "shape_mnk": [
+      16384,
+      4096,
+      4096
+    ],
+    "device": {
+      "name": "NVIDIA A100-SXM4-40GB",
+      "cc": "8.0",
+      "driver": 13030,
+      "sm_count": 108,
+      "clock_khz": 1410000,
+      "mem_bytes": 42429251584
+    },
+    "capabilities": {
+      "max_set_aside": 26214400,
+      "max_window": 134213632,
+      "l2_bytes": 41943040
+    },
+    "initial_limit": 7864320,
+    "cubin_sha256": "b08cdb5a6d3678f2eb5b453b23816ae7593655e35ee903c3a87fbd1d67e4d763",
+    "checks": 32,
+    "baseline_ms": 2.767206382751465,
+    "candidates": [
+      {
+        "name": "no_reserve",
+        "policy": {
+          "target": "B",
+          "window_bytes": 0,
+          "hit_ratio": 0.0,
+          "reservation": 0,
+          "actual_reservation": 0,
+          "verified_kernel_nodes": 20
+        },
+        "milliseconds": 2.767206382751465,
+        "latency_reduction_pct": 0.0,
+        "paired_speedup_median": 1.0,
+        "rounds_faster": 0
+      },
+      {
+        "name": "B_8MiB_ratio_quarter",
+        "policy": {
+          "target": "B",
+          "window_bytes": 33554432,
+          "hit_ratio": 0.25,
+          "reservation": 8388608,
+          "actual_reservation": 10485760,
+          "verified_kernel_nodes": 20
+        },
+        "milliseconds": 2.78287353515625,
+        "latency_reduction_pct": -0.5661721692477029,
+        "paired_speedup_median": 0.9979504643268604,
+        "rounds_faster": 3
+      },
+      {
+        "name": "B_16MiB_ratio_half",
+        "policy": {
+          "target": "B",
+          "window_bytes": 33554432,
+          "hit_ratio": 0.5,
+          "reservation": 16777216,
+          "actual_reservation": 18350080,
+          "verified_kernel_nodes": 20
+        },
+        "milliseconds": 3.007027244567871,
+        "latency_reduction_pct": -8.666533270205502,
+        "paired_speedup_median": 0.9233436908376914,
+        "rounds_faster": 0
+      },
+      {
+        "name": "B_max_matched_ratio",
+        "policy": {
+          "target": "B",
+          "window_bytes": 33554432,
+          "hit_ratio": 0.78125,
+          "reservation": 26214400,
+          "actual_reservation": 26214400,
+          "verified_kernel_nodes": 20
+        },
+        "milliseconds": 3.9389694213867186,
+        "latency_reduction_pct": -42.344620406308685,
+        "paired_speedup_median": 0.7022556394616863,
+        "rounds_faster": 0
+      }
+    ]
+  },
+  {
+    "source": "l2-refine-results.json",
+    "source_sha256": "17ec84bf017579aa2f9ef5416c7150d7f2082c5f4b484842cd52573b192092df",
+    "dtype": "bf16",
+    "shape_mnk": [
+      16384,
+      4096,
+      4096
+    ],
+    "device": {
+      "name": "NVIDIA A100-SXM4-40GB",
+      "cc": "8.0",
+      "driver": 13030,
+      "sm_count": 108,
+      "clock_khz": 1410000,
+      "mem_bytes": 42429251584
+    },
+    "capabilities": {
+      "max_set_aside": 26214400,
+      "max_window": 134213632,
+      "l2_bytes": 41943040
+    },
+    "initial_limit": 7864320,
+    "cubin_sha256": "7d6b079b919e4ef190ef4df529dd6b5788da8ffc99a884ad3809b2e40a07d736",
+    "checks": 32,
+    "baseline_ms": 2.7336191177368163,
+    "candidates": [
+      {
+        "name": "no_reserve",
+        "policy": {
+          "target": "B",
+          "window_bytes": 0,
+          "hit_ratio": 0.0,
+          "reservation": 0,
+          "actual_reservation": 0,
+          "verified_kernel_nodes": 20
+        },
+        "milliseconds": 2.7336191177368163,
+        "latency_reduction_pct": 0.0,
+        "paired_speedup_median": 1.0,
+        "rounds_faster": 0
+      },
+      {
+        "name": "B_8MiB_ratio_quarter",
+        "policy": {
+          "target": "B",
+          "window_bytes": 33554432,
+          "hit_ratio": 0.25,
+          "reservation": 8388608,
+          "actual_reservation": 10485760,
+          "verified_kernel_nodes": 20
+        },
+        "milliseconds": 2.731417655944824,
+        "latency_reduction_pct": 0.08053286493747702,
+        "paired_speedup_median": 1.0028927208454057,
+        "rounds_faster": 4
+      },
+      {
+        "name": "B_16MiB_ratio_half",
+        "policy": {
+          "target": "B",
+          "window_bytes": 33554432,
+          "hit_ratio": 0.5,
+          "reservation": 16777216,
+          "actual_reservation": 18350080,
+          "verified_kernel_nodes": 20
+        },
+        "milliseconds": 2.9507072448730467,
+        "latency_reduction_pct": -7.941418236640052,
+        "paired_speedup_median": 0.9200700100123066,
+        "rounds_faster": 0
+      },
+      {
+        "name": "B_max_matched_ratio",
+        "policy": {
+          "target": "B",
+          "window_bytes": 33554432,
+          "hit_ratio": 0.78125,
+          "reservation": 26214400,
+          "actual_reservation": 26214400,
+          "verified_kernel_nodes": 20
+        },
+        "milliseconds": 3.924991989135742,
+        "latency_reduction_pct": -43.58225561376934,
+        "paired_speedup_median": 0.6970468285667067,
+        "rounds_faster": 0
+      }
+    ]
+  }
+]

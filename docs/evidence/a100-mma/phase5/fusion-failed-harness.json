@@ -1,0 +1,22 @@
+[
+  {
+    "passed": false,
+    "name": "fusion_smoke_f16",
+    "error": "full-output validation failed: {'method': 'bias_residual_relu_ours_separate', 'pattern': 'integer', 'seed': 17, 'passed': False, 'full_elements': 98304, 'canaries': True, 'finite': True, 'relative_l2_vs_vendor_reference': 0.706986129283905, 'cpu_float64_dot_fp32_epilogue_sample_shape': [256, 384], 'sample_relative_l2': 0.7070000767707825, 'exact_integer_or_zero': False, 'ours_fused_bitwise_matches_ours_separate': None}",
+    "traceback": "Traceback (most recent call last):\n  File \"/root/fusion_worker.py\", line 165, in safe_run\n    try:return run(case)\n               ^^^^^^^^^\n  File \"/root/fusion_worker.py\", line 124, in run\n    if not passed:raise AssertionError(f\"full-output validation failed: {record}\")\n                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: full-output validation failed: {'method': 'bias_residual_relu_ours_separate', 'pattern': 'integer', 'seed': 17, 'passed': False, 'full_elements': 98304, 'canaries': True, 'finite': True, 'relative_l2_vs_vendor_reference': 0.706986129283905, 'cpu_float64_dot_fp32_epilogue_sample_shape': [256, 384], 'sample_relative_l2': 0.7070000767707825, 'exact_integer_or_zero': False, 'ours_fused_bitwise_matches_ours_separate': None}\n",
+    "worker_rc": 1,
+    "worker_stdout": "",
+    "worker_stderr": "",
+    "recorded_utc": "20261104T073320.690645Z"
+  },
+  {
+    "passed": false,
+    "name": "fusion_smoke_bf16",
+    "error": "full-output validation failed: {'method': 'bias_residual_relu_ours_separate', 'pattern': 'integer', 'seed': 17, 'passed': False, 'full_elements': 98304, 'canaries': True, 'finite': True, 'relative_l2_vs_vendor_reference': 0.706986129283905, 'cpu_float64_dot_fp32_epilogue_sample_shape': [256, 384], 'sample_relative_l2': 0.7070000767707825, 'exact_integer_or_zero': False, 'ours_fused_bitwise_matches_ours_separate': None}",
+    "traceback": "Traceback (most recent call last):\n  File \"/root/fusion_worker.py\", line 165, in safe_run\n    try:return run(case)\n               ^^^^^^^^^\n  File \"/root/fusion_worker.py\", line 124, in run\n    if not passed:raise AssertionError(f\"full-output validation failed: {record}\")\n                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: full-output validation failed: {'method': 'bias_residual_relu_ours_separate', 'pattern': 'integer', 'seed': 17, 'passed': False, 'full_elements': 98304, 'canaries': True, 'finite': True, 'relative_l2_vs_vendor_reference': 0.706986129283905, 'cpu_float64_dot_fp32_epilogue_sample_shape': [256, 384], 'sample_relative_l2': 0.7070000767707825, 'exact_integer_or_zero': False, 'ours_fused_bitwise_matches_ours_separate': None}\n",
+    "worker_rc": 1,
+    "worker_stdout": "",
+    "worker_stderr": "",
+    "recorded_utc": "20261104T073320.690645Z"
+  }
+]

@@ -1,0 +1,673 @@
+{
+  "discovery": [
+    {
+      "artifact": "fusion_optimized_results_mlp_both_20261104T075605.771106Z.json",
+      "artifact_sha256": "8c27db7a9728de9ffd7079cd2fab0f7eddbcb78cf2e4b36d55a525626d144113",
+      "name": "fusion_optimized_mlp_f16",
+      "device": {
+        "name": "NVIDIA A100-SXM4-80GB",
+        "cc": "8.0",
+        "driver": 13030,
+        "sm_count": 108,
+        "clock_khz": 1410000,
+        "mem_bytes": 85118156800
+      },
+      "dtype": "f16",
+      "shape": [
+        2048,
+        8192,
+        2048
+      ],
+      "full_output_checks": 128,
+      "elements_per_check": 16777216,
+      "exact_integer_zero_checks": 64,
+      "native_forward_raw_bit_checks": 32,
+      "activation_backward_exact_checks": 64,
+      "gradient_equality_scope": "all FP32 values match saved-output derivative; raw signed-zero bits were not separately checked",
+      "max_full_relative_l2": 0.0,
+      "max_sample_relative_l2": 3.4232136840728344e-06,
+      "rounds": 7,
+      "graph_nodes": 20,
+      "confirmation_configuration": null,
+      "verified_local_cubin_hashes": {
+        "mlp_f16_gemm_ours": "7f8e5acc151061660151af032ca1391feb37ef2256e67df25416ec515ee0a50d",
+        "mlp_f16_gemm_ptxas": "570525ead140a3439fea1d901447fe5b09bae1b2ca03752205a840dd8a1336a3",
+        "mlp_drelu_ours": "e01e8f0d7ee72fded26b1cd9c55f88512e3f8a3108b01b690092d81c5147cf25",
+        "mlp_drelu_ptxas": "561ac46fec36d78e1e8c2c49b27810603a8d14d236cc3ffa1b8449f1f5737210",
+        "mlp_f16_bias_residual_ours": "47003bf600fccfa605593ebbdd7adb67bb80766a7cde5941e4d941a858e4bae2",
+        "mlp_f16_bias_residual_ptxas": "473a1f654d834f4328879310cf15bee95b3ddf563ca9cbfd346c1576337c7c86",
+        "mlp_f16_bias_residual_relu_ours": "2329d5e06c9d3917d97700af1248bf5b08b9ef6f3230773d4cb967225b259389",
+        "mlp_f16_bias_residual_relu_ptxas": "7101cac683daf1a27ee3cbe93a4762ffe3add2d940bd577997d2f4dc24a7e4b0",
+        "mlp_post_bias_residual_ours": "6c930f6ce3fbf7b5d5b57807684195d38206528dff95b118c52b4810ea1e7463",
+        "mlp_post_bias_residual_ptxas": "78102090f49f1ae3060b5365d6a700294668d742e87287e27daa9e1317ee2c1b",
+        "mlp_post_bias_residual_relu_ours": "a618031529215ceeb396643e35539671924888ef316f3b163a8a5d25f522e331",
+        "mlp_post_bias_residual_relu_ptxas": "34c76b7252018c4ca21e4ad31211791dda79b7fb6b82f280abd209773fd22691",
+        "optimized_mlp_f16_bias_residual_ours": "34b36ab2c4dc29fa945061af1c879c355c410ff4679bc073a6e54792ebbefaf3",
+        "optimized_mlp_f16_bias_residual_ptxas": "e690e56440a5abf2106efe464b3a093810a9a9ff144f8d400121a5393d03bf16",
+        "optimized_mlp_f16_bias_residual_relu_ours": "d0a5189fe0240af498e626c4f775c3976889f04ccc5a0a5009441276b759834e",
+        "optimized_mlp_f16_bias_residual_relu_ptxas": "886b417a367a1912735c96950eb1bff839062d2d20579dee509cd8e7ac667bac"
+      },
+      "comparisons": [
+        {
+          "mode": "bias_residual",
+          "ours_separate_ms": 0.4452864170074463,
+          "ours_original_fused_ms": 0.5076992034912109,
+          "ours_optimized_ms": 0.4484096050262451,
+          "optimized_time_reduction_vs_separate_percent": -0.7013885668887498,
+          "optimized_time_reduction_vs_original_percent": 11.678095623798267,
+          "within_round_separate_over_optimized_median": 0.9942889876295262,
+          "within_round_separate_over_optimized_min": 0.9601070346404471,
+          "within_round_separate_over_optimized_max": 1.01381596500405,
+          "cublas_separate_ms": 0.41190400123596194,
+          "cublaslt_fused_ms": 0.3300863981246948,
+          "ptxas_optimized_ms": 0.3442176103591919
+        },
+        {
+          "mode": "bias_residual_relu",
+          "ours_separate_ms": 0.44646401405334474,
+          "ours_original_fused_ms": 0.514406394958496,
+          "ours_optimized_ms": 0.45199360847473147,
+          "optimized_time_reduction_vs_separate_percent": -1.2385308215963065,
+          "optimized_time_reduction_vs_original_percent": 12.132972508788553,
+          "within_round_separate_over_optimized_median": 0.9907639775904892,
+          "within_round_separate_over_optimized_min": 0.97485408094519,
+          "within_round_separate_over_optimized_max": 0.9984255913877587,
+          "cublas_separate_ms": 0.41436161994934084,
+          "cublaslt_fused_ms": 0.3314176082611084,
+          "ptxas_optimized_ms": 0.34283521175384524
+        }
+      ]
+    },
+    {
+      "artifact": "fusion_optimized_results_mlp_both_20261104T075605.771106Z.json",
+      "artifact_sha256": "8c27db7a9728de9ffd7079cd2fab0f7eddbcb78cf2e4b36d55a525626d144113",
+      "name": "fusion_optimized_mlp_bf16",
+      "device": {
+        "name": "NVIDIA A100-SXM4-80GB",
+        "cc": "8.0",
+        "driver": 13030,
+        "sm_count": 108,
+        "clock_khz": 1410000,
+        "mem_bytes": 85118156800
+      },
+      "dtype": "bf16",
+      "shape": [
+        2048,
+        8192,
+        2048
+      ],
+      "full_output_checks": 128,
+      "elements_per_check": 16777216,
+      "exact_integer_zero_checks": 64,
+      "native_forward_raw_bit_checks": 32,
+      "activation_backward_exact_checks": 64,
+      "gradient_equality_scope": "all FP32 values match saved-output derivative; raw signed-zero bits were not separately checked",
+      "max_full_relative_l2": 0.0,
+      "max_sample_relative_l2": 2.4535027023375733e-06,
+      "rounds": 7,
+      "graph_nodes": 20,
+      "confirmation_configuration": null,
+      "verified_local_cubin_hashes": {
+        "mlp_bf16_gemm_ours": "f223b3a555da90b437a597fede9d1f965a98eb489c33f07cd277b4c251205779",
+        "mlp_bf16_gemm_ptxas": "954b74456ee4103eafee3237960cc17820a209e7d984670ac4197e6fb81a867c",
+        "mlp_drelu_ours": "e01e8f0d7ee72fded26b1cd9c55f88512e3f8a3108b01b690092d81c5147cf25",
+        "mlp_drelu_ptxas": "561ac46fec36d78e1e8c2c49b27810603a8d14d236cc3ffa1b8449f1f5737210",
+        "mlp_bf16_bias_residual_ours": "7cd4328b50302b1ad45b5733e2b3584b83efe4de97fac42e8ff38521c57ae6f1",
+        "mlp_bf16_bias_residual_ptxas": "5bf7c17e9f59dd685f5d8d44d9b12a382e4589a3fd3403c781d0582c95d53146",
+        "mlp_bf16_bias_residual_relu_ours": "8b9b397045a8b2fc481e13c2dd4c07935dbdc167fff2a30f1426103a448d678a",
+        "mlp_bf16_bias_residual_relu_ptxas": "3c4f44fcb797d20ed5eb65182797b106ff080bc9be590b7d8f08cadb6467e433",
+        "mlp_post_bias_residual_ours": "6c930f6ce3fbf7b5d5b57807684195d38206528dff95b118c52b4810ea1e7463",
+        "mlp_post_bias_residual_ptxas": "78102090f49f1ae3060b5365d6a700294668d742e87287e27daa9e1317ee2c1b",
+        "mlp_post_bias_residual_relu_ours": "a618031529215ceeb396643e35539671924888ef316f3b163a8a5d25f522e331",
+        "mlp_post_bias_residual_relu_ptxas": "34c76b7252018c4ca21e4ad31211791dda79b7fb6b82f280abd209773fd22691",
+        "optimized_mlp_bf16_bias_residual_ours": "93ece27d1ffd9d74bbbbd8a95f1c4418fe17d92d15b0333f9a0d5dc9edb31625",
+        "optimized_mlp_bf16_bias_residual_ptxas": "1de96f574f57f83997f0870c2f721d170bf50974dc117d7b608a3015a12a633f",
+        "optimized_mlp_bf16_bias_residual_relu_ours": "15b2ab2ad165b59e03f0c3f7ec5e0c847818e0f454cbbb6f1290be472c802c7e",
+        "optimized_mlp_bf16_bias_residual_relu_ptxas": "2fa15b8fae821ff99dc62e09797ee521d92b4a165bb73e79f81487f444192b91"
+      },
+      "comparisons": [
+        {
+          "mode": "bias_residual",
+          "ours_separate_ms": 0.44067840576171874,
+          "ours_original_fused_ms": 0.502732801437378,
+          "ours_optimized_ms": 0.4419583797454834,
+          "optimized_time_reduction_vs_separate_percent": -0.2904553449929681,
+          "optimized_time_reduction_vs_original_percent": 12.088811694429458,
+          "within_round_separate_over_optimized_median": 0.9973490153915119,
+          "within_round_separate_over_optimized_min": 0.967811367645581,
+          "within_round_separate_over_optimized_max": 1.0153577746905857,
+          "cublas_separate_ms": 0.4073984146118164,
+          "cublaslt_fused_ms": 0.3289088010787964,
+          "ptxas_optimized_ms": 0.3401727914810181
+        },
+        {
+          "mode": "bias_residual_relu",
+          "ours_separate_ms": 0.4427775859832764,
+          "ours_original_fused_ms": 0.5040128231048584,
+          "ours_optimized_ms": 0.4463615894317627,
+          "optimized_time_reduction_vs_separate_percent": -0.8094365121322333,
+          "optimized_time_reduction_vs_original_percent": 11.4384458153164,
+          "within_round_separate_over_optimized_median": 0.9990840324028603,
+          "within_round_separate_over_optimized_min": 0.9698727308938313,
+          "within_round_separate_over_optimized_max": 1.0058152961341555,
+          "cublas_separate_ms": 0.40770559310913085,
+          "cublaslt_fused_ms": 0.32880640029907227,
+          "ptxas_optimized_ms": 0.3394560098648071
+        }
+      ]
+    },
+    {
+      "artifact": "fusion_optimized_results_smoke_both_20261104T075357.506408Z.json",
+      "artifact_sha256": "c3183ffdda4bbb72845a8cb3849263ad5614d4204236cf73ac83c212dd93b7ac",
+      "name": "fusion_optimized_smoke_f16",
+      "device": {
+        "name": "NVIDIA A100-SXM4-40GB",
+        "cc": "8.0",
+        "driver": 13030,
+        "sm_count": 108,
+        "clock_khz": 1410000,
+        "mem_bytes": 42429251584
+      },
+      "dtype": "f16",
+      "shape": [
+        256,
+        384,
+        256
+      ],
+      "full_output_checks": 128,
+      "elements_per_check": 98304,
+      "exact_integer_zero_checks": 64,
+      "native_forward_raw_bit_checks": 32,
+      "activation_backward_exact_checks": 64,
+      "gradient_equality_scope": "all FP32 values match saved-output derivative; raw signed-zero bits were not separately checked",
+      "max_full_relative_l2": 2.299624668467004e-08,
+      "max_sample_relative_l2": 4.858430884269183e-07,
+      "rounds": 7,
+      "graph_nodes": 20,
+      "confirmation_configuration": null,
+      "verified_local_cubin_hashes": {
+        "smoke_f16_gemm_ours": "47846590379cd9b92d51367e997d9d16f8ebc4496a24b4add2eff27cc6761422",
+        "smoke_f16_gemm_ptxas": "12702555da3549e78eaf559112f6becfe511ead1fe7622a41147d74f905875ba",
+        "smoke_drelu_ours": "e01e8f0d7ee72fded26b1cd9c55f88512e3f8a3108b01b690092d81c5147cf25",
+        "smoke_drelu_ptxas": "561ac46fec36d78e1e8c2c49b27810603a8d14d236cc3ffa1b8449f1f5737210",
+        "smoke_f16_bias_residual_ours": "d3f2fd6e5aa968e500c3c21ec9d5bd27604534468215f0a2a9404636f5788193",
+        "smoke_f16_bias_residual_ptxas": "554dbb274c1c90fc8e07a87d9403d74819b4ae3a89a1361484c129b4a899df2f",
+        "smoke_f16_bias_residual_relu_ours": "77b9eacfab6714ab822d92eb15f05930e3152e6c909646f94e1c3e6d4ef970dc",
+        "smoke_f16_bias_residual_relu_ptxas": "267c971c9d4a377ec92ec1d93f56cf089c2cc976fb5f6834199f3c645bc0e3ba",
+        "smoke_post_bias_residual_ours": "f8ba1caa7826e379ec51d2ee283a7537bc0a5aa7a3aff34863068dd1d3933b02",
+        "smoke_post_bias_residual_ptxas": "8145a9964c2e43f1512f39aa07360574db4bfd1e255bc03679d5d5b791faec3f",
+        "smoke_post_bias_residual_relu_ours": "f71ccc97a7278eb3d4f7ad84fcfc5840914f0059d27743c9bca45035f031499d",
+        "smoke_post_bias_residual_relu_ptxas": "f43b75e9407673df099b805c49219cb8818d690cf9c29d62e09445b2aa586448",
+        "optimized_smoke_f16_bias_residual_ours": "6fc7fc0e40693a0599d4e5e53eb01f7e1a14ad8d1b272f0f9b539a820c803593",
+        "optimized_smoke_f16_bias_residual_ptxas": "daf94708e3daa46f0c62c8aa302e0420b0e6ec7487dcb9fc58ecd6b6127cb7be",
+        "optimized_smoke_f16_bias_residual_relu_ours": "6f14e04a1d247b09e846251270c81b27657c87bfd246c1025ec1a78885e0cd91",
+        "optimized_smoke_f16_bias_residual_relu_ptxas": "c2c4719a4be01d9b634392ade3192c0477c5635d4227923bf3d80565b938d0a3"
+      },
+      "comparisons": [
+        {
+          "mode": "bias_residual",
+          "ours_separate_ms": 0.01653759926557541,
+          "ours_original_fused_ms": 0.028313601016998292,
+          "ours_optimized_ms": 0.019763199985027312,
+          "optimized_time_reduction_vs_separate_percent": -19.504649179438637,
+          "optimized_time_reduction_vs_original_percent": 30.198917569113448,
+          "within_round_separate_over_optimized_median": 0.8367875282395749,
+          "within_round_separate_over_optimized_min": 0.8363636720991552,
+          "within_round_separate_over_optimized_max": 0.8397932680510113,
+          "cublas_separate_ms": 0.008959999680519104,
+          "cublaslt_fused_ms": 0.009830400347709656,
+          "ptxas_optimized_ms": 0.013516800105571746
+        },
+        {
+          "mode": "bias_residual_relu",
+          "ours_separate_ms": 0.01653759926557541,
+          "ours_original_fused_ms": 0.02887679934501648,
+          "ours_optimized_ms": 0.020019200444221497,
+          "optimized_time_reduction_vs_separate_percent": -21.05263964095063,
+          "optimized_time_reduction_vs_original_percent": 30.673755754456955,
+          "within_round_separate_over_optimized_median": 0.8239795821773779,
+          "within_round_separate_over_optimized_min": 0.8193384514110804,
+          "within_round_separate_over_optimized_max": 0.8260869015050476,
+          "cublas_separate_ms": 0.009011200070381165,
+          "cublaslt_fused_ms": 0.009881599992513656,
+          "ptxas_optimized_ms": 0.013619199395179749
+        }
+      ]
+    },
+    {
+      "artifact": "fusion_optimized_results_smoke_both_20261104T075357.506408Z.json",
+      "artifact_sha256": "c3183ffdda4bbb72845a8cb3849263ad5614d4204236cf73ac83c212dd93b7ac",
+      "name": "fusion_optimized_smoke_bf16",
+      "device": {
+        "name": "NVIDIA A100-SXM4-40GB",
+        "cc": "8.0",
+        "driver": 13030,
+        "sm_count": 108,
+        "clock_khz": 1410000,
+        "mem_bytes": 42429251584
+      },
+      "dtype": "bf16",
+      "shape": [
+        256,
+        384,
+        256
+      ],
+      "full_output_checks": 128,
+      "elements_per_check": 98304,
+      "exact_integer_zero_checks": 64,
+      "native_forward_raw_bit_checks": 32,
+      "activation_backward_exact_checks": 64,
+      "gradient_equality_scope": "all FP32 values match saved-output derivative; raw signed-zero bits were not separately checked",
+      "max_full_relative_l2": 1.5749844806123292e-07,
+      "max_sample_relative_l2": 2.4569212087044434e-07,
+      "rounds": 7,
+      "graph_nodes": 20,
+      "confirmation_configuration": null,
+      "verified_local_cubin_hashes": {
+        "smoke_bf16_gemm_ours": "1766d7360e61211cd4458095931add61e97e14965d63aec7ec13e5c537c6abab",
+        "smoke_bf16_gemm_ptxas": "804f7b593ed43cc942482e5bd0c82fd67ee0114df6c431f7f91efb217036cd50",
+        "smoke_drelu_ours": "e01e8f0d7ee72fded26b1cd9c55f88512e3f8a3108b01b690092d81c5147cf25",
+        "smoke_drelu_ptxas": "561ac46fec36d78e1e8c2c49b27810603a8d14d236cc3ffa1b8449f1f5737210",
+        "smoke_bf16_bias_residual_ours": "27c346ed785ed0259f1a1fd1d9e1e54058ca3a540b07cc4c327b6ba7015158ec",
+        "smoke_bf16_bias_residual_ptxas": "9d41b5c0151ce1e7ac1a95524140db40156f4c9d8a91aecb00696af4a9a9a6ec",
+        "smoke_bf16_bias_residual_relu_ours": "6a07765a50d6b4541a702d41a456a4f21c1cdbc7160aa4bd6960aecdbb8928f5",
+        "smoke_bf16_bias_residual_relu_ptxas": "d2bd419e59675d17d8596e71c7cce87bf52357ba10686b035b9062137be25d17",
+        "smoke_post_bias_residual_ours": "f8ba1caa7826e379ec51d2ee283a7537bc0a5aa7a3aff34863068dd1d3933b02",
+        "smoke_post_bias_residual_ptxas": "8145a9964c2e43f1512f39aa07360574db4bfd1e255bc03679d5d5b791faec3f",
+        "smoke_post_bias_residual_relu_ours": "f71ccc97a7278eb3d4f7ad84fcfc5840914f0059d27743c9bca45035f031499d",
+        "smoke_post_bias_residual_relu_ptxas": "f43b75e9407673df099b805c49219cb8818d690cf9c29d62e09445b2aa586448",
+        "optimized_smoke_bf16_bias_residual_ours": "11f81312f8074ecb722e99f0a1077007302c677c8e9db363cf946f4fbd3dbee5",
+        "optimized_smoke_bf16_bias_residual_ptxas": "81dc2310c7ee1e53ce9bc734665ff529ef3aa735c0988cff90c8343e6254ac52",
+        "optimized_smoke_bf16_bias_residual_relu_ours": "d6b61379b11241ea6a66fb07209b4efb147a384dc13e83c3ee04b91fe20f7742",
+        "optimized_smoke_bf16_bias_residual_relu_ptxas": "6228bc418fa248683fea1926b1e753863d907ac1fbaeaecdd6731433a152db8f"
+      },
+      "comparisons": [
+        {
+          "mode": "bias_residual",
+          "ours_separate_ms": 0.01377280056476593,
+          "ours_original_fused_ms": 0.023552000522613525,
+          "ours_optimized_ms": 0.01653759926557541,
+          "optimized_time_reduction_vs_separate_percent": -20.074339186196344,
+          "optimized_time_reduction_vs_original_percent": 29.782613372070955,
+          "within_round_separate_over_optimized_median": 0.8367875282395749,
+          "within_round_separate_over_optimized_min": 0.8303341673438857,
+          "within_round_separate_over_optimized_max": 0.8415584413620926,
+          "cublas_separate_ms": 0.007782399654388428,
+          "cublaslt_fused_ms": 0.006297600269317627,
+          "ptxas_optimized_ms": 0.011212799698114395
+        },
+        {
+          "mode": "bias_residual_relu",
+          "ours_separate_ms": 0.01372160017490387,
+          "ours_original_fused_ms": 0.02401279956102371,
+          "ours_optimized_ms": 0.01664000004529953,
+          "optimized_time_reduction_vs_separate_percent": -21.26865550078678,
+          "optimized_time_reduction_vs_original_percent": 30.703623278025916,
+          "within_round_separate_over_optimized_median": 0.8271605215514318,
+          "within_round_separate_over_optimized_min": 0.8239795821773779,
+          "within_round_separate_over_optimized_max": 0.9907692500569765,
+          "cublas_separate_ms": 0.007782399654388428,
+          "cublaslt_fused_ms": 0.006297600269317627,
+          "ptxas_optimized_ms": 0.011468800157308579
+        }
+      ]
+    },
+    {
+      "artifact": "fusion_optimized_results_square_both_20261104T075602.010415Z.json",
+      "artifact_sha256": "bc19c9fa48a33b6bedb7b9b892f330bfc0435cdf6efa33f870edbac2af4b9cb3",
+      "name": "fusion_optimized_square_f16",
+      "device": {
+        "name": "NVIDIA A100-SXM4-40GB",
+        "cc": "8.0",
+        "driver": 13030,
+        "sm_count": 108,
+        "clock_khz": 1410000,
+        "mem_bytes": 42429251584
+      },
+      "dtype": "f16",
+      "shape": [
+        4096,
+        4096,
+        4096
+      ],
+      "full_output_checks": 128,
+      "elements_per_check": 16777216,
+      "exact_integer_zero_checks": 64,
+      "native_forward_raw_bit_checks": 32,
+      "activation_backward_exact_checks": 64,
+      "gradient_equality_scope": "all FP32 values match saved-output derivative; raw signed-zero bits were not separately checked",
+      "max_full_relative_l2": 3.9801989260013215e-06,
+      "max_sample_relative_l2": 6.693091563647613e-06,
+      "rounds": 7,
+      "graph_nodes": 20,
+      "confirmation_configuration": null,
+      "verified_local_cubin_hashes": {
+        "square_f16_gemm_ours": "b08cdb5a6d3678f2eb5b453b23816ae7593655e35ee903c3a87fbd1d67e4d763",
+        "square_f16_gemm_ptxas": "318311614de65b2bf13118306e996a716ceb02fec35f29ac768bb0e735a9a15d",
+        "square_drelu_ours": "e01e8f0d7ee72fded26b1cd9c55f88512e3f8a3108b01b690092d81c5147cf25",
+        "square_drelu_ptxas": "561ac46fec36d78e1e8c2c49b27810603a8d14d236cc3ffa1b8449f1f5737210",
+        "square_f16_bias_residual_ours": "3d2c8b0fcfc37094720ec3b842dfc90b16e27a494c439786f599920d1ba43801",
+        "square_f16_bias_residual_ptxas": "dce2129f24e3596877d36b367e3cb5f957eca3af315585a46adfffdd13f946e1",
+        "square_f16_bias_residual_relu_ours": "10c0db9f41f9c79dca3a5c2c4fd4bc22d1eb1c3aab90d0e68515b291dfa34d00",
+        "square_f16_bias_residual_relu_ptxas": "a321ed56588ef7b7e21fe33df7d70b4628346122a136dd6973ad354461f57a15",
+        "square_post_bias_residual_ours": "8568efc0ca8f393cbc444a7e8efd17a52d6dea8047e2e8a78790e16b22d8d299",
+        "square_post_bias_residual_ptxas": "c790c5bce105c0a880e24aa647663b091e03e87935eba9005103f4c6043548ba",
+        "square_post_bias_residual_relu_ours": "71b3599ceb066f62b21f11df21aafc0c36b89cfd77fc6cc85875cdc17fbc86ff",
+        "square_post_bias_residual_relu_ptxas": "f2b48d359980448b721eef896c0d29eca24b760d707d6ff01f42b3811f932c1f",
+        "optimized_square_f16_bias_residual_ours": "acdd9257ca10605dfdb8aa31869e40a4e056b03d79cb86a3dadfc703955befac",
+        "optimized_square_f16_bias_residual_ptxas": "b3647905558fef6ffd0bf785881532f3ccd4a2306ed0a1ddd51e7001994fb4ef",
+        "optimized_square_f16_bias_residual_relu_ours": "40d7e7f18899011dd4052b77621050abc23eabfea6e257bc3b5408309bd5457d",
+        "optimized_square_f16_bias_residual_relu_ptxas": "70a756fe10696bb54d5f79b98017e13cba554a04a83b554062aa4e02a87c0af6"
+      },
+      "comparisons": [
+        {
+          "mode": "bias_residual",
+          "ours_separate_ms": 0.7749120235443115,
+          "ours_original_fused_ms": 0.7774720191955566,
+          "ours_optimized_ms": 0.7327231884002685,
+          "optimized_time_reduction_vs_separate_percent": 5.444338694227346,
+          "optimized_time_reduction_vs_original_percent": 5.75568376616169,
+          "within_round_separate_over_optimized_median": 1.055570955857307,
+          "within_round_separate_over_optimized_min": 1.0531090437730697,
+          "within_round_separate_over_optimized_max": 1.0633079399171657,
+          "cublas_separate_ms": 0.7349760055541992,
+          "cublaslt_fused_ms": 0.8531455993652344,
+          "ptxas_optimized_ms": 0.6466047763824463
+        },
+        {
+          "mode": "bias_residual_relu",
+          "ours_separate_ms": 0.7742976188659668,
+          "ours_original_fused_ms": 0.7791615962982178,
+          "ours_optimized_ms": 0.733081579208374,
+          "optimized_time_reduction_vs_separate_percent": 5.323022911778763,
+          "optimized_time_reduction_vs_original_percent": 5.91405137378036,
+          "within_round_separate_over_optimized_median": 1.055485777863318,
+          "within_round_separate_over_optimized_min": 1.0442679219453939,
+          "within_round_separate_over_optimized_max": 1.0687999174789125,
+          "cublas_separate_ms": 0.7343616008758544,
+          "cublaslt_fused_ms": 0.8574975967407227,
+          "ptxas_optimized_ms": 0.6411263942718506
+        }
+      ]
+    },
+    {
+      "artifact": "fusion_optimized_results_square_both_20261104T075602.010415Z.json",
+      "artifact_sha256": "bc19c9fa48a33b6bedb7b9b892f330bfc0435cdf6efa33f870edbac2af4b9cb3",
+      "name": "fusion_optimized_square_bf16",
+      "device": {
+        "name": "NVIDIA A100-SXM4-40GB",
+        "cc": "8.0",
+        "driver": 13030,
+        "sm_count": 108,
+        "clock_khz": 1410000,
+        "mem_bytes": 42429251584
+      },
+      "dtype": "bf16",
+      "shape": [
+        4096,
+        4096,
+        4096
+      ],
+      "full_output_checks": 128,
+      "elements_per_check": 16777216,
+      "exact_integer_zero_checks": 64,
+      "native_forward_raw_bit_checks": 32,
+      "activation_backward_exact_checks": 64,
+      "gradient_equality_scope": "all FP32 values match saved-output derivative; raw signed-zero bits were not separately checked",
+      "max_full_relative_l2": 0.0,
+      "max_sample_relative_l2": 5.3724356803286355e-06,
+      "rounds": 7,
+      "graph_nodes": 20,
+      "confirmation_configuration": null,
+      "verified_local_cubin_hashes": {
+        "square_bf16_gemm_ours": "7d6b079b919e4ef190ef4df529dd6b5788da8ffc99a884ad3809b2e40a07d736",
+        "square_bf16_gemm_ptxas": "0184568d4124991ba68ce49d07aa9fe7d14ae6554e37bd359225a4efd3fec4c1",
+        "square_drelu_ours": "e01e8f0d7ee72fded26b1cd9c55f88512e3f8a3108b01b690092d81c5147cf25",
+        "square_drelu_ptxas": "561ac46fec36d78e1e8c2c49b27810603a8d14d236cc3ffa1b8449f1f5737210",
+        "square_bf16_bias_residual_ours": "78d381afd87173204495121ffcb05e0c0058a01606e01b70b33a7a9c8e4172f2",
+        "square_bf16_bias_residual_ptxas": "a1b6c3cb84b230c7e3eeb38e8ac523370c8d1c5b5b2190806c7d34c72a14f882",
+        "square_bf16_bias_residual_relu_ours": "69905a0795e3712d8647e3f2d88a85ddb941388edc2a1759d0c950151bb37b52",
+        "square_bf16_bias_residual_relu_ptxas": "7943218ba3dc9663ce46685b5c96b21a0d3995a8818cd23c00abf4147f362ecc",
+        "square_post_bias_residual_ours": "8568efc0ca8f393cbc444a7e8efd17a52d6dea8047e2e8a78790e16b22d8d299",
+        "square_post_bias_residual_ptxas": "c790c5bce105c0a880e24aa647663b091e03e87935eba9005103f4c6043548ba",
+        "square_post_bias_residual_relu_ours": "71b3599ceb066f62b21f11df21aafc0c36b89cfd77fc6cc85875cdc17fbc86ff",
+        "square_post_bias_residual_relu_ptxas": "f2b48d359980448b721eef896c0d29eca24b760d707d6ff01f42b3811f932c1f",
+        "optimized_square_bf16_bias_residual_ours": "795345988064169779f777c7f8b0890491ec1e0fc7c3a8913bcc3aedf48ee75d",
+        "optimized_square_bf16_bias_residual_ptxas": "a161d0d570d28169b1089de5d1d95fabf972a04a689fb18acae47ef1ab881799",
+        "optimized_square_bf16_bias_residual_relu_ours": "381ad428db5a20b3748ef8b9accbd766afc520b32a7ca193965e73f5917875d6",
+        "optimized_square_bf16_bias_residual_relu_ptxas": "6c1c64dfa0e3070f4f7efffefcabda7c62a9fcd5c107f7ca3d40bf0b2fb99000"
+      },
+      "comparisons": [
+        {
+          "mode": "bias_residual",
+          "ours_separate_ms": 0.762828779220581,
+          "ours_original_fused_ms": 0.7639039993286133,
+          "ours_optimized_ms": 0.7261695861816406,
+          "optimized_time_reduction_vs_separate_percent": 4.8056908755326315,
+          "optimized_time_reduction_vs_original_percent": 4.939680009547931,
+          "within_round_separate_over_optimized_median": 1.0481683370767891,
+          "within_round_separate_over_optimized_min": 1.0414510794286107,
+          "within_round_separate_over_optimized_max": 1.059928783322207,
+          "cublas_separate_ms": 0.6922751903533936,
+          "cublaslt_fused_ms": 0.5736447811126709,
+          "ptxas_optimized_ms": 0.6320640087127686
+        },
+        {
+          "mode": "bias_residual_relu",
+          "ours_separate_ms": 0.765388822555542,
+          "ours_original_fused_ms": 0.7661056041717529,
+          "ours_optimized_ms": 0.7267839908599854,
+          "optimized_time_reduction_vs_separate_percent": 5.043819632309199,
+          "optimized_time_reduction_vs_original_percent": 5.132662272361088,
+          "within_round_separate_over_optimized_median": 1.0520459056307006,
+          "within_round_separate_over_optimized_min": 1.0435453552335092,
+          "within_round_separate_over_optimized_max": 1.0714336118408572,
+          "cublas_separate_ms": 0.6938623905181884,
+          "cublaslt_fused_ms": 0.5757952213287354,
+          "ptxas_optimized_ms": 0.6288896083831788
+        }
+      ]
+    }
+  ],
+  "confirmation": [
+    {
+      "artifact": "fusion_optimized_confirmation_square_both_20261104T080318.899899Z.json",
+      "artifact_sha256": "84c7726d787dc74874e616dc6bbd7928f677603ff95f1263a7ee47a081856960",
+      "name": "fusion_optimized_confirm_square_f16",
+      "device": {
+        "name": "NVIDIA A100-SXM4-40GB",
+        "cc": "8.0",
+        "driver": 13030,
+        "sm_count": 108,
+        "clock_khz": 1410000,
+        "mem_bytes": 42429251584
+      },
+      "dtype": "f16",
+      "shape": [
+        4096,
+        4096,
+        4096
+      ],
+      "full_output_checks": 128,
+      "elements_per_check": 16777216,
+      "exact_integer_zero_checks": 64,
+      "native_forward_raw_bit_checks": 32,
+      "activation_backward_exact_checks": 64,
+      "gradient_equality_scope": "all FP32 values match saved-output derivative; raw signed-zero bits were not separately checked",
+      "max_full_relative_l2": 3.9801989260013215e-06,
+      "max_sample_relative_l2": 6.693091563647613e-06,
+      "rounds": 9,
+      "graph_nodes": 20,
+      "confirmation_configuration": {
+        "fixed_candidate": "paired bias loads and four residual pairs per batch",
+        "shape": [
+          4096,
+          4096,
+          4096
+        ],
+        "warmup_rounds": 32,
+        "timing_rounds": 9,
+        "graph_nodes": 20,
+        "selection": "fixed before this run; no new candidates or tuning",
+        "controls": "native separate/original-fused/optimized; matched ptxas; GemmEx+pointwise; first checked Lt heuristic",
+        "builder_sha256": "2cb98c364bc45f7ec6e065ba1515f34f26b6d8691fd6f2b0d3220baa508e457d"
+      },
+      "verified_local_cubin_hashes": {
+        "square_f16_gemm_ours": "b08cdb5a6d3678f2eb5b453b23816ae7593655e35ee903c3a87fbd1d67e4d763",
+        "square_f16_gemm_ptxas": "318311614de65b2bf13118306e996a716ceb02fec35f29ac768bb0e735a9a15d",
+        "square_drelu_ours": "e01e8f0d7ee72fded26b1cd9c55f88512e3f8a3108b01b690092d81c5147cf25",
+        "square_drelu_ptxas": "561ac46fec36d78e1e8c2c49b27810603a8d14d236cc3ffa1b8449f1f5737210",
+        "square_f16_bias_residual_ours": "3d2c8b0fcfc37094720ec3b842dfc90b16e27a494c439786f599920d1ba43801",
+        "square_f16_bias_residual_ptxas": "dce2129f24e3596877d36b367e3cb5f957eca3af315585a46adfffdd13f946e1",
+        "square_f16_bias_residual_relu_ours": "10c0db9f41f9c79dca3a5c2c4fd4bc22d1eb1c3aab90d0e68515b291dfa34d00",
+        "square_f16_bias_residual_relu_ptxas": "a321ed56588ef7b7e21fe33df7d70b4628346122a136dd6973ad354461f57a15",
+        "square_post_bias_residual_ours": "8568efc0ca8f393cbc444a7e8efd17a52d6dea8047e2e8a78790e16b22d8d299",
+        "square_post_bias_residual_ptxas": "c790c5bce105c0a880e24aa647663b091e03e87935eba9005103f4c6043548ba",
+        "square_post_bias_residual_relu_ours": "71b3599ceb066f62b21f11df21aafc0c36b89cfd77fc6cc85875cdc17fbc86ff",
+        "square_post_bias_residual_relu_ptxas": "f2b48d359980448b721eef896c0d29eca24b760d707d6ff01f42b3811f932c1f",
+        "optimized_square_f16_bias_residual_ours": "acdd9257ca10605dfdb8aa31869e40a4e056b03d79cb86a3dadfc703955befac",
+        "optimized_square_f16_bias_residual_ptxas": "b3647905558fef6ffd0bf785881532f3ccd4a2306ed0a1ddd51e7001994fb4ef",
+        "optimized_square_f16_bias_residual_relu_ours": "40d7e7f18899011dd4052b77621050abc23eabfea6e257bc3b5408309bd5457d",
+        "optimized_square_f16_bias_residual_relu_ptxas": "70a756fe10696bb54d5f79b98017e13cba554a04a83b554062aa4e02a87c0af6"
+      },
+      "comparisons": [
+        {
+          "mode": "bias_residual",
+          "ours_separate_ms": 0.7835135936737061,
+          "ours_original_fused_ms": 0.7931903839111328,
+          "ours_optimized_ms": 0.748902416229248,
+          "optimized_time_reduction_vs_separate_percent": 4.417431646868386,
+          "optimized_time_reduction_vs_original_percent": 5.5835230204765995,
+          "within_round_separate_over_optimized_median": 1.0502035325306438,
+          "within_round_separate_over_optimized_min": 1.0427228049334205,
+          "within_round_separate_over_optimized_max": 1.06556813987897,
+          "cublas_separate_ms": 0.7196159839630127,
+          "cublaslt_fused_ms": 0.841318416595459,
+          "ptxas_optimized_ms": 0.6467072010040283
+        },
+        {
+          "mode": "bias_residual_relu",
+          "ours_separate_ms": 0.7885824203491211,
+          "ours_original_fused_ms": 0.7971327781677247,
+          "ours_optimized_ms": 0.7492608070373535,
+          "optimized_time_reduction_vs_separate_percent": 4.986366966481337,
+          "optimized_time_reduction_vs_original_percent": 6.005520340087978,
+          "within_round_separate_over_optimized_median": 1.0568244710934827,
+          "within_round_separate_over_optimized_min": 1.0456520189360148,
+          "within_round_separate_over_optimized_max": 1.070549803326324,
+          "cublas_separate_ms": 0.723199987411499,
+          "cublaslt_fused_ms": 0.8509440422058105,
+          "ptxas_optimized_ms": 0.6344704151153564
+        }
+      ]
+    },
+    {
+      "artifact": "fusion_optimized_confirmation_square_both_20261104T080318.899899Z.json",
+      "artifact_sha256": "84c7726d787dc74874e616dc6bbd7928f677603ff95f1263a7ee47a081856960",
+      "name": "fusion_optimized_confirm_square_bf16",
+      "device": {
+        "name": "NVIDIA A100-SXM4-40GB",
+        "cc": "8.0",
+        "driver": 13030,
+        "sm_count": 108,
+        "clock_khz": 1410000,
+        "mem_bytes": 42429251584
+      },
+      "dtype": "bf16",
+      "shape": [
+        4096,
+        4096,
+        4096
+      ],
+      "full_output_checks": 128,
+      "elements_per_check": 16777216,
+      "exact_integer_zero_checks": 64,
+      "native_forward_raw_bit_checks": 32,
+      "activation_backward_exact_checks": 64,
+      "gradient_equality_scope": "all FP32 values match saved-output derivative; raw signed-zero bits were not separately checked",
+      "max_full_relative_l2": 0.0,
+      "max_sample_relative_l2": 5.3724356803286355e-06,
+      "rounds": 9,
+      "graph_nodes": 20,
+      "confirmation_configuration": {
+        "fixed_candidate": "paired bias loads and four residual pairs per batch",
+        "shape": [
+          4096,
+          4096,
+          4096
+        ],
+        "warmup_rounds": 32,
+        "timing_rounds": 9,
+        "graph_nodes": 20,
+        "selection": "fixed before this run; no new candidates or tuning",
+        "controls": "native separate/original-fused/optimized; matched ptxas; GemmEx+pointwise; first checked Lt heuristic",
+        "builder_sha256": "2cb98c364bc45f7ec6e065ba1515f34f26b6d8691fd6f2b0d3220baa508e457d"
+      },
+      "verified_local_cubin_hashes": {
+        "square_bf16_gemm_ours": "7d6b079b919e4ef190ef4df529dd6b5788da8ffc99a884ad3809b2e40a07d736",
+        "square_bf16_gemm_ptxas": "0184568d4124991ba68ce49d07aa9fe7d14ae6554e37bd359225a4efd3fec4c1",
+        "square_drelu_ours": "e01e8f0d7ee72fded26b1cd9c55f88512e3f8a3108b01b690092d81c5147cf25",
+        "square_drelu_ptxas": "561ac46fec36d78e1e8c2c49b27810603a8d14d236cc3ffa1b8449f1f5737210",
+        "square_bf16_bias_residual_ours": "78d381afd87173204495121ffcb05e0c0058a01606e01b70b33a7a9c8e4172f2",
+        "square_bf16_bias_residual_ptxas": "a1b6c3cb84b230c7e3eeb38e8ac523370c8d1c5b5b2190806c7d34c72a14f882",
+        "square_bf16_bias_residual_relu_ours": "69905a0795e3712d8647e3f2d88a85ddb941388edc2a1759d0c950151bb37b52",
+        "square_bf16_bias_residual_relu_ptxas": "7943218ba3dc9663ce46685b5c96b21a0d3995a8818cd23c00abf4147f362ecc",
+        "square_post_bias_residual_ours": "8568efc0ca8f393cbc444a7e8efd17a52d6dea8047e2e8a78790e16b22d8d299",
+        "square_post_bias_residual_ptxas": "c790c5bce105c0a880e24aa647663b091e03e87935eba9005103f4c6043548ba",
+        "square_post_bias_residual_relu_ours": "71b3599ceb066f62b21f11df21aafc0c36b89cfd77fc6cc85875cdc17fbc86ff",
+        "square_post_bias_residual_relu_ptxas": "f2b48d359980448b721eef896c0d29eca24b760d707d6ff01f42b3811f932c1f",
+        "optimized_square_bf16_bias_residual_ours": "795345988064169779f777c7f8b0890491ec1e0fc7c3a8913bcc3aedf48ee75d",
+        "optimized_square_bf16_bias_residual_ptxas": "a161d0d570d28169b1089de5d1d95fabf972a04a689fb18acae47ef1ab881799",
+        "optimized_square_bf16_bias_residual_relu_ours": "381ad428db5a20b3748ef8b9accbd766afc520b32a7ca193965e73f5917875d6",
+        "optimized_square_bf16_bias_residual_relu_ptxas": "6c1c64dfa0e3070f4f7efffefcabda7c62a9fcd5c107f7ca3d40bf0b2fb99000"
+      },
+      "comparisons": [
+        {
+          "mode": "bias_residual",
+          "ours_separate_ms": 0.774399995803833,
+          "ours_original_fused_ms": 0.7777791976928711,
+          "ours_optimized_ms": 0.7349760055541992,
+          "optimized_time_reduction_vs_separate_percent": 5.090907859408167,
+          "optimized_time_reduction_vs_original_percent": 5.503257513911297,
+          "within_round_separate_over_optimized_median": 1.0464987214291896,
+          "within_round_separate_over_optimized_min": 1.038389055701827,
+          "within_round_separate_over_optimized_max": 1.067000512657652,
+          "cublas_separate_ms": 0.7006720066070556,
+          "cublaslt_fused_ms": 0.5797376155853271,
+          "ptxas_optimized_ms": 0.6327807903289795
+        },
+        {
+          "mode": "bias_residual_relu",
+          "ours_separate_ms": 0.7757823944091797,
+          "ours_original_fused_ms": 0.7826432228088379,
+          "ours_optimized_ms": 0.7336448192596435,
+          "optimized_time_reduction_vs_separate_percent": 5.431623023828392,
+          "optimized_time_reduction_vs_original_percent": 6.260630913450371,
+          "within_round_separate_over_optimized_median": 1.0577312059434048,
+          "within_round_separate_over_optimized_min": 1.0458036835427975,
+          "within_round_separate_over_optimized_max": 1.0770477377317984,
+          "cublas_separate_ms": 0.700108814239502,
+          "cublaslt_fused_ms": 0.5814784049987793,
+          "ptxas_optimized_ms": 0.6266880035400391
+        }
+      ]
+    }
+  ],
+  "discovery_totals": {
+    "full_output_checks": 768,
+    "exact_integer_zero_checks": 384,
+    "native_forward_raw_bit_checks": 192,
+    "activation_backward_exact_checks": 384
+  },
+  "confirmation_totals": {
+    "full_output_checks": 256,
+    "exact_integer_zero_checks": 128,
+    "native_forward_raw_bit_checks": 64,
+    "activation_backward_exact_checks": 128
+  },
+  "limitations": [
+    "vendor Lt uses the first checked supported heuristic, not exhaustive autotuning",
+    "Lt can add residual before bias; last-bit addition rounding can differ",
+    "whole forward graph and separate activation backward, not whole training step"
+  ]
+}
