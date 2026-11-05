@@ -36,12 +36,16 @@ python3 -m unittest -v testcases/test_whole_repo/test_train_transformer.py
 ## Compile and replay with OpenAssembler
 
 `openassembler.toml` defines a small, deterministic CUDA capture workload for
-this script. From the repository root, compile it through the TorchInductor/
-Triton application frontend and compare eager and compiled training state:
+this script. It records CUDA-event medians for batch construction, forward/loss,
+backward, optimizer and end-to-end steps. From the repository root, compile it
+through the TorchInductor/Triton application frontend and compare eager and
+compiled training state:
 
 ```bash
 openassembler compile testcases/test_whole_repo/ --out-dir output --verify
 openassembler run output --application test_whole_repo --backend modal
+# A configured SSH GPU is also supported:
+openassembler run output --application test_whole_repo --backend ssh --gpu A100-40GB
 ```
 
 The build produces GPU cubins in `output/cubin/applications/test_whole_repo/`
@@ -50,3 +54,9 @@ training control flow and the matching PyTorch runtime remain part of execution;
 this is not a standalone host binary. See the root
 `docs/FRONTENDS.md#pytorch-training-applications` for configuration and coverage
 details.
+
+The application report stores `eager_timing` and `timing` records when profiling
+is enabled. These timings compare PyTorch eager execution with the captured
+TorchInductor/Triton cache on the same GPU. They do not claim that the full
+training graph was lowered by OpenAssembler's native PTX/SASS backend; host
+Python, PyTorch and CUDA libraries remain runtime dependencies.

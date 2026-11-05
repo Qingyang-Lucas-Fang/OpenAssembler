@@ -8,7 +8,7 @@ import torch
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-from train_transformer import CausalTransformer, DEFAULT_TEXT, Vocabulary, generate, make_batch
+from train_transformer import CausalSelfAttention, CausalTransformer, DEFAULT_TEXT, Vocabulary, generate, make_batch
 
 
 class TransformerSmokeTests(unittest.TestCase):
@@ -28,6 +28,22 @@ class TransformerSmokeTests(unittest.TestCase):
         tokens = self.vocabulary.encode("transfor").unsqueeze(0)
         logits = self.model(tokens)
         self.assertEqual(logits.shape, (1, 8, len(self.vocabulary.itos)))
+
+    def test_attention_is_causal(self) -> None:
+        attention = CausalSelfAttention(16, 4, 0.0).eval()
+        original = torch.randn(1, 8, 16)
+        changed = original.clone()
+        changed[:, 5:] += 100
+        with torch.no_grad():
+            left = attention(original)
+            right = attention(changed)
+        self.assertTrue(torch.allclose(left[:, :5], right[:, :5], rtol=0, atol=1e-6))
+
+    def test_invalid_dimensions_fail_before_forward(self) -> None:
+        with self.assertRaises(ValueError):
+            CausalTransformer(len(self.vocabulary.itos), 8, 15, 4, 1, 0.0)
+        with self.assertRaises(ValueError):
+            self.model(torch.zeros(1, 9, dtype=torch.long))
 
     def test_make_batch_shifts_targets_by_one_token(self) -> None:
         data = torch.arange(32, dtype=torch.long)

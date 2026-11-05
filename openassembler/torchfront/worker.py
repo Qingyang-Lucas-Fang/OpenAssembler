@@ -73,7 +73,8 @@ def compare_states(reference: bytes, actual: bytes, rtol: float, atol: float,
             'scope': 'observed model outputs, final parameters, gradients and optimizer state'}
 
 
-def execute_program(root: Path, config: dict, state_path: Path, *, compiled: bool, report_path: Path):
+def execute_program(root: Path, config: dict, state_path: Path, *, compiled: bool, report_path: Path,
+                    timing_path: Path | None = None):
     """One fresh process per eager/compiled invocation gives both the same seed/import state."""
     import torch
     info = runtime_info()
@@ -177,6 +178,8 @@ def execute_program(root: Path, config: dict, state_path: Path, *, compiled: boo
     sys.path[:0] = [str(entry.parent), str(root)]
     sys.argv = [str(entry), *config['args']]
     os.chdir(root)
+    if timing_path is not None:
+        os.environ['OPENASSEMBLER_STAGE_TIMING_PATH'] = str(timing_path)
     finder = ProjectFinder(root, decorate)
     sys.meta_path.insert(0, finder)
     main = types.ModuleType('__main__')
@@ -200,14 +203,25 @@ def execute_program(root: Path, config: dict, state_path: Path, *, compiled: boo
     report = {'runtime': info, 'compiled': compiled, 'model_instances': len(models),
               'forward_calls': sum(outputs.values()), 'optimizer_steps': sum(r['steps'] for r in optimizers),
               'graphs': graphs, 'seconds': time.monotonic() - t0, 'new_gpu_codegen': len(new_codegen)}
+    timing = None
+    if timing_path is not None and timing_path.is_file():
+        try:
+            timing = json.loads(timing_path.read_text())
+        except (OSError, json.JSONDecodeError):
+            timing = None
+    if timing is None:
+        timing = {'schema': 1, 'mode': 'compiled' if compiled else 'eager',
+                  'device': info['device'], 'seconds': report['seconds'],
+                  'forward_calls': report['forward_calls'], 'optimizer_steps': report['optimizer_steps']}
+    report['timing'] = timing
     report_path.write_text(json.dumps(report, indent=1))
 
 
 def _child(root, config, scratch, tag, compiled, budget):
-    cp, sp, rp = scratch / (tag + '.json'), scratch / (tag + '.pt'), scratch / (tag + '.report.json')
+    cp, sp, rp, tp = (scratch / (tag + suffix) for suffix in ('.json', '.pt', '.report.json', '.timing.json'))
     cp.write_text(json.dumps(config))
     cmd = [sys.executable, '-m', 'openassembler.torchfront.worker', '--execute', str(root),
-           '--config', str(cp), '--state', str(sp), '--report', str(rp)]
+           '--config', str(cp), '--state', str(sp), '--report', str(rp), '--timing', str(tp)]
     if compiled:
         cmd.append('--compiled')
     proc = subprocess.run(cmd, text=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, timeout=budget)
@@ -216,7 +230,10 @@ def _child(root, config, scratch, tag, compiled, budget):
         raise RuntimeError(f'{tag} application failed (exit {proc.returncode}):\n{proc.stdout[-14000:]}')
     if not rp.is_file() or not sp.is_file():
         raise RuntimeError(f'{tag} application did not finish capture')
-    return json.loads(rp.read_text()), sp.read_bytes()
+    report = json.loads(rp.read_text())
+    if tp.is_file():
+        report['timing'] = json.loads(tp.read_text())
+    return report, sp.read_bytes()
 
 
 def process(request: dict) -> dict:
@@ -285,15 +302,18 @@ def process(request: dict) -> dict:
             cfg = {**config, 'mode': request['mode']}
             verification = {'status': 'not-run'}
             eager_state = None
+            eager_result = None
             child_budget = lambda: min(remaining(), config.get('job_timeout', request['budget']))
             if request.get('verify'):
-                _, eager_state = _child(root, cfg, workspace, 'eager', False, child_budget())
+                eager_result, eager_state = _child(root, cfg, workspace, 'eager', False, child_budget())
             result, state = _child(root, cfg, workspace, 'compiled', True, child_budget())
             if not result['model_instances'] or request['mode'] == 'compile' and not result['graphs']:
                 raise RuntimeError('no project model forward graphs were captured; define a model with forward() or use the kernel frontend')
             if eager_state is not None:
                 verification = compare_states(eager_state, state, config['rtol'], config['atol'],
                                               config['state_rtol'], config['state_atol'])
+            if eager_state is not None:
+                result['eager_timing'] = eager_result.get('timing') if eager_result else None
             if request['mode'] == 'run':
                 return {'report': {**result, 'verification': verification, 'status': 'ok'}}
             artifacts, kernels = {}, []
@@ -343,10 +363,12 @@ def main():
     parser.add_argument('--config', type=Path)
     parser.add_argument('--state', type=Path)
     parser.add_argument('--report', type=Path)
+    parser.add_argument('--timing', type=Path)
     parser.add_argument('--compiled', action='store_true')
     a = parser.parse_args()
     if a.execute:
-        execute_program(a.execute, json.loads(a.config.read_text()), a.state, compiled=a.compiled, report_path=a.report)
+        execute_program(a.execute, json.loads(a.config.read_text()), a.state, compiled=a.compiled,
+                        report_path=a.report, timing_path=a.timing)
     else:
         try:
             result = process(json.loads(a.request.read_text()))

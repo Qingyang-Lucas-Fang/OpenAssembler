@@ -61,8 +61,8 @@ def _application_compile_opts(a: argparse.Namespace) -> dict:
         raise ApplicationError('--kernel, --fallback, -I, --nvcc-flag, --dump-ptx and nondefault '
                                '--opt-level/--trials apply to standalone kernels, not PyTorch applications')
     return {'verify': a.verify, 'dry_run': a.dry_run,
-            'build_backend': a.build_backend, 'gpu': a.build_gpu, 'budget': a.build_budget,
-            'no_sass': a.no_sass}
+            'build_backend': a.build_backend, 'build_host': getattr(a, 'build_host', None),
+            'gpu': a.build_gpu, 'budget': a.build_budget, 'no_sass': a.no_sass}
 
 
 def cmd_compile(a: argparse.Namespace) -> int:
@@ -84,7 +84,7 @@ def cmd_compile(a: argparse.Namespace) -> int:
     if a.dry_run:
         print("error: --dry-run is only available for configured PyTorch application builds", file=sys.stderr)
         return 1
-    if a.build_backend or a.build_gpu or a.build_budget is not None:
+    if a.build_backend or a.build_host or a.build_gpu or a.build_budget is not None:
         print('error: --build-backend, --build-gpu and --build-budget require a configured application directory', file=sys.stderr)
         return 1
     return compile_paths(Path(a.src), Path(a.out_dir), _compile_opts(a), a.out).rc
@@ -193,7 +193,7 @@ def cmd_cnr(a: argparse.Namespace) -> int:
             print(f"error: {exc}", file=sys.stderr)
             return 1
 
-    if a.build_backend or a.build_gpu or a.build_budget is not None:
+    if a.build_backend or a.build_host or a.build_gpu or a.build_budget is not None:
         print('error: --build-backend, --build-gpu and --build-budget require a configured application directory', file=sys.stderr)
         return 1
     res = compile_paths(Path(a.src), Path(a.out_dir), _compile_opts(a), a.out)
@@ -367,11 +367,15 @@ def cmd_status(a: argparse.Namespace) -> int:
     status = ROOT / "docs" / "STATUS.md"
     text = status.read_text()
     lines = text.splitlines()
-    # Print the "New since" table (first markdown table in the file) verbatim;
-    # it's already the condensed, up-to-date headline.
-    start = next(i for i, l in enumerate(lines) if l.startswith("| Area"))
-    end = next(i for i in range(start, len(lines)) if not lines[i].startswith("|"))
-    print("\n".join(lines[start:end]))
+    start = next((i for i, line in enumerate(lines[:-1])
+                  if line.startswith("|") and lines[i + 1].startswith("|---")), None)
+    if start is None:
+        print("\n".join(lines[:min(40, len(lines))]))
+    else:
+        end = start
+        while end < len(lines) and lines[end].startswith("|"):
+            end += 1
+        print("\n".join(lines[start:end]))
     print(f"\nFull detail, evidence files, and reproduction commands: {status.relative_to(ROOT)}")
     return 0
 
@@ -449,8 +453,10 @@ def _add_compile_args(pc: argparse.ArgumentParser) -> None:
                     help="extra nvcc flag, e.g. --nvcc-flag=-DTILE=32 (repeatable)")
     pc.add_argument("--dump-ptx", action="store_true", help="print the PTX each source compiled to")
     pc.add_argument("--no-sass", action="store_true", help="write only the cubins; skip the nvdisasm listing")
-    pc.add_argument("--build-backend", choices=("auto", "local", "modal"), default=None,
-                    help="PyTorch application capture backend (default: auto-detect)")
+    pc.add_argument("--build-backend", choices=("auto", "local", "modal", "ssh"), default=None,
+                    help="PyTorch capture transport; ssh uses --build-host and a preconfigured remote runtime")
+    pc.add_argument("--build-host", default=None, metavar="USER@HOST",
+                    help="SSH host for PyTorch application capture/replay (Python 3.11, torch 2.7.1, CUDA 12.8, sm_80)")
     pc.add_argument("--build-gpu", default=None, help="Modal GPU for PyTorch capture (default: application config)")
     pc.add_argument("--build-budget", type=float, default=None, metavar="SECONDS",
                     help="PyTorch capture budget; defaults to openassembler.toml")
@@ -583,6 +589,20 @@ def build_parser() -> argparse.ArgumentParser:
 
     ps = sub.add_parser("status", help="print the headline results from docs/STATUS.md")
     ps.set_defaults(func=cmd_status)
+
+    pbench = sub.add_parser("benchmark", help="run or describe the full CLI integration matrix")
+    pbench.add_argument("--backend", default="modal", help="GPU backend: modal, local, or user@host")
+    pbench.add_argument("--build-backend", choices=("modal", "local", "ssh"), default="modal")
+    pbench.add_argument("--build-host", default=None, metavar="USER@HOST")
+    pbench.add_argument("--out-dir", default="output/cli-benchmark")
+    pbench.add_argument("--budget", type=float, default=300)
+    pbench.add_argument("--execute", action="store_true")
+    pbench.add_argument("--skip-optional", action="store_true")
+    pbench.set_defaults(func=lambda a: _run_tool("cli_benchmark.py", [
+        "--backend", a.backend, "--build-backend", a.build_backend,
+        "--out-dir", a.out_dir, "--budget", str(a.budget),
+        *( ["--build-host", a.build_host] if a.build_host else []),
+        *( ["--execute"] if a.execute else []), *( ["--skip-optional"] if a.skip_optional else [])]))
 
     return p
 

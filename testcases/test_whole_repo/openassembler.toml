@@ -1,7 +1,7 @@
 [application]
 frontend = "torch"
 entrypoint = "train_transformer.py"
-args = ["--device", "cuda", "--steps", "2", "--batch-size", "2", "--block-size", "16", "--d-model", "32", "--nhead", "4", "--num-layers", "1", "--dropout", "0", "--new-tokens", "0"]
+args = ["--device", "cuda", "--steps", "4", "--batch-size", "2", "--block-size", "16", "--d-model", "32", "--nhead", "4", "--num-layers", "1", "--dropout", "0", "--new-tokens", "0", "--timing-warmup", "2", "--profile-steps", "4"]
 seed = 7
 torch = "2.7.1"
 build_backend = "modal"

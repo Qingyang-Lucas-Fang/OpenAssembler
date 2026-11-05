@@ -6,6 +6,8 @@ import json
 import base64
 import os
 from pathlib import Path, PurePosixPath
+import shlex
+import shutil
 import tomllib
 import zipfile
 import io
@@ -58,8 +60,11 @@ def load_config(path: Path) -> dict:
     if verify not in ('state', 'none'):
         raise ApplicationError(f"{path}: application.verification must be 'state' or 'none'")
     backend = app.get('build_backend', 'auto')
-    if backend not in ('auto', 'local', 'modal'):
-        raise ApplicationError(f"{path}: application.build_backend must be auto, local, or modal")
+    if backend not in ('auto', 'local', 'modal', 'ssh'):
+        raise ApplicationError(f"{path}: application.build_backend must be auto, local, modal, or ssh")
+    host = app.get('host')
+    if backend == 'ssh' and (not isinstance(host, str) or '@' not in host or any(c.isspace() for c in host)):
+        raise ApplicationError(f"{path}: application.host must be user@host when build_backend='ssh'")
     gpu = app.get('gpu', 'A100-40GB')
     if not isinstance(gpu, str) or not gpu:
         raise ApplicationError(f"{path}: application.gpu must be a nonempty GPU name")
@@ -68,7 +73,7 @@ def load_config(path: Path) -> dict:
             'rtol': float(app.get('rtol', 1e-4)), 'atol': float(app.get('atol', 1e-5)),
             'state_rtol': float(app.get('state_rtol', 1e-3)),
             'state_atol': float(app.get('state_atol', 1e-3)),
-            'verification': verify, 'build_backend': backend, 'gpu': gpu,
+            'verification': verify, 'build_backend': backend, 'build_host': host, 'gpu': gpu,
             'budget': app.get('budget', 900), 'job_timeout': app.get('job_timeout', 600)}
 
 
@@ -177,8 +182,39 @@ def _worker_request(request: dict, config: dict, repo_root: Path) -> dict:
                 print(completed.stdout, end='')
                 if completed.returncode and not result_file.exists():
                     raise ApplicationError(f"Modal PyTorch worker failed (exit {completed.returncode})")
+            elif config['build_backend'] == 'ssh':
+                host = config.get('build_host')
+                if not host or shutil.which('ssh') is None or shutil.which('scp') is None:
+                    raise ApplicationError("SSH application transport requires --build-host user@host and local ssh/scp")
+                remote_dir = f"/tmp/openassembler_torch_{os.getpid()}_{request.get('digest', '')[:12]}"
+                q = shlex.quote
+                package = Path(__file__).resolve().parents[1]
+                try:
+                    subprocess.run(['ssh', host, f"mkdir -p {q(remote_dir + '/openassembler')}"] ,
+                                   check=True, timeout=30, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
+                    subprocess.run(['scp', '-q', '-r', str(package), f'{host}:{remote_dir}/'],
+                                   check=True, timeout=120)
+                    subprocess.run(['scp', '-q', str(request_file), f'{host}:{remote_dir}/request.json'],
+                                   check=True, timeout=max(120, min(config['budget'], 600)))
+                    remote_command = (f"cd {q(remote_dir)} && PYTHONPATH={q(remote_dir)} "
+                                      f"timeout {int(config['budget'] + 60)} python3 -m "
+                                      "openassembler.torchfront.worker --request request.json --result result.json")
+                    completed = subprocess.run(['ssh', host, remote_command], text=True,
+                                               stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
+                                               timeout=config['budget'] + 120)
+                    print(completed.stdout, end='')
+                    subprocess.run(['scp', '-q', f'{host}:{remote_dir}/result.json', str(result_file)],
+                                   check=True, timeout=120)
+                except subprocess.TimeoutExpired:
+                    raise ApplicationError(f"SSH PyTorch worker exceeded its {config['budget']:g}s budget") from None
+                except subprocess.CalledProcessError as exc:
+                    output = exc.stdout if isinstance(exc.stdout, str) else ''
+                    raise ApplicationError(f"SSH application transport failed (exit {exc.returncode}): {output[-4000:]}") from None
+                finally:
+                    subprocess.run(['ssh', host, f"rm -rf -- {q(remote_dir)}"],
+                                   stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, timeout=30)
             else:
-                raise ApplicationError("PyTorch application backend must be local or modal; SSH is not supported for this frontend")
+                raise ApplicationError("PyTorch application backend must be local, modal, or ssh")
             if not result_file.is_file():
                 raise ApplicationError("PyTorch worker returned no capture result")
             return decode_result(result_file.read_text())
@@ -191,7 +227,8 @@ def _worker_request(request: dict, config: dict, repo_root: Path) -> dict:
 def compile_application(root: Path, out_dir: Path, *, output_name: str | None = None,
                         verify: bool = True, dry_run: bool = False,
                         build_backend: str | None = None, gpu: str | None = None,
-                        budget: float | None = None, no_sass: bool = False):
+                        budget: float | None = None, no_sass: bool = False,
+                        build_host: str | None = None):
     """Capture the configured CUDA training run and publish cubins, SASS and runtime."""
     from openassembler import project
     root, out_dir = Path(root).resolve(), Path(out_dir).resolve()
@@ -219,8 +256,8 @@ def compile_application(root: Path, out_dir: Path, *, output_name: str | None = 
         raise ApplicationError(f"configured application entrypoint is missing or escapes the repository: {config['entrypoint']}")
     if config['verification'] not in ('state', 'none'):
         raise ApplicationError("application.verification must be 'state' or 'none'")
-    if config['build_backend'] not in ('auto', 'local', 'modal'):
-        raise ApplicationError("application.build_backend must be auto, local, or modal")
+    if config['build_backend'] not in ('auto', 'local', 'modal', 'ssh'):
+        raise ApplicationError("application.build_backend must be auto, local, modal, or ssh")
     for key in ('budget', 'job_timeout'):
         if type(config[key]) not in (int, float) or not 0 < config[key] < float('inf'):
             raise ApplicationError(f"application.{key} must be a finite positive number")
@@ -232,10 +269,14 @@ def compile_application(root: Path, out_dir: Path, *, output_name: str | None = 
         raise ApplicationError(str(exc)) from None
     if build_backend:
         config['build_backend'] = build_backend
+    if build_host:
+        config['build_host'] = build_host
     if gpu:
         config['gpu'] = gpu
-    if config['build_backend'] not in ('auto', 'local', 'modal'):
-        raise ApplicationError("--build-backend must be auto, local, or modal")
+    if config['build_backend'] not in ('auto', 'local', 'modal', 'ssh'):
+        raise ApplicationError("--build-backend must be auto, local, modal, or ssh")
+    if config['build_backend'] == 'ssh' and not config.get('build_host'):
+        raise ApplicationError("--build-backend ssh requires --build-host user@host or application.host")
     if not isinstance(config['gpu'], str) or not config['gpu'].strip():
         raise ApplicationError("application GPU must be a nonempty GPU type")
     if budget is not None:
@@ -254,7 +295,8 @@ def compile_application(root: Path, out_dir: Path, *, output_name: str | None = 
     if dry_run:
         print(f"PyTorch application {name}: {len(file_names)} files, {len(source) / 1024:.1f} KiB source")
         print(f"entrypoint: {config['entrypoint']} {' '.join(config['args'])}")
-        print(f"build: {config['build_backend']}, GPU {config['gpu']}, torch=={config['torch']}, budget {config['budget']:g}s, "
+        transport = f"SSH {config['build_host']}" if config['build_backend'] == 'ssh' else f"GPU {config['gpu']}"
+        print(f"build: {config['build_backend']}, {transport}, torch=={config['torch']}, budget {config['budget']:g}s, "
               f"eager/compiled state verification {'on' if verify and config['verification'] == 'state' else 'off'}")
         print("capture executes the configured training workload to produce compiler specializations")
         return ApplicationBuildResult(0, out_dir, name, None, config)
@@ -320,6 +362,7 @@ def compile_application(root: Path, out_dir: Path, *, output_name: str | None = 
              'rtol': config['rtol'], 'atol': config['atol'], 'gpu': report['runtime']['device'],
              'state_rtol': config['state_rtol'], 'state_atol': config['state_atol'],
              'build_gpu': config['gpu'],
+             'build_host': config.get('build_host'),
              'budget': config['budget'], 'job_timeout': config['job_timeout'],
              'build_backend': config['build_backend'], 'verification': report['verification'],
              'compiled_by': 'torch-inductor-triton', 'kernels': kernel_records}
@@ -397,8 +440,10 @@ def run_application(out_dir: Path, *, name: str | None = None, backend: str = 'a
         backend = app.get('build_backend', 'modal')
         if backend == 'auto':
             backend = 'modal'
-    if backend not in ('local', 'modal'):
-        raise ApplicationError('PyTorch application runtime currently supports local or modal; SSH requires installing its runtime')
+    if backend not in ('local', 'modal', 'ssh'):
+        raise ApplicationError('PyTorch application backend must be local, modal, or ssh')
+    if backend == 'ssh' and (not app.get('build_host') or '@' not in app['build_host']):
+        raise ApplicationError('SSH application replay requires application.host or compile --build-host user@host')
     for key in ('source_bundle', 'cache', 'report', 'graphs', 'config'):
         if not project.artifact_path(out_dir, app[key]).is_file():
             raise ApplicationError(f"application runtime artifact is missing: {app[key]}; recompile")
@@ -421,7 +466,7 @@ def run_application(out_dir: Path, *, name: str | None = None, backend: str = 'a
         raise ApplicationError('application --job-timeout must be finite, positive, and no greater than --budget')
     if dry_run:
         print(f"application {app['name']}: {len(app['kernels'])} kernels, runtime torch=={app['runtime']['torch']}, "
-              f"{backend}, GPU {chosen_gpu}, budget {duration:g}s")
+              f"{('SSH ' + app['build_host']) if backend == 'ssh' else backend + ' ' + chosen_gpu}, budget {duration:g}s")
         print(f"would replay {app['entrypoint']} with {len(app['args'])} configured arguments; Triton code generation is blocked")
         return 0
     cache_files = artifact_files(cache_blob)
@@ -437,6 +482,7 @@ def run_application(out_dir: Path, *, name: str | None = None, backend: str = 'a
                 'runtime': app['runtime'], 'budget': duration, 'verify': verify}
     # Worker config also controls transport; adding it here keeps compile/run config explicit.
     transport = {'build_backend': backend, 'gpu': chosen_gpu, 'budget': duration, 'job_timeout': duration}
+    transport['build_host'] = app.get('build_host')
     result = _worker_request(request, transport, Path(app['source']).resolve().parent)
     report = result.get('report', {})
     if report.get('status') != 'ok' or report.get('new_gpu_codegen') != 0:
