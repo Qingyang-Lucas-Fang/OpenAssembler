@@ -1,0 +1,621 @@
+{
+  "device": {
+    "name": "NVIDIA A100-SXM4-40GB",
+    "cc": "8.0",
+    "driver": 13030,
+    "sm_count": 108,
+    "clock_khz": 1410000,
+    "mem_bytes": 42429251584
+  },
+  "ncu": "/usr/local/cuda/bin/ncu",
+  "ncu_info": {
+    "version": "NVIDIA (R) Nsight Compute Command Line Profiler\nCopyright (c) 2018-2024 NVIDIA Corporation\nVersion 2025.1.0.0 (build 35237751) (public-release)",
+    "query_returncode": 0,
+    "available_metrics": [
+      "sm__pipe_tensor_cycles_active.avg.pct_of_peak_sustained_active",
+      "smsp__inst_executed.sum",
+      "smsp__inst_executed_pipe_tensor.sum",
+      "smsp__warps_eligible.avg.per_cycle_active",
+      "smsp__warp_issue_stalled_short_scoreboard_per_warp_active.pct",
+      "smsp__warp_issue_stalled_long_scoreboard_per_warp_active.pct",
+      "smsp__warp_issue_stalled_wait_per_warp_active.pct",
+      "smsp__warp_issue_stalled_barrier_per_warp_active.pct",
+      "smsp__warp_issue_stalled_mio_throttle_per_warp_active.pct",
+      "l1tex__data_bank_conflicts_pipe_lsu_mem_shared_op_ld.sum",
+      "l1tex__data_pipe_lsu_wavefronts_mem_shared_op_ld.sum",
+      "dram__bytes.sum",
+      "lts__t_sector_hit_rate.pct"
+    ],
+    "query_results": {
+      "sm__pipe_tensor_cycles_active.avg.pct_of_peak_sustained_active": {
+        "returncode": 0,
+        "text": "Device NVIDIA A100-SXM4-40GB (GA100)"
+      },
+      "smsp__inst_executed.sum": {
+        "returncode": 0,
+        "text": "Device NVIDIA A100-SXM4-40GB (GA100)"
+      },
+      "smsp__inst_executed_pipe_tensor.sum": {
+        "returncode": 0,
+        "text": "Device NVIDIA A100-SXM4-40GB (GA100)"
+      },
+      "smsp__warps_eligible.avg.per_cycle_active": {
+        "returncode": 0,
+        "text": "Device NVIDIA A100-SXM4-40GB (GA100)"
+      },
+      "smsp__warp_issue_stalled_short_scoreboard_per_warp_active.pct": {
+        "returncode": 0,
+        "text": "Device NVIDIA A100-SXM4-40GB (GA100)"
+      },
+      "smsp__warp_issue_stalled_long_scoreboard_per_warp_active.pct": {
+        "returncode": 0,
+        "text": "Device NVIDIA A100-SXM4-40GB (GA100)"
+      },
+      "smsp__warp_issue_stalled_wait_per_warp_active.pct": {
+        "returncode": 0,
+        "text": "Device NVIDIA A100-SXM4-40GB (GA100)"
+      },
+      "smsp__warp_issue_stalled_barrier_per_warp_active.pct": {
+        "returncode": 0,
+        "text": "Device NVIDIA A100-SXM4-40GB (GA100)"
+      },
+      "smsp__warp_issue_stalled_mio_throttle_per_warp_active.pct": {
+        "returncode": 0,
+        "text": "Device NVIDIA A100-SXM4-40GB (GA100)"
+      },
+      "l1tex__data_bank_conflicts_pipe_lsu_mem_shared_op_ld.sum": {
+        "returncode": 0,
+        "text": "Device NVIDIA A100-SXM4-40GB (GA100)"
+      },
+      "l1tex__data_pipe_lsu_wavefronts_mem_shared_op_ld.sum": {
+        "returncode": 0,
+        "text": "Device NVIDIA A100-SXM4-40GB (GA100)"
+      },
+      "dram__bytes.sum": {
+        "returncode": 0,
+        "text": "Device NVIDIA A100-SXM4-40GB (GA100)"
+      },
+      "lts__t_sector_hit_rate.pct": {
+        "returncode": 0,
+        "text": "Device NVIDIA A100-SXM4-40GB (GA100)"
+      }
+    }
+  },
+  "cases": [
+    {
+      "name": "tall_mfast_f16",
+      "dtype": "f16",
+      "cubin_sha256": "b08cdb5a6d3678f2eb5b453b23816ae7593655e35ee903c3a87fbd1d67e4d763",
+      "reference_sha256": "318311614de65b2bf13118306e996a716ceb02fec35f29ac768bb0e735a9a15d",
+      "checks": [
+        {
+          "pattern": "zero",
+          "passed": true,
+          "relative_l2": 0.0,
+          "ptxas_bitwise_equal": true,
+          "canaries": true,
+          "elements_checked": 67108864
+        },
+        {
+          "pattern": "integer",
+          "passed": true,
+          "relative_l2": 0.0,
+          "ptxas_bitwise_equal": true,
+          "canaries": true,
+          "elements_checked": 67108864
+        },
+        {
+          "pattern": "normal",
+          "passed": true,
+          "relative_l2": 6.671106348221656e-06,
+          "ptxas_bitwise_equal": true,
+          "canaries": true,
+          "elements_checked": 67108864
+        }
+      ],
+      "cublas_status": "success",
+      "relative_l2_vs_cublas": 3.980760538979666e-06,
+      "cublas_check": {
+        "passed": true,
+        "relative_l2_vs_openassembler": 3.980760538979666e-06,
+        "relative_l2_vs_fp32_reference": 3.5293694509164197e-06,
+        "max_abs_vs_fp32_reference": 0.00225830078125,
+        "elements_checked": 67108864
+      },
+      "timing_medians_ms": {
+        "openassembler": 2.7065343856811523,
+        "ptxas": 3.5436542510986326,
+        "cublas": 2.398207902908325
+      },
+      "timing_samples_ms": {
+        "openassembler": [
+          2.7201536178588865,
+          2.691379165649414,
+          2.6374143600463866,
+          2.7448320388793945,
+          2.658713531494141,
+          2.737356758117676,
+          2.7052032470703127,
+          2.7065343856811523,
+          2.7146240234375
+        ],
+        "ptxas": [
+          3.5436542510986326,
+          3.5434497833251952,
+          3.536793518066406,
+          3.5492862701416015,
+          3.5489791870117187,
+          3.538943862915039,
+          3.5460094451904296,
+          3.543859100341797,
+          3.5436542510986326
+        ],
+        "cublas": [
+          2.3992319107055664,
+          2.407423973083496,
+          2.293760061264038,
+          2.397183895111084,
+          2.4002559185028076,
+          2.3930881023406982,
+          2.398207902908325,
+          2.4330239295959473,
+          2.343935966491699
+        ]
+      },
+      "paired_orders": [
+        [
+          "cublas",
+          "openassembler",
+          "ptxas"
+        ],
+        [
+          "openassembler",
+          "ptxas",
+          "cublas"
+        ],
+        [
+          "ptxas",
+          "cublas",
+          "openassembler"
+        ],
+        [
+          "cublas",
+          "openassembler",
+          "ptxas"
+        ],
+        [
+          "cublas",
+          "ptxas",
+          "openassembler"
+        ],
+        [
+          "cublas",
+          "openassembler",
+          "ptxas"
+        ],
+        [
+          "cublas",
+          "openassembler",
+          "ptxas"
+        ],
+        [
+          "openassembler",
+          "cublas",
+          "ptxas"
+        ],
+        [
+          "cublas",
+          "openassembler",
+          "ptxas"
+        ]
+      ],
+      "full_output_checked": true,
+      "ncu_status": "disabled"
+    },
+    {
+      "name": "tall_morton_f16",
+      "dtype": "f16",
+      "cubin_sha256": "771b4bf33a7c2b1fad3f9cdeca27c194f85eaabcfab22f6c3e621fbc610d6b39",
+      "reference_sha256": "d98a23dfba51222fb567dc2a9acd1cc70f14b0fc22009702120920f22fe1b2da",
+      "checks": [
+        {
+          "pattern": "zero",
+          "passed": true,
+          "relative_l2": 0.0,
+          "ptxas_bitwise_equal": true,
+          "canaries": true,
+          "elements_checked": 67108864
+        },
+        {
+          "pattern": "integer",
+          "passed": true,
+          "relative_l2": 0.0,
+          "ptxas_bitwise_equal": true,
+          "canaries": true,
+          "elements_checked": 67108864
+        },
+        {
+          "pattern": "normal",
+          "passed": true,
+          "relative_l2": 6.671106348221656e-06,
+          "ptxas_bitwise_equal": true,
+          "canaries": true,
+          "elements_checked": 67108864
+        }
+      ],
+      "cublas_status": "success",
+      "relative_l2_vs_cublas": 3.980760538979666e-06,
+      "cublas_check": {
+        "passed": true,
+        "relative_l2_vs_openassembler": 3.980760538979666e-06,
+        "relative_l2_vs_fp32_reference": 3.5293694509164197e-06,
+        "max_abs_vs_fp32_reference": 0.00225830078125,
+        "elements_checked": 67108864
+      },
+      "timing_medians_ms": {
+        "openassembler": 2.5668607711791993,
+        "ptxas": 2.3800832748413088,
+        "cublas": 2.3705599308013916
+      },
+      "timing_samples_ms": {
+        "openassembler": [
+          2.5739263534545898,
+          2.5779199600219727,
+          2.5664512634277346,
+          2.5668607711791993,
+          2.578432083129883,
+          2.5779199600219727,
+          2.535526466369629,
+          2.5361408233642577,
+          2.535935974121094
+        ],
+        "ptxas": [
+          2.4159231185913086,
+          2.394009590148926,
+          2.3763967514038087,
+          2.389913558959961,
+          2.390220832824707,
+          2.3800832748413088,
+          2.3766016006469726,
+          2.3773183822631836,
+          2.376089668273926
+        ],
+        "cublas": [
+          2.417664051055908,
+          2.3705599308013916,
+          2.348031997680664,
+          2.368511915206909,
+          2.352128028869629,
+          2.37772798538208,
+          2.367487907409668,
+          2.3930881023406982,
+          2.3705599308013916
+        ]
+      },
+      "paired_orders": [
+        [
+          "cublas",
+          "openassembler",
+          "ptxas"
+        ],
+        [
+          "openassembler",
+          "ptxas",
+          "cublas"
+        ],
+        [
+          "ptxas",
+          "cublas",
+          "openassembler"
+        ],
+        [
+          "cublas",
+          "openassembler",
+          "ptxas"
+        ],
+        [
+          "cublas",
+          "ptxas",
+          "openassembler"
+        ],
+        [
+          "cublas",
+          "openassembler",
+          "ptxas"
+        ],
+        [
+          "cublas",
+          "openassembler",
+          "ptxas"
+        ],
+        [
+          "openassembler",
+          "cublas",
+          "ptxas"
+        ],
+        [
+          "cublas",
+          "openassembler",
+          "ptxas"
+        ]
+      ],
+      "full_output_checked": true,
+      "ncu_status": "disabled"
+    },
+    {
+      "name": "tall_mfast_bf16",
+      "dtype": "bf16",
+      "cubin_sha256": "7d6b079b919e4ef190ef4df529dd6b5788da8ffc99a884ad3809b2e40a07d736",
+      "reference_sha256": "0184568d4124991ba68ce49d07aa9fe7d14ae6554e37bd359225a4efd3fec4c1",
+      "checks": [
+        {
+          "pattern": "zero",
+          "passed": true,
+          "relative_l2": 0.0,
+          "ptxas_bitwise_equal": true,
+          "canaries": true,
+          "elements_checked": 67108864
+        },
+        {
+          "pattern": "integer",
+          "passed": true,
+          "relative_l2": 0.0,
+          "ptxas_bitwise_equal": true,
+          "canaries": true,
+          "elements_checked": 67108864
+        },
+        {
+          "pattern": "normal",
+          "passed": true,
+          "relative_l2": 5.306613729771925e-06,
+          "ptxas_bitwise_equal": true,
+          "canaries": true,
+          "elements_checked": 67108864
+        }
+      ],
+      "cublas_status": "success",
+      "relative_l2_vs_cublas": 0.0,
+      "cublas_check": {
+        "passed": true,
+        "relative_l2_vs_openassembler": 0.0,
+        "relative_l2_vs_fp32_reference": 5.306613729771925e-06,
+        "max_abs_vs_fp32_reference": 0.003204345703125,
+        "elements_checked": 67108864
+      },
+      "timing_medians_ms": {
+        "openassembler": 2.630860710144043,
+        "ptxas": 3.4962432861328123,
+        "cublas": 2.184191942214966
+      },
+      "timing_samples_ms": {
+        "openassembler": [
+          2.619289588928223,
+          2.630860710144043,
+          2.6015743255615233,
+          2.659225654602051,
+          2.613350486755371,
+          2.7222015380859377,
+          2.6617855072021483,
+          2.6216447830200194,
+          2.632806396484375
+        ],
+        "ptxas": [
+          3.506278228759766,
+          3.4991104125976564,
+          3.503206253051758,
+          3.49194221496582,
+          3.4958335876464846,
+          3.4893825531005858,
+          3.4962432861328123,
+          3.503104019165039,
+          3.4896896362304686
+        ],
+        "cublas": [
+          2.200576066970825,
+          2.1780478954315186,
+          2.1370880603790283,
+          2.1637120246887207,
+          2.2773759365081787,
+          2.200576066970825,
+          2.234368085861206,
+          2.184191942214966,
+          2.1729280948638916
+        ]
+      },
+      "paired_orders": [
+        [
+          "cublas",
+          "openassembler",
+          "ptxas"
+        ],
+        [
+          "openassembler",
+          "ptxas",
+          "cublas"
+        ],
+        [
+          "ptxas",
+          "cublas",
+          "openassembler"
+        ],
+        [
+          "cublas",
+          "openassembler",
+          "ptxas"
+        ],
+        [
+          "cublas",
+          "ptxas",
+          "openassembler"
+        ],
+        [
+          "cublas",
+          "openassembler",
+          "ptxas"
+        ],
+        [
+          "cublas",
+          "openassembler",
+          "ptxas"
+        ],
+        [
+          "openassembler",
+          "cublas",
+          "ptxas"
+        ],
+        [
+          "cublas",
+          "openassembler",
+          "ptxas"
+        ]
+      ],
+      "full_output_checked": true,
+      "ncu_status": "disabled"
+    },
+    {
+      "name": "tall_morton_bf16",
+      "dtype": "bf16",
+      "cubin_sha256": "5266b8204cf131d757e13e9424899f85832384c68d3b643f2d0a76559d5ebd4a",
+      "reference_sha256": "b267f3307c7e27293fd2c5c20b0c9cb78d29107e85c126811fb4f06ae02a0743",
+      "checks": [
+        {
+          "pattern": "zero",
+          "passed": true,
+          "relative_l2": 0.0,
+          "ptxas_bitwise_equal": true,
+          "canaries": true,
+          "elements_checked": 67108864
+        },
+        {
+          "pattern": "integer",
+          "passed": true,
+          "relative_l2": 0.0,
+          "ptxas_bitwise_equal": true,
+          "canaries": true,
+          "elements_checked": 67108864
+        },
+        {
+          "pattern": "normal",
+          "passed": true,
+          "relative_l2": 5.306613729771925e-06,
+          "ptxas_bitwise_equal": true,
+          "canaries": true,
+          "elements_checked": 67108864
+        }
+      ],
+      "cublas_status": "success",
+      "relative_l2_vs_cublas": 0.0,
+      "cublas_check": {
+        "passed": true,
+        "relative_l2_vs_openassembler": 0.0,
+        "relative_l2_vs_fp32_reference": 5.306613729771925e-06,
+        "max_abs_vs_fp32_reference": 0.003204345703125,
+        "elements_checked": 67108864
+      },
+      "timing_medians_ms": {
+        "openassembler": 2.4771583557128904,
+        "ptxas": 2.325606346130371,
+        "cublas": 2.243583917617798
+      },
+      "timing_samples_ms": {
+        "openassembler": [
+          2.4771583557128904,
+          2.4755199432373045,
+          2.475315284729004,
+          2.4760320663452147,
+          2.5050111770629884,
+          2.5065471649169924,
+          2.47644157409668,
+          2.487808036804199,
+          2.48852481842041
+        ],
+        "ptxas": [
+          2.3212032318115234,
+          2.3213056564331054,
+          2.3214080810546873,
+          2.320895957946777,
+          2.32857608795166,
+          2.346291160583496,
+          2.325606346130371,
+          2.333593559265137,
+          2.3267328262329103
+        ],
+        "cublas": [
+          2.2456319332122803,
+          2.243583917617798,
+          2.219007968902588,
+          2.2128639221191406,
+          2.2210559844970703,
+          2.2650880813598633,
+          2.243583917617798,
+          2.2568960189819336,
+          2.2425599098205566
+        ]
+      },
+      "paired_orders": [
+        [
+          "cublas",
+          "openassembler",
+          "ptxas"
+        ],
+        [
+          "openassembler",
+          "ptxas",
+          "cublas"
+        ],
+        [
+          "ptxas",
+          "cublas",
+          "openassembler"
+        ],
+        [
+          "cublas",
+          "openassembler",
+          "ptxas"
+        ],
+        [
+          "cublas",
+          "ptxas",
+          "openassembler"
+        ],
+        [
+          "cublas",
+          "openassembler",
+          "ptxas"
+        ],
+        [
+          "cublas",
+          "openassembler",
+          "ptxas"
+        ],
+        [
+          "openassembler",
+          "cublas",
+          "ptxas"
+        ],
+        [
+          "cublas",
+          "openassembler",
+          "ptxas"
+        ]
+      ],
+      "full_output_checked": true,
+      "ncu_status": "disabled"
+    }
+  ],
+  "metric_hints": [
+    "sm__pipe_tensor_cycles_active.avg.pct_of_peak_sustained_active",
+    "smsp__inst_executed.sum",
+    "smsp__inst_executed_pipe_tensor.sum",
+    "smsp__warps_eligible.avg.per_cycle_active",
+    "smsp__warp_issue_stalled_short_scoreboard_per_warp_active.pct",
+    "smsp__warp_issue_stalled_long_scoreboard_per_warp_active.pct",
+    "smsp__warp_issue_stalled_wait_per_warp_active.pct",
+    "smsp__warp_issue_stalled_barrier_per_warp_active.pct",
+    "smsp__warp_issue_stalled_mio_throttle_per_warp_active.pct",
+    "l1tex__data_bank_conflicts_pipe_lsu_mem_shared_op_ld.sum",
+    "l1tex__data_pipe_lsu_wavefronts_mem_shared_op_ld.sum",
+    "dram__bytes.sum",
+    "lts__t_sector_hit_rate.pct"
+  ]
+}

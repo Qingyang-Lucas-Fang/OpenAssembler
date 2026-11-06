@@ -427,10 +427,14 @@ performed.
 
 ## Next research priorities
 
-1. **Close the measured direct-kernel gap with counters.** Profile tensor-pipe
-   issue, operand collection, shared-bank traffic, short/long scoreboards and
-   barrier waits for the same direct OpenAssembler, ptxas and cuBLAS cases.
-   Counters should explain the remaining gap; static instruction count cannot.
+1. **Close the measured direct-kernel gap with counters.** Matched OA/ptxas/
+   cuBLAS profiles now cover tensor issue, shared-bank traffic, scoreboards and
+   barriers for the tall shape. A repeat confirms identical Tensor Core counts,
+   higher OA short-scoreboard/wait stalls and Morton locality gains. The cuBLAS
+   event timing and first three-way NCU replay are recorded in
+   [A100_COUNTERS_20261105.md](A100_COUNTERS_20261105.md). Repeat the NCU profile
+   and test multiple shapes. These data narrow hypotheses but do not isolate
+   operand collectors or explain the full gap; static instruction count cannot.
 2. **Search layouts and registers jointly.** Current swizzle tests mostly held
    the register fragment organization fixed. Search shared swizzle, fragment
    ownership/load order, reuse hints and live ranges together. Preserve

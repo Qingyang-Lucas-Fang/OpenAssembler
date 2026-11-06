@@ -58,3 +58,4 @@ exp/a100_mma/runs/
 **/.build/writer.lock
 
 # Unecessary files for open source
+docs/paper
