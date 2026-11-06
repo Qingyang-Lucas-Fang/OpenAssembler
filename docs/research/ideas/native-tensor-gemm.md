@@ -1,0 +1,43 @@
+# Native SM80 tensor GEMM compiler and mainloop
+
+Status: implemented
+
+Status applies to the stated experiment and contract, not to every possible version of the idea.
+
+## Idea in plain language
+
+Generate a complete matrix-multiplication kernel whose main work executes on A100 Tensor Cores, while OpenAssembler controls native instruction choice, registers, copies and dependencies.
+
+## Findings and implementation decision
+
+The production `gemm` path computes C=A@B.T with contiguous FP16/BF16 operands, FP32 accumulation/output, 128×128×64 CTA tiles, four 64×64 warp tiles, 128 threads and 64 KiB dynamic shared memory. M/N/K are positive multiples of 128. It combines asynchronous copies, paired fragment loads, 7/7 shared swizzle, a fixed stage-pair loop and vector stores.
+
+The promoted schedule bundle reduced time 16.13–26.69% versus the earlier direct schedule across six historical square/MLP/tall cases and reached 79.76–98.91% of matched default cuBLAS. This does not establish cuBLASLt parity, arbitrary GEMM support or a native transformer compiler.
+
+## Method and validity checks
+
+Verify every output against a declared FP32 reference, use zero/integer/normal inputs and guards, and preserve the complete dependency graph. Retain full encoded stream hashes; disassemble generated cubins; time matched methods on one worker with randomized order. Profiling replay is a separate experiment.
+
+## Reproduction and command set
+
+Run from the repository root. Use Python 3.12+ and an installed test environment. Commands that compile require the CUDA 12.8 toolkit; GPU commands additionally require an NVIDIA driver or an authenticated Modal client. Explicit skips mean a dependency/corpus is unavailable, not a passing hardware result.
+
+```sh
+.venv/bin/python -m openassembler gemm --m 4096 --n 4096 --k 4096 --dtype f16 --out-dir output/native-gemm
+.venv/bin/python -m openassembler run output/native-gemm --backend modal --budget 300 --job-timeout 120
+.venv/bin/python -m pytest -q tests/test_backend_tensor.py tests/test_gemm_codegen.py tests/test_cli_gemm.py
+modal run docs/evidence/a100-mma/current-validation/validate_modal.py
+```
+`run` uses an exact-small-integer smoke contract, not the archived normal-input performance test. The retained validator supplies broader checks. Original phase-three candidate generators were retired; raw historical results remain available.
+
+## Code and retained evidence
+
+- [PTX kernel generator](../../../openassembler/kernels/gemm.py)
+- [Native tensor selector/scheduler](../../../openassembler/backend/tensor.py)
+- [Bundled encoder](../../../openassembler/backend/tensor_encoding.py)
+- [Historical schedule evidence](../../evidence/a100-mma/phase3/evidence-summary.json)
+- [Current-source validator](../../evidence/a100-mma/current-validation/validate_modal.py)
+
+## What remains open
+
+The default remains behind matched ptxas on measured MLP shapes. Transposed storage, tails, arbitrary alpha/beta, TF32 generation and a full native forward/backward/optimizer graph need new contracts. See the separate direct-pointer option for a newer shape-specific improvement.

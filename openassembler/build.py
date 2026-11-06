@@ -82,7 +82,7 @@ def encoder(arch: str):
         _ENCODERS[arch] = Encoder(arch)
     return _ENCODERS[arch]
 
-def generate(kernel, arch: str, opt_level: str):
+def generate(kernel, arch: str, opt_level: str, *, tensor_config=None):
     """One PTX kernel -> (code, labels, words, exits, nregs) with our backend. Raises
     ra.NotSupported / EncodeError for what it can't do (never guesses)."""
     from openassembler.backend import ra
@@ -93,7 +93,7 @@ def generate(kernel, arch: str, opt_level: str):
     from openassembler.backend import tensor
 
     if tensor.needs_tensor(kernel):
-        return tensor.generate(kernel, arch, opt_level)
+        return tensor.generate(kernel, arch, opt_level, config=tensor_config)
 
     if opt_level == "safe":
         code, st = ra.compile_kernel(kernel)
@@ -430,6 +430,7 @@ class KernelOut:
     source_params: list[str] | None = None
     tensor: dict | None = None
     gemm: dict | None = None
+    rowwise: dict | None = None
 
     def record(self) -> dict:
         r = {"name": self.name, "params": [list(p) for p in self.params], "compiled_by": self.compiled_by,
@@ -442,6 +443,8 @@ class KernelOut:
             r["tensor"] = self.tensor
         if self.gemm is not None:
             r["gemm"] = self.gemm
+        if self.rowwise is not None:
+            r["rowwise"] = self.rowwise
         return r
 
 
@@ -541,14 +544,21 @@ def build_source(src: Path, language: str, name: str, opt: Options, *, single: b
     # 2. our backend (+ --verify) per kernel
     from openassembler.gemm import contract_from_source
     gemm_contract = contract_from_source(ptx)
+    from openassembler.rowwise import contract_from_source as rowwise_contract_from_source
+    rowwise_contract = rowwise_contract_from_source(ptx)
     for kname in sel:
         k = KernelOut(kname, list(module.kernels[kname].params))
+        tensor_config = None
+        if gemm_contract is not None and kname == "gemm":
+            from openassembler.backend.tensor import TensorConfig
+            tensor_config = TensorConfig(pointer_mode=gemm_contract["pointer_mode"])
         if len(cnames.get(kname, ())) == len(k.params) and any(n != p[1] for n, p in zip(cnames.get(kname, ()), k.params)):
             k.source_params = cnames[kname]
         so.kernels.append(k)
         why, can_fallback = "", False
         try:
-            code, labels, words, exits, nregs = generate(module.kernels[kname], opt.arch, opt.opt_level)
+            code, labels, words, exits, nregs = generate(module.kernels[kname], opt.arch, opt.opt_level,
+                                                      tensor_config=tensor_config)
         except KeyboardInterrupt:
             raise
         except ra.NotSupported as e:
@@ -564,11 +574,13 @@ def build_source(src: Path, language: str, name: str, opt: Options, *, single: b
             k.instructions, k.registers = count_insns(code), nregs
             from openassembler.backend.tensor import needs_tensor, policy
             if needs_tensor(module.kernels[kname]):
-                k.tensor = {**policy(), "architecture": "sm_80",
+                k.tensor = {**policy(tensor_config), "architecture": "sm_80",
                             "async_scoreboard": 0, "ordinary_scoreboards": [1, 2, 3, 4, 5],
                             "requested_opt_level": opt.opt_level}
             if gemm_contract is not None and kname == "gemm":
                 k.gemm = gemm_contract
+            if rowwise_contract is not None and kname == rowwise_contract["kernel"]:
+                k.rowwise = rowwise_contract
             if opt.verify:
                 try:
                     k.verify, k.verify_msg = verify_kernel(module, kname, code, labels, ptx, opt.trials)

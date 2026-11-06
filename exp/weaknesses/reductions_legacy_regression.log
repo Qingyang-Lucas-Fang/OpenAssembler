@@ -1,0 +1,36 @@
+✓ Initialized. View run at 
+https://modal.com/apps/qingyang-lucas-fang/main/ap-HlXK4H4vRcwKVRk79GfUQN
+✓ Created objects.
+├── ✓ Uploaded 
+│   /Users/lucasfang/Desktop/OpenAssembler/exp/whole_stack/native_ops.py
+├── ✓ Uploaded PythonPackage:openassembler
+└── ✓ Created Function execute.
+
+==========
+== CUDA ==
+==========
+
+CUDA Version 12.8.0
+
+Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+
+This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+By pulling and using the container, you accept the terms and conditions of this license:
+https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+
+A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
+
+{"case": "relu_1048576", "status": "ok", "timings_ms": {"oa": 0.023552000522613525, "ptxas": 0.023552000522613525, "torch_cuda": 0.020479999482631683}}
+{"case": "relu_4194304", "status": "ok", "timings_ms": {"oa": 0.048128001391887665, "ptxas": 0.04710400104522705, "torch_cuda": 0.032255999743938446}}
+{"case": "gelu_1048576", "status": "ok", "timings_ms": {"oa": 0.02457600086927414, "ptxas": 0.025088000111281872, "torch_cuda": 0.02457600086927414}}
+{"case": "gelu_4194304", "status": "ok", "timings_ms": {"oa": 0.048128001391887665, "ptxas": 0.04915200173854828, "torch_cuda": 0.03788800165057182}}
+{"case": "adam_step_1048576", "status": "ok", "timings_ms": {"oa": 0.041471999138593674, "ptxas": 0.03686400130391121, "torch_cuda": 0.14336000382900238}}
+{"case": "adam_step_4194304", "status": "ok", "timings_ms": {"oa": 0.11366400122642517, "ptxas": 0.10291199758648872, "torch_cuda": 0.37171199917793274}}
+{"case": "softmax_128x128", "status": "ok", "timings_ms": {"oa": 0.11366400122642517, "ptxas": 0.08806400001049042, "torch_cuda": 0.018432000651955605}}
+{"case": "softmax_1024x512", "status": "ok", "timings_ms": {"oa": 0.4106239974498749, "ptxas": 0.30822399258613586, "torch_cuda": 0.020479999482631683}}
+{"case": "layernorm_128x128", "status": "ok", "timings_ms": {"oa": 0.09830400347709656, "ptxas": 0.08499199897050858, "torch_cuda": 0.030719999223947525}}
+{"case": "layernorm_1024x512", "status": "ok", "timings_ms": {"oa": 0.30105599761009216, "ptxas": 0.2549760043621063, "torch_cuda": 0.0363520011305809}}
+evidence: /Users/lucasfang/Desktop/OpenAssembler/exp/whole_stack/runs/native-ops-20261106T133850.397880Z.json
+Stopping app - local entrypoint completed.
+✓ App completed. View run at 
+https://modal.com/apps/qingyang-lucas-fang/main/ap-HlXK4H4vRcwKVRk79GfUQN

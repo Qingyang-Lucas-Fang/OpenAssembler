@@ -1,0 +1,81 @@
+{
+  "schema": 1,
+  "date_local": "2026-11-06",
+  "timezone": "Asia/Shanghai",
+  "baseline_git_commit": "3507e6198a9323060241ab05c4558052d7bac2b3",
+  "local_tests": {
+    "baseline": {
+      "command": ".venv/bin/python -m pytest -q",
+      "passed": 492,
+      "failed": 1,
+      "failure": "Pre-existing dry-run test expected --steps 2; committed application config selected --steps 4"
+    },
+    "final": {
+      "command": ".venv/bin/python -m pytest -q",
+      "passed": 579,
+      "skipped": 1,
+      "failed": 0,
+      "elapsed_seconds": 195.47,
+      "skip_reason": "Optional numerical module: torch absent from main compiler environment"
+    },
+    "torch_diagnostics": {
+      "command": "python3.13 -m pytest -q tests/test_torchfront_numerics.py",
+      "passed": 18,
+      "failed": 0,
+      "elapsed_seconds": 1.75
+    },
+    "diff_check": "git diff --check passed",
+    "frozen_scalar_baseline_guard": "accepts recorded pre-fix cubin and rejects an incorrect control before GPU submission"
+  },
+  "hardware": {
+    "gemm": {
+      "independent_primary_runs": 3,
+      "shape_dtype_cases_per_run": 18,
+      "full_method_input_checks_passed": 486,
+      "additional_identical_stream_control_checks": 162,
+      "dtypes": [
+        "f16",
+        "bf16"
+      ],
+      "devices": [
+        "A100-SXM4-40GB",
+        "A100-SXM4-80GB"
+      ],
+      "admission": "full output, matched-PTX bitwise, canaries, validated paired graphs",
+      "policy": "direct pointer homes opt-in only; legacy default preserved; tall regressions retained"
+    },
+    "reductions": {
+      "record": "reductions_runs/a100-20261106T133842.082727Z.json",
+      "cases": 18,
+      "patterns_per_case": 5,
+      "oa_elements_checked": 17408740,
+      "all_passed": true,
+      "device": "A100-SXM4-80GB",
+      "same_native_streams_as_integrated_40GB_candidate": true,
+      "admission": "unchanged FP64-reference tolerance, canaries, poisoned-after-capture graph replay"
+    },
+    "scalar_regression": {
+      "record": "reductions_runs/scalar-regression-20261106T134737.702713Z.json",
+      "cases": 10,
+      "all_passed": true,
+      "device": "A100-SXM4-40GB",
+      "admission": "paired old-native/current-native full equality and canaries; no observed timing slowdown"
+    },
+    "normal_cli": {
+      "record": "cli_rowwise_smoke.json",
+      "cases": 2,
+      "all_passed": true,
+      "device": "A100-SXM4-40GB",
+      "admission": "zero input, device NaN output fill, full analytic constant check and strict bitwise ptxas comparison",
+      "scope": "smoke only, not general floating-point accuracy or graph performance"
+    },
+    "bf16": {
+      "record": "bf16_verification_a100.json",
+      "diagnostic_tests_passed_in_pinned_image": 18,
+      "model_state_tensors_checked": 127,
+      "parameter_tensors_failed": 2,
+      "admitted_as_training_speedup": false,
+      "cast_preservation": "tested and rejected; original parameter gate still fails"
+    }
+  }
+}

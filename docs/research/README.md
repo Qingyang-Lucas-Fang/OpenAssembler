@@ -1,27 +1,134 @@
-# Research Index
+# Research and feature catalogue
 
-This folder separates durable research conclusions from generated builds and
-phase-by-phase experiment workspaces. The current consolidated record is in
-these documents:
+This is the complete entry point for the repository's researched features and
+ideas. Each item links to **one canonical dossier** with plain-language context,
+implementation/tests, positive and negative findings, methodology, prerequisites,
+reproduction commands, raw evidence and remaining questions.
 
-| Document | Scope |
+**Correctness, performance and deployment are separate questions.** A technique
+can be correct but slower, implemented only as an example, useful only on one
+shape, or experimentally valid without being integrated. “Not selected” below
+is not a claim of universal mathematical invalidity. Source-only proposals and
+hardware-unavailable ideas have their own list instead of being called failed
+experiments. Several dossiers can use the same experiment; their counts are
+not independent replications.
+
+For architecture and newest measurements read [STATUS](../STATUS.md). For all
+CLI syntax use [COMMANDS](../COMMANDS.md). Shared setup, evidence conventions and
+a short glossary are in [DEVELOPMENT](../DEVELOPMENT.md). The complete
+cross-cutting [whole-stack study](WHOLE_STACK_RESULTS.md) and
+[primary references](REFERENCES.md) remain essential companion documents.
+
+There are **66 dossiers**: **33 implemented**, **10 validated but not integrated**, **13 tested but not selected**, and **10 open or hardware unavailable**.
+
+## 1. Validated and implemented
+
+These are available in the current code under their stated contracts. Explicit tuning options and shipped examples are not automatically selected or universally faster.
+
+| Feature / idea | What is established or limited |
 |---|---|
-| [A100 MMA results](A100_MMA_RESULTS.md) | Full chronological ledger of A100 tensor-core research, including positive, negative, failed and superseded results. |
-| [A100 counter profiles, 2026-11-05](A100_COUNTERS_20261105.md) | Matched OA, ptxas and cuBLAS measurements, counter replays, repeatability notes and harness failures. |
-| [Whole-stack and stage results, 2026-11-06](WHOLE_STACK_RESULTS.md) | Ten transformer configurations, native-GEMM hybrid MLPs, scalar neural operators, complete CLI replay proof and numerical failures. |
-| [Scalar compiler results](SCALAR_COMPILER_RESULTS.md) | Scalar A100 timing, cubin/encoding findings, compiler scheduling evidence and FP32 AlphaTensor study. |
-| [A100 compiler contract](A100_MMA_COMPILER.md) | Current production SM80 GEMM compiler behavior, measurements, supported options and limits. |
-| [SASS reverse engineering](REVERSE_ENGINEERING.md) | Methods, verified findings, evidence levels and links to the detailed encoding/cubin/bridge notes. |
-| [Reproduction guide](../../REPRODUCING.md) | Current reproducible commands, retained evidence and provenance policy. |
-| [Primary references](REFERENCES.md) | Literature and vendor documentation, with distinctions between hardware capability and measured result. |
+| [Recovered arithmetic instruction sequences and rounding policy](ideas/arithmetic-instruction-selection.md) | The standard backend imports retained CUDA 12.8 arithmetic fragments and generates its own words. |
+| [Constant integer division and remainder lowering](ideas/constant-division.md) | The implemented 32-bit lowering removes a reciprocal-based path from direct PTX division/remainder sites. |
+| [Cooperative population LayerNorm](ideas/cooperative-layernorm.md) | Shifted population LayerNorm passes full finite-domain tests; affine, saved statistics and backward are absent. |
+| [Cooperative FP32 row softmax](ideas/cooperative-softmax.md) | Native warp-per-row softmax passes the full five-pattern contract; large serial-mapping gains, ptxas still faster. |
+| [Loadable cubins and metadata-safe code replacement](ideas/cubin-metadata-splicing.md) | The production container code parses/serializes CUDA ELF and .nv.info records, replaces kernel text, fixes exit offsets and declares the generated register count. |
+| [CUDA C/C++ frontend through nvcc PTX](ideas/cuda-cpp-frontend.md) | nvcc supplies CUDA parsing/PTX, while OpenAssembler supplies supported native SASS generation. |
+| [Dead-code removal, copy coalescing and local folding](ideas/dead-code-and-copy-elimination.md) | These passes are in the regular scalar and tensor compilation pipelines before allocation. |
+| [Direct pointer homes for asynchronous GEMM copies](ideas/direct-pointer-homes.md) | Explicit mode improves tested MLP products but regresses on tall GEMM; legacy remains the default. |
+| [Fused Adam-like scalar update example](ideas/fused-adam-like-update.md) | Fused example passes tolerance and beats the chosen eager expression; it is not complete AdamW or a tuned-optimizer comparison. |
+| [Fused FP32 bias, residual and ReLU epilogues](ideas/fused-gemm-epilogues.md) | The explicit `bias_residual` and `bias_residual_relu` plans compute `(A@B.T + Bias) + Residual`, then optional finite-value ReLU, with FP32 inputs to the epilogue and FP32 output. |
+| [GPU execution, explicit launch specifications and fault isolation](ideas/gpu-execution-and-launch-specs.md) | Typed launch planning, fault-isolated local/Modal/SSH transports implemented; Modal hardware is validated and latest real SSH evidence is absent. |
+| [Four-way counted-loop unrolling](ideas/loop-unrolling.md) | The `opt` scalar path applies four-way unrolling to the supported counted-loop form. |
+| [Exact AlphaTensor/Strassen factors and FP32 research plans](ideas/low-rank-factorization-library.md) | Exact factors and explicit FP32 research plans exist; sampled/interrupted timing records do not prove a general win. |
+| [Morton8 logical CTA traversal](ideas/morton-cta-order.md) | Corrected 8×8 tile traversal helps tested tall grids; it is not an MMA storage layout or automatic policy. |
+| [Native tanh-approximation GELU example](ideas/native-gelu.md) | Tanh-GELU passes a predeclared FP64 tolerance, while the old exact gate failure remains and gains depend on size. |
+| [Native scalar ReLU example](ideas/native-relu.md) | Finite-input exact example passes; measured large-size PyTorch is faster, with no universal speedup. |
+| [Native SM80 tensor GEMM compiler and mainloop](ideas/native-tensor-gemm.md) | The production `gemm` path computes C=A@B.T with contiguous FP16/BF16 operands, FP32 accumulation/output, 128×128×64 CTA tiles, four 64×64 warp tiles, 128 threads and 64 KiB dynamic shared memory. |
+| [Operand reuse hints and ordering](ideas/operand-reuse-hints.md) | The tensor scheduler emits reuse hints for supported neighboring HMMA operands. |
+| [Paired B-fragment LDSM loads and register-group use](ideas/paired-fragment-loads.md) | The selected native kernel uses paired `LDSM.x4` B loads. |
+| [Native PTX input and compilation boundary](ideas/ptx-native-frontend.md) | Supported SM80 PTX routes to the native scalar/tensor backends with explicit verification limits. |
+| [Typed Python kernel frontend](ideas/python-kernel-frontend.md) | Typed numeric Python source compiles without executing imports; fixed GPU numeric semantics are explicit. |
+| [PyTorch application capture and saved replay](ideas/pytorch-application-capture.md) | Actual verified capture/replay passes77 tensors and cache-only replay; lowering is Inductor/Triton, not native OA. |
+| [Repository discovery, manifests and safe artifact publication](ideas/repository-builds.md) | Safe discovery, path mirroring, manifests, locking and publication are implemented and tested. |
+| [SASS execution emulator and fitted tensor arithmetic](ideas/sass-emulator-and-tensor-numerics.md) | Functional execution and fitted tensor arithmetic pass the recorded cases; they do not prove real timing or all special values. |
+| [SM80 SASS instruction encoding](ideas/sass-encoding.md) | The production encoder emits the supported SM80 instructions from generated templates and field maps. |
+| [Scalar register dependencies, scoreboards and synchronized shuffles](ideas/scalar-dependency-correctness.md) | Fresh binding, reader sets, scoreboard-generation retirement, source WAR and actual WARPSYNC repair hardware failures. |
+| [Register allocation, aligned groups and guarded definitions](ideas/scalar-register-allocation.md) | The scalar compiler uses virtual values, liveness, stable homes for repeated/guarded definitions and aligned register-group allocation. |
+| [Measured scalar instruction scheduling](ideas/scalar-scheduling.md) | Corrected fixed-pipe probes found four cycles for tested same-pipe ALU/FMA pairs, five across tested classes, and 13 from a predicate definition to tested guarded instructions/branches. |
+| [Shared-memory swizzling and bank conflicts](ideas/shared-layout-swizzling.md) | The selected GEMM uses the tested symmetric 7/7 XOR swizzle. |
+| [Two-tile stage-pair specialization and peeled drain](ideas/stage-pair-specialization.md) | `--schedule stagepair` is the selected production plan. |
+| [Complete application-state verification diagnostics](ideas/state-verification-diagnostics.md) | Checks all state groups under unchanged gates and bounded failure reports; exposes both BF16 parameter failures. |
+| [Carry-linked pointer updates and folded shared addresses](ideas/tensor-address-generation.md) | The earlier address work reduced one selected kernel from 1,898 to 1,812 static non-NOP instructions; six same-worker cases improved about 0.9–5.4%. |
+| [Vectorized FP32 result stores](ideas/vectorized-fp32-epilogue.md) | The native GEMM epilogue groups FP32 stores into pairs and passes an existing aligned register pair directly when possible. |
 
-Operational product documentation remains in [FRONTENDS.md](../FRONTENDS.md),
-[TENSOR_GEMM.md](../TENSOR_GEMM.md), [STATUS.md](../STATUS.md), and
-[REPRODUCING.md](../../REPRODUCING.md). Compact machine-readable A100 evidence
-is indexed in [docs/evidence/a100-mma](../evidence/a100-mma/README.md). The
-corrected instruction-latency record is in
-[docs/evidence/a100-latency](../evidence/a100-latency/README.md).
+## 2. Validated, not integrated as a production optimization
 
-The old experiment workspaces and generated build trees are retired as
-documentation entry points. Their outcomes have been consolidated into the
-two results ledgers; retained raw records are listed in the evidence indexes.
+These capabilities, diagnostics and research prototypes have bounded validation. The dossier states whether correctness, measurement or performance was established; none should be mistaken for an automatic compiler pass.
+
+| Feature / idea | What is established or limited |
+|---|---|
+| [Adam epsilon sensitivity of near-invariant BF16 key bias](ideas/adam-epsilon-sensitivity.md) | Changing epsilon explains sensitivity under a different training policy; it is not a repair of the original gate. |
+| [cuBLAS dispatch observation and cuBLASLt controls](ideas/cublas-observation-and-baselines.md) | Vendor dispatch and matched controls guide independent kernels; no vendor kernel was extracted into the compiler. |
+| [Two-slot asynchronous barrier overlap](ideas/mbarrier-overlap.md) | A two-slot one-CTA overlap probe works; dense-GEMM integration and an application benefit remain unproven. |
+| [Native GEMMs inside a complete hybrid residual MLP](ideas/native-hybrid-mlp.md) | Complete hybrid steps are checked, including packing and optimizer work; effects are mixed and integration is experimental. |
+| [Padded forward/backward integration prototype](ideas/padded-training-hook.md) | The phase-two FP16/BF16 hook passed forward/backward and three-step state checks under its explicit padding/rounding policy. |
+| [Post-allocation pointer-copy forwarding](ideas/post-allocation-pointer-forwarding.md) | The tested rewrite is correct but produces exactly the direct-pointer stream; it adds no distinct optimization. |
+| [Structured-sparse MMA capability probes](ideas/sparse-mma-capability.md) | Limited ptxas-built sparse probes ran on A100; native OA sparse code generation and speedup are not established. |
+| [Hardware-counter-guided tensor analysis](ideas/tensor-counter-profiling.md) | Retained matched profiles show equal tensor work but different overhead and stalls. |
+| [Clocked tensor probes and synchronization sweeps](ideas/tensor-timing-and-synchronization.md) | Corrected exact-SASS probes measured an approximately eight-cycle-per-operation slope for the tested dependent HMMA sequence and about 41 cycles per iteration for LDSM→LOP3→IADD3. |
+| [Whole-transformer training and inference evaluation](ideas/whole-transformer-evaluation.md) | Nine of ten configurations pass both rounds; gains use Inductor/Triton and BF16 training remains excluded. |
+
+## 3. Tested and rejected or not selected
+
+This list distinguishes failed numerical gates, correct-but-slower candidates, and candidates that added no separate benefit. Some example source remains for testing; presence in the tree does not override a failed gate.
+
+| Feature / idea | What is established or limited |
+|---|---|
+| [Asymmetric shared-memory address layouts](ideas/asymmetric-shared-banking.md) | The historical shared-layout sweep tested asymmetric 7/3 and 3/7 swizzles against symmetric 7/7. |
+| [Preserving intermediate casts as a BF16 repair attempt](ideas/bf16-cast-preservation.md) | Keeping eager-like casts still fails the original BF16 parameter gate; the setting was not promoted. |
+| [Compile-time rank-seven versus rank-eight native MMA](ideas/compile-time-low-rank-mma.md) | Compile-time rank-seven tests did not establish a competitive precision-matched end-to-end tensor mainloop. |
+| [Deeper copy pipelines and larger tiles](ideas/deeper-pipelines-and-tile-shapes.md) | For the tested 64-wide K tile, two stages beat three/four: approximately 1.003 ms versus 1.178/1.180 ms in the archived run. |
+| [Hilbert, grouped-M and alternative CTA orders](ideas/hilbert-and-grouped-cta-order.md) | The phase-five study tested N-fast, grouped-M, Morton8 and Hilbert8 while retaining the physical HMMA/LDSM/LDGSTS words and controls. |
+| [Persisting-L2 cache allocation policies](ideas/l2-persistence.md) | The controlled cache-policy study performed 224 output checks across square/tall FP16/BF16 and policy settings, with graph-node policy readback. |
+| [Copy prefetch hints and bounded fragment windows](ideas/prefetch-and-fragment-windows.md) | The production follow-up tested cp.async L2-prefetch modifiers, B-fragment windows of two/four and bounded prefetch. |
+| [Software producer/consumer warp specialization](ideas/producer-consumer-warps.md) | The tested role-split variants passed four large-case A100 correctness checks but measured about 1.019–1.943 ms and lost to the unified-warp schedule. |
+| [Runtime-factor Triton low-rank lowering](ideas/runtime-factor-low-rank-triton.md) | The early A10040GB prototype was far slower: at 4096³ FP16, cuBLAS was about 0.511 ms, direct Triton 1.325 ms, Strassen 11.611 ms and AlphaTensor 13.041 ms. |
+| [Naive scalar attention-score baseline](ideas/scalar-attention-score-baseline.md) | The illustrative score kernel fails its retained exact gate; it is not a fused attention implementation. |
+| [Serial scalar cross-entropy baseline](ideas/scalar-cross-entropy-baseline.md) | The example exists, but its retained exact hardware gate fails; no speedup is admitted. |
+| [Naive scalar matrix-multiplication baseline](ideas/scalar-matmul-baseline.md) | The scalar example fails its retained exact gate and is not the validated tensor-core GEMM. |
+| [Software fragment caching in registers](ideas/software-register-caching.md) | Bounded B-fragment windows of two/four and prefetch variants passed correctness but were slower across seven paired rounds on the tested workloads. |
+
+## 4. Open, incomplete or unavailable on A100
+
+These are source-inspection conclusions, implementation proposals, missing hardware features or unprofiled host changes. They have no admitted optimization result.
+
+| Feature / idea | What is established or limited |
+|---|---|
+| [A100 feasibility: TMA, clusters, FP8, DPX and virtual grouping](ideas/a100-hardware-limits.md) | Missing hardware capabilities cannot be enabled by a compiler flag; software substitutes remain distinct proposals. |
+| [Adaptive shared-memory budgeting](ideas/adaptive-shared-memory-budgeting.md) | The production native GEMM has an explicit fixed contract: two 32 KiB shared operand regions, 64 KiB dynamic shared memory and 128 threads. |
+| [Cross-architecture encoding and cubin observations](ideas/architecture-portability.md) | Historical CUDA 12.8 probes examined common control fields on SM75/86/90/100/120 and parameter/ELF metadata changes. |
+| [Automatic equivalent SASS sequence search](ideas/automatic-sass-sequence-search.md) | Historical candidate searches explored several epilogue orders, fragment windows, pre-addressing, operand orders and scheduler variants; selected changes contributed to the current GEMM. |
+| [Python versus a compiled host implementation](ideas/compiler-language-and-host-latency.md) | No profile shows that rewriting the host compiler improves GPU instruction speed; profile individual host passes first. |
+| [Control-flow recovery and a SASS-to-PTX lifter](ideas/control-flow-lifting.md) | Useful instruction and reconvergence patterns were observed; a complete structured lifter is not shipped. |
+| [CUDA-L2 project source audit](ideas/cuda-l2-source-audit.md) | Pinned public source and contracts were inspected; a faithful port and performance reproduction remain open. |
+| [Joint shared-layout and register-fragment search](ideas/joint-layout-register-search.md) | Existing swizzle experiments largely held register organization fixed; fragment-window and tile experiments explored other dimensions separately. |
+| [Fuse low-rank transforms into operand staging](ideas/low-rank-transform-fusion.md) | The existing runtime-factor and tiny compile-time studies identify this as promising future work. |
+| [Alternative multi-precision accumulation paths](ideas/multi-precision-accumulation.md) | The implemented tensor GEMM already uses mixed precision in the ordinary sense: FP16/BF16 inputs with FP32 accumulation and FP32 output. |
+
+## How to use and maintain this catalogue
+
+Start with the problem you want to solve, then read that dossier's contract and
+reproduction section before running its commands. Historical drivers that were
+retired are identified explicitly; a current smoke command is not advertised as
+recreating an old performance experiment. Unsupported/proposed work does not
+have fabricated validation commands.
+
+The machine-readable index is [catalogue.json](catalogue.json). It and the
+literal dossier status tags are checked by `python3 tools/check_docs.py` from
+the repository root. The checker also detects orphan dossiers, broken local
+links and command-reference drift without launching GPU work.
+
+Duplicate chronological reports were consolidated into these dossiers. Their
+exact original text is available only as [documentation provenance](../evidence/documentation-history/README.md),
+not a competing active guide. Raw JSON, source snapshots, oracle inputs and
+hashes remain at their recorded evidence locations.

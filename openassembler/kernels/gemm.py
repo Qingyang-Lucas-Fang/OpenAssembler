@@ -34,6 +34,7 @@ class GemmPlan:
     arch: str = "sm_80"
     cta_order: str = "m_fast"
     epilogue: str = "none"
+    pointer_mode: str = "legacy"
 
     def __post_init__(self) -> None:
         for name in ("m", "n", "k"):
@@ -48,6 +49,11 @@ class GemmPlan:
             raise ValueError("CTA order must be m_fast or morton8")
         if self.epilogue not in ("none", "bias_residual", "bias_residual_relu"):
             raise ValueError("epilogue must be none, bias_residual or bias_residual_relu")
+        if self.pointer_mode not in ("legacy", "direct"):
+            raise ValueError("pointer mode must be legacy or direct")
+        if self.pointer_mode == "direct" and (self.schedule != "stagepair"
+                or self.cta_order != "m_fast" or self.epilogue != "none"):
+            raise ValueError("direct pointer mode is validated for stagepair, m_fast, unfused GEMM")
         if self.epilogue != "none" and self.schedule != "stagepair":
             raise ValueError("fused training epilogues require the validated stagepair schedule")
         if self.output_dtype != "f32" or self.layout != "rcr" or self.arch != "sm_80":
@@ -73,6 +79,7 @@ class GemmPlan:
                 "k": self.k, "dtype": self.dtype, "output_dtype": self.output_dtype,
                 "accumulation": "f32", "layout": self.layout, "schedule": self.schedule,
                 "cta_order": self.cta_order, "epilogue": self.epilogue,
+                "pointer_mode": self.pointer_mode,
                 "tile_mnk": [128, 128, 64], "warp_mn": [64, 64], "stages": 2,
                 "shared_swizzle": [7, 7], "input_alignment": 16, "output_alignment": 8}
 

@@ -286,6 +286,7 @@ def run_plan_job(drv: Driver, job: dict) -> dict:
         "modules": {name: cubin bytes},
         "buffers": {name: size_bytes},
         "init":    {buffer: bytes}               host data copied in once
+        "init_byte": {buffer: 0..255}            optional device byte fill, before host data
         "init_rand": {buffer: (seed, count)}     or generated with rand_f32 (no upload)
         "init_tensor16": {buffer: (seed, count, dtype)} small f16/bf16 integers
         "steps":   [(module, kernel, grid, block, smem, [arg, ...]), ...]
@@ -301,6 +302,10 @@ def run_plan_job(drv: Driver, job: dict) -> dict:
         for name, size in job["buffers"].items():
             bufs[name] = drv.alloc(max(size, 16))
             drv.memset(bufs[name], 0, max(size, 16))
+        for name, value in job.get("init_byte", {}).items():
+            if name not in bufs or type(value) is not int or not 0 <= value <= 255:
+                raise ValueError("byte initialization requires a known buffer and a byte in [0, 255]")
+            drv.memset(bufs[name], value, max(job["buffers"][name], 16))
         for name, data in job.get("init", {}).items():
             drv.htod(bufs[name], data)
         for name, (seed, count) in job.get("init_rand", {}).items():

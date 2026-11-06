@@ -1,0 +1,168 @@
+{
+  "schema": 1,
+  "runtime": {
+    "torch": "2.7.1+cu128",
+    "cuda": "12.8",
+    "python": "3.11.13",
+    "device": "NVIDIA A100-SXM4-40GB",
+    "capability": [
+      8,
+      0
+    ]
+  },
+  "tests": "..................                                                       [100%]\n18 passed in 3.24s",
+  "seconds": 34.485492689000004,
+  "config": {
+    "entrypoint": "model.py",
+    "args": [
+      "--mode",
+      "train",
+      "--batch",
+      "8",
+      "--seq",
+      "128",
+      "--width",
+      "512",
+      "--heads",
+      "8",
+      "--layers",
+      "2",
+      "--vocab",
+      "512",
+      "--dtype",
+      "bf16",
+      "--steps",
+      "20",
+      "--warmup",
+      "8",
+      "--profile"
+    ],
+    "seed": 1729,
+    "mode": "compile",
+    "rtol": 0.05,
+    "atol": 0.005,
+    "state_rtol": 0.05,
+    "state_atol": 0.005,
+    "requirements": []
+  },
+  "optimizer_steps": {
+    "eager": 29,
+    "compiled": 29
+  },
+  "original_assert_close_failed_keys": [
+    "parameters/__main__.TinyTransformer.forward/blocks.0.qkv.bias",
+    "parameters/__main__.TinyTransformer.forward/blocks.1.qkv.bias"
+  ],
+  "verification": {
+    "schema": 1,
+    "status": "failed",
+    "tensors_checked": 127,
+    "tensors_failed": 2,
+    "non_tensor_values_failed": 0,
+    "groups": {
+      "outputs": {
+        "tensors_checked": 2,
+        "tensors_failed": 0,
+        "non_tensor_values_failed": 0
+      },
+      "parameters": {
+        "tensors_checked": 25,
+        "tensors_failed": 2,
+        "non_tensor_values_failed": 0
+      },
+      "gradients": {
+        "tensors_checked": 25,
+        "tensors_failed": 0,
+        "non_tensor_values_failed": 0
+      },
+      "optimizer": {
+        "tensors_checked": 75,
+        "tensors_failed": 0,
+        "non_tensor_values_failed": 0
+      }
+    },
+    "failures": [
+      {
+        "key": "parameters/__main__.TinyTransformer.forward/blocks.0.qkv.bias",
+        "key_truncated": false,
+        "reference_shape": [
+          1536
+        ],
+        "reference_dtype": "torch.float32",
+        "reference_layout": "torch.strided",
+        "relative_tolerance": 0.05,
+        "absolute_tolerance": 0.005,
+        "actual_shape": [
+          1536
+        ],
+        "actual_dtype": "torch.float32",
+        "actual_layout": "torch.strided",
+        "kind": "values",
+        "elements": 1536,
+        "mismatched_elements": 3,
+        "mismatched_index_sample": [
+          [
+            680
+          ],
+          [
+            786
+          ],
+          [
+            965
+          ]
+        ],
+        "reference_nonfinite_elements": 0,
+        "actual_nonfinite_elements": 0,
+        "finite_pair_elements": 1536,
+        "max_abs_difference": 0.006443913094699383,
+        "reference_l2": 0.9987709852119621,
+        "actual_l2": 0.9978717872182872,
+        "difference_l2": 0.0493260063945019,
+        "relative_l2_difference": 0.04938670338329241,
+        "statistics_scope": "finite element pairs; null means undefined or overflow"
+      },
+      {
+        "key": "parameters/__main__.TinyTransformer.forward/blocks.1.qkv.bias",
+        "key_truncated": false,
+        "reference_shape": [
+          1536
+        ],
+        "reference_dtype": "torch.float32",
+        "reference_layout": "torch.strided",
+        "relative_tolerance": 0.05,
+        "absolute_tolerance": 0.005,
+        "actual_shape": [
+          1536
+        ],
+        "actual_dtype": "torch.float32",
+        "actual_layout": "torch.strided",
+        "kind": "values",
+        "elements": 1536,
+        "mismatched_elements": 1,
+        "mismatched_index_sample": [
+          [
+            603
+          ]
+        ],
+        "reference_nonfinite_elements": 0,
+        "actual_nonfinite_elements": 0,
+        "finite_pair_elements": 1536,
+        "max_abs_difference": 0.006741970777511597,
+        "reference_l2": 1.0261214498577511,
+        "actual_l2": 1.0263593398758621,
+        "difference_l2": 0.04969264401278299,
+        "relative_l2_difference": 0.04842764374496973,
+        "statistics_scope": "finite element pairs; null means undefined or overflow"
+      }
+    ],
+    "rtol": 0.05,
+    "atol": 0.005,
+    "state_rtol": 0.05,
+    "state_atol": 0.005,
+    "gradient_scope": "retained application gradients; raw versus clipped is not inferred",
+    "failure_details_omitted": 0
+  },
+  "gradient_snapshot_semantics": "retained .grad after application clip_grad_norm_; raw gradients are not observed",
+  "scope": "diagnostic validation only; unchanged BF16 math, AdamW epsilon/defaults and numerical admission gate; no speed claim",
+  "timestamp_utc": "2026-11-06T13:00:23.461276+00:00"
+}

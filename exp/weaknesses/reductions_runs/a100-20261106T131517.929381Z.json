@@ -1,0 +1,5498 @@
+{
+  "schema": 1,
+  "cases": [
+    {
+      "name": "softmax_128x128",
+      "op": "softmax",
+      "rows": 128,
+      "width": 128,
+      "source_sha256": "12af56689e3fd6f22b56a605b40689f0b5897317c6d2089877526b1b783b26ff",
+      "launch": {
+        "grid": [
+          32,
+          1,
+          1
+        ],
+        "threads": 128,
+        "smem": 0
+      },
+      "kernels": [
+        {
+          "name": "softmax",
+          "params": [
+            [
+              "u64",
+              "X"
+            ],
+            [
+              "u64",
+              "Y"
+            ]
+          ],
+          "compiled_by": "openassembler",
+          "instructions": 83,
+          "registers": 16,
+          "verify": "not-run"
+        }
+      ],
+      "sass_sha256": "94a3b327f270d3e1f4bdd213a5dfd95118bf00f8b57388fc68c2fb0b5f4bc5aa",
+      "oa_sha256": "ff4191a2413106b980ada9ee25713de97debe593f37f0e140ac09604c8b8830a",
+      "ptxas_sha256": "518667b65cd81259c785724bf96912c28518ab162008ca92c8f1b14cfd698e75",
+      "resources": {
+        "oa": {
+          "max_threads": 1024,
+          "shared_bytes": 0,
+          "const_bytes": 0,
+          "local_bytes": 0,
+          "num_regs": 16,
+          "ptx_version": 80,
+          "binary_version": 80
+        },
+        "ptxas": {
+          "max_threads": 1024,
+          "shared_bytes": 0,
+          "const_bytes": 0,
+          "local_bytes": 0,
+          "num_regs": 18,
+          "ptx_version": 80,
+          "binary_version": 80
+        },
+        "legacy_oa": {
+          "max_threads": 1024,
+          "shared_bytes": 0,
+          "const_bytes": 0,
+          "local_bytes": 0,
+          "num_regs": 22,
+          "ptx_version": 80,
+          "binary_version": 80
+        },
+        "legacy_ptxas": {
+          "max_threads": 1024,
+          "shared_bytes": 0,
+          "const_bytes": 0,
+          "local_bytes": 0,
+          "num_regs": 17,
+          "ptx_version": 80,
+          "binary_version": 80
+        }
+      },
+      "patterns": [
+        {
+          "name": "normal",
+          "checks": {
+            "oa": {
+              "passed": true,
+              "elements_checked": 16384,
+              "mismatched_elements": 0,
+              "max_abs": 1.2958512624061669e-08,
+              "relative_l2": 7.184631442978415e-08,
+              "canaries": true
+            },
+            "ptxas": {
+              "passed": true,
+              "elements_checked": 16384,
+              "mismatched_elements": 0,
+              "max_abs": 1.2958512624061669e-08,
+              "relative_l2": 7.184631442978415e-08,
+              "canaries": true
+            },
+            "legacy_oa": {
+              "passed": true,
+              "elements_checked": 16384,
+              "mismatched_elements": 0,
+              "max_abs": 9.169017201049456e-08,
+              "relative_l2": 1.8713717748468572e-07,
+              "canaries": true
+            },
+            "legacy_ptxas": {
+              "passed": true,
+              "elements_checked": 16384,
+              "mismatched_elements": 0,
+              "max_abs": 9.169017201049456e-08,
+              "relative_l2": 1.8713717748468572e-07,
+              "canaries": true
+            },
+            "torch_cuda": {
+              "passed": true,
+              "elements_checked": 16384,
+              "mismatched_elements": 0,
+              "max_abs": 1.2958512624061669e-08,
+              "relative_l2": 6.313358709374499e-08,
+              "canaries": true
+            }
+          },
+          "oa_ptxas_bitwise_equal": true
+        },
+        {
+          "name": "zero",
+          "checks": {
+            "oa": {
+              "passed": true,
+              "elements_checked": 16384,
+              "mismatched_elements": 0,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "canaries": true
+            },
+            "ptxas": {
+              "passed": true,
+              "elements_checked": 16384,
+              "mismatched_elements": 0,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "canaries": true
+            },
+            "legacy_oa": {
+              "passed": true,
+              "elements_checked": 16384,
+              "mismatched_elements": 0,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "canaries": true
+            },
+            "legacy_ptxas": {
+              "passed": true,
+              "elements_checked": 16384,
+              "mismatched_elements": 0,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "canaries": true
+            },
+            "torch_cuda": {
+              "passed": true,
+              "elements_checked": 16384,
+              "mismatched_elements": 0,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "canaries": true
+            }
+          },
+          "oa_ptxas_bitwise_equal": true
+        },
+        {
+          "name": "large_offset_small_variance",
+          "checks": {
+            "oa": {
+              "passed": true,
+              "elements_checked": 16384,
+              "mismatched_elements": 0,
+              "max_abs": 1.764545171437093e-09,
+              "relative_l2": 6.410267153759045e-08,
+              "canaries": true
+            },
+            "ptxas": {
+              "passed": true,
+              "elements_checked": 16384,
+              "mismatched_elements": 0,
+              "max_abs": 1.764545171437093e-09,
+              "relative_l2": 6.410267153759045e-08,
+              "canaries": true
+            },
+            "legacy_oa": {
+              "passed": true,
+              "elements_checked": 16384,
+              "mismatched_elements": 0,
+              "max_abs": 3.8068486973852345e-09,
+              "relative_l2": 1.7429104161773634e-07,
+              "canaries": true
+            },
+            "legacy_ptxas": {
+              "passed": true,
+              "elements_checked": 16384,
+              "mismatched_elements": 0,
+              "max_abs": 3.8068486973852345e-09,
+              "relative_l2": 1.7429104161773634e-07,
+              "canaries": true
+            },
+            "torch_cuda": {
+              "passed": true,
+              "elements_checked": 16384,
+              "mismatched_elements": 0,
+              "max_abs": 1.4515846684381994e-09,
+              "relative_l2": 5.062923311076705e-08,
+              "canaries": true
+            }
+          },
+          "oa_ptxas_bitwise_equal": true
+        },
+        {
+          "name": "wide",
+          "checks": {
+            "oa": {
+              "passed": true,
+              "elements_checked": 16384,
+              "mismatched_elements": 0,
+              "max_abs": 8.803978046589833e-08,
+              "relative_l2": 3.9539941962690604e-08,
+              "canaries": true
+            },
+            "ptxas": {
+              "passed": true,
+              "elements_checked": 16384,
+              "mismatched_elements": 0,
+              "max_abs": 8.803978046589833e-08,
+              "relative_l2": 3.9539941962690604e-08,
+              "canaries": true
+            },
+            "legacy_oa": {
+              "passed": true,
+              "elements_checked": 16384,
+              "mismatched_elements": 0,
+              "max_abs": 1.5951915155465457e-07,
+              "relative_l2": 4.225170839760643e-08,
+              "canaries": true
+            },
+            "legacy_ptxas": {
+              "passed": true,
+              "elements_checked": 16384,
+              "mismatched_elements": 0,
+              "max_abs": 1.5951915155465457e-07,
+              "relative_l2": 4.225170839760643e-08,
+              "canaries": true
+            },
+            "torch_cuda": {
+              "passed": true,
+              "elements_checked": 16384,
+              "mismatched_elements": 0,
+              "max_abs": 1.2623318823568042e-07,
+              "relative_l2": 3.7730326864467955e-08,
+              "canaries": true
+            }
+          },
+          "oa_ptxas_bitwise_equal": true
+        },
+        {
+          "name": "alternating",
+          "checks": {
+            "oa": {
+              "passed": true,
+              "elements_checked": 16384,
+              "mismatched_elements": 0,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "canaries": true
+            },
+            "ptxas": {
+              "passed": true,
+              "elements_checked": 16384,
+              "mismatched_elements": 0,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "canaries": true
+            },
+            "legacy_oa": {
+              "passed": true,
+              "elements_checked": 16384,
+              "mismatched_elements": 0,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "canaries": true
+            },
+            "legacy_ptxas": {
+              "passed": true,
+              "elements_checked": 16384,
+              "mismatched_elements": 0,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "canaries": true
+            },
+            "torch_cuda": {
+              "passed": true,
+              "elements_checked": 16384,
+              "mismatched_elements": 0,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "canaries": true
+            }
+          },
+          "oa_ptxas_bitwise_equal": true
+        }
+      ],
+      "candidate_passed_all_patterns": true,
+      "timing_inputs": "normal pattern, checked in full before timing",
+      "events": {
+        "oa": {
+          "samples_ms": [
+            0.021503999829292297,
+            0.01945599913597107,
+            0.021503999829292297,
+            0.020479999482631683,
+            0.01945599913597107,
+            0.020479999482631683,
+            0.01945599913597107,
+            0.01945599913597107,
+            0.020479999482631683,
+            0.020479999482631683,
+            0.020479999482631683,
+            0.01945599913597107,
+            0.01945599913597107,
+            0.03276799991726875,
+            0.020479999482631683,
+            0.01945599913597107,
+            0.01945599913597107,
+            0.01945599913597107,
+            0.021503999829292297,
+            0.01945599913597107
+          ],
+          "median_ms": 0.019967999309301376,
+          "min_ms": 0.01945599913597107,
+          "max_ms": 0.03276799991726875
+        },
+        "ptxas": {
+          "samples_ms": [
+            0.026623999699950218,
+            0.021503999829292297,
+            0.01945599913597107,
+            0.01945599913597107,
+            0.01945599913597107,
+            0.018432000651955605,
+            0.018432000651955605,
+            0.020479999482631683,
+            0.020479999482631683,
+            0.021503999829292297,
+            0.01945599913597107,
+            0.01945599913597107,
+            0.01945599913597107,
+            0.020479999482631683,
+            0.020479999482631683,
+            0.020479999482631683,
+            0.01945599913597107,
+            0.020479999482631683,
+            0.01945599913597107,
+            0.01945599913597107
+          ],
+          "median_ms": 0.01945599913597107,
+          "min_ms": 0.018432000651955605,
+          "max_ms": 0.026623999699950218
+        },
+        "legacy_oa": {
+          "samples_ms": [
+            0.11366400122642517,
+            0.11161600053310394,
+            0.11264000087976456,
+            0.11264000087976456,
+            0.11264000087976456,
+            0.10444799810647964,
+            0.11161600053310394,
+            0.11161600053310394,
+            0.11161600053310394,
+            0.11366400122642517,
+            0.11264000087976456,
+            0.11264000087976456,
+            0.10342399775981903,
+            0.11264000087976456,
+            0.11264000087976456,
+            0.11264000087976456,
+            0.11161600053310394,
+            0.11264000087976456,
+            0.10239999741315842,
+            0.10239999741315842
+          ],
+          "median_ms": 0.11264000087976456,
+          "min_ms": 0.10239999741315842,
+          "max_ms": 0.11366400122642517
+        },
+        "legacy_ptxas": {
+          "samples_ms": [
+            0.08396799862384796,
+            0.08396799862384796,
+            0.08294399827718735,
+            0.08294399827718735,
+            0.08294399827718735,
+            0.08396799862384796,
+            0.08294399827718735,
+            0.08294399827718735,
+            0.08294399827718735,
+            0.08294399827718735,
+            0.08396799862384796,
+            0.08396799862384796,
+            0.08294399827718735,
+            0.08396799862384796,
+            0.08294399827718735,
+            0.08396799862384796,
+            0.08294399827718735,
+            0.08396799862384796,
+            0.08191999793052673,
+            0.08294399827718735
+          ],
+          "median_ms": 0.08294399827718735,
+          "min_ms": 0.08191999793052673,
+          "max_ms": 0.08396799862384796
+        },
+        "torch_cuda": {
+          "samples_ms": [
+            0.027648000046610832,
+            0.020479999482631683,
+            0.018432000651955605,
+            0.01945599913597107,
+            0.018432000651955605,
+            0.03174399957060814,
+            0.01945599913597107,
+            0.01740800030529499,
+            0.01945599913597107,
+            0.018432000651955605,
+            0.020479999482631683,
+            0.018432000651955605,
+            0.01945599913597107,
+            0.018432000651955605,
+            0.018432000651955605,
+            0.01945599913597107,
+            0.01740800030529499,
+            0.018432000651955605,
+            0.020479999482631683,
+            0.018432000651955605
+          ],
+          "median_ms": 0.018943999893963337,
+          "min_ms": 0.01740800030529499,
+          "max_ms": 0.03174399957060814
+        }
+      },
+      "event_order": [
+        [
+          "ptxas",
+          "legacy_oa",
+          "legacy_ptxas",
+          "torch_cuda",
+          "oa"
+        ],
+        [
+          "torch_cuda",
+          "legacy_ptxas",
+          "ptxas",
+          "legacy_oa",
+          "oa"
+        ],
+        [
+          "ptxas",
+          "legacy_oa",
+          "legacy_ptxas",
+          "torch_cuda",
+          "oa"
+        ],
+        [
+          "torch_cuda",
+          "legacy_ptxas",
+          "oa",
+          "ptxas",
+          "legacy_oa"
+        ],
+        [
+          "legacy_oa",
+          "oa",
+          "legacy_ptxas",
+          "ptxas",
+          "torch_cuda"
+        ],
+        [
+          "legacy_oa",
+          "torch_cuda",
+          "legacy_ptxas",
+          "oa",
+          "ptxas"
+        ],
+        [
+          "legacy_ptxas",
+          "oa",
+          "legacy_oa",
+          "ptxas",
+          "torch_cuda"
+        ],
+        [
+          "torch_cuda",
+          "ptxas",
+          "legacy_ptxas",
+          "legacy_oa",
+          "oa"
+        ],
+        [
+          "ptxas",
+          "oa",
+          "legacy_oa",
+          "legacy_ptxas",
+          "torch_cuda"
+        ],
+        [
+          "legacy_oa",
+          "torch_cuda",
+          "oa",
+          "legacy_ptxas",
+          "ptxas"
+        ],
+        [
+          "legacy_oa",
+          "oa",
+          "torch_cuda",
+          "legacy_ptxas",
+          "ptxas"
+        ],
+        [
+          "legacy_oa",
+          "oa",
+          "torch_cuda",
+          "ptxas",
+          "legacy_ptxas"
+        ],
+        [
+          "legacy_oa",
+          "legacy_ptxas",
+          "torch_cuda",
+          "oa",
+          "ptxas"
+        ],
+        [
+          "oa",
+          "legacy_oa",
+          "legacy_ptxas",
+          "torch_cuda",
+          "ptxas"
+        ],
+        [
+          "legacy_oa",
+          "torch_cuda",
+          "ptxas",
+          "legacy_ptxas",
+          "oa"
+        ],
+        [
+          "legacy_oa",
+          "legacy_ptxas",
+          "ptxas",
+          "oa",
+          "torch_cuda"
+        ],
+        [
+          "legacy_ptxas",
+          "torch_cuda",
+          "ptxas",
+          "legacy_oa",
+          "oa"
+        ],
+        [
+          "legacy_ptxas",
+          "torch_cuda",
+          "legacy_oa",
+          "oa",
+          "ptxas"
+        ],
+        [
+          "legacy_ptxas",
+          "torch_cuda",
+          "oa",
+          "legacy_oa",
+          "ptxas"
+        ],
+        [
+          "oa",
+          "ptxas",
+          "legacy_ptxas",
+          "legacy_oa",
+          "torch_cuda"
+        ]
+      ],
+      "graph_poison_replay_checks": {
+        "oa": {
+          "passed": true,
+          "elements_checked": 16384,
+          "mismatched_elements": 0,
+          "max_abs": 1.2958512624061669e-08,
+          "relative_l2": 7.184631442978415e-08,
+          "canaries": true
+        },
+        "ptxas": {
+          "passed": true,
+          "elements_checked": 16384,
+          "mismatched_elements": 0,
+          "max_abs": 1.2958512624061669e-08,
+          "relative_l2": 7.184631442978415e-08,
+          "canaries": true
+        },
+        "legacy_oa": {
+          "passed": true,
+          "elements_checked": 16384,
+          "mismatched_elements": 0,
+          "max_abs": 9.169017201049456e-08,
+          "relative_l2": 1.8713717748468572e-07,
+          "canaries": true
+        },
+        "legacy_ptxas": {
+          "passed": true,
+          "elements_checked": 16384,
+          "mismatched_elements": 0,
+          "max_abs": 9.169017201049456e-08,
+          "relative_l2": 1.8713717748468572e-07,
+          "canaries": true
+        },
+        "torch_cuda": {
+          "passed": true,
+          "elements_checked": 16384,
+          "mismatched_elements": 0,
+          "max_abs": 1.2958512624061669e-08,
+          "relative_l2": 6.313358709374499e-08,
+          "canaries": true
+        }
+      },
+      "graphs": {
+        "oa": {
+          "samples_ms": [
+            0.003346000099554658,
+            0.002623999956995249,
+            0.002623999956995249,
+            0.002623999956995249,
+            0.002623999956995249,
+            0.0025919999461621046,
+            0.002623999956995249,
+            0.0025919999461621046,
+            0.002623999956995249,
+            0.0025919999461621046,
+            0.0025919999461621046,
+            0.002623999956995249,
+            0.0025599999353289604,
+            0.002623999956995249,
+            0.0025919999461621046,
+            0.0025599999353289604,
+            0.0025919999461621046,
+            0.002623999956995249,
+            0.002623999956995249,
+            0.0025919999461621046
+          ],
+          "median_ms": 0.002623999956995249,
+          "min_ms": 0.0025599999353289604,
+          "max_ms": 0.003346000099554658
+        },
+        "ptxas": {
+          "samples_ms": [
+            0.0025919999461621046,
+            0.002368000103160739,
+            0.0023360000923275948,
+            0.0023360000923275948,
+            0.002368000103160739,
+            0.0023360000923275948,
+            0.0023360000923275948,
+            0.0023360000923275948,
+            0.0023360000923275948,
+            0.002368000103160739,
+            0.0023040000814944506,
+            0.0023040000814944506,
+            0.002368000103160739,
+            0.002368000103160739,
+            0.0023040000814944506,
+            0.002368000103160739,
+            0.0023040000814944506,
+            0.0023360000923275948,
+            0.0023360000923275948,
+            0.0023360000923275948
+          ],
+          "median_ms": 0.0023360000923275948,
+          "min_ms": 0.0023040000814944506,
+          "max_ms": 0.0025919999461621046
+        },
+        "legacy_oa": {
+          "samples_ms": [
+            0.10038399696350098,
+            0.09974399954080582,
+            0.10016000270843506,
+            0.0947519987821579,
+            0.09967999905347824,
+            0.09942399710416794,
+            0.10016000270843506,
+            0.09964799880981445,
+            0.09824000298976898,
+            0.09916800260543823,
+            0.09398400038480759,
+            0.09814400225877762,
+            0.10019200295209885,
+            0.09564799815416336,
+            0.0981760025024414,
+            0.09964799880981445,
+            0.09945599734783173,
+            0.09775999933481216,
+            0.09958399832248688,
+            0.09971199929714203
+          ],
+          "median_ms": 0.0995199978351593,
+          "min_ms": 0.09398400038480759,
+          "max_ms": 0.10038399696350098
+        },
+        "legacy_ptxas": {
+          "samples_ms": [
+            0.07110399752855301,
+            0.07107199728488922,
+            0.07100799679756165,
+            0.07103999704122543,
+            0.07107199728488922,
+            0.07107199728488922,
+            0.07103999704122543,
+            0.07100799679756165,
+            0.07100799679756165,
+            0.07100799679756165,
+            0.07100799679756165,
+            0.07103999704122543,
+            0.07100799679756165,
+            0.07103999704122543,
+            0.07103999704122543,
+            0.07103999704122543,
+            0.07100799679756165,
+            0.07103999704122543,
+            0.07100799679756165,
+            0.07107199728488922
+          ],
+          "median_ms": 0.07103999704122543,
+          "min_ms": 0.07100799679756165,
+          "max_ms": 0.07110399752855301
+        },
+        "torch_cuda": {
+          "samples_ms": [
+            0.00342399999499321,
+            0.0033599999733269215,
+            0.0033919999841600657,
+            0.0033279999624937773,
+            0.0033279999624937773,
+            0.0033599999733269215,
+            0.0033599999733269215,
+            0.0033279999624937773,
+            0.0033599999733269215,
+            0.0033599999733269215,
+            0.0033599999733269215,
+            0.0033599999733269215,
+            0.0033279999624937773,
+            0.0033599999733269215,
+            0.0033599999733269215,
+            0.0033599999733269215,
+            0.0033279999624937773,
+            0.0033599999733269215,
+            0.0033599999733269215,
+            0.0033599999733269215
+          ],
+          "median_ms": 0.0033599999733269215,
+          "min_ms": 0.0033279999624937773,
+          "max_ms": 0.00342399999499321
+        }
+      },
+      "graph_order": [
+        [
+          "oa",
+          "legacy_ptxas",
+          "ptxas",
+          "legacy_oa",
+          "torch_cuda"
+        ],
+        [
+          "legacy_ptxas",
+          "legacy_oa",
+          "ptxas",
+          "oa",
+          "torch_cuda"
+        ],
+        [
+          "legacy_ptxas",
+          "torch_cuda",
+          "legacy_oa",
+          "oa",
+          "ptxas"
+        ],
+        [
+          "oa",
+          "torch_cuda",
+          "ptxas",
+          "legacy_ptxas",
+          "legacy_oa"
+        ],
+        [
+          "legacy_ptxas",
+          "ptxas",
+          "torch_cuda",
+          "oa",
+          "legacy_oa"
+        ],
+        [
+          "torch_cuda",
+          "ptxas",
+          "oa",
+          "legacy_oa",
+          "legacy_ptxas"
+        ],
+        [
+          "torch_cuda",
+          "legacy_ptxas",
+          "oa",
+          "legacy_oa",
+          "ptxas"
+        ],
+        [
+          "oa",
+          "legacy_ptxas",
+          "ptxas",
+          "torch_cuda",
+          "legacy_oa"
+        ],
+        [
+          "oa",
+          "ptxas",
+          "legacy_oa",
+          "torch_cuda",
+          "legacy_ptxas"
+        ],
+        [
+          "ptxas",
+          "oa",
+          "legacy_oa",
+          "torch_cuda",
+          "legacy_ptxas"
+        ],
+        [
+          "oa",
+          "legacy_ptxas",
+          "legacy_oa",
+          "torch_cuda",
+          "ptxas"
+        ],
+        [
+          "legacy_ptxas",
+          "oa",
+          "ptxas",
+          "legacy_oa",
+          "torch_cuda"
+        ],
+        [
+          "torch_cuda",
+          "oa",
+          "legacy_ptxas",
+          "ptxas",
+          "legacy_oa"
+        ],
+        [
+          "ptxas",
+          "legacy_ptxas",
+          "oa",
+          "legacy_oa",
+          "torch_cuda"
+        ],
+        [
+          "ptxas",
+          "legacy_ptxas",
+          "torch_cuda",
+          "legacy_oa",
+          "oa"
+        ],
+        [
+          "legacy_oa",
+          "ptxas",
+          "legacy_ptxas",
+          "torch_cuda",
+          "oa"
+        ],
+        [
+          "oa",
+          "ptxas",
+          "torch_cuda",
+          "legacy_ptxas",
+          "legacy_oa"
+        ],
+        [
+          "oa",
+          "legacy_ptxas",
+          "torch_cuda",
+          "ptxas",
+          "legacy_oa"
+        ],
+        [
+          "oa",
+          "ptxas",
+          "legacy_oa",
+          "torch_cuda",
+          "legacy_ptxas"
+        ],
+        [
+          "legacy_ptxas",
+          "torch_cuda",
+          "ptxas",
+          "oa",
+          "legacy_oa"
+        ]
+      ],
+      "status": "ok"
+    },
+    {
+      "name": "softmax_1024x512",
+      "op": "softmax",
+      "rows": 1024,
+      "width": 512,
+      "source_sha256": "9574b7accf9ef5795bf4144d3fa02e9257650522951153d842347220fd8d7841",
+      "launch": {
+        "grid": [
+          256,
+          1,
+          1
+        ],
+        "threads": 128,
+        "smem": 0
+      },
+      "kernels": [
+        {
+          "name": "softmax",
+          "params": [
+            [
+              "u64",
+              "X"
+            ],
+            [
+              "u64",
+              "Y"
+            ]
+          ],
+          "compiled_by": "openassembler",
+          "instructions": 191,
+          "registers": 24,
+          "verify": "not-run"
+        }
+      ],
+      "sass_sha256": "6bae9d49bd259d88b672b63f62f80db95a7a029a901b3b43b41b27cf74ecc640",
+      "oa_sha256": "57776c51d0d52620c39ad353a222e5942e918665e126cfe2b8328da253a641a9",
+      "ptxas_sha256": "3f6965db6ef0a5e441bf3643f92b1da0c1c0270d88b09d620fe4558cb7e3eeb0",
+      "resources": {
+        "oa": {
+          "max_threads": 1024,
+          "shared_bytes": 0,
+          "const_bytes": 0,
+          "local_bytes": 0,
+          "num_regs": 24,
+          "ptx_version": 80,
+          "binary_version": 80
+        },
+        "ptxas": {
+          "max_threads": 1024,
+          "shared_bytes": 0,
+          "const_bytes": 0,
+          "local_bytes": 0,
+          "num_regs": 32,
+          "ptx_version": 80,
+          "binary_version": 80
+        },
+        "legacy_oa": {
+          "max_threads": 1024,
+          "shared_bytes": 0,
+          "const_bytes": 0,
+          "local_bytes": 0,
+          "num_regs": 22,
+          "ptx_version": 80,
+          "binary_version": 80
+        },
+        "legacy_ptxas": {
+          "max_threads": 1024,
+          "shared_bytes": 0,
+          "const_bytes": 0,
+          "local_bytes": 0,
+          "num_regs": 17,
+          "ptx_version": 80,
+          "binary_version": 80
+        }
+      },
+      "patterns": [
+        {
+          "name": "normal",
+          "checks": {
+            "oa": {
+              "passed": true,
+              "elements_checked": 524288,
+              "mismatched_elements": 0,
+              "max_abs": 7.469180322849933e-09,
+              "relative_l2": 8.121267802150284e-08,
+              "canaries": true
+            },
+            "ptxas": {
+              "passed": true,
+              "elements_checked": 524288,
+              "mismatched_elements": 0,
+              "max_abs": 7.469180322849933e-09,
+              "relative_l2": 8.121267802150284e-08,
+              "canaries": true
+            },
+            "legacy_oa": {
+              "passed": true,
+              "elements_checked": 524288,
+              "mismatched_elements": 0,
+              "max_abs": 1.112664505531491e-07,
+              "relative_l2": 3.39052613803388e-07,
+              "canaries": true
+            },
+            "legacy_ptxas": {
+              "passed": true,
+              "elements_checked": 524288,
+              "mismatched_elements": 0,
+              "max_abs": 1.112664505531491e-07,
+              "relative_l2": 3.39052613803388e-07,
+              "canaries": true
+            },
+            "torch_cuda": {
+              "passed": true,
+              "elements_checked": 524288,
+              "mismatched_elements": 0,
+              "max_abs": 7.2564440983802214e-09,
+              "relative_l2": 6.822703607374803e-08,
+              "canaries": true
+            }
+          },
+          "oa_ptxas_bitwise_equal": true
+        },
+        {
+          "name": "zero",
+          "checks": {
+            "oa": {
+              "passed": true,
+              "elements_checked": 524288,
+              "mismatched_elements": 0,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "canaries": true
+            },
+            "ptxas": {
+              "passed": true,
+              "elements_checked": 524288,
+              "mismatched_elements": 0,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "canaries": true
+            },
+            "legacy_oa": {
+              "passed": true,
+              "elements_checked": 524288,
+              "mismatched_elements": 0,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "canaries": true
+            },
+            "legacy_ptxas": {
+              "passed": true,
+              "elements_checked": 524288,
+              "mismatched_elements": 0,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "canaries": true
+            },
+            "torch_cuda": {
+              "passed": true,
+              "elements_checked": 524288,
+              "mismatched_elements": 0,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "canaries": true
+            }
+          },
+          "oa_ptxas_bitwise_equal": true
+        },
+        {
+          "name": "large_offset_small_variance",
+          "checks": {
+            "oa": {
+              "passed": true,
+              "elements_checked": 524288,
+              "mismatched_elements": 0,
+              "max_abs": 5.320201800808333e-10,
+              "relative_l2": 6.502668366395127e-08,
+              "canaries": true
+            },
+            "ptxas": {
+              "passed": true,
+              "elements_checked": 524288,
+              "mismatched_elements": 0,
+              "max_abs": 5.320201800808333e-10,
+              "relative_l2": 6.502668366395127e-08,
+              "canaries": true
+            },
+            "legacy_oa": {
+              "passed": true,
+              "elements_checked": 524288,
+              "mismatched_elements": 0,
+              "max_abs": 2.2751168280051026e-09,
+              "relative_l2": 3.0459352750312824e-07,
+              "canaries": true
+            },
+            "legacy_ptxas": {
+              "passed": true,
+              "elements_checked": 524288,
+              "mismatched_elements": 0,
+              "max_abs": 2.2751168280051026e-09,
+              "relative_l2": 3.0459352750312824e-07,
+              "canaries": true
+            },
+            "torch_cuda": {
+              "passed": true,
+              "elements_checked": 524288,
+              "mismatched_elements": 0,
+              "max_abs": 3.9891130936692276e-10,
+              "relative_l2": 5.153074933337525e-08,
+              "canaries": true
+            }
+          },
+          "oa_ptxas_bitwise_equal": true
+        },
+        {
+          "name": "wide",
+          "checks": {
+            "oa": {
+              "passed": true,
+              "elements_checked": 524288,
+              "mismatched_elements": 0,
+              "max_abs": 1.858785964037324e-07,
+              "relative_l2": 4.7692606157301307e-08,
+              "canaries": true
+            },
+            "ptxas": {
+              "passed": true,
+              "elements_checked": 524288,
+              "mismatched_elements": 0,
+              "max_abs": 1.858785964037324e-07,
+              "relative_l2": 4.7692606157301307e-08,
+              "canaries": true
+            },
+            "legacy_oa": {
+              "passed": true,
+              "elements_checked": 524288,
+              "mismatched_elements": 0,
+              "max_abs": 2.9756915209677715e-07,
+              "relative_l2": 5.771997269427347e-08,
+              "canaries": true
+            },
+            "legacy_ptxas": {
+              "passed": true,
+              "elements_checked": 524288,
+              "mismatched_elements": 0,
+              "max_abs": 2.9756915209677715e-07,
+              "relative_l2": 5.771997269427347e-08,
+              "canaries": true
+            },
+            "torch_cuda": {
+              "passed": true,
+              "elements_checked": 524288,
+              "mismatched_elements": 0,
+              "max_abs": 1.858785964037324e-07,
+              "relative_l2": 4.706054392516264e-08,
+              "canaries": true
+            }
+          },
+          "oa_ptxas_bitwise_equal": true
+        },
+        {
+          "name": "alternating",
+          "checks": {
+            "oa": {
+              "passed": true,
+              "elements_checked": 524288,
+              "mismatched_elements": 0,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "canaries": true
+            },
+            "ptxas": {
+              "passed": true,
+              "elements_checked": 524288,
+              "mismatched_elements": 0,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "canaries": true
+            },
+            "legacy_oa": {
+              "passed": true,
+              "elements_checked": 524288,
+              "mismatched_elements": 0,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "canaries": true
+            },
+            "legacy_ptxas": {
+              "passed": true,
+              "elements_checked": 524288,
+              "mismatched_elements": 0,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "canaries": true
+            },
+            "torch_cuda": {
+              "passed": true,
+              "elements_checked": 524288,
+              "mismatched_elements": 0,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "canaries": true
+            }
+          },
+          "oa_ptxas_bitwise_equal": true
+        }
+      ],
+      "candidate_passed_all_patterns": true,
+      "timing_inputs": "normal pattern, checked in full before timing",
+      "events": {
+        "oa": {
+          "samples_ms": [
+            0.023552000522613525,
+            0.03379200026392937,
+            0.02252800017595291,
+            0.020479999482631683,
+            0.020479999482631683,
+            0.021503999829292297,
+            0.020479999482631683,
+            0.020479999482631683,
+            0.021503999829292297,
+            0.020479999482631683,
+            0.020479999482631683,
+            0.020479999482631683,
+            0.01945599913597107,
+            0.020479999482631683,
+            0.020479999482631683,
+            0.020479999482631683,
+            0.01945599913597107,
+            0.020479999482631683,
+            0.020479999482631683,
+            0.020479999482631683
+          ],
+          "median_ms": 0.020479999482631683,
+          "min_ms": 0.01945599913597107,
+          "max_ms": 0.03379200026392937
+        },
+        "ptxas": {
+          "samples_ms": [
+            0.021503999829292297,
+            0.02252800017595291,
+            0.020479999482631683,
+            0.020479999482631683,
+            0.021503999829292297,
+            0.021503999829292297,
+            0.02252800017595291,
+            0.020479999482631683,
+            0.01945599913597107,
+            0.020479999482631683,
+            0.020479999482631683,
+            0.020479999482631683,
+            0.01945599913597107,
+            0.020479999482631683,
+            0.021503999829292297,
+            0.01945599913597107,
+            0.020479999482631683,
+            0.021503999829292297,
+            0.01945599913597107,
+            0.020479999482631683
+          ],
+          "median_ms": 0.020479999482631683,
+          "min_ms": 0.01945599913597107,
+          "max_ms": 0.02252800017595291
+        },
+        "legacy_oa": {
+          "samples_ms": [
+            0.4177919924259186,
+            0.40243199467658997,
+            0.4065279960632324,
+            0.4055039882659912,
+            0.40243199467658997,
+            0.4126720130443573,
+            0.40755200386047363,
+            0.4055039882659912,
+            0.4044800102710724,
+            0.40959998965263367,
+            0.40243199467658997,
+            0.4055039882659912,
+            0.40755200386047363,
+            0.4044800102710724,
+            0.4136959910392761,
+            0.40755200386047363,
+            0.4044800102710724,
+            0.4034560024738312,
+            0.4034560024738312,
+            0.40959998965263367
+          ],
+          "median_ms": 0.4055039882659912,
+          "min_ms": 0.40243199467658997,
+          "max_ms": 0.4177919924259186
+        },
+        "legacy_ptxas": {
+          "samples_ms": [
+            0.30720001459121704,
+            0.3102720081806183,
+            0.30822399258613586,
+            0.30617600679397583,
+            0.3051519989967346,
+            0.3031040132045746,
+            0.3102720081806183,
+            0.3092480003833771,
+            0.3123199939727783,
+            0.3102720081806183,
+            0.3102720081806183,
+            0.30822399258613586,
+            0.3092480003833771,
+            0.3102720081806183,
+            0.30617600679397583,
+            0.3092480003833771,
+            0.3112959861755371,
+            0.30617600679397583,
+            0.3092480003833771,
+            0.30617600679397583
+          ],
+          "median_ms": 0.3092480003833771,
+          "min_ms": 0.3031040132045746,
+          "max_ms": 0.3123199939727783
+        },
+        "torch_cuda": {
+          "samples_ms": [
+            0.026623999699950218,
+            0.01945599913597107,
+            0.021503999829292297,
+            0.020479999482631683,
+            0.01945599913597107,
+            0.021503999829292297,
+            0.02252800017595291,
+            0.030719999223947525,
+            0.020479999482631683,
+            0.025599999353289604,
+            0.021503999829292297,
+            0.020479999482631683,
+            0.020479999482631683,
+            0.020479999482631683,
+            0.021503999829292297,
+            0.018432000651955605,
+            0.021503999829292297,
+            0.01945599913597107,
+            0.01945599913597107,
+            0.020479999482631683
+          ],
+          "median_ms": 0.020479999482631683,
+          "min_ms": 0.018432000651955605,
+          "max_ms": 0.030719999223947525
+        }
+      },
+      "event_order": [
+        [
+          "legacy_oa",
+          "oa",
+          "ptxas",
+          "legacy_ptxas",
+          "torch_cuda"
+        ],
+        [
+          "torch_cuda",
+          "legacy_ptxas",
+          "oa",
+          "legacy_oa",
+          "ptxas"
+        ],
+        [
+          "ptxas",
+          "legacy_ptxas",
+          "torch_cuda",
+          "legacy_oa",
+          "oa"
+        ],
+        [
+          "legacy_oa",
+          "torch_cuda",
+          "oa",
+          "legacy_ptxas",
+          "ptxas"
+        ],
+        [
+          "torch_cuda",
+          "legacy_ptxas",
+          "oa",
+          "legacy_oa",
+          "ptxas"
+        ],
+        [
+          "torch_cuda",
+          "oa",
+          "legacy_ptxas",
+          "ptxas",
+          "legacy_oa"
+        ],
+        [
+          "legacy_ptxas",
+          "legacy_oa",
+          "torch_cuda",
+          "ptxas",
+          "oa"
+        ],
+        [
+          "ptxas",
+          "oa",
+          "legacy_oa",
+          "legacy_ptxas",
+          "torch_cuda"
+        ],
+        [
+          "torch_cuda",
+          "oa",
+          "legacy_oa",
+          "ptxas",
+          "legacy_ptxas"
+        ],
+        [
+          "legacy_ptxas",
+          "legacy_oa",
+          "torch_cuda",
+          "oa",
+          "ptxas"
+        ],
+        [
+          "legacy_ptxas",
+          "legacy_oa",
+          "ptxas",
+          "oa",
+          "torch_cuda"
+        ],
+        [
+          "legacy_oa",
+          "legacy_ptxas",
+          "oa",
+          "torch_cuda",
+          "ptxas"
+        ],
+        [
+          "legacy_oa",
+          "torch_cuda",
+          "legacy_ptxas",
+          "oa",
+          "ptxas"
+        ],
+        [
+          "oa",
+          "ptxas",
+          "legacy_ptxas",
+          "torch_cuda",
+          "legacy_oa"
+        ],
+        [
+          "ptxas",
+          "oa",
+          "legacy_oa",
+          "legacy_ptxas",
+          "torch_cuda"
+        ],
+        [
+          "legacy_ptxas",
+          "oa",
+          "ptxas",
+          "torch_cuda",
+          "legacy_oa"
+        ],
+        [
+          "legacy_ptxas",
+          "legacy_oa",
+          "torch_cuda",
+          "ptxas",
+          "oa"
+        ],
+        [
+          "legacy_oa",
+          "oa",
+          "torch_cuda",
+          "legacy_ptxas",
+          "ptxas"
+        ],
+        [
+          "torch_cuda",
+          "oa",
+          "legacy_ptxas",
+          "ptxas",
+          "legacy_oa"
+        ],
+        [
+          "legacy_ptxas",
+          "ptxas",
+          "legacy_oa",
+          "torch_cuda",
+          "oa"
+        ]
+      ],
+      "graph_poison_replay_checks": {
+        "oa": {
+          "passed": true,
+          "elements_checked": 524288,
+          "mismatched_elements": 0,
+          "max_abs": 7.469180322849933e-09,
+          "relative_l2": 8.121267802150284e-08,
+          "canaries": true
+        },
+        "ptxas": {
+          "passed": true,
+          "elements_checked": 524288,
+          "mismatched_elements": 0,
+          "max_abs": 7.469180322849933e-09,
+          "relative_l2": 8.121267802150284e-08,
+          "canaries": true
+        },
+        "legacy_oa": {
+          "passed": true,
+          "elements_checked": 524288,
+          "mismatched_elements": 0,
+          "max_abs": 1.112664505531491e-07,
+          "relative_l2": 3.39052613803388e-07,
+          "canaries": true
+        },
+        "legacy_ptxas": {
+          "passed": true,
+          "elements_checked": 524288,
+          "mismatched_elements": 0,
+          "max_abs": 1.112664505531491e-07,
+          "relative_l2": 3.39052613803388e-07,
+          "canaries": true
+        },
+        "torch_cuda": {
+          "passed": true,
+          "elements_checked": 524288,
+          "mismatched_elements": 0,
+          "max_abs": 7.2564440983802214e-09,
+          "relative_l2": 6.822703607374803e-08,
+          "canaries": true
+        }
+      },
+      "graphs": {
+        "oa": {
+          "samples_ms": [
+            0.0038399999029934406,
+            0.0038079998921602964,
+            0.0037440001033246517,
+            0.0037120000924915075,
+            0.0037440001033246517,
+            0.003776000114157796,
+            0.0037440001033246517,
+            0.003776000114157796,
+            0.0037440001033246517,
+            0.003776000114157796,
+            0.0037440001033246517,
+            0.003776000114157796,
+            0.0037120000924915075,
+            0.003776000114157796,
+            0.0037440001033246517,
+            0.003776000114157796,
+            0.0037120000924915075,
+            0.0037440001033246517,
+            0.0038079998921602964,
+            0.0037440001033246517
+          ],
+          "median_ms": 0.0037440001033246517,
+          "min_ms": 0.0037120000924915075,
+          "max_ms": 0.0038399999029934406
+        },
+        "ptxas": {
+          "samples_ms": [
+            0.00342399999499321,
+            0.0030400000978261232,
+            0.0030720001086592674,
+            0.0030400000978261232,
+            0.0030720001086592674,
+            0.003103999886661768,
+            0.003008000086992979,
+            0.003008000086992979,
+            0.003008000086992979,
+            0.0030400000978261232,
+            0.003008000086992979,
+            0.003008000086992979,
+            0.0030720001086592674,
+            0.003008000086992979,
+            0.0030400000978261232,
+            0.0030720001086592674,
+            0.0030400000978261232,
+            0.0030400000978261232,
+            0.0030720001086592674,
+            0.0030720001086592674
+          ],
+          "median_ms": 0.0030400000978261232,
+          "min_ms": 0.003008000086992979,
+          "max_ms": 0.00342399999499321
+        },
+        "legacy_oa": {
+          "samples_ms": [
+            0.30873599648475647,
+            0.30854400992393494,
+            0.3081600069999695,
+            0.3091520071029663,
+            0.3086400032043457,
+            0.30847999453544617,
+            0.3080640137195587,
+            0.3078719973564148,
+            0.308351993560791,
+            0.3075200021266937,
+            0.3078719973564148,
+            0.30793601274490356,
+            0.30847999453544617,
+            0.30828800797462463,
+            0.30857598781585693,
+            0.30742400884628296,
+            0.30847999453544617,
+            0.30847999453544617,
+            0.30851200222969055,
+            0.3086720108985901
+          ],
+          "median_ms": 0.30847999453544617,
+          "min_ms": 0.30742400884628296,
+          "max_ms": 0.3091520071029663
+        },
+        "legacy_ptxas": {
+          "samples_ms": [
+            0.23046399652957916,
+            0.2295999974012375,
+            0.22979199886322021,
+            0.22998400032520294,
+            0.22995199263095856,
+            0.23024000227451324,
+            0.23017600178718567,
+            0.22995199263095856,
+            0.23020799458026886,
+            0.22998400032520294,
+            0.2298559993505478,
+            0.2303680032491684,
+            0.22995199263095856,
+            0.2301120012998581,
+            0.2300799936056137,
+            0.22995199263095856,
+            0.2295999974012375,
+            0.2303999960422516,
+            0.22991999983787537,
+            0.22976000607013702
+          ],
+          "median_ms": 0.22996799647808075,
+          "min_ms": 0.2295999974012375,
+          "max_ms": 0.23046399652957916
+        },
+        "torch_cuda": {
+          "samples_ms": [
+            0.0046720001846551895,
+            0.004575999919325113,
+            0.004608000162988901,
+            0.004544000141322613,
+            0.004575999919325113,
+            0.004575999919325113,
+            0.004608000162988901,
+            0.004575999919325113,
+            0.004639999940991402,
+            0.004608000162988901,
+            0.004608000162988901,
+            0.004639999940991402,
+            0.004575999919325113,
+            0.004608000162988901,
+            0.004639999940991402,
+            0.004896000027656555,
+            0.004608000162988901,
+            0.004608000162988901,
+            0.004639999940991402,
+            0.004608000162988901
+          ],
+          "median_ms": 0.004608000162988901,
+          "min_ms": 0.004544000141322613,
+          "max_ms": 0.004896000027656555
+        }
+      },
+      "graph_order": [
+        [
+          "ptxas",
+          "oa",
+          "legacy_ptxas",
+          "torch_cuda",
+          "legacy_oa"
+        ],
+        [
+          "legacy_oa",
+          "oa",
+          "ptxas",
+          "torch_cuda",
+          "legacy_ptxas"
+        ],
+        [
+          "ptxas",
+          "legacy_ptxas",
+          "legacy_oa",
+          "oa",
+          "torch_cuda"
+        ],
+        [
+          "oa",
+          "torch_cuda",
+          "legacy_oa",
+          "legacy_ptxas",
+          "ptxas"
+        ],
+        [
+          "legacy_ptxas",
+          "ptxas",
+          "legacy_oa",
+          "oa",
+          "torch_cuda"
+        ],
+        [
+          "legacy_ptxas",
+          "legacy_oa",
+          "ptxas",
+          "oa",
+          "torch_cuda"
+        ],
+        [
+          "legacy_ptxas",
+          "legacy_oa",
+          "ptxas",
+          "oa",
+          "torch_cuda"
+        ],
+        [
+          "ptxas",
+          "torch_cuda",
+          "legacy_ptxas",
+          "oa",
+          "legacy_oa"
+        ],
+        [
+          "legacy_ptxas",
+          "oa",
+          "legacy_oa",
+          "torch_cuda",
+          "ptxas"
+        ],
+        [
+          "oa",
+          "legacy_oa",
+          "ptxas",
+          "torch_cuda",
+          "legacy_ptxas"
+        ],
+        [
+          "legacy_ptxas",
+          "legacy_oa",
+          "torch_cuda",
+          "oa",
+          "ptxas"
+        ],
+        [
+          "ptxas",
+          "legacy_oa",
+          "torch_cuda",
+          "legacy_ptxas",
+          "oa"
+        ],
+        [
+          "oa",
+          "torch_cuda",
+          "legacy_ptxas",
+          "legacy_oa",
+          "ptxas"
+        ],
+        [
+          "legacy_oa",
+          "oa",
+          "torch_cuda",
+          "ptxas",
+          "legacy_ptxas"
+        ],
+        [
+          "ptxas",
+          "legacy_ptxas",
+          "torch_cuda",
+          "oa",
+          "legacy_oa"
+        ],
+        [
+          "legacy_oa",
+          "ptxas",
+          "oa",
+          "legacy_ptxas",
+          "torch_cuda"
+        ],
+        [
+          "legacy_oa",
+          "torch_cuda",
+          "oa",
+          "legacy_ptxas",
+          "ptxas"
+        ],
+        [
+          "oa",
+          "ptxas",
+          "legacy_oa",
+          "torch_cuda",
+          "legacy_ptxas"
+        ],
+        [
+          "oa",
+          "legacy_ptxas",
+          "torch_cuda",
+          "legacy_oa",
+          "ptxas"
+        ],
+        [
+          "legacy_ptxas",
+          "oa",
+          "torch_cuda",
+          "ptxas",
+          "legacy_oa"
+        ]
+      ],
+      "status": "ok"
+    },
+    {
+      "name": "softmax_1024x1024",
+      "op": "softmax",
+      "rows": 1024,
+      "width": 1024,
+      "source_sha256": "24e9f5dd5553d02b30c1b2846ef90ad4c9fb9a60ba20f5626d3622ce22af9c72",
+      "launch": {
+        "grid": [
+          256,
+          1,
+          1
+        ],
+        "threads": 128,
+        "smem": 0
+      },
+      "kernels": [
+        {
+          "name": "softmax",
+          "params": [
+            [
+              "u64",
+              "X"
+            ],
+            [
+              "u64",
+              "Y"
+            ]
+          ],
+          "compiled_by": "openassembler",
+          "instructions": 335,
+          "registers": 40,
+          "verify": "not-run"
+        }
+      ],
+      "sass_sha256": "4e81744749814ff68bdff2339f7380440e0e0cfa16b8f2bd9eeae7275de09d9b",
+      "oa_sha256": "ce593969889af07a7ce09f827c79d8eb3cb2689202027e92fa1f90fb405c4586",
+      "ptxas_sha256": "539ec19ff57dda8976d234f5d70bc29c25bf04b86e246e46ac210902dee8258e",
+      "resources": {
+        "oa": {
+          "max_threads": 1024,
+          "shared_bytes": 0,
+          "const_bytes": 0,
+          "local_bytes": 0,
+          "num_regs": 40,
+          "ptx_version": 80,
+          "binary_version": 80
+        },
+        "ptxas": {
+          "max_threads": 1024,
+          "shared_bytes": 0,
+          "const_bytes": 0,
+          "local_bytes": 0,
+          "num_regs": 40,
+          "ptx_version": 80,
+          "binary_version": 80
+        },
+        "legacy_oa": {
+          "max_threads": 1024,
+          "shared_bytes": 0,
+          "const_bytes": 0,
+          "local_bytes": 0,
+          "num_regs": 22,
+          "ptx_version": 80,
+          "binary_version": 80
+        },
+        "legacy_ptxas": {
+          "max_threads": 1024,
+          "shared_bytes": 0,
+          "const_bytes": 0,
+          "local_bytes": 0,
+          "num_regs": 17,
+          "ptx_version": 80,
+          "binary_version": 80
+        }
+      },
+      "patterns": [
+        {
+          "name": "normal",
+          "checks": {
+            "oa": {
+              "passed": true,
+              "elements_checked": 1048576,
+              "mismatched_elements": 0,
+              "max_abs": 5.5567575818482595e-09,
+              "relative_l2": 8.560886250187775e-08,
+              "canaries": true
+            },
+            "ptxas": {
+              "passed": true,
+              "elements_checked": 1048576,
+              "mismatched_elements": 0,
+              "max_abs": 5.5567575818482595e-09,
+              "relative_l2": 8.560886250187775e-08,
+              "canaries": true
+            },
+            "legacy_oa": {
+              "passed": true,
+              "elements_checked": 1048576,
+              "mismatched_elements": 0,
+              "max_abs": 3.40224692030322e-08,
+              "relative_l2": 4.6310517001720993e-07,
+              "canaries": true
+            },
+            "legacy_ptxas": {
+              "passed": true,
+              "elements_checked": 1048576,
+              "mismatched_elements": 0,
+              "max_abs": 3.40224692030322e-08,
+              "relative_l2": 4.6310517001720993e-07,
+              "canaries": true
+            },
+            "torch_cuda": {
+              "passed": true,
+              "elements_checked": 1048576,
+              "mismatched_elements": 0,
+              "max_abs": 5.5567575818482595e-09,
+              "relative_l2": 7.286697785139294e-08,
+              "canaries": true
+            }
+          },
+          "oa_ptxas_bitwise_equal": true
+        },
+        {
+          "name": "zero",
+          "checks": {
+            "oa": {
+              "passed": true,
+              "elements_checked": 1048576,
+              "mismatched_elements": 0,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "canaries": true
+            },
+            "ptxas": {
+              "passed": true,
+              "elements_checked": 1048576,
+              "mismatched_elements": 0,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "canaries": true
+            },
+            "legacy_oa": {
+              "passed": true,
+              "elements_checked": 1048576,
+              "mismatched_elements": 0,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "canaries": true
+            },
+            "legacy_ptxas": {
+              "passed": true,
+              "elements_checked": 1048576,
+              "mismatched_elements": 0,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "canaries": true
+            },
+            "torch_cuda": {
+              "passed": true,
+              "elements_checked": 1048576,
+              "mismatched_elements": 0,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "canaries": true
+            }
+          },
+          "oa_ptxas_bitwise_equal": true
+        },
+        {
+          "name": "large_offset_small_variance",
+          "checks": {
+            "oa": {
+              "passed": true,
+              "elements_checked": 1048576,
+              "mismatched_elements": 0,
+              "max_abs": 2.79211021707651e-10,
+              "relative_l2": 6.601855970607324e-08,
+              "canaries": true
+            },
+            "ptxas": {
+              "passed": true,
+              "elements_checked": 1048576,
+              "mismatched_elements": 0,
+              "max_abs": 2.79211021707651e-10,
+              "relative_l2": 6.601855970607324e-08,
+              "canaries": true
+            },
+            "legacy_oa": {
+              "passed": true,
+              "elements_checked": 1048576,
+              "mismatched_elements": 0,
+              "max_abs": 1.6393205391242172e-09,
+              "relative_l2": 4.375256378792166e-07,
+              "canaries": true
+            },
+            "legacy_ptxas": {
+              "passed": true,
+              "elements_checked": 1048576,
+              "mismatched_elements": 0,
+              "max_abs": 1.6393205391242172e-09,
+              "relative_l2": 4.375256378792166e-07,
+              "canaries": true
+            },
+            "torch_cuda": {
+              "passed": true,
+              "elements_checked": 1048576,
+              "mismatched_elements": 0,
+              "max_abs": 2.1857160894568628e-10,
+              "relative_l2": 5.4959689565026814e-08,
+              "canaries": true
+            }
+          },
+          "oa_ptxas_bitwise_equal": true
+        },
+        {
+          "name": "wide",
+          "checks": {
+            "oa": {
+              "passed": true,
+              "elements_checked": 1048576,
+              "mismatched_elements": 0,
+              "max_abs": 1.8983738470090827e-07,
+              "relative_l2": 5.199142306358421e-08,
+              "canaries": true
+            },
+            "ptxas": {
+              "passed": true,
+              "elements_checked": 1048576,
+              "mismatched_elements": 0,
+              "max_abs": 1.8983738470090827e-07,
+              "relative_l2": 5.199142306358421e-08,
+              "canaries": true
+            },
+            "legacy_oa": {
+              "passed": true,
+              "elements_checked": 1048576,
+              "mismatched_elements": 0,
+              "max_abs": 2.4095564010728765e-07,
+              "relative_l2": 5.7835084495181485e-08,
+              "canaries": true
+            },
+            "legacy_ptxas": {
+              "passed": true,
+              "elements_checked": 1048576,
+              "mismatched_elements": 0,
+              "max_abs": 2.4095564010728765e-07,
+              "relative_l2": 5.7835084495181485e-08,
+              "canaries": true
+            },
+            "torch_cuda": {
+              "passed": true,
+              "elements_checked": 1048576,
+              "mismatched_elements": 0,
+              "max_abs": 1.8983738470090827e-07,
+              "relative_l2": 5.118734859581114e-08,
+              "canaries": true
+            }
+          },
+          "oa_ptxas_bitwise_equal": true
+        },
+        {
+          "name": "alternating",
+          "checks": {
+            "oa": {
+              "passed": true,
+              "elements_checked": 1048576,
+              "mismatched_elements": 0,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "canaries": true
+            },
+            "ptxas": {
+              "passed": true,
+              "elements_checked": 1048576,
+              "mismatched_elements": 0,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "canaries": true
+            },
+            "legacy_oa": {
+              "passed": true,
+              "elements_checked": 1048576,
+              "mismatched_elements": 0,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "canaries": true
+            },
+            "legacy_ptxas": {
+              "passed": true,
+              "elements_checked": 1048576,
+              "mismatched_elements": 0,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "canaries": true
+            },
+            "torch_cuda": {
+              "passed": true,
+              "elements_checked": 1048576,
+              "mismatched_elements": 0,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "canaries": true
+            }
+          },
+          "oa_ptxas_bitwise_equal": true
+        }
+      ],
+      "candidate_passed_all_patterns": true,
+      "timing_inputs": "normal pattern, checked in full before timing",
+      "events": {
+        "oa": {
+          "samples_ms": [
+            0.02252800017595291,
+            0.020479999482631683,
+            0.02252800017595291,
+            0.021503999829292297,
+            0.01945599913597107,
+            0.020479999482631683,
+            0.023552000522613525,
+            0.020479999482631683,
+            0.02252800017595291,
+            0.021503999829292297,
+            0.020479999482631683,
+            0.021503999829292297,
+            0.020479999482631683,
+            0.020479999482631683,
+            0.021503999829292297,
+            0.021503999829292297,
+            0.01945599913597107,
+            0.02252800017595291,
+            0.03174399957060814,
+            0.021503999829292297
+          ],
+          "median_ms": 0.021503999829292297,
+          "min_ms": 0.01945599913597107,
+          "max_ms": 0.03174399957060814
+        },
+        "ptxas": {
+          "samples_ms": [
+            0.025599999353289604,
+            0.023552000522613525,
+            0.021503999829292297,
+            0.021503999829292297,
+            0.021503999829292297,
+            0.021503999829292297,
+            0.020479999482631683,
+            0.01945599913597107,
+            0.020479999482631683,
+            0.020479999482631683,
+            0.01945599913597107,
+            0.030719999223947525,
+            0.023552000522613525,
+            0.03174399957060814,
+            0.021503999829292297,
+            0.021503999829292297,
+            0.020479999482631683,
+            0.020479999482631683,
+            0.021503999829292297,
+            0.01945599913597107
+          ],
+          "median_ms": 0.021503999829292297,
+          "min_ms": 0.01945599913597107,
+          "max_ms": 0.03174399957060814
+        },
+        "legacy_oa": {
+          "samples_ms": [
+            0.6410239934921265,
+            0.6338559985160828,
+            0.6512640118598938,
+            0.6379520297050476,
+            0.6297600269317627,
+            0.634880006313324,
+            0.6266880035400391,
+            0.6338559985160828,
+            0.6307839751243591,
+            0.6440960168838501,
+            0.6307839751243591,
+            0.6318079829216003,
+            0.652288019657135,
+            0.6410239934921265,
+            0.6256639957427979,
+            0.6359040141105652,
+            0.6359040141105652,
+            0.6328319907188416,
+            0.634880006313324,
+            0.6297600269317627
+          ],
+          "median_ms": 0.6343680024147034,
+          "min_ms": 0.6256639957427979,
+          "max_ms": 0.652288019657135
+        },
+        "legacy_ptxas": {
+          "samples_ms": [
+            0.4689919948577881,
+            0.4700160026550293,
+            0.4689919948577881,
+            0.47206398844718933,
+            0.4710400104522705,
+            0.4782080054283142,
+            0.46694400906562805,
+            0.4782080054283142,
+            0.4700160026550293,
+            0.46694400906562805,
+            0.4689919948577881,
+            0.4679679870605469,
+            0.4689919948577881,
+            0.4710400104522705,
+            0.4710400104522705,
+            0.4700160026550293,
+            0.4782080054283142,
+            0.46694400906562805,
+            0.4679679870605469,
+            0.4689919948577881
+          ],
+          "median_ms": 0.4695039987564087,
+          "min_ms": 0.46694400906562805,
+          "max_ms": 0.4782080054283142
+        },
+        "torch_cuda": {
+          "samples_ms": [
+            0.026623999699950218,
+            0.02252800017595291,
+            0.021503999829292297,
+            0.02252800017595291,
+            0.020479999482631683,
+            0.020479999482631683,
+            0.02252800017595291,
+            0.020479999482631683,
+            0.018432000651955605,
+            0.020479999482631683,
+            0.020479999482631683,
+            0.021503999829292297,
+            0.021503999829292297,
+            0.018432000651955605,
+            0.021503999829292297,
+            0.01740800030529499,
+            0.021503999829292297,
+            0.020479999482631683,
+            0.021503999829292297,
+            0.01945599913597107
+          ],
+          "median_ms": 0.02099199965596199,
+          "min_ms": 0.01740800030529499,
+          "max_ms": 0.026623999699950218
+        }
+      },
+      "event_order": [
+        [
+          "torch_cuda",
+          "ptxas",
+          "oa",
+          "legacy_ptxas",
+          "legacy_oa"
+        ],
+        [
+          "torch_cuda",
+          "ptxas",
+          "legacy_oa",
+          "oa",
+          "legacy_ptxas"
+        ],
+        [
+          "ptxas",
+          "torch_cuda",
+          "legacy_oa",
+          "legacy_ptxas",
+          "oa"
+        ],
+        [
+          "torch_cuda",
+          "legacy_ptxas",
+          "ptxas",
+          "legacy_oa",
+          "oa"
+        ],
+        [
+          "torch_cuda",
+          "legacy_oa",
+          "ptxas",
+          "oa",
+          "legacy_ptxas"
+        ],
+        [
+          "torch_cuda",
+          "legacy_oa",
+          "ptxas",
+          "oa",
+          "legacy_ptxas"
+        ],
+        [
+          "oa",
+          "legacy_oa",
+          "torch_cuda",
+          "legacy_ptxas",
+          "ptxas"
+        ],
+        [
+          "legacy_ptxas",
+          "legacy_oa",
+          "torch_cuda",
+          "oa",
+          "ptxas"
+        ],
+        [
+          "torch_cuda",
+          "legacy_oa",
+          "ptxas",
+          "legacy_ptxas",
+          "oa"
+        ],
+        [
+          "ptxas",
+          "torch_cuda",
+          "legacy_oa",
+          "legacy_ptxas",
+          "oa"
+        ],
+        [
+          "legacy_ptxas",
+          "ptxas",
+          "torch_cuda",
+          "legacy_oa",
+          "oa"
+        ],
+        [
+          "legacy_oa",
+          "torch_cuda",
+          "oa",
+          "ptxas",
+          "legacy_ptxas"
+        ],
+        [
+          "legacy_oa",
+          "ptxas",
+          "oa",
+          "legacy_ptxas",
+          "torch_cuda"
+        ],
+        [
+          "torch_cuda",
+          "legacy_oa",
+          "oa",
+          "ptxas",
+          "legacy_ptxas"
+        ],
+        [
+          "ptxas",
+          "legacy_ptxas",
+          "oa",
+          "legacy_oa",
+          "torch_cuda"
+        ],
+        [
+          "torch_cuda",
+          "oa",
+          "ptxas",
+          "legacy_ptxas",
+          "legacy_oa"
+        ],
+        [
+          "legacy_oa",
+          "oa",
+          "ptxas",
+          "legacy_ptxas",
+          "torch_cuda"
+        ],
+        [
+          "ptxas",
+          "legacy_oa",
+          "oa",
+          "torch_cuda",
+          "legacy_ptxas"
+        ],
+        [
+          "legacy_oa",
+          "legacy_ptxas",
+          "oa",
+          "ptxas",
+          "torch_cuda"
+        ],
+        [
+          "torch_cuda",
+          "oa",
+          "ptxas",
+          "legacy_ptxas",
+          "legacy_oa"
+        ]
+      ],
+      "graph_poison_replay_checks": {
+        "oa": {
+          "passed": true,
+          "elements_checked": 1048576,
+          "mismatched_elements": 0,
+          "max_abs": 5.5567575818482595e-09,
+          "relative_l2": 8.560886250187775e-08,
+          "canaries": true
+        },
+        "ptxas": {
+          "passed": true,
+          "elements_checked": 1048576,
+          "mismatched_elements": 0,
+          "max_abs": 5.5567575818482595e-09,
+          "relative_l2": 8.560886250187775e-08,
+          "canaries": true
+        },
+        "legacy_oa": {
+          "passed": true,
+          "elements_checked": 1048576,
+          "mismatched_elements": 0,
+          "max_abs": 3.40224692030322e-08,
+          "relative_l2": 4.6310517001720993e-07,
+          "canaries": true
+        },
+        "legacy_ptxas": {
+          "passed": true,
+          "elements_checked": 1048576,
+          "mismatched_elements": 0,
+          "max_abs": 3.40224692030322e-08,
+          "relative_l2": 4.6310517001720993e-07,
+          "canaries": true
+        },
+        "torch_cuda": {
+          "passed": true,
+          "elements_checked": 1048576,
+          "mismatched_elements": 0,
+          "max_abs": 5.5567575818482595e-09,
+          "relative_l2": 7.286697785139294e-08,
+          "canaries": true
+        }
+      },
+      "graphs": {
+        "oa": {
+          "samples_ms": [
+            0.0060800001956522465,
+            0.005888000130653381,
+            0.005919999908655882,
+            0.005919999908655882,
+            0.005919999908655882,
+            0.005919999908655882,
+            0.005888000130653381,
+            0.0058559998869895935,
+            0.00595200015231967,
+            0.005888000130653381,
+            0.005888000130653381,
+            0.005888000130653381,
+            0.005888000130653381,
+            0.005919999908655882,
+            0.005888000130653381,
+            0.0058559998869895935,
+            0.0058559998869895935,
+            0.005888000130653381,
+            0.005888000130653381,
+            0.0058559998869895935
+          ],
+          "median_ms": 0.005888000130653381,
+          "min_ms": 0.0058559998869895935,
+          "max_ms": 0.0060800001956522465
+        },
+        "ptxas": {
+          "samples_ms": [
+            0.0044479998759925365,
+            0.004383999854326248,
+            0.004480000119656324,
+            0.004383999854326248,
+            0.004416000097990036,
+            0.004352000076323748,
+            0.004383999854326248,
+            0.004416000097990036,
+            0.004383999854326248,
+            0.004416000097990036,
+            0.004383999854326248,
+            0.004383999854326248,
+            0.0046720001846551895,
+            0.004383999854326248,
+            0.004352000076323748,
+            0.004383999854326248,
+            0.004383999854326248,
+            0.004480000119656324,
+            0.004352000076323748,
+            0.004383999854326248
+          ],
+          "median_ms": 0.004383999854326248,
+          "min_ms": 0.004352000076323748,
+          "max_ms": 0.0046720001846551895
+        },
+        "legacy_oa": {
+          "samples_ms": [
+            0.6216800212860107,
+            0.6197760105133057,
+            0.6209279894828796,
+            0.6203839778900146,
+            0.6205440163612366,
+            0.6219199895858765,
+            0.6217280030250549,
+            0.6205120086669922,
+            0.6214079856872559,
+            0.6214399933815002,
+            0.6218559741973877,
+            0.6212800145149231,
+            0.6207039952278137,
+            0.620576024055481,
+            0.6207360029220581,
+            0.6203200221061707,
+            0.6214720010757446,
+            0.620415985584259,
+            0.620415985584259,
+            0.6199359893798828
+          ],
+          "median_ms": 0.6207199990749359,
+          "min_ms": 0.6197760105133057,
+          "max_ms": 0.6219199895858765
+        },
+        "legacy_ptxas": {
+          "samples_ms": [
+            0.4591360092163086,
+            0.45843198895454407,
+            0.45817598700523376,
+            0.45948800444602966,
+            0.45824000239372253,
+            0.45820799469947815,
+            0.45980799198150635,
+            0.45689600706100464,
+            0.45846399664878845,
+            0.45769599080085754,
+            0.4585280120372772,
+            0.45871999859809875,
+            0.4577920138835907,
+            0.45820799469947815,
+            0.459199994802475,
+            0.4583359956741333,
+            0.45868799090385437,
+            0.4591679871082306,
+            0.4591360092163086,
+            0.4581120014190674
+          ],
+          "median_ms": 0.45844799280166626,
+          "min_ms": 0.45689600706100464,
+          "max_ms": 0.45980799198150635
+        },
+        "torch_cuda": {
+          "samples_ms": [
+            0.007391999941319227,
+            0.007296000141650438,
+            0.007391999941319227,
+            0.007327999919652939,
+            0.007327999919652939,
+            0.007360000163316727,
+            0.007327999919652939,
+            0.007327999919652939,
+            0.007360000163316727,
+            0.007360000163316727,
+            0.007360000163316727,
+            0.007391999941319227,
+            0.007391999941319227,
+            0.007296000141650438,
+            0.007360000163316727,
+            0.007327999919652939,
+            0.007360000163316727,
+            0.007360000163316727,
+            0.007327999919652939,
+            0.007327999919652939
+          ],
+          "median_ms": 0.007360000163316727,
+          "min_ms": 0.007296000141650438,
+          "max_ms": 0.007391999941319227
+        }
+      },
+      "graph_order": [
+        [
+          "legacy_oa",
+          "legacy_ptxas",
+          "oa",
+          "ptxas",
+          "torch_cuda"
+        ],
+        [
+          "oa",
+          "ptxas",
+          "torch_cuda",
+          "legacy_oa",
+          "legacy_ptxas"
+        ],
+        [
+          "ptxas",
+          "legacy_ptxas",
+          "oa",
+          "legacy_oa",
+          "torch_cuda"
+        ],
+        [
+          "legacy_ptxas",
+          "oa",
+          "legacy_oa",
+          "ptxas",
+          "torch_cuda"
+        ],
+        [
+          "legacy_oa",
+          "oa",
+          "legacy_ptxas",
+          "torch_cuda",
+          "ptxas"
+        ],
+        [
+          "legacy_oa",
+          "torch_cuda",
+          "ptxas",
+          "oa",
+          "legacy_ptxas"
+        ],
+        [
+          "legacy_oa",
+          "ptxas",
+          "legacy_ptxas",
+          "oa",
+          "torch_cuda"
+        ],
+        [
+          "oa",
+          "torch_cuda",
+          "legacy_ptxas",
+          "ptxas",
+          "legacy_oa"
+        ],
+        [
+          "legacy_oa",
+          "oa",
+          "legacy_ptxas",
+          "torch_cuda",
+          "ptxas"
+        ],
+        [
+          "legacy_ptxas",
+          "ptxas",
+          "legacy_oa",
+          "torch_cuda",
+          "oa"
+        ],
+        [
+          "ptxas",
+          "legacy_ptxas",
+          "legacy_oa",
+          "torch_cuda",
+          "oa"
+        ],
+        [
+          "ptxas",
+          "oa",
+          "legacy_ptxas",
+          "torch_cuda",
+          "legacy_oa"
+        ],
+        [
+          "torch_cuda",
+          "legacy_oa",
+          "ptxas",
+          "legacy_ptxas",
+          "oa"
+        ],
+        [
+          "legacy_ptxas",
+          "ptxas",
+          "torch_cuda",
+          "legacy_oa",
+          "oa"
+        ],
+        [
+          "torch_cuda",
+          "legacy_oa",
+          "oa",
+          "ptxas",
+          "legacy_ptxas"
+        ],
+        [
+          "legacy_ptxas",
+          "legacy_oa",
+          "ptxas",
+          "oa",
+          "torch_cuda"
+        ],
+        [
+          "ptxas",
+          "oa",
+          "legacy_oa",
+          "legacy_ptxas",
+          "torch_cuda"
+        ],
+        [
+          "legacy_ptxas",
+          "ptxas",
+          "oa",
+          "legacy_oa",
+          "torch_cuda"
+        ],
+        [
+          "legacy_ptxas",
+          "legacy_oa",
+          "torch_cuda",
+          "oa",
+          "ptxas"
+        ],
+        [
+          "oa",
+          "ptxas",
+          "legacy_oa",
+          "legacy_ptxas",
+          "torch_cuda"
+        ]
+      ],
+      "status": "ok"
+    },
+    {
+      "name": "layernorm_128x128",
+      "op": "layernorm",
+      "rows": 128,
+      "width": 128,
+      "source_sha256": "a860cfaab5bfb3452a2cc94e13b741d9ba184213616700fc709195444206fcb3",
+      "launch": {
+        "grid": [
+          32,
+          1,
+          1
+        ],
+        "threads": 128,
+        "smem": 0
+      },
+      "kernels": [
+        {
+          "name": "layernorm",
+          "params": [
+            [
+              "u64",
+              "X"
+            ],
+            [
+              "u64",
+              "Y"
+            ]
+          ],
+          "compiled_by": "openassembler",
+          "instructions": 80,
+          "registers": 19,
+          "verify": "not-run"
+        }
+      ],
+      "sass_sha256": "414417885f53cd99989bf1a5420b6e7091d55370d496f338416a3cf2fb540104",
+      "oa_sha256": "fe93487c591ce0646a3177524e7a94f7c176f59dbb5174397b4437de15f1325a",
+      "ptxas_sha256": "453209b11b3571ae4418c6e42dfe7d36dbfd45df0168f54074ab525cbbca1ea0",
+      "resources": {
+        "oa": {
+          "max_threads": 1024,
+          "shared_bytes": 0,
+          "const_bytes": 0,
+          "local_bytes": 0,
+          "num_regs": 19,
+          "ptx_version": 80,
+          "binary_version": 80
+        },
+        "ptxas": {
+          "max_threads": 1024,
+          "shared_bytes": 0,
+          "const_bytes": 0,
+          "local_bytes": 0,
+          "num_regs": 18,
+          "ptx_version": 80,
+          "binary_version": 80
+        },
+        "legacy_oa": {
+          "max_threads": 1024,
+          "shared_bytes": 0,
+          "const_bytes": 0,
+          "local_bytes": 0,
+          "num_regs": 20,
+          "ptx_version": 80,
+          "binary_version": 80
+        },
+        "legacy_ptxas": {
+          "max_threads": 1024,
+          "shared_bytes": 0,
+          "const_bytes": 0,
+          "local_bytes": 0,
+          "num_regs": 24,
+          "ptx_version": 80,
+          "binary_version": 80
+        }
+      },
+      "patterns": [
+        {
+          "name": "normal",
+          "checks": {
+            "oa": {
+              "passed": true,
+              "elements_checked": 16384,
+              "mismatched_elements": 0,
+              "max_abs": 5.186398004397574e-07,
+              "relative_l2": 7.251489015342841e-08,
+              "canaries": true
+            },
+            "ptxas": {
+              "passed": true,
+              "elements_checked": 16384,
+              "mismatched_elements": 0,
+              "max_abs": 5.186398004397574e-07,
+              "relative_l2": 7.322885664239691e-08,
+              "canaries": true
+            },
+            "legacy_oa": {
+              "passed": true,
+              "elements_checked": 16384,
+              "mismatched_elements": 0,
+              "max_abs": 7.402180699500605e-07,
+              "relative_l2": 1.0108474819191165e-07,
+              "canaries": true
+            },
+            "legacy_ptxas": {
+              "passed": true,
+              "elements_checked": 16384,
+              "mismatched_elements": 0,
+              "max_abs": 7.402180699500605e-07,
+              "relative_l2": 9.659032441420318e-08,
+              "canaries": true
+            },
+            "torch_cuda": {
+              "passed": true,
+              "elements_checked": 16384,
+              "mismatched_elements": 0,
+              "max_abs": 5.286518334202128e-07,
+              "relative_l2": 6.085200831658996e-08,
+              "canaries": null
+            }
+          },
+          "oa_ptxas_bitwise_equal": false
+        },
+        {
+          "name": "zero",
+          "checks": {
+            "oa": {
+              "passed": true,
+              "elements_checked": 16384,
+              "mismatched_elements": 0,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "canaries": true
+            },
+            "ptxas": {
+              "passed": true,
+              "elements_checked": 16384,
+              "mismatched_elements": 0,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "canaries": true
+            },
+            "legacy_oa": {
+              "passed": true,
+              "elements_checked": 16384,
+              "mismatched_elements": 0,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "canaries": true
+            },
+            "legacy_ptxas": {
+              "passed": true,
+              "elements_checked": 16384,
+              "mismatched_elements": 0,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "canaries": true
+            },
+            "torch_cuda": {
+              "passed": true,
+              "elements_checked": 16384,
+              "mismatched_elements": 0,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "canaries": null
+            }
+          },
+          "oa_ptxas_bitwise_equal": true
+        },
+        {
+          "name": "large_offset_small_variance",
+          "checks": {
+            "oa": {
+              "passed": true,
+              "elements_checked": 16384,
+              "mismatched_elements": 0,
+              "max_abs": 3.401581807338516e-07,
+              "relative_l2": 5.212224183669878e-08,
+              "canaries": true
+            },
+            "ptxas": {
+              "passed": true,
+              "elements_checked": 16384,
+              "mismatched_elements": 0,
+              "max_abs": 3.401581807338516e-07,
+              "relative_l2": 4.979745070415199e-08,
+              "canaries": true
+            },
+            "legacy_oa": {
+              "passed": false,
+              "elements_checked": 16384,
+              "mismatched_elements": 16328,
+              "max_abs": 0.04275405170072899,
+              "relative_l2": 0.015459553087032446,
+              "canaries": true
+            },
+            "legacy_ptxas": {
+              "passed": false,
+              "elements_checked": 16384,
+              "mismatched_elements": 16328,
+              "max_abs": 0.04275405170072899,
+              "relative_l2": 0.015459553087032446,
+              "canaries": true
+            },
+            "torch_cuda": {
+              "passed": false,
+              "elements_checked": 16384,
+              "mismatched_elements": 16079,
+              "max_abs": 0.008002542856773154,
+              "relative_l2": 0.0029065141020106398,
+              "canaries": null
+            }
+          },
+          "oa_ptxas_bitwise_equal": false
+        },
+        {
+          "name": "wide",
+          "checks": {
+            "oa": {
+              "passed": true,
+              "elements_checked": 16384,
+              "mismatched_elements": 0,
+              "max_abs": 5.704956604901668e-07,
+              "relative_l2": 7.59824903065311e-08,
+              "canaries": true
+            },
+            "ptxas": {
+              "passed": true,
+              "elements_checked": 16384,
+              "mismatched_elements": 0,
+              "max_abs": 5.704956604901668e-07,
+              "relative_l2": 7.642069380189262e-08,
+              "canaries": true
+            },
+            "legacy_oa": {
+              "passed": true,
+              "elements_checked": 16384,
+              "mismatched_elements": 0,
+              "max_abs": 8.124622046246088e-07,
+              "relative_l2": 1.0277287012380954e-07,
+              "canaries": true
+            },
+            "legacy_ptxas": {
+              "passed": true,
+              "elements_checked": 16384,
+              "mismatched_elements": 0,
+              "max_abs": 8.124622046246088e-07,
+              "relative_l2": 1.0464094537345772e-07,
+              "canaries": true
+            },
+            "torch_cuda": {
+              "passed": true,
+              "elements_checked": 16384,
+              "mismatched_elements": 0,
+              "max_abs": 4.601491303546368e-07,
+              "relative_l2": 6.344461115048464e-08,
+              "canaries": null
+            }
+          },
+          "oa_ptxas_bitwise_equal": false
+        },
+        {
+          "name": "alternating",
+          "checks": {
+            "oa": {
+              "passed": true,
+              "elements_checked": 16384,
+              "mismatched_elements": 0,
+              "max_abs": 4.9960036108132044e-14,
+              "relative_l2": 4.996003610813454e-14,
+              "canaries": true
+            },
+            "ptxas": {
+              "passed": true,
+              "elements_checked": 16384,
+              "mismatched_elements": 0,
+              "max_abs": 4.9960036108132044e-14,
+              "relative_l2": 4.996003610813454e-14,
+              "canaries": true
+            },
+            "legacy_oa": {
+              "passed": true,
+              "elements_checked": 16384,
+              "mismatched_elements": 0,
+              "max_abs": 8.344650768155049e-07,
+              "relative_l2": 8.344650768155465e-07,
+              "canaries": true
+            },
+            "legacy_ptxas": {
+              "passed": true,
+              "elements_checked": 16384,
+              "mismatched_elements": 0,
+              "max_abs": 8.344650768155049e-07,
+              "relative_l2": 8.344650768155465e-07,
+              "canaries": true
+            },
+            "torch_cuda": {
+              "passed": true,
+              "elements_checked": 16384,
+              "mismatched_elements": 0,
+              "max_abs": 4.9960036108132044e-14,
+              "relative_l2": 4.996003610813454e-14,
+              "canaries": null
+            }
+          },
+          "oa_ptxas_bitwise_equal": true
+        }
+      ],
+      "candidate_passed_all_patterns": true,
+      "timing_inputs": "normal pattern, checked in full before timing",
+      "events": {
+        "oa": {
+          "samples_ms": [
+            0.02252800017595291,
+            0.021503999829292297,
+            0.02457600086927414,
+            0.021503999829292297,
+            0.021503999829292297,
+            0.020479999482631683,
+            0.02252800017595291,
+            0.020479999482631683,
+            0.021503999829292297,
+            0.020479999482631683,
+            0.020479999482631683,
+            0.020479999482631683,
+            0.020479999482631683,
+            0.02252800017595291,
+            0.02252800017595291,
+            0.01945599913597107,
+            0.020479999482631683,
+            0.01945599913597107,
+            0.020479999482631683,
+            0.01945599913597107
+          ],
+          "median_ms": 0.020479999482631683,
+          "min_ms": 0.01945599913597107,
+          "max_ms": 0.02457600086927414
+        },
+        "ptxas": {
+          "samples_ms": [
+            0.020479999482631683,
+            0.01945599913597107,
+            0.020479999482631683,
+            0.020479999482631683,
+            0.020479999482631683,
+            0.021503999829292297,
+            0.020479999482631683,
+            0.021503999829292297,
+            0.020479999482631683,
+            0.021503999829292297,
+            0.020479999482631683,
+            0.03379200026392937,
+            0.018432000651955605,
+            0.01945599913597107,
+            0.020479999482631683,
+            0.021503999829292297,
+            0.03788800165057182,
+            0.01945599913597107,
+            0.018432000651955605,
+            0.02252800017595291
+          ],
+          "median_ms": 0.020479999482631683,
+          "min_ms": 0.018432000651955605,
+          "max_ms": 0.03788800165057182
+        },
+        "legacy_oa": {
+          "samples_ms": [
+            0.0798719972372055,
+            0.0798719972372055,
+            0.0798719972372055,
+            0.0798719972372055,
+            0.0798719972372055,
+            0.0798719972372055,
+            0.07884799689054489,
+            0.07884799689054489,
+            0.07884799689054489,
+            0.07884799689054489,
+            0.0798719972372055,
+            0.07884799689054489,
+            0.07884799689054489,
+            0.0798719972372055,
+            0.07475200295448303,
+            0.0798719972372055,
+            0.07782399654388428,
+            0.0798719972372055,
+            0.07884799689054489,
+            0.0798719972372055
+          ],
+          "median_ms": 0.0798719972372055,
+          "min_ms": 0.07475200295448303,
+          "max_ms": 0.0798719972372055
+        },
+        "legacy_ptxas": {
+          "samples_ms": [
+            0.07577600330114365,
+            0.06860800087451935,
+            0.06860800087451935,
+            0.06758400052785873,
+            0.06963200122117996,
+            0.06758400052785873,
+            0.06860800087451935,
+            0.06758400052785873,
+            0.06860800087451935,
+            0.06758400052785873,
+            0.06758400052785873,
+            0.06963200122117996,
+            0.06758400052785873,
+            0.06860800087451935,
+            0.06656000018119812,
+            0.06758400052785873,
+            0.06758400052785873,
+            0.06860800087451935,
+            0.06758400052785873,
+            0.06758400052785873
+          ],
+          "median_ms": 0.06758400052785873,
+          "min_ms": 0.06656000018119812,
+          "max_ms": 0.07577600330114365
+        },
+        "torch_cuda": {
+          "samples_ms": [
+            0.04198399931192398,
+            0.03481600061058998,
+            0.03174399957060814,
+            0.03481600061058998,
+            0.03174399957060814,
+            0.04608000069856644,
+            0.03481600061058998,
+            0.03481600061058998,
+            0.035840000957250595,
+            0.03174399957060814,
+            0.030719999223947525,
+            0.035840000957250595,
+            0.03276799991726875,
+            0.030719999223947525,
+            0.03481600061058998,
+            0.030719999223947525,
+            0.030719999223947525,
+            0.03481600061058998,
+            0.030719999223947525,
+            0.03686400130391121
+          ],
+          "median_ms": 0.03481600061058998,
+          "min_ms": 0.030719999223947525,
+          "max_ms": 0.04608000069856644
+        }
+      },
+      "event_order": [
+        [
+          "legacy_ptxas",
+          "legacy_oa",
+          "torch_cuda",
+          "oa",
+          "ptxas"
+        ],
+        [
+          "oa",
+          "legacy_oa",
+          "legacy_ptxas",
+          "ptxas",
+          "torch_cuda"
+        ],
+        [
+          "legacy_oa",
+          "legacy_ptxas",
+          "torch_cuda",
+          "oa",
+          "ptxas"
+        ],
+        [
+          "legacy_oa",
+          "torch_cuda",
+          "oa",
+          "legacy_ptxas",
+          "ptxas"
+        ],
+        [
+          "oa",
+          "torch_cuda",
+          "legacy_ptxas",
+          "legacy_oa",
+          "ptxas"
+        ],
+        [
+          "oa",
+          "legacy_ptxas",
+          "torch_cuda",
+          "legacy_oa",
+          "ptxas"
+        ],
+        [
+          "torch_cuda",
+          "oa",
+          "legacy_oa",
+          "legacy_ptxas",
+          "ptxas"
+        ],
+        [
+          "oa",
+          "legacy_ptxas",
+          "legacy_oa",
+          "torch_cuda",
+          "ptxas"
+        ],
+        [
+          "legacy_oa",
+          "torch_cuda",
+          "oa",
+          "legacy_ptxas",
+          "ptxas"
+        ],
+        [
+          "oa",
+          "ptxas",
+          "legacy_ptxas",
+          "torch_cuda",
+          "legacy_oa"
+        ],
+        [
+          "torch_cuda",
+          "legacy_oa",
+          "oa",
+          "legacy_ptxas",
+          "ptxas"
+        ],
+        [
+          "ptxas",
+          "torch_cuda",
+          "legacy_ptxas",
+          "oa",
+          "legacy_oa"
+        ],
+        [
+          "legacy_oa",
+          "legacy_ptxas",
+          "oa",
+          "ptxas",
+          "torch_cuda"
+        ],
+        [
+          "torch_cuda",
+          "oa",
+          "legacy_ptxas",
+          "ptxas",
+          "legacy_oa"
+        ],
+        [
+          "oa",
+          "ptxas",
+          "legacy_oa",
+          "legacy_ptxas",
+          "torch_cuda"
+        ],
+        [
+          "legacy_oa",
+          "torch_cuda",
+          "ptxas",
+          "oa",
+          "legacy_ptxas"
+        ],
+        [
+          "legacy_ptxas",
+          "legacy_oa",
+          "torch_cuda",
+          "ptxas",
+          "oa"
+        ],
+        [
+          "torch_cuda",
+          "legacy_oa",
+          "legacy_ptxas",
+          "oa",
+          "ptxas"
+        ],
+        [
+          "legacy_oa",
+          "torch_cuda",
+          "oa",
+          "ptxas",
+          "legacy_ptxas"
+        ],
+        [
+          "legacy_oa",
+          "legacy_ptxas",
+          "torch_cuda",
+          "ptxas",
+          "oa"
+        ]
+      ],
+      "graph_poison_replay_checks": {
+        "oa": {
+          "passed": true,
+          "elements_checked": 16384,
+          "mismatched_elements": 0,
+          "max_abs": 5.186398004397574e-07,
+          "relative_l2": 7.251489015342841e-08,
+          "canaries": true
+        },
+        "ptxas": {
+          "passed": true,
+          "elements_checked": 16384,
+          "mismatched_elements": 0,
+          "max_abs": 5.186398004397574e-07,
+          "relative_l2": 7.322885664239691e-08,
+          "canaries": true
+        },
+        "legacy_oa": {
+          "passed": true,
+          "elements_checked": 16384,
+          "mismatched_elements": 0,
+          "max_abs": 7.402180699500605e-07,
+          "relative_l2": 1.0108474819191165e-07,
+          "canaries": true
+        },
+        "legacy_ptxas": {
+          "passed": true,
+          "elements_checked": 16384,
+          "mismatched_elements": 0,
+          "max_abs": 7.402180699500605e-07,
+          "relative_l2": 9.659032441420318e-08,
+          "canaries": true
+        },
+        "torch_cuda": {
+          "passed": true,
+          "elements_checked": 16384,
+          "mismatched_elements": 0,
+          "max_abs": 5.286518334202128e-07,
+          "relative_l2": 6.085200831658996e-08,
+          "canaries": null
+        }
+      },
+      "graphs": {
+        "oa": {
+          "samples_ms": [
+            0.0024319998919963837,
+            0.0020800000056624413,
+            0.002047999994829297,
+            0.002047999994829297,
+            0.002015999983996153,
+            0.002015999983996153,
+            0.002015999983996153,
+            0.002047999994829297,
+            0.002015999983996153,
+            0.002015999983996153,
+            0.002047999994829297,
+            0.002047999994829297,
+            0.0020800000056624413,
+            0.002047999994829297,
+            0.002015999983996153,
+            0.002015999983996153,
+            0.002047999994829297,
+            0.002015999983996153,
+            0.002047999994829297,
+            0.002047999994829297
+          ],
+          "median_ms": 0.002047999994829297,
+          "min_ms": 0.002015999983996153,
+          "max_ms": 0.0024319998919963837
+        },
+        "ptxas": {
+          "samples_ms": [
+            0.0019519999623298645,
+            0.0018560000462457538,
+            0.0018560000462457538,
+            0.0018560000462457538,
+            0.0018560000462457538,
+            0.0018560000462457538,
+            0.0018560000462457538,
+            0.0018240000354126096,
+            0.0018560000462457538,
+            0.0018560000462457538,
+            0.0018560000462457538,
+            0.0018240000354126096,
+            0.0018240000354126096,
+            0.0018240000354126096,
+            0.0018240000354126096,
+            0.0018560000462457538,
+            0.0018240000354126096,
+            0.0018240000354126096,
+            0.0018240000354126096,
+            0.001888000057078898
+          ],
+          "median_ms": 0.0018560000462457538,
+          "min_ms": 0.0018240000354126096,
+          "max_ms": 0.0019519999623298645
+        },
+        "legacy_oa": {
+          "samples_ms": [
+            0.06595200300216675,
+            0.0658240020275116,
+            0.06572800129652023,
+            0.06579200178384781,
+            0.06585600227117538,
+            0.06563200056552887,
+            0.0655680000782013,
+            0.0658240020275116,
+            0.0658240020275116,
+            0.06585600227117538,
+            0.06576000154018402,
+            0.06579200178384781,
+            0.0658240020275116,
+            0.06579200178384781,
+            0.06585600227117538,
+            0.0658240020275116,
+            0.06572800129652023,
+            0.06566400080919266,
+            0.06572800129652023,
+            0.0658240020275116
+          ],
+          "median_ms": 0.0658080019056797,
+          "min_ms": 0.0655680000782013,
+          "max_ms": 0.06595200300216675
+        },
+        "legacy_ptxas": {
+          "samples_ms": [
+            0.05548800155520439,
+            0.055424001067876816,
+            0.055424001067876816,
+            0.05539200082421303,
+            0.055424001067876816,
+            0.055424001067876816,
+            0.055424001067876816,
+            0.05539200082421303,
+            0.055424001067876816,
+            0.05539200082421303,
+            0.05539200082421303,
+            0.05539200082421303,
+            0.05539200082421303,
+            0.055424001067876816,
+            0.055424001067876816,
+            0.05536000058054924,
+            0.05539200082421303,
+            0.055424001067876816,
+            0.05539200082421303,
+            0.05539200082421303
+          ],
+          "median_ms": 0.05540800094604492,
+          "min_ms": 0.05536000058054924,
+          "max_ms": 0.05548800155520439
+        },
+        "torch_cuda": {
+          "samples_ms": [
+            0.003616000059992075,
+            0.0035520000383257866,
+            0.0035840000491589308,
+            0.0035520000383257866,
+            0.0035520000383257866,
+            0.0035520000383257866,
+            0.0035840000491589308,
+            0.0035520000383257866,
+            0.0035520000383257866,
+            0.0035520000383257866,
+            0.0035840000491589308,
+            0.0035520000383257866,
+            0.0035520000383257866,
+            0.0035840000491589308,
+            0.0035520000383257866,
+            0.0035520000383257866,
+            0.0035520000383257866,
+            0.0035520000383257866,
+            0.0035840000491589308,
+            0.0035200000274926424
+          ],
+          "median_ms": 0.0035520000383257866,
+          "min_ms": 0.0035200000274926424,
+          "max_ms": 0.003616000059992075
+        }
+      },
+      "graph_order": [
+        [
+          "oa",
+          "legacy_oa",
+          "ptxas",
+          "torch_cuda",
+          "legacy_ptxas"
+        ],
+        [
+          "legacy_ptxas",
+          "oa",
+          "torch_cuda",
+          "legacy_oa",
+          "ptxas"
+        ],
+        [
+          "legacy_ptxas",
+          "oa",
+          "ptxas",
+          "legacy_oa",
+          "torch_cuda"
+        ],
+        [
+          "torch_cuda",
+          "ptxas",
+          "legacy_ptxas",
+          "oa",
+          "legacy_oa"
+        ],
+        [
+          "legacy_ptxas",
+          "oa",
+          "ptxas",
+          "torch_cuda",
+          "legacy_oa"
+        ],
+        [
+          "oa",
+          "ptxas",
+          "torch_cuda",
+          "legacy_ptxas",
+          "legacy_oa"
+        ],
+        [
+          "torch_cuda",
+          "legacy_oa",
+          "legacy_ptxas",
+          "ptxas",
+          "oa"
+        ],
+        [
+          "legacy_oa",
+          "oa",
+          "torch_cuda",
+          "ptxas",
+          "legacy_ptxas"
+        ],
+        [
+          "legacy_oa",
+          "oa",
+          "ptxas",
+          "torch_cuda",
+          "legacy_ptxas"
+        ],
+        [
+          "ptxas",
+          "legacy_oa",
+          "torch_cuda",
+          "legacy_ptxas",
+          "oa"
+        ],
+        [
+          "legacy_ptxas",
+          "oa",
+          "ptxas",
+          "legacy_oa",
+          "torch_cuda"
+        ],
+        [
+          "oa",
+          "ptxas",
+          "legacy_oa",
+          "torch_cuda",
+          "legacy_ptxas"
+        ],
+        [
+          "oa",
+          "ptxas",
+          "legacy_ptxas",
+          "torch_cuda",
+          "legacy_oa"
+        ],
+        [
+          "legacy_ptxas",
+          "oa",
+          "legacy_oa",
+          "torch_cuda",
+          "ptxas"
+        ],
+        [
+          "oa",
+          "legacy_oa",
+          "legacy_ptxas",
+          "torch_cuda",
+          "ptxas"
+        ],
+        [
+          "legacy_oa",
+          "ptxas",
+          "oa",
+          "legacy_ptxas",
+          "torch_cuda"
+        ],
+        [
+          "oa",
+          "ptxas",
+          "legacy_oa",
+          "legacy_ptxas",
+          "torch_cuda"
+        ],
+        [
+          "torch_cuda",
+          "ptxas",
+          "oa",
+          "legacy_oa",
+          "legacy_ptxas"
+        ],
+        [
+          "legacy_ptxas",
+          "torch_cuda",
+          "oa",
+          "ptxas",
+          "legacy_oa"
+        ],
+        [
+          "legacy_oa",
+          "oa",
+          "torch_cuda",
+          "legacy_ptxas",
+          "ptxas"
+        ]
+      ],
+      "status": "ok"
+    },
+    {
+      "name": "layernorm_1024x512",
+      "op": "layernorm",
+      "rows": 1024,
+      "width": 512,
+      "source_sha256": "a9d63b2a7f1145d2b60a4174e810da95c41b5be74e2cbd5a1c0131d181716cb3",
+      "launch": {
+        "grid": [
+          256,
+          1,
+          1
+        ],
+        "threads": 128,
+        "smem": 0
+      },
+      "kernels": [
+        {
+          "name": "layernorm",
+          "params": [
+            [
+              "u64",
+              "X"
+            ],
+            [
+              "u64",
+              "Y"
+            ]
+          ],
+          "compiled_by": "openassembler",
+          "instructions": 176,
+          "registers": 43,
+          "verify": "not-run"
+        }
+      ],
+      "sass_sha256": "a1bf64ab964a3b47fa843c4e1ea27f5325ab429bf00c579006313391f947fa1f",
+      "oa_sha256": "b3173442267da271dd6ee4c18b6d4347e29dae843a9793c617e8951bb2ff2a4c",
+      "ptxas_sha256": "38626e6c26b3c82da0bd4999f7665d0832f5dbb3cd48ed87a59c4bb6db86d3ab",
+      "resources": {
+        "oa": {
+          "max_threads": 1024,
+          "shared_bytes": 0,
+          "const_bytes": 0,
+          "local_bytes": 0,
+          "num_regs": 43,
+          "ptx_version": 80,
+          "binary_version": 80
+        },
+        "ptxas": {
+          "max_threads": 1024,
+          "shared_bytes": 0,
+          "const_bytes": 0,
+          "local_bytes": 0,
+          "num_regs": 32,
+          "ptx_version": 80,
+          "binary_version": 80
+        },
+        "legacy_oa": {
+          "max_threads": 1024,
+          "shared_bytes": 0,
+          "const_bytes": 0,
+          "local_bytes": 0,
+          "num_regs": 20,
+          "ptx_version": 80,
+          "binary_version": 80
+        },
+        "legacy_ptxas": {
+          "max_threads": 1024,
+          "shared_bytes": 0,
+          "const_bytes": 0,
+          "local_bytes": 0,
+          "num_regs": 24,
+          "ptx_version": 80,
+          "binary_version": 80
+        }
+      },
+      "patterns": [
+        {
+          "name": "normal",
+          "checks": {
+            "oa": {
+              "passed": true,
+              "elements_checked": 524288,
+              "mismatched_elements": 0,
+              "max_abs": 9.438956993790271e-07,
+              "relative_l2": 7.926779038784728e-08,
+              "canaries": true
+            },
+            "ptxas": {
+              "passed": true,
+              "elements_checked": 524288,
+              "mismatched_elements": 0,
+              "max_abs": 8.587859241515616e-07,
+              "relative_l2": 7.89811635201431e-08,
+              "canaries": true
+            },
+            "legacy_oa": {
+              "passed": true,
+              "elements_checked": 524288,
+              "mismatched_elements": 0,
+              "max_abs": 2.216757633455302e-06,
+              "relative_l2": 1.7036719615959758e-07,
+              "canaries": true
+            },
+            "legacy_ptxas": {
+              "passed": true,
+              "elements_checked": 524288,
+              "mismatched_elements": 0,
+              "max_abs": 2.216757633455302e-06,
+              "relative_l2": 1.6867687645795193e-07,
+              "canaries": true
+            },
+            "torch_cuda": {
+              "passed": true,
+              "elements_checked": 524288,
+              "mismatched_elements": 0,
+              "max_abs": 5.359630810275462e-07,
+              "relative_l2": 5.951543545850616e-08,
+              "canaries": null
+            }
+          },
+          "oa_ptxas_bitwise_equal": false
+        },
+        {
+          "name": "zero",
+          "checks": {
+            "oa": {
+              "passed": true,
+              "elements_checked": 524288,
+              "mismatched_elements": 0,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "canaries": true
+            },
+            "ptxas": {
+              "passed": true,
+              "elements_checked": 524288,
+              "mismatched_elements": 0,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "canaries": true
+            },
+            "legacy_oa": {
+              "passed": true,
+              "elements_checked": 524288,
+              "mismatched_elements": 0,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "canaries": true
+            },
+            "legacy_ptxas": {
+              "passed": true,
+              "elements_checked": 524288,
+              "mismatched_elements": 0,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "canaries": true
+            },
+            "torch_cuda": {
+              "passed": true,
+              "elements_checked": 524288,
+              "mismatched_elements": 0,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "canaries": null
+            }
+          },
+          "oa_ptxas_bitwise_equal": true
+        },
+        {
+          "name": "large_offset_small_variance",
+          "checks": {
+            "oa": {
+              "passed": true,
+              "elements_checked": 524288,
+              "mismatched_elements": 0,
+              "max_abs": 5.442149184631262e-07,
+              "relative_l2": 4.857115201115828e-08,
+              "canaries": true
+            },
+            "ptxas": {
+              "passed": true,
+              "elements_checked": 524288,
+              "mismatched_elements": 0,
+              "max_abs": 5.442149184631262e-07,
+              "relative_l2": 5.181064703689036e-08,
+              "canaries": true
+            },
+            "legacy_oa": {
+              "passed": false,
+              "elements_checked": 524288,
+              "mismatched_elements": 522318,
+              "max_abs": 0.10440101824742465,
+              "relative_l2": 0.026947609903943646,
+              "canaries": true
+            },
+            "legacy_ptxas": {
+              "passed": false,
+              "elements_checked": 524288,
+              "mismatched_elements": 522318,
+              "max_abs": 0.10440101824742465,
+              "relative_l2": 0.026947609903943646,
+              "canaries": true
+            },
+            "torch_cuda": {
+              "passed": false,
+              "elements_checked": 524288,
+              "mismatched_elements": 508732,
+              "max_abs": 0.008374740602977937,
+              "relative_l2": 0.002765496370508819,
+              "canaries": null
+            }
+          },
+          "oa_ptxas_bitwise_equal": false
+        },
+        {
+          "name": "wide",
+          "checks": {
+            "oa": {
+              "passed": true,
+              "elements_checked": 524288,
+              "mismatched_elements": 0,
+              "max_abs": 7.199148033265601e-07,
+              "relative_l2": 7.952609309198272e-08,
+              "canaries": true
+            },
+            "ptxas": {
+              "passed": true,
+              "elements_checked": 524288,
+              "mismatched_elements": 0,
+              "max_abs": 7.14055510719902e-07,
+              "relative_l2": 7.944188313055728e-08,
+              "canaries": true
+            },
+            "legacy_oa": {
+              "passed": true,
+              "elements_checked": 524288,
+              "mismatched_elements": 0,
+              "max_abs": 1.994575830721601e-06,
+              "relative_l2": 1.7022429578106124e-07,
+              "canaries": true
+            },
+            "legacy_ptxas": {
+              "passed": true,
+              "elements_checked": 524288,
+              "mismatched_elements": 0,
+              "max_abs": 1.994575830721601e-06,
+              "relative_l2": 1.6864648714271174e-07,
+              "canaries": true
+            },
+            "torch_cuda": {
+              "passed": true,
+              "elements_checked": 524288,
+              "mismatched_elements": 0,
+              "max_abs": 6.751724503928358e-07,
+              "relative_l2": 5.833639735216592e-08,
+              "canaries": null
+            }
+          },
+          "oa_ptxas_bitwise_equal": false
+        },
+        {
+          "name": "alternating",
+          "checks": {
+            "oa": {
+              "passed": true,
+              "elements_checked": 524288,
+              "mismatched_elements": 0,
+              "max_abs": 4.9960036108132044e-14,
+              "relative_l2": 4.9960036108134543e-14,
+              "canaries": true
+            },
+            "ptxas": {
+              "passed": true,
+              "elements_checked": 524288,
+              "mismatched_elements": 0,
+              "max_abs": 4.9960036108132044e-14,
+              "relative_l2": 4.9960036108134543e-14,
+              "canaries": true
+            },
+            "legacy_oa": {
+              "passed": true,
+              "elements_checked": 524288,
+              "mismatched_elements": 0,
+              "max_abs": 1.1920929454678486e-06,
+              "relative_l2": 1.1920929454679083e-06,
+              "canaries": true
+            },
+            "legacy_ptxas": {
+              "passed": true,
+              "elements_checked": 524288,
+              "mismatched_elements": 0,
+              "max_abs": 1.1920929454678486e-06,
+              "relative_l2": 1.1920929454679083e-06,
+              "canaries": true
+            },
+            "torch_cuda": {
+              "passed": true,
+              "elements_checked": 524288,
+              "mismatched_elements": 0,
+              "max_abs": 4.9960036108132044e-14,
+              "relative_l2": 4.9960036108134543e-14,
+              "canaries": null
+            }
+          },
+          "oa_ptxas_bitwise_equal": true
+        }
+      ],
+      "candidate_passed_all_patterns": true,
+      "timing_inputs": "normal pattern, checked in full before timing",
+      "events": {
+        "oa": {
+          "samples_ms": [
+            0.028672000393271446,
+            0.01945599913597107,
+            0.021503999829292297,
+            0.020479999482631683,
+            0.020479999482631683,
+            0.021503999829292297,
+            0.021503999829292297,
+            0.01945599913597107,
+            0.020479999482631683,
+            0.021503999829292297,
+            0.020479999482631683,
+            0.020479999482631683,
+            0.020479999482631683,
+            0.021503999829292297,
+            0.020479999482631683,
+            0.01945599913597107,
+            0.01945599913597107,
+            0.01945599913597107,
+            0.021503999829292297,
+            0.030719999223947525
+          ],
+          "median_ms": 0.020479999482631683,
+          "min_ms": 0.01945599913597107,
+          "max_ms": 0.030719999223947525
+        },
+        "ptxas": {
+          "samples_ms": [
+            0.02252800017595291,
+            0.035840000957250595,
+            0.020479999482631683,
+            0.021503999829292297,
+            0.020479999482631683,
+            0.01945599913597107,
+            0.020479999482631683,
+            0.020479999482631683,
+            0.01945599913597107,
+            0.01945599913597107,
+            0.021503999829292297,
+            0.020479999482631683,
+            0.021503999829292297,
+            0.021503999829292297,
+            0.03379200026392937,
+            0.020479999482631683,
+            0.02252800017595291,
+            0.01945599913597107,
+            0.020479999482631683,
+            0.020479999482631683
+          ],
+          "median_ms": 0.020479999482631683,
+          "min_ms": 0.01945599913597107,
+          "max_ms": 0.035840000957250595
+        },
+        "legacy_oa": {
+          "samples_ms": [
+            0.2815999984741211,
+            0.2805759906768799,
+            0.2815999984741211,
+            0.2959359884262085,
+            0.2815999984741211,
+            0.2836480140686035,
+            0.27955201268196106,
+            0.2826240062713623,
+            0.2826240062713623,
+            0.2805759906768799,
+            0.2826240062713623,
+            0.2826240062713623,
+            0.2805759906768799,
+            0.27955201268196106,
+            0.2826240062713623,
+            0.2826240062713623,
+            0.27955201268196106,
+            0.27955201268196106,
+            0.2826240062713623,
+            0.2805759906768799
+          ],
+          "median_ms": 0.2815999984741211,
+          "min_ms": 0.27955201268196106,
+          "max_ms": 0.2959359884262085
+        },
+        "legacy_ptxas": {
+          "samples_ms": [
+            0.22835199534893036,
+            0.22835199534893036,
+            0.22835199534893036,
+            0.22732800245285034,
+            0.22835199534893036,
+            0.22835199534893036,
+            0.22630399465560913,
+            0.22732800245285034,
+            0.22937600314617157,
+            0.22835199534893036,
+            0.22732800245285034,
+            0.22732800245285034,
+            0.22732800245285034,
+            0.22732800245285034,
+            0.22835199534893036,
+            0.22835199534893036,
+            0.22937600314617157,
+            0.22937600314617157,
+            0.22732800245285034,
+            0.24166400730609894
+          ],
+          "median_ms": 0.22835199534893036,
+          "min_ms": 0.22630399465560913,
+          "max_ms": 0.24166400730609894
+        },
+        "torch_cuda": {
+          "samples_ms": [
+            0.043007999658584595,
+            0.035840000957250595,
+            0.030719999223947525,
+            0.03686400130391121,
+            0.030719999223947525,
+            0.03686400130391121,
+            0.030719999223947525,
+            0.03481600061058998,
+            0.03379200026392937,
+            0.03174399957060814,
+            0.04095999896526337,
+            0.03481600061058998,
+            0.03379200026392937,
+            0.030719999223947525,
+            0.03379200026392937,
+            0.03379200026392937,
+            0.03686400130391121,
+            0.03174399957060814,
+            0.03481600061058998,
+            0.030719999223947525
+          ],
+          "median_ms": 0.03379200026392937,
+          "min_ms": 0.030719999223947525,
+          "max_ms": 0.043007999658584595
+        }
+      },
+      "event_order": [
+        [
+          "oa",
+          "legacy_ptxas",
+          "torch_cuda",
+          "ptxas",
+          "legacy_oa"
+        ],
+        [
+          "legacy_ptxas",
+          "ptxas",
+          "oa",
+          "torch_cuda",
+          "legacy_oa"
+        ],
+        [
+          "oa",
+          "torch_cuda",
+          "legacy_ptxas",
+          "legacy_oa",
+          "ptxas"
+        ],
+        [
+          "oa",
+          "legacy_oa",
+          "legacy_ptxas",
+          "ptxas",
+          "torch_cuda"
+        ],
+        [
+          "legacy_oa",
+          "torch_cuda",
+          "oa",
+          "ptxas",
+          "legacy_ptxas"
+        ],
+        [
+          "legacy_ptxas",
+          "legacy_oa",
+          "oa",
+          "ptxas",
+          "torch_cuda"
+        ],
+        [
+          "torch_cuda",
+          "oa",
+          "legacy_ptxas",
+          "legacy_oa",
+          "ptxas"
+        ],
+        [
+          "legacy_ptxas",
+          "torch_cuda",
+          "ptxas",
+          "legacy_oa",
+          "oa"
+        ],
+        [
+          "torch_cuda",
+          "legacy_ptxas",
+          "legacy_oa",
+          "ptxas",
+          "oa"
+        ],
+        [
+          "torch_cuda",
+          "legacy_oa",
+          "oa",
+          "legacy_ptxas",
+          "ptxas"
+        ],
+        [
+          "legacy_oa",
+          "oa",
+          "torch_cuda",
+          "legacy_ptxas",
+          "ptxas"
+        ],
+        [
+          "legacy_ptxas",
+          "legacy_oa",
+          "oa",
+          "ptxas",
+          "torch_cuda"
+        ],
+        [
+          "ptxas",
+          "legacy_ptxas",
+          "oa",
+          "torch_cuda",
+          "legacy_oa"
+        ],
+        [
+          "ptxas",
+          "torch_cuda",
+          "oa",
+          "legacy_oa",
+          "legacy_ptxas"
+        ],
+        [
+          "legacy_ptxas",
+          "torch_cuda",
+          "legacy_oa",
+          "oa",
+          "ptxas"
+        ],
+        [
+          "legacy_ptxas",
+          "ptxas",
+          "legacy_oa",
+          "oa",
+          "torch_cuda"
+        ],
+        [
+          "ptxas",
+          "legacy_oa",
+          "torch_cuda",
+          "legacy_ptxas",
+          "oa"
+        ],
+        [
+          "legacy_oa",
+          "ptxas",
+          "oa",
+          "torch_cuda",
+          "legacy_ptxas"
+        ],
+        [
+          "legacy_oa",
+          "torch_cuda",
+          "oa",
+          "legacy_ptxas",
+          "ptxas"
+        ],
+        [
+          "torch_cuda",
+          "legacy_ptxas",
+          "ptxas",
+          "legacy_oa",
+          "oa"
+        ]
+      ],
+      "graph_poison_replay_checks": {
+        "oa": {
+          "passed": true,
+          "elements_checked": 524288,
+          "mismatched_elements": 0,
+          "max_abs": 9.438956993790271e-07,
+          "relative_l2": 7.926779038784728e-08,
+          "canaries": true
+        },
+        "ptxas": {
+          "passed": true,
+          "elements_checked": 524288,
+          "mismatched_elements": 0,
+          "max_abs": 8.587859241515616e-07,
+          "relative_l2": 7.89811635201431e-08,
+          "canaries": true
+        },
+        "legacy_oa": {
+          "passed": true,
+          "elements_checked": 524288,
+          "mismatched_elements": 0,
+          "max_abs": 2.216757633455302e-06,
+          "relative_l2": 1.7036719615959758e-07,
+          "canaries": true
+        },
+        "legacy_ptxas": {
+          "passed": true,
+          "elements_checked": 524288,
+          "mismatched_elements": 0,
+          "max_abs": 2.216757633455302e-06,
+          "relative_l2": 1.6867687645795193e-07,
+          "canaries": true
+        },
+        "torch_cuda": {
+          "passed": true,
+          "elements_checked": 524288,
+          "mismatched_elements": 0,
+          "max_abs": 5.359630810275462e-07,
+          "relative_l2": 5.951543545850616e-08,
+          "canaries": null
+        }
+      },
+      "graphs": {
+        "oa": {
+          "samples_ms": [
+            0.0038399999029934406,
+            0.0037440001033246517,
+            0.0036800000816583633,
+            0.0037120000924915075,
+            0.0037120000924915075,
+            0.003776000114157796,
+            0.0037120000924915075,
+            0.0037120000924915075,
+            0.0036800000816583633,
+            0.0036800000816583633,
+            0.0036800000816583633,
+            0.0037120000924915075,
+            0.0037120000924915075,
+            0.0036800000816583633,
+            0.0037120000924915075,
+            0.0037440001033246517,
+            0.0037440001033246517,
+            0.0037120000924915075,
+            0.0037120000924915075,
+            0.0037120000924915075
+          ],
+          "median_ms": 0.0037120000924915075,
+          "min_ms": 0.0036800000816583633,
+          "max_ms": 0.0038399999029934406
+        },
+        "ptxas": {
+          "samples_ms": [
+            0.003008000086992979,
+            0.0028800000436604023,
+            0.0028800000436604023,
+            0.0029440000653266907,
+            0.0028800000436604023,
+            0.0028800000436604023,
+            0.0029120000544935465,
+            0.0029120000544935465,
+            0.0028800000436604023,
+            0.0029440000653266907,
+            0.0029120000544935465,
+            0.0029120000544935465,
+            0.0028800000436604023,
+            0.0028800000436604023,
+            0.0028800000436604023,
+            0.0029120000544935465,
+            0.0029120000544935465,
+            0.0029120000544935465,
+            0.0029120000544935465,
+            0.0031999999191612005
+          ],
+          "median_ms": 0.0029120000544935465,
+          "min_ms": 0.0028800000436604023,
+          "max_ms": 0.0031999999191612005
+        },
+        "legacy_oa": {
+          "samples_ms": [
+            0.26736000180244446,
+            0.26761600375175476,
+            0.26716798543930054,
+            0.26739200949668884,
+            0.2672640085220337,
+            0.26736000180244446,
+            0.26742398738861084,
+            0.2674880027770996,
+            0.26736000180244446,
+            0.2672959864139557,
+            0.2675839960575104,
+            0.2671999931335449,
+            0.26716798543930054,
+            0.26710399985313416,
+            0.26742398738861084,
+            0.26742398738861084,
+            0.26707199215888977,
+            0.2675839960575104,
+            0.267520010471344,
+            0.26716798543930054
+          ],
+          "median_ms": 0.26736000180244446,
+          "min_ms": 0.26707199215888977,
+          "max_ms": 0.26761600375175476
+        },
+        "legacy_ptxas": {
+          "samples_ms": [
+            0.21503999829292297,
+            0.21484799683094025,
+            0.21481600403785706,
+            0.21478399634361267,
+            0.21488000452518463,
+            0.21484799683094025,
+            0.21478399634361267,
+            0.21478399634361267,
+            0.21481600403785706,
+            0.21478399634361267,
+            0.21475200355052948,
+            0.21484799683094025,
+            0.21478399634361267,
+            0.21478399634361267,
+            0.21484799683094025,
+            0.21491199731826782,
+            0.21484799683094025,
+            0.21481600403785706,
+            0.2147199958562851,
+            0.21484799683094025
+          ],
+          "median_ms": 0.21481600403785706,
+          "min_ms": 0.2147199958562851,
+          "max_ms": 0.21503999829292297
+        },
+        "torch_cuda": {
+          "samples_ms": [
+            0.006744000129401684,
+            0.006432000081986189,
+            0.006399999838322401,
+            0.006399999838322401,
+            0.006463999859988689,
+            0.0063680000603199005,
+            0.006432000081986189,
+            0.006432000081986189,
+            0.006432000081986189,
+            0.006399999838322401,
+            0.006399999838322401,
+            0.006399999838322401,
+            0.0063680000603199005,
+            0.006399999838322401,
+            0.006432000081986189,
+            0.006399999838322401,
+            0.006432000081986189,
+            0.006399999838322401,
+            0.006432000081986189,
+            0.0063680000603199005
+          ],
+          "median_ms": 0.006399999838322401,
+          "min_ms": 0.0063680000603199005,
+          "max_ms": 0.006744000129401684
+        }
+      },
+      "graph_order": [
+        [
+          "torch_cuda",
+          "legacy_ptxas",
+          "oa",
+          "legacy_oa",
+          "ptxas"
+        ],
+        [
+          "ptxas",
+          "torch_cuda",
+          "legacy_oa",
+          "legacy_ptxas",
+          "oa"
+        ],
+        [
+          "legacy_oa",
+          "legacy_ptxas",
+          "torch_cuda",
+          "oa",
+          "ptxas"
+        ],
+        [
+          "legacy_ptxas",
+          "torch_cuda",
+          "legacy_oa",
+          "ptxas",
+          "oa"
+        ],
+        [
+          "ptxas",
+          "oa",
+          "legacy_oa",
+          "legacy_ptxas",
+          "torch_cuda"
+        ],
+        [
+          "torch_cuda",
+          "legacy_oa",
+          "oa",
+          "ptxas",
+          "legacy_ptxas"
+        ],
+        [
+          "torch_cuda",
+          "ptxas",
+          "oa",
+          "legacy_ptxas",
+          "legacy_oa"
+        ],
+        [
+          "legacy_oa",
+          "ptxas",
+          "legacy_ptxas",
+          "torch_cuda",
+          "oa"
+        ],
+        [
+          "oa",
+          "legacy_ptxas",
+          "legacy_oa",
+          "torch_cuda",
+          "ptxas"
+        ],
+        [
+          "legacy_oa",
+          "legacy_ptxas",
+          "ptxas",
+          "torch_cuda",
+          "oa"
+        ],
+        [
+          "ptxas",
+          "legacy_oa",
+          "torch_cuda",
+          "oa",
+          "legacy_ptxas"
+        ],
+        [
+          "legacy_ptxas",
+          "ptxas",
+          "legacy_oa",
+          "oa",
+          "torch_cuda"
+        ],
+        [
+          "legacy_oa",
+          "legacy_ptxas",
+          "oa",
+          "ptxas",
+          "torch_cuda"
+        ],
+        [
+          "legacy_oa",
+          "torch_cuda",
+          "legacy_ptxas",
+          "ptxas",
+          "oa"
+        ],
+        [
+          "legacy_ptxas",
+          "torch_cuda",
+          "legacy_oa",
+          "oa",
+          "ptxas"
+        ],
+        [
+          "torch_cuda",
+          "legacy_ptxas",
+          "ptxas",
+          "legacy_oa",
+          "oa"
+        ],
+        [
+          "legacy_oa",
+          "oa",
+          "ptxas",
+          "legacy_ptxas",
+          "torch_cuda"
+        ],
+        [
+          "ptxas",
+          "oa",
+          "torch_cuda",
+          "legacy_oa",
+          "legacy_ptxas"
+        ],
+        [
+          "legacy_oa",
+          "torch_cuda",
+          "oa",
+          "legacy_ptxas",
+          "ptxas"
+        ],
+        [
+          "legacy_oa",
+          "legacy_ptxas",
+          "ptxas",
+          "torch_cuda",
+          "oa"
+        ]
+      ],
+      "status": "ok"
+    },
+    {
+      "name": "layernorm_1024x1024",
+      "op": "layernorm",
+      "rows": 1024,
+      "width": 1024,
+      "source_sha256": "e754433f42e9179fe630a1f53b12ac8610958218c8c171bbf08f37d5a7a971fa",
+      "launch": {
+        "grid": [
+          256,
+          1,
+          1
+        ],
+        "threads": 128,
+        "smem": 0
+      },
+      "kernels": [
+        {
+          "name": "layernorm",
+          "params": [
+            [
+              "u64",
+              "X"
+            ],
+            [
+              "u64",
+              "Y"
+            ]
+          ],
+          "compiled_by": "openassembler",
+          "instructions": 304,
+          "registers": 75,
+          "verify": "not-run"
+        }
+      ],
+      "sass_sha256": "de961e5994c9a2f3220c9eee080e852259b4880dd178a2b68f99683dac162b99",
+      "oa_sha256": "24fd083802ce4dcaa4a15af7a190284f238195650dedec24018804ea7cc7aa74",
+      "ptxas_sha256": "aad84c82d5fc12b54356a73ca82509206330c8fd1bc72aabe95c17c60ef6f997",
+      "resources": {
+        "oa": {
+          "max_threads": 768,
+          "shared_bytes": 0,
+          "const_bytes": 0,
+          "local_bytes": 0,
+          "num_regs": 75,
+          "ptx_version": 80,
+          "binary_version": 80
+        },
+        "ptxas": {
+          "max_threads": 1024,
+          "shared_bytes": 0,
+          "const_bytes": 0,
+          "local_bytes": 0,
+          "num_regs": 40,
+          "ptx_version": 80,
+          "binary_version": 80
+        },
+        "legacy_oa": {
+          "max_threads": 1024,
+          "shared_bytes": 0,
+          "const_bytes": 0,
+          "local_bytes": 0,
+          "num_regs": 20,
+          "ptx_version": 80,
+          "binary_version": 80
+        },
+        "legacy_ptxas": {
+          "max_threads": 1024,
+          "shared_bytes": 0,
+          "const_bytes": 0,
+          "local_bytes": 0,
+          "num_regs": 24,
+          "ptx_version": 80,
+          "binary_version": 80
+        }
+      },
+      "patterns": [
+        {
+          "name": "normal",
+          "checks": {
+            "oa": {
+              "passed": true,
+              "elements_checked": 1048576,
+              "mismatched_elements": 0,
+              "max_abs": 8.830827473715885e-07,
+              "relative_l2": 8.031841041998834e-08,
+              "canaries": true
+            },
+            "ptxas": {
+              "passed": true,
+              "elements_checked": 1048576,
+              "mismatched_elements": 0,
+              "max_abs": 8.830827473715885e-07,
+              "relative_l2": 8.019413383839388e-08,
+              "canaries": true
+            },
+            "legacy_oa": {
+              "passed": true,
+              "elements_checked": 1048576,
+              "mismatched_elements": 0,
+              "max_abs": 2.822110420908075e-06,
+              "relative_l2": 2.2533889444511858e-07,
+              "canaries": true
+            },
+            "legacy_ptxas": {
+              "passed": true,
+              "elements_checked": 1048576,
+              "mismatched_elements": 0,
+              "max_abs": 2.822110420908075e-06,
+              "relative_l2": 2.2474754995685424e-07,
+              "canaries": true
+            },
+            "torch_cuda": {
+              "passed": true,
+              "elements_checked": 1048576,
+              "mismatched_elements": 0,
+              "max_abs": 7.278748768158039e-07,
+              "relative_l2": 5.903651092031841e-08,
+              "canaries": null
+            }
+          },
+          "oa_ptxas_bitwise_equal": false
+        },
+        {
+          "name": "zero",
+          "checks": {
+            "oa": {
+              "passed": true,
+              "elements_checked": 1048576,
+              "mismatched_elements": 0,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "canaries": true
+            },
+            "ptxas": {
+              "passed": true,
+              "elements_checked": 1048576,
+              "mismatched_elements": 0,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "canaries": true
+            },
+            "legacy_oa": {
+              "passed": true,
+              "elements_checked": 1048576,
+              "mismatched_elements": 0,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "canaries": true
+            },
+            "legacy_ptxas": {
+              "passed": true,
+              "elements_checked": 1048576,
+              "mismatched_elements": 0,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "canaries": true
+            },
+            "torch_cuda": {
+              "passed": true,
+              "elements_checked": 1048576,
+              "mismatched_elements": 0,
+              "max_abs": 0.0,
+              "relative_l2": 0.0,
+              "canaries": null
+            }
+          },
+          "oa_ptxas_bitwise_equal": true
+        },
+        {
+          "name": "large_offset_small_variance",
+          "checks": {
+            "oa": {
+              "passed": true,
+              "elements_checked": 1048576,
+              "mismatched_elements": 0,
+              "max_abs": 6.3425283469698e-07,
+              "relative_l2": 5.061633774019904e-08,
+              "canaries": true
+            },
+            "ptxas": {
+              "passed": true,
+              "elements_checked": 1048576,
+              "mismatched_elements": 0,
+              "max_abs": 7.00636461292703e-07,
+              "relative_l2": 5.386607692124564e-08,
+              "canaries": true
+            },
+            "legacy_oa": {
+              "passed": false,
+              "elements_checked": 1048576,
+              "mismatched_elements": 1046528,
+              "max_abs": 0.09901202691867672,
+              "relative_l2": 0.02541969814043594,
+              "canaries": true
+            },
+            "legacy_ptxas": {
+              "passed": false,
+              "elements_checked": 1048576,
+              "mismatched_elements": 1046528,
+              "max_abs": 0.09901202691867672,
+              "relative_l2": 0.02541969814043594,
+              "canaries": true
+            },
+            "torch_cuda": {
+              "passed": false,
+              "elements_checked": 1048576,
+              "mismatched_elements": 1020068,
+              "max_abs": 0.00782689760043409,
+              "relative_l2": 0.0026900738144507363,
+              "canaries": null
+            }
+          },
+          "oa_ptxas_bitwise_equal": false
+        },
+        {
+          "name": "wide",
+          "checks": {
+            "oa": {
+              "passed": true,
+              "elements_checked": 1048576,
+              "mismatched_elements": 0,
+              "max_abs": 9.847877691093743e-07,
+              "relative_l2": 8.225379499332018e-08,
+              "canaries": true
+            },
+            "ptxas": {
+              "passed": true,
+              "elements_checked": 1048576,
+              "mismatched_elements": 0,
+              "max_abs": 9.847877691093743e-07,
+              "relative_l2": 8.20692524041333e-08,
+              "canaries": true
+            },
+            "legacy_oa": {
+              "passed": true,
+              "elements_checked": 1048576,
+              "mismatched_elements": 0,
+              "max_abs": 3.1528508088740637e-06,
+              "relative_l2": 2.3313469286344786e-07,
+              "canaries": true
+            },
+            "legacy_ptxas": {
+              "passed": true,
+              "elements_checked": 1048576,
+              "mismatched_elements": 0,
+              "max_abs": 3.1528508088740637e-06,
+              "relative_l2": 2.3380275084382998e-07,
+              "canaries": true
+            },
+            "torch_cuda": {
+              "passed": true,
+              "elements_checked": 1048576,
+              "mismatched_elements": 0,
+              "max_abs": 6.530204412769081e-07,
+              "relative_l2": 6.155372987371757e-08,
+              "canaries": null
+            }
+          },
+          "oa_ptxas_bitwise_equal": false
+        },
+        {
+          "name": "alternating",
+          "checks": {
+            "oa": {
+              "passed": true,
+              "elements_checked": 1048576,
+              "mismatched_elements": 0,
+              "max_abs": 4.9960036108132044e-14,
+              "relative_l2": 4.9960036108134543e-14,
+              "canaries": true
+            },
+            "ptxas": {
+              "passed": true,
+              "elements_checked": 1048576,
+              "mismatched_elements": 0,
+              "max_abs": 4.9960036108132044e-14,
+              "relative_l2": 4.9960036108134543e-14,
+              "canaries": true
+            },
+            "legacy_oa": {
+              "passed": true,
+              "elements_checked": 1048576,
+              "mismatched_elements": 0,
+              "max_abs": 1.1920929454678486e-06,
+              "relative_l2": 1.1920929454679081e-06,
+              "canaries": true
+            },
+            "legacy_ptxas": {
+              "passed": true,
+              "elements_checked": 1048576,
+              "mismatched_elements": 0,
+              "max_abs": 1.1920929454678486e-06,
+              "relative_l2": 1.1920929454679081e-06,
+              "canaries": true
+            },
+            "torch_cuda": {
+              "passed": true,
+              "elements_checked": 1048576,
+              "mismatched_elements": 0,
+              "max_abs": 4.9960036108132044e-14,
+              "relative_l2": 4.9960036108134543e-14,
+              "canaries": null
+            }
+          },
+          "oa_ptxas_bitwise_equal": true
+        }
+      ],
+      "candidate_passed_all_patterns": true,
+      "timing_inputs": "normal pattern, checked in full before timing",
+      "events": {
+        "oa": {
+          "samples_ms": [
+            0.02969600073993206,
+            0.020479999482631683,
+            0.021503999829292297,
+            0.01945599913597107,
+            0.023552000522613525,
+            0.01945599913597107,
+            0.03276799991726875,
+            0.021503999829292297,
+            0.020479999482631683,
+            0.020479999482631683,
+            0.01945599913597107,
+            0.021503999829292297,
+            0.021503999829292297,
+            0.020479999482631683,
+            0.020479999482631683,
+            0.020479999482631683,
+            0.018432000651955605,
+            0.020479999482631683,
+            0.02252800017595291,
+            0.020479999482631683
+          ],
+          "median_ms": 0.020479999482631683,
+          "min_ms": 0.018432000651955605,
+          "max_ms": 0.03276799991726875
+        },
+        "ptxas": {
+          "samples_ms": [
+            0.02252800017595291,
+            0.02252800017595291,
+            0.020479999482631683,
+            0.021503999829292297,
+            0.02252800017595291,
+            0.01945599913597107,
+            0.01945599913597107,
+            0.021503999829292297,
+            0.021503999829292297,
+            0.02252800017595291,
+            0.02457600086927414,
+            0.02252800017595291,
+            0.021503999829292297,
+            0.01945599913597107,
+            0.021503999829292297,
+            0.023552000522613525,
+            0.020479999482631683,
+            0.021503999829292297,
+            0.01945599913597107,
+            0.020479999482631683
+          ],
+          "median_ms": 0.021503999829292297,
+          "min_ms": 0.01945599913597107,
+          "max_ms": 0.02457600086927414
+        },
+        "legacy_oa": {
+          "samples_ms": [
+            0.5488640069961548,
+            0.549888014793396,
+            0.5488640069961548,
+            0.5488640069961548,
+            0.5488640069961548,
+            0.5468159914016724,
+            0.5478399991989136,
+            0.5468159914016724,
+            0.5478399991989136,
+            0.5447679758071899,
+            0.5488640069961548,
+            0.5478399991989136,
+            0.5488640069961548,
+            0.5447679758071899,
+            0.5457919836044312,
+            0.5447679758071899,
+            0.5437440276145935,
+            0.5457919836044312,
+            0.5457919836044312,
+            0.549888014793396
+          ],
+          "median_ms": 0.5478399991989136,
+          "min_ms": 0.5437440276145935,
+          "max_ms": 0.549888014793396
+        },
+        "legacy_ptxas": {
+          "samples_ms": [
+            0.4341759979724884,
+            0.4341759979724884,
+            0.4331519901752472,
+            0.4331519901752472,
+            0.4341759979724884,
+            0.4341759979724884,
+            0.4331519901752472,
+            0.4352000057697296,
+            0.4341759979724884,
+            0.4352000057697296,
+            0.4331519901752472,
+            0.43827199935913086,
+            0.4331519901752472,
+            0.4362240135669708,
+            0.4331519901752472,
+            0.4352000057697296,
+            0.4341759979724884,
+            0.4352000057697296,
+            0.4352000057697296,
+            0.4341759979724884
+          ],
+          "median_ms": 0.4341759979724884,
+          "min_ms": 0.4331519901752472,
+          "max_ms": 0.43827199935913086
+        },
+        "torch_cuda": {
+          "samples_ms": [
+            0.04608000069856644,
+            0.03891199827194214,
+            0.03686400130391121,
+            0.03276799991726875,
+            0.03686400130391121,
+            0.03481600061058998,
+            0.035840000957250595,
+            0.03788800165057182,
+            0.03276799991726875,
+            0.03481600061058998,
+            0.03379200026392937,
+            0.03276799991726875,
+            0.03788800165057182,
+            0.035840000957250595,
+            0.03686400130391121,
+            0.03481600061058998,
+            0.03174399957060814,
+            0.03481600061058998,
+            0.03686400130391121,
+            0.04710400104522705
+          ],
+          "median_ms": 0.035840000957250595,
+          "min_ms": 0.03174399957060814,
+          "max_ms": 0.04710400104522705
+        }
+      },
+      "event_order": [
+        [
+          "torch_cuda",
+          "oa",
+          "ptxas",
+          "legacy_oa",
+          "legacy_ptxas"
+        ],
+        [
+          "ptxas",
+          "oa",
+          "torch_cuda",
+          "legacy_oa",
+          "legacy_ptxas"
+        ],
+        [
+          "legacy_oa",
+          "torch_cuda",
+          "legacy_ptxas",
+          "oa",
+          "ptxas"
+        ],
+        [
+          "torch_cuda",
+          "ptxas",
+          "oa",
+          "legacy_oa",
+          "legacy_ptxas"
+        ],
+        [
+          "legacy_ptxas",
+          "ptxas",
+          "torch_cuda",
+          "oa",
+          "legacy_oa"
+        ],
+        [
+          "legacy_ptxas",
+          "legacy_oa",
+          "oa",
+          "ptxas",
+          "torch_cuda"
+        ],
+        [
+          "legacy_ptxas",
+          "legacy_oa",
+          "ptxas",
+          "torch_cuda",
+          "oa"
+        ],
+        [
+          "legacy_ptxas",
+          "legacy_oa",
+          "ptxas",
+          "torch_cuda",
+          "oa"
+        ],
+        [
+          "oa",
+          "legacy_ptxas",
+          "torch_cuda",
+          "legacy_oa",
+          "ptxas"
+        ],
+        [
+          "ptxas",
+          "oa",
+          "legacy_oa",
+          "torch_cuda",
+          "legacy_ptxas"
+        ],
+        [
+          "legacy_oa",
+          "legacy_ptxas",
+          "oa",
+          "torch_cuda",
+          "ptxas"
+        ],
+        [
+          "oa",
+          "torch_cuda",
+          "legacy_ptxas",
+          "ptxas",
+          "legacy_oa"
+        ],
+        [
+          "oa",
+          "torch_cuda",
+          "legacy_oa",
+          "legacy_ptxas",
+          "ptxas"
+        ],
+        [
+          "torch_cuda",
+          "legacy_ptxas",
+          "legacy_oa",
+          "ptxas",
+          "oa"
+        ],
+        [
+          "ptxas",
+          "legacy_oa",
+          "oa",
+          "torch_cuda",
+          "legacy_ptxas"
+        ],
+        [
+          "legacy_ptxas",
+          "torch_cuda",
+          "ptxas",
+          "oa",
+          "legacy_oa"
+        ],
+        [
+          "ptxas",
+          "torch_cuda",
+          "legacy_ptxas",
+          "legacy_oa",
+          "oa"
+        ],
+        [
+          "oa",
+          "legacy_oa",
+          "torch_cuda",
+          "ptxas",
+          "legacy_ptxas"
+        ],
+        [
+          "oa",
+          "ptxas",
+          "legacy_oa",
+          "torch_cuda",
+          "legacy_ptxas"
+        ],
+        [
+          "legacy_oa",
+          "torch_cuda",
+          "legacy_ptxas",
+          "oa",
+          "ptxas"
+        ]
+      ],
+      "graph_poison_replay_checks": {
+        "oa": {
+          "passed": true,
+          "elements_checked": 1048576,
+          "mismatched_elements": 0,
+          "max_abs": 8.830827473715885e-07,
+          "relative_l2": 8.031841041998834e-08,
+          "canaries": true
+        },
+        "ptxas": {
+          "passed": true,
+          "elements_checked": 1048576,
+          "mismatched_elements": 0,
+          "max_abs": 8.830827473715885e-07,
+          "relative_l2": 8.019413383839388e-08,
+          "canaries": true
+        },
+        "legacy_oa": {
+          "passed": true,
+          "elements_checked": 1048576,
+          "mismatched_elements": 0,
+          "max_abs": 2.822110420908075e-06,
+          "relative_l2": 2.2533889444511858e-07,
+          "canaries": true
+        },
+        "legacy_ptxas": {
+          "passed": true,
+          "elements_checked": 1048576,
+          "mismatched_elements": 0,
+          "max_abs": 2.822110420908075e-06,
+          "relative_l2": 2.2474754995685424e-07,
+          "canaries": true
+        },
+        "torch_cuda": {
+          "passed": true,
+          "elements_checked": 1048576,
+          "mismatched_elements": 0,
+          "max_abs": 7.278748768158039e-07,
+          "relative_l2": 5.903651092031841e-08,
+          "canaries": null
+        }
+      },
+      "graphs": {
+        "oa": {
+          "samples_ms": [
+            0.006144000217318535,
+            0.006016000173985958,
+            0.00595200015231967,
+            0.005919999908655882,
+            0.005919999908655882,
+            0.00595200015231967,
+            0.00595200015231967,
+            0.005888000130653381,
+            0.005919999908655882,
+            0.00595200015231967,
+            0.005919999908655882,
+            0.00595200015231967,
+            0.00598399993032217,
+            0.00595200015231967,
+            0.00595200015231967,
+            0.00595200015231967,
+            0.005919999908655882,
+            0.006111999973654747,
+            0.00595200015231967,
+            0.00595200015231967
+          ],
+          "median_ms": 0.00595200015231967,
+          "min_ms": 0.005888000130653381,
+          "max_ms": 0.006144000217318535
+        },
+        "ptxas": {
+          "samples_ms": [
+            0.004480000119656324,
+            0.004352000076323748,
+            0.004416000097990036,
+            0.004639999940991402,
+            0.004352000076323748,
+            0.004383999854326248,
+            0.004383999854326248,
+            0.004383999854326248,
+            0.004416000097990036,
+            0.004352000076323748,
+            0.004383999854326248,
+            0.004352000076323748,
+            0.004383999854326248,
+            0.004352000076323748,
+            0.00431999983265996,
+            0.004383999854326248,
+            0.004383999854326248,
+            0.004480000119656324,
+            0.004352000076323748,
+            0.00431999983265996
+          ],
+          "median_ms": 0.004383999854326248,
+          "min_ms": 0.00431999983265996,
+          "max_ms": 0.004639999940991402
+        },
+        "legacy_oa": {
+          "samples_ms": [
+            0.5360080003738403,
+            0.5344319939613342,
+            0.5343040227890015,
+            0.5347840189933777,
+            0.5346559882164001,
+            0.5345600247383118,
+            0.5343040227890015,
+            0.5343359708786011,
+            0.5343040227890015,
+            0.5346559882164001,
+            0.5342079997062683,
+            0.5344640016555786,
+            0.5345919728279114,
+            0.5347840189933777,
+            0.5345919728279114,
+            0.5338879823684692,
+            0.5345280170440674,
+            0.5342720150947571,
+            0.5339840054512024,
+            0.5348160266876221
+          ],
+          "median_ms": 0.534496009349823,
+          "min_ms": 0.5338879823684692,
+          "max_ms": 0.5360080003738403
+        },
+        "legacy_ptxas": {
+          "samples_ms": [
+            0.4203520119190216,
+            0.4203839898109436,
+            0.42019200325012207,
+            0.420415997505188,
+            0.4203520119190216,
+            0.42022401094436646,
+            0.42019200325012207,
+            0.42028799653053284,
+            0.4205760061740875,
+            0.42025598883628845,
+            0.4204480051994324,
+            0.4203839898109436,
+            0.4203520119190216,
+            0.4203200042247772,
+            0.4203839898109436,
+            0.42054399847984314,
+            0.4204480051994324,
+            0.42048001289367676,
+            0.4204480051994324,
+            0.42048001289367676
+          ],
+          "median_ms": 0.4203839898109436,
+          "min_ms": 0.42019200325012207,
+          "max_ms": 0.4205760061740875
+        },
+        "torch_cuda": {
+          "samples_ms": [
+            0.007519999984651804,
+            0.007424000184983015,
+            0.007424000184983015,
+            0.007455999962985516,
+            0.007424000184983015,
+            0.007424000184983015,
+            0.007424000184983015,
+            0.007455999962985516,
+            0.007391999941319227,
+            0.007391999941319227,
+            0.007424000184983015,
+            0.007391999941319227,
+            0.007391999941319227,
+            0.007424000184983015,
+            0.007391999941319227,
+            0.007424000184983015,
+            0.007424000184983015,
+            0.008287999778985977,
+            0.007455999962985516,
+            0.007424000184983015
+          ],
+          "median_ms": 0.007424000184983015,
+          "min_ms": 0.007391999941319227,
+          "max_ms": 0.008287999778985977
+        }
+      },
+      "graph_order": [
+        [
+          "legacy_oa",
+          "oa",
+          "ptxas",
+          "legacy_ptxas",
+          "torch_cuda"
+        ],
+        [
+          "oa",
+          "legacy_ptxas",
+          "legacy_oa",
+          "torch_cuda",
+          "ptxas"
+        ],
+        [
+          "legacy_ptxas",
+          "torch_cuda",
+          "oa",
+          "legacy_oa",
+          "ptxas"
+        ],
+        [
+          "oa",
+          "legacy_ptxas",
+          "ptxas",
+          "legacy_oa",
+          "torch_cuda"
+        ],
+        [
+          "ptxas",
+          "legacy_oa",
+          "torch_cuda",
+          "oa",
+          "legacy_ptxas"
+        ],
+        [
+          "torch_cuda",
+          "ptxas",
+          "legacy_ptxas",
+          "oa",
+          "legacy_oa"
+        ],
+        [
+          "legacy_oa",
+          "torch_cuda",
+          "legacy_ptxas",
+          "ptxas",
+          "oa"
+        ],
+        [
+          "legacy_ptxas",
+          "ptxas",
+          "oa",
+          "legacy_oa",
+          "torch_cuda"
+        ],
+        [
+          "oa",
+          "torch_cuda",
+          "legacy_oa",
+          "legacy_ptxas",
+          "ptxas"
+        ],
+        [
+          "legacy_ptxas",
+          "ptxas",
+          "oa",
+          "torch_cuda",
+          "legacy_oa"
+        ],
+        [
+          "legacy_oa",
+          "ptxas",
+          "oa",
+          "legacy_ptxas",
+          "torch_cuda"
+        ],
+        [
+          "ptxas",
+          "legacy_ptxas",
+          "oa",
+          "torch_cuda",
+          "legacy_oa"
+        ],
+        [
+          "legacy_ptxas",
+          "torch_cuda",
+          "oa",
+          "legacy_oa",
+          "ptxas"
+        ],
+        [
+          "ptxas",
+          "legacy_oa",
+          "legacy_ptxas",
+          "oa",
+          "torch_cuda"
+        ],
+        [
+          "torch_cuda",
+          "ptxas",
+          "legacy_oa",
+          "oa",
+          "legacy_ptxas"
+        ],
+        [
+          "torch_cuda",
+          "oa",
+          "legacy_oa",
+          "legacy_ptxas",
+          "ptxas"
+        ],
+        [
+          "oa",
+          "ptxas",
+          "torch_cuda",
+          "legacy_oa",
+          "legacy_ptxas"
+        ],
+        [
+          "torch_cuda",
+          "legacy_ptxas",
+          "legacy_oa",
+          "oa",
+          "ptxas"
+        ],
+        [
+          "legacy_oa",
+          "legacy_ptxas",
+          "oa",
+          "torch_cuda",
+          "ptxas"
+        ],
+        [
+          "ptxas",
+          "legacy_oa",
+          "oa",
+          "legacy_ptxas",
+          "torch_cuda"
+        ]
+      ],
+      "status": "ok"
+    }
+  ],
+  "tolerances_declared_before_run": {
+    "softmax": {
+      "rtol": 5e-05,
+      "atol": 1e-06
+    },
+    "layernorm": {
+      "rtol": 0.0001,
+      "atol": 2e-05
+    }
+  },
+  "reference": "FP64 formulas on exact FP32 inputs; population variance; epsilon=1e-5",
+  "timing": "5 warmup;20 shuffled paired single-launch events;20 shuffled paired graphs,32 operations/graph; poison-after-capture verified",
+  "runtime": {
+    "torch": "2.7.1+cu128",
+    "cuda": "12.8",
+    "name": "NVIDIA A100-SXM4-40GB",
+    "cc": "8.0",
+    "driver": 13030,
+    "sm_count": 108,
+    "clock_khz": 1410000,
+    "mem_bytes": 42429251584
+  },
+  "elapsed_gpu_worker_seconds": 4.8957987450000005,
+  "codegen_sha256": "d8c3e7cf2c81a1545fd2f4dcb92641e29e5641566f66ece868a40199762d56ea",
+  "variant": "drain_mufu_read_shuffle_read",
+  "timestamp_utc": "2026-11-06T13:15:17.929181+00:00",
+  "harness_sha256": "adca5eaf384882aefe3272f69adeccd9954baa7f6cdeb06d85befea954acf9db"
+}

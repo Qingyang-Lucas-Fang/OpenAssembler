@@ -1,0 +1,21 @@
+.version 8.7
+.target sm_80
+.address_size 64
+.visible .entry warpsync_probe(.param .u64 X,.param .u64 Y) {
+.reg .u32 %r<8>; .reg .u64 %d<8>;
+.shared .align 4 .b32 smem[32];
+ld.param.u64 %d0,[X]; ld.param.u64 %d1,[Y];
+mov.u32 %r0,%tid.x;
+mul.wide.u32 %d2,%r0,4;
+add.u64 %d3,%d0,%d2; add.u64 %d4,%d1,%d2;
+ld.global.u32 %r1,[%d3];
+and.b32 %r3,%r0,31;
+mul.lo.u32 %r4,%r3,4;
+st.shared.u32 [smem+0],%r1;
+bar.warp.sync 0xffffffff;
+shfl.sync.bfly.b32 %r2,%r1,16,31,0xffffffff;
+ld.shared.u32 %r5,[smem+0];
+add.u32 %r2,%r2,%r5;
+st.global.u32 [%d4],%r2;
+ret;
+}

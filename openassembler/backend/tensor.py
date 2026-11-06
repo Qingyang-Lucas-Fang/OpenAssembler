@@ -21,10 +21,13 @@ class TensorConfig:
     issue_gap: int = 8
     epoch_drain: int = 15
     reuse: bool = True
+    pointer_mode: str = "legacy"
 
     def __post_init__(self):
         if self.issue_gap != 8 or self.epoch_drain != 15:
             raise ValueError("the production SM80 tensor path requires HMMA8 and drain15")
+        if self.pointer_mode not in ("legacy", "direct"):
+            raise ValueError("tensor pointer mode must be legacy or direct")
 
 
 def needs_tensor(kernel) -> bool:
@@ -90,6 +93,18 @@ class TensorSelector(ra.Selector):
     def __init__(self, kernel, config=None):
         super().__init__(kernel)
         self.config = config or TensorConfig()
+
+    def wide(self, group):
+        # A loop-carried 64-bit home already has stable component identities.
+        # Keeping this pair as an IR operand lets allocation impose alignment
+        # directly and exposes LDGSTS's true address WAR to the scheduler. The
+        # generic wide() path instead copies both halves to a temporary pair.
+        # This mode is explicit: it wins on measured MLP shapes but not on all
+        # large GEMMs. Non-home pairs and fragment quads retain generic rules.
+        if (self.config.pointer_mode == "direct" and len(group) == 2
+                and group in getattr(self, "homes", {}).values()):
+            return group
+        return super().wide(group)
 
     def _init_tensor_homes(self):
         if getattr(self, "_tensor_homes_ready", False):
@@ -395,12 +410,15 @@ def tensor_schedule(body, labels):
     return _branch_pred_latency(out)
 
 
-def policy() -> dict:
+def policy(config=None) -> dict:
     """Describe the validated tensor policy without returning mutable state."""
+    config = config or TensorConfig()
+    if not isinstance(config, TensorConfig):
+        raise TypeError("config must be an immutable TensorConfig")
     return {"backend": "sm80-tensor", "schedule": "source-order-hmma8-epoch-drain15",
             "copy_group_scoreboard": 0, "protected_scoreboard_recycling": True,
             "ldsm_address_war_uses_write_completion": True,
-            "tensor_reuse_hints": True}
+            "tensor_reuse_hints": config.reuse, "pointer_mode": config.pointer_mode}
 
 
 def generate(kernel, arch, opt_level, *, config=None):

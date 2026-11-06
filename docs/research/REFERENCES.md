@@ -16,9 +16,11 @@
 - NVIDIA, [CUTLASS source](https://github.com/NVIDIA/cutlass).
 - Mesa NAK, [source repository](https://gitlab.freedesktop.org/mesa/mesa), used as comparative public ISA implementation material, not as an NVIDIA specification.
 - NVBit, [source repository](https://github.com/NVlabs/NVBit), for binary instrumentation background.
-- NVLift, paper/source details cited in [lifting research](03-lifting-and-ptx-bridge.md).
+- NVLift, paper/source details cited in [lifting research](ideas/control-flow-lifting.md).
 
 ## Matrix multiplication algorithms and graph compilers
+
+- PyTorch, [pinned v2.7.1 Inductor configuration](https://github.com/pytorch/pytorch/blob/v2.7.1/torch/_inductor/config.py), for the documented `emulate_precision_casts` behavior. The A100 cast-preservation experiment in the remediation report failed the unchanged BF16 parameter gate; the option was not promoted.
 
 - Fawzi et al., [Discovering faster matrix multiplication algorithms with reinforcement learning](https://www.nature.com/articles/s41586-022-05172-4), Nature (2022).
 - DeepMind, [AlphaTensor code and factorization data](https://github.com/google-deepmind/alphatensor).

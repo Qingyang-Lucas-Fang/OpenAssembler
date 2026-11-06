@@ -1,0 +1,3530 @@
+{
+  "schema": 1,
+  "runtime": {
+    "torch": "2.7.1+cu128",
+    "cuda": "12.8",
+    "device": "NVIDIA A100-SXM4-40GB",
+    "name": "NVIDIA A100-SXM4-40GB",
+    "cc": "8.0",
+    "driver": 13030,
+    "sm_count": 108,
+    "clock_khz": 1410000,
+    "mem_bytes": 42429251584
+  },
+  "elapsed_gpu_worker_seconds": 0.8863180379999998,
+  "tolerances_declared_before_run": {
+    "relu": {
+      "rtol": 0.0,
+      "atol": 0.0
+    },
+    "gelu": {
+      "rtol": 2e-05,
+      "atol": 5e-06
+    },
+    "softmax": {
+      "rtol": 5e-05,
+      "atol": 1e-06
+    },
+    "layernorm": {
+      "rtol": 0.0001,
+      "atol": 2e-05
+    },
+    "adam_step": {
+      "rtol": 2e-05,
+      "atol": 2e-06
+    }
+  },
+  "reference": "FP64 PyTorch formula applied to exact FP32 input values",
+  "timing": "5 warmup then 20 shuffled single-launch CUDA-event samples; no CUDA graphs; allocations/copies in PyTorch baseline included",
+  "resources": {
+    "oa/relu": {
+      "max_threads": 1024,
+      "shared_bytes": 0,
+      "const_bytes": 0,
+      "local_bytes": 0,
+      "num_regs": 16,
+      "ptx_version": 80,
+      "binary_version": 80
+    },
+    "oa/gelu": {
+      "max_threads": 1024,
+      "shared_bytes": 0,
+      "const_bytes": 0,
+      "local_bytes": 0,
+      "num_regs": 16,
+      "ptx_version": 80,
+      "binary_version": 80
+    },
+    "oa/softmax": {
+      "max_threads": 1024,
+      "shared_bytes": 0,
+      "const_bytes": 0,
+      "local_bytes": 0,
+      "num_regs": 22,
+      "ptx_version": 80,
+      "binary_version": 80
+    },
+    "oa/layernorm": {
+      "max_threads": 1024,
+      "shared_bytes": 0,
+      "const_bytes": 0,
+      "local_bytes": 0,
+      "num_regs": 20,
+      "ptx_version": 80,
+      "binary_version": 80
+    },
+    "oa/adam_step": {
+      "max_threads": 1024,
+      "shared_bytes": 0,
+      "const_bytes": 0,
+      "local_bytes": 0,
+      "num_regs": 24,
+      "ptx_version": 80,
+      "binary_version": 80
+    },
+    "ptxas/relu": {
+      "max_threads": 1024,
+      "shared_bytes": 0,
+      "const_bytes": 0,
+      "local_bytes": 0,
+      "num_regs": 10,
+      "ptx_version": 80,
+      "binary_version": 80
+    },
+    "ptxas/gelu": {
+      "max_threads": 1024,
+      "shared_bytes": 0,
+      "const_bytes": 0,
+      "local_bytes": 0,
+      "num_regs": 12,
+      "ptx_version": 80,
+      "binary_version": 80
+    },
+    "ptxas/softmax": {
+      "max_threads": 1024,
+      "shared_bytes": 0,
+      "const_bytes": 0,
+      "local_bytes": 0,
+      "num_regs": 17,
+      "ptx_version": 80,
+      "binary_version": 80
+    },
+    "ptxas/layernorm": {
+      "max_threads": 1024,
+      "shared_bytes": 0,
+      "const_bytes": 0,
+      "local_bytes": 0,
+      "num_regs": 24,
+      "ptx_version": 80,
+      "binary_version": 80
+    },
+    "ptxas/adam_step": {
+      "max_threads": 1024,
+      "shared_bytes": 0,
+      "const_bytes": 0,
+      "local_bytes": 0,
+      "num_regs": 20,
+      "ptx_version": 80,
+      "binary_version": 80
+    }
+  },
+  "cases": [
+    {
+      "name": "relu_1048576",
+      "op": "relu",
+      "shape": [
+        1048576
+      ],
+      "tolerance": {
+        "rtol": 0.0,
+        "atol": 0.0
+      },
+      "patterns": [
+        {
+          "pattern": "normal",
+          "checks": {
+            "oa": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 1048576,
+                "mismatched_elements": 0,
+                "relative_l2": 0.0,
+                "max_abs": 0.0
+              },
+              "canaries": true,
+              "guarded_outputs": true
+            },
+            "ptxas": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 1048576,
+                "mismatched_elements": 0,
+                "relative_l2": 0.0,
+                "max_abs": 0.0
+              },
+              "canaries": true,
+              "guarded_outputs": true
+            },
+            "torch_cuda": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 1048576,
+                "mismatched_elements": 0,
+                "relative_l2": 0.0,
+                "max_abs": 0.0
+              },
+              "canaries": true,
+              "guarded_outputs": true
+            }
+          },
+          "oa_ptxas_bitwise_equal": true
+        },
+        {
+          "pattern": "zero",
+          "checks": {
+            "oa": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 1048576,
+                "mismatched_elements": 0,
+                "relative_l2": 0.0,
+                "max_abs": 0.0
+              },
+              "canaries": true,
+              "guarded_outputs": true
+            },
+            "ptxas": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 1048576,
+                "mismatched_elements": 0,
+                "relative_l2": 0.0,
+                "max_abs": 0.0
+              },
+              "canaries": true,
+              "guarded_outputs": true
+            },
+            "torch_cuda": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 1048576,
+                "mismatched_elements": 0,
+                "relative_l2": 0.0,
+                "max_abs": 0.0
+              },
+              "canaries": true,
+              "guarded_outputs": true
+            }
+          },
+          "oa_ptxas_bitwise_equal": true
+        }
+      ],
+      "status": "ok",
+      "timing_inputs": "identical to normal-pattern full-output check",
+      "eligible_for_timing": [
+        "oa",
+        "ptxas",
+        "torch_cuda"
+      ],
+      "timings": {
+        "oa": {
+          "samples_ms": [
+            0.026623999699950218,
+            0.025599999353289604,
+            0.023552000522613525,
+            0.02457600086927414,
+            0.023552000522613525,
+            0.023552000522613525,
+            0.023552000522613525,
+            0.02457600086927414,
+            0.02457600086927414,
+            0.02457600086927414,
+            0.02457600086927414,
+            0.02457600086927414,
+            0.023552000522613525,
+            0.023552000522613525,
+            0.02252800017595291,
+            0.02252800017595291,
+            0.02252800017595291,
+            0.02252800017595291,
+            0.02457600086927414,
+            0.023552000522613525
+          ],
+          "median_ms": 0.023552000522613525,
+          "mean_ms": 0.023961600475013257,
+          "min_ms": 0.02252800017595291,
+          "max_ms": 0.026623999699950218
+        },
+        "ptxas": {
+          "samples_ms": [
+            0.027648000046610832,
+            0.02457600086927414,
+            0.02457600086927414,
+            0.02252800017595291,
+            0.023552000522613525,
+            0.023552000522613525,
+            0.02457600086927414,
+            0.025599999353289604,
+            0.023552000522613525,
+            0.02457600086927414,
+            0.023552000522613525,
+            0.023552000522613525,
+            0.023552000522613525,
+            0.025599999353289604,
+            0.023552000522613525,
+            0.023552000522613525,
+            0.023552000522613525,
+            0.02252800017595291,
+            0.02252800017595291,
+            0.023552000522613525
+          ],
+          "median_ms": 0.023552000522613525,
+          "mean_ms": 0.02401280039921403,
+          "min_ms": 0.02252800017595291,
+          "max_ms": 0.027648000046610832
+        },
+        "torch_cuda": {
+          "samples_ms": [
+            0.03174399957060814,
+            0.021503999829292297,
+            0.020479999482631683,
+            0.020479999482631683,
+            0.01945599913597107,
+            0.020479999482631683,
+            0.01945599913597107,
+            0.02252800017595291,
+            0.01945599913597107,
+            0.020479999482631683,
+            0.021503999829292297,
+            0.01945599913597107,
+            0.01945599913597107,
+            0.01945599913597107,
+            0.021503999829292297,
+            0.020479999482631683,
+            0.01945599913597107,
+            0.020479999482631683,
+            0.01945599913597107,
+            0.01945599913597107
+          ],
+          "median_ms": 0.020479999482631683,
+          "mean_ms": 0.020838399417698383,
+          "min_ms": 0.01945599913597107,
+          "max_ms": 0.03174399957060814
+        }
+      },
+      "timing_order": [
+        [
+          "ptxas",
+          "oa",
+          "torch_cuda"
+        ],
+        [
+          "ptxas",
+          "torch_cuda",
+          "oa"
+        ],
+        [
+          "ptxas",
+          "torch_cuda",
+          "oa"
+        ],
+        [
+          "oa",
+          "ptxas",
+          "torch_cuda"
+        ],
+        [
+          "oa",
+          "torch_cuda",
+          "ptxas"
+        ],
+        [
+          "ptxas",
+          "oa",
+          "torch_cuda"
+        ],
+        [
+          "ptxas",
+          "oa",
+          "torch_cuda"
+        ],
+        [
+          "ptxas",
+          "torch_cuda",
+          "oa"
+        ],
+        [
+          "torch_cuda",
+          "oa",
+          "ptxas"
+        ],
+        [
+          "torch_cuda",
+          "ptxas",
+          "oa"
+        ],
+        [
+          "ptxas",
+          "oa",
+          "torch_cuda"
+        ],
+        [
+          "torch_cuda",
+          "oa",
+          "ptxas"
+        ],
+        [
+          "ptxas",
+          "torch_cuda",
+          "oa"
+        ],
+        [
+          "torch_cuda",
+          "ptxas",
+          "oa"
+        ],
+        [
+          "ptxas",
+          "oa",
+          "torch_cuda"
+        ],
+        [
+          "ptxas",
+          "oa",
+          "torch_cuda"
+        ],
+        [
+          "torch_cuda",
+          "ptxas",
+          "oa"
+        ],
+        [
+          "oa",
+          "ptxas",
+          "torch_cuda"
+        ],
+        [
+          "oa",
+          "ptxas",
+          "torch_cuda"
+        ],
+        [
+          "ptxas",
+          "oa",
+          "torch_cuda"
+        ]
+      ],
+      "torch_cuda_extra_copy": false,
+      "torch_output_allocation": false,
+      "algorithm_boundary": "one thread per element; current scalar native compiler"
+    },
+    {
+      "name": "relu_4194304",
+      "op": "relu",
+      "shape": [
+        4194304
+      ],
+      "tolerance": {
+        "rtol": 0.0,
+        "atol": 0.0
+      },
+      "patterns": [
+        {
+          "pattern": "normal",
+          "checks": {
+            "oa": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 4194304,
+                "mismatched_elements": 0,
+                "relative_l2": 0.0,
+                "max_abs": 0.0
+              },
+              "canaries": true,
+              "guarded_outputs": true
+            },
+            "ptxas": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 4194304,
+                "mismatched_elements": 0,
+                "relative_l2": 0.0,
+                "max_abs": 0.0
+              },
+              "canaries": true,
+              "guarded_outputs": true
+            },
+            "torch_cuda": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 4194304,
+                "mismatched_elements": 0,
+                "relative_l2": 0.0,
+                "max_abs": 0.0
+              },
+              "canaries": true,
+              "guarded_outputs": true
+            }
+          },
+          "oa_ptxas_bitwise_equal": true
+        },
+        {
+          "pattern": "zero",
+          "checks": {
+            "oa": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 4194304,
+                "mismatched_elements": 0,
+                "relative_l2": 0.0,
+                "max_abs": 0.0
+              },
+              "canaries": true,
+              "guarded_outputs": true
+            },
+            "ptxas": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 4194304,
+                "mismatched_elements": 0,
+                "relative_l2": 0.0,
+                "max_abs": 0.0
+              },
+              "canaries": true,
+              "guarded_outputs": true
+            },
+            "torch_cuda": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 4194304,
+                "mismatched_elements": 0,
+                "relative_l2": 0.0,
+                "max_abs": 0.0
+              },
+              "canaries": true,
+              "guarded_outputs": true
+            }
+          },
+          "oa_ptxas_bitwise_equal": true
+        }
+      ],
+      "status": "ok",
+      "timing_inputs": "identical to normal-pattern full-output check",
+      "eligible_for_timing": [
+        "oa",
+        "ptxas",
+        "torch_cuda"
+      ],
+      "timings": {
+        "oa": {
+          "samples_ms": [
+            0.050175998359918594,
+            0.048128001391887665,
+            0.04710400104522705,
+            0.048128001391887665,
+            0.04710400104522705,
+            0.048128001391887665,
+            0.048128001391887665,
+            0.04710400104522705,
+            0.048128001391887665,
+            0.04608000069856644,
+            0.048128001391887665,
+            0.04710400104522705,
+            0.048128001391887665,
+            0.048128001391887665,
+            0.048128001391887665,
+            0.04710400104522705,
+            0.04608000069856644,
+            0.050175998359918594,
+            0.04710400104522705,
+            0.04710400104522705
+          ],
+          "median_ms": 0.048128001391887665,
+          "mean_ms": 0.04776960089802742,
+          "min_ms": 0.04608000069856644,
+          "max_ms": 0.050175998359918594
+        },
+        "ptxas": {
+          "samples_ms": [
+            0.04710400104522705,
+            0.04710400104522705,
+            0.04710400104522705,
+            0.04915200173854828,
+            0.04710400104522705,
+            0.04710400104522705,
+            0.04710400104522705,
+            0.04710400104522705,
+            0.048128001391887665,
+            0.048128001391887665,
+            0.04710400104522705,
+            0.04710400104522705,
+            0.048128001391887665,
+            0.04710400104522705,
+            0.04710400104522705,
+            0.04710400104522705,
+            0.048128001391887665,
+            0.04710400104522705,
+            0.048128001391887665,
+            0.04915200173854828
+          ],
+          "median_ms": 0.04710400104522705,
+          "mean_ms": 0.047564801201224326,
+          "min_ms": 0.04710400104522705,
+          "max_ms": 0.04915200173854828
+        },
+        "torch_cuda": {
+          "samples_ms": [
+            0.03379200026392937,
+            0.03481600061058998,
+            0.03174399957060814,
+            0.03379200026392937,
+            0.030719999223947525,
+            0.030719999223947525,
+            0.03276799991726875,
+            0.030719999223947525,
+            0.03276799991726875,
+            0.030719999223947525,
+            0.03174399957060814,
+            0.03276799991726875,
+            0.03174399957060814,
+            0.030719999223947525,
+            0.03174399957060814,
+            0.030719999223947525,
+            0.03276799991726875,
+            0.03379200026392937,
+            0.03276799991726875,
+            0.03276799991726875
+          ],
+          "median_ms": 0.032255999743938446,
+          "mean_ms": 0.032204799726605414,
+          "min_ms": 0.030719999223947525,
+          "max_ms": 0.03481600061058998
+        }
+      },
+      "timing_order": [
+        [
+          "oa",
+          "ptxas",
+          "torch_cuda"
+        ],
+        [
+          "torch_cuda",
+          "oa",
+          "ptxas"
+        ],
+        [
+          "torch_cuda",
+          "ptxas",
+          "oa"
+        ],
+        [
+          "ptxas",
+          "torch_cuda",
+          "oa"
+        ],
+        [
+          "ptxas",
+          "oa",
+          "torch_cuda"
+        ],
+        [
+          "oa",
+          "ptxas",
+          "torch_cuda"
+        ],
+        [
+          "ptxas",
+          "torch_cuda",
+          "oa"
+        ],
+        [
+          "torch_cuda",
+          "ptxas",
+          "oa"
+        ],
+        [
+          "torch_cuda",
+          "ptxas",
+          "oa"
+        ],
+        [
+          "torch_cuda",
+          "ptxas",
+          "oa"
+        ],
+        [
+          "ptxas",
+          "torch_cuda",
+          "oa"
+        ],
+        [
+          "torch_cuda",
+          "oa",
+          "ptxas"
+        ],
+        [
+          "torch_cuda",
+          "oa",
+          "ptxas"
+        ],
+        [
+          "ptxas",
+          "torch_cuda",
+          "oa"
+        ],
+        [
+          "ptxas",
+          "torch_cuda",
+          "oa"
+        ],
+        [
+          "oa",
+          "ptxas",
+          "torch_cuda"
+        ],
+        [
+          "ptxas",
+          "oa",
+          "torch_cuda"
+        ],
+        [
+          "torch_cuda",
+          "oa",
+          "ptxas"
+        ],
+        [
+          "ptxas",
+          "oa",
+          "torch_cuda"
+        ],
+        [
+          "ptxas",
+          "torch_cuda",
+          "oa"
+        ]
+      ],
+      "torch_cuda_extra_copy": false,
+      "torch_output_allocation": false,
+      "algorithm_boundary": "one thread per element; current scalar native compiler"
+    },
+    {
+      "name": "gelu_1048576",
+      "op": "gelu",
+      "shape": [
+        1048576
+      ],
+      "tolerance": {
+        "rtol": 2e-05,
+        "atol": 5e-06
+      },
+      "patterns": [
+        {
+          "pattern": "normal",
+          "checks": {
+            "oa": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 1048576,
+                "mismatched_elements": 0,
+                "relative_l2": 2.3987939079123026e-06,
+                "max_abs": 5.521145011622153e-06
+              },
+              "canaries": true,
+              "guarded_outputs": true
+            },
+            "ptxas": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 1048576,
+                "mismatched_elements": 0,
+                "relative_l2": 2.39875233616981e-06,
+                "max_abs": 5.521145011622153e-06
+              },
+              "canaries": true,
+              "guarded_outputs": true
+            },
+            "torch_cuda": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 1048576,
+                "mismatched_elements": 0,
+                "relative_l2": 3.83155977895275e-08,
+                "max_abs": 3.807773687469762e-07
+              },
+              "canaries": true,
+              "guarded_outputs": true
+            }
+          },
+          "oa_ptxas_bitwise_equal": false
+        },
+        {
+          "pattern": "zero",
+          "checks": {
+            "oa": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 1048576,
+                "mismatched_elements": 0,
+                "relative_l2": 0.0,
+                "max_abs": 0.0
+              },
+              "canaries": true,
+              "guarded_outputs": true
+            },
+            "ptxas": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 1048576,
+                "mismatched_elements": 0,
+                "relative_l2": 0.0,
+                "max_abs": 0.0
+              },
+              "canaries": true,
+              "guarded_outputs": true
+            },
+            "torch_cuda": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 1048576,
+                "mismatched_elements": 0,
+                "relative_l2": 0.0,
+                "max_abs": 0.0
+              },
+              "canaries": true,
+              "guarded_outputs": true
+            }
+          },
+          "oa_ptxas_bitwise_equal": true
+        }
+      ],
+      "status": "ok",
+      "timing_inputs": "identical to normal-pattern full-output check",
+      "eligible_for_timing": [
+        "oa",
+        "ptxas",
+        "torch_cuda"
+      ],
+      "timings": {
+        "oa": {
+          "samples_ms": [
+            0.027648000046610832,
+            0.025599999353289604,
+            0.025599999353289604,
+            0.023552000522613525,
+            0.02457600086927414,
+            0.023552000522613525,
+            0.023552000522613525,
+            0.023552000522613525,
+            0.025599999353289604,
+            0.025599999353289604,
+            0.02457600086927414,
+            0.023552000522613525,
+            0.02457600086927414,
+            0.02457600086927414,
+            0.025599999353289604,
+            0.02457600086927414,
+            0.02457600086927414,
+            0.023552000522613525,
+            0.02252800017595291,
+            0.02457600086927414
+          ],
+          "median_ms": 0.02457600086927414,
+          "mean_ms": 0.024576000310480593,
+          "min_ms": 0.02252800017595291,
+          "max_ms": 0.027648000046610832
+        },
+        "ptxas": {
+          "samples_ms": [
+            0.026623999699950218,
+            0.025599999353289604,
+            0.025599999353289604,
+            0.023552000522613525,
+            0.026623999699950218,
+            0.02252800017595291,
+            0.025599999353289604,
+            0.025599999353289604,
+            0.023552000522613525,
+            0.023552000522613525,
+            0.023552000522613525,
+            0.023552000522613525,
+            0.023552000522613525,
+            0.02457600086927414,
+            0.025599999353289604,
+            0.02457600086927414,
+            0.025599999353289604,
+            0.02252800017595291,
+            0.025599999353289604,
+            0.030719999223947525
+          ],
+          "median_ms": 0.025088000111281872,
+          "mean_ms": 0.024934399966150524,
+          "min_ms": 0.02252800017595291,
+          "max_ms": 0.030719999223947525
+        },
+        "torch_cuda": {
+          "samples_ms": [
+            0.02969600073993206,
+            0.02457600086927414,
+            0.028672000393271446,
+            0.025599999353289604,
+            0.02457600086927414,
+            0.02457600086927414,
+            0.023552000522613525,
+            0.04095999896526337,
+            0.027648000046610832,
+            0.02457600086927414,
+            0.023552000522613525,
+            0.02457600086927414,
+            0.02457600086927414,
+            0.02252800017595291,
+            0.026623999699950218,
+            0.023552000522613525,
+            0.02457600086927414,
+            0.025599999353289604,
+            0.02457600086927414,
+            0.02252800017595291
+          ],
+          "median_ms": 0.02457600086927414,
+          "mean_ms": 0.025856000371277332,
+          "min_ms": 0.02252800017595291,
+          "max_ms": 0.04095999896526337
+        }
+      },
+      "timing_order": [
+        [
+          "oa",
+          "torch_cuda",
+          "ptxas"
+        ],
+        [
+          "torch_cuda",
+          "ptxas",
+          "oa"
+        ],
+        [
+          "torch_cuda",
+          "oa",
+          "ptxas"
+        ],
+        [
+          "oa",
+          "ptxas",
+          "torch_cuda"
+        ],
+        [
+          "torch_cuda",
+          "ptxas",
+          "oa"
+        ],
+        [
+          "ptxas",
+          "oa",
+          "torch_cuda"
+        ],
+        [
+          "torch_cuda",
+          "ptxas",
+          "oa"
+        ],
+        [
+          "oa",
+          "torch_cuda",
+          "ptxas"
+        ],
+        [
+          "torch_cuda",
+          "oa",
+          "ptxas"
+        ],
+        [
+          "oa",
+          "torch_cuda",
+          "ptxas"
+        ],
+        [
+          "oa",
+          "ptxas",
+          "torch_cuda"
+        ],
+        [
+          "torch_cuda",
+          "ptxas",
+          "oa"
+        ],
+        [
+          "oa",
+          "ptxas",
+          "torch_cuda"
+        ],
+        [
+          "torch_cuda",
+          "ptxas",
+          "oa"
+        ],
+        [
+          "oa",
+          "torch_cuda",
+          "ptxas"
+        ],
+        [
+          "ptxas",
+          "oa",
+          "torch_cuda"
+        ],
+        [
+          "torch_cuda",
+          "ptxas",
+          "oa"
+        ],
+        [
+          "oa",
+          "ptxas",
+          "torch_cuda"
+        ],
+        [
+          "ptxas",
+          "oa",
+          "torch_cuda"
+        ],
+        [
+          "oa",
+          "torch_cuda",
+          "ptxas"
+        ]
+      ],
+      "torch_cuda_extra_copy": false,
+      "torch_output_allocation": false,
+      "algorithm_boundary": "one thread per element; current scalar native compiler"
+    },
+    {
+      "name": "gelu_4194304",
+      "op": "gelu",
+      "shape": [
+        4194304
+      ],
+      "tolerance": {
+        "rtol": 2e-05,
+        "atol": 5e-06
+      },
+      "patterns": [
+        {
+          "pattern": "normal",
+          "checks": {
+            "oa": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 4194304,
+                "mismatched_elements": 0,
+                "relative_l2": 2.4060740611242745e-06,
+                "max_abs": 5.555493915815335e-06
+              },
+              "canaries": true,
+              "guarded_outputs": true
+            },
+            "ptxas": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 4194304,
+                "mismatched_elements": 0,
+                "relative_l2": 2.4060774738345494e-06,
+                "max_abs": 5.557809515055467e-06
+              },
+              "canaries": true,
+              "guarded_outputs": true
+            },
+            "torch_cuda": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 4194304,
+                "mismatched_elements": 0,
+                "relative_l2": 3.8450327793030426e-08,
+                "max_abs": 3.676004425301471e-07
+              },
+              "canaries": true,
+              "guarded_outputs": true
+            }
+          },
+          "oa_ptxas_bitwise_equal": false
+        },
+        {
+          "pattern": "zero",
+          "checks": {
+            "oa": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 4194304,
+                "mismatched_elements": 0,
+                "relative_l2": 0.0,
+                "max_abs": 0.0
+              },
+              "canaries": true,
+              "guarded_outputs": true
+            },
+            "ptxas": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 4194304,
+                "mismatched_elements": 0,
+                "relative_l2": 0.0,
+                "max_abs": 0.0
+              },
+              "canaries": true,
+              "guarded_outputs": true
+            },
+            "torch_cuda": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 4194304,
+                "mismatched_elements": 0,
+                "relative_l2": 0.0,
+                "max_abs": 0.0
+              },
+              "canaries": true,
+              "guarded_outputs": true
+            }
+          },
+          "oa_ptxas_bitwise_equal": true
+        }
+      ],
+      "status": "ok",
+      "timing_inputs": "identical to normal-pattern full-output check",
+      "eligible_for_timing": [
+        "oa",
+        "ptxas",
+        "torch_cuda"
+      ],
+      "timings": {
+        "oa": {
+          "samples_ms": [
+            0.050175998359918594,
+            0.04915200173854828,
+            0.048128001391887665,
+            0.048128001391887665,
+            0.048128001391887665,
+            0.0655359998345375,
+            0.048128001391887665,
+            0.048128001391887665,
+            0.04710400104522705,
+            0.04710400104522705,
+            0.04710400104522705,
+            0.04915200173854828,
+            0.04710400104522705,
+            0.04710400104522705,
+            0.050175998359918594,
+            0.04915200173854828,
+            0.04710400104522705,
+            0.04710400104522705,
+            0.04915200173854828,
+            0.050175998359918594
+          ],
+          "median_ms": 0.048128001391887665,
+          "mean_ms": 0.049152000807225704,
+          "min_ms": 0.04710400104522705,
+          "max_ms": 0.0655359998345375
+        },
+        "ptxas": {
+          "samples_ms": [
+            0.053247999399900436,
+            0.050175998359918594,
+            0.048128001391887665,
+            0.04915200173854828,
+            0.04915200173854828,
+            0.048128001391887665,
+            0.04915200173854828,
+            0.048128001391887665,
+            0.048128001391887665,
+            0.048128001391887665,
+            0.050175998359918594,
+            0.048128001391887665,
+            0.04915200173854828,
+            0.048128001391887665,
+            0.04915200173854828,
+            0.04915200173854828,
+            0.048128001391887665,
+            0.04915200173854828,
+            0.04915200173854828,
+            0.048128001391887665
+          ],
+          "median_ms": 0.04915200173854828,
+          "mean_ms": 0.04899840112775564,
+          "min_ms": 0.048128001391887665,
+          "max_ms": 0.053247999399900436
+        },
+        "torch_cuda": {
+          "samples_ms": [
+            0.04403200000524521,
+            0.03993599861860275,
+            0.03686400130391121,
+            0.03788800165057182,
+            0.035840000957250595,
+            0.03891199827194214,
+            0.03788800165057182,
+            0.03686400130391121,
+            0.03686400130391121,
+            0.03686400130391121,
+            0.04095999896526337,
+            0.03788800165057182,
+            0.035840000957250595,
+            0.03686400130391121,
+            0.04505600035190582,
+            0.03891199827194214,
+            0.03891199827194214,
+            0.03686400130391121,
+            0.03686400130391121,
+            0.03891199827194214
+          ],
+          "median_ms": 0.03788800165057182,
+          "mean_ms": 0.03845120035111904,
+          "min_ms": 0.035840000957250595,
+          "max_ms": 0.04505600035190582
+        }
+      },
+      "timing_order": [
+        [
+          "ptxas",
+          "torch_cuda",
+          "oa"
+        ],
+        [
+          "oa",
+          "torch_cuda",
+          "ptxas"
+        ],
+        [
+          "ptxas",
+          "oa",
+          "torch_cuda"
+        ],
+        [
+          "oa",
+          "torch_cuda",
+          "ptxas"
+        ],
+        [
+          "ptxas",
+          "torch_cuda",
+          "oa"
+        ],
+        [
+          "torch_cuda",
+          "oa",
+          "ptxas"
+        ],
+        [
+          "torch_cuda",
+          "ptxas",
+          "oa"
+        ],
+        [
+          "torch_cuda",
+          "ptxas",
+          "oa"
+        ],
+        [
+          "torch_cuda",
+          "ptxas",
+          "oa"
+        ],
+        [
+          "oa",
+          "ptxas",
+          "torch_cuda"
+        ],
+        [
+          "torch_cuda",
+          "ptxas",
+          "oa"
+        ],
+        [
+          "oa",
+          "torch_cuda",
+          "ptxas"
+        ],
+        [
+          "torch_cuda",
+          "ptxas",
+          "oa"
+        ],
+        [
+          "ptxas",
+          "oa",
+          "torch_cuda"
+        ],
+        [
+          "ptxas",
+          "torch_cuda",
+          "oa"
+        ],
+        [
+          "oa",
+          "ptxas",
+          "torch_cuda"
+        ],
+        [
+          "torch_cuda",
+          "ptxas",
+          "oa"
+        ],
+        [
+          "torch_cuda",
+          "ptxas",
+          "oa"
+        ],
+        [
+          "oa",
+          "torch_cuda",
+          "ptxas"
+        ],
+        [
+          "oa",
+          "ptxas",
+          "torch_cuda"
+        ]
+      ],
+      "torch_cuda_extra_copy": false,
+      "torch_output_allocation": false,
+      "algorithm_boundary": "one thread per element; current scalar native compiler"
+    },
+    {
+      "name": "adam_step_1048576",
+      "op": "adam_step",
+      "shape": [
+        1048576
+      ],
+      "tolerance": {
+        "rtol": 2e-05,
+        "atol": 2e-06
+      },
+      "patterns": [
+        {
+          "pattern": "normal",
+          "checks": {
+            "oa": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 1048576,
+                "mismatched_elements": 0,
+                "relative_l2": 2.5354717743632995e-08,
+                "max_abs": 2.3803770243802091e-07
+              },
+              "mo": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 1048576,
+                "mismatched_elements": 0,
+                "relative_l2": 4.3284104009094976e-08,
+                "max_abs": 5.6624412603234475e-08
+              },
+              "vo": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 1048576,
+                "mismatched_elements": 0,
+                "relative_l2": 3.072120043899854e-08,
+                "max_abs": 8.037429319318612e-09
+              },
+              "canaries": true,
+              "guarded_outputs": true
+            },
+            "ptxas": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 1048576,
+                "mismatched_elements": 0,
+                "relative_l2": 2.5354716609069887e-08,
+                "max_abs": 2.3803770243802091e-07
+              },
+              "mo": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 1048576,
+                "mismatched_elements": 0,
+                "relative_l2": 3.831902820944364e-08,
+                "max_abs": 4.023313526779759e-08
+              },
+              "vo": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 1048576,
+                "mismatched_elements": 0,
+                "relative_l2": 2.3974380446499477e-08,
+                "max_abs": 6.15303634432518e-09
+              },
+              "canaries": true,
+              "guarded_outputs": true
+            },
+            "torch_cuda": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 1048576,
+                "mismatched_elements": 0,
+                "relative_l2": 2.5354717743632995e-08,
+                "max_abs": 2.3803770243802091e-07
+              },
+              "mo": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 1048576,
+                "mismatched_elements": 0,
+                "relative_l2": 4.3284104009094976e-08,
+                "max_abs": 5.6624412603234475e-08
+              },
+              "vo": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 1048576,
+                "mismatched_elements": 0,
+                "relative_l2": 3.072120043899854e-08,
+                "max_abs": 8.037429319318612e-09
+              },
+              "canaries": null,
+              "guarded_outputs": false
+            }
+          },
+          "oa_ptxas_bitwise_equal": false
+        },
+        {
+          "pattern": "zero",
+          "checks": {
+            "oa": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 1048576,
+                "mismatched_elements": 0,
+                "relative_l2": 0.0,
+                "max_abs": 0.0
+              },
+              "mo": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 1048576,
+                "mismatched_elements": 0,
+                "relative_l2": 0.0,
+                "max_abs": 0.0
+              },
+              "vo": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 1048576,
+                "mismatched_elements": 0,
+                "relative_l2": 1.692974744711291e-08,
+                "max_abs": 8.45640897584321e-10
+              },
+              "canaries": true,
+              "guarded_outputs": true
+            },
+            "ptxas": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 1048576,
+                "mismatched_elements": 0,
+                "relative_l2": 0.0,
+                "max_abs": 0.0
+              },
+              "mo": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 1048576,
+                "mismatched_elements": 0,
+                "relative_l2": 0.0,
+                "max_abs": 0.0
+              },
+              "vo": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 1048576,
+                "mismatched_elements": 0,
+                "relative_l2": 1.692974744711291e-08,
+                "max_abs": 8.45640897584321e-10
+              },
+              "canaries": true,
+              "guarded_outputs": true
+            },
+            "torch_cuda": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 1048576,
+                "mismatched_elements": 0,
+                "relative_l2": 0.0,
+                "max_abs": 0.0
+              },
+              "mo": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 1048576,
+                "mismatched_elements": 0,
+                "relative_l2": 0.0,
+                "max_abs": 0.0
+              },
+              "vo": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 1048576,
+                "mismatched_elements": 0,
+                "relative_l2": 1.692974744711291e-08,
+                "max_abs": 8.45640897584321e-10
+              },
+              "canaries": null,
+              "guarded_outputs": false
+            }
+          },
+          "oa_ptxas_bitwise_equal": true
+        }
+      ],
+      "status": "ok",
+      "timing_inputs": "identical to normal-pattern full-output check",
+      "eligible_for_timing": [
+        "oa",
+        "ptxas",
+        "torch_cuda"
+      ],
+      "timings": {
+        "oa": {
+          "samples_ms": [
+            0.048128001391887665,
+            0.04095999896526337,
+            0.04403200000524521,
+            0.04505600035190582,
+            0.03993599861860275,
+            0.05632000043988228,
+            0.03891199827194214,
+            0.04198399931192398,
+            0.04403200000524521,
+            0.043007999658584595,
+            0.03993599861860275,
+            0.04095999896526337,
+            0.03891199827194214,
+            0.04403200000524521,
+            0.04095999896526337,
+            0.03891199827194214,
+            0.04095999896526337,
+            0.04608000069856644,
+            0.04505600035190582,
+            0.03993599861860275
+          ],
+          "median_ms": 0.041471999138593674,
+          "mean_ms": 0.04290559943765402,
+          "min_ms": 0.03891199827194214,
+          "max_ms": 0.05632000043988228
+        },
+        "ptxas": {
+          "samples_ms": [
+            0.05939200147986412,
+            0.03379200026392937,
+            0.03686400130391121,
+            0.03686400130391121,
+            0.03379200026392937,
+            0.05222399905323982,
+            0.03174399957060814,
+            0.04095999896526337,
+            0.03993599861860275,
+            0.03481600061058998,
+            0.03993599861860275,
+            0.03993599861860275,
+            0.03686400130391121,
+            0.03993599861860275,
+            0.03993599861860275,
+            0.03481600061058998,
+            0.04095999896526337,
+            0.03481600061058998,
+            0.03481600061058998,
+            0.03276799991726875
+          ],
+          "median_ms": 0.03686400130391121,
+          "mean_ms": 0.03875839989632368,
+          "min_ms": 0.03174399957060814,
+          "max_ms": 0.05939200147986412
+        },
+        "torch_cuda": {
+          "samples_ms": [
+            0.1515520066022873,
+            0.15360000729560852,
+            0.16896000504493713,
+            0.14131200313568115,
+            0.13926400244235992,
+            0.13516800105571747,
+            0.15360000729560852,
+            0.14131200313568115,
+            0.1382399946451187,
+            0.14847999811172485,
+            0.14028799533843994,
+            0.13619199395179749,
+            0.1515520066022873,
+            0.13926400244235992,
+            0.1382399946451187,
+            0.16179199516773224,
+            0.13926400244235992,
+            0.16179199516773224,
+            0.1740799993276596,
+            0.1454080045223236
+          ],
+          "median_ms": 0.14336000382900238,
+          "mean_ms": 0.14796800091862677,
+          "min_ms": 0.13516800105571747,
+          "max_ms": 0.1740799993276596
+        }
+      },
+      "timing_order": [
+        [
+          "torch_cuda",
+          "oa",
+          "ptxas"
+        ],
+        [
+          "oa",
+          "ptxas",
+          "torch_cuda"
+        ],
+        [
+          "oa",
+          "ptxas",
+          "torch_cuda"
+        ],
+        [
+          "torch_cuda",
+          "oa",
+          "ptxas"
+        ],
+        [
+          "oa",
+          "ptxas",
+          "torch_cuda"
+        ],
+        [
+          "torch_cuda",
+          "ptxas",
+          "oa"
+        ],
+        [
+          "oa",
+          "ptxas",
+          "torch_cuda"
+        ],
+        [
+          "ptxas",
+          "oa",
+          "torch_cuda"
+        ],
+        [
+          "oa",
+          "torch_cuda",
+          "ptxas"
+        ],
+        [
+          "oa",
+          "ptxas",
+          "torch_cuda"
+        ],
+        [
+          "ptxas",
+          "oa",
+          "torch_cuda"
+        ],
+        [
+          "torch_cuda",
+          "ptxas",
+          "oa"
+        ],
+        [
+          "ptxas",
+          "oa",
+          "torch_cuda"
+        ],
+        [
+          "ptxas",
+          "torch_cuda",
+          "oa"
+        ],
+        [
+          "torch_cuda",
+          "ptxas",
+          "oa"
+        ],
+        [
+          "ptxas",
+          "oa",
+          "torch_cuda"
+        ],
+        [
+          "torch_cuda",
+          "ptxas",
+          "oa"
+        ],
+        [
+          "torch_cuda",
+          "oa",
+          "ptxas"
+        ],
+        [
+          "ptxas",
+          "torch_cuda",
+          "oa"
+        ],
+        [
+          "oa",
+          "ptxas",
+          "torch_cuda"
+        ]
+      ],
+      "torch_cuda_extra_copy": false,
+      "torch_output_allocation": true,
+      "algorithm_boundary": "one thread per element; current scalar native compiler"
+    },
+    {
+      "name": "adam_step_4194304",
+      "op": "adam_step",
+      "shape": [
+        4194304
+      ],
+      "tolerance": {
+        "rtol": 2e-05,
+        "atol": 2e-06
+      },
+      "patterns": [
+        {
+          "pattern": "normal",
+          "checks": {
+            "oa": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 4194304,
+                "mismatched_elements": 0,
+                "relative_l2": 2.536554033916867e-08,
+                "max_abs": 2.3651459724050028e-07
+              },
+              "mo": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 4194304,
+                "mismatched_elements": 0,
+                "relative_l2": 4.32100553857441e-08,
+                "max_abs": 5.6624412603234475e-08
+              },
+              "vo": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 4194304,
+                "mismatched_elements": 0,
+                "relative_l2": 3.06907727386327e-08,
+                "max_abs": 8.191094816312194e-09
+              },
+              "canaries": true,
+              "guarded_outputs": true
+            },
+            "ptxas": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 4194304,
+                "mismatched_elements": 0,
+                "relative_l2": 2.5365537939541043e-08,
+                "max_abs": 2.3651459724050028e-07
+              },
+              "mo": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 4194304,
+                "mismatched_elements": 0,
+                "relative_l2": 3.8305327689597904e-08,
+                "max_abs": 4.395842556625951e-08
+              },
+              "vo": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 4194304,
+                "mismatched_elements": 0,
+                "relative_l2": 2.3962906764441128e-08,
+                "max_abs": 6.673602004347856e-09
+              },
+              "canaries": true,
+              "guarded_outputs": true
+            },
+            "torch_cuda": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 4194304,
+                "mismatched_elements": 0,
+                "relative_l2": 2.536554033916867e-08,
+                "max_abs": 2.3651459724050028e-07
+              },
+              "mo": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 4194304,
+                "mismatched_elements": 0,
+                "relative_l2": 4.32100553857441e-08,
+                "max_abs": 5.6624412603234475e-08
+              },
+              "vo": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 4194304,
+                "mismatched_elements": 0,
+                "relative_l2": 3.06907727386327e-08,
+                "max_abs": 8.191094816312194e-09
+              },
+              "canaries": null,
+              "guarded_outputs": false
+            }
+          },
+          "oa_ptxas_bitwise_equal": false
+        },
+        {
+          "pattern": "zero",
+          "checks": {
+            "oa": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 4194304,
+                "mismatched_elements": 0,
+                "relative_l2": 0.0,
+                "max_abs": 0.0
+              },
+              "mo": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 4194304,
+                "mismatched_elements": 0,
+                "relative_l2": 0.0,
+                "max_abs": 0.0
+              },
+              "vo": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 4194304,
+                "mismatched_elements": 0,
+                "relative_l2": 1.6929747447112914e-08,
+                "max_abs": 8.45640897584321e-10
+              },
+              "canaries": true,
+              "guarded_outputs": true
+            },
+            "ptxas": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 4194304,
+                "mismatched_elements": 0,
+                "relative_l2": 0.0,
+                "max_abs": 0.0
+              },
+              "mo": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 4194304,
+                "mismatched_elements": 0,
+                "relative_l2": 0.0,
+                "max_abs": 0.0
+              },
+              "vo": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 4194304,
+                "mismatched_elements": 0,
+                "relative_l2": 1.6929747447112914e-08,
+                "max_abs": 8.45640897584321e-10
+              },
+              "canaries": true,
+              "guarded_outputs": true
+            },
+            "torch_cuda": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 4194304,
+                "mismatched_elements": 0,
+                "relative_l2": 0.0,
+                "max_abs": 0.0
+              },
+              "mo": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 4194304,
+                "mismatched_elements": 0,
+                "relative_l2": 0.0,
+                "max_abs": 0.0
+              },
+              "vo": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 4194304,
+                "mismatched_elements": 0,
+                "relative_l2": 1.6929747447112914e-08,
+                "max_abs": 8.45640897584321e-10
+              },
+              "canaries": null,
+              "guarded_outputs": false
+            }
+          },
+          "oa_ptxas_bitwise_equal": true
+        }
+      ],
+      "status": "ok",
+      "timing_inputs": "identical to normal-pattern full-output check",
+      "eligible_for_timing": [
+        "oa",
+        "ptxas",
+        "torch_cuda"
+      ],
+      "timings": {
+        "oa": {
+          "samples_ms": [
+            0.12492799758911133,
+            0.11776000261306763,
+            0.11366400122642517,
+            0.11264000087976456,
+            0.1157120019197464,
+            0.11468800157308578,
+            0.11264000087976456,
+            0.11161600053310394,
+            0.1157120019197464,
+            0.11161600053310394,
+            0.11366400122642517,
+            0.11468800157308578,
+            0.11366400122642517,
+            0.11366400122642517,
+            0.11264000087976456,
+            0.11468800157308578,
+            0.11366400122642517,
+            0.11264000087976456,
+            0.1157120019197464,
+            0.1157120019197464
+          ],
+          "median_ms": 0.11366400122642517,
+          "mean_ms": 0.1145856011658907,
+          "min_ms": 0.11161600053310394,
+          "max_ms": 0.12492799758911133
+        },
+        "ptxas": {
+          "samples_ms": [
+            0.10444799810647964,
+            0.10035199671983719,
+            0.10444799810647964,
+            0.10239999741315842,
+            0.10444799810647964,
+            0.10342399775981903,
+            0.10239999741315842,
+            0.10444799810647964,
+            0.1013759970664978,
+            0.09932799637317657,
+            0.10342399775981903,
+            0.1013759970664978,
+            0.1013759970664978,
+            0.10547199845314026,
+            0.10035199671983719,
+            0.10342399775981903,
+            0.1013759970664978,
+            0.1013759970664978,
+            0.10547199845314026,
+            0.10342399775981903
+          ],
+          "median_ms": 0.10291199758648872,
+          "mean_ms": 0.1027071975171566,
+          "min_ms": 0.09932799637317657,
+          "max_ms": 0.10547199845314026
+        },
+        "torch_cuda": {
+          "samples_ms": [
+            0.37887999415397644,
+            0.37068799138069153,
+            0.37273600697517395,
+            0.37171199917793274,
+            0.3758080005645752,
+            0.3686400055885315,
+            0.37068799138069153,
+            0.374783992767334,
+            0.3696640133857727,
+            0.37068799138069153,
+            0.37171199917793274,
+            0.3686400055885315,
+            0.3696640133857727,
+            0.374783992767334,
+            0.37171199917793274,
+            0.37376001477241516,
+            0.37376001477241516,
+            0.37171199917793274,
+            0.37171199917793274,
+            0.374783992767334
+          ],
+          "median_ms": 0.37171199917793274,
+          "mean_ms": 0.37232640087604524,
+          "min_ms": 0.3686400055885315,
+          "max_ms": 0.37887999415397644
+        }
+      },
+      "timing_order": [
+        [
+          "oa",
+          "torch_cuda",
+          "ptxas"
+        ],
+        [
+          "torch_cuda",
+          "oa",
+          "ptxas"
+        ],
+        [
+          "oa",
+          "torch_cuda",
+          "ptxas"
+        ],
+        [
+          "ptxas",
+          "oa",
+          "torch_cuda"
+        ],
+        [
+          "ptxas",
+          "torch_cuda",
+          "oa"
+        ],
+        [
+          "torch_cuda",
+          "ptxas",
+          "oa"
+        ],
+        [
+          "oa",
+          "torch_cuda",
+          "ptxas"
+        ],
+        [
+          "torch_cuda",
+          "ptxas",
+          "oa"
+        ],
+        [
+          "torch_cuda",
+          "oa",
+          "ptxas"
+        ],
+        [
+          "oa",
+          "ptxas",
+          "torch_cuda"
+        ],
+        [
+          "ptxas",
+          "oa",
+          "torch_cuda"
+        ],
+        [
+          "ptxas",
+          "torch_cuda",
+          "oa"
+        ],
+        [
+          "ptxas",
+          "oa",
+          "torch_cuda"
+        ],
+        [
+          "torch_cuda",
+          "ptxas",
+          "oa"
+        ],
+        [
+          "oa",
+          "ptxas",
+          "torch_cuda"
+        ],
+        [
+          "ptxas",
+          "torch_cuda",
+          "oa"
+        ],
+        [
+          "oa",
+          "torch_cuda",
+          "ptxas"
+        ],
+        [
+          "ptxas",
+          "oa",
+          "torch_cuda"
+        ],
+        [
+          "oa",
+          "torch_cuda",
+          "ptxas"
+        ],
+        [
+          "oa",
+          "torch_cuda",
+          "ptxas"
+        ]
+      ],
+      "torch_cuda_extra_copy": false,
+      "torch_output_allocation": true,
+      "algorithm_boundary": "one thread per element; current scalar native compiler"
+    },
+    {
+      "name": "softmax_128x128",
+      "op": "softmax",
+      "shape": [
+        128,
+        128
+      ],
+      "tolerance": {
+        "rtol": 5e-05,
+        "atol": 1e-06
+      },
+      "patterns": [
+        {
+          "pattern": "normal",
+          "checks": {
+            "oa": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 16384,
+                "mismatched_elements": 0,
+                "relative_l2": 1.8614127987614304e-07,
+                "max_abs": 2.9212976204728847e-08
+              },
+              "canaries": true,
+              "guarded_outputs": true
+            },
+            "ptxas": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 16384,
+                "mismatched_elements": 0,
+                "relative_l2": 1.8614127987614304e-07,
+                "max_abs": 2.9212976204728847e-08
+              },
+              "canaries": true,
+              "guarded_outputs": true
+            },
+            "torch_cuda": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 16384,
+                "mismatched_elements": 0,
+                "relative_l2": 6.334908223094916e-08,
+                "max_abs": 1.1162387195118306e-08
+              },
+              "canaries": true,
+              "guarded_outputs": true
+            }
+          },
+          "oa_ptxas_bitwise_equal": true
+        },
+        {
+          "pattern": "zero",
+          "checks": {
+            "oa": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 16384,
+                "mismatched_elements": 0,
+                "relative_l2": 0.0,
+                "max_abs": 0.0
+              },
+              "canaries": true,
+              "guarded_outputs": true
+            },
+            "ptxas": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 16384,
+                "mismatched_elements": 0,
+                "relative_l2": 0.0,
+                "max_abs": 0.0
+              },
+              "canaries": true,
+              "guarded_outputs": true
+            },
+            "torch_cuda": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 16384,
+                "mismatched_elements": 0,
+                "relative_l2": 0.0,
+                "max_abs": 0.0
+              },
+              "canaries": true,
+              "guarded_outputs": true
+            }
+          },
+          "oa_ptxas_bitwise_equal": true
+        }
+      ],
+      "status": "ok",
+      "timing_inputs": "identical to normal-pattern full-output check",
+      "eligible_for_timing": [
+        "oa",
+        "ptxas",
+        "torch_cuda"
+      ],
+      "timings": {
+        "oa": {
+          "samples_ms": [
+            0.11468800157308578,
+            0.11468800157308578,
+            0.10444799810647964,
+            0.11366400122642517,
+            0.1157120019197464,
+            0.11468800157308578,
+            0.10649599879980087,
+            0.10649599879980087,
+            0.10342399775981903,
+            0.11366400122642517,
+            0.10342399775981903,
+            0.11468800157308578,
+            0.11366400122642517,
+            0.11366400122642517,
+            0.10649599879980087,
+            0.10239999741315842,
+            0.11468800157308578,
+            0.10547199845314026,
+            0.11366400122642517,
+            0.11264000087976456
+          ],
+          "median_ms": 0.11366400122642517,
+          "mean_ms": 0.11043840013444424,
+          "min_ms": 0.10239999741315842,
+          "max_ms": 0.1157120019197464
+        },
+        "ptxas": {
+          "samples_ms": [
+            0.09216000139713287,
+            0.0870399996638298,
+            0.0870399996638298,
+            0.08499199897050858,
+            0.0870399996638298,
+            0.0870399996638298,
+            0.08806400001049042,
+            0.09011200070381165,
+            0.08191999793052673,
+            0.0870399996638298,
+            0.08806400001049042,
+            0.08806400001049042,
+            0.08601599931716919,
+            0.08806400001049042,
+            0.08806400001049042,
+            0.08806400001049042,
+            0.09318400174379349,
+            0.08806400001049042,
+            0.08806400001049042,
+            0.08601599931716919
+          ],
+          "median_ms": 0.08806400001049042,
+          "mean_ms": 0.0877055998891592,
+          "min_ms": 0.08191999793052673,
+          "max_ms": 0.09318400174379349
+        },
+        "torch_cuda": {
+          "samples_ms": [
+            0.023552000522613525,
+            0.021503999829292297,
+            0.01945599913597107,
+            0.016383999958634377,
+            0.020479999482631683,
+            0.018432000651955605,
+            0.01945599913597107,
+            0.020479999482631683,
+            0.018432000651955605,
+            0.018432000651955605,
+            0.01945599913597107,
+            0.018432000651955605,
+            0.018432000651955605,
+            0.018432000651955605,
+            0.01945599913597107,
+            0.018432000651955605,
+            0.01740800030529499,
+            0.035840000957250595,
+            0.018432000651955605,
+            0.018432000651955605
+          ],
+          "median_ms": 0.018432000651955605,
+          "mean_ms": 0.019968000147491692,
+          "min_ms": 0.016383999958634377,
+          "max_ms": 0.035840000957250595
+        }
+      },
+      "timing_order": [
+        [
+          "ptxas",
+          "torch_cuda",
+          "oa"
+        ],
+        [
+          "torch_cuda",
+          "oa",
+          "ptxas"
+        ],
+        [
+          "ptxas",
+          "oa",
+          "torch_cuda"
+        ],
+        [
+          "torch_cuda",
+          "ptxas",
+          "oa"
+        ],
+        [
+          "torch_cuda",
+          "oa",
+          "ptxas"
+        ],
+        [
+          "torch_cuda",
+          "oa",
+          "ptxas"
+        ],
+        [
+          "torch_cuda",
+          "ptxas",
+          "oa"
+        ],
+        [
+          "oa",
+          "torch_cuda",
+          "ptxas"
+        ],
+        [
+          "torch_cuda",
+          "ptxas",
+          "oa"
+        ],
+        [
+          "ptxas",
+          "torch_cuda",
+          "oa"
+        ],
+        [
+          "ptxas",
+          "oa",
+          "torch_cuda"
+        ],
+        [
+          "torch_cuda",
+          "oa",
+          "ptxas"
+        ],
+        [
+          "torch_cuda",
+          "ptxas",
+          "oa"
+        ],
+        [
+          "torch_cuda",
+          "ptxas",
+          "oa"
+        ],
+        [
+          "oa",
+          "torch_cuda",
+          "ptxas"
+        ],
+        [
+          "ptxas",
+          "torch_cuda",
+          "oa"
+        ],
+        [
+          "oa",
+          "torch_cuda",
+          "ptxas"
+        ],
+        [
+          "torch_cuda",
+          "ptxas",
+          "oa"
+        ],
+        [
+          "ptxas",
+          "torch_cuda",
+          "oa"
+        ],
+        [
+          "ptxas",
+          "oa",
+          "torch_cuda"
+        ]
+      ],
+      "torch_cuda_extra_copy": false,
+      "torch_output_allocation": false,
+      "algorithm_boundary": "one thread per row, serial loops, strided lane access"
+    },
+    {
+      "name": "softmax_1024x512",
+      "op": "softmax",
+      "shape": [
+        1024,
+        512
+      ],
+      "tolerance": {
+        "rtol": 5e-05,
+        "atol": 1e-06
+      },
+      "patterns": [
+        {
+          "pattern": "normal",
+          "checks": {
+            "oa": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 524288,
+                "mismatched_elements": 0,
+                "relative_l2": 3.381291173289512e-07,
+                "max_abs": 5.8172840197712183e-08
+              },
+              "canaries": true,
+              "guarded_outputs": true
+            },
+            "ptxas": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 524288,
+                "mismatched_elements": 0,
+                "relative_l2": 3.381291173289512e-07,
+                "max_abs": 5.8172840197712183e-08
+              },
+              "canaries": true,
+              "guarded_outputs": true
+            },
+            "torch_cuda": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 524288,
+                "mismatched_elements": 0,
+                "relative_l2": 6.907676447664735e-08,
+                "max_abs": 6.0187760192453865e-09
+              },
+              "canaries": true,
+              "guarded_outputs": true
+            }
+          },
+          "oa_ptxas_bitwise_equal": true
+        },
+        {
+          "pattern": "zero",
+          "checks": {
+            "oa": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 524288,
+                "mismatched_elements": 0,
+                "relative_l2": 0.0,
+                "max_abs": 0.0
+              },
+              "canaries": true,
+              "guarded_outputs": true
+            },
+            "ptxas": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 524288,
+                "mismatched_elements": 0,
+                "relative_l2": 0.0,
+                "max_abs": 0.0
+              },
+              "canaries": true,
+              "guarded_outputs": true
+            },
+            "torch_cuda": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 524288,
+                "mismatched_elements": 0,
+                "relative_l2": 0.0,
+                "max_abs": 0.0
+              },
+              "canaries": true,
+              "guarded_outputs": true
+            }
+          },
+          "oa_ptxas_bitwise_equal": true
+        }
+      ],
+      "status": "ok",
+      "timing_inputs": "identical to normal-pattern full-output check",
+      "eligible_for_timing": [
+        "oa",
+        "ptxas",
+        "torch_cuda"
+      ],
+      "timings": {
+        "oa": {
+          "samples_ms": [
+            0.4126720130443573,
+            0.4106239974498749,
+            0.4126720130443573,
+            0.40857601165771484,
+            0.4126720130443573,
+            0.40755200386047363,
+            0.4116480052471161,
+            0.40857601165771484,
+            0.4065279960632324,
+            0.4126720130443573,
+            0.4136959910392761,
+            0.4065279960632324,
+            0.40755200386047363,
+            0.40755200386047363,
+            0.4126720130443573,
+            0.4136959910392761,
+            0.4116480052471161,
+            0.4106239974498749,
+            0.40959998965263367,
+            0.40959998965263367
+          ],
+          "median_ms": 0.4106239974498749,
+          "mean_ms": 0.41036800295114517,
+          "min_ms": 0.4065279960632324,
+          "max_ms": 0.4136959910392761
+        },
+        "ptxas": {
+          "samples_ms": [
+            0.3092480003833771,
+            0.30822399258613586,
+            0.3102720081806183,
+            0.3051519989967346,
+            0.30822399258613586,
+            0.30720001459121704,
+            0.30822399258613586,
+            0.3092480003833771,
+            0.3051519989967346,
+            0.30720001459121704,
+            0.30720001459121704,
+            0.30822399258613586,
+            0.30822399258613586,
+            0.30720001459121704,
+            0.30617600679397583,
+            0.30617600679397583,
+            0.30617600679397583,
+            0.30822399258613586,
+            0.3102720081806183,
+            0.3092480003833771
+          ],
+          "median_ms": 0.30822399258613586,
+          "mean_ms": 0.30776320248842237,
+          "min_ms": 0.3051519989967346,
+          "max_ms": 0.3102720081806183
+        },
+        "torch_cuda": {
+          "samples_ms": [
+            0.023552000522613525,
+            0.021503999829292297,
+            0.021503999829292297,
+            0.01945599913597107,
+            0.020479999482631683,
+            0.021503999829292297,
+            0.01945599913597107,
+            0.021503999829292297,
+            0.02252800017595291,
+            0.018432000651955605,
+            0.01945599913597107,
+            0.021503999829292297,
+            0.020479999482631683,
+            0.018432000651955605,
+            0.020479999482631683,
+            0.021503999829292297,
+            0.021503999829292297,
+            0.018432000651955605,
+            0.01945599913597107,
+            0.020479999482631683
+          ],
+          "median_ms": 0.020479999482631683,
+          "mean_ms": 0.020582399796694517,
+          "min_ms": 0.018432000651955605,
+          "max_ms": 0.023552000522613525
+        }
+      },
+      "timing_order": [
+        [
+          "ptxas",
+          "torch_cuda",
+          "oa"
+        ],
+        [
+          "torch_cuda",
+          "ptxas",
+          "oa"
+        ],
+        [
+          "ptxas",
+          "oa",
+          "torch_cuda"
+        ],
+        [
+          "torch_cuda",
+          "oa",
+          "ptxas"
+        ],
+        [
+          "ptxas",
+          "oa",
+          "torch_cuda"
+        ],
+        [
+          "ptxas",
+          "torch_cuda",
+          "oa"
+        ],
+        [
+          "torch_cuda",
+          "oa",
+          "ptxas"
+        ],
+        [
+          "ptxas",
+          "oa",
+          "torch_cuda"
+        ],
+        [
+          "oa",
+          "ptxas",
+          "torch_cuda"
+        ],
+        [
+          "torch_cuda",
+          "ptxas",
+          "oa"
+        ],
+        [
+          "torch_cuda",
+          "oa",
+          "ptxas"
+        ],
+        [
+          "oa",
+          "ptxas",
+          "torch_cuda"
+        ],
+        [
+          "oa",
+          "ptxas",
+          "torch_cuda"
+        ],
+        [
+          "torch_cuda",
+          "oa",
+          "ptxas"
+        ],
+        [
+          "oa",
+          "torch_cuda",
+          "ptxas"
+        ],
+        [
+          "oa",
+          "torch_cuda",
+          "ptxas"
+        ],
+        [
+          "ptxas",
+          "torch_cuda",
+          "oa"
+        ],
+        [
+          "torch_cuda",
+          "ptxas",
+          "oa"
+        ],
+        [
+          "oa",
+          "torch_cuda",
+          "ptxas"
+        ],
+        [
+          "oa",
+          "torch_cuda",
+          "ptxas"
+        ]
+      ],
+      "torch_cuda_extra_copy": false,
+      "torch_output_allocation": false,
+      "algorithm_boundary": "one thread per row, serial loops, strided lane access"
+    },
+    {
+      "name": "layernorm_128x128",
+      "op": "layernorm",
+      "shape": [
+        128,
+        128
+      ],
+      "tolerance": {
+        "rtol": 0.0001,
+        "atol": 2e-05
+      },
+      "patterns": [
+        {
+          "pattern": "normal",
+          "checks": {
+            "oa": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 16384,
+                "mismatched_elements": 0,
+                "relative_l2": 9.630807858468073e-08,
+                "max_abs": 7.849452696717663e-07
+              },
+              "canaries": true,
+              "guarded_outputs": true
+            },
+            "ptxas": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 16384,
+                "mismatched_elements": 0,
+                "relative_l2": 9.587554865794525e-08,
+                "max_abs": 7.849452696717663e-07
+              },
+              "canaries": true,
+              "guarded_outputs": true
+            },
+            "torch_cuda": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 16384,
+                "mismatched_elements": 0,
+                "relative_l2": 6.034566198919784e-08,
+                "max_abs": 4.531069390800724e-07
+              },
+              "canaries": null,
+              "guarded_outputs": false
+            }
+          },
+          "oa_ptxas_bitwise_equal": false
+        },
+        {
+          "pattern": "zero",
+          "checks": {
+            "oa": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 16384,
+                "mismatched_elements": 0,
+                "relative_l2": 0.0,
+                "max_abs": 0.0
+              },
+              "canaries": true,
+              "guarded_outputs": true
+            },
+            "ptxas": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 16384,
+                "mismatched_elements": 0,
+                "relative_l2": 0.0,
+                "max_abs": 0.0
+              },
+              "canaries": true,
+              "guarded_outputs": true
+            },
+            "torch_cuda": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 16384,
+                "mismatched_elements": 0,
+                "relative_l2": 0.0,
+                "max_abs": 0.0
+              },
+              "canaries": null,
+              "guarded_outputs": false
+            }
+          },
+          "oa_ptxas_bitwise_equal": true
+        }
+      ],
+      "status": "ok",
+      "timing_inputs": "identical to normal-pattern full-output check",
+      "eligible_for_timing": [
+        "oa",
+        "ptxas",
+        "torch_cuda"
+      ],
+      "timings": {
+        "oa": {
+          "samples_ms": [
+            0.10035199671983719,
+            0.09932799637317657,
+            0.09830400347709656,
+            0.09830400347709656,
+            0.09830400347709656,
+            0.09932799637317657,
+            0.09728000313043594,
+            0.09830400347709656,
+            0.09830400347709656,
+            0.09932799637317657,
+            0.09830400347709656,
+            0.09728000313043594,
+            0.09932799637317657,
+            0.09728000313043594,
+            0.09932799637317657,
+            0.09523200243711472,
+            0.09932799637317657,
+            0.09728000313043594,
+            0.09830400347709656,
+            0.09625600278377533
+          ],
+          "median_ms": 0.09830400347709656,
+          "mean_ms": 0.09825280085206031,
+          "min_ms": 0.09523200243711472,
+          "max_ms": 0.10035199671983719
+        },
+        "ptxas": {
+          "samples_ms": [
+            0.08908800035715103,
+            0.08396799862384796,
+            0.08601599931716919,
+            0.08396799862384796,
+            0.0870399996638298,
+            0.08499199897050858,
+            0.08499199897050858,
+            0.08294399827718735,
+            0.08499199897050858,
+            0.08396799862384796,
+            0.08396799862384796,
+            0.08396799862384796,
+            0.08396799862384796,
+            0.08601599931716919,
+            0.08499199897050858,
+            0.08499199897050858,
+            0.08499199897050858,
+            0.08499199897050858,
+            0.08601599931716919,
+            0.0870399996638298
+          ],
+          "median_ms": 0.08499199897050858,
+          "mean_ms": 0.08514559902250766,
+          "min_ms": 0.08294399827718735,
+          "max_ms": 0.08908800035715103
+        },
+        "torch_cuda": {
+          "samples_ms": [
+            0.043007999658584595,
+            0.03686400130391121,
+            0.030719999223947525,
+            0.02969600073993206,
+            0.030719999223947525,
+            0.03686400130391121,
+            0.030719999223947525,
+            0.030719999223947525,
+            0.03379200026392937,
+            0.030719999223947525,
+            0.030719999223947525,
+            0.03379200026392937,
+            0.02969600073993206,
+            0.030719999223947525,
+            0.02969600073993206,
+            0.03379200026392937,
+            0.02969600073993206,
+            0.02969600073993206,
+            0.035840000957250595,
+            0.030719999223947525
+          ],
+          "median_ms": 0.030719999223947525,
+          "mean_ms": 0.03240960007533431,
+          "min_ms": 0.02969600073993206,
+          "max_ms": 0.043007999658584595
+        }
+      },
+      "timing_order": [
+        [
+          "ptxas",
+          "torch_cuda",
+          "oa"
+        ],
+        [
+          "oa",
+          "ptxas",
+          "torch_cuda"
+        ],
+        [
+          "ptxas",
+          "oa",
+          "torch_cuda"
+        ],
+        [
+          "torch_cuda",
+          "oa",
+          "ptxas"
+        ],
+        [
+          "torch_cuda",
+          "oa",
+          "ptxas"
+        ],
+        [
+          "torch_cuda",
+          "oa",
+          "ptxas"
+        ],
+        [
+          "torch_cuda",
+          "ptxas",
+          "oa"
+        ],
+        [
+          "oa",
+          "ptxas",
+          "torch_cuda"
+        ],
+        [
+          "oa",
+          "torch_cuda",
+          "ptxas"
+        ],
+        [
+          "ptxas",
+          "torch_cuda",
+          "oa"
+        ],
+        [
+          "torch_cuda",
+          "oa",
+          "ptxas"
+        ],
+        [
+          "ptxas",
+          "oa",
+          "torch_cuda"
+        ],
+        [
+          "torch_cuda",
+          "oa",
+          "ptxas"
+        ],
+        [
+          "oa",
+          "torch_cuda",
+          "ptxas"
+        ],
+        [
+          "torch_cuda",
+          "oa",
+          "ptxas"
+        ],
+        [
+          "ptxas",
+          "oa",
+          "torch_cuda"
+        ],
+        [
+          "oa",
+          "ptxas",
+          "torch_cuda"
+        ],
+        [
+          "torch_cuda",
+          "ptxas",
+          "oa"
+        ],
+        [
+          "oa",
+          "ptxas",
+          "torch_cuda"
+        ],
+        [
+          "ptxas",
+          "oa",
+          "torch_cuda"
+        ]
+      ],
+      "torch_cuda_extra_copy": false,
+      "torch_output_allocation": true,
+      "algorithm_boundary": "one thread per row, serial loops, strided lane access"
+    },
+    {
+      "name": "layernorm_1024x512",
+      "op": "layernorm",
+      "shape": [
+        1024,
+        512
+      ],
+      "tolerance": {
+        "rtol": 0.0001,
+        "atol": 2e-05
+      },
+      "patterns": [
+        {
+          "pattern": "normal",
+          "checks": {
+            "oa": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 524288,
+                "mismatched_elements": 0,
+                "relative_l2": 1.6914992884166507e-07,
+                "max_abs": 2.4747124713897506e-06
+              },
+              "canaries": true,
+              "guarded_outputs": true
+            },
+            "ptxas": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 524288,
+                "mismatched_elements": 0,
+                "relative_l2": 1.6940996861240537e-07,
+                "max_abs": 2.4747124713897506e-06
+              },
+              "canaries": true,
+              "guarded_outputs": true
+            },
+            "torch_cuda": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 524288,
+                "mismatched_elements": 0,
+                "relative_l2": 5.927785062925242e-08,
+                "max_abs": 6.820740101609601e-07
+              },
+              "canaries": null,
+              "guarded_outputs": false
+            }
+          },
+          "oa_ptxas_bitwise_equal": false
+        },
+        {
+          "pattern": "zero",
+          "checks": {
+            "oa": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 524288,
+                "mismatched_elements": 0,
+                "relative_l2": 0.0,
+                "max_abs": 0.0
+              },
+              "canaries": true,
+              "guarded_outputs": true
+            },
+            "ptxas": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 524288,
+                "mismatched_elements": 0,
+                "relative_l2": 0.0,
+                "max_abs": 0.0
+              },
+              "canaries": true,
+              "guarded_outputs": true
+            },
+            "torch_cuda": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 524288,
+                "mismatched_elements": 0,
+                "relative_l2": 0.0,
+                "max_abs": 0.0
+              },
+              "canaries": null,
+              "guarded_outputs": false
+            }
+          },
+          "oa_ptxas_bitwise_equal": true
+        }
+      ],
+      "status": "ok",
+      "timing_inputs": "identical to normal-pattern full-output check",
+      "eligible_for_timing": [
+        "oa",
+        "ptxas",
+        "torch_cuda"
+      ],
+      "timings": {
+        "oa": {
+          "samples_ms": [
+            0.3635199964046478,
+            0.3553279936313629,
+            0.3563520014286041,
+            0.35737600922584534,
+            0.3563520014286041,
+            0.3543039858341217,
+            0.35942399501800537,
+            0.35225600004196167,
+            0.30105599761009216,
+            0.3041279911994934,
+            0.29900801181793213,
+            0.30105599761009216,
+            0.30003198981285095,
+            0.30105599761009216,
+            0.30003198981285095,
+            0.30003198981285095,
+            0.30003198981285095,
+            0.30105599761009216,
+            0.30003198981285095,
+            0.30105599761009216
+          ],
+          "median_ms": 0.30105599761009216,
+          "mean_ms": 0.32317439615726473,
+          "min_ms": 0.29900801181793213,
+          "max_ms": 0.3635199964046478
+        },
+        "ptxas": {
+          "samples_ms": [
+            0.30105599761009216,
+            0.30105599761009216,
+            0.2979840040206909,
+            0.2979840040206909,
+            0.30105599761009216,
+            0.30003198981285095,
+            0.30003198981285095,
+            0.30105599761009216,
+            0.2549760043621063,
+            0.2539519965648651,
+            0.2549760043621063,
+            0.2539519965648651,
+            0.2549760043621063,
+            0.2539519965648651,
+            0.2529279887676239,
+            0.2529279887676239,
+            0.2539519965648651,
+            0.2529279887676239,
+            0.2539519965648651,
+            0.2682879865169525
+          ],
+          "median_ms": 0.2549760043621063,
+          "mean_ms": 0.27310079634189605,
+          "min_ms": 0.2529279887676239,
+          "max_ms": 0.30105599761009216
+        },
+        "torch_cuda": {
+          "samples_ms": [
+            0.06860800087451935,
+            0.04198399931192398,
+            0.03788800165057182,
+            0.03993599861860275,
+            0.03788800165057182,
+            0.035840000957250595,
+            0.03379200026392937,
+            0.04403200000524521,
+            0.03276799991726875,
+            0.03891199827194214,
+            0.03174399957060814,
+            0.03686400130391121,
+            0.03788800165057182,
+            0.03379200026392937,
+            0.03788800165057182,
+            0.035840000957250595,
+            0.02969600073993206,
+            0.035840000957250595,
+            0.03481600061058998,
+            0.03481600061058998
+          ],
+          "median_ms": 0.0363520011305809,
+          "mean_ms": 0.03804160049185157,
+          "min_ms": 0.02969600073993206,
+          "max_ms": 0.06860800087451935
+        }
+      },
+      "timing_order": [
+        [
+          "torch_cuda",
+          "oa",
+          "ptxas"
+        ],
+        [
+          "torch_cuda",
+          "oa",
+          "ptxas"
+        ],
+        [
+          "torch_cuda",
+          "oa",
+          "ptxas"
+        ],
+        [
+          "oa",
+          "ptxas",
+          "torch_cuda"
+        ],
+        [
+          "ptxas",
+          "oa",
+          "torch_cuda"
+        ],
+        [
+          "ptxas",
+          "oa",
+          "torch_cuda"
+        ],
+        [
+          "ptxas",
+          "torch_cuda",
+          "oa"
+        ],
+        [
+          "ptxas",
+          "oa",
+          "torch_cuda"
+        ],
+        [
+          "ptxas",
+          "torch_cuda",
+          "oa"
+        ],
+        [
+          "oa",
+          "ptxas",
+          "torch_cuda"
+        ],
+        [
+          "torch_cuda",
+          "ptxas",
+          "oa"
+        ],
+        [
+          "torch_cuda",
+          "oa",
+          "ptxas"
+        ],
+        [
+          "oa",
+          "torch_cuda",
+          "ptxas"
+        ],
+        [
+          "torch_cuda",
+          "oa",
+          "ptxas"
+        ],
+        [
+          "ptxas",
+          "oa",
+          "torch_cuda"
+        ],
+        [
+          "oa",
+          "ptxas",
+          "torch_cuda"
+        ],
+        [
+          "torch_cuda",
+          "ptxas",
+          "oa"
+        ],
+        [
+          "oa",
+          "ptxas",
+          "torch_cuda"
+        ],
+        [
+          "oa",
+          "torch_cuda",
+          "ptxas"
+        ],
+        [
+          "oa",
+          "torch_cuda",
+          "ptxas"
+        ]
+      ],
+      "torch_cuda_extra_copy": false,
+      "torch_output_allocation": true,
+      "algorithm_boundary": "one thread per row, serial loops, strided lane access"
+    }
+  ],
+  "provenance": {
+    "oa_sha256": "6c76bf8a4722303c1b89675d785739c02d8fd551e1cb6d37a373d4a25c804eef",
+    "ptxas_sha256": "cfaae13b2e413bf076b4766326dee8369882e2673a22795c46f32283eb271aee",
+    "source_sha256": "bb2505eebdea95477d0def17667cf14e7da829d009b42be4fa72a9e74bc4f497",
+    "manifest": {
+      "openassembler": "0.2.0",
+      "schema": 1,
+      "arch": "sm_80",
+      "opt_level": "opt",
+      "root": "/Users/lucasfang/Desktop/OpenAssembler/examples",
+      "entries": [
+        {
+          "source": "nn_ops.py",
+          "source_sha256": "bb2505eebdea95477d0def17667cf14e7da829d009b42be4fa72a9e74bc4f497",
+          "language": "python",
+          "cubin": "cubin/native_ops.cubin",
+          "sass": "sass/native_ops.sass",
+          "ptx": ".build/ptx/native_ops.ptx",
+          "reference": ".build/reference/native_ops.cubin",
+          "kernels": [
+            {
+              "name": "relu",
+              "params": [
+                [
+                  "u64",
+                  "x"
+                ],
+                [
+                  "u64",
+                  "out"
+                ],
+                [
+                  "s32",
+                  "n"
+                ]
+              ],
+              "compiled_by": "openassembler",
+              "instructions": 31,
+              "registers": 16,
+              "verify": "not-run"
+            },
+            {
+              "name": "gelu",
+              "params": [
+                [
+                  "u64",
+                  "x"
+                ],
+                [
+                  "u64",
+                  "out"
+                ],
+                [
+                  "s32",
+                  "n"
+                ]
+              ],
+              "compiled_by": "openassembler",
+              "instructions": 42,
+              "registers": 16,
+              "verify": "not-run"
+            },
+            {
+              "name": "softmax",
+              "params": [
+                [
+                  "u64",
+                  "x"
+                ],
+                [
+                  "u64",
+                  "out"
+                ],
+                [
+                  "s32",
+                  "rows"
+                ],
+                [
+                  "s32",
+                  "width"
+                ]
+              ],
+              "compiled_by": "openassembler",
+              "instructions": 193,
+              "registers": 22,
+              "verify": "not-run"
+            },
+            {
+              "name": "layernorm",
+              "params": [
+                [
+                  "u64",
+                  "x"
+                ],
+                [
+                  "u64",
+                  "out"
+                ],
+                [
+                  "s32",
+                  "rows"
+                ],
+                [
+                  "s32",
+                  "width"
+                ]
+              ],
+              "compiled_by": "openassembler",
+              "instructions": 305,
+              "registers": 20,
+              "verify": "not-run"
+            },
+            {
+              "name": "adam_step",
+              "params": [
+                [
+                  "u64",
+                  "w"
+                ],
+                [
+                  "u64",
+                  "g"
+                ],
+                [
+                  "u64",
+                  "m"
+                ],
+                [
+                  "u64",
+                  "v"
+                ],
+                [
+                  "u64",
+                  "out"
+                ],
+                [
+                  "u64",
+                  "mo"
+                ],
+                [
+                  "u64",
+                  "vo"
+                ],
+                [
+                  "s32",
+                  "n"
+                ]
+              ],
+              "compiled_by": "openassembler",
+              "instructions": 256,
+              "registers": 24,
+              "verify": "not-run"
+            },
+            {
+              "name": "cross_entropy",
+              "params": [
+                [
+                  "u64",
+                  "x"
+                ],
+                [
+                  "u64",
+                  "labels"
+                ],
+                [
+                  "u64",
+                  "loss"
+                ],
+                [
+                  "s32",
+                  "rows"
+                ],
+                [
+                  "s32",
+                  "width"
+                ]
+              ],
+              "compiled_by": "openassembler",
+              "instructions": 86,
+              "registers": 18,
+              "verify": "not-run"
+            },
+            {
+              "name": "matmul",
+              "params": [
+                [
+                  "u64",
+                  "a"
+                ],
+                [
+                  "u64",
+                  "b"
+                ],
+                [
+                  "u64",
+                  "out"
+                ],
+                [
+                  "s32",
+                  "m"
+                ],
+                [
+                  "s32",
+                  "n"
+                ],
+                [
+                  "s32",
+                  "k"
+                ]
+              ],
+              "compiled_by": "openassembler",
+              "instructions": 127,
+              "registers": 22,
+              "verify": "not-run"
+            },
+            {
+              "name": "attention_scores",
+              "params": [
+                [
+                  "u64",
+                  "q"
+                ],
+                [
+                  "u64",
+                  "k"
+                ],
+                [
+                  "u64",
+                  "out"
+                ],
+                [
+                  "s32",
+                  "tokens"
+                ],
+                [
+                  "s32",
+                  "dim"
+                ]
+              ],
+              "compiled_by": "openassembler",
+              "instructions": 132,
+              "registers": 22,
+              "verify": "not-run"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "harness_sha256": "0f8b3e7315854adc853b5f50ff5cc8597f068eda1d081637bc70424a15ed6c7f",
+  "timestamp_utc": "2026-11-06T13:38:50.397850+00:00"
+}

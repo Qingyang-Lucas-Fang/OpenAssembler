@@ -1,0 +1,521 @@
+{
+  "schema": 1,
+  "date": "2026-11-06",
+  "scope": "Documentation restructuring only; current compiler/spec/test/environment source identity before edits",
+  "before_source_files": [
+    {
+      "path": "env/cuda.sh",
+      "sha256": "3fa52c80dc061b07c541e5206dce74d38a81bb67709821c79687de6f602cda23"
+    },
+    {
+      "path": "env/fetch_cuda.sh",
+      "sha256": "3b9f5d4078d97dcf02e21eaba54a6c3aaaa1eb81a0c13d474b8060d6dec44211"
+    },
+    {
+      "path": "openassembler/__init__.py",
+      "sha256": "74d11fd8fcfaed0c46234d00cce97ca03778ba3478aca6ad449b5852f08b1cb8"
+    },
+    {
+      "path": "openassembler/__main__.py",
+      "sha256": "1c8cc0014757550f4b2e1f1d35af3d12ce8eaf6636d3ac162b001ba218bf2f6d"
+    },
+    {
+      "path": "openassembler/backend/__init__.py",
+      "sha256": "db0ce3f4987c6190f6c2e6013a400787ce7a16c1e62816c9adc537fd508aa495"
+    },
+    {
+      "path": "openassembler/backend/compile.py",
+      "sha256": "b9667d9797ceae53fd27aa4deb2105b18a599fc0e8ca823a9a9be0e93df6b691"
+    },
+    {
+      "path": "openassembler/backend/fragments.py",
+      "sha256": "0ed402508df118a74a7134c4c82add23fed615975073c171898e006e6819e176"
+    },
+    {
+      "path": "openassembler/backend/naive.py",
+      "sha256": "68538e339a243e9c43dbcb4db3e346e349a5b9f8675a9e596dae4d1d18b539c6"
+    },
+    {
+      "path": "openassembler/backend/ptxas_fragments.json",
+      "sha256": "15a5263e189be6dfe19f04a9c37ee683eba60ff84b4cc07d7fe25992cb849edf"
+    },
+    {
+      "path": "openassembler/backend/ra.py",
+      "sha256": "401914e05059134e177224378ce86e0d55e94350f92dfde00c72162089e3e4cc"
+    },
+    {
+      "path": "openassembler/backend/sched.py",
+      "sha256": "5711333491c4a9dc19fb36c94334fb38df3126aadd8d1c3eed41df15e5ca2fd8"
+    },
+    {
+      "path": "openassembler/backend/tensor.py",
+      "sha256": "7e2db4f4c2d33f338e172692e3dc29f367abc5980ddbb6bb9ff8be707e8abc42"
+    },
+    {
+      "path": "openassembler/backend/tensor_encoding.py",
+      "sha256": "885730c203401d42bef163b93dc8df69db3e75feedf47fabafe9dced34c056eb"
+    },
+    {
+      "path": "openassembler/backend/unroll.py",
+      "sha256": "47bc6999b3b6ac41e2e8d0b2176bd33f1dfd5d010b8e4aafb713adcd3d17c453"
+    },
+    {
+      "path": "openassembler/build.py",
+      "sha256": "b492521d8f26d7df5cfd210a1d6dcb2cca50ce0ff81019c0a033643b995c9656"
+    },
+    {
+      "path": "openassembler/cli.py",
+      "sha256": "4cab9993cb6dc56c42bde846d85808254639e789ae267a0c19b90f36cce5e8f8"
+    },
+    {
+      "path": "openassembler/container/__init__.py",
+      "sha256": "0593c682966fdca026aad58b2c613bc72130d2f991e77f2968ae40a2f9235bc1"
+    },
+    {
+      "path": "openassembler/container/cubin.py",
+      "sha256": "4118f7124090e942a535ab7e0cae71cc12bb21deef8e9d83c16e4932be93bfdb"
+    },
+    {
+      "path": "openassembler/container/elf.py",
+      "sha256": "d996eca5fab4efcc9034c8a44bd8554e4bb07a0aeb225839a30e98e7c0cc129d"
+    },
+    {
+      "path": "openassembler/container/nvinfo.py",
+      "sha256": "0e0e4e4a419f095ef96aeea165330809adb9957d0e82e471fced15c171c10210"
+    },
+    {
+      "path": "openassembler/cppfront.py",
+      "sha256": "532da99522e6d2986f5fc922f4f81d01796d7cd5149654db6a43f62a65f30ebf"
+    },
+    {
+      "path": "openassembler/emu/__init__.py",
+      "sha256": "22794895d04b8cad24c79902987a9238da727fcaf2060eb763fa8459d98b1677"
+    },
+    {
+      "path": "openassembler/emu/fp.py",
+      "sha256": "650b040866848d3ec4c520a351caa4a834617c4ba515ca451db06fad58688e8e"
+    },
+    {
+      "path": "openassembler/emu/machine.py",
+      "sha256": "d27253ba85d82241af0ba7647ae8cd7a0b7878f65b51c6634778ee81eb5da108"
+    },
+    {
+      "path": "openassembler/emu/operands.py",
+      "sha256": "800507473fa3619dd3105570f8bb911b9f9ca96563ed0081b8a34eb4c17cb64c"
+    },
+    {
+      "path": "openassembler/emu/ops.py",
+      "sha256": "6189bc41fb51a433cd9c420b7092faf4edce150f8f86b65655a9809cdee20760"
+    },
+    {
+      "path": "openassembler/emu/probe.py",
+      "sha256": "5cb86c75c70d49ccb8dda38d729311d38c6487f34b7425e759e6c99028495d83"
+    },
+    {
+      "path": "openassembler/emu/program.py",
+      "sha256": "456029c96fed68bb71f6606aa00d94ba9dc5d571812cb62385c2340e9bd0a5d5"
+    },
+    {
+      "path": "openassembler/emu/tensor.py",
+      "sha256": "2000285e5ede67cea8dd2ba5215391b5b8afa4cbf4cd630e30fbf1ee1d877bcb"
+    },
+    {
+      "path": "openassembler/fastmm/__init__.py",
+      "sha256": "9213bac95b7f440450be0e0e8a24a20f163f5e52ad2d74b3c77f7a1254d4a408"
+    },
+    {
+      "path": "openassembler/fastmm/factors.py",
+      "sha256": "7411135cba31863206b265126059963611c16bdc82aa842aa86b86ea09d45861"
+    },
+    {
+      "path": "openassembler/fastmm/kernels.py",
+      "sha256": "d93435508bda92ba55bcd4af7b92a9c7e93419a937844e202de73f357135db8a"
+    },
+    {
+      "path": "openassembler/fastmm/plan.py",
+      "sha256": "b67b01aee6411fa53a5e91abee48ddd7a943fe4fb1074bc53f45f1338525e7a7"
+    },
+    {
+      "path": "openassembler/frontend.py",
+      "sha256": "cb73d901d117f91ab7c1117600bcee3f0990f0b4d1ffcab3b4c2db5ba8bb6b63"
+    },
+    {
+      "path": "openassembler/gemm.py",
+      "sha256": "87f0ebd9abc36af0621d7a45faa9e18a30eb7fd57c70a6f7156a98a7e39bab9e"
+    },
+    {
+      "path": "openassembler/gpu/__init__.py",
+      "sha256": "5c20d8549f39f88b5c8efec6f6c91dd9c9c4ed3cf6f8f2f7314b4cf7831110a1"
+    },
+    {
+      "path": "openassembler/gpu/batch.py",
+      "sha256": "a68f270e9ccbc6268438d7b156f27a7e486a7e191b353eedf14dc9998eac77a4"
+    },
+    {
+      "path": "openassembler/gpu/cuda_driver.py",
+      "sha256": "55c9726c97c01e14de52ceed9b56685ed5536a67b19e9d00aed3a70deb67aef6"
+    },
+    {
+      "path": "openassembler/gpu/modal_app.py",
+      "sha256": "b38b55c7fae2f172a25ea59e741e0c25f5479f7d99488db93dd554b06b5bdb50"
+    },
+    {
+      "path": "openassembler/isa/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "openassembler/isa/encode.py",
+      "sha256": "739d2954e794134c5aa2840f12b7561ce2f275ae682d40ce8fde489968ebb650"
+    },
+    {
+      "path": "openassembler/isa/word.py",
+      "sha256": "1e4bd5ae3c482c3296a58f938dea85339526476c5c2a0c5c088c6bc07a9131e8"
+    },
+    {
+      "path": "openassembler/kernels/__init__.py",
+      "sha256": "0b7694564460b96acabaeb138d3856e08fcfc91d0a08764e4124b75231e304f7"
+    },
+    {
+      "path": "openassembler/kernels/gemm.py",
+      "sha256": "b0c83a2c93bcbc9add8a1b175fc1cd0a1b326e85174f1fce0c9bbe4841b073a5"
+    },
+    {
+      "path": "openassembler/kernels/reductions.py",
+      "sha256": "8401a40578689acbcbc9bd75c02b518296313f71bb67224f801dc0bcddf9e58e"
+    },
+    {
+      "path": "openassembler/opt/__init__.py",
+      "sha256": "8ca712dcb26058a07e5ad303f5b3e810cdc853711050b1cc3291b4e9679214b0"
+    },
+    {
+      "path": "openassembler/opt/divconst.py",
+      "sha256": "fa29f618e10e06a98d6792a1e752e98a2c07f472884fd63ce9ef3d5f9f18773e"
+    },
+    {
+      "path": "openassembler/oracle.py",
+      "sha256": "627456041315055edfe796e6f4f45f0a036e8fd7a1fff6b369f803f25dd64497"
+    },
+    {
+      "path": "openassembler/project.py",
+      "sha256": "06832a6125b3a74300fad67ca06c789eb241f7a8c00c49850d572260c8f206c0"
+    },
+    {
+      "path": "openassembler/ptx/__init__.py",
+      "sha256": "795691db5fb416d0d1ac34094884c254cef88b465489ce758dbb74fb26997998"
+    },
+    {
+      "path": "openassembler/ptx/interp.py",
+      "sha256": "0f69da881c84835e5c7919ce1c48608869f1aa00e46c091fd619f793176d800a"
+    },
+    {
+      "path": "openassembler/ptx/parse.py",
+      "sha256": "dfddfb0e3c3507a2d1d38968c84d2524f031b1f086f6dd09e56828ad984c7d39"
+    },
+    {
+      "path": "openassembler/ptx/semantics.py",
+      "sha256": "0d226380da68f65acc7fc391b9ff6dee1110a18011d18237db614a92a34ae709"
+    },
+    {
+      "path": "openassembler/ptx/semantics_fp.py",
+      "sha256": "dcd7d92edbd6985de2f47a00c86ff9dd0ed8687e8bcd38aa67749815f455a832"
+    },
+    {
+      "path": "openassembler/pyfront/__init__.py",
+      "sha256": "138aab10f3aec3decde8ab07752d334179f13ff27869e7f106f3a73134ec00b1"
+    },
+    {
+      "path": "openassembler/pyfront/compile.py",
+      "sha256": "a1e298dbad8157a0ffc4eb23a4e920746cb34d4b18ea4ec54586df1d36318b30"
+    },
+    {
+      "path": "openassembler/pyfront/intrinsics.py",
+      "sha256": "269656c48d8ba188ccf927e2b46508813414694d66a6912351caa9ceb04bde08"
+    },
+    {
+      "path": "openassembler/pyfront/types.py",
+      "sha256": "b2b1cf6dce509e2c69fcfd8851387269c05226b1f0472f349671d25562536341"
+    },
+    {
+      "path": "openassembler/rowwise.py",
+      "sha256": "2be791dc081667e3e526cde094dff31be47c9b9a9a1d8108f6ff76bb86c323cd"
+    },
+    {
+      "path": "openassembler/runner.py",
+      "sha256": "987d402a584318392d7c56a4669be8735a90f8561a39bf6079f4e854cc187e67"
+    },
+    {
+      "path": "openassembler/torchfront/__init__.py",
+      "sha256": "d20ac464d16215e07836d0d449864bc85a947bafa36338cce371646624d12562"
+    },
+    {
+      "path": "openassembler/torchfront/archive.py",
+      "sha256": "186bfa4ebdddb51fa475c43f488e5f2a4ee0d1b1ece9a9a67631bb1fa392b5ee"
+    },
+    {
+      "path": "openassembler/torchfront/frontend.py",
+      "sha256": "95a05a75c8c64cfe5eb374c04e359f266cb6917c39ae69631d4df41dfe45a1ff"
+    },
+    {
+      "path": "openassembler/torchfront/instrument.py",
+      "sha256": "eba92e85e3605fa22602aefd9a4d90bca9863d5db9339fdd937b02f5829d6708"
+    },
+    {
+      "path": "openassembler/torchfront/modal_app.py",
+      "sha256": "043966ab97711349729043b87b22050cb6f004c6e015a23e3cd2ad4cb4299141"
+    },
+    {
+      "path": "openassembler/torchfront/worker.py",
+      "sha256": "7fb6e79dd3db093304c7fd63461421ee9a52412b795809dc065780c1598388e1"
+    },
+    {
+      "path": "openassembler/ui/__init__.py",
+      "sha256": "5f4c1b4f2079591935cd23e152f9d7bef5be8183010d91c77d789fe637ced8ea"
+    },
+    {
+      "path": "openassembler/ui/banner.py",
+      "sha256": "0da766fb11611e26ed952937ee94832f01e31543b6e53173c066ad6ac24ade80"
+    },
+    {
+      "path": "openassembler/ui/colors.py",
+      "sha256": "6232a9ca7785c43321b7d8c322aa981ff0b1faa311a0c844d1a7bd507c64d829"
+    },
+    {
+      "path": "openassembler/ui/logo.py",
+      "sha256": "78f73b632eb97706477de464213803c118829de2759c414e1006e9d99e31e1be"
+    },
+    {
+      "path": "openassembler/ui/repl.py",
+      "sha256": "dd8379845e8b9d3b456e8fd9f03317b8d355b69399157333b11ead1bd68c8254"
+    },
+    {
+      "path": "openassembler/ui/session.py",
+      "sha256": "57ab4f80794e2af12efca3e00689b4c02c1195b6865b3733126ddbf80ab6dd3f"
+    },
+    {
+      "path": "openassembler/verify.py",
+      "sha256": "82ce424fa60e608814cd780278aeaee723c8a7074167e0880d29730fd10349bb"
+    },
+    {
+      "path": "specs/fastmm/schemes.json.gz",
+      "sha256": "b43c37e55e983d51b018f01746cb5e3ee5a43fc2c3e9cd1c1535ab72c37d4d15"
+    },
+    {
+      "path": "specs/sm_80/arithmetic_templates.json",
+      "sha256": "1c3fc5163ab05bc4305260c12d51bfc270ab83d89fbb487fcbe5854c9179bfe1"
+    },
+    {
+      "path": "specs/sm_80/bitflip.json",
+      "sha256": "1d03d8838c9e4992edd9a0ed2b247e9f1774730a7172e175bf4975554d78da0d"
+    },
+    {
+      "path": "specs/sm_80/synth_fieldmaps.json",
+      "sha256": "10100a9b31d6110e9aba29446003c1f0d261f9ca859ea4bde423c5ed33a7f2e1"
+    },
+    {
+      "path": "specs/sm_80/synth_templates.json",
+      "sha256": "dabae8aa91bd5e6e02ea3da38ca60a37d2af36dae2370530a11c92377c4cd59d"
+    },
+    {
+      "path": "tests/backend_harness.py",
+      "sha256": "442d2005630812aa87dc2ec3d678779fa803272f2936bf7c8b14b0f95e97e5bc"
+    },
+    {
+      "path": "tests/data/backend_loops/barrier64.cu",
+      "sha256": "3b82ac570b112bd2cc6a5d916975749e4a39c537831388b17905cafbdd065b9f"
+    },
+    {
+      "path": "tests/data/backend_loops/dot_rows.cu",
+      "sha256": "7797a67c71a08e6ce740f6a9ca291cc638d84ca8752e6ccbc048be8af96f1d34"
+    },
+    {
+      "path": "tests/data/backend_loops/dot_rows.ptx",
+      "sha256": "1dfe7d05c056760239cbaca4e76f0e4f386c98c77f877a735493fa9a760fa1ec"
+    },
+    {
+      "path": "tests/data/backend_loops/matmul_naive.cu",
+      "sha256": "984a455d7fd4ef67d679b9fbcd2c5b1f976f1858c974838362086bed24b8a6cd"
+    },
+    {
+      "path": "tests/data/backend_loops/matmul_naive.ptx",
+      "sha256": "f3e818a06a53d51be3c159107c3c8db5252b64e6f95d4fb2558553163f240d4f"
+    },
+    {
+      "path": "tests/data/backend_loops/nested2.cu",
+      "sha256": "abc22becf126deb9b6031783a22bea7906d9c43689e0c1fa73089cffe38552f1"
+    },
+    {
+      "path": "tests/data/backend_loops/nested2.ptx",
+      "sha256": "a803eae8dbd9dd4de5c5a170b3173a545c9442b42573c0fbbc87ef84192ad487"
+    },
+    {
+      "path": "tests/data/backend_loops/saxpy_gs.cu",
+      "sha256": "2cef3f5c0ef49245bb5915d717d48ea56e652ea945a06cfcff32f4ce0b4b2669"
+    },
+    {
+      "path": "tests/data/backend_loops/saxpy_gs.ptx",
+      "sha256": "9b5a8fb43d9e83d6af631590ee21c943afe3a98d0f54bc843ccb4d1408e6a3b8"
+    },
+    {
+      "path": "tests/data/backend_loops/softmax_rows.cu",
+      "sha256": "cf6b8cecf145fbaf103b9359cd21db7ae71d4137b0fa5c71cf6252676432a8b6"
+    },
+    {
+      "path": "tests/data/backend_loops/softmax_rows.ptx",
+      "sha256": "442e09573d688185c0ddf74bb586d1ca0fe36a9e41591ebc64e3225fa3602932"
+    },
+    {
+      "path": "tests/data/torchfront_nested/model/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "tests/data/torchfront_nested/model/layers.py",
+      "sha256": "71e54e41f6d1fcda5942976d2f11a5f05b8d66319c5b1a15f94bcd20c6e4e6f0"
+    },
+    {
+      "path": "tests/data/torchfront_nested/openassembler.toml",
+      "sha256": "4f05b2bf83361af1a480391cf4fa18009318b0c04c419ee831f0bbbbd274b970"
+    },
+    {
+      "path": "tests/data/torchfront_nested/train.py",
+      "sha256": "11533920285194d6818c2b141803c319a1c47633bcbb31748c1bf91f9de02f04"
+    },
+    {
+      "path": "tests/pyfront_threeway.py",
+      "sha256": "060c2447cc920a11bc53c1b3b8fa62b4cdb0c26235b5d6c3c23319e615d40330"
+    },
+    {
+      "path": "tests/test_backend.py",
+      "sha256": "ad26be8c8691c4cc3ae73e20cf736a126338ed9c0c31e6c7c4461e23f76b3b73"
+    },
+    {
+      "path": "tests/test_backend_loops.py",
+      "sha256": "30b096ec3e5982a7920d5fe069b7465b7fa6f1d0ade877deda2f56d7a5fa899f"
+    },
+    {
+      "path": "tests/test_backend_ops.py",
+      "sha256": "bb4070418a0c4dfbbf74941ca5fb5252131714bc4190fc122a2d197565d25e73"
+    },
+    {
+      "path": "tests/test_backend_tensor.py",
+      "sha256": "1fbbc0695af79479b2dceb6e4273bef4ff0b7f6732bf48adfc8996c6f4f37370"
+    },
+    {
+      "path": "tests/test_cli_compile.py",
+      "sha256": "ebcd42b0044a9ba09ee221e0e19aeeb429bca91bf64203c4e206b3d5720ae3dd"
+    },
+    {
+      "path": "tests/test_cli_gemm.py",
+      "sha256": "01b499c4e5d278a08f8b3ffee6fc07d4a36c9357bed216a4d5e5c10935fcfaf3"
+    },
+    {
+      "path": "tests/test_cli_rowwise.py",
+      "sha256": "e1370610fc3fe1aee7bf708eb3a0c146a4eb9a5387df85071c85128c74b3485e"
+    },
+    {
+      "path": "tests/test_cppfront.py",
+      "sha256": "effce61460c512067ebd845989cf25a7f0c4bd34afb8b13631e31a40cba57039"
+    },
+    {
+      "path": "tests/test_emu.py",
+      "sha256": "17fdd5099b8e2d9a3c848127a4e6065033d3101bc51d5610efa25d03d9a98d93"
+    },
+    {
+      "path": "tests/test_fastmm.py",
+      "sha256": "c1f58cbebcd32ca688e2a2e9cc805f79bda4064bbe3a02fb69ccc69c57bf925e"
+    },
+    {
+      "path": "tests/test_gemm_codegen.py",
+      "sha256": "61a93401e393e50751f4e72e4768fcbd76d15ca4bb9a252a7a9ed6244618bc00"
+    },
+    {
+      "path": "tests/test_gpu_truth.py",
+      "sha256": "6db97d1a2be7ede921cb7e8fccf6bd7bf6d74399ce566381e55b7d9e9c927f13"
+    },
+    {
+      "path": "tests/test_integration.py",
+      "sha256": "e71a02016a8e8dc73c7b0ff8eebc45accf664a25e8bbf0cd0c2c4b0fc42720e9"
+    },
+    {
+      "path": "tests/test_interp_barrier.py",
+      "sha256": "318feb615abaa1d290eccb27c29eaca5d4efcb94202a0118d114b346a313135e"
+    },
+    {
+      "path": "tests/test_pyfront.py",
+      "sha256": "959794b4796e20b4deda3d0dbaee710556517bd7333049a18af3daab5f91d57b"
+    },
+    {
+      "path": "tests/test_pyfront_semantics.py",
+      "sha256": "e37b0c0c6d1eac9130101d9e593eb294dbd1d57a7ea93f939e90254efe9b49e4"
+    },
+    {
+      "path": "tests/test_pyfront_static.py",
+      "sha256": "bbc8ccff6988e9a0569a15155eb9d16c359c7b542676b97927c1cd419fdea7cf"
+    },
+    {
+      "path": "tests/test_reduction_codegen.py",
+      "sha256": "9c6086c9a11b5d6b3452139fe1278c3144ce444d11652f5b2ac0e4407d866b68"
+    },
+    {
+      "path": "tests/test_runner.py",
+      "sha256": "e87fb3fa9719514a5d6f932eb0dcc24dd04ecb9c269986727a2b6c793c2b38fa"
+    },
+    {
+      "path": "tests/test_tensor_pointer_homes.py",
+      "sha256": "72d490b35815f94c3dfb64edb0b6264c6987df6b64a7a47084afa793cc5d0590"
+    },
+    {
+      "path": "tests/test_torchfront.py",
+      "sha256": "721db7f42e7e92c0748ed3c0d1409a6c1b5270333f05f995787bdcefc847d11f"
+    },
+    {
+      "path": "tests/test_torchfront_numerics.py",
+      "sha256": "a909a89a2624180029e53cec0ddfdd6a95d8f724916aa40c3e98a74e1929615c"
+    },
+    {
+      "path": "tests/test_verify.py",
+      "sha256": "a13c03b30582bdd96c6dd87800a9404011138a9165fa5b7ce024dd8c215982db"
+    },
+    {
+      "path": "tests/test_word.py",
+      "sha256": "bc8cc7b0c8b5cbe8c18f95ff23c16d3c1a836f2407edbda8d7396017b7b2d4c5"
+    }
+  ],
+  "result": "passed",
+  "after_source_files_unchanged": true,
+  "source_files_checked": 119,
+  "catalogue_ideas": 66,
+  "status_counts": {
+    "implemented": 33,
+    "validated-not-integrated": 10,
+    "tested-not-selected": 13,
+    "untested-or-hardware-unavailable": 10
+  },
+  "retired_duplicate_narratives": 15,
+  "compatibility_entries": 5,
+  "archived_documents": 41,
+  "archive_sha256": "182ae897e0ad4c18b4cfdae0a8b81f3d9abbbcd320746d9050a865c1a1a286de",
+  "evidence_manifest_checks": [
+    {
+      "manifest": "docs/evidence/a100-mma/manifest.json",
+      "original_non_markdown_records_verified": 99
+    },
+    {
+      "manifest": "exp/whole_stack/evidence_manifest.json",
+      "original_non_markdown_records_verified": 25
+    },
+    {
+      "manifest": "exp/weaknesses/evidence_manifest.json",
+      "original_non_markdown_records_verified": 74
+    }
+  ],
+  "documentation_validation": {
+    "markdown_files": 86,
+    "local_links_checked": 561,
+    "cli_parser_levels": 17,
+    "option_alias_occurrences": 153,
+    "pytest_command_references_checked": 26,
+    "architecture_mermaid_mirror": "matched"
+  },
+  "gpu_jobs_launched": 0,
+  "new_performance_measurement": false
+}

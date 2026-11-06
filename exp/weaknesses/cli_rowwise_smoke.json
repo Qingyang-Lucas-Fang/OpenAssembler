@@ -1,0 +1,167 @@
+{
+  "schema": 1,
+  "scope": "ordinary public CLI; zero input, device NaN output fill, full analytic constant check and strict bitwise ptxas comparison; not floating-point accuracy or paired graph performance evidence",
+  "commands": [
+    ".venv/bin/python -m openassembler rowwise --op softmax --rows 1024 --width 512 --out-dir exp/weaknesses/cli_builds",
+    ".venv/bin/python -m openassembler rowwise --op layernorm --rows 1024 --width 512 --out-dir exp/weaknesses/cli_builds",
+    ".venv/bin/python -m openassembler run exp/weaknesses/cli_builds --backend modal --budget 180 --job-timeout 60 --reps 10"
+  ],
+  "builds": [
+    {
+      "source": "layernorm.ptx",
+      "source_sha256": "f9409b81be5eebfe6c6ccd22db1149a41f590441f4868770a76bc2f66aeca387",
+      "kernels": [
+        {
+          "name": "layernorm",
+          "params": [
+            [
+              "u64",
+              "X"
+            ],
+            [
+              "u64",
+              "Y"
+            ]
+          ],
+          "compiled_by": "openassembler",
+          "instructions": 187,
+          "registers": 44,
+          "verify": "not-run",
+          "rowwise": {
+            "schema": 1,
+            "rows": 1024,
+            "width": 512,
+            "op": "layernorm",
+            "epsilon": 1e-05,
+            "arch": "sm_80",
+            "kernel": "layernorm",
+            "input_dtype": "f32",
+            "output_dtype": "f32",
+            "accumulation": "f32",
+            "layout": "contiguous_row_major",
+            "warps_per_cta": 4,
+            "lanes_per_row": 32,
+            "finite_inputs_only": true,
+            "numerical_contract": "bounded finite FP32 inputs; FP32 differences, sums and squares must remain finite",
+            "affine": false,
+            "input_alignment": 4,
+            "output_alignment": 4,
+            "launch": {
+              "grid": [
+                256,
+                1,
+                1
+              ],
+              "threads": 128,
+              "smem": 0
+            }
+          }
+        }
+      ],
+      "cubin_sha256": "ff7aaa435c6787527f46313a3c256cb242071c107faf59582f639c7eb44b3599",
+      "reference_sha256": "38626e6c26b3c82da0bd4999f7665d0832f5dbb3cd48ed87a59c4bb6db86d3ab",
+      "sass_sha256": "67cbb08c3062ed835f9a2a17b9b1a0d2d6bc308fda69bffd796b5f6535c88227"
+    },
+    {
+      "source": "softmax.ptx",
+      "source_sha256": "6bf39ed352067363bcc3fa8bd75530ea18f9caec09afe277bd359340c88426f7",
+      "kernels": [
+        {
+          "name": "softmax",
+          "params": [
+            [
+              "u64",
+              "X"
+            ],
+            [
+              "u64",
+              "Y"
+            ]
+          ],
+          "compiled_by": "openassembler",
+          "instructions": 203,
+          "registers": 25,
+          "verify": "not-run",
+          "rowwise": {
+            "schema": 1,
+            "rows": 1024,
+            "width": 512,
+            "op": "softmax",
+            "epsilon": 1e-05,
+            "arch": "sm_80",
+            "kernel": "softmax",
+            "input_dtype": "f32",
+            "output_dtype": "f32",
+            "accumulation": "f32",
+            "layout": "contiguous_row_major",
+            "warps_per_cta": 4,
+            "lanes_per_row": 32,
+            "finite_inputs_only": true,
+            "numerical_contract": "bounded finite FP32 inputs; FP32 differences, sums and squares must remain finite",
+            "affine": false,
+            "input_alignment": 4,
+            "output_alignment": 4,
+            "launch": {
+              "grid": [
+                256,
+                1,
+                1
+              ],
+              "threads": 128,
+              "smem": 0
+            }
+          }
+        }
+      ],
+      "cubin_sha256": "8b7aaa1894d02f97f0fa072d56d4241d643ed211ddcd28f9995909b1d3bfc3a7",
+      "reference_sha256": "3f6965db6ef0a5e441bf3643f92b1da0c1c0270d88b09d620fe4558cb7e3eeb0",
+      "sass_sha256": "ab71687b6e9ec7b6e4fbad2d77a3ca39b73413dd372122379c885b59e3908677"
+    }
+  ],
+  "report": {
+    "openassembler": "0.2.0",
+    "backend": "modal",
+    "device": "NVIDIA A100-SXM4-40GB cc 8.0 (Modal A100-40GB)",
+    "cases": [
+      {
+        "kernel": "layernorm",
+        "source": "layernorm.ptx",
+        "result": "OK",
+        "detail": "",
+        "ours_ms": 0.011264000087976456,
+        "ptxas_ms": 0.010239999741315842,
+        "speedup": 0.9090908790249688,
+        "note": "zero-input analytic smoke; separate A100 tests cover nonzero inputs and canaries",
+        "launch_description": "1024x512 contiguous f32 layernorm, grid [256, 1, 1], block 128",
+        "analytic_smoke": {
+          "expected_f32_constant": {
+            "Y": 0.0
+          },
+          "rtol": 5e-05,
+          "atol": 1e-06,
+          "require_finite": true
+        }
+      },
+      {
+        "kernel": "softmax",
+        "source": "softmax.ptx",
+        "result": "OK",
+        "detail": "",
+        "ours_ms": 0.011264000087976456,
+        "ptxas_ms": 0.010239999741315842,
+        "speedup": 0.9090908790249688,
+        "note": "zero-input analytic smoke; separate A100 tests cover nonzero inputs and canaries",
+        "launch_description": "1024x512 contiguous f32 softmax, grid [256, 1, 1], block 128",
+        "analytic_smoke": {
+          "expected_f32_constant": {
+            "Y": 0.001953125
+          },
+          "rtol": 5e-05,
+          "atol": 1e-06,
+          "require_finite": true
+        }
+      }
+    ],
+    "timestamp": "20261106T134138.174572Z"
+  }
+}

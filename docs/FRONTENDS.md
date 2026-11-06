@@ -1,306 +1,53 @@
-# OpenAssembler 0.2.0: Python / CUDA C/C++ / PTX to SASS
+# Source and execution documentation index
 
-OpenAssembler accepts GPU kernel source files and source directories. It emits
-encoded sm_80 instructions in a loadable CUDA binary (`.cubin`) and a readable
-SASS disassembly (`.sass`) of that same binary. A cubin is loaded and launched
-through the CUDA driver; it is not a standalone host executable.
+This short entry point preserves paths used by compiler diagnostics and older
+links. The canonical feature contracts and reproduction commands are in the
+linked dossiers; complete flag syntax is in [COMMANDS.md](COMMANDS.md).
 
-Python uses OpenAssembler's typed numeric subset. CUDA C/C++ uses `nvcc --ptx` for
-parsing and NVVM optimization. PTX goes directly to our backend. Compilation still
-needs `ptxas` to supply ELF metadata and a reference binary; `nvdisasm` decodes the
-finished binary. Floating-point and integer-division arithmetic sequences are
-recovered from CUDA 12.8 probe listings and then allocated, scheduled, and encoded
-by OpenAssembler. See [REPRODUCING.md](../REPRODUCING.md) for toolkit setup.
+## Python
 
-## Compile a file or repository
+Read [Typed Python kernel frontend](research/ideas/python-kernel-frontend.md)
+for supported syntax, fixed-width arithmetic and limitations. This is a GPU
+kernel subset, not general Python or PyTorch compilation.
 
-```sh
-openassembler compile examples/div_by_const.ptx -o out --verify
-openassembler compile examples/vector_add.py -o vector_add --verify
-openassembler compile examples/vector_add.cu -o vector_add --verify
-openassembler compile my_repo/ --out-dir output
-```
+## CUDA C/C++
 
-The default layout is:
+Read [CUDA C/C++ through nvcc](research/ideas/cuda-cpp-frontend.md). NVIDIA parses
+CUDA and emits PTX; OpenAssembler's supported native backend handles that PTX.
 
-```text
-output/
-  cubin/<relative-source-stem>.cubin
-  sass/<relative-source-stem>.sass
-  manifest.json
-  .build/ptx/<relative-source-stem>.ptx
-  .build/reference/<relative-source-stem>.cubin
-  run.json                         # latest GPU report, after run/cnr
-  runs/<UTC-timestamp>.json         # preserved GPU reports
-```
+## PTX
 
-`-o NAME` names one file's outputs, without a directory or extension. For backward
-compatibility, `.cubin` or `.sass` suffixes are stripped with a notice. Use
-`--out-dir DIR` to relocate all artifacts. A directory compile mirrors its source
-paths and does not accept `-o`. Same-stem sources retain their source extensions;
-remaining case-insensitive collisions receive a deterministic suffix.
-Configured PyTorch application directories accept `-o NAME` for their bundle;
-individual files always use the standalone-kernel compilation route.
+Read [Native PTX input](research/ideas/ptx-native-frontend.md). Unsupported forms
+fail or use only an explicitly requested, labeled fallback.
 
-Builds serialize writes to each output directory with `.build/writer.lock`.
-A competing writer fails with a clear message; separate output roots remain
-independent. Locks release on interruption or process exit. The lock file can
-remain after release and must not be deleted while a writer is active. Corrupt
-manifests are refused before compilation changes their recorded outputs.
+## Repository builds
 
-Repository discovery uses Git's tracked and non-ignored file list when available,
-otherwise a recursive walk. It recognizes `.ptx` with `.entry`, CUDA
-`.cu/.cuh/.cpp/.cc/.cxx/.c` with `__global__`, and `.py` with an OpenAssembler
-`@kernel` decorator. Hidden directories, environments, generated output, and
-symlinks are excluded. Other files are skipped and counted. Python modules are
-parsed without executing imports or top-level code. CUDA headers and dependencies
-must still be visible to nvcc; `-I DIR` and `--nvcc-flag=-DNAME=value` are repeatable.
-
-Without an application manifest, this compiles discovered GPU kernels. It does
-not translate host Python, shell scripts, host C++, or a repository's build
-system into one GPU program. Device linkage and unsupported constructs fail with
-a diagnostic. `--kernel NAME` selects an entry; without it, all entries in each
-supported source are included in that source's cubin. C++ entry names may be
-mangled: use `extern "C"` or the exact name listed in the diagnostic.
+[Discovery, manifests and publication](research/ideas/repository-builds.md)
+explains what directory compilation finds, output ownership and limits.
 
 ## PyTorch training applications
 
-A PyTorch source tree can opt into application capture with an `openassembler.toml`
-at its root. This graph-based frontend traces project `nn.Module.forward`
-methods, captures forward and backward graphs through AOTAutograd, and emits CUDA
-kernels through TorchInductor/Triton. It does not use OpenAssembler's PTX-to-SASS
-backend for these generated kernels. Cubins are written under
-`output/cubin/applications/<name>/`; their `nvdisasm` listings are under
-`output/sass/applications/<name>/`. Captured PTX and graph records are retained
-under `output/.build/` when available, along with the source and runtime cache.
+[Application capture and saved replay](research/ideas/pytorch-application-capture.md)
+explains configuration, supported runtime, captured shapes and Inductor/Triton
+ownership. [Whole-transformer evaluation](research/ideas/whole-transformer-evaluation.md)
+contains the experimental contract and original failures.
 
-The entry point, arguments, seed, Python/PyTorch/CUDA versions, and GPU
-specializations are explicit. Capture executes the configured training workload
-on a CUDA GPU. `--verify` runs the same workload eagerly and compiled in separate
-seeded processes, then compares observed model outputs, final parameters,
-gradients, optimizer state, and step counts within the configured tolerance.
-Output snapshots cover the first two calls of each observed owning model; final
-model state includes nested submodules. Multiple instances receive stable names.
-This checks the selected arguments, shapes, and observed branches; it does not
-prove correctness for unobserved workloads.
-`rtol`/`atol` apply to outputs and gradients; `state_rtol`/`state_atol` apply to
-post-update parameters and optimizer state, where Adam can amplify small gradient
-rounding differences.
+## Cooperative FP32 row reductions
 
-By default, a root `requirements.txt` is installed in the worker environment.
-Use `requirements = ["requirements.txt", "requirements/runtime.txt"]` to name
-other dependency files, or `requirements = []` to disable installation. Dependency
-resolution is constrained to PyTorch 2.7.1 so it cannot silently replace the
-supported CUDA runtime.
+Read the separate [softmax](research/ideas/cooperative-softmax.md) and
+[population LayerNorm](research/ideas/cooperative-layernorm.md) dossiers. These
+are explicit native generators, not automatic graph replacements.
 
-The current runtime supports PyTorch 2.7.1 on Python 3.11 and NVIDIA sm_80
-(A100). Use `build_backend = "modal"` for the pinned cloud environment, or
-`build_backend = "local"` with a matching local PyTorch/CUDA setup. Python host
-control flow and project entry code remain in the runtime bundle. The result is
-a runnable CUDA application bundle, not a standalone host executable or one
-cubin containing the repository. PyTorch operators dispatched to ATen, cuBLAS,
-or cuDNN remain supplied by the matching PyTorch runtime.
+## What --verify proves
 
-Example configuration:
+Native emulation, probe verification, hardware bitwise smoke and application
+state verification have different scopes. See [Native PTX verification](research/ideas/ptx-native-frontend.md),
+[GPU launches and comparisons](research/ideas/gpu-execution-and-launch-specs.md),
+[state diagnostics](research/ideas/state-verification-diagnostics.md), and
+[COMMANDS verification semantics](COMMANDS.md).
 
-```toml
-[application]
-frontend = "torch"
-entrypoint = "train.py"
-args = ["--device", "cuda", "--steps", "2"]
-requirements = ["requirements.txt"]
-seed = 7
-torch = "2.7.1"
-build_backend = "modal"
-gpu = "A100-40GB"
-budget = 900
-job_timeout = 600
-verification = "state"
-rtol = 0.0001
-atol = 0.00001
-state_rtol = 0.001
-state_atol = 0.001
-```
+## Shared prerequisites
 
-Compile and replay the configured run with
-`openassembler compile my_training_repo/ --out-dir output --verify` followed by
-`openassembler run output --application my_training_repo --backend modal`.
-`--dry-run` prints the selected
-entry point, arguments, backend, GPU, and budget without executing training.
-`--build-backend`, `--build-gpu`, and `--build-budget` override the manifest for
-one build. Runtime replay uses the bundled cache only; an uncaptured shape or
-Triton kernel fails and requires recompilation.
-`--no-sass` omits application listings. Scalar kernel selectors, include/nvcc
-flags, fallback and nondefault optimization levels are rejected on this route.
-`--verify` fails when verification is disabled in the application config.
-Backend `auto` chooses Modal on macOS, or local execution on Linux when PyTorch
-is installed; local still requires a compatible CUDA GPU and pinned runtime.
-
-Use `run --application NAME` to select an application in a mixed output tree.
-Kernel selectors, `--spec`, `--from-results` and `--save-jobs` select standalone
-execution and cannot be combined with `--application`. App replay accepts a
-finite `--budget` of 30..1800 seconds and a positive `--job-timeout` no greater
-than its budget; defaults come from the saved config. `--verify-application`
-reruns state comparison. Source/cache/cubin checksums are checked before GPU
-execution. Reports are saved to `run.json` and timestamped `runs/` files.
-
-Source/cache archives are bounded to 256 MiB and 20,000 files each; verification
-tensor snapshots are bounded to 128 MiB. Distributed training, unrestricted
-shapes, and automatic native-GEMM substitution are not implemented.
-
-The options in this table apply to standalone kernel compilation:
-
-| Option | Meaning |
-|---|---|
-| `--arch sm_80` | Only the sm_80 encoder is supported |
-| `--opt-level safe|mined|sched|opt` | Conservative scheduling; measured scheduling; list scheduling; existing counted-loop unrolling respectively |
-| `--verify --trials 6` | Emulator versus PTX interpreter; no GPU is used |
-| `--no-sass` | Explicitly omit the readable listing |
-| `--dump-ptx` | Print the frontend's PTX |
-| `--fallback ptxas` | Keep ptxas code only for unsupported backend/encoder operations; each fallback is labelled in the manifest and report |
-
-Fallback never hides a verification mismatch or an internal compiler error.
-Successful artifacts are published with atomic file replacements; the manifest
-is updated while Ctrl-C is deferred. Earlier successful builds may remain after
-a failed recompilation, but are marked failed and refused by `run`. Deleted or
-no-longer-discovered sources have their manifest-owned outputs removed during a
-subsequent nonempty repository build. Unlisted files are preserved. Power loss
-or a filesystem error during publication is not a multi-file transaction; rebuild
-before running if publication was interrupted.
-
-## Python kernel subset
-
-```python
-from openassembler.pyfront import Array, f32, i32, kernel, tid_x, ctaid_x, ntid_x
-
-@kernel
-def saxpy(a: f32, x: Array(f32), y: Array(f32), n: i32):
-    i = tid_x() + ctaid_x() * ntid_x()
-    if i < n:
-        y[i] = a * x[i] + y[i]
-```
-
-Supported types are `i32`, `u32`, `f32`, and arrays of those types. The subset
-includes arithmetic, comparisons, `if/elif/else`, conditions with `and/or/not`,
-`for range(...)` with a constant nonzero step, `while`, `break`, `continue`, early
-return, array loads/stores, `float()`/`int()`, `min`/`max`/`abs`, and thread/block
-coordinates along x/y/z. For loops retain Python's visible loop-variable behavior.
-
-`/` produces f32, including when its inputs are integers. `//` and `%` support
-integers and correct truncating GPU division toward Python's floor/sign rules.
-Floating `//` and `%` are rejected. Arithmetic uses fixed-width GPU integers and
-f32 rounding, not arbitrary-precision Python integers or Python float64.
-
-GPU exceptions differ from Python: float division by zero produces IEEE infinity
-or NaN; `int(f32)` truncates and saturates to i32 bounds, with NaN converted to zero.
-Integer divide-by-zero and signed overflow follow the emitted PTX/device behavior,
-not Python exceptions. Avoid those cases in portable mathematical code. Mixed
-integer/float arithmetic requires explicit casts; an f32 array needs `1.0`, not `1`.
-
-`sqrt` is correctly rounded; `exp`, `log`, `tanh`, and `rsqrt` use approximate GPU
-operations. They are available from `openassembler.pyfront`; supported `math`
-aliases are recognized statically. Arbitrary calls, classes, dynamic allocation,
-recursion, general imports as callable helpers, atomics, and f16/f64 arithmetic
-are not supported.
-
-`shared_array(TYPE, CONSTANT_SIZE)` allocates static shared memory and
-`syncthreads()` synchronizes a block. A barrier under a thread-dependent condition
-is rejected conservatively. Both interpreters now cooperate across warps for
-`bar.sync 0`; valid 64-thread shared-memory kernels can pass `--verify`. Divergent
-barriers/deadlocks and unmodelled barrier forms still fail verification clearly.
-
-## CUDA C/C++ and PTX
-
-The backend supports the pointer-increment loops nvcc emits for dot products,
-grid-stride SAXPY, nested loops, and naive matmul. This includes loop-carried
-64-bit values, add/subtract immediates, and common pointer casts/bit operations.
-Float division, `sqrtf`, f32/i32/u32 conversions, register integer division and
-remainder, and predicate logic are supported. The precise supported arithmetic
-forms are recorded in `openassembler/backend/ptxas_fragments.json`.
-
-Unsupported areas include warp shuffle/vote lowering, f16/f64 arithmetic,
-atomics, register spilling, and some vector/memory-ordering forms. Unsupported
-instructions raise a diagnostic rather than silently approximating them. The
-SASS emulator covers more instructions than the compiler can generate.
-
-On macOS, nvcc runs in Colima. Keep projects and include directories under your
-home directory, which the VM mounts. Linux uses the toolkit directly. Windows
-is not supported.
-
-## What verification proves
-
-`compile --verify` compares generated SASS with the PTX interpreter on deterministic
-random inputs and repeats with poisoned registers to expose uninitialized reads.
-The generic harness treats 64-bit parameters as pointers to f32 buffers, uses
-small integer dimensions, and defaults to 64 elements in one block. It cannot
-infer arbitrary matrix shapes, indexing contracts, or application semantics.
-The fixed `(out, in, k, kf)` probe ABI uses its dedicated harness.
-
-Use an explicit GPU `--spec` and application references for real workloads.
-A successful finite test is evidence for those inputs, not a proof for all inputs
-or all CUDA synchronization behavior. Approximate operations need an appropriate
-numerical tolerance in application-level tests.
-
-Exit status: `0` means compilation and requested verification succeeded; `1`
-means a build error or mismatch; `2` means compilation succeeded but the checker
-could not model the kernel. Code failing verification is not published.
-
-## Run compiled outputs or compile and run
-
-```sh
-openassembler run output --backend local --spec examples/run_spec.json
-openassembler run output --backend user@gpu-host --spec examples/run_spec.json
-openassembler run output --backend modal --spec examples/run_spec.json --dry-run
-openassembler cnr examples/vector_add.py --backend modal --spec examples/run_spec.json
-```
-
-`run` requires `manifest.json`, `cubin/`, and `.build/reference/` from a previous
-compile. It does not recompile. `cnr` runs only entries built in that invocation.
-Each command launches our cubin and ptxas's reference on identical inputs,
-compares requested buffers byte for byte, and reports timing. A fallback entry
-is explicitly identified as comparing ptxas code with itself.
-
-Without `--spec`, the convenience harness allocates f32 buffers, guesses scalar
-dimensions, and uses a one-dimensional grid. Inspect `--dry-run`; use it only for
-kernels matching those assumptions. It does not infer the meaning of an arbitrary
-kernel signature. `--kernel NAME` and `--source FILE` restrict existing manifests;
-`--source` resolves duplicate names from different files.
-
-A complete spec is [examples/run_spec.json](../examples/run_spec.json). Its schema:
-
-```json
-{
-  "buffers": {
-    "x": {"dtype": "f32", "count": 128, "init": "random"},
-    "out": {"dtype": "f32", "count": 128, "init": "zeros"}
-  },
-  "steps": [{
-    "kernel": "copy", "source": "kernels/copy.py",
-    "grid": [1, 1, 1], "block": [128, 1, 1], "smem": 0,
-    "args": [{"buf": "x", "offset": 0}, {"buf": "out"}, {"i32": 128}]
-  }],
-  "compare": ["out"],
-  "reps": 3
-}
-```
-
-Buffer dtypes: `f32`, `i32`, `u32` (four bytes), `f16`, `bf16` (two bytes).
-Half-precision `random` uses exact integers in [-3, 3]; explicit values round to
-input precision, with BF16 ties to even. Initialization: `random`, `zeros`, or an explicit
-list (remaining elements stay zero). Arguments: `buf` plus optional byte `offset`,
-`i32`, `u32`, `u64`, or `f32`. Argument order is the kernel's declared order.
-Dimensions are a positive integer or a list of up to three positive integers.
-`smem` is dynamic shared-memory bytes. Steps execute sequentially and share named
-buffers. `compare` defaults to all buffers; a specified list must be nonempty.
-Offsets lie inside the buffer and align to its element size; tensor/vector
-accesses may require stricter alignment in their kernel contract.
-Timing repetitions execute the sequence repeatedly without resetting buffers;
-use idempotent workloads when interpreting timing. Correctness is captured after
-the first sequence. Missing outputs and faulted jobs are failures, never passes.
-
-`--budget SECONDS`, `--job-timeout SECONDS`, `--gpu A100-40GB`, `--reps N`, and
-`--dry-run` control execution. `-n`/`--n` controls only the convenience harness.
-The runner returns nonzero for mismatches, errors, or skipped kernels. Reports
-are written to `run.json` and a timestamped `runs/` file. `--save-jobs` and
-`--from-results` use Python pickle for local trusted diagnostics; do not load
-untrusted pickle files.
+Use [DEVELOPMENT.md](DEVELOPMENT.md) for installation/toolkit requirements and
+[STATUS.md](STATUS.md) for the current architecture, capability matrix and latest
+admitted results. This page does not duplicate per-feature reproduction.

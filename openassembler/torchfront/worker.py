@@ -10,6 +10,7 @@ import base64
 import functools
 import io
 import json
+import math
 import os
 from pathlib import Path
 import shutil
@@ -46,31 +47,145 @@ def _save_state(state):
     return out.getvalue()
 
 
+class StateVerificationError(RuntimeError):
+    """A failed comparison with JSON-serializable, bounded tensor diagnostics."""
+
+    def __init__(self, message, diagnostics):
+        # Error responses also travel through subprocess/Modal JSON and a
+        # bounded frontend traceback. Keep group totals even if details must go.
+        rendered = json.dumps(diagnostics, sort_keys=True, allow_nan=False)
+        while len(rendered) > 12000 and diagnostics.get('failures'):
+            diagnostics['failures'].pop()
+            diagnostics['failure_details_omitted'] += 1
+            rendered = json.dumps(diagnostics, sort_keys=True, allow_nan=False)
+        self.diagnostics = diagnostics
+        super().__init__(message + '\nstate verification diagnostics: ' +
+                         rendered)
+
+
+def _finite_scalar(value):
+    result = float(value)
+    return result if math.isfinite(result) else None
+
+
+def _tensor_diagnostic(reference, actual, rtol, atol):
+    """Describe a failed assert_close; never substitute a different pass gate."""
+    import torch
+    result = {'reference_shape': list(reference.shape), 'reference_dtype': str(reference.dtype),
+              'reference_layout': str(reference.layout),
+              'relative_tolerance': rtol, 'absolute_tolerance': atol}
+    if not isinstance(actual, torch.Tensor):
+        return {**result, 'actual_type': type(actual).__name__, 'kind': 'type'}
+    result.update(actual_shape=list(actual.shape), actual_dtype=str(actual.dtype),
+                  actual_layout=str(actual.layout))
+    if reference.shape != actual.shape or reference.dtype != actual.dtype or reference.layout != actual.layout:
+        return {**result, 'kind': 'metadata'}
+    if reference.layout != torch.strided or reference.is_quantized:
+        return {**result, 'kind': 'unsupported-statistics'}
+    close = torch.isclose(actual, reference, rtol=rtol, atol=atol, equal_nan=False)
+    mismatch = ~close
+    result.update(kind='values', elements=reference.numel(), mismatched_elements=int(mismatch.sum()))
+    samples = []
+    flat = mismatch.reshape(-1)
+    for start in range(0, flat.numel(), 4096):
+        indices = torch.nonzero(flat[start:start + 4096], as_tuple=False).flatten()
+        for offset in indices[:8 - len(samples)].tolist():
+            linear = start + offset
+            index = []
+            for size in reversed(reference.shape):
+                index.append(linear % size)
+                linear //= size
+            samples.append(list(reversed(index)))
+        if len(samples) == 8:
+            break
+    result['mismatched_index_sample'] = samples
+    result['reference_nonfinite_elements'] = int((~torch.isfinite(reference)).sum())
+    result['actual_nonfinite_elements'] = int((~torch.isfinite(actual)).sum())
+    # Cast before subtraction: integer subtraction can overflow and BF16 would
+    # round the diagnostic itself. Complex magnitudes use the same double width.
+    dtype = torch.complex128 if reference.is_complex() else torch.float64
+    a, b = reference.to(dtype), actual.to(dtype)
+    finite = torch.isfinite(a) & torch.isfinite(b)
+    a, b = a[finite], b[finite]
+    delta = b - a
+    reference_l2 = _finite_scalar(torch.linalg.vector_norm(a))
+    difference_l2 = _finite_scalar(torch.linalg.vector_norm(delta))
+    result.update(finite_pair_elements=a.numel(),
+                  max_abs_difference=_finite_scalar(delta.abs().max()) if delta.numel() else None,
+                  reference_l2=reference_l2,
+                  actual_l2=_finite_scalar(torch.linalg.vector_norm(b)),
+                  difference_l2=difference_l2,
+                  relative_l2_difference=(_finite_scalar(difference_l2 / reference_l2)
+                                          if reference_l2 and difference_l2 is not None else None),
+                  statistics_scope='finite element pairs; null means undefined or overflow')
+    return result
+
+
 def compare_states(reference: bytes, actual: bytes, rtol: float, atol: float,
                    state_rtol: float, state_atol: float):
+    """Apply the declared gates to every state; diagnose failures without admitting them."""
     import torch
     expected = torch.load(io.BytesIO(reference), map_location='cpu', weights_only=True)
     got = torch.load(io.BytesIO(actual), map_location='cpu', weights_only=True)
+    report = {'schema': 1, 'status': 'failed', 'tensors_checked': 0, 'tensors_failed': 0,
+              'non_tensor_values_failed': 0, 'groups': {}, 'failures': [],
+              'rtol': rtol, 'atol': atol, 'state_rtol': state_rtol, 'state_atol': state_atol,
+              'gradient_scope': 'retained application gradients; raw versus clipped is not inferred'}
     if expected.keys() != got.keys():
-        raise RuntimeError('verification failed: eager/compiled execution observed different model or optimizer states')
-    checked = 0
+        report.update(missing_keys=[key[:256] for key in sorted(expected.keys() - got.keys())[:8]],
+                      unexpected_keys=[key[:256] for key in sorted(got.keys() - expected.keys())[:8]],
+                      missing_key_count=len(expected.keys() - got.keys()),
+                      unexpected_key_count=len(got.keys() - expected.keys()),
+                      key_sample_scope='first 8 keys per set, at most 256 characters each')
+        raise StateVerificationError('verification failed: eager/compiled execution observed different model or optimizer states', report)
+    first_failure = None
+    failure_count = 0
     for key in expected:
         e, g = expected[key], got[key]
+        prefix = key.split('/', 1)[0]
+        group_name = prefix if prefix in ('outputs', 'parameters', 'gradients', 'optimizer') else 'other'
+        group = report['groups'].setdefault(group_name, {'tensors_checked': 0, 'tensors_failed': 0,
+                                                       'non_tensor_values_failed': 0})
         if isinstance(e, torch.Tensor):
             tensor_rtol, tensor_atol = ((state_rtol, state_atol) if key.startswith(('parameters/', 'optimizer/'))
                                         else (rtol, atol))
+            report['tensors_checked'] += 1
+            group['tensors_checked'] += 1
             try:
                 torch.testing.assert_close(g, e, rtol=tensor_rtol, atol=tensor_atol, equal_nan=False)
-            except AssertionError as exc:
-                raise RuntimeError(f'verification failed at {key}: {exc}') from None
-            checked += 1
+                continue
+            except (AssertionError, TypeError, ValueError) as exc:
+                message = str(exc)
+            report['tensors_failed'] += 1
+            group['tensors_failed'] += 1
+            if len(report['failures']) < 8:
+                try:
+                    details = _tensor_diagnostic(e, g, tensor_rtol, tensor_atol)
+                except Exception as exc:
+                    # A reporting limitation must never hide the original failure.
+                    details = {'kind': 'statistics-unavailable', 'reason': type(exc).__name__}
+                report['failures'].append({'key': key[:256], 'key_truncated': len(key) > 256, **details})
         elif g != e:
-            raise RuntimeError(f'verification failed at {key}: {g!r} != {e!r}')
-    if not checked:
+            message = f'{g!r} != {e!r}'
+            report['non_tensor_values_failed'] += 1
+            group['non_tensor_values_failed'] += 1
+            if len(report['failures']) < 8:
+                report['failures'].append({'key': key[:256], 'key_truncated': len(key) > 256,
+                                           'kind': 'non-tensor-value'})
+        else:
+            continue
+        failure_count += 1
+        if first_failure is None:
+            first_failure = f'verification failed at {key[:256]}: {message[:1200]}'
+    if first_failure is not None:
+        report['failure_details_omitted'] = failure_count - len(report['failures'])
+        raise StateVerificationError(first_failure, report)
+    if not report['tensors_checked']:
         raise RuntimeError('verification observed no model tensors; no comparison was performed')
-    return {'status': 'ok', 'tensors_checked': checked, 'rtol': rtol, 'atol': atol,
+    return {'status': 'ok', 'tensors_checked': report['tensors_checked'], 'rtol': rtol, 'atol': atol,
             'state_rtol': state_rtol, 'state_atol': state_atol,
-            'scope': 'observed model outputs, final parameters, gradients and optimizer state'}
+            'scope': 'observed model outputs, final parameters, gradients and optimizer state',
+            'groups': report['groups'], 'gradient_scope': report['gradient_scope']}
 
 
 def execute_program(root: Path, config: dict, state_path: Path, *, compiled: bool, report_path: Path,
@@ -372,8 +487,10 @@ def main():
     else:
         try:
             result = process(json.loads(a.request.read_text()))
-        except Exception:
+        except Exception as exc:
             result = {'error': traceback.format_exc()}
+            if isinstance(exc, StateVerificationError):
+                result['verification'] = exc.diagnostics
         a.result.write_text(json.dumps(result))
         return 1 if 'error' in result else 0
     return 0

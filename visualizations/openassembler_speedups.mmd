@@ -1,106 +1,22 @@
-%% OpenAssembler speedup and algorithm-innovation map
-%% Each feature points back to the corresponding stage in openassembler_pipeline.mmd.
-
+%% Current optimization map. Detailed evidence and limits live in the per-idea catalogue.
 flowchart TB
-  ROOT["OpenAssembler pipeline\nfrontends -> PTX -> backend -> encoder -> cubin -> GPU"]
-
-  subgraph F1["A. Constant division / remainder lowering"]
-    A1["PTX div/rem by compile-time d"]
-    A2["opt.divconst.lower\npow2 or magic multiplier"]
-    A3["mul-high + shift\noptional correction + r = x - q*d"]
-    A4["Z3 proof over 32-bit domain\nproved / refuted / unknown"]
-    A5["13 instructions -> 2-3\nrem can reuse quotient"]
-    A1 --> A2 --> A3 --> A4 --> A5
-  end
-
-  subgraph F2["B. Counted-loop unroll and latency hiding"]
-    B1["PTX do-while loop\ntrip counter + predicate latch"]
-    B2["unroll_loops(factor=4)\nbody repeated, one latch"]
-    B3["early next-trip predicate\nseparate from current body"]
-    B4["list scheduler hides\n13-cycle predicate-to-guard gap"]
-    B5["fewer branch/index ops\nmore ILP, more live values"]
-    B1 --> B2 --> B3 --> B4 --> B5
-  end
-
-  subgraph F3["C. SSA cleanup and register pressure control"]
-    C1["virtual V/PV IR\nloop-carried homes"]
-    C2["DCE\nremove dead side-effect-free ops"]
-    C3["CFG liveness\nguarded defs do not kill values"]
-    C4["coalesce wide copies\nrename compatible values"]
-    C5["linear-scan groups\nconsecutive/aligned tuples"]
-    C6["copy-affinity retries\nminimize real MOVs"]
-    C1 --> C2 --> C3 --> C4 --> C5 --> C6
-  end
-
-  subgraph F4["D. SASS control-bit scheduling"]
-    D1["lowered SASS + read/write sets"]
-    D2["dependency graph\nmeasured latency edges"]
-    D3["basic-block list schedule\ncritical-path priority"]
-    D4["encode control bits\nstall, yield, wbar, rbar, wait, reuse"]
-    D5["scoreboard counters\npack independent long-latency ops"]
-    D1 --> D2 --> D3 --> D4 --> D5
-  end
-
-  subgraph F5["E. Native SM80 tensor stage-pair pipeline"]
-    E1["cp.async / LDGSTS\ncopy global -> shared"]
-    E2["SB0 reserved for copy groups\nDEPBAR.LE wait counts"]
-    E3["LDSM.x4/x2 paired loads\nXOR-swizzled shared operands"]
-    E4["HMMA m16n8k16\n4-register FP32 accumulator groups"]
-    E5["two alternating stages\n128x128x64 CTA tile"]
-    E6["peeled final pair\nno speculative tail reads"]
-    E7["protected scoreboard recycle\naddress WAR dependency"]
-    E1 --> E2 --> E3 --> E4 --> E5 --> E6 --> E7
-  end
-
-  subgraph F6["F. Tensor issue discipline and memory reuse"]
-    G1["source-order HMMA issue\noperand reuse hints"]
-    G2["ordinary SB1..5\ncompletion and reader tracking"]
-    G3["epoch drain before\nscalar/memory/control observer"]
-    G4["64-bit pointer carry chains\nreduced address homes"]
-    G5["group adjacent FP32 stores\nreuse output-row pointers"]
-    G1 --> G2 --> G3 --> G4 --> G5
-  end
-
-  subgraph F7["G. AlphaTensor / Strassen fast matrix multiply"]
-    H1["rank-R factorization\n97 imported schemes"]
-    H2["exact rational verification\nu, v, w tensor identity"]
-    H3["compile-time linear combinations\nA/B terms fused up to register budget"]
-    H4["tiled sgemm128 kernels\nblock recursion + accumulation"]
-    H5["compare against cuBLAS\nalgorithmic path, not scalar ptxas"]
-    H1 --> H2 --> H3 --> H4 --> H5
-  end
-
-  ROOT --> A1
-  ROOT --> B1
-  ROOT --> C1
-  ROOT --> D1
-  ROOT --> E1
-  ROOT --> G1
-  ROOT --> H1
-
-  A2 -. "feeds selector" .-> C1
-  B2 -. "changes IR shape" .-> C1
-  C6 --> D1
-  D5 --> ROOT
-  E7 --> ROOT
-  G5 --> ROOT
-  H4 -. "reuses tensor GEMM" .-> E1
-
-  click A1 href "openassembler_pipeline.mmd#scalar-backend" "Scalar backend: divconst lowering"
-  click B1 href "openassembler_pipeline.mmd#scalar-backend" "Scalar backend: loop unrolling"
-  click C1 href "openassembler_pipeline.mmd#scalar-backend" "Scalar backend: IR and register allocation"
-  click D1 href "openassembler_pipeline.mmd#scalar-backend" "Scalar backend: scheduling and control bits"
-  click E1 href "openassembler_pipeline.mmd#native-sm80-tensor-backend" "Tensor backend: async copy and stages"
-  click G1 href "openassembler_pipeline.mmd#native-sm80-tensor-backend" "Tensor backend: issue and reuse"
-  click H1 href "openassembler_pipeline.mmd#algorithmic-acceleration-paths" "Algorithmic acceleration paths"
-
-  classDef root fill:#0f172a,stroke:#0f172a,color:#ffffff,stroke-width:2px;
-  classDef div fill:#e8fbf6,stroke:#0f766e,stroke-width:1.5px,color:#0f2924;
-  classDef scalar fill:#fff4df,stroke:#c2410c,stroke-width:1.5px,color:#3b1f0b;
-  classDef tensor fill:#f4e8ff,stroke:#7e22ce,stroke-width:1.5px,color:#281034;
-  classDef algo fill:#e8f1ff,stroke:#2563eb,stroke-width:1.5px,color:#0f172a;
-  class ROOT root;
-  class A1,A2,A3,A4,A5 div;
-  class B1,B2,B3,B4,B5,C1,C2,C3,C4,C5,C6,D1,D2,D3,D4,D5 scalar;
-  class E1,E2,E3,E4,E5,E6,E7,G1,G2,G3,G4,G5 tensor;
-  class H1,H2,H3,H4,H5 algo;
+    S["Native scalar backend"] --> D["Constant div/rem strength reduction"]
+    S --> R["Liveness, grouped registers and copy cleanup"]
+    S --> C["Measured scheduling and protected dependencies"]
+    T["Native SM80 tensor backend"] --> P["Two-stage copies and paired matrix loads"]
+    T --> A["Folded addresses, vector stores and operand reuse"]
+    T --> O["Explicit options: Morton, fused epilogues, direct pointers"]
+    O --> Q["Shape-specific wins and regressions; no universal default"]
+    W["Explicit cooperative row operators"] --> M["Warp-per-row mapping, synchronized reductions"]
+    M --> G["Full output and guard checks before timing"]
+    F["Separate low-rank research path"] --> L["Verified factors and FP32 research kernels"]
+    L --> N["No automatic native Tensor Core GEMM replacement"]
+    I["Configured application route"] --> B["Inductor/Triton capture and fusion"]
+    B --> E["Whole-state gate and whole-step measurements"]
+    click D href "../docs/research/ideas/constant-division.md" "Constant division findings"
+    click C href "../docs/research/ideas/scalar-dependency-correctness.md" "Dependency correctness"
+    click P href "../docs/research/ideas/native-tensor-gemm.md" "Native tensor mainloop"
+    click O href "../docs/research/ideas/direct-pointer-homes.md" "Explicit tuning and negative controls"
+    click M href "../docs/research/ideas/cooperative-softmax.md" "Cooperative reductions"
+    click L href "../docs/research/ideas/low-rank-factorization-library.md" "Low-rank scope"
+    click B href "../docs/research/ideas/pytorch-application-capture.md" "Application code-generation ownership"

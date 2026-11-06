@@ -100,6 +100,7 @@ class Case:
     note: str = ""
     skip: str = ""                     # set: no jobs, reported as SKIP
     describe: str = ""
+    expected_f32_constant: dict[str, float] = field(default_factory=dict)
 
 
 @dataclass
@@ -209,6 +210,8 @@ def auto_case(t: Target, out_dir: Path, n: int, reps: int, plan: Plan) -> None:
     k = t.kernel
     if k.get("gemm") is not None:
         return gemm_case(t, out_dir, reps, plan)
+    if k.get("rowwise") is not None:
+        return rowwise_case(t, out_dir, reps, plan)
     if k.get("tensor") is not None:
         plan.cases.append(Case(k["name"], t.entry["source"], -1, -1, [],
                                skip="tensor kernels need --spec with their actual buffers, precision, "
@@ -268,7 +271,7 @@ def gemm_case(t: Target, out_dir: Path, reps: int, plan: Plan) -> None:
     contract = t.kernel["gemm"]
     try:
         allowed = ("m", "n", "k", "dtype", "schedule", "output_dtype", "layout", "arch",
-                   "cta_order", "epilogue")
+                   "cta_order", "epilogue", "pointer_mode")
         g = GemmPlan(**{key: contract[key] for key in allowed if key in contract})
         if contract.get("schema") != 1 or contract.get("launch") != g.launch:
             raise ValueError("launch contract differs from its validated plan")
@@ -299,6 +302,38 @@ def gemm_case(t: Target, out_dir: Path, reps: int, plan: Plan) -> None:
                                  if g.epilogue == "none" else "fused epilogue smoke uses zero bias/residual inputs"),
                            describe=f"{g.m}x{g.n}x{g.k} {g.dtype}->f32, grid {g.launch['grid']}, "
                                     f"block {g.launch['threads']}, {g.launch['smem']} shared bytes"))
+
+
+def rowwise_case(t: Target, out_dir: Path, reps: int, plan: Plan) -> None:
+    """Zero-input analytic smoke plus unchanged bitwise OA/ptxas comparison."""
+    from openassembler.kernels.reductions import ReductionPlan
+    contract = t.kernel["rowwise"]
+    try:
+        allowed = ("rows", "width", "op", "epsilon", "arch")
+        g = ReductionPlan(**{key: contract[key] for key in allowed if key in contract})
+        if (contract.get("schema") != 1 or contract.get("launch") != g.launch
+                or t.label != g.op or t.kernel["params"] != [["u64", "X"], ["u64", "Y"]]):
+            raise ValueError("launch or ABI differs from its validated plan")
+    except (ValueError, TypeError, KeyError) as exc:
+        raise RunError(f"invalid rowwise launch contract for {t.label}: {exc}") from None
+    size = 4 * g.rows * g.width
+    buffers, outputs = {"X": size, "Y": size}, {"Y": [(0, size)]}
+    args = [("buf", "X", 0), ("buf", "Y", 0)]
+    i = len(plan.jobs)
+    for method, field in (("ours", "cubin"), ("ptxas", "reference")):
+        steps = [(method, t.label, tuple(g.launch["grid"]), (g.launch["threads"], 1, 1), 0, args)]
+        job = _job(f"{t.entry['cubin']}:{t.label}#{method}",
+                   {method: (out_dir / t.entry[field]).read_bytes()},
+                   buffers, {}, {}, steps, outputs, reps)
+        # 0xffffffff is an FP32 NaN. Any unwritten output fails the independent
+        # finite analytic gate, including LayerNorm's expected zero output.
+        job["init_byte"] = {"Y": 255}
+        plan.jobs.append(job)
+    expected = 1.0 / g.width if g.op == "softmax" else 0.0
+    plan.cases.append(Case(t.label, t.entry["source"], i, i + 1, ["Y"],
+                           note="zero-input analytic smoke; separate A100 tests cover nonzero inputs and canaries",
+                           describe=f"{g.rows}x{g.width} contiguous f32 {g.op}, grid {g.launch['grid']}, block 128",
+                           expected_f32_constant={"Y": expected}))
 
 
 def _dim(v, what: str) -> tuple[int, int, int]:
@@ -516,6 +551,18 @@ def compare(plan: Plan, results: dict) -> list[Outcome]:
                 vo = go[4 * i:4 * i + 4].hex() or "missing"
                 vr = gr[4 * i:4 * i + 4].hex() or "missing"
                 bad.append(f"{b}[{i}]: ours 0x{vo} vs ptxas 0x{vr}")
+            if b in c.expected_f32_constant:
+                value = c.expected_f32_constant[b]
+                # This adds an independent analytic smoke gate; it does not
+                # replace or relax the bitwise comparison above.
+                if len(go) % 4 or len(gr) % 4:
+                    bad.append(f"{b}: analytic f32 smoke received an invalid byte count")
+                else:
+                    for method, raw in (("ours", go), ("ptxas", gr)):
+                        for index, (actual,) in enumerate(struct.iter_unpack("<f", raw)):
+                            if not math.isfinite(actual) or abs(actual - value) > 1e-6 + 5e-5 * abs(value):
+                                bad.append(f"{b}[{index}]: {method} analytic smoke expected {value}, got {actual}")
+                                break
         t_o = (ro.get("time_ms") or {}).get("median")
         t_r = (rr.get("time_ms") or {}).get("median")
         outs.append(Outcome(c, "MISMATCH" if bad else "OK", "; ".join(bad), t_o, t_r))
@@ -805,7 +852,11 @@ def run_command(o: RunOptions) -> int:
     rc = report(outs, device)
     rep = {"openassembler": __version__, "backend": o.backend, "device": device,
            "cases": [{"kernel": x.case.name, "source": x.case.source, "result": x.status, "detail": x.detail,
-                      "ours_ms": x.t_ours, "ptxas_ms": x.t_ref, "speedup": x.speedup} for x in outs]}
+                      "ours_ms": x.t_ours, "ptxas_ms": x.t_ref, "speedup": x.speedup,
+                      "note": x.case.note, "launch_description": x.case.describe,
+                      **({"analytic_smoke": {"expected_f32_constant": x.case.expected_f32_constant,
+                                             "rtol": 5e-5, "atol": 1e-6, "require_finite": True}}
+                         if x.case.expected_f32_constant else {})} for x in outs]}
     try:
         from datetime import datetime, timezone
         stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S.%fZ")

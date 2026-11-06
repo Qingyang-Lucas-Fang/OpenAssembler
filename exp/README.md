@@ -1,20 +1,17 @@
-# Experiment Workspace
+# Experiment drivers and evidence
 
-Legacy A100 experiment workspaces have been retired after their successful,
-negative, failed and superseded results were consolidated in
-[`docs/research/A100_MMA_RESULTS.md`](../docs/research/A100_MMA_RESULTS.md).
-Compact source JSON and measurements remain under `docs/evidence/`; this
-directory no longer carries old per-variant builds, caches, copied source trees
-or phase-specific duplicate reports.
+This directory contains isolated research drivers and raw results. It is not an
+alternative documentation tree and is not imported by the production compiler.
+The canonical findings and exact reproduction commands are in the
+[per-idea catalogue](../docs/research/README.md).
 
-The current production GEMM can be tested with the ordinary CLI and test suite.
-Research reproduction requirements and retained records are indexed in
-[`REPRODUCING.md`](../REPRODUCING.md) and the
-[`docs/research/README.md`](../docs/research/README.md) index.
+| Workspace | Use |
+|---|---|
+| [a100_counters](a100_counters/README.md) | Matched native/library counter and graph controls |
+| [whole_stack](whole_stack/README.md) | Original transformer and hybrid-MLP application/stage study |
+| [weaknesses](weaknesses/README.md) | Validated compiler/operator follow-ups and rejected controls |
 
-Active experiments are isolated from production code:
-
-- [A100 counter study](a100_counters/README.md): current direct GEMM profiles.
-- [A100 whole-stack study](whole_stack/README.md): transformer application
-  steps/inference, native-GEMM hybrid MLPs, scalar neural stages, and counter
-  diagnosis. Numerical failures and attribution limits are retained.
+Keep raw samples, failed gates and identities; do not create another phase
+report that duplicates a dossier. Generated build/payload caches remain
+noncanonical. [Development conventions](../docs/DEVELOPMENT.md) explain evidence
+levels, promotion requirements and retained documentation provenance.

@@ -1,364 +1,100 @@
-  <p align="center"><img src="figs/openassembler_logo.png" width="820"></p>
-
-<div align="center">
+<p align="center"><img src="figs/openassembler_logo.png" width="680" alt="OpenAssembler"></p>
 
 # OpenAssembler
 
-**OpenAssembler 0.2.0 — Python / CUDA C & C++ / PTX to NVIDIA SASS and cubin.**
+OpenAssembler compiles supported Python GPU kernels, CUDA C/C++ kernels and PTX
+into native NVIDIA SASS and loadable CUDA binaries. Its own instruction selector,
+register allocator, scheduler and encoder target **A100 / SM80**.
 
-Compile GPU kernels from a file or a repository, inspect their SASS, and execute
-compiled outputs locally, over SSH, or on Modal. The backend targets **sm_80**.
-Performance varies by workload: recorded microbenchmarks span 0.92×–1.36× ptxas,
-while the naive MLP remains slower. These are kernel measurements, not a claim
-of a general LLM or training speedup.
+It uses NVIDIA tools as black-box encoding oracles, for CUDA C/C++ to PTX,
+for the cubin container and for reference disassembly. A separate configured
+PyTorch application workflow uses Dynamo/AOTAutograd and Inductor/Triton to
+capture and replay model graphs. That workflow does not automatically replace
+its kernels with the native OpenAssembler backend.
 
-[![License](https://img.shields.io/badge/license-Apache--2.0-blue)](LICENSE)
-[![Arch](https://img.shields.io/badge/arch-sm__80%20(Ampere)-76b900)](#)
+[Architecture and status](docs/STATUS.md) · [All commands](docs/COMMANDS.md) ·
+[Research catalogue](docs/research/README.md) · [Development setup](docs/DEVELOPMENT.md)
 
-[What this is](#what-this-is) ·
-[Quick start](#quick-start) ·
-[A100 research](#a100-research-and-current-results) ·
-[How it works](#how-it-works) ·
-[Research index](docs/research/README.md) ·
-[Integration review](docs/INTEGRATION_REVIEW.md) ·
-[Reproduce it](REPRODUCING.md)
+## What you can do
 
-</div>
+- Compile standalone kernels or discover supported kernels in a repository.
+- Generate full-tile FP16/BF16 GEMMs with FP32 output, with explicit Morton,
+  fused-epilogue and pointer-home options.
+- Generate cooperative FP32 softmax and population LayerNorm with row/column tails.
+- Inspect cubins and SASS, emulate supported instructions, and run matched GPU
+  checks locally, over SSH or on Modal.
+- Capture a configured PyTorch application's bounded workload and replay its
+  saved compiler/runtime cache with state verification.
+- Study factorized matrix multiplication, compiler encodings and scheduling
+  through the retained research tools and evidence.
 
----
-## Why OpenAssembler
-
-Our goal is to improve useful GPU work on existing hardware by controlling
-instruction selection, registers, data movement and scheduling. Current evidence
-targets A100/sm_80. Selected kernels improve on ptxas; that does not establish a
-general LLM training speedup or H100 support. The native SM80 tensor compiler
-and its retained experiments make the remaining cuBLAS performance gap explicit.
-
-## What this is
-
-`ptxas`, NVIDIA's PTX-to-SASS compiler, is closed source. **OpenAssembler is a
-second implementation of it**, built by treating `ptxas` as a black box and
-reverse-engineering its instruction encoding, scheduling, and ELF container
-format from the outside — then replacing its code generator with our own.
-
-Concretely, this repo contains:
-
-- **A SASS encoder/decoder for sm_80 (Ampere)** — opcodes, operand forms,
-  control bits (stall, yield, scoreboards, wait masks) — recovered by bit-flip
-  fuzzing against `nvdisasm` ([docs/findings-sm80-encoding.md](docs/findings-sm80-encoding.md)).
-- **A Python / CUDA C/C++ / PTX → SASS compiler** (register allocation, scheduling, 4× loop
-  unrolling). A historical 203-probe run emitted 2,132 instructions versus ptxas's
-  2,249 (-5.2%). Selected microbenchmarks ranged from 0.92× to 1.36× ptxas speed;
-  NN/transformer baselines and their numerical mismatches are reported separately.
-- **A functional SASS emulator**, fitted to real A100 behaviour:
-  tensor-core (HMMA/IMMA/DMMA) numerics bit-exact on 512/512 recorded lanes,
-  instruction latencies measured directly on hardware (not guessed from
-  `nvdisasm`'s mined minimum distances, which are provably wrong — see
-  below).
-- **Division/remainder by a constant**, replacing `ptxas`'s always-runtime
-  reciprocal sequence with a [z3-proven](openassembler/opt/divconst.py)
-  multiply-high lowering: **13 → 2–3 instructions**.
-- **Strassen / AlphaTensor fast matrix multiplication**: 97 published
-  low-rank factorizations of matrix multiply (AlphaTensor, DeepMind/Nature
-  2022) imported, verified exactly over the rationals, compiled by our
-  backend, and measured against cuBLAS on an A100 at n = 8192.
-- **Python and CUDA C/C++ frontends**: write a kernel in a Python subset
-  (`openassembler/pyfront/`, built from scratch) or in CUDA C/C++ (lowered to PTX
-  by `nvcc`), and it is compiled to SASS by our backend
-  ([docs/FRONTENDS.md](docs/FRONTENDS.md)).
-- **`openassembler`, a CLI** that ties all of this together: compile a PTX, Python
-  or CUDA C file to a `.cubin` plus a readable `.sass` with our backend, verify it
-  against a reference interpreter, and run compiled cubins against a ptxas reference
-  on a local GPU, an SSH host, or a cloud GPU. The separate `gpu run` command tests
-  the probe corpus.
-
-Every measurement is tied to a workload and hardware. [REPRODUCING.md](REPRODUCING.md) gives the commands; [docs/STATUS.md](docs/STATUS.md) records current support and validation scope.
-
-> OpenAssembler uses a ptxas-built ELF container for metadata and replaces the
-> kernel text with words generated by its own backend; see [How it works](#how-it-works).
-> The current unsupported areas are listed in [docs/FRONTENDS.md](docs/FRONTENDS.md)
-> and [docs/STATUS.md](docs/STATUS.md).
-
----
+Support and performance are workload-specific. The [status page](docs/STATUS.md)
+separates native compiler results, library controls and application-frontend
+results. The [research catalogue](docs/research/README.md) includes successful,
+rejected, mixed and untested ideas, each with its own methods and reproduction.
 
 ## Quick start
 
-### Install
-```bash
-git clone https://github.com/Qingyang-Lucas-Fang/OpenAssembler.git && cd OpenAssembler
-python3 --version                  # must be 3.12 or newer
-python3 -m venv .venv && source .venv/bin/activate
-pip install -e .                   # installs the `openassembler` command into the venv
-```
-Needs **Python 3.12+** (`openassembler` has no Python dependencies). To run the tests too: `pip install pytest`. On Debian/Ubuntu, `sudo apt install python3-venv xz-utils` first (a minimal install has neither); compiling CUDA C also needs a host `g++`.
-
-| Your machine | Supported? |
-|---|---|
-| Linux (x86_64 or ARM64) | yes, native |
-| macOS (Apple Silicon or Intel) | yes: NVIDIA's tools only run on Linux, so they run in a small Linux VM ([colima](https://github.com/abiosoft/colima)) that `env/cuda.sh` drives for you; keep the repo under your home directory |
-
-Windows is not supported.
-
-You do **not** need an NVIDIA GPU to compile, only to run the result (see [Run it on a real GPU](#run-it-on-a-real-gpu)).
-
-
-### Set up NVIDIA's toolkit (once)
-
-Compiling needs `ptxas`, `nvdisasm` and (for CUDA C) `nvcc`. NVIDIA's license doesn't let us ship them,
-so `env/fetch_cuda.sh` downloads CUDA 12.8 straight from NVIDIA and checks it against NVIDIA's published
-checksums. It picks the build that matches your CPU. On macOS, start the VM first:
-
-```bash
-brew install colima && colima start        # macOS only; skip on Linux
-```
-```bash
-env/fetch_cuda.sh                       # for both macOS and linux
-env/cuda.sh ptxas --version              # must print "release 12.8"
-```
-Already have CUDA on a Linux box? Point `OPENASSEMBLER_CUDA_HOME` at it (or just have `ptxas`/`nvdisasm`/`nvcc` on `PATH`); the numbers in this repo were measured with 12.8.
-
-### Run OpenAssembler
-```bash
-openassembler
-```
-With no arguments this opens an interactive shell (history, tab completion) that takes every command below without the `openassembler` prefix (so you do not need to include the `openassembler` command). Every command also works one-shot, e.g. `openassembler status`.
-
-Here is the expected display:
-<img width="943" height="318" alt="Image" src="https://github.com/user-attachments/assets/6411bddf-d711-4c01-913f-bb30cee27e6f" />
-
----
-
-### Compile your first kernel
-
-One command turns a kernel into a loadable **`.cubin`** and a readable **`.sass`** listing, and `--verify` checks the result is bit-exact against a reference interpreter:
-
-```bash
-compile examples/div_by_const.ptx -o out --verify
-# -> output/cubin/out.cubin   (the binary the GPU driver loads)
-# -> output/sass/out.sass     (the readable SASS disassembly)
-# -> output/manifest.json
-```
-
-The kernel can be PTX, a small Python subset, or CUDA C/C++, and all three end in our backend:
-
-```bash
-compile examples/vector_add.py  -o out --verify   # Python  -> SASS + cubin
-compile examples/vector_add.cu  -o out --verify   # CUDA C  -> SASS + cubin
-```
-
-What each language accepts, what is rejected, and the exact limits of `--verify` are in
-**[docs/FRONTENDS.md](docs/FRONTENDS.md)**. `-o` is a logical output name. Use `--out-dir DIR` to choose the output folder; the command writes `DIR/cubin/NAME.cubin`, `DIR/sass/NAME.sass`, and `DIR/manifest.json`.
-
----
-
-### Compile a repository and run it
-
-A directory compile can build standalone kernels or a configured PyTorch training application. Standalone discovery recognizes PTX entries, CUDA C/C++ files containing `__global__`, and Python files containing OpenAssembler `@kernel` functions. For a Python application, a root `openassembler.toml` selects its entry point and bounded workload. TorchDynamo/AOTAutograd and TorchInductor/Triton capture project model graphs and produce cubins plus SASS. Python host code, training control flow, PyTorch, and other CPU-side dependencies remain part of the runtime; this does not turn an arbitrary repository into a standalone host executable. See [docs/FRONTENDS.md](docs/FRONTENDS.md#pytorch-training-applications) for coverage and limits.
-
-This repository's small Transformer sample includes a deterministic two-step Modal/A100 capture configuration and eager-versus-compiled state verification:
-
-```bash
-openassembler compile testcases/test_whole_repo/ --out-dir output --verify
-# -> output/cubin/applications/test_whole_repo/*.cubin
-# -> output/sass/applications/test_whole_repo/*.sass
-# -> output/manifest.json and output/.build/applications/test_whole_repo/
-openassembler run output --application test_whole_repo --backend modal
-```
-
-Without `[application]`, directory compilation walks tracked and non-ignored files, recognizes PTX entries, CUDA C/C++ files containing `__global__`, and Python files containing OpenAssembler `@kernel` functions. Shell scripts, host-only files, virtual environments, and generated output are skipped and counted. The source tree is mirrored below the output folder:
-
-```bash
-openassembler compile my_repo/ --out-dir output --verify
-# output/cubin/kernels/gemm.cubin
-# output/sass/kernels/gemm.sass
-# output/manifest.json
-```
-
-`compile` only builds. `run output` executes the standalone-kernel harness; add `--application NAME` to replay a configured PyTorch application with its bundled runtime cache. `cnr SRC` combines compile and run. For applications, change the configured workload and recompile to alter entry-point arguments or captured shapes.
-
-For non-trivial launches, create a JSON `--spec` describing buffers, arguments, grid, block, and the buffers to compare. The schema and examples are in [docs/FRONTENDS.md](docs/FRONTENDS.md). The automatic harness is intentionally conservative and is suitable for simple one-dimensional kernels.
-
-```bash
-openassembler run output --backend modal --dry-run
-openassembler run output --backend modal --spec examples/run_spec.json --budget 120
-openassembler cnr examples/vector_add.py --backend modal --dry-run
-```
-
-### Run it on a real GPU
-
-The probe corpus commands below validate the compiler itself. They are separate from `run`, which consumes a project manifest.
-
-```bash
-openassembler corpus
-openassembler check
-openassembler gpu run --backend modal --dry-run
-openassembler gpu run --backend modal
-```
-
-### Reproduce a Modal run
-
-After installing the toolkit and package above, install the optional Modal client
-and authenticate. The following commands were exercised with Modal client 1.6.2:
+Use Python **3.12 or newer**:
 
 ```sh
-pip install modal==1.6.2
-modal setup
-openassembler compile examples/vector_add.py -o vector_add --out-dir output --verify
-openassembler run output --backend modal --spec examples/run_spec.json --dry-run --budget 60 --job-timeout 20
-openassembler run output --backend modal --spec examples/run_spec.json --budget 60 --job-timeout 20
-openassembler cnr examples/vector_add.py --backend modal --spec examples/run_spec.json --budget 60 --job-timeout 20
-modal app list
-modal container list
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -e .
 ```
 
-Use `--gpu A100-40GB` (the default) for sm_80 validation. The report records the
-actual device delivered. The dry run starts no GPU and prints the upload size,
-launch plan, estimated cost, and exact command. Prices are estimates, not a
-billing guarantee. `--budget` bounds batch execution, `--job-timeout` bounds each
-job, and the Modal function has a hard timeout; startup overhead may add billing.
-Reports are saved under `output/runs/` with UTC timestamps and as `output/run.json`.
+Compilation needs CUDA toolkit tools, not a local GPU. On Linux an installed
+CUDA toolkit can be used. On macOS the toolkit runs in a Colima Linux VM:
 
-If the client is interrupted, inspect `modal app list` and `modal container list`;
-stop only the leftover OpenAssembler app with `modal app stop APP_ID`. No
-`modal shell` is needed. The cloud environment receives the job payload and the
-small GPU runner package, not the entire source repository. See
-[REPRODUCING.md](REPRODUCING.md) for the current validation commands.
-
----
-
-## A100 research and current results
-
-The native `gemm` path emits SM80 FP16/BF16 kernels using HMMA, LDSM,
-asynchronous shared-memory copies and OpenAssembler's encoder. It supports
-full-tile `C = A @ B.T` with FP32 accumulation/output. The measured stage-pair
-kernel reaches 79.76–98.91% of matched default cuBLAS on the six tested large
-shapes; cuBLASLt also remains faster in selected configurations. These kernel
-results do not establish native whole-transformer training acceleration.
-
-The explicit `--cta-order morton8` and FP32 `bias_residual[_relu]` epilogues
-improve selected tall and square cases over OpenAssembler's own baselines, but
-remain shape-specific and slower than ptxas when compared as fused kernels.
-The compiler does not choose these options automatically.
-
-The November 6 [whole-stack study](docs/research/WHOLE_STACK_RESULTS.md) adds
-ten synthetic transformer configurations in two process-order rounds,
-native-GEMM hybrid MLP steps and scalar neural stages. Nine transformer
-configurations pass both numerical comparisons; BF16 training fails both.
-Whole-transformer gains use the Inductor/Triton application frontend, while
-native OA kernels remain behind same-PTX ptxas on the isolated GEMM controls.
-The study retains failed gates, profiles and complete-step costs explicitly.
-
-The research index links the detailed results ledger, production contract,
-reverse-engineering notes, primary sources, machine-readable measurements and
-reproduction instructions:
-[docs/research/README.md](docs/research/README.md).
-
-Scalar division/loop optimizations, tensor-core numerical modeling, AlphaTensor
-and Strassen experiments, synchronization sweeps, producer warps, deeper
-pipelines, CUDA-L2 policies, fusion and failed/superseded runs are documented in
-the appropriate research ledgers. No single kernel timing is presented as a
-transformer-training result.
-
-## How it works
-
-<p align="center"><img src="figs/OpenAssembler_architecture.png" width="800"></p>
-
-`ptxas` supplies the ELF container and reference binary for the same PTX. Our
-backend replaces kernel instruction words, register metadata, and exit offsets.
-SASS is the human-readable representation of those instructions; the cubin is
-the binary the CUDA driver loads and launches.
-
-Arithmetic lowering includes measured CUDA 12.8 sequences for division, square
-root, conversions, and approximate math. Those sequences are expanded into our
-IR, allocated, scheduled, and encoded. `--fallback ptxas` is an explicit option
-for unsupported kernels and is labelled in every artifact record.
-
-**The compiler pipeline** (`openassembler/backend/ra.py`):
-
-1. **Select**: PTX → an IR over virtual registers. `mov`/pack/unpack cost
-   nothing (pure renaming). `mul.wide` + `add.s64` fuse into one
-   `IMAD.WIDE`, matching `ptxas`'s own idiom.
-2. **DCE, then coalesce**: delete copies that don't conflict.
-3. **Linear-scan register allocation** over live intervals, with
-   copy-affinity hints, iterated to a fixed point.
-4. **Lower** to SASS text with physical registers.
-5. *(optional)* **Unroll** counted loops 4× (`backend/unroll.py`) and
-   **list-schedule** each basic block by critical path over A100-measured
-   latencies, not `ptxas`'s mined (and sometimes wrong) ones
-   (`backend/sched.py`).
-6. **Encode** with our own bit-level encoder, built from the spec in
-   `specs/sm_80/`, independently of `ptxas`.
-
-Four optimization levels are available end to end
-(`--opt-level safe|mined|sched|opt`), matching the `safe/mined/sched/opt`
-columns in the benchmark table above.
-Tensor kernels use their separately validated source-order policy at every
-optimization level; PyTorch graphs use TorchInductor/Triton. Those paths do not
-inherit the scalar compiler's unrolling or scheduling automatically.
-
----
-
-## Research status
-
-Current support boundaries and open work are summarized in
-[docs/STATUS.md](docs/STATUS.md). Detailed measurement history and negative
-results are maintained in the research index rather than duplicated here.
-
----
-
-## Repository layout
-
-```
-openassembler/        the package: backend/ (compiler),
-                      pyfront/ + cppfront.py + frontend.py (Python / CUDA C -> PTX),
-                      verify.py (checker for any kernel signature),
-                      ui/ (banner + interactive shell),
-                      isa/ (encoder),
-                      emu/ (SASS emulator),
-                      container/ (ELF splicing),
-                      ptx/ (parser + reference interpreter),
-                      opt/ (div-by-const),
-                      fastmm/ (Strassen/AlphaTensor),
-                      gpu/ (transport-agnostic GPU job runner),
-                      cli.py
-
-examples/             div_by_const.ptx, vector_add.{py,cu}, mlp/ (a 2-layer MLP in Python)
-
-tools/                build/benchmark/fuzz scripts the CLI wraps; also usable directly
-
-docs/                 FRONTENDS.md (compile Python / CUDA C / PTX),
-                      STATUS.md (current support and status),
-                      findings-*.md (encoding + div-by-const writeups),
-                      research/ and evidence/ (consolidated records and raw data)
-
-WORKFLOW.md           the black-box method (repo root)
-REPRODUCING.md        every command behind every number
-NOTICE, LICENSE       attributions, Apache-2.0
-
-specs/                recovered encoding tables + AlphaTensor-derived GEMM schemes (JSON)
-
-corpus/               generated probe kernels + evidence JSON (regenerated by tools/; the small summary files are kept, the bulk is gitignored)
-
-third_party/          AlphaTensor factorizations (DeepMind, Apache-2.0 — see NOTICE)
-
-env/                  env/fetch_cuda.sh + env/cuda.sh: the oracle wrapper (toolkit itself is never vendored, see NOTICE)
-
-tests/                pytest tests for frontends, backend arithmetic/loops, CLI manifests, runners, and emulator behavior
+```sh
+# macOS only: install Colima if necessary, then start its VM.
+colima start
+# Download the pinned tools and check their version.
+env/fetch_cuda.sh
+env/cuda.sh ptxas --version
 ```
 
-## License
+See [development setup](docs/DEVELOPMENT.md#toolkit-and-host-requirements) for
+platform details, optional dependencies and an existing-toolkit installation.
 
-Apache License 2.0 — see [LICENSE](LICENSE). Third-party attributions (the
-AlphaTensor import under `third_party/`) are in [NOTICE](NOTICE). This project
-reverse-engineers NVIDIA's `ptxas` by black-box observation only; no NVIDIA
-source code or binaries are included or redistributed.
+Compile a kernel and inspect the intended launch without sending a GPU job:
 
-## Star History
+```sh
+openassembler compile examples/vector_add.py --out-dir output/vector
+openassembler run output/vector --dry-run
+```
 
-<a href="https://www.star-history.com/?repos=qingyang-lucas-fang%2Fopenassembler&type=date&legend=top-left">
- <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=qingyang-lucas-fang/openassembler&type=date&theme=dark&legend=top-left" />
-   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=qingyang-lucas-fang/openassembler&type=date&legend=top-left" />
-   <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=qingyang-lucas-fang/openassembler&type=date&legend=top-left" />
- </picture>
-</a>
+Generate a native tensor kernel or cooperative reduction:
+
+```sh
+openassembler gemm --m 1024 --n 1024 --k 1024 --dtype f16 --out-dir output/gemm
+openassembler rowwise --op softmax --rows 1024 --width 512 --out-dir output/softmax
+```
+
+A configured application selects its own entry point and workload:
+
+```sh
+openassembler compile testcases/test_whole_repo --verify --dry-run
+```
+
+To execute native outputs on an authenticated Modal GPU:
+
+```sh
+openassembler run output/gemm --backend modal --budget 180 --job-timeout 60
+```
+
+Run `openassembler` without arguments for the interactive shell, or use
+`openassembler --help` and `openassembler COMMAND --help` for one-shot commands.
+The [complete command reference](docs/COMMANDS.md) explains every command and
+flag. Actual research reproduction belongs to the
+[individual idea dossiers](docs/research/README.md), not this introduction.
+
+## Repository map
+
+- `openassembler/`: frontends, native backends, binary support and GPU/application runtime.
+- `specs/`, `corpus/`, `probes/`, `tools/`: encoding data, test inputs and research tooling.
+- `tests/`, `examples/`, `testcases/`: regression tests and executable examples.
+- `docs/`: architecture, command reference, per-idea research and retained evidence.
+- `exp/`: isolated experiment drivers and raw records; no production import dependency.
+
+The package is version **0.2.0**. See [LICENSE](LICENSE) and [NOTICE](NOTICE).

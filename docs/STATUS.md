@@ -1,87 +1,256 @@
-# OpenAssembler Status
+# OpenAssembler architecture and status
 
-Updated 2026-11-06. This page is the short operational status; the detailed
-history, failed experiments and superseded measurements are in the
-[A100 research ledger](research/A100_MMA_RESULTS.md).
+Updated **November 6, 2026**. This page describes the current source tree and
+latest completed validation. The documentation reorganization adds no new GPU
+performance measurement. Full command syntax is in [COMMANDS.md](COMMANDS.md);
+every researched feature has a dossier in the [catalogue](research/README.md).
 
-## Current production paths
+## Headline validation
 
-The CLI supports the validated SM80 scalar compiler and the native A100 tensor
-path. The tensor path generates full-tile `C = A @ B.T` kernels for FP16/BF16
-inputs, FP32 accumulation/output, and M/N/K dimensions divisible by 128. It
-uses paired `LDSM`, `cp.async` staging, XOR-swizzled shared memory, HMMA and a
-vectorized FP32 epilogue. The production contract and unsupported forms are in
-[TENSOR_GEMM.md](TENSOR_GEMM.md) and [A100_MMA_COMPILER.md](research/A100_MMA_COMPILER.md).
+| Area | Latest completed evidence | Interpretation |
+|---|---|---|
+| Repository regression | 579 passed, one optional PyTorch module skipped; its 18 tests pass separately and in pinned PyTorch 2.7.1 | Current native/compiler integration checks; not a performance result |
+| Whole transformer workflow | 10 configurations, two process-order rounds; nine pass both numerical gates | Gains use Inductor/Triton; BF16 training remains excluded |
+| Native cooperative reductions | 18 shape/operator cases, five patterns, 17,408,740 output elements pass, plus guards and graph replay | Explicit FP32 operators; same-source ptxas still faster on main shapes |
+| Native direct-pointer GEMM | 486 full method/input checks across three independent runs; six MLP products improve about 1.03–1.12× | Opt-in; tall GEMM regresses and default stays legacy |
+| Existing scalar operators | Paired native-before/native-after checks pass for ten cases, with unchanged resources and no observed slowdown | Scheduler correctness fixes do not establish another general speedup |
+| BF16 application state | All 127 tensors checked; two parameter tensors fail the unchanged gate | Improved diagnostics, not a numerical repair |
 
-Two optimizations are explicit CLI choices:
+These are measured snapshots, not promises for every shape, toolkit, GPU or
+training trajectory. Raw device metadata distinguishes A100-SXM4-40GB from
+80GB; paired comparisons stay within a device and absolute times are not pooled.
 
-- `--cta-order morton8` uses complete aligned 8x8 CTA groups and currently
-  requires M/N multiples of 1024.
-- `--epilogue bias_residual` and `bias_residual_relu` fuse FP32 bias/residual
-  work for the supported square path.
+## Architecture
 
-Neither option is an automatic policy. Their measured scope is one A100 shape
-family, and neither establishes whole-transformer or whole-training speedup.
+OpenAssembler has two execution routes with different code-generation ownership.
+The native route owns SASS selection, allocation, scheduling and encoding.
+The configured application route owns capture, packaging, replay and checking,
+while Inductor/Triton generates its GPU code.
 
-## Latest A100 validation
-
-The current-source run passed full-output zero, integer and normal inputs,
-guard canaries and matched-control checks for two Morton and four fused
-kernels. CUDA-graph medians from nine shuffled rounds were:
-
-| Candidate | OA candidate | OA control | Reduction | ptxas reference |
-|---|---:|---:|---:|---:|
-| Tall FP16 Morton8, 16384x4096x4096 | 2.528 ms | 2.728 ms | 7.34% | 2.369 ms |
-| Tall BF16 Morton8, 16384x4096x4096 | 2.478 ms | 2.652 ms | 6.54% | 2.327 ms |
-| Square FP16 bias+residual | 0.743 ms | 0.781 ms | 4.95% | fused 0.639 ms |
-| Square BF16 bias+residual | 0.729 ms | 0.770 ms | 5.26% | fused 0.627 ms |
-| Square FP16 bias+residual+ReLU | 0.741 ms | 0.783 ms | 5.34% | fused 0.630 ms |
-| Square BF16 bias+residual+ReLU | 0.729 ms | 0.768 ms | 5.16% | fused 0.624 ms |
-
-The complete JSON, validator, manifests and matched cubins are retained under
-[`docs/evidence/a100-mma/current-validation`](evidence/a100-mma/current-validation/).
-The first Morton run used a flattened rectangular-grid decode and is retained
-only as superseded evidence.
-
-## Scalar compiler and tests
-
-The scalar backend has measured constant division/remainder lowering,
-control-flow liveness, register allocation, A100 latency-aware scheduling and
-SM80 cubin splicing. The current repository test suite is the authority for
-the exact count in a given checkout; toolkit- or corpus-dependent tests report
-an explicit skip when their external dependency is unavailable. Run:
-
-```sh
-uv run pytest -q
-openassembler check
+```mermaid
+flowchart TB
+    subgraph N["Native kernel compilation"]
+        PY["Python kernel subset"] --> PF["pyfront: AST and types"]
+        CU["CUDA C/C++ kernel"] --> NVCC["nvcc --ptx"]
+        PF --> PTX["PTX module"]
+        NVCC --> PTX
+        RAW["PTX source"] --> PTX
+        GP["gemm / rowwise source generators"] --> PTX
+        FM["fastmm research plans: FP32 kernels"] --> PTX
+        PTX --> PARSE["Parse, validate and select entries"]
+        PARSE --> ROUTE{"Tensor/copy instructions?"}
+        ROUTE -->|"No"| SC["Scalar selection, liveness, allocation and optional list scheduling"]
+        ROUTE -->|"Yes"| TC["SM80 tensor selection and protected source-order scheduling"]
+        SC --> ENC["SM80 instruction encoding"]
+        TC --> ENC
+        PTX --> CON["ptxas ELF container and same-PTX reference"]
+        ENC --> SPLICE["Replace selected kernel text and metadata"]
+        CON --> SPLICE
+        SPLICE --> CUBIN["Native cubin, SASS listing and manifest"]
+    end
+    subgraph A["Configured PyTorch application"]
+        CFG["openassembler.toml and bounded workload"] --> CAP["Dynamo/AOTAutograd capture"]
+        CAP --> IND["Inductor/Triton GPU compilation"]
+        IND --> BUNDLE["Application source, runtime cache, cubins and manifest"]
+        CAP --> CHECK["Eager/compiled outputs and model-state checks"]
+    end
+    CUBIN --> RUN["Local Linux / SSH / Modal execution"]
+    BUNDLE --> REPLAY["Python/PyTorch cache replay"]
+    REPLAY --> RUN
+    RUN --> GPU["CUDA driver and GPU execution"]
+    CHECK -. "verification gate" .-> BUNDLE
 ```
 
-The scalar A100 latency evidence is the corrected 42-case sweep in
-[docs/evidence/a100-latency](evidence/a100-latency/README.md). Its 4-cycle
-within-pipe, 5-cycle cross-pipe and 13-cycle predicate-to-guard thresholds are
-measured classes for tested encodings, not a universal latency table.
+NVIDIA's tools remain necessary for the native container/reference and CUDA C++
+frontend. The compiler does not rebuild every cubin ABI feature from scratch.
+Python orchestrates compilation and host launches; the GPU executes native
+instructions. The application route retains Python/PyTorch/ATen and CUDA-library
+runtime dependencies. No arrow automatically substitutes native OA GEMMs or
+row reductions into Inductor graphs.
 
-## What remains open
+### Current module responsibilities
 
-The isolated November 6 [whole-stack study](research/WHOLE_STACK_RESULTS.md)
-measures ten transformer configurations in two process-order rounds, plus
-native-GEMM hybrid MLP steps and scalar stages. Nine transformer configurations
-pass both numerical comparisons; BF16 training fails both. The application
-gains come through the Inductor/Triton frontend. This is research evidence,
-not a new production native-transformer contract.
+| Location | Responsibility |
+|---|---|
+| `openassembler/cli.py`, `ui/` | One-shot parser, dispatch, interactive shell and common diagnostics |
+| `project.py`, `build.py` | Source discovery, output naming/locks, manifests, frontend dispatch, compile/package pipeline |
+| `pyfront/`, `cppfront.py`, `frontend.py` | Typed Python subset, CUDA C++ lowering and frontend support |
+| `ptx/` | PTX parsing and reference semantics for the implemented subset |
+| `backend/ra.py` | Native instruction selection, guarded definitions, grouped register allocation, DCE and copy handling |
+| `backend/compile.py`, `sched.py`, `unroll.py` | Scalar dependency scoreboards, latency-aware ordering and bounded loop unrolling |
+| `backend/tensor.py`, `tensor_encoding.py` | Tensor register groups, async-copy/LDSM/HMMA dependencies and deterministic SM80 tensor encoding |
+| `kernels/`, `gemm.py`, `rowwise.py` | Validated shape plans, generated PTX and checked launch contracts |
+| `opt/divconst.py`, `backend/fragments.py` | Constant integer division/remainder and recorded arithmetic instruction sequences |
+| `isa/`, `container/` | Instruction words/fields/templates and CUDA ELF/cubin/metadata handling |
+| `emu/` | Functional SASS execution, warp behavior and recorded tensor numeric models |
+| `runner.py`, `gpu/` | Buffers/launches, native/reference comparisons, local/SSH/Modal transport and bounded workers |
+| `torchfront/` | Application configuration, capture, source/cache packaging, runtime replay and state verification |
+| `fastmm/` | Explicit low-rank matrix-multiplication research path, not the default GEMM |
+| `specs/`, `corpus/`, `probes/`, `tools/` | Encoding data, reference inputs, oracle experiments and maintenance tools |
+| `exp/`, `docs/evidence/` | Experiment drivers and immutable measurement records; not production imports |
 
-- Counter-guided operand-collector, shared-bank and scoreboard work is still
-  needed to close the direct GEMM gap to ptxas/cuBLAS.
-- Full dX/dW transposes, tails, TF32, fused attention/normalization and a
-  complete forward/backward/optimizer step are outside the current contract.
-- Three/four-stage pipelines, producer/consumer warps, tested fragment windows,
-  L2 persistence settings and Hilbert traversal did not beat the selected
-  direct schedule on the measured workloads.
-- AlphaTensor and Strassen require compile-time factors, matched FP32 output,
-  bounded live products and a competitive mainloop before another large-shape
-  comparison is meaningful.
-- A100 lacks Hopper TMA, thread-block clusters, DPX and the H100 FP8 Tensor
-  Core path. These cannot be enabled by a compiler flag.
+The older roadmap's general SASS-to-PTX/CUDA lifting and structured decompiler
+are research proposals, not additional shipping modules in this tree.
 
-See [REPRODUCING.md](../REPRODUCING.md) for current commands and
-[research/README.md](research/README.md) for the complete evidence map.
+## Features used by the current compiler
+
+| Feature family | Deployment | Contract or boundary |
+|---|---|---|
+| Python/CUDA C++/PTX native source | Explicit file/repository compilation | Supported kernel language subsets; arbitrary host programs are not compiled |
+| Constant div/rem, DCE, copies and register allocation | Native scalar backend | Integer semantics and exact widths/modifiers matter |
+| Scalar unrolling/list scheduling | Selected by optimization level | Hardware-measured classes, not a universal latency table |
+| Cubin splicing, encoding, disassembly and emulation | Build/inspection/verification paths | SM80 and supported instructions; emulation does not prove timing correctness |
+| Dense FP16/BF16 GEMM | `gemm`, or supported tensor PTX | Full-tile `C=A@B.T`, contiguous K, FP32 accumulation/output |
+| Paired fragment loads, two-stage async copies, shared XOR layout and vector stores | Default generated tensor mainloop | Fixed 128×128×64 CTA tile, 128 threads, 64 KiB dynamic shared memory |
+| Protected tensor scoreboards, address WAR, HMMA8/drain15 and operand reuse | Default tensor backend | Existing measured dependencies are retained across optimization levels |
+| Morton8 CTA ordering | Explicit `--cta-order morton8` | Complete 8×8 tile groups; measured tall-shape benefit, not automatic dispatch |
+| Bias/residual/ReLU epilogue | Explicit `--epilogue` | FP32 auxiliary buffers; selected square benefits, other shapes can regress |
+| Pointer-home copy elimination | Explicit `--pointer-mode direct` | Unfused `stagepair`/`m_fast`; preserves legacy default |
+| Cooperative softmax/population LayerNorm | Explicit `rowwise` | Contiguous bounded finite FP32, widths 1–1024, tails; no affine/saved statistics/backward |
+| Scalar alias/WAR/reader/scoreboard repairs and warp synchronization | Scalar backend | Implemented full-mask butterfly shuffle form; unsupported forms fail closed |
+| Application capture/replay | Configured PyTorch directories | Pinned supported runtime, captured arguments/shapes, retained runtime dependencies |
+| Complete state diagnostics | Application verification gate | All tensors checked, bounded error details, unchanged admission tolerances |
+| ReLU/GELU/fused Adam-like examples | Compile the explicit example source | Not automatic model rewrites or a full optimized AdamW implementation |
+| AlphaTensor/Strassen factor research | Explicit `fastmm` command | Verified factorizations and bounded experiments; no established default tensor-GEMM win |
+
+The catalogue gives the complete per-idea classification, including validated
+but unintegrated work, correct-but-slower experiments, rejected candidates,
+source-only hypotheses and hardware-unavailable proposals.
+
+## Latest whole-transformer results
+
+The full methods, profiles and raw-record links remain in
+[WHOLE_STACK_RESULTS.md](research/WHOLE_STACK_RESULTS.md). These are **ten
+synthetic configurations of one decoder-transformer architecture**, not ten
+independent pretrained model families. The baseline is eager PyTorch using CUDA
+operators/libraries, not stock compiled PyTorch or an exhaustive vendor tuner.
+The compiled side is the existing **Inductor/Triton application workflow**.
+
+All rows below are from the original **A100-SXM4-40GB**, CUDA 12.8,
+PyTorch 2.7.1+cu128 study. Times are resident-data training steps or prefill;
+within-round ratios are eager/compiled, with the process order reversed between
+two rounds. Cold compilation, data loading/H2D and model construction are not
+included in these steady event medians.
+
+| Workload | Batch / sequence / width / layers | Precision | Eager ms | Compiled frontend ms | Within-round ratio | Gate |
+|---|---|---|---:|---:|---:|---|
+| Tiny training | 2 / 32 / 64 / 1 | FP32 | 3.513 | 2.841 | 1.20–1.27× | Pass both |
+| Base training | 8 / 128 / 128 / 2 | FP32 | 5.796 | 4.032 | 1.35–1.53× | Pass both |
+| Long-context training | 2 / 512 / 256 / 2 | FP32 | 5.461 | 3.880 | 1.39–1.42× | Pass both |
+| Wide training | 8 / 128 / 512 / 2 | FP32 | 5.800 | 4.380 | 1.24–1.42× | Pass both |
+| Deep training | 4 / 128 / 256 / 8 | FP32 | 17.202 | 11.007 | 1.53–1.59× | Pass both |
+| Single prefill | 1 / 128 / 256 / 4 | FP32 | 2.004 | 1.171 | 1.68–1.75× | Pass both |
+| Long prefill | 8 / 512 / 256 / 4 | FP32 | 4.296 | 3.765 | 1.13–1.15× | Pass both |
+| Batched prefill | 16 / 256 / 512 / 2 | FP32 | 5.245 | 4.953 | 1.04–1.08× | Pass both |
+| Wide training | 8 / 128 / 512 / 2 | BF16 | 7.235 | 4.778 | **Not admitted** | Fail both |
+| Batched prefill | 16 / 256 / 512 / 2 | BF16 | 1.306 | 0.947 | 1.37–1.39× | Pass both |
+
+The nine passing configurations do not establish native OA SASS superiority.
+The BF16 row's lower latency cannot override its failed parameter gate. Four
+inference models also passed generated-token equality, but decode recomputes a
+fixed window at batch one and is not a KV-cache serving benchmark.
+
+### Where application time changed
+
+For base FP32 training, eager/compiled medians were 1.631/1.059 ms for
+forward+loss, 2.924/1.842 ms for backward and 1.048/0.953 ms for clipping+optimizer.
+Stage medians are not additive. Recognized kernel launches fell from 207 to
+123; deep training fell from 615 to 367. Standalone pointwise/reduction work
+partly moved into fused groups. The optimizer remained eager/shared.
+Compilation/program startup took roughly 14–28 seconds for the short FP32
+training invocations, so these runs do not show amortized startup gains.
+
+## Latest native-kernel and integration results
+
+### Native GEMM controls and options
+
+Same-PTX ptxas beat the original native OA compiler on all six isolated MLP
+products: OA was about 41–45% slower. OA beat the selected default GemmEx on two
+small shapes, which supports shape/dispatch selection rather than superior OA
+scheduling. NCU showed equal tensor instruction counts, zero measured shared
+bank conflicts in the contrasted OA/ptxas cases, and more OA address/control
+work. It did not prove a specific operand-collector bottleneck.
+
+| Explicit option | Valid measured benefit | Important negative result |
+|---|---|---|
+| Morton8 | About 6.5–7.3% lower time than OA m_fast on 16384×4096×4096 | Still behind matched ptxas; small/other grids do not justify automatic selection |
+| Bias/residual/ReLU | About 5% lower time than separate OA work on tested 4096³ cases | Fused ptxas remains faster; smoke and MLP cases can regress |
+| Direct pointer homes | About 1.03–1.12× paired median kernel gains on six MLP products; 486 full checks pass across three runs | 4096³ neutral; tall 16384×4096×4096 regresses; legacy stays default |
+
+Direct-pointer timing is paired within each 40GB/80GB run. In two hybrid MLP
+runs, all forward/dX/dW/output/optimizer checks passed bitwise against the legacy
+OA and same-PTX controls. The larger MLP's training improves about 1.15–1.31%
+and inference 2.97–6.01%; smaller-model training is neutral/slightly slower and
+inference slows 2.48–5.22%. The larger cuBLAS whole-state control still fails
+its unchanged gradient gate. These are hybrid networks with shared PyTorch
+surrounding operations, not complete native transformers.
+
+### Cooperative reductions
+
+Final paired graph medians on the **A100-SXM4-80GB** production replay, in
+microseconds per operation. Every graph is poisoned after capture and its
+complete output checked after replay.
+
+| Operation / shape | Cooperative OA | Same-PTX ptxas | Previous serial OA | PyTorch CUDA API |
+|---|---:|---:|---:|---:|
+| Softmax 128×128 | 2.816 | 2.208 | 95.824 | 3.168 |
+| Softmax 1024×512 | 3.968 | 2.912 | 306.384 | 4.512 |
+| Softmax 1024×1024 | 6.080 | 4.256 | 618.496 | 7.280 |
+| LayerNorm 128×128 | 2.240 | 1.792 | 64.624 | 3.520 |
+| LayerNorm 1024×512 | 3.808 | 2.816 | 266.816 | 6.304 |
+| LayerNorm 1024×1024 | 5.952 | 4.256 | 530.688 | 7.328 |
+
+The large serial-to-cooperative gain is mainly a change in parallel algorithm
+mapping. Same-source ptxas remains faster; width-one cases regress about 0.2 µs
+versus legacy. These are captured y-only APIs, not full training or tuned-library
+claims. Full validation covered 18 shape/operator cases, five input patterns,
+17,408,740 candidate outputs and canaries. The ordinary CLI separately passed
+2/2 NaN-poisoned analytic/bitwise smoke checks on A100-40GB.
+
+### BF16 and correctness
+
+The unchanged wide BF16 run checks 127 state tensors: outputs, retained clipped
+gradients and optimizer tensors pass their configured gates, but two QKV
+key-bias parameter tensors fail. The new verifier exposes both failures and
+retains the original tolerances. Preserving eager cast rounding was tested and
+still failed the layer-zero parameter gate, with no precision-policy promotion.
+Changing Adam epsilon is a separate training-policy intervention, not a repair
+of the original comparison. No BF16 training speedup is admitted.
+
+## Verification, dependencies and limits
+
+- The latest full local suite is **579 passed, one skipped**. The skip is optional
+  PyTorch missing from the compiler-only environment; all 18 numerical tests
+  separately pass locally with PyTorch and in the pinned 2.7.1 GPU image.
+- Scalar scheduling repairs pass the paired ten-case native-before/native-after
+  hardware regression with bitwise equality and no observed slowdown. Tensor
+  default/direct complete-word hashes remain unchanged.
+- `compile --verify`, standalone `verify`, `run`, application verification and
+  GPU research validation have different scopes. Read [COMMANDS.md](COMMANDS.md)
+  and the relevant dossier; a zero-input smoke is not a floating-accuracy proof.
+- Compilation needs Python 3.12+ and CUDA tools. GPU execution needs a suitable
+  Linux driver locally or an explicitly selected remote/Modal worker. SSH is
+  implemented but not part of the latest claimed hardware audit.
+- Generated GEMM dimensions are multiples of 128 with contiguous-K storage.
+  General tails/strides/transposes, TF32 and arbitrary alpha/beta are outside it.
+- Row reductions do not provide saved statistics, affine parameters, backward,
+  arbitrary layouts, masks or guarantees for NaN/Inf/overflowing finite inputs.
+- Captured applications require compatible runtime/cache/bundle metadata and
+  matching arguments. They do not compile arbitrary host Python into a binary.
+- H100/Blackwell are not validated native backends here. A100 cannot gain
+  Hopper TMA, thread-block clusters, DPX or the H100 FP8 Tensor Core path by a flag.
+
+## Research priorities
+
+The catalogue records each experiment's actual status rather than treating a
+negative sample as a universal impossibility. Remaining priorities are
+counter-guided tensor scheduling, legal joint shared/register-layout search,
+small-grid tile selection, transpose/packing integration, normalization backward,
+whole-step attention/optimizer boundaries and competitive, precision-matched
+low-rank transforms. Timing must retain complete correctness gates and proven
+dependency edges.
+
+For exact per-feature methods and reproduction, use the
+[research catalogue](research/README.md). For the complete November 6 application
+study use [WHOLE_STACK_RESULTS.md](research/WHOLE_STACK_RESULTS.md). Shared setup,
+evidence rules and documentation maintenance are in [DEVELOPMENT.md](DEVELOPMENT.md).

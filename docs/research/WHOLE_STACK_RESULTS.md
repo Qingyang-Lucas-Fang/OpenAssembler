@@ -5,6 +5,11 @@ Measured November 6, 2026 on NVIDIA A100-SXM4-40GB (SM80), PyTorch
 [`exp/whole_stack`](../../exp/whole_stack/README.md). No production compiler
 code was changed or automatically substituted into user applications.
 
+This is the original completed study, before the later compiler/operator follow-ups.
+Current deployment and the newest admitted results are summarized in
+[STATUS.md](../STATUS.md); per-feature methods and commands are in the
+[research catalogue](README.md).
+
 ## What was compared
 
 The study has three distinct attribution levels:
@@ -336,6 +341,12 @@ promoted into production.
 
 ## What to optimize next
 
+Subsequent work is documented separately in [direct pointer homes](ideas/direct-pointer-homes.md),
+[cooperative softmax](ideas/cooperative-softmax.md),
+[LayerNorm](ideas/cooperative-layernorm.md), and
+[complete state diagnostics](ideas/state-verification-diagnostics.md).
+The measurements here describe the original study, not those later compiler changes.
+
 1. Build cooperative reduction kernels before tuning the current serial
    softmax/norm examples. Their source mapping is a larger problem than the
    OA-versus-ptxas backend difference.
@@ -371,7 +382,7 @@ single-case validation. Neither is pooled into the final paired study.
 Native setup initially lacked a materialized current CUDA context. An earlier
 native MLP submission also aborted on the larger cuBLAS numerical gate before
 partial-result handling was added. Both are documented in
-[`native_attempts.md`](../../exp/whole_stack/native_attempts.md). Two earlier
+[the native-hybrid-MLP dossier](ideas/native-hybrid-mlp.md). Two earlier
 scalar-op records are superseded: one added artificial PyTorch output copies;
 the next timed a different random input distribution from its checked inputs.
 The primary scalar record fixes both. The larger MLP cuBLAS state failure and

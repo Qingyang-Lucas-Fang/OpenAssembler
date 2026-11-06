@@ -1,0 +1,8 @@
+# Regenerable cubins, disassemblies, payloads and compilation logs.
+*_build*/
+cli_builds*/
+__pycache__/
+# Recreated by the retained PTX oracle probe and template-mining script.
+reductions_warpsync*.cubin
+reductions_warpsync*.sass
+reductions_warpsync_template.log

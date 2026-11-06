@@ -1,0 +1,281 @@
+{
+  "scope": "three independent18-case A100 runs; three input families and two dtypes; explicit direct mode only, no global promotion",
+  "source_runs": [
+    "2026-11-06T13:00:15.386258+00:00",
+    "2026-11-06T13:04:56.021213+00:00",
+    "2026-11-06T13:11:50.445276+00:00"
+  ],
+  "full_checks_passed": 486,
+  "cases": [
+    {
+      "case": "128_128_128_f16",
+      "shape": [
+        128,
+        128,
+        128
+      ],
+      "dtype": "f16",
+      "independent_runs": 3,
+      "paired_rounds": 8,
+      "speedup_min": 0.9894736809857252,
+      "speedup_median": 1.0,
+      "speedup_max": 1.0,
+      "conclusion": "unchanged control"
+    },
+    {
+      "case": "512_512_2048_f16",
+      "shape": [
+        512,
+        512,
+        2048
+      ],
+      "dtype": "f16",
+      "independent_runs": 3,
+      "paired_rounds": 8,
+      "speedup_min": 1.0459184203787002,
+      "speedup_median": 1.0460479898988289,
+      "speedup_max": 1.0477002370846666,
+      "conclusion": "wins"
+    },
+    {
+      "case": "512_2048_512_f16",
+      "shape": [
+        512,
+        2048,
+        512
+      ],
+      "dtype": "f16",
+      "independent_runs": 3,
+      "paired_rounds": 8,
+      "speedup_min": 1.0300000109139367,
+      "speedup_median": 1.0354450952519696,
+      "speedup_max": 1.041884831113976,
+      "conclusion": "wins"
+    },
+    {
+      "case": "1024_1024_4096_f16",
+      "shape": [
+        1024,
+        1024,
+        4096
+      ],
+      "dtype": "f16",
+      "independent_runs": 3,
+      "paired_rounds": 8,
+      "speedup_min": 1.0635785202840746,
+      "speedup_median": 1.0649475633680239,
+      "speedup_max": 1.0668549481606544,
+      "conclusion": "wins"
+    },
+    {
+      "case": "1024_4096_1024_f16",
+      "shape": [
+        1024,
+        4096,
+        1024
+      ],
+      "dtype": "f16",
+      "independent_runs": 3,
+      "paired_rounds": 8,
+      "speedup_min": 1.094827555205492,
+      "speedup_median": 1.1167653557788486,
+      "speedup_max": 1.1295681291196789,
+      "conclusion": "wins"
+    },
+    {
+      "case": "2048_512_512_f16",
+      "shape": [
+        2048,
+        512,
+        512
+      ],
+      "dtype": "f16",
+      "independent_runs": 3,
+      "paired_rounds": 8,
+      "speedup_min": 1.025477715271484,
+      "speedup_median": 1.0354838591566145,
+      "speedup_max": 1.0389610536872147,
+      "conclusion": "wins"
+    },
+    {
+      "case": "4096_1024_1024_f16",
+      "shape": [
+        4096,
+        1024,
+        1024
+      ],
+      "dtype": "f16",
+      "independent_runs": 3,
+      "paired_rounds": 8,
+      "speedup_min": 1.1044776364330153,
+      "speedup_median": 1.1119465850500425,
+      "speedup_max": 1.116861349745237,
+      "conclusion": "wins"
+    },
+    {
+      "case": "4096_4096_4096_f16",
+      "shape": [
+        4096,
+        4096,
+        4096
+      ],
+      "dtype": "f16",
+      "independent_runs": 3,
+      "paired_rounds": 8,
+      "speedup_min": 0.9941603456476836,
+      "speedup_median": 0.9990460907212497,
+      "speedup_max": 1.0049871306379214,
+      "conclusion": "neutral/no consistent win"
+    },
+    {
+      "case": "16384_4096_4096_f16",
+      "shape": [
+        16384,
+        4096,
+        4096
+      ],
+      "dtype": "f16",
+      "independent_runs": 3,
+      "paired_rounds": 8,
+      "speedup_min": 0.9348723566830592,
+      "speedup_median": 0.9546103403386914,
+      "speedup_max": 0.9907153410108136,
+      "conclusion": "regresses"
+    },
+    {
+      "case": "128_128_128_bf16",
+      "shape": [
+        128,
+        128,
+        128
+      ],
+      "dtype": "bf16",
+      "independent_runs": 3,
+      "paired_rounds": 8,
+      "speedup_min": 1.0,
+      "speedup_median": 1.0,
+      "speedup_max": 1.0,
+      "conclusion": "unchanged control"
+    },
+    {
+      "case": "512_512_2048_bf16",
+      "shape": [
+        512,
+        512,
+        2048
+      ],
+      "dtype": "bf16",
+      "independent_runs": 3,
+      "paired_rounds": 8,
+      "speedup_min": 1.0436681375327577,
+      "speedup_median": 1.0459518927043,
+      "speedup_max": 1.0481400932341554,
+      "conclusion": "wins"
+    },
+    {
+      "case": "512_2048_512_bf16",
+      "shape": [
+        512,
+        2048,
+        512
+      ],
+      "dtype": "bf16",
+      "independent_runs": 3,
+      "paired_rounds": 8,
+      "speedup_min": 1.025477715271484,
+      "speedup_median": 1.0289105667685765,
+      "speedup_max": 1.0389610536872147,
+      "conclusion": "wins"
+    },
+    {
+      "case": "1024_1024_4096_bf16",
+      "shape": [
+        1024,
+        1024,
+        4096
+      ],
+      "dtype": "bf16",
+      "independent_runs": 3,
+      "paired_rounds": 8,
+      "speedup_min": 1.0628637978715647,
+      "speedup_median": 1.0643470308149463,
+      "speedup_max": 1.0651163033098434,
+      "conclusion": "wins"
+    },
+    {
+      "case": "1024_4096_1024_bf16",
+      "shape": [
+        1024,
+        4096,
+        1024
+      ],
+      "dtype": "bf16",
+      "independent_runs": 3,
+      "paired_rounds": 8,
+      "speedup_min": 1.1066481208358747,
+      "speedup_median": 1.1202002732164504,
+      "speedup_max": 1.127906986862956,
+      "conclusion": "wins"
+    },
+    {
+      "case": "2048_512_512_bf16",
+      "shape": [
+        2048,
+        512,
+        512
+      ],
+      "dtype": "bf16",
+      "independent_runs": 3,
+      "paired_rounds": 8,
+      "speedup_min": 1.0318470977456766,
+      "speedup_median": 1.03571432283652,
+      "speedup_max": 1.0457516016617718,
+      "conclusion": "wins"
+    },
+    {
+      "case": "4096_1024_1024_bf16",
+      "shape": [
+        4096,
+        1024,
+        1024
+      ],
+      "dtype": "bf16",
+      "independent_runs": 3,
+      "paired_rounds": 8,
+      "speedup_min": 1.10684467650632,
+      "speedup_median": 1.1109241940294807,
+      "speedup_max": 1.1235391966876636,
+      "conclusion": "wins"
+    },
+    {
+      "case": "4096_4096_4096_bf16",
+      "shape": [
+        4096,
+        4096,
+        4096
+      ],
+      "dtype": "bf16",
+      "independent_runs": 3,
+      "paired_rounds": 8,
+      "speedup_min": 0.9959839426526728,
+      "speedup_median": 0.9996788059579401,
+      "speedup_max": 1.0067578836795423,
+      "conclusion": "neutral/no consistent win"
+    },
+    {
+      "case": "16384_4096_4096_bf16",
+      "shape": [
+        16384,
+        4096,
+        4096
+      ],
+      "dtype": "bf16",
+      "independent_runs": 3,
+      "paired_rounds": 8,
+      "speedup_min": 0.9386902318405356,
+      "speedup_median": 0.9625567302014049,
+      "speedup_max": 0.998541105588958,
+      "conclusion": "regresses"
+    }
+  ]
+}

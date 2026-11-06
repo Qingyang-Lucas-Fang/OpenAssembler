@@ -1,0 +1,475 @@
+{
+  "schema": 1,
+  "updated": "2026-11-06",
+  "scope": "Current repository research and feature catalogue; one dossier per idea. Idea counts are not independent experiment counts.",
+  "status_labels": {
+    "implemented": "Validated within its stated contract and available in the current code",
+    "validated-not-integrated": "Validated capability, diagnostic or research method; not deployed as a production optimization",
+    "tested-not-selected": "Tested candidate failed a gate, did not improve performance, or was not selected; reason is specific to the tested contract",
+    "untested-or-hardware-unavailable": "Proposed, incomplete, source-only or unavailable on the target hardware; not a negative benchmark"
+  },
+  "ideas": [
+    {
+      "id": "a100-hardware-limits",
+      "title": "A100 feasibility: TMA, clusters, FP8, DPX and virtual grouping",
+      "status": "untested-or-hardware-unavailable",
+      "path": "docs/research/ideas/a100-hardware-limits.md",
+      "summary": "Missing hardware capabilities cannot be enabled by a compiler flag; software substitutes remain distinct proposals."
+    },
+    {
+      "id": "adam-epsilon-sensitivity",
+      "title": "Adam epsilon sensitivity of near-invariant BF16 key bias",
+      "status": "validated-not-integrated",
+      "path": "docs/research/ideas/adam-epsilon-sensitivity.md",
+      "summary": "Changing epsilon explains sensitivity under a different training policy; it is not a repair of the original gate."
+    },
+    {
+      "id": "adaptive-shared-memory-budgeting",
+      "title": "Adaptive shared-memory budgeting",
+      "status": "untested-or-hardware-unavailable",
+      "path": "docs/research/ideas/adaptive-shared-memory-budgeting.md",
+      "summary": "The production native GEMM has an explicit fixed contract: two 32 KiB shared operand regions, 64 KiB dynamic shared memory and 128 threads."
+    },
+    {
+      "id": "architecture-portability",
+      "title": "Cross-architecture encoding and cubin observations",
+      "status": "untested-or-hardware-unavailable",
+      "path": "docs/research/ideas/architecture-portability.md",
+      "summary": "Historical CUDA 12.8 probes examined common control fields on SM75/86/90/100/120 and parameter/ELF metadata changes."
+    },
+    {
+      "id": "arithmetic-instruction-selection",
+      "title": "Recovered arithmetic instruction sequences and rounding policy",
+      "status": "implemented",
+      "path": "docs/research/ideas/arithmetic-instruction-selection.md",
+      "summary": "The standard backend imports retained CUDA 12.8 arithmetic fragments and generates its own words."
+    },
+    {
+      "id": "asymmetric-shared-banking",
+      "title": "Asymmetric shared-memory address layouts",
+      "status": "tested-not-selected",
+      "path": "docs/research/ideas/asymmetric-shared-banking.md",
+      "summary": "The historical shared-layout sweep tested asymmetric 7/3 and 3/7 swizzles against symmetric 7/7."
+    },
+    {
+      "id": "automatic-sass-sequence-search",
+      "title": "Automatic equivalent SASS sequence search",
+      "status": "untested-or-hardware-unavailable",
+      "path": "docs/research/ideas/automatic-sass-sequence-search.md",
+      "summary": "Historical candidate searches explored several epilogue orders, fragment windows, pre-addressing, operand orders and scheduler variants; selected changes contributed to the current GEMM."
+    },
+    {
+      "id": "bf16-cast-preservation",
+      "title": "Preserving intermediate casts as a BF16 repair attempt",
+      "status": "tested-not-selected",
+      "path": "docs/research/ideas/bf16-cast-preservation.md",
+      "summary": "Keeping eager-like casts still fails the original BF16 parameter gate; the setting was not promoted."
+    },
+    {
+      "id": "compile-time-low-rank-mma",
+      "title": "Compile-time rank-seven versus rank-eight native MMA",
+      "status": "tested-not-selected",
+      "path": "docs/research/ideas/compile-time-low-rank-mma.md",
+      "summary": "Compile-time rank-seven tests did not establish a competitive precision-matched end-to-end tensor mainloop."
+    },
+    {
+      "id": "compiler-language-and-host-latency",
+      "title": "Python versus a compiled host implementation",
+      "status": "untested-or-hardware-unavailable",
+      "path": "docs/research/ideas/compiler-language-and-host-latency.md",
+      "summary": "No profile shows that rewriting the host compiler improves GPU instruction speed; profile individual host passes first."
+    },
+    {
+      "id": "constant-division",
+      "title": "Constant integer division and remainder lowering",
+      "status": "implemented",
+      "path": "docs/research/ideas/constant-division.md",
+      "summary": "The implemented 32-bit lowering removes a reciprocal-based path from direct PTX division/remainder sites."
+    },
+    {
+      "id": "control-flow-lifting",
+      "title": "Control-flow recovery and a SASS-to-PTX lifter",
+      "status": "untested-or-hardware-unavailable",
+      "path": "docs/research/ideas/control-flow-lifting.md",
+      "summary": "Useful instruction and reconvergence patterns were observed; a complete structured lifter is not shipped."
+    },
+    {
+      "id": "cooperative-layernorm",
+      "title": "Cooperative population LayerNorm",
+      "status": "implemented",
+      "path": "docs/research/ideas/cooperative-layernorm.md",
+      "summary": "Shifted population LayerNorm passes full finite-domain tests; affine, saved statistics and backward are absent."
+    },
+    {
+      "id": "cooperative-softmax",
+      "title": "Cooperative FP32 row softmax",
+      "status": "implemented",
+      "path": "docs/research/ideas/cooperative-softmax.md",
+      "summary": "Native warp-per-row softmax passes the full five-pattern contract; large serial-mapping gains, ptxas still faster."
+    },
+    {
+      "id": "cubin-metadata-splicing",
+      "title": "Loadable cubins and metadata-safe code replacement",
+      "status": "implemented",
+      "path": "docs/research/ideas/cubin-metadata-splicing.md",
+      "summary": "The production container code parses/serializes CUDA ELF and .nv.info records, replaces kernel text, fixes exit offsets and declares the generated register count."
+    },
+    {
+      "id": "cublas-observation-and-baselines",
+      "title": "cuBLAS dispatch observation and cuBLASLt controls",
+      "status": "validated-not-integrated",
+      "path": "docs/research/ideas/cublas-observation-and-baselines.md",
+      "summary": "Vendor dispatch and matched controls guide independent kernels; no vendor kernel was extracted into the compiler."
+    },
+    {
+      "id": "cuda-cpp-frontend",
+      "title": "CUDA C/C++ frontend through nvcc PTX",
+      "status": "implemented",
+      "path": "docs/research/ideas/cuda-cpp-frontend.md",
+      "summary": "nvcc supplies CUDA parsing/PTX, while OpenAssembler supplies supported native SASS generation."
+    },
+    {
+      "id": "cuda-l2-source-audit",
+      "title": "CUDA-L2 project source audit",
+      "status": "untested-or-hardware-unavailable",
+      "path": "docs/research/ideas/cuda-l2-source-audit.md",
+      "summary": "Pinned public source and contracts were inspected; a faithful port and performance reproduction remain open."
+    },
+    {
+      "id": "dead-code-and-copy-elimination",
+      "title": "Dead-code removal, copy coalescing and local folding",
+      "status": "implemented",
+      "path": "docs/research/ideas/dead-code-and-copy-elimination.md",
+      "summary": "These passes are in the regular scalar and tensor compilation pipelines before allocation."
+    },
+    {
+      "id": "deeper-pipelines-and-tile-shapes",
+      "title": "Deeper copy pipelines and larger tiles",
+      "status": "tested-not-selected",
+      "path": "docs/research/ideas/deeper-pipelines-and-tile-shapes.md",
+      "summary": "For the tested 64-wide K tile, two stages beat three/four: approximately 1.003 ms versus 1.178/1.180 ms in the archived run."
+    },
+    {
+      "id": "direct-pointer-homes",
+      "title": "Direct pointer homes for asynchronous GEMM copies",
+      "status": "implemented",
+      "path": "docs/research/ideas/direct-pointer-homes.md",
+      "summary": "Explicit mode improves tested MLP products but regresses on tall GEMM; legacy remains the default."
+    },
+    {
+      "id": "fused-adam-like-update",
+      "title": "Fused Adam-like scalar update example",
+      "status": "implemented",
+      "path": "docs/research/ideas/fused-adam-like-update.md",
+      "summary": "Fused example passes tolerance and beats the chosen eager expression; it is not complete AdamW or a tuned-optimizer comparison."
+    },
+    {
+      "id": "fused-gemm-epilogues",
+      "title": "Fused FP32 bias, residual and ReLU epilogues",
+      "status": "implemented",
+      "path": "docs/research/ideas/fused-gemm-epilogues.md",
+      "summary": "The explicit `bias_residual` and `bias_residual_relu` plans compute `(A@B.T + Bias) + Residual`, then optional finite-value ReLU, with FP32 inputs to the epilogue and FP32 output."
+    },
+    {
+      "id": "gpu-execution-and-launch-specs",
+      "title": "GPU execution, explicit launch specifications and fault isolation",
+      "status": "implemented",
+      "path": "docs/research/ideas/gpu-execution-and-launch-specs.md",
+      "summary": "Typed launch planning, fault-isolated local/Modal/SSH transports implemented; Modal hardware is validated and latest real SSH evidence is absent."
+    },
+    {
+      "id": "hilbert-and-grouped-cta-order",
+      "title": "Hilbert, grouped-M and alternative CTA orders",
+      "status": "tested-not-selected",
+      "path": "docs/research/ideas/hilbert-and-grouped-cta-order.md",
+      "summary": "The phase-five study tested N-fast, grouped-M, Morton8 and Hilbert8 while retaining the physical HMMA/LDSM/LDGSTS words and controls."
+    },
+    {
+      "id": "joint-layout-register-search",
+      "title": "Joint shared-layout and register-fragment search",
+      "status": "untested-or-hardware-unavailable",
+      "path": "docs/research/ideas/joint-layout-register-search.md",
+      "summary": "Existing swizzle experiments largely held register organization fixed; fragment-window and tile experiments explored other dimensions separately."
+    },
+    {
+      "id": "l2-persistence",
+      "title": "Persisting-L2 cache allocation policies",
+      "status": "tested-not-selected",
+      "path": "docs/research/ideas/l2-persistence.md",
+      "summary": "The controlled cache-policy study performed 224 output checks across square/tall FP16/BF16 and policy settings, with graph-node policy readback."
+    },
+    {
+      "id": "loop-unrolling",
+      "title": "Four-way counted-loop unrolling",
+      "status": "implemented",
+      "path": "docs/research/ideas/loop-unrolling.md",
+      "summary": "The `opt` scalar path applies four-way unrolling to the supported counted-loop form."
+    },
+    {
+      "id": "low-rank-factorization-library",
+      "title": "Exact AlphaTensor/Strassen factors and FP32 research plans",
+      "status": "implemented",
+      "path": "docs/research/ideas/low-rank-factorization-library.md",
+      "summary": "Exact factors and explicit FP32 research plans exist; sampled/interrupted timing records do not prove a general win."
+    },
+    {
+      "id": "low-rank-transform-fusion",
+      "title": "Fuse low-rank transforms into operand staging",
+      "status": "untested-or-hardware-unavailable",
+      "path": "docs/research/ideas/low-rank-transform-fusion.md",
+      "summary": "The existing runtime-factor and tiny compile-time studies identify this as promising future work."
+    },
+    {
+      "id": "mbarrier-overlap",
+      "title": "Two-slot asynchronous barrier overlap",
+      "status": "validated-not-integrated",
+      "path": "docs/research/ideas/mbarrier-overlap.md",
+      "summary": "A two-slot one-CTA overlap probe works; dense-GEMM integration and an application benefit remain unproven."
+    },
+    {
+      "id": "morton-cta-order",
+      "title": "Morton8 logical CTA traversal",
+      "status": "implemented",
+      "path": "docs/research/ideas/morton-cta-order.md",
+      "summary": "Corrected 8×8 tile traversal helps tested tall grids; it is not an MMA storage layout or automatic policy."
+    },
+    {
+      "id": "multi-precision-accumulation",
+      "title": "Alternative multi-precision accumulation paths",
+      "status": "untested-or-hardware-unavailable",
+      "path": "docs/research/ideas/multi-precision-accumulation.md",
+      "summary": "The implemented tensor GEMM already uses mixed precision in the ordinary sense: FP16/BF16 inputs with FP32 accumulation and FP32 output."
+    },
+    {
+      "id": "native-gelu",
+      "title": "Native tanh-approximation GELU example",
+      "status": "implemented",
+      "path": "docs/research/ideas/native-gelu.md",
+      "summary": "Tanh-GELU passes a predeclared FP64 tolerance, while the old exact gate failure remains and gains depend on size."
+    },
+    {
+      "id": "native-hybrid-mlp",
+      "title": "Native GEMMs inside a complete hybrid residual MLP",
+      "status": "validated-not-integrated",
+      "path": "docs/research/ideas/native-hybrid-mlp.md",
+      "summary": "Complete hybrid steps are checked, including packing and optimizer work; effects are mixed and integration is experimental."
+    },
+    {
+      "id": "native-relu",
+      "title": "Native scalar ReLU example",
+      "status": "implemented",
+      "path": "docs/research/ideas/native-relu.md",
+      "summary": "Finite-input exact example passes; measured large-size PyTorch is faster, with no universal speedup."
+    },
+    {
+      "id": "native-tensor-gemm",
+      "title": "Native SM80 tensor GEMM compiler and mainloop",
+      "status": "implemented",
+      "path": "docs/research/ideas/native-tensor-gemm.md",
+      "summary": "The production `gemm` path computes C=A@B.T with contiguous FP16/BF16 operands, FP32 accumulation/output, 128×128×64 CTA tiles, four 64×64 warp tiles, 128 threads and 64 KiB dynamic shared memory."
+    },
+    {
+      "id": "operand-reuse-hints",
+      "title": "Operand reuse hints and ordering",
+      "status": "implemented",
+      "path": "docs/research/ideas/operand-reuse-hints.md",
+      "summary": "The tensor scheduler emits reuse hints for supported neighboring HMMA operands."
+    },
+    {
+      "id": "padded-training-hook",
+      "title": "Padded forward/backward integration prototype",
+      "status": "validated-not-integrated",
+      "path": "docs/research/ideas/padded-training-hook.md",
+      "summary": "The phase-two FP16/BF16 hook passed forward/backward and three-step state checks under its explicit padding/rounding policy."
+    },
+    {
+      "id": "paired-fragment-loads",
+      "title": "Paired B-fragment LDSM loads and register-group use",
+      "status": "implemented",
+      "path": "docs/research/ideas/paired-fragment-loads.md",
+      "summary": "The selected native kernel uses paired `LDSM.x4` B loads."
+    },
+    {
+      "id": "post-allocation-pointer-forwarding",
+      "title": "Post-allocation pointer-copy forwarding",
+      "status": "validated-not-integrated",
+      "path": "docs/research/ideas/post-allocation-pointer-forwarding.md",
+      "summary": "The tested rewrite is correct but produces exactly the direct-pointer stream; it adds no distinct optimization."
+    },
+    {
+      "id": "prefetch-and-fragment-windows",
+      "title": "Copy prefetch hints and bounded fragment windows",
+      "status": "tested-not-selected",
+      "path": "docs/research/ideas/prefetch-and-fragment-windows.md",
+      "summary": "The production follow-up tested cp.async L2-prefetch modifiers, B-fragment windows of two/four and bounded prefetch."
+    },
+    {
+      "id": "producer-consumer-warps",
+      "title": "Software producer/consumer warp specialization",
+      "status": "tested-not-selected",
+      "path": "docs/research/ideas/producer-consumer-warps.md",
+      "summary": "The tested role-split variants passed four large-case A100 correctness checks but measured about 1.019–1.943 ms and lost to the unified-warp schedule."
+    },
+    {
+      "id": "ptx-native-frontend",
+      "title": "Native PTX input and compilation boundary",
+      "status": "implemented",
+      "path": "docs/research/ideas/ptx-native-frontend.md",
+      "summary": "Supported SM80 PTX routes to the native scalar/tensor backends with explicit verification limits."
+    },
+    {
+      "id": "python-kernel-frontend",
+      "title": "Typed Python kernel frontend",
+      "status": "implemented",
+      "path": "docs/research/ideas/python-kernel-frontend.md",
+      "summary": "Typed numeric Python source compiles without executing imports; fixed GPU numeric semantics are explicit."
+    },
+    {
+      "id": "pytorch-application-capture",
+      "title": "PyTorch application capture and saved replay",
+      "status": "implemented",
+      "path": "docs/research/ideas/pytorch-application-capture.md",
+      "summary": "Actual verified capture/replay passes77 tensors and cache-only replay; lowering is Inductor/Triton, not native OA."
+    },
+    {
+      "id": "repository-builds",
+      "title": "Repository discovery, manifests and safe artifact publication",
+      "status": "implemented",
+      "path": "docs/research/ideas/repository-builds.md",
+      "summary": "Safe discovery, path mirroring, manifests, locking and publication are implemented and tested."
+    },
+    {
+      "id": "runtime-factor-low-rank-triton",
+      "title": "Runtime-factor Triton low-rank lowering",
+      "status": "tested-not-selected",
+      "path": "docs/research/ideas/runtime-factor-low-rank-triton.md",
+      "summary": "The early A10040GB prototype was far slower: at 4096³ FP16, cuBLAS was about 0.511 ms, direct Triton 1.325 ms, Strassen 11.611 ms and AlphaTensor 13.041 ms."
+    },
+    {
+      "id": "sass-emulator-and-tensor-numerics",
+      "title": "SASS execution emulator and fitted tensor arithmetic",
+      "status": "implemented",
+      "path": "docs/research/ideas/sass-emulator-and-tensor-numerics.md",
+      "summary": "Functional execution and fitted tensor arithmetic pass the recorded cases; they do not prove real timing or all special values."
+    },
+    {
+      "id": "sass-encoding",
+      "title": "SM80 SASS instruction encoding",
+      "status": "implemented",
+      "path": "docs/research/ideas/sass-encoding.md",
+      "summary": "The production encoder emits the supported SM80 instructions from generated templates and field maps."
+    },
+    {
+      "id": "scalar-attention-score-baseline",
+      "title": "Naive scalar attention-score baseline",
+      "status": "tested-not-selected",
+      "path": "docs/research/ideas/scalar-attention-score-baseline.md",
+      "summary": "The illustrative score kernel fails its retained exact gate; it is not a fused attention implementation."
+    },
+    {
+      "id": "scalar-cross-entropy-baseline",
+      "title": "Serial scalar cross-entropy baseline",
+      "status": "tested-not-selected",
+      "path": "docs/research/ideas/scalar-cross-entropy-baseline.md",
+      "summary": "The example exists, but its retained exact hardware gate fails; no speedup is admitted."
+    },
+    {
+      "id": "scalar-dependency-correctness",
+      "title": "Scalar register dependencies, scoreboards and synchronized shuffles",
+      "status": "implemented",
+      "path": "docs/research/ideas/scalar-dependency-correctness.md",
+      "summary": "Fresh binding, reader sets, scoreboard-generation retirement, source WAR and actual WARPSYNC repair hardware failures."
+    },
+    {
+      "id": "scalar-matmul-baseline",
+      "title": "Naive scalar matrix-multiplication baseline",
+      "status": "tested-not-selected",
+      "path": "docs/research/ideas/scalar-matmul-baseline.md",
+      "summary": "The scalar example fails its retained exact gate and is not the validated tensor-core GEMM."
+    },
+    {
+      "id": "scalar-register-allocation",
+      "title": "Register allocation, aligned groups and guarded definitions",
+      "status": "implemented",
+      "path": "docs/research/ideas/scalar-register-allocation.md",
+      "summary": "The scalar compiler uses virtual values, liveness, stable homes for repeated/guarded definitions and aligned register-group allocation."
+    },
+    {
+      "id": "scalar-scheduling",
+      "title": "Measured scalar instruction scheduling",
+      "status": "implemented",
+      "path": "docs/research/ideas/scalar-scheduling.md",
+      "summary": "Corrected fixed-pipe probes found four cycles for tested same-pipe ALU/FMA pairs, five across tested classes, and 13 from a predicate definition to tested guarded instructions/branches."
+    },
+    {
+      "id": "shared-layout-swizzling",
+      "title": "Shared-memory swizzling and bank conflicts",
+      "status": "implemented",
+      "path": "docs/research/ideas/shared-layout-swizzling.md",
+      "summary": "The selected GEMM uses the tested symmetric 7/7 XOR swizzle."
+    },
+    {
+      "id": "software-register-caching",
+      "title": "Software fragment caching in registers",
+      "status": "tested-not-selected",
+      "path": "docs/research/ideas/software-register-caching.md",
+      "summary": "Bounded B-fragment windows of two/four and prefetch variants passed correctness but were slower across seven paired rounds on the tested workloads."
+    },
+    {
+      "id": "sparse-mma-capability",
+      "title": "Structured-sparse MMA capability probes",
+      "status": "validated-not-integrated",
+      "path": "docs/research/ideas/sparse-mma-capability.md",
+      "summary": "Limited ptxas-built sparse probes ran on A100; native OA sparse code generation and speedup are not established."
+    },
+    {
+      "id": "stage-pair-specialization",
+      "title": "Two-tile stage-pair specialization and peeled drain",
+      "status": "implemented",
+      "path": "docs/research/ideas/stage-pair-specialization.md",
+      "summary": "`--schedule stagepair` is the selected production plan."
+    },
+    {
+      "id": "state-verification-diagnostics",
+      "title": "Complete application-state verification diagnostics",
+      "status": "implemented",
+      "path": "docs/research/ideas/state-verification-diagnostics.md",
+      "summary": "Checks all state groups under unchanged gates and bounded failure reports; exposes both BF16 parameter failures."
+    },
+    {
+      "id": "tensor-address-generation",
+      "title": "Carry-linked pointer updates and folded shared addresses",
+      "status": "implemented",
+      "path": "docs/research/ideas/tensor-address-generation.md",
+      "summary": "The earlier address work reduced one selected kernel from 1,898 to 1,812 static non-NOP instructions; six same-worker cases improved about 0.9–5.4%."
+    },
+    {
+      "id": "tensor-counter-profiling",
+      "title": "Hardware-counter-guided tensor analysis",
+      "status": "validated-not-integrated",
+      "path": "docs/research/ideas/tensor-counter-profiling.md",
+      "summary": "Retained matched profiles show equal tensor work but different overhead and stalls."
+    },
+    {
+      "id": "tensor-timing-and-synchronization",
+      "title": "Clocked tensor probes and synchronization sweeps",
+      "status": "validated-not-integrated",
+      "path": "docs/research/ideas/tensor-timing-and-synchronization.md",
+      "summary": "Corrected exact-SASS probes measured an approximately eight-cycle-per-operation slope for the tested dependent HMMA sequence and about 41 cycles per iteration for LDSM→LOP3→IADD3."
+    },
+    {
+      "id": "vectorized-fp32-epilogue",
+      "title": "Vectorized FP32 result stores",
+      "status": "implemented",
+      "path": "docs/research/ideas/vectorized-fp32-epilogue.md",
+      "summary": "The native GEMM epilogue groups FP32 stores into pairs and passes an existing aligned register pair directly when possible."
+    },
+    {
+      "id": "whole-transformer-evaluation",
+      "title": "Whole-transformer training and inference evaluation",
+      "status": "validated-not-integrated",
+      "path": "docs/research/ideas/whole-transformer-evaluation.md",
+      "summary": "Nine of ten configurations pass both rounds; gains use Inductor/Triton and BF16 training remains excluded."
+    }
+  ]
+}

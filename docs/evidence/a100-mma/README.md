@@ -1,7 +1,7 @@
 # A100 MMA Evidence Index
 
 This directory retains the selected raw records cited by the
-[A100 research ledger](../../research/A100_MMA_RESULTS.md). The ledger states
+[per-idea research catalogue](../../research/README.md). The dossiers state
 comparison scope and conclusions; these files keep device identity, checks,
 samples, source hashes and candidate-level details. Removed build caches and
 repeated per-candidate PTX/SASS are not included except for the current

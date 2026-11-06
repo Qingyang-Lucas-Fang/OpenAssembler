@@ -4,8 +4,8 @@
   "files": [
     {
       "path": "docs/evidence/a100-mma/README.md",
-      "sha256": "4264e7859b4979b7ca9a78cb2474e33b2c1a042b4faa7dfe456b9b0fcc28fd1e",
-      "bytes": 5282
+      "sha256": "a9cdac154836f44d9c59526c6726fc3b510682ebbaea6f9faee83ca3740a5c8a",
+      "bytes": 5280
     },
     {
       "path": "docs/evidence/a100-mma/current-validation/controls/square_bf16_gemm/gemm.ptx",
@@ -600,5 +600,13 @@
       "sha256": "2ba8951be6d692bf99cf3e31f6b45fbf03b51c9cbc11aa2683bbdd4986f1cdb8",
       "bytes": 28003
     }
-  ]
+  ],
+  "documentation_reorganization": {
+    "date": "2026-11-06",
+    "archive": "docs/evidence/documentation-history/pre-catalogue-20261106.json.gz",
+    "original_manifest_member": "docs/evidence/a100-mma/manifest.json",
+    "catalogue": "docs/research/catalogue.json",
+    "measurement_values_and_non_markdown_records": "unchanged",
+    "new_gpu_measurement": false
+  }
 }

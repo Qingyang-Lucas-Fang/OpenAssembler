@@ -1,0 +1,240 @@
+{
+  "schema": 1,
+  "date": "2026-11-06",
+  "archive": "docs/evidence/documentation-history/pre-catalogue-20261106.json.gz",
+  "archive_sha256": "182ae897e0ad4c18b4cfdae0a8b81f3d9abbbcd320746d9050a865c1a1a286de",
+  "archived_documents": 41,
+  "policy": "One active dossier per idea; exact original text retained for provenance; raw measurements and production source unchanged",
+  "documents": [
+    {
+      "old_path": "docs/INTEGRATION_REVIEW.md",
+      "disposition": "retired-active-narrative",
+      "replacements": [
+        "docs/research/ideas/repository-builds.md",
+        "docs/research/ideas/pytorch-application-capture.md",
+        "docs/research/ideas/gpu-execution-and-launch-specs.md",
+        "docs/research/ideas/state-verification-diagnostics.md"
+      ],
+      "original_sha256": "3d8f2ba72e2a033447cb410711157e71b3f754abc10a70e00739e980c3bf7d20",
+      "archive_member": "docs/INTEGRATION_REVIEW.md"
+    },
+    {
+      "old_path": "docs/research/01-encoding-prior-art.md",
+      "disposition": "retired-active-narrative",
+      "replacements": [
+        "docs/research/ideas/sass-encoding.md",
+        "docs/research/ideas/architecture-portability.md"
+      ],
+      "original_sha256": "66c58e0ccb56afc82e9a8cc1df80ae5860e6969b855240b485e210cae4522c8e",
+      "archive_member": "docs/research/01-encoding-prior-art.md"
+    },
+    {
+      "old_path": "docs/research/02-control-bits-and-containers.md",
+      "disposition": "retired-active-narrative",
+      "replacements": [
+        "docs/research/ideas/sass-encoding.md",
+        "docs/research/ideas/cubin-metadata-splicing.md",
+        "docs/research/ideas/architecture-portability.md"
+      ],
+      "original_sha256": "44e3234220bf81b4cf55f276b83ff3fafbbc4e94b47b54eff79d39fbfd2ed0b7",
+      "archive_member": "docs/research/02-control-bits-and-containers.md"
+    },
+    {
+      "old_path": "docs/research/03-lifting-and-ptx-bridge.md",
+      "disposition": "retired-active-narrative",
+      "replacements": [
+        "docs/research/ideas/control-flow-lifting.md",
+        "docs/research/ideas/arithmetic-instruction-selection.md"
+      ],
+      "original_sha256": "905a028476c263d9ab3de3052a0e9057d242ccf61933299d16c38e3bbd304946",
+      "archive_member": "docs/research/03-lifting-and-ptx-bridge.md"
+    },
+    {
+      "old_path": "docs/research/A100_COUNTERS_20261105.md",
+      "disposition": "retired-active-narrative",
+      "replacements": [
+        "docs/research/ideas/tensor-counter-profiling.md",
+        "docs/research/ideas/morton-cta-order.md",
+        "docs/research/ideas/direct-pointer-homes.md"
+      ],
+      "original_sha256": "0a975fa9c172c3fa08c622849ff3c80305feca0639345eef9fe43d8988d06f68",
+      "archive_member": "docs/research/A100_COUNTERS_20261105.md"
+    },
+    {
+      "old_path": "docs/research/A100_MMA_COMPILER.md",
+      "disposition": "retired-active-narrative",
+      "replacements": [
+        "docs/research/ideas/native-tensor-gemm.md",
+        "docs/research/ideas/stage-pair-specialization.md",
+        "docs/research/ideas/paired-fragment-loads.md",
+        "docs/research/ideas/tensor-address-generation.md"
+      ],
+      "original_sha256": "70c6aacee1cf3f5c97baa56ffa50599d813b89101ce7def9e38f97f6a7dcaa7f",
+      "archive_member": "docs/research/A100_MMA_COMPILER.md"
+    },
+    {
+      "old_path": "docs/research/A100_MMA_RESULTS.md",
+      "disposition": "retired-active-narrative",
+      "replacements": [
+        "docs/research/ideas/native-tensor-gemm.md",
+        "docs/research/ideas/runtime-factor-low-rank-triton.md",
+        "docs/research/ideas/compile-time-low-rank-mma.md",
+        "docs/research/ideas/morton-cta-order.md",
+        "docs/research/ideas/fused-gemm-epilogues.md",
+        "docs/research/ideas/producer-consumer-warps.md",
+        "docs/research/ideas/deeper-pipelines-and-tile-shapes.md",
+        "docs/research/ideas/tensor-counter-profiling.md"
+      ],
+      "original_sha256": "a3b6f3eb8094bc627baa2b98923974810aab43ca260fcf2a46ca392d01a5c2b7",
+      "archive_member": "docs/research/A100_MMA_RESULTS.md"
+    },
+    {
+      "old_path": "docs/research/REVERSE_ENGINEERING.md",
+      "disposition": "retired-active-narrative",
+      "replacements": [
+        "docs/research/ideas/sass-encoding.md",
+        "docs/research/ideas/cubin-metadata-splicing.md",
+        "docs/research/ideas/sass-emulator-and-tensor-numerics.md",
+        "docs/research/ideas/control-flow-lifting.md"
+      ],
+      "original_sha256": "96110eb2ef4d4e49f65623fc69ff7b802f8a7897156ed962f5aedb67c6c10eb8",
+      "archive_member": "docs/research/REVERSE_ENGINEERING.md"
+    },
+    {
+      "old_path": "docs/research/SCALAR_COMPILER_RESULTS.md",
+      "disposition": "retired-active-narrative",
+      "replacements": [
+        "docs/research/ideas/constant-division.md",
+        "docs/research/ideas/scalar-scheduling.md",
+        "docs/research/ideas/scalar-register-allocation.md",
+        "docs/research/ideas/low-rank-factorization-library.md"
+      ],
+      "original_sha256": "2e90cc3774e49df5814349b6360c0599e9fd0d9163e30529578f39267b07a71a",
+      "archive_member": "docs/research/SCALAR_COMPILER_RESULTS.md"
+    },
+    {
+      "old_path": "docs/research/WEAKNESS_REMEDIATION.md",
+      "disposition": "retired-active-narrative",
+      "replacements": [
+        "docs/research/ideas/direct-pointer-homes.md",
+        "docs/research/ideas/cooperative-softmax.md",
+        "docs/research/ideas/cooperative-layernorm.md",
+        "docs/research/ideas/scalar-dependency-correctness.md",
+        "docs/research/ideas/state-verification-diagnostics.md",
+        "docs/research/ideas/native-hybrid-mlp.md"
+      ],
+      "original_sha256": "0a3f6f0ee3e1461defc1ea651d42eaba79d09a17e160ae07b414913c2556a566",
+      "archive_member": "docs/research/WEAKNESS_REMEDIATION.md"
+    },
+    {
+      "old_path": "exp/whole_stack/native_REPORT.md",
+      "disposition": "retired-active-narrative",
+      "replacements": [
+        "docs/research/ideas/native-hybrid-mlp.md",
+        "docs/research/ideas/direct-pointer-homes.md"
+      ],
+      "original_sha256": "9f5734b02b2a90ba62cc7fbd6a3e0c30c72fc9280cb44dd2cb3b1263ff1a9c23",
+      "archive_member": "exp/whole_stack/native_REPORT.md"
+    },
+    {
+      "old_path": "exp/whole_stack/native_attempts.md",
+      "disposition": "retired-active-narrative",
+      "replacements": [
+        "docs/research/ideas/native-hybrid-mlp.md",
+        "docs/research/ideas/whole-transformer-evaluation.md"
+      ],
+      "original_sha256": "8f17a0d271d86ffef61c4a69b8e2e300aa4ad0fcea3efbc4f531fad12ad74b82",
+      "archive_member": "exp/whole_stack/native_attempts.md"
+    },
+    {
+      "old_path": "exp/whole_stack/native_ops.md",
+      "disposition": "retired-active-narrative",
+      "replacements": [
+        "docs/research/ideas/native-relu.md",
+        "docs/research/ideas/native-gelu.md",
+        "docs/research/ideas/fused-adam-like-update.md",
+        "docs/research/ideas/cooperative-softmax.md",
+        "docs/research/ideas/cooperative-layernorm.md"
+      ],
+      "original_sha256": "21d0bc9151c52e61617ca540ff4423289238b0972439c1cdd0ef5edb898eefcf",
+      "archive_member": "exp/whole_stack/native_ops.md"
+    },
+    {
+      "old_path": "exp/weaknesses/bf16_verification.md",
+      "disposition": "retired-active-narrative",
+      "replacements": [
+        "docs/research/ideas/state-verification-diagnostics.md",
+        "docs/research/ideas/bf16-cast-preservation.md",
+        "docs/research/ideas/adam-epsilon-sensitivity.md"
+      ],
+      "original_sha256": "1c3e7d052785349a554962ad8f331453c38f3e39042e14f1614f9d92c613e31a",
+      "archive_member": "exp/weaknesses/bf16_verification.md"
+    },
+    {
+      "old_path": "exp/weaknesses/reductions_REPORT.md",
+      "disposition": "retired-active-narrative",
+      "replacements": [
+        "docs/research/ideas/cooperative-softmax.md",
+        "docs/research/ideas/cooperative-layernorm.md",
+        "docs/research/ideas/scalar-dependency-correctness.md"
+      ],
+      "original_sha256": "10214ddf466d4f7fcbe7ea17cd978200f06b5f705ab244abcab5991d7f33851a",
+      "archive_member": "exp/weaknesses/reductions_REPORT.md"
+    },
+    {
+      "old_path": "REPRODUCING.md",
+      "disposition": "short-compatibility-entry",
+      "replacements": [
+        "docs/research/README.md"
+      ],
+      "original_sha256": "936f96327f8daf5ddd86c25ebd2a1d9f7341c7adf84e73620709dac5c572b153",
+      "archive_member": "REPRODUCING.md"
+    },
+    {
+      "old_path": "docs/FRONTENDS.md",
+      "disposition": "short-compatibility-entry",
+      "replacements": [
+        "docs/research/README.md"
+      ],
+      "original_sha256": "7105ffc7b625b46178c21467b8618a830494dea1fe5b36b8c79ae0c05a7d878a",
+      "archive_member": "docs/FRONTENDS.md"
+    },
+    {
+      "old_path": "docs/TENSOR_GEMM.md",
+      "disposition": "short-compatibility-entry",
+      "replacements": [
+        "docs/research/ideas/native-tensor-gemm.md"
+      ],
+      "original_sha256": "a5404ca676adf95433756bffcefcdc712c7e13be8db56f23dc760a0b7fc56d94",
+      "archive_member": "docs/TENSOR_GEMM.md"
+    },
+    {
+      "old_path": "docs/findings-sm80-encoding.md",
+      "disposition": "short-compatibility-entry",
+      "replacements": [
+        "docs/research/ideas/sass-encoding.md"
+      ],
+      "original_sha256": "69a2dd7f6b7d4a44ec847cd14aacd6d35fa3b02b7636978853820a0903b9f4eb",
+      "archive_member": "docs/findings-sm80-encoding.md"
+    },
+    {
+      "old_path": "docs/findings-div-const.md",
+      "disposition": "short-compatibility-entry",
+      "replacements": [
+        "docs/research/ideas/constant-division.md"
+      ],
+      "original_sha256": "8c87f95aa4aa60cc43208d1ac8cf506a232974db8c753ab73f95d773c66d6513",
+      "archive_member": "docs/findings-div-const.md"
+    },
+    {
+      "old_path": "WORKFLOW.md",
+      "disposition": "updated-policy-entry",
+      "replacements": [
+        "docs/DEVELOPMENT.md",
+        "docs/STATUS.md"
+      ],
+      "original_sha256": "ca300ad135b23dc6f0733b76e93c8815dc80c507440b9dcd2795d9dacf0824fe",
+      "archive_member": "WORKFLOW.md"
+    }
+  ]
+}

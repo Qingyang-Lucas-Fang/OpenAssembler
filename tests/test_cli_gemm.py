@@ -21,6 +21,7 @@ def test_gemm_emit_and_contract_needs_exact_validated_body(tmp_path):
     contract = contract_from_source(source)
     assert contract["launch"] == {"grid": [1, 2, 1], "threads": 128, "smem": 65536}
     assert contract["dtype"] == "bf16"
+    assert contract["pointer_mode"] == "legacy"
     assert contract_from_source(source.replace("bar.sync 0;", "", 1)) is None
     assert contract_from_source(source.split("\n", 1)[1]) is None
     assert contract_from_source('// openassembler-gemm-v1 {bad}\n') is None
@@ -58,6 +59,7 @@ def test_gemm_run_plan_keeps_half_precision_sizes_and_launch(tmp_path):
     legacy_contract=contract_from_source(source.read_text())
     legacy_contract.pop("cta_order")
     legacy_contract.pop("epilogue")
+    legacy_contract.pop("pointer_mode")
     project.save_manifest(tmp_path, tmp_path, "sm_80", "opt", [{
         "source": str(source), "cubin": "ours.cubin", "reference": "ref.cubin",
         "kernels": [{"name": "gemm", "params": [["u64", x] for x in ("A", "B", "C")],
@@ -88,6 +90,28 @@ def test_fused_gemm_run_plan_allocates_bias_and_residual_without_host_random_fil
         assert job["init_rand"]=={}
         assert job["steps"][0][5]==[("buf",name,0) for name in ("A","B","C","Bias","Residual")]
         assert job["outputs"]=={"C":[(0,65536)]}
+
+
+def test_direct_pointer_plan_round_trips_and_legacy_source_defaults():
+    direct = GemmPlan(512, 2048, 512, pointer_mode="direct")
+    source = source_for(direct)
+    assert contract_from_source(source)["pointer_mode"] == "direct"
+    from openassembler.kernels.gemm import generate
+    assert generate(direct) == generate(GemmPlan(512, 2048, 512))
+    header, body = source_for(GemmPlan(128, 128, 128)).split("\n", 1)
+    # Existing generated sources predate this policy option.
+    from openassembler.gemm import MARKER
+    old = json.loads(header[len(MARKER):])
+    old.pop("pointer_mode")
+    assert contract_from_source(MARKER + json.dumps(old) + "\n" + body)["pointer_mode"] == "legacy"
+
+
+@pytest.mark.parametrize("options", [
+    {"schedule": "combined"}, {"cta_order": "morton8"}, {"epilogue": "bias_residual"},
+])
+def test_direct_pointer_mode_does_not_admit_unmeasured_combinations(options):
+    with pytest.raises(ValueError, match="direct pointer mode is validated"):
+        GemmPlan(1024, 1024, 1024, pointer_mode="direct", **options)
 
 
 @pytest.mark.parametrize('dtype,expected', [('f16', b'\x00\x3c'), ('bf16', b'\x80\x3f')])
@@ -199,3 +223,21 @@ def test_gemm_cli_compiles_and_recompiles_morton_fused_contract(tmp_path):
     second=json.loads((again/"manifest.json").read_text())["entries"][0]
     assert second["kernels"][0]["gemm"]==kernel["gemm"]
     assert (out/entry["cubin"]).read_bytes()==(again/second["cubin"]).read_bytes()
+
+
+@pytest.mark.skipif(not all(oracle.available(t) for t in ("ptxas", "nvdisasm")), reason=oracle.NEEDS_TOOLKIT)
+def test_direct_pointer_cli_recompile_preserves_native_policy(tmp_path):
+    out = tmp_path / "direct"
+    assert main(["gemm", "--m", "512", "--n", "2048", "--k", "512",
+                 "--pointer-mode", "direct", "--out-dir", str(out)]) == 0
+    entry = json.loads((out / "manifest.json").read_text())["entries"][0]
+    kernel = entry["kernels"][0]
+    assert kernel["compiled_by"] == "openassembler"
+    assert kernel["gemm"]["pointer_mode"] == kernel["tensor"]["pointer_mode"] == "direct"
+    source = out / ".build/generated/gemm.ptx"
+    again = tmp_path / "recompiled"
+    assert main(["compile", str(source), "--out-dir", str(again)]) == 0
+    second = json.loads((again / "manifest.json").read_text())["entries"][0]
+    assert second["kernels"][0]["tensor"] == kernel["tensor"]
+    assert second["kernels"][0]["gemm"] == kernel["gemm"]
+    assert (out / entry["cubin"]).read_bytes() == (again / second["cubin"]).read_bytes()

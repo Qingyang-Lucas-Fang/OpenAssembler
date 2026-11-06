@@ -1,0 +1,28 @@
+{
+  "ptx_sha256": "5a5941372138741658a78d1c1df02c4f73c5212989be16eaf58fc34b69d35587",
+  "ptxas_flags": [
+    "-O0",
+    "-arch=sm_80"
+  ],
+  "templates": [
+    {
+      "word": "003fde00038000000000000800007348",
+      "text": "WARPSYNC R8"
+    },
+    {
+      "word": "003fde00038000000000000400007348",
+      "text": "WARPSYNC R4"
+    }
+  ],
+  "register_sweep": {
+    "WARPSYNC R0": "WARPSYNC R0",
+    "WARPSYNC R2": "WARPSYNC R2",
+    "WARPSYNC R4": "WARPSYNC R4",
+    "WARPSYNC R8": "WARPSYNC R8",
+    "WARPSYNC R15": "WARPSYNC R15",
+    "WARPSYNC R31": "WARPSYNC R31",
+    "WARPSYNC R64": "WARPSYNC R64",
+    "WARPSYNC R127": "WARPSYNC R127",
+    "WARPSYNC R254": "WARPSYNC R254"
+  }
+}

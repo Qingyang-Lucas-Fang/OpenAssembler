@@ -97,8 +97,21 @@ def cmd_gemm(a: argparse.Namespace) -> int:
     from openassembler.project import ProjectError
     try:
         plan = GemmPlan(m=a.m, n=a.n, k=a.k, dtype=a.dtype, schedule=a.schedule, arch=a.arch,
-                        cta_order=a.cta_order, epilogue=a.epilogue)
+                        cta_order=a.cta_order, epilogue=a.epilogue, pointer_mode=a.pointer_mode)
         return compile_gemm(plan, Path(a.out_dir), a.out, no_sass=a.no_sass, emit_only=a.emit_only)
+    except (ValueError, TypeError, OSError, ProjectError) as exc:
+        print(f"error: {exc}", file=sys.stderr)
+        return 1
+
+
+def cmd_rowwise(a: argparse.Namespace) -> int:
+    """Generate and compile a checked cooperative FP32 row reduction."""
+    from openassembler.rowwise import compile_rowwise
+    from openassembler.kernels.reductions import ReductionPlan
+    from openassembler.project import ProjectError
+    try:
+        plan = ReductionPlan(rows=a.rows, width=a.width, op=a.op, epsilon=a.epsilon, arch=a.arch)
+        return compile_rowwise(plan, Path(a.out_dir), a.out, no_sass=a.no_sass, emit_only=a.emit_only)
     except (ValueError, TypeError, OSError, ProjectError) as exc:
         print(f"error: {exc}", file=sys.stderr)
         return 1
@@ -508,11 +521,29 @@ def build_parser() -> argparse.ArgumentParser:
                     help="A100 logical CTA traversal; morton8 requires complete 8x8 tile groups")
     pm.add_argument("--epilogue", choices=("none", "bias_residual", "bias_residual_relu"), default="none",
                     help="fuse FP32 bias and residual, optionally ReLU, into the output epilogue")
+    pm.add_argument("--pointer-mode", choices=("legacy", "direct"), default="legacy",
+                    help="direct reuses aligned pointer homes for staged copies; measured wins on MLP "
+                         "shapes, regression on tall GEMM; stagepair/m_fast/unfused only")
     pm.add_argument("--out-dir", default="output")
     pm.add_argument("-o", "--out", default="gemm", metavar="NAME")
     pm.add_argument("--no-sass", action="store_true")
     pm.add_argument("--emit-only", action="store_true", help="write generated PTX without invoking the toolkit")
     pm.set_defaults(func=cmd_gemm)
+
+    pw = sub.add_parser("rowwise", help="compile cooperative A100 FP32 softmax or LayerNorm",
+                        description="Compile contiguous FP32 rows using one full warp per row, "
+                                    "four rows per CTA. Width 1..1024, with row/column tails. "
+                                    "LayerNorm uses population variance and has no affine parameters.")
+    pw.add_argument("--op", choices=("softmax", "layernorm"), required=True)
+    pw.add_argument("--rows", type=int, required=True)
+    pw.add_argument("--width", type=int, required=True)
+    pw.add_argument("--epsilon", type=float, default=1e-5, help="positive FP32 LayerNorm epsilon")
+    pw.add_argument("--arch", default="sm_80")
+    pw.add_argument("--out-dir", default="output")
+    pw.add_argument("-o", "--out", default=None, metavar="NAME")
+    pw.add_argument("--no-sass", action="store_true")
+    pw.add_argument("--emit-only", action="store_true")
+    pw.set_defaults(func=cmd_rowwise)
 
     pr = sub.add_parser("run", help="run compiled cubins on a GPU: ours vs ptxas, bit-exact + timing",
                         description=RUN_HELP, formatter_class=argparse.RawDescriptionHelpFormatter)

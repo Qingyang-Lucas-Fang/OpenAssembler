@@ -6,8 +6,8 @@
   "files": [
     {
       "path": "exp/whole_stack/README.md",
-      "bytes": 4081,
-      "sha256": "7d85b571bded531bc9090a3b2e94f0b0baf030b996e91d9313ee35e082751a7c"
+      "bytes": 1697,
+      "sha256": "1af3eb6b2256a6a50a9b4e6a11dfaa7203135f635424f05c7e8583ca552f949a"
     },
     {
       "path": "exp/whole_stack/analyze.py",
@@ -21,8 +21,8 @@
     },
     {
       "path": "exp/whole_stack/cli_proof/README.md",
-      "bytes": 2435,
-      "sha256": "adae3d8555299f28512c7b6896d4d689cbf699e6daab9957222f5b787e01a150"
+      "bytes": 779,
+      "sha256": "1b5767515d685ef61eddd00f55df94632b302c0793a903dcb2fe5c62135157d6"
     },
     {
       "path": "exp/whole_stack/cli_proof/application/model.py",
@@ -50,16 +50,6 @@
       "sha256": "51be6c81f38e894d2f32977ab08f1f42403b01fc3cee0b653597d80742584871"
     },
     {
-      "path": "exp/whole_stack/native_REPORT.md",
-      "bytes": 10452,
-      "sha256": "9f5734b02b2a90ba62cc7fbd6a3e0c30c72fc9280cb44dd2cb3b1263ff1a9c23"
-    },
-    {
-      "path": "exp/whole_stack/native_attempts.md",
-      "bytes": 1389,
-      "sha256": "8f17a0d271d86ffef61c4a69b8e2e300aa4ad0fcea3efbc4f531fad12ad74b82"
-    },
-    {
       "path": "exp/whole_stack/native_counters.py",
       "bytes": 6393,
       "sha256": "93e62d0365182758c943fbb1d658a13d37c70d177e525cb862286225e7aedf6f"
@@ -68,11 +58,6 @@
       "path": "exp/whole_stack/native_mlp.py",
       "bytes": 26819,
       "sha256": "63ff040863c051e2cb82c799d69161092416d470e8fc34d4937f0a96e654594a"
-    },
-    {
-      "path": "exp/whole_stack/native_ops.md",
-      "bytes": 5715,
-      "sha256": "21d0bc9151c52e61617ca540ff4423289238b0972439c1cdd0ef5edb898eefcf"
     },
     {
       "path": "exp/whole_stack/native_ops.py",
@@ -168,5 +153,33 @@
     "runs/native-ops-20261106T110300.124164Z.json",
     "runs/bf16-diagnostic-20261106T110747.459824Z.json",
     "cli_proof/summary.json"
-  ]
+  ],
+  "retired_document_records": [
+    {
+      "path": "exp/whole_stack/native_REPORT.md",
+      "bytes": 10452,
+      "sha256": "9f5734b02b2a90ba62cc7fbd6a3e0c30c72fc9280cb44dd2cb3b1263ff1a9c23",
+      "archive_member": "exp/whole_stack/native_REPORT.md"
+    },
+    {
+      "path": "exp/whole_stack/native_attempts.md",
+      "bytes": 1389,
+      "sha256": "8f17a0d271d86ffef61c4a69b8e2e300aa4ad0fcea3efbc4f531fad12ad74b82",
+      "archive_member": "exp/whole_stack/native_attempts.md"
+    },
+    {
+      "path": "exp/whole_stack/native_ops.md",
+      "bytes": 5715,
+      "sha256": "21d0bc9151c52e61617ca540ff4423289238b0972439c1cdd0ef5edb898eefcf",
+      "archive_member": "exp/whole_stack/native_ops.md"
+    }
+  ],
+  "documentation_reorganization": {
+    "date": "2026-11-06",
+    "archive": "docs/evidence/documentation-history/pre-catalogue-20261106.json.gz",
+    "original_manifest_member": "exp/whole_stack/evidence_manifest.json",
+    "catalogue": "docs/research/catalogue.json",
+    "measurement_values_and_non_markdown_records": "unchanged",
+    "new_gpu_measurement": false
+  }
 }

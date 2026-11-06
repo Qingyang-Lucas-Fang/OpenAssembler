@@ -143,7 +143,9 @@ class Selector:
                 h = self.homes[name] = self.new()
             last = self.ops[-1] if self.ops else None
             if (isinstance(v, V) and last is not None and last.defs == [v] and not last.label
-                    and last.guard == getattr(self, "cur_guard", None)):
+                    and last.guard == getattr(self, "cur_guard", None)
+                    and v not in _flat(self.env.values())
+                    and v not in _flat(self.homes.values())):
                 # The value was just computed by the previous op and nothing has read it:
                 # write the home directly instead of computing into a temp + copying.
                 last.defs = [h]
@@ -441,6 +443,23 @@ class Selector:
             return self.shared(ins, t)
         if op == "bar" and ("sync" in m or not m) and len(a) == 1 and isinstance(a[0], ImmI) and a[0].value == 0:
             self.emit("BAR.SYNC.DEFER_BLOCKING 0x0", side=True)
+            return
+        if op == "shfl":
+            if (m != ("sync", "bfly", "b32") or len(a) != 5
+                    or not isinstance(a[0], Var) or ins.guard is not None
+                    or not isinstance(a[3], ImmI) or a[3].value != 31
+                    or not isinstance(a[4], ImmI) or a[4].value != 0xffffffff):
+                raise NotSupported("only unpredicated full-warp shfl.sync.bfly.b32 with clamp=31")
+            # PTX .sync promises convergence of every named lane. The ptxas -O0
+            # shuffle helper uses this exact WARPSYNC register-mask sequence;
+            # the generated template and field/register sweeps are recorded in
+            # exp/weaknesses/reductions_warpsync_evidence.json.
+            d = self.new()
+            mask = self.reg32(ImmI(0xffffffff))
+            self.emit("WARPSYNC {s0}", [], [mask], side=True)
+            self.emit("SHFL.BFLY PT, {d0}, {s0}, {s1}, 0x1f", [d],
+                      [self.reg32(a[1]), self.reg32(a[2])], var_lat=True)
+            self.bind(a[0].name, d)
             return
         if op == "mov" and isinstance(a[1], Var) and a[1].name in self.sym_shared:
             self.bind(a[0].name, I(self.sym_shared[a[1].name]))

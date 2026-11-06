@@ -1,0 +1,121 @@
+{
+  "schema": 1,
+  "timestamp_utc": "2026-11-06T13:02:11.834455+00:00",
+  "runtime": {
+    "python": "3.13.11",
+    "torch": "2.13.0"
+  },
+  "scope": "CPU diagnostic fixtures; no GPU performance or training-equivalence claim",
+  "diagnostic": {
+    "schema": 1,
+    "status": "failed",
+    "tensors_checked": 4,
+    "tensors_failed": 2,
+    "non_tensor_values_failed": 0,
+    "groups": {
+      "outputs": {
+        "tensors_checked": 1,
+        "tensors_failed": 0,
+        "non_tensor_values_failed": 0
+      },
+      "parameters": {
+        "tensors_checked": 1,
+        "tensors_failed": 1,
+        "non_tensor_values_failed": 0
+      },
+      "gradients": {
+        "tensors_checked": 1,
+        "tensors_failed": 0,
+        "non_tensor_values_failed": 0
+      },
+      "optimizer": {
+        "tensors_checked": 1,
+        "tensors_failed": 1,
+        "non_tensor_values_failed": 0
+      }
+    },
+    "failures": [
+      {
+        "key": "parameters/model/qkv.bias",
+        "key_truncated": false,
+        "reference_shape": [
+          1536
+        ],
+        "reference_dtype": "torch.float32",
+        "reference_layout": "torch.strided",
+        "relative_tolerance": 0.05,
+        "absolute_tolerance": 0.005,
+        "actual_shape": [
+          1536
+        ],
+        "actual_dtype": "torch.float32",
+        "actual_layout": "torch.strided",
+        "kind": "values",
+        "elements": 1536,
+        "mismatched_elements": 4,
+        "mismatched_index_sample": [
+          [
+            512
+          ],
+          [
+            513
+          ],
+          [
+            514
+          ],
+          [
+            515
+          ]
+        ],
+        "reference_nonfinite_elements": 0,
+        "actual_nonfinite_elements": 0,
+        "finite_pair_elements": 1536,
+        "max_abs_difference": 0.007000000216066837,
+        "reference_l2": 0.0,
+        "actual_l2": 0.014000000432133675,
+        "difference_l2": 0.014000000432133675,
+        "relative_l2_difference": null,
+        "statistics_scope": "finite element pairs; null means undefined or overflow"
+      },
+      {
+        "key": "optimizer/0/state/exp_avg",
+        "key_truncated": false,
+        "reference_shape": [
+          1536
+        ],
+        "reference_dtype": "torch.float32",
+        "reference_layout": "torch.strided",
+        "relative_tolerance": 0.05,
+        "absolute_tolerance": 0.005,
+        "actual_shape": [
+          1536
+        ],
+        "actual_dtype": "torch.float32",
+        "actual_layout": "torch.strided",
+        "kind": "values",
+        "elements": 1536,
+        "mismatched_elements": 1,
+        "mismatched_index_sample": [
+          [
+            0
+          ]
+        ],
+        "reference_nonfinite_elements": 0,
+        "actual_nonfinite_elements": 0,
+        "finite_pair_elements": 1536,
+        "max_abs_difference": 0.007000000216066837,
+        "reference_l2": 0.0,
+        "actual_l2": 0.007000000216066837,
+        "difference_l2": 0.007000000216066837,
+        "relative_l2_difference": null,
+        "statistics_scope": "finite element pairs; null means undefined or overflow"
+      }
+    ],
+    "rtol": 0.05,
+    "atol": 0.005,
+    "state_rtol": 0.05,
+    "state_atol": 0.005,
+    "gradient_scope": "retained application gradients; raw versus clipped is not inferred",
+    "failure_details_omitted": 0
+  }
+}

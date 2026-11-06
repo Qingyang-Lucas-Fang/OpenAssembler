@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import io
 from pathlib import Path
+import shlex
 import zipfile
 
 import pytest
@@ -22,7 +23,8 @@ def test_transformer_repo_dry_run_selects_its_configured_workload(tmp_path, caps
     assert main(["compile", str(EXAMPLE), "--out-dir", str(out), "--verify", "--dry-run"]) == 0
     report = capsys.readouterr().out
     assert "PyTorch application test_whole_repo: 5 files" in report
-    assert "train_transformer.py --device cuda --steps 2" in report
+    config = load_config(EXAMPLE / "openassembler.toml")
+    assert shlex.join([config["entrypoint"], *config["args"]]) in report
     assert "eager/compiled state verification on" in report
     assert not out.exists()
 

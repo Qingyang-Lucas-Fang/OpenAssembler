@@ -307,7 +307,8 @@ class Compiler:
 
 # ---- scheduling: conservative control bits ---------------------------------------------
 
-MEM_ASYNC = ("LDG", "STG", "LDS", "STS", "LDL", "STL", "ATOMG", "ATOMS", "RED", "LDGSTS", "LDSM")
+MEM_ASYNC = ("LDG", "STG", "LDS", "STS", "LDL", "STL", "ATOMG", "ATOMS", "RED", "LDGSTS", "LDSM",
+             "MUFU", "SHFL")
 
 
 def _opname(text: str) -> str:
@@ -337,7 +338,8 @@ def _puses(text: str) -> set:
 def schedule(code: list[Out], labels: dict | None = None, model: str = "safe") -> list[tuple[str, Control]]:
     """In-order, no reordering.
     * Variable-latency writes (loads, S2R): write scoreboard; readers and over-writers wait.
-    * Memory ops read their source registers asynchronously: read scoreboard; later
+    * Memory and operand-collection ops read their source registers asynchronously:
+      read scoreboard; later
       writers of those registers wait (WAR) - required once registers are reused.
     * Control flow: scoreboard state is not tracked across joins, so the instruction at
       every label and every branch waits on all outstanding scoreboards.
@@ -349,7 +351,7 @@ def schedule(code: list[Out], labels: dict | None = None, model: str = "safe") -
     """
     out = []
     pending_w: dict[int, int] = {}
-    pending_r: dict[int, int] = {}
+    pending_r: dict[int, set[int]] = {}
     next_sb = 0
     join_at = set((labels or {}).values())
 
@@ -361,8 +363,9 @@ def schedule(code: list[Out], labels: dict | None = None, model: str = "safe") -
 
     for i, o in enumerate(code):
         wait = 0
-        if i in join_at:
-            for b in set(pending_w.values()) | set(pending_r.values()):
+        live = set(pending_w.values()) | {b for bars in pending_r.values() for b in bars}
+        if i in join_at or _opname(o.text) in ("BRA", "EXIT", "WARPSYNC"):
+            for b in live:
                 wait |= 1 << b
         pred_reads = [("p", p) for p in _puses(o.text)]
         pred_writes = [("p", p) for p in _pdefs(o.text)]
@@ -370,25 +373,27 @@ def schedule(code: list[Out], labels: dict | None = None, model: str = "safe") -
             if r in pending_w:
                 wait |= 1 << pending_w[r]
         for r in o.writes:
-            if r in pending_r:
-                wait |= 1 << pending_r[r]
-        if _opname(o.text) in ("BRA", "EXIT"):
-            for b in set(pending_w.values()) | set(pending_r.values()):
+            for b in pending_r.get(r, ()):
                 wait |= 1 << b
-        for d in (pending_w, pending_r):
-            for r in [r for r, b in d.items() if wait >> b & 1]:
-                d.pop(r)
-        wbar = rbar = 7
-        if o.var_lat:
-            wbar = take()
+        # Select and retire both old slot generations before publishing this
+        # instruction's mappings. A read-barrier allocation must not erase a
+        # just-published write mapping when its old generation is also waited.
+        wbar = take() if o.var_lat else 7
+        rbar = take() if _opname(o.text) in MEM_ASYNC and o.reads else 7
+        for b in (wbar, rbar):
+            if b in live:
+                wait |= 1 << b
+        pending_w = {r: b for r, b in pending_w.items() if not (wait & (1 << b))}
+        retired = {b for b in range(6) if wait & (1 << b)}
+        pending_r = {r: bars - retired for r, bars in pending_r.items() if bars - retired}
+        if wbar != 7:
             for r in o.writes + pred_writes:
                 pending_w[r] = wbar
-        if _opname(o.text) in MEM_ASYNC and o.reads:
-            rbar = take()
+        if rbar != 7:
             for r in o.reads:
-                pending_r[r] = rbar
+                pending_r.setdefault(r, set()).add(rbar)
         stall = 2 if o.var_lat else 6
-        if _opname(o.text) in ("STG", "EXIT", "BRA"):
+        if _opname(o.text) in ("STG", "EXIT", "BRA", "WARPSYNC"):
             stall = 5
         out.append((o.text, Control(stall=stall, yield_=False, wbar=wbar, rbar=rbar, wait=wait, reuse=0)))
     if model == "mined":
