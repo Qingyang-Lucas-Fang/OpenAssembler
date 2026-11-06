@@ -1,0 +1,34 @@
+✓ Initialized. View run at 
+https://modal.com/apps/qingyang-lucas-fang/main/ap-MlFoAwCrpsyLd1QJ8JLyTv
+✓ Created objects.
+├── ✓ Uploaded 
+│   /Users/lucasfang/Desktop/OpenAssembler/openassembler/torchfront/modal_app.py
+├── ✓ Uploaded /Users/lucasfang/Desktop/OpenAssembler/openassembler
+└── ✓ Created Function process.
+
+==========
+== CUDA ==
+==========
+
+CUDA Version 12.8.0
+
+Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+
+This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+By pulling and using the container, you accept the terms and conditions of this license:
+https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+
+A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
+
+{"mode": "train", "parameters": 84992, "final_gradients_available": 15}
+
+/opt/conda/lib/python3.11/site-packages/torch/_inductor/compile_fx.py:236: UserWarning: TensorFloat32 tensor cores for float32 matrix multiplication available but not enabled. Consider setting `torch.set_float32_matmul_precision('high')` for better performance.
+  warnings.warn(
+{"mode": "train", "parameters": 84992, "final_gradients_available": 15}
+
+Stopping app - local entrypoint completed.
+✓ App completed. View run at 
+https://modal.com/apps/qingyang-lucas-fang/main/ap-MlFoAwCrpsyLd1QJ8JLyTv
+PyTorch application proof_model: captured 2 graphs and 35 generated CUDA kernels
+compiled by torch-inductor-triton for NVIDIA A100-SXM4-40GB; runtime bundle applications/proof_model
+eager/compiled verification: 77 tensors

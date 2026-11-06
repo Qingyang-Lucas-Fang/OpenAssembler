@@ -11,3 +11,10 @@ The current production GEMM can be tested with the ordinary CLI and test suite.
 Research reproduction requirements and retained records are indexed in
 [`REPRODUCING.md`](../REPRODUCING.md) and the
 [`docs/research/README.md`](../docs/research/README.md) index.
+
+Active experiments are isolated from production code:
+
+- [A100 counter study](a100_counters/README.md): current direct GEMM profiles.
+- [A100 whole-stack study](whole_stack/README.md): transformer application
+  steps/inference, native-GEMM hybrid MLPs, scalar neural stages, and counter
+  diagnosis. Numerical failures and attribution limits are retained.

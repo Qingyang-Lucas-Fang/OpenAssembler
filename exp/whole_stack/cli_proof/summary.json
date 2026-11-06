@@ -1,0 +1,429 @@
+{
+  "model_source_sha256": "dff8116fdac95efb65c94dd788a781e951bff2da2eaf476bf203964e15ba42ad",
+  "python": "3.13.11 (v3.13.11:627894459a8, Dec  5 2025, 11:26:37) [Clang 16.0.0 (clang-1600.0.26.6)]",
+  "commands": [
+    {
+      "label": "compile",
+      "command": [
+        "/Library/Frameworks/Python.framework/Versions/3.13/bin/python3.13",
+        "-m",
+        "openassembler",
+        "compile",
+        "/Users/lucasfang/Desktop/OpenAssembler/exp/whole_stack/cli_proof/application",
+        "-o",
+        "proof_model",
+        "--verify",
+        "--no-sass",
+        "--out-dir",
+        "/Users/lucasfang/Desktop/OpenAssembler/exp/whole_stack/cli_proof/build",
+        "--build-backend",
+        "modal",
+        "--build-budget",
+        "600"
+      ],
+      "returncode": 0,
+      "local_wall_seconds": 54.926486624986865
+    },
+    {
+      "label": "replay",
+      "command": [
+        "/Library/Frameworks/Python.framework/Versions/3.13/bin/python3.13",
+        "-m",
+        "openassembler",
+        "run",
+        "/Users/lucasfang/Desktop/OpenAssembler/exp/whole_stack/cli_proof/build",
+        "--application",
+        "proof_model",
+        "--backend",
+        "modal",
+        "--verify-application",
+        "--budget",
+        "240",
+        "--job-timeout",
+        "180"
+      ],
+      "returncode": 0,
+      "local_wall_seconds": 29.976230459054932
+    }
+  ],
+  "capture": {
+    "runtime": {
+      "torch": "2.7.1+cu128",
+      "cuda": "12.8",
+      "python": "3.11.13",
+      "device": "NVIDIA A100-SXM4-40GB",
+      "capability": [
+        8,
+        0
+      ]
+    },
+    "compiled_by": null,
+    "captured_by": "torch-inductor-triton",
+    "verification": {
+      "status": "ok",
+      "tensors_checked": 77,
+      "rtol": 0.001,
+      "atol": 0.0001,
+      "state_rtol": 0.02,
+      "state_atol": 0.002,
+      "scope": "observed model outputs, final parameters, gradients and optimizer state"
+    },
+    "model_instances": 1,
+    "optimizer_steps": 5,
+    "forward_calls": 5,
+    "new_gpu_codegen": 0,
+    "timing": {
+      "mode": "train",
+      "stages": {
+        "batch": {
+          "samples_ms": [
+            0.15769599378108978,
+            0.13516800105571747,
+            0.14028799533843994
+          ],
+          "median_ms": 0.14028799533843994,
+          "mean_ms": 0.1443839967250824,
+          "p90_ms": 0.15769599378108978
+        },
+        "forward_loss": {
+          "samples_ms": [
+            1.1868159770965576,
+            1.2083200216293335,
+            1.0557440519332886
+          ],
+          "median_ms": 1.1868159770965576,
+          "mean_ms": 1.1502933502197266,
+          "p90_ms": 1.2083200216293335
+        },
+        "backward": {
+          "samples_ms": [
+            1.5872000455856323,
+            1.4837759733200073,
+            1.4479360580444336
+          ],
+          "median_ms": 1.4837759733200073,
+          "mean_ms": 1.5063040256500244,
+          "p90_ms": 1.5872000455856323
+        },
+        "optimizer": {
+          "samples_ms": [
+            1.183743953704834,
+            1.134592056274414,
+            1.0987520217895508
+          ],
+          "median_ms": 1.134592056274414,
+          "mean_ms": 1.1390293439229329,
+          "p90_ms": 1.183743953704834
+        },
+        "end_to_end": {
+          "samples_ms": [
+            4.192255973815918,
+            4.031487941741943,
+            3.8359038829803467
+          ],
+          "median_ms": 4.031487941741943,
+          "mean_ms": 4.019882599512736,
+          "p90_ms": 4.192255973815918
+        },
+        "tokens_per_second": 15875.031979469743,
+        "last_loss": 5.632360458374023
+      },
+      "device": "NVIDIA A100-SXM4-40GB",
+      "shape": {
+        "mode": "train",
+        "batch": 2,
+        "seq": 32,
+        "width": 64,
+        "heads": 4,
+        "layers": 1,
+        "vocab": 256,
+        "steps": 3,
+        "warmup": 2,
+        "reps": 20,
+        "decode_tokens": 24,
+        "decode_reps": 5,
+        "profile": false
+      },
+      "parameters": 84992,
+      "torch": "2.7.1+cu128",
+      "cuda": "12.8",
+      "tf32": false,
+      "float32_matmul_precision": "highest",
+      "peak_allocated_bytes": 60128768,
+      "final_gradients_available": 15
+    },
+    "eager_timing": {
+      "mode": "train",
+      "stages": {
+        "batch": {
+          "samples_ms": [
+            0.19865599274635315,
+            0.13619199395179749,
+            0.13312000036239624
+          ],
+          "median_ms": 0.13619199395179749,
+          "mean_ms": 0.15598932902018228,
+          "p90_ms": 0.19865599274635315
+        },
+        "forward_loss": {
+          "samples_ms": [
+            1.5308799743652344,
+            1.3916159868240356,
+            1.3864959478378296
+          ],
+          "median_ms": 1.3916159868240356,
+          "mean_ms": 1.4363306363423665,
+          "p90_ms": 1.5308799743652344
+        },
+        "backward": {
+          "samples_ms": [
+            2.254848003387451,
+            2.2067201137542725,
+            2.208767890930176
+          ],
+          "median_ms": 2.208767890930176,
+          "mean_ms": 2.2234453360239663,
+          "p90_ms": 2.254848003387451
+        },
+        "optimizer": {
+          "samples_ms": [
+            1.1151360273361206,
+            1.0475519895553589,
+            1.04038405418396
+          ],
+          "median_ms": 1.0475519895553589,
+          "mean_ms": 1.0676906903584797,
+          "p90_ms": 1.1151360273361206
+        },
+        "end_to_end": {
+          "samples_ms": [
+            5.216256141662598,
+            4.855807781219482,
+            4.840447902679443
+          ],
+          "median_ms": 4.855807781219482,
+          "mean_ms": 4.970837275187175,
+          "p90_ms": 5.216256141662598
+        },
+        "tokens_per_second": 13180.093381688002,
+        "last_loss": 5.632359981536865
+      },
+      "device": "NVIDIA A100-SXM4-40GB",
+      "shape": {
+        "mode": "train",
+        "batch": 2,
+        "seq": 32,
+        "width": 64,
+        "heads": 4,
+        "layers": 1,
+        "vocab": 256,
+        "steps": 3,
+        "warmup": 2,
+        "reps": 20,
+        "decode_tokens": 24,
+        "decode_reps": 5,
+        "profile": false
+      },
+      "parameters": 84992,
+      "torch": "2.7.1+cu128",
+      "cuda": "12.8",
+      "tf32": false,
+      "float32_matmul_precision": "highest",
+      "peak_allocated_bytes": 19528192,
+      "final_gradients_available": 15
+    }
+  },
+  "replay": {
+    "runtime": {
+      "torch": "2.7.1+cu128",
+      "cuda": "12.8",
+      "python": "3.11.13",
+      "device": "NVIDIA A100-SXM4-40GB",
+      "capability": [
+        8,
+        0
+      ]
+    },
+    "compiled": true,
+    "verification": {
+      "status": "ok",
+      "tensors_checked": 77,
+      "rtol": 0.001,
+      "atol": 0.0001,
+      "state_rtol": 0.02,
+      "state_atol": 0.002,
+      "scope": "observed model outputs, final parameters, gradients and optimizer state"
+    },
+    "model_instances": 1,
+    "optimizer_steps": 5,
+    "forward_calls": 5,
+    "new_gpu_codegen": 0,
+    "timing": {
+      "mode": "train",
+      "stages": {
+        "batch": {
+          "samples_ms": [
+            0.09523200243711472,
+            0.09216000139713287,
+            0.0942080020904541
+          ],
+          "median_ms": 0.0942080020904541,
+          "mean_ms": 0.09386666864156723,
+          "p90_ms": 0.09523200243711472
+        },
+        "forward_loss": {
+          "samples_ms": [
+            0.7086079716682434,
+            0.7710719704627991,
+            0.6768640279769897
+          ],
+          "median_ms": 0.7086079716682434,
+          "mean_ms": 0.7188479900360107,
+          "p90_ms": 0.7710719704627991
+        },
+        "backward": {
+          "samples_ms": [
+            0.9666560292243958,
+            0.9564160108566284,
+            0.9512959718704224
+          ],
+          "median_ms": 0.9564160108566284,
+          "mean_ms": 0.9581226706504822,
+          "p90_ms": 0.9666560292243958
+        },
+        "optimizer": {
+          "samples_ms": [
+            0.6973440051078796,
+            0.7516160011291504,
+            0.711679995059967
+          ],
+          "median_ms": 0.711679995059967,
+          "mean_ms": 0.7202133337656657,
+          "p90_ms": 0.7516160011291504
+        },
+        "end_to_end": {
+          "samples_ms": [
+            2.549760103225708,
+            2.649087905883789,
+            2.5026559829711914
+          ],
+          "median_ms": 2.549760103225708,
+          "mean_ms": 2.5671679973602295,
+          "p90_ms": 2.649087905883789
+        },
+        "tokens_per_second": 25100.400590249035,
+        "last_loss": 5.632360458374023
+      },
+      "device": "NVIDIA A100-SXM4-40GB",
+      "shape": {
+        "mode": "train",
+        "batch": 2,
+        "seq": 32,
+        "width": 64,
+        "heads": 4,
+        "layers": 1,
+        "vocab": 256,
+        "steps": 3,
+        "warmup": 2,
+        "reps": 20,
+        "decode_tokens": 24,
+        "decode_reps": 5,
+        "profile": false
+      },
+      "parameters": 84992,
+      "torch": "2.7.1+cu128",
+      "cuda": "12.8",
+      "tf32": false,
+      "float32_matmul_precision": "highest",
+      "peak_allocated_bytes": 19528192,
+      "final_gradients_available": 15
+    },
+    "eager_timing": {
+      "mode": "train",
+      "stages": {
+        "batch": {
+          "samples_ms": [
+            0.0942080020904541,
+            0.09113600105047226,
+            0.09011200070381165
+          ],
+          "median_ms": 0.09113600105047226,
+          "mean_ms": 0.091818667948246,
+          "p90_ms": 0.0942080020904541
+        },
+        "forward_loss": {
+          "samples_ms": [
+            0.9625599980354309,
+            0.9553920030593872,
+            0.9492480158805847
+          ],
+          "median_ms": 0.9553920030593872,
+          "mean_ms": 0.9557333389918009,
+          "p90_ms": 0.9625599980354309
+        },
+        "backward": {
+          "samples_ms": [
+            1.5769599676132202,
+            1.521664023399353,
+            1.6138240098953247
+          ],
+          "median_ms": 1.5769599676132202,
+          "mean_ms": 1.5708160003026326,
+          "p90_ms": 1.6138240098953247
+        },
+        "optimizer": {
+          "samples_ms": [
+            0.6881279945373535,
+            0.7127040028572083,
+            0.6850559711456299
+          ],
+          "median_ms": 0.6881279945373535,
+          "mean_ms": 0.6952959895133972,
+          "p90_ms": 0.7127040028572083
+        },
+        "end_to_end": {
+          "samples_ms": [
+            3.4047999382019043,
+            3.348479986190796,
+            3.4047999382019043
+          ],
+          "median_ms": 3.4047999382019043,
+          "mean_ms": 3.386026620864868,
+          "p90_ms": 3.4047999382019043
+        },
+        "tokens_per_second": 18796.992822373813,
+        "last_loss": 5.632359981536865
+      },
+      "device": "NVIDIA A100-SXM4-40GB",
+      "shape": {
+        "mode": "train",
+        "batch": 2,
+        "seq": 32,
+        "width": 64,
+        "heads": 4,
+        "layers": 1,
+        "vocab": 256,
+        "steps": 3,
+        "warmup": 2,
+        "reps": 20,
+        "decode_tokens": 24,
+        "decode_reps": 5,
+        "profile": false
+      },
+      "parameters": 84992,
+      "torch": "2.7.1+cu128",
+      "cuda": "12.8",
+      "tf32": false,
+      "float32_matmul_precision": "highest",
+      "peak_allocated_bytes": 19528192,
+      "final_gradients_available": 15
+    }
+  },
+  "kernel_count": 35,
+  "kernel_compiled_by": [
+    "torch-inductor-triton"
+  ],
+  "cache_zip_bytes": 1065073,
+  "source_zip_bytes": 3912,
+  "cubin_bytes": 422968
+}

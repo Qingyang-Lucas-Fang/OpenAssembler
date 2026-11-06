@@ -1,0 +1,445 @@
+{
+  "scope": "Static SASS instruction words through first EXIT, not dynamic execution counts or a cycle model",
+  "kernels": [
+    {
+      "shape_name": "1024_1024_4096",
+      "methods": {
+        "oa": {
+          "through_first_exit_instructions": 1595,
+          "non_nop_instructions": 1579,
+          "opcodes": {
+            "MOV": 282,
+            "ULDC": 1,
+            "S2R": 3,
+            "IMAD": 153,
+            "LOP3": 79,
+            "SHF": 31,
+            "IADD3": 243,
+            "LDGSTS": 64,
+            "LDGDEPBAR": 4,
+            "DEPBAR": 4,
+            "BAR": 8,
+            "LDSM": 128,
+            "HMMA": 512,
+            "NOP": 16,
+            "ISETP": 1,
+            "BRA": 1,
+            "STG": 64,
+            "EXIT": 1
+          },
+          "hmma_stalls": {
+            "8": 512
+          },
+          "hmma_reuse": {
+            "2": 384,
+            "0": 128
+          }
+        },
+        "ptxas": {
+          "through_first_exit_instructions": 1089,
+          "non_nop_instructions": 1089,
+          "opcodes": {
+            "IMAD": 110,
+            "S2R": 1,
+            "S2UR": 2,
+            "MOV": 1,
+            "ULDC": 1,
+            "CS2R": 64,
+            "SHF": 5,
+            "USHF": 2,
+            "IADD3": 53,
+            "LOP3": 27,
+            "LEA": 26,
+            "LDGSTS": 64,
+            "LDGDEPBAR": 4,
+            "DEPBAR": 4,
+            "BAR": 8,
+            "LDS": 9,
+            "LDSM": 128,
+            "HMMA": 512,
+            "ISETP": 1,
+            "CALL": 1,
+            "BRA": 1,
+            "STG": 64,
+            "EXIT": 1
+          },
+          "hmma_stalls": {
+            "3": 6,
+            "8": 396,
+            "1": 108,
+            "7": 2
+          },
+          "hmma_reuse": {
+            "1": 417,
+            "0": 92,
+            "2": 3
+          }
+        }
+      }
+    },
+    {
+      "shape_name": "1024_4096_1024",
+      "methods": {
+        "oa": {
+          "through_first_exit_instructions": 1595,
+          "non_nop_instructions": 1579,
+          "opcodes": {
+            "MOV": 282,
+            "ULDC": 1,
+            "S2R": 3,
+            "IMAD": 153,
+            "LOP3": 79,
+            "SHF": 31,
+            "IADD3": 243,
+            "LDGSTS": 64,
+            "LDGDEPBAR": 4,
+            "DEPBAR": 4,
+            "BAR": 8,
+            "LDSM": 128,
+            "HMMA": 512,
+            "NOP": 16,
+            "ISETP": 1,
+            "BRA": 1,
+            "STG": 64,
+            "EXIT": 1
+          },
+          "hmma_stalls": {
+            "8": 512
+          },
+          "hmma_reuse": {
+            "2": 384,
+            "0": 128
+          }
+        },
+        "ptxas": {
+          "through_first_exit_instructions": 3155,
+          "non_nop_instructions": 3155,
+          "opcodes": {
+            "IMAD": 78,
+            "S2R": 1,
+            "S2UR": 2,
+            "ULDC": 1,
+            "SHF": 6,
+            "USHF": 2,
+            "IADD3": 18,
+            "LOP3": 27,
+            "LEA": 30,
+            "LDGSTS": 256,
+            "LDGDEPBAR": 16,
+            "DEPBAR": 16,
+            "BAR": 32,
+            "LDS": 45,
+            "LDSM": 512,
+            "HMMA": 2048,
+            "STG": 64,
+            "EXIT": 1
+          },
+          "hmma_stalls": {
+            "3": 22,
+            "8": 1454,
+            "7": 8,
+            "1": 561,
+            "2": 3
+          },
+          "hmma_reuse": {
+            "1": 1556,
+            "0": 473,
+            "2": 19
+          }
+        }
+      }
+    },
+    {
+      "shape_name": "2048_512_512",
+      "methods": {
+        "oa": {
+          "through_first_exit_instructions": 1595,
+          "non_nop_instructions": 1579,
+          "opcodes": {
+            "MOV": 282,
+            "ULDC": 1,
+            "S2R": 3,
+            "IMAD": 153,
+            "LOP3": 79,
+            "SHF": 31,
+            "IADD3": 243,
+            "LDGSTS": 64,
+            "LDGDEPBAR": 4,
+            "DEPBAR": 4,
+            "BAR": 8,
+            "LDSM": 128,
+            "HMMA": 512,
+            "NOP": 16,
+            "ISETP": 1,
+            "BRA": 1,
+            "STG": 64,
+            "EXIT": 1
+          },
+          "hmma_stalls": {
+            "8": 512
+          },
+          "hmma_reuse": {
+            "2": 384,
+            "0": 128
+          }
+        },
+        "ptxas": {
+          "through_first_exit_instructions": 1690,
+          "non_nop_instructions": 1690,
+          "opcodes": {
+            "IMAD": 78,
+            "S2R": 1,
+            "S2UR": 2,
+            "ULDC": 1,
+            "SHF": 9,
+            "USHF": 2,
+            "IADD3": 18,
+            "LOP3": 27,
+            "LEA": 26,
+            "LDGSTS": 128,
+            "LDGDEPBAR": 8,
+            "DEPBAR": 8,
+            "BAR": 16,
+            "LDS": 21,
+            "LDSM": 256,
+            "HMMA": 1024,
+            "STG": 64,
+            "EXIT": 1
+          },
+          "hmma_stalls": {
+            "3": 21,
+            "8": 723,
+            "7": 8,
+            "1": 268,
+            "2": 4
+          },
+          "hmma_reuse": {
+            "1": 789,
+            "0": 224,
+            "2": 11
+          }
+        }
+      }
+    },
+    {
+      "shape_name": "4096_1024_1024",
+      "methods": {
+        "oa": {
+          "through_first_exit_instructions": 1595,
+          "non_nop_instructions": 1579,
+          "opcodes": {
+            "MOV": 282,
+            "ULDC": 1,
+            "S2R": 3,
+            "IMAD": 153,
+            "LOP3": 79,
+            "SHF": 31,
+            "IADD3": 243,
+            "LDGSTS": 64,
+            "LDGDEPBAR": 4,
+            "DEPBAR": 4,
+            "BAR": 8,
+            "LDSM": 128,
+            "HMMA": 512,
+            "NOP": 16,
+            "ISETP": 1,
+            "BRA": 1,
+            "STG": 64,
+            "EXIT": 1
+          },
+          "hmma_stalls": {
+            "8": 512
+          },
+          "hmma_reuse": {
+            "2": 384,
+            "0": 128
+          }
+        },
+        "ptxas": {
+          "through_first_exit_instructions": 3155,
+          "non_nop_instructions": 3155,
+          "opcodes": {
+            "IMAD": 78,
+            "S2R": 1,
+            "S2UR": 2,
+            "ULDC": 1,
+            "SHF": 6,
+            "USHF": 2,
+            "IADD3": 18,
+            "LOP3": 27,
+            "LEA": 30,
+            "LDGSTS": 256,
+            "LDGDEPBAR": 16,
+            "DEPBAR": 16,
+            "BAR": 32,
+            "LDS": 45,
+            "LDSM": 512,
+            "HMMA": 2048,
+            "STG": 64,
+            "EXIT": 1
+          },
+          "hmma_stalls": {
+            "3": 22,
+            "8": 1454,
+            "7": 8,
+            "1": 561,
+            "2": 3
+          },
+          "hmma_reuse": {
+            "1": 1556,
+            "0": 473,
+            "2": 19
+          }
+        }
+      }
+    },
+    {
+      "shape_name": "512_2048_512",
+      "methods": {
+        "oa": {
+          "through_first_exit_instructions": 1595,
+          "non_nop_instructions": 1579,
+          "opcodes": {
+            "MOV": 282,
+            "ULDC": 1,
+            "S2R": 3,
+            "IMAD": 153,
+            "LOP3": 79,
+            "SHF": 31,
+            "IADD3": 243,
+            "LDGSTS": 64,
+            "LDGDEPBAR": 4,
+            "DEPBAR": 4,
+            "BAR": 8,
+            "LDSM": 128,
+            "HMMA": 512,
+            "NOP": 16,
+            "ISETP": 1,
+            "BRA": 1,
+            "STG": 64,
+            "EXIT": 1
+          },
+          "hmma_stalls": {
+            "8": 512
+          },
+          "hmma_reuse": {
+            "2": 384,
+            "0": 128
+          }
+        },
+        "ptxas": {
+          "through_first_exit_instructions": 1690,
+          "non_nop_instructions": 1690,
+          "opcodes": {
+            "IMAD": 78,
+            "S2R": 1,
+            "S2UR": 2,
+            "ULDC": 1,
+            "SHF": 9,
+            "USHF": 2,
+            "IADD3": 18,
+            "LOP3": 27,
+            "LEA": 26,
+            "LDGSTS": 128,
+            "LDGDEPBAR": 8,
+            "DEPBAR": 8,
+            "BAR": 16,
+            "LDS": 21,
+            "LDSM": 256,
+            "HMMA": 1024,
+            "STG": 64,
+            "EXIT": 1
+          },
+          "hmma_stalls": {
+            "3": 21,
+            "8": 723,
+            "7": 8,
+            "1": 268,
+            "2": 4
+          },
+          "hmma_reuse": {
+            "1": 789,
+            "0": 224,
+            "2": 11
+          }
+        }
+      }
+    },
+    {
+      "shape_name": "512_512_2048",
+      "methods": {
+        "oa": {
+          "through_first_exit_instructions": 1595,
+          "non_nop_instructions": 1579,
+          "opcodes": {
+            "MOV": 282,
+            "ULDC": 1,
+            "S2R": 3,
+            "IMAD": 153,
+            "LOP3": 79,
+            "SHF": 31,
+            "IADD3": 243,
+            "LDGSTS": 64,
+            "LDGDEPBAR": 4,
+            "DEPBAR": 4,
+            "BAR": 8,
+            "LDSM": 128,
+            "HMMA": 512,
+            "NOP": 16,
+            "ISETP": 1,
+            "BRA": 1,
+            "STG": 64,
+            "EXIT": 1
+          },
+          "hmma_stalls": {
+            "8": 512
+          },
+          "hmma_reuse": {
+            "2": 384,
+            "0": 128
+          }
+        },
+        "ptxas": {
+          "through_first_exit_instructions": 1089,
+          "non_nop_instructions": 1089,
+          "opcodes": {
+            "IMAD": 110,
+            "S2R": 1,
+            "S2UR": 2,
+            "MOV": 1,
+            "ULDC": 1,
+            "CS2R": 64,
+            "SHF": 5,
+            "USHF": 2,
+            "IADD3": 53,
+            "LOP3": 27,
+            "LEA": 26,
+            "LDGSTS": 64,
+            "LDGDEPBAR": 4,
+            "DEPBAR": 4,
+            "BAR": 8,
+            "LDS": 9,
+            "LDSM": 128,
+            "HMMA": 512,
+            "ISETP": 1,
+            "CALL": 1,
+            "BRA": 1,
+            "STG": 64,
+            "EXIT": 1
+          },
+          "hmma_stalls": {
+            "3": 6,
+            "8": 396,
+            "1": 108,
+            "7": 2
+          },
+          "hmma_reuse": {
+            "1": 417,
+            "0": 92,
+            "2": 3
+          }
+        }
+      }
+    }
+  ]
+}

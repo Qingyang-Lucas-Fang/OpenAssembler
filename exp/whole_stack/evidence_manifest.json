@@ -1,0 +1,172 @@
+{
+  "schema": 1,
+  "date_local": "2026-11-06",
+  "timezone": "Asia/Shanghai",
+  "git_head": "3e18747e2dddf8a63df55932e27a965bdd8cf162",
+  "files": [
+    {
+      "path": "exp/whole_stack/README.md",
+      "bytes": 4081,
+      "sha256": "7d85b571bded531bc9090a3b2e94f0b0baf030b996e91d9313ee35e082751a7c"
+    },
+    {
+      "path": "exp/whole_stack/analyze.py",
+      "bytes": 22043,
+      "sha256": "0dbf9e36636924f74d6999016f36ec2f01aee74d87aa1aa717c0dc5cf1523e7d"
+    },
+    {
+      "path": "exp/whole_stack/bf16_diagnostic.py",
+      "bytes": 10560,
+      "sha256": "2dbe20aba68f818a52f2550292ff584a9bb72baaf71ebc137c7f395a9e138118"
+    },
+    {
+      "path": "exp/whole_stack/cli_proof/README.md",
+      "bytes": 2435,
+      "sha256": "adae3d8555299f28512c7b6896d4d689cbf699e6daab9957222f5b787e01a150"
+    },
+    {
+      "path": "exp/whole_stack/cli_proof/application/model.py",
+      "bytes": 12413,
+      "sha256": "dff8116fdac95efb65c94dd788a781e951bff2da2eaf476bf203964e15ba42ad"
+    },
+    {
+      "path": "exp/whole_stack/cli_proof/application/openassembler.toml",
+      "bytes": 422,
+      "sha256": "e465e606474da025575e5fcb4fa3a1631d17b5acde9f9839a3a8f0752ce9f6c4"
+    },
+    {
+      "path": "exp/whole_stack/cli_proof/prove.py",
+      "bytes": 3843,
+      "sha256": "b41934b78cf1891e1abd2758e59525c80570298660bacbe833934e769f1e7c11"
+    },
+    {
+      "path": "exp/whole_stack/cli_proof/summary.json",
+      "bytes": 11577,
+      "sha256": "b25565bfe316dffd5b1373fa81b750e86a5de124322c51ca421950263d80d166"
+    },
+    {
+      "path": "exp/whole_stack/model.py",
+      "bytes": 12646,
+      "sha256": "51be6c81f38e894d2f32977ab08f1f42403b01fc3cee0b653597d80742584871"
+    },
+    {
+      "path": "exp/whole_stack/native_REPORT.md",
+      "bytes": 10452,
+      "sha256": "9f5734b02b2a90ba62cc7fbd6a3e0c30c72fc9280cb44dd2cb3b1263ff1a9c23"
+    },
+    {
+      "path": "exp/whole_stack/native_attempts.md",
+      "bytes": 1389,
+      "sha256": "8f17a0d271d86ffef61c4a69b8e2e300aa4ad0fcea3efbc4f531fad12ad74b82"
+    },
+    {
+      "path": "exp/whole_stack/native_counters.py",
+      "bytes": 6393,
+      "sha256": "93e62d0365182758c943fbb1d658a13d37c70d177e525cb862286225e7aedf6f"
+    },
+    {
+      "path": "exp/whole_stack/native_mlp.py",
+      "bytes": 26819,
+      "sha256": "63ff040863c051e2cb82c799d69161092416d470e8fc34d4937f0a96e654594a"
+    },
+    {
+      "path": "exp/whole_stack/native_ops.md",
+      "bytes": 5715,
+      "sha256": "21d0bc9151c52e61617ca540ff4423289238b0972439c1cdd0ef5edb898eefcf"
+    },
+    {
+      "path": "exp/whole_stack/native_ops.py",
+      "bytes": 14299,
+      "sha256": "0f8b3e7315854adc853b5f50ff5cc8597f068eda1d081637bc70424a15ed6c7f"
+    },
+    {
+      "path": "exp/whole_stack/native_static.json",
+      "bytes": 10146,
+      "sha256": "9f4e2a2fde38c6e819e8484770867e58f6596d273558d129034dd12e205ded93"
+    },
+    {
+      "path": "exp/whole_stack/run.py",
+      "bytes": 10462,
+      "sha256": "f5b65ff4a34b962a9c5c2ee534351a90a7d8ba4e26499b73dbe2867b7951ee8e"
+    },
+    {
+      "path": "exp/whole_stack/runs/base-profile.json",
+      "bytes": 164752,
+      "sha256": "cf28cbcd35680561398b9f1f27f5104ab814e75c66c39ab9f94afc388af77bc8"
+    },
+    {
+      "path": "exp/whole_stack/runs/bf16-diagnostic-20261106T110747.459824Z.json",
+      "bytes": 66398,
+      "sha256": "e4744498436fcb240d58bd61f620d9f63a31f465a1e0c94aa5e3222e17231d01"
+    },
+    {
+      "path": "exp/whole_stack/runs/native-counters-20261106T110405.921716Z.json",
+      "bytes": 246872,
+      "sha256": "49b1f746e910fd8ea114f2014b8d930fe43fd40a4f8d6e6a1f3ef142766d70de"
+    },
+    {
+      "path": "exp/whole_stack/runs/native-mlp-20261106T105649.192911Z.json",
+      "bytes": 150723,
+      "sha256": "d085affefc0ddeae38d6beae121d3a41840a836129be5a6ae983dbbec48ec436"
+    },
+    {
+      "path": "exp/whole_stack/runs/native-mlp-20261106T105801.257126Z.json",
+      "bytes": 150719,
+      "sha256": "4fecf24778af5fd079acca64635f7a74d8eca47f6aafd7600d780f562e9e7f82"
+    },
+    {
+      "path": "exp/whole_stack/runs/native-mlp-20261106T105944.492233Z.json",
+      "bytes": 161960,
+      "sha256": "b44e2cb58853ad1b8a3c01cfc7e30bb0a2b4459e5777e2510c1aa097ea72e7e8"
+    },
+    {
+      "path": "exp/whole_stack/runs/native-ops-20261106T110046.582765Z.json",
+      "bytes": 86862,
+      "sha256": "ab362e133d9ccb515e70a77340a983f9b624808ce1b2870fa488f93ffc2d5407"
+    },
+    {
+      "path": "exp/whole_stack/runs/native-ops-20261106T110205.429734Z.json",
+      "bytes": 89642,
+      "sha256": "a3fc1d8717fe63d2c61c599277bf6a6e7fff9bd1576c926d48ff33dffa41befb"
+    },
+    {
+      "path": "exp/whole_stack/runs/native-ops-20261106T110300.124164Z.json",
+      "bytes": 90441,
+      "sha256": "11e47fcd76ebc01224ac68ddacd9758b9bd66813362da5f6351f98b2b0d3ce5d"
+    },
+    {
+      "path": "exp/whole_stack/runs/smoke-fixed.json",
+      "bytes": 222712,
+      "sha256": "a7dbc59604907ddd264ac0c432c6b444ef2e09afd0616a5ddb96724cf7c89d82"
+    },
+    {
+      "path": "exp/whole_stack/runs/summary-smoke-fixed.json",
+      "bytes": 152812,
+      "sha256": "b3915b00b88fdc1494769b29f64192398150d00f2485fd60864eb6c86784044b"
+    },
+    {
+      "path": "exp/whole_stack/runs/summary-whole-stack-20261106T105757.119747Z.json",
+      "bytes": 2685901,
+      "sha256": "b485f067c0af2e7469be1df5a2e1c554132af16e42e02d4d5727cc816fa21227"
+    },
+    {
+      "path": "exp/whole_stack/runs/whole-stack-20261106T105757.119747Z.json",
+      "bytes": 4161940,
+      "sha256": "37dec26e8d157d53aedc41bba6cd4c05610219e9c812dc5b65172bb9ea2c61de"
+    }
+  ],
+  "regenerable_builds": [
+    "native_builds/",
+    "native_ops_build/",
+    "cli_proof/build/"
+  ],
+  "primary_records": [
+    "runs/whole-stack-20261106T105757.119747Z.json",
+    "runs/summary-whole-stack-20261106T105757.119747Z.json",
+    "runs/native-mlp-20261106T105944.492233Z.json",
+    "runs/native-counters-20261106T110405.921716Z.json",
+    "runs/native-ops-20261106T110300.124164Z.json",
+    "runs/bf16-diagnostic-20261106T110747.459824Z.json",
+    "cli_proof/summary.json"
+  ]
+}

@@ -83,6 +83,14 @@ and limits are documented in
 
 ## Research record
 
+The current whole-stack study is isolated under
+[exp/whole_stack](exp/whole_stack/README.md), with canonical conclusions in
+[WHOLE_STACK_RESULTS.md](docs/research/WHOLE_STACK_RESULTS.md). It separates the
+Inductor-backed application frontend from native OA GEMMs and scalar kernels.
+Its commands reproduce complete application steps, stage/operator breakdowns,
+native hybrid MLPs and the actual CLI capture/replay proof. Failed numerical
+gates remain visible and are not admitted as speedups.
+
 Use [docs/research/README.md](docs/research/README.md) as the entry point.
 [A100_MMA_RESULTS.md](docs/research/A100_MMA_RESULTS.md) records every major
 success, regression, failure and superseded result, including counters,

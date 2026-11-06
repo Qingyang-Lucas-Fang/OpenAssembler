@@ -1,6 +1,6 @@
 # OpenAssembler Status
 
-Updated 2026-11-05. This page is the short operational status; the detailed
+Updated 2026-11-06. This page is the short operational status; the detailed
 history, failed experiments and superseded measurements are in the
 [A100 research ledger](research/A100_MMA_RESULTS.md).
 
@@ -62,6 +62,13 @@ within-pipe, 5-cycle cross-pipe and 13-cycle predicate-to-guard thresholds are
 measured classes for tested encodings, not a universal latency table.
 
 ## What remains open
+
+The isolated November 6 [whole-stack study](research/WHOLE_STACK_RESULTS.md)
+measures ten transformer configurations in two process-order rounds, plus
+native-GEMM hybrid MLP steps and scalar stages. Nine transformer configurations
+pass both numerical comparisons; BF16 training fails both. The application
+gains come through the Inductor/Triton frontend. This is research evidence,
+not a new production native-transformer contract.
 
 - Counter-guided operand-collector, shared-bank and scoreboard work is still
   needed to close the direct GEMM gap to ptxas/cuBLAS.

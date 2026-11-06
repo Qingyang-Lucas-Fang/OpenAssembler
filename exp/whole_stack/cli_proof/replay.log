@@ -1,0 +1,32 @@
+✓ Initialized. View run at 
+https://modal.com/apps/qingyang-lucas-fang/main/ap-Jvigl85HOWiVAceCsclu7o
+✓ Created objects.
+├── ✓ Uploaded 
+│   /Users/lucasfang/Desktop/OpenAssembler/openassembler/torchfront/modal_app.py
+├── ✓ Uploaded /Users/lucasfang/Desktop/OpenAssembler/openassembler
+└── ✓ Created Function process.
+
+==========
+== CUDA ==
+==========
+
+CUDA Version 12.8.0
+
+Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+
+This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+By pulling and using the container, you accept the terms and conditions of this license:
+https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+
+A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
+
+{"mode": "train", "parameters": 84992, "final_gradients_available": 15}
+
+{"mode": "train", "parameters": 84992, "final_gradients_available": 15}
+
+Stopping app - local entrypoint completed.
+✓ App completed. View run at 
+https://modal.com/apps/qingyang-lucas-fang/main/ap-Jvigl85HOWiVAceCsclu7o
+application proof_model replayed on NVIDIA A100-SXM4-40GB; 5 optimizer steps
+new GPU code generation: 0
+eager/compiled verification: 77 tensors

@@ -1,0 +1,4 @@
+# Regenerable compiler outputs and captured runtime caches.
+native_builds/
+native_ops_build/
+cli_proof/build/

@@ -232,13 +232,21 @@ The native `gemm` path emits SM80 FP16/BF16 kernels using HMMA, LDSM,
 asynchronous shared-memory copies and OpenAssembler's encoder. It supports
 full-tile `C = A @ B.T` with FP32 accumulation/output. The measured stage-pair
 kernel reaches 79.76–98.91% of matched default cuBLAS on the six tested large
-shapes; cuBLASLt also remains faster in selected configurations. A whole
-training-step speedup has not been measured.
+shapes; cuBLASLt also remains faster in selected configurations. These kernel
+results do not establish native whole-transformer training acceleration.
 
 The explicit `--cta-order morton8` and FP32 `bias_residual[_relu]` epilogues
 improve selected tall and square cases over OpenAssembler's own baselines, but
 remain shape-specific and slower than ptxas when compared as fused kernels.
 The compiler does not choose these options automatically.
+
+The November 6 [whole-stack study](docs/research/WHOLE_STACK_RESULTS.md) adds
+ten synthetic transformer configurations in two process-order rounds,
+native-GEMM hybrid MLP steps and scalar neural stages. Nine transformer
+configurations pass both numerical comparisons; BF16 training fails both.
+Whole-transformer gains use the Inductor/Triton application frontend, while
+native OA kernels remain behind same-PTX ptxas on the isolated GEMM controls.
+The study retains failed gates, profiles and complete-step costs explicitly.
 
 The research index links the detailed results ledger, production contract,
 reverse-engineering notes, primary sources, machine-readable measurements and

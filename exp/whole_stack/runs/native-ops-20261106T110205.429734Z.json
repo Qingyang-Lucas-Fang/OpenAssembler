@@ -1,0 +1,3519 @@
+{
+  "schema": 1,
+  "runtime": {
+    "torch": "2.7.1+cu128",
+    "cuda": "12.8",
+    "device": "NVIDIA A100-SXM4-40GB",
+    "name": "NVIDIA A100-SXM4-40GB",
+    "cc": "8.0",
+    "driver": 13030,
+    "sm_count": 108,
+    "clock_khz": 1410000,
+    "mem_bytes": 42429251584
+  },
+  "elapsed_gpu_worker_seconds": 0.8694366310000001,
+  "tolerances_declared_before_run": {
+    "relu": {
+      "rtol": 0.0,
+      "atol": 0.0
+    },
+    "gelu": {
+      "rtol": 2e-05,
+      "atol": 5e-06
+    },
+    "softmax": {
+      "rtol": 5e-05,
+      "atol": 1e-06
+    },
+    "layernorm": {
+      "rtol": 0.0001,
+      "atol": 2e-05
+    },
+    "adam_step": {
+      "rtol": 2e-05,
+      "atol": 2e-06
+    }
+  },
+  "reference": "FP64 PyTorch formula applied to exact FP32 input values",
+  "timing": "5 warmup then 20 shuffled single-launch CUDA-event samples; no CUDA graphs; allocations/copies in PyTorch baseline included",
+  "resources": {
+    "oa/relu": {
+      "max_threads": 1024,
+      "shared_bytes": 0,
+      "const_bytes": 0,
+      "local_bytes": 0,
+      "num_regs": 16,
+      "ptx_version": 80,
+      "binary_version": 80
+    },
+    "oa/gelu": {
+      "max_threads": 1024,
+      "shared_bytes": 0,
+      "const_bytes": 0,
+      "local_bytes": 0,
+      "num_regs": 16,
+      "ptx_version": 80,
+      "binary_version": 80
+    },
+    "oa/softmax": {
+      "max_threads": 1024,
+      "shared_bytes": 0,
+      "const_bytes": 0,
+      "local_bytes": 0,
+      "num_regs": 22,
+      "ptx_version": 80,
+      "binary_version": 80
+    },
+    "oa/layernorm": {
+      "max_threads": 1024,
+      "shared_bytes": 0,
+      "const_bytes": 0,
+      "local_bytes": 0,
+      "num_regs": 20,
+      "ptx_version": 80,
+      "binary_version": 80
+    },
+    "oa/adam_step": {
+      "max_threads": 1024,
+      "shared_bytes": 0,
+      "const_bytes": 0,
+      "local_bytes": 0,
+      "num_regs": 24,
+      "ptx_version": 80,
+      "binary_version": 80
+    },
+    "ptxas/relu": {
+      "max_threads": 1024,
+      "shared_bytes": 0,
+      "const_bytes": 0,
+      "local_bytes": 0,
+      "num_regs": 10,
+      "ptx_version": 80,
+      "binary_version": 80
+    },
+    "ptxas/gelu": {
+      "max_threads": 1024,
+      "shared_bytes": 0,
+      "const_bytes": 0,
+      "local_bytes": 0,
+      "num_regs": 12,
+      "ptx_version": 80,
+      "binary_version": 80
+    },
+    "ptxas/softmax": {
+      "max_threads": 1024,
+      "shared_bytes": 0,
+      "const_bytes": 0,
+      "local_bytes": 0,
+      "num_regs": 17,
+      "ptx_version": 80,
+      "binary_version": 80
+    },
+    "ptxas/layernorm": {
+      "max_threads": 1024,
+      "shared_bytes": 0,
+      "const_bytes": 0,
+      "local_bytes": 0,
+      "num_regs": 24,
+      "ptx_version": 80,
+      "binary_version": 80
+    },
+    "ptxas/adam_step": {
+      "max_threads": 1024,
+      "shared_bytes": 0,
+      "const_bytes": 0,
+      "local_bytes": 0,
+      "num_regs": 20,
+      "ptx_version": 80,
+      "binary_version": 80
+    }
+  },
+  "cases": [
+    {
+      "name": "relu_1048576",
+      "op": "relu",
+      "shape": [
+        1048576
+      ],
+      "tolerance": {
+        "rtol": 0.0,
+        "atol": 0.0
+      },
+      "patterns": [
+        {
+          "pattern": "normal",
+          "checks": {
+            "oa": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 1048576,
+                "mismatched_elements": 0,
+                "relative_l2": 0.0,
+                "max_abs": 0.0
+              },
+              "canaries": true,
+              "guarded_outputs": true
+            },
+            "ptxas": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 1048576,
+                "mismatched_elements": 0,
+                "relative_l2": 0.0,
+                "max_abs": 0.0
+              },
+              "canaries": true,
+              "guarded_outputs": true
+            },
+            "torch_cuda": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 1048576,
+                "mismatched_elements": 0,
+                "relative_l2": 0.0,
+                "max_abs": 0.0
+              },
+              "canaries": true,
+              "guarded_outputs": true
+            }
+          },
+          "oa_ptxas_bitwise_equal": true
+        },
+        {
+          "pattern": "zero",
+          "checks": {
+            "oa": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 1048576,
+                "mismatched_elements": 0,
+                "relative_l2": 0.0,
+                "max_abs": 0.0
+              },
+              "canaries": true,
+              "guarded_outputs": true
+            },
+            "ptxas": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 1048576,
+                "mismatched_elements": 0,
+                "relative_l2": 0.0,
+                "max_abs": 0.0
+              },
+              "canaries": true,
+              "guarded_outputs": true
+            },
+            "torch_cuda": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 1048576,
+                "mismatched_elements": 0,
+                "relative_l2": 0.0,
+                "max_abs": 0.0
+              },
+              "canaries": true,
+              "guarded_outputs": true
+            }
+          },
+          "oa_ptxas_bitwise_equal": true
+        }
+      ],
+      "status": "ok",
+      "eligible_for_timing": [
+        "oa",
+        "ptxas",
+        "torch_cuda"
+      ],
+      "timings": {
+        "oa": {
+          "samples_ms": [
+            0.02969600073993206,
+            0.02969600073993206,
+            0.02969600073993206,
+            0.027648000046610832,
+            0.027648000046610832,
+            0.026623999699950218,
+            0.025599999353289604,
+            0.028672000393271446,
+            0.03481600061058998,
+            0.026623999699950218,
+            0.026623999699950218,
+            0.026623999699950218,
+            0.026623999699950218,
+            0.026623999699950218,
+            0.03481600061058998,
+            0.026623999699950218,
+            0.027648000046610832,
+            0.025599999353289604,
+            0.027648000046610832,
+            0.028672000393271446
+          ],
+          "median_ms": 0.027648000046610832,
+          "mean_ms": 0.028211200051009654,
+          "min_ms": 0.025599999353289604,
+          "max_ms": 0.03481600061058998
+        },
+        "ptxas": {
+          "samples_ms": [
+            0.03891199827194214,
+            0.02969600073993206,
+            0.027648000046610832,
+            0.025599999353289604,
+            0.03174399957060814,
+            0.027648000046610832,
+            0.027648000046610832,
+            0.026623999699950218,
+            0.026623999699950218,
+            0.027648000046610832,
+            0.026623999699950218,
+            0.025599999353289604,
+            0.025599999353289604,
+            0.03174399957060814,
+            0.025599999353289604,
+            0.027648000046610832,
+            0.027648000046610832,
+            0.026623999699950218,
+            0.02457600086927414,
+            0.028672000393271446
+          ],
+          "median_ms": 0.027648000046610832,
+          "mean_ms": 0.028006399795413018,
+          "min_ms": 0.02457600086927414,
+          "max_ms": 0.03891199827194214
+        },
+        "torch_cuda": {
+          "samples_ms": [
+            0.03993599861860275,
+            0.04608000069856644,
+            0.02969600073993206,
+            0.027648000046610832,
+            0.025599999353289604,
+            0.025599999353289604,
+            0.025599999353289604,
+            0.027648000046610832,
+            0.027648000046610832,
+            0.026623999699950218,
+            0.02457600086927414,
+            0.02457600086927414,
+            0.025599999353289604,
+            0.023552000522613525,
+            0.02969600073993206,
+            0.02457600086927414,
+            0.02457600086927414,
+            0.02457600086927414,
+            0.023552000522613525,
+            0.027648000046610832
+          ],
+          "median_ms": 0.025599999353289604,
+          "mean_ms": 0.027750400174409152,
+          "min_ms": 0.023552000522613525,
+          "max_ms": 0.04608000069856644
+        }
+      },
+      "timing_order": [
+        [
+          "ptxas",
+          "oa",
+          "torch_cuda"
+        ],
+        [
+          "ptxas",
+          "torch_cuda",
+          "oa"
+        ],
+        [
+          "ptxas",
+          "torch_cuda",
+          "oa"
+        ],
+        [
+          "oa",
+          "ptxas",
+          "torch_cuda"
+        ],
+        [
+          "oa",
+          "torch_cuda",
+          "ptxas"
+        ],
+        [
+          "ptxas",
+          "oa",
+          "torch_cuda"
+        ],
+        [
+          "ptxas",
+          "oa",
+          "torch_cuda"
+        ],
+        [
+          "ptxas",
+          "torch_cuda",
+          "oa"
+        ],
+        [
+          "torch_cuda",
+          "oa",
+          "ptxas"
+        ],
+        [
+          "torch_cuda",
+          "ptxas",
+          "oa"
+        ],
+        [
+          "ptxas",
+          "oa",
+          "torch_cuda"
+        ],
+        [
+          "torch_cuda",
+          "oa",
+          "ptxas"
+        ],
+        [
+          "ptxas",
+          "torch_cuda",
+          "oa"
+        ],
+        [
+          "torch_cuda",
+          "ptxas",
+          "oa"
+        ],
+        [
+          "ptxas",
+          "oa",
+          "torch_cuda"
+        ],
+        [
+          "ptxas",
+          "oa",
+          "torch_cuda"
+        ],
+        [
+          "torch_cuda",
+          "ptxas",
+          "oa"
+        ],
+        [
+          "oa",
+          "ptxas",
+          "torch_cuda"
+        ],
+        [
+          "oa",
+          "ptxas",
+          "torch_cuda"
+        ],
+        [
+          "ptxas",
+          "oa",
+          "torch_cuda"
+        ]
+      ],
+      "torch_cuda_extra_copy": false,
+      "torch_output_allocation": false,
+      "algorithm_boundary": "one thread per element; current scalar native compiler"
+    },
+    {
+      "name": "relu_4194304",
+      "op": "relu",
+      "shape": [
+        4194304
+      ],
+      "tolerance": {
+        "rtol": 0.0,
+        "atol": 0.0
+      },
+      "patterns": [
+        {
+          "pattern": "normal",
+          "checks": {
+            "oa": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 4194304,
+                "mismatched_elements": 0,
+                "relative_l2": 0.0,
+                "max_abs": 0.0
+              },
+              "canaries": true,
+              "guarded_outputs": true
+            },
+            "ptxas": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 4194304,
+                "mismatched_elements": 0,
+                "relative_l2": 0.0,
+                "max_abs": 0.0
+              },
+              "canaries": true,
+              "guarded_outputs": true
+            },
+            "torch_cuda": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 4194304,
+                "mismatched_elements": 0,
+                "relative_l2": 0.0,
+                "max_abs": 0.0
+              },
+              "canaries": true,
+              "guarded_outputs": true
+            }
+          },
+          "oa_ptxas_bitwise_equal": true
+        },
+        {
+          "pattern": "zero",
+          "checks": {
+            "oa": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 4194304,
+                "mismatched_elements": 0,
+                "relative_l2": 0.0,
+                "max_abs": 0.0
+              },
+              "canaries": true,
+              "guarded_outputs": true
+            },
+            "ptxas": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 4194304,
+                "mismatched_elements": 0,
+                "relative_l2": 0.0,
+                "max_abs": 0.0
+              },
+              "canaries": true,
+              "guarded_outputs": true
+            },
+            "torch_cuda": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 4194304,
+                "mismatched_elements": 0,
+                "relative_l2": 0.0,
+                "max_abs": 0.0
+              },
+              "canaries": true,
+              "guarded_outputs": true
+            }
+          },
+          "oa_ptxas_bitwise_equal": true
+        }
+      ],
+      "status": "ok",
+      "eligible_for_timing": [
+        "oa",
+        "ptxas",
+        "torch_cuda"
+      ],
+      "timings": {
+        "oa": {
+          "samples_ms": [
+            0.05734400078654289,
+            0.053247999399900436,
+            0.05119999870657921,
+            0.05119999870657921,
+            0.05119999870657921,
+            0.05119999870657921,
+            0.05119999870657921,
+            0.050175998359918594,
+            0.05119999870657921,
+            0.04915200173854828,
+            0.05222399905323982,
+            0.05119999870657921,
+            0.050175998359918594,
+            0.05222399905323982,
+            0.05222399905323982,
+            0.05119999870657921,
+            0.05119999870657921,
+            0.05119999870657921,
+            0.04915200173854828,
+            0.05119999870657921
+          ],
+          "median_ms": 0.05119999870657921,
+          "mean_ms": 0.05145599916577339,
+          "min_ms": 0.04915200173854828,
+          "max_ms": 0.05734400078654289
+        },
+        "ptxas": {
+          "samples_ms": [
+            0.050175998359918594,
+            0.050175998359918594,
+            0.050175998359918594,
+            0.05119999870657921,
+            0.050175998359918594,
+            0.07168000191450119,
+            0.05119999870657921,
+            0.05222399905323982,
+            0.050175998359918594,
+            0.050175998359918594,
+            0.05222399905323982,
+            0.04915200173854828,
+            0.05119999870657921,
+            0.058368001133203506,
+            0.04915200173854828,
+            0.05119999870657921,
+            0.05222399905323982,
+            0.050175998359918594,
+            0.04915200173854828,
+            0.053247999399900436
+          ],
+          "median_ms": 0.0506879985332489,
+          "mean_ms": 0.05217279940843582,
+          "min_ms": 0.04915200173854828,
+          "max_ms": 0.07168000191450119
+        },
+        "torch_cuda": {
+          "samples_ms": [
+            0.03993599861860275,
+            0.04608000069856644,
+            0.03481600061058998,
+            0.03379200026392937,
+            0.03379200026392937,
+            0.03788800165057182,
+            0.035840000957250595,
+            0.03481600061058998,
+            0.03481600061058998,
+            0.03481600061058998,
+            0.03686400130391121,
+            0.035840000957250595,
+            0.03276799991726875,
+            0.03276799991726875,
+            0.035840000957250595,
+            0.03379200026392937,
+            0.03481600061058998,
+            0.03481600061058998,
+            0.04403200000524521,
+            0.03788800165057182
+          ],
+          "median_ms": 0.03481600061058998,
+          "mean_ms": 0.036300800554454324,
+          "min_ms": 0.03276799991726875,
+          "max_ms": 0.04608000069856644
+        }
+      },
+      "timing_order": [
+        [
+          "oa",
+          "ptxas",
+          "torch_cuda"
+        ],
+        [
+          "torch_cuda",
+          "oa",
+          "ptxas"
+        ],
+        [
+          "torch_cuda",
+          "ptxas",
+          "oa"
+        ],
+        [
+          "ptxas",
+          "torch_cuda",
+          "oa"
+        ],
+        [
+          "ptxas",
+          "oa",
+          "torch_cuda"
+        ],
+        [
+          "oa",
+          "ptxas",
+          "torch_cuda"
+        ],
+        [
+          "ptxas",
+          "torch_cuda",
+          "oa"
+        ],
+        [
+          "torch_cuda",
+          "ptxas",
+          "oa"
+        ],
+        [
+          "torch_cuda",
+          "ptxas",
+          "oa"
+        ],
+        [
+          "torch_cuda",
+          "ptxas",
+          "oa"
+        ],
+        [
+          "ptxas",
+          "torch_cuda",
+          "oa"
+        ],
+        [
+          "torch_cuda",
+          "oa",
+          "ptxas"
+        ],
+        [
+          "torch_cuda",
+          "oa",
+          "ptxas"
+        ],
+        [
+          "ptxas",
+          "torch_cuda",
+          "oa"
+        ],
+        [
+          "ptxas",
+          "torch_cuda",
+          "oa"
+        ],
+        [
+          "oa",
+          "ptxas",
+          "torch_cuda"
+        ],
+        [
+          "ptxas",
+          "oa",
+          "torch_cuda"
+        ],
+        [
+          "torch_cuda",
+          "oa",
+          "ptxas"
+        ],
+        [
+          "ptxas",
+          "oa",
+          "torch_cuda"
+        ],
+        [
+          "ptxas",
+          "torch_cuda",
+          "oa"
+        ]
+      ],
+      "torch_cuda_extra_copy": false,
+      "torch_output_allocation": false,
+      "algorithm_boundary": "one thread per element; current scalar native compiler"
+    },
+    {
+      "name": "gelu_1048576",
+      "op": "gelu",
+      "shape": [
+        1048576
+      ],
+      "tolerance": {
+        "rtol": 2e-05,
+        "atol": 5e-06
+      },
+      "patterns": [
+        {
+          "pattern": "normal",
+          "checks": {
+            "oa": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 1048576,
+                "mismatched_elements": 0,
+                "relative_l2": 2.401861223114103e-06,
+                "max_abs": 5.566789818528539e-06
+              },
+              "canaries": true,
+              "guarded_outputs": true
+            },
+            "ptxas": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 1048576,
+                "mismatched_elements": 0,
+                "relative_l2": 2.40184675646724e-06,
+                "max_abs": 5.566789818528539e-06
+              },
+              "canaries": true,
+              "guarded_outputs": true
+            },
+            "torch_cuda": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 1048576,
+                "mismatched_elements": 0,
+                "relative_l2": 3.843569246816929e-08,
+                "max_abs": 3.7255083995546556e-07
+              },
+              "canaries": true,
+              "guarded_outputs": true
+            }
+          },
+          "oa_ptxas_bitwise_equal": false
+        },
+        {
+          "pattern": "zero",
+          "checks": {
+            "oa": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 1048576,
+                "mismatched_elements": 0,
+                "relative_l2": 0.0,
+                "max_abs": 0.0
+              },
+              "canaries": true,
+              "guarded_outputs": true
+            },
+            "ptxas": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 1048576,
+                "mismatched_elements": 0,
+                "relative_l2": 0.0,
+                "max_abs": 0.0
+              },
+              "canaries": true,
+              "guarded_outputs": true
+            },
+            "torch_cuda": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 1048576,
+                "mismatched_elements": 0,
+                "relative_l2": 0.0,
+                "max_abs": 0.0
+              },
+              "canaries": true,
+              "guarded_outputs": true
+            }
+          },
+          "oa_ptxas_bitwise_equal": true
+        }
+      ],
+      "status": "ok",
+      "eligible_for_timing": [
+        "oa",
+        "ptxas",
+        "torch_cuda"
+      ],
+      "timings": {
+        "oa": {
+          "samples_ms": [
+            0.03379200026392937,
+            0.026623999699950218,
+            0.027648000046610832,
+            0.02969600073993206,
+            0.026623999699950218,
+            0.025599999353289604,
+            0.026623999699950218,
+            0.026623999699950218,
+            0.028672000393271446,
+            0.02457600086927414,
+            0.026623999699950218,
+            0.026623999699950218,
+            0.026623999699950218,
+            0.03993599861860275,
+            0.027648000046610832,
+            0.025599999353289604,
+            0.026623999699950218,
+            0.025599999353289604,
+            0.027648000046610832,
+            0.027648000046610832
+          ],
+          "median_ms": 0.026623999699950218,
+          "mean_ms": 0.027852799836546184,
+          "min_ms": 0.02457600086927414,
+          "max_ms": 0.03993599861860275
+        },
+        "ptxas": {
+          "samples_ms": [
+            0.028672000393271446,
+            0.027648000046610832,
+            0.04198399931192398,
+            0.026623999699950218,
+            0.028672000393271446,
+            0.026623999699950218,
+            0.028672000393271446,
+            0.027648000046610832,
+            0.027648000046610832,
+            0.027648000046610832,
+            0.026623999699950218,
+            0.027648000046610832,
+            0.026623999699950218,
+            0.02969600073993206,
+            0.028672000393271446,
+            0.025599999353289604,
+            0.028672000393271446,
+            0.025599999353289604,
+            0.027648000046610832,
+            0.028672000393271446
+          ],
+          "median_ms": 0.027648000046610832,
+          "mean_ms": 0.02836480000987649,
+          "min_ms": 0.025599999353289604,
+          "max_ms": 0.04198399931192398
+        },
+        "torch_cuda": {
+          "samples_ms": [
+            0.04915200173854828,
+            0.03379200026392937,
+            0.030719999223947525,
+            0.03686400130391121,
+            0.02969600073993206,
+            0.03174399957060814,
+            0.03686400130391121,
+            0.030719999223947525,
+            0.028672000393271446,
+            0.03481600061058998,
+            0.030719999223947525,
+            0.028672000393271446,
+            0.03174399957060814,
+            0.03788800165057182,
+            0.03379200026392937,
+            0.030719999223947525,
+            0.028672000393271446,
+            0.03379200026392937,
+            0.02969600073993206,
+            0.030719999223947525
+          ],
+          "median_ms": 0.031231999397277832,
+          "mean_ms": 0.03297280026599765,
+          "min_ms": 0.028672000393271446,
+          "max_ms": 0.04915200173854828
+        }
+      },
+      "timing_order": [
+        [
+          "oa",
+          "torch_cuda",
+          "ptxas"
+        ],
+        [
+          "torch_cuda",
+          "ptxas",
+          "oa"
+        ],
+        [
+          "torch_cuda",
+          "oa",
+          "ptxas"
+        ],
+        [
+          "oa",
+          "ptxas",
+          "torch_cuda"
+        ],
+        [
+          "torch_cuda",
+          "ptxas",
+          "oa"
+        ],
+        [
+          "ptxas",
+          "oa",
+          "torch_cuda"
+        ],
+        [
+          "torch_cuda",
+          "ptxas",
+          "oa"
+        ],
+        [
+          "oa",
+          "torch_cuda",
+          "ptxas"
+        ],
+        [
+          "torch_cuda",
+          "oa",
+          "ptxas"
+        ],
+        [
+          "oa",
+          "torch_cuda",
+          "ptxas"
+        ],
+        [
+          "oa",
+          "ptxas",
+          "torch_cuda"
+        ],
+        [
+          "torch_cuda",
+          "ptxas",
+          "oa"
+        ],
+        [
+          "oa",
+          "ptxas",
+          "torch_cuda"
+        ],
+        [
+          "torch_cuda",
+          "ptxas",
+          "oa"
+        ],
+        [
+          "oa",
+          "torch_cuda",
+          "ptxas"
+        ],
+        [
+          "ptxas",
+          "oa",
+          "torch_cuda"
+        ],
+        [
+          "torch_cuda",
+          "ptxas",
+          "oa"
+        ],
+        [
+          "oa",
+          "ptxas",
+          "torch_cuda"
+        ],
+        [
+          "ptxas",
+          "oa",
+          "torch_cuda"
+        ],
+        [
+          "oa",
+          "torch_cuda",
+          "ptxas"
+        ]
+      ],
+      "torch_cuda_extra_copy": false,
+      "torch_output_allocation": false,
+      "algorithm_boundary": "one thread per element; current scalar native compiler"
+    },
+    {
+      "name": "gelu_4194304",
+      "op": "gelu",
+      "shape": [
+        4194304
+      ],
+      "tolerance": {
+        "rtol": 2e-05,
+        "atol": 5e-06
+      },
+      "patterns": [
+        {
+          "pattern": "normal",
+          "checks": {
+            "oa": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 4194304,
+                "mismatched_elements": 0,
+                "relative_l2": 2.4047282257728606e-06,
+                "max_abs": 5.65603673208237e-06
+              },
+              "canaries": true,
+              "guarded_outputs": true
+            },
+            "ptxas": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 4194304,
+                "mismatched_elements": 0,
+                "relative_l2": 2.4047346893196757e-06,
+                "max_abs": 5.65603673208237e-06
+              },
+              "canaries": true,
+              "guarded_outputs": true
+            },
+            "torch_cuda": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 4194304,
+                "mismatched_elements": 0,
+                "relative_l2": 3.8426499155538264e-08,
+                "max_abs": 3.9949522001592186e-07
+              },
+              "canaries": true,
+              "guarded_outputs": true
+            }
+          },
+          "oa_ptxas_bitwise_equal": false
+        },
+        {
+          "pattern": "zero",
+          "checks": {
+            "oa": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 4194304,
+                "mismatched_elements": 0,
+                "relative_l2": 0.0,
+                "max_abs": 0.0
+              },
+              "canaries": true,
+              "guarded_outputs": true
+            },
+            "ptxas": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 4194304,
+                "mismatched_elements": 0,
+                "relative_l2": 0.0,
+                "max_abs": 0.0
+              },
+              "canaries": true,
+              "guarded_outputs": true
+            },
+            "torch_cuda": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 4194304,
+                "mismatched_elements": 0,
+                "relative_l2": 0.0,
+                "max_abs": 0.0
+              },
+              "canaries": true,
+              "guarded_outputs": true
+            }
+          },
+          "oa_ptxas_bitwise_equal": true
+        }
+      ],
+      "status": "ok",
+      "eligible_for_timing": [
+        "oa",
+        "ptxas",
+        "torch_cuda"
+      ],
+      "timings": {
+        "oa": {
+          "samples_ms": [
+            0.05222399905323982,
+            0.05119999870657921,
+            0.05119999870657921,
+            0.05222399905323982,
+            0.053247999399900436,
+            0.05222399905323982,
+            0.050175998359918594,
+            0.05119999870657921,
+            0.05119999870657921,
+            0.05119999870657921,
+            0.05119999870657921,
+            0.050175998359918594,
+            0.05119999870657921,
+            0.050175998359918594,
+            0.05119999870657921,
+            0.05119999870657921,
+            0.05119999870657921,
+            0.05119999870657921,
+            0.05119999870657921,
+            0.05119999870657921
+          ],
+          "median_ms": 0.05119999870657921,
+          "mean_ms": 0.05130239874124527,
+          "min_ms": 0.050175998359918594,
+          "max_ms": 0.053247999399900436
+        },
+        "ptxas": {
+          "samples_ms": [
+            0.058368001133203506,
+            0.053247999399900436,
+            0.05119999870657921,
+            0.05939200147986412,
+            0.05119999870657921,
+            0.05222399905323982,
+            0.053247999399900436,
+            0.05119999870657921,
+            0.05119999870657921,
+            0.05119999870657921,
+            0.053247999399900436,
+            0.050175998359918594,
+            0.053247999399900436,
+            0.050175998359918594,
+            0.053247999399900436,
+            0.050175998359918594,
+            0.060416001826524734,
+            0.05119999870657921,
+            0.05119999870657921,
+            0.050175998359918594
+          ],
+          "median_ms": 0.05119999870657921,
+          "mean_ms": 0.05278719924390316,
+          "min_ms": 0.050175998359918594,
+          "max_ms": 0.060416001826524734
+        },
+        "torch_cuda": {
+          "samples_ms": [
+            0.048128001391887665,
+            0.04608000069856644,
+            0.04095999896526337,
+            0.04095999896526337,
+            0.03993599861860275,
+            0.04198399931192398,
+            0.043007999658584595,
+            0.03993599861860275,
+            0.048128001391887665,
+            0.04710400104522705,
+            0.04505600035190582,
+            0.03993599861860275,
+            0.055296000093221664,
+            0.04915200173854828,
+            0.04198399931192398,
+            0.03891199827194214,
+            0.03993599861860275,
+            0.04095999896526337,
+            0.04198399931192398,
+            0.03993599861860275
+          ],
+          "median_ms": 0.04198399931192398,
+          "mean_ms": 0.04346879962831736,
+          "min_ms": 0.03891199827194214,
+          "max_ms": 0.055296000093221664
+        }
+      },
+      "timing_order": [
+        [
+          "ptxas",
+          "torch_cuda",
+          "oa"
+        ],
+        [
+          "oa",
+          "torch_cuda",
+          "ptxas"
+        ],
+        [
+          "ptxas",
+          "oa",
+          "torch_cuda"
+        ],
+        [
+          "oa",
+          "torch_cuda",
+          "ptxas"
+        ],
+        [
+          "ptxas",
+          "torch_cuda",
+          "oa"
+        ],
+        [
+          "torch_cuda",
+          "oa",
+          "ptxas"
+        ],
+        [
+          "torch_cuda",
+          "ptxas",
+          "oa"
+        ],
+        [
+          "torch_cuda",
+          "ptxas",
+          "oa"
+        ],
+        [
+          "torch_cuda",
+          "ptxas",
+          "oa"
+        ],
+        [
+          "oa",
+          "ptxas",
+          "torch_cuda"
+        ],
+        [
+          "torch_cuda",
+          "ptxas",
+          "oa"
+        ],
+        [
+          "oa",
+          "torch_cuda",
+          "ptxas"
+        ],
+        [
+          "torch_cuda",
+          "ptxas",
+          "oa"
+        ],
+        [
+          "ptxas",
+          "oa",
+          "torch_cuda"
+        ],
+        [
+          "ptxas",
+          "torch_cuda",
+          "oa"
+        ],
+        [
+          "oa",
+          "ptxas",
+          "torch_cuda"
+        ],
+        [
+          "torch_cuda",
+          "ptxas",
+          "oa"
+        ],
+        [
+          "torch_cuda",
+          "ptxas",
+          "oa"
+        ],
+        [
+          "oa",
+          "torch_cuda",
+          "ptxas"
+        ],
+        [
+          "oa",
+          "ptxas",
+          "torch_cuda"
+        ]
+      ],
+      "torch_cuda_extra_copy": false,
+      "torch_output_allocation": false,
+      "algorithm_boundary": "one thread per element; current scalar native compiler"
+    },
+    {
+      "name": "adam_step_1048576",
+      "op": "adam_step",
+      "shape": [
+        1048576
+      ],
+      "tolerance": {
+        "rtol": 2e-05,
+        "atol": 2e-06
+      },
+      "patterns": [
+        {
+          "pattern": "normal",
+          "checks": {
+            "oa": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 1048576,
+                "mismatched_elements": 0,
+                "relative_l2": 2.534052168809755e-08,
+                "max_abs": 2.3454221764751537e-07
+              },
+              "mo": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 1048576,
+                "mismatched_elements": 0,
+                "relative_l2": 4.318380096722452e-08,
+                "max_abs": 5.364418032005602e-08
+              },
+              "vo": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 1048576,
+                "mismatched_elements": 0,
+                "relative_l2": 3.072759549990247e-08,
+                "max_abs": 7.3116061677369615e-09
+              },
+              "canaries": true,
+              "guarded_outputs": true
+            },
+            "ptxas": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 1048576,
+                "mismatched_elements": 0,
+                "relative_l2": 2.5340518743585082e-08,
+                "max_abs": 2.3454221764751537e-07
+              },
+              "mo": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 1048576,
+                "mismatched_elements": 0,
+                "relative_l2": 3.829373454241351e-08,
+                "max_abs": 4.172325140938682e-08
+              },
+              "vo": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 1048576,
+                "mismatched_elements": 0,
+                "relative_l2": 2.3971682586813906e-08,
+                "max_abs": 5.920857568120219e-09
+              },
+              "canaries": true,
+              "guarded_outputs": true
+            },
+            "torch_cuda": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 1048576,
+                "mismatched_elements": 0,
+                "relative_l2": 2.534052168809755e-08,
+                "max_abs": 2.3454221764751537e-07
+              },
+              "mo": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 1048576,
+                "mismatched_elements": 0,
+                "relative_l2": 4.318380096722452e-08,
+                "max_abs": 5.364418032005602e-08
+              },
+              "vo": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 1048576,
+                "mismatched_elements": 0,
+                "relative_l2": 3.072759549990247e-08,
+                "max_abs": 7.3116061677369615e-09
+              },
+              "canaries": null,
+              "guarded_outputs": false
+            }
+          },
+          "oa_ptxas_bitwise_equal": false
+        },
+        {
+          "pattern": "zero",
+          "checks": {
+            "oa": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 1048576,
+                "mismatched_elements": 0,
+                "relative_l2": 0.0,
+                "max_abs": 0.0
+              },
+              "mo": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 1048576,
+                "mismatched_elements": 0,
+                "relative_l2": 0.0,
+                "max_abs": 0.0
+              },
+              "vo": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 1048576,
+                "mismatched_elements": 0,
+                "relative_l2": 1.692974744711291e-08,
+                "max_abs": 8.45640897584321e-10
+              },
+              "canaries": true,
+              "guarded_outputs": true
+            },
+            "ptxas": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 1048576,
+                "mismatched_elements": 0,
+                "relative_l2": 0.0,
+                "max_abs": 0.0
+              },
+              "mo": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 1048576,
+                "mismatched_elements": 0,
+                "relative_l2": 0.0,
+                "max_abs": 0.0
+              },
+              "vo": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 1048576,
+                "mismatched_elements": 0,
+                "relative_l2": 1.692974744711291e-08,
+                "max_abs": 8.45640897584321e-10
+              },
+              "canaries": true,
+              "guarded_outputs": true
+            },
+            "torch_cuda": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 1048576,
+                "mismatched_elements": 0,
+                "relative_l2": 0.0,
+                "max_abs": 0.0
+              },
+              "mo": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 1048576,
+                "mismatched_elements": 0,
+                "relative_l2": 0.0,
+                "max_abs": 0.0
+              },
+              "vo": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 1048576,
+                "mismatched_elements": 0,
+                "relative_l2": 1.692974744711291e-08,
+                "max_abs": 8.45640897584321e-10
+              },
+              "canaries": null,
+              "guarded_outputs": false
+            }
+          },
+          "oa_ptxas_bitwise_equal": true
+        }
+      ],
+      "status": "ok",
+      "eligible_for_timing": [
+        "oa",
+        "ptxas",
+        "torch_cuda"
+      ],
+      "timings": {
+        "oa": {
+          "samples_ms": [
+            0.05427199974656105,
+            0.043007999658584595,
+            0.04915200173854828,
+            0.04915200173854828,
+            0.043007999658584595,
+            0.043007999658584595,
+            0.04095999896526337,
+            0.04403200000524521,
+            0.050175998359918594,
+            0.04403200000524521,
+            0.043007999658584595,
+            0.043007999658584595,
+            0.043007999658584595,
+            0.04915200173854828,
+            0.043007999658584595,
+            0.04198399931192398,
+            0.04403200000524521,
+            0.05734400078654289,
+            0.050175998359918594,
+            0.04198399931192398
+          ],
+          "median_ms": 0.0435199998319149,
+          "mean_ms": 0.04587519988417625,
+          "min_ms": 0.04095999896526337,
+          "max_ms": 0.05734400078654289
+        },
+        "ptxas": {
+          "samples_ms": [
+            0.03993599861860275,
+            0.03686400130391121,
+            0.03993599861860275,
+            0.03788800165057182,
+            0.04403200000524521,
+            0.04710400104522705,
+            0.03379200026392937,
+            0.04505600035190582,
+            0.04505600035190582,
+            0.035840000957250595,
+            0.04505600035190582,
+            0.04710400104522705,
+            0.03891199827194214,
+            0.04403200000524521,
+            0.04505600035190582,
+            0.03891199827194214,
+            0.04608000069856644,
+            0.03993599861860275,
+            0.03686400130391121,
+            0.03481600061058998
+          ],
+          "median_ms": 0.03993599861860275,
+          "mean_ms": 0.04111360013484955,
+          "min_ms": 0.03379200026392937,
+          "max_ms": 0.04710400104522705
+        },
+        "torch_cuda": {
+          "samples_ms": [
+            0.22220799326896667,
+            0.19865599274635315,
+            0.20582400262355804,
+            0.1730560064315796,
+            0.187391996383667,
+            0.19660800695419312,
+            0.18534399569034576,
+            0.1812479943037033,
+            0.187391996383667,
+            0.19353599846363068,
+            0.22220799326896667,
+            0.1730560064315796,
+            0.18432000279426575,
+            0.20070399343967438,
+            0.17612800002098083,
+            0.18227200210094452,
+            0.19865599274635315,
+            0.17510400712490082,
+            0.18534399569034576,
+            0.18636800348758698
+          ],
+          "median_ms": 0.18687999993562698,
+          "mean_ms": 0.19077119901776313,
+          "min_ms": 0.1730560064315796,
+          "max_ms": 0.22220799326896667
+        }
+      },
+      "timing_order": [
+        [
+          "torch_cuda",
+          "oa",
+          "ptxas"
+        ],
+        [
+          "oa",
+          "ptxas",
+          "torch_cuda"
+        ],
+        [
+          "oa",
+          "ptxas",
+          "torch_cuda"
+        ],
+        [
+          "torch_cuda",
+          "oa",
+          "ptxas"
+        ],
+        [
+          "oa",
+          "ptxas",
+          "torch_cuda"
+        ],
+        [
+          "torch_cuda",
+          "ptxas",
+          "oa"
+        ],
+        [
+          "oa",
+          "ptxas",
+          "torch_cuda"
+        ],
+        [
+          "ptxas",
+          "oa",
+          "torch_cuda"
+        ],
+        [
+          "oa",
+          "torch_cuda",
+          "ptxas"
+        ],
+        [
+          "oa",
+          "ptxas",
+          "torch_cuda"
+        ],
+        [
+          "ptxas",
+          "oa",
+          "torch_cuda"
+        ],
+        [
+          "torch_cuda",
+          "ptxas",
+          "oa"
+        ],
+        [
+          "ptxas",
+          "oa",
+          "torch_cuda"
+        ],
+        [
+          "ptxas",
+          "torch_cuda",
+          "oa"
+        ],
+        [
+          "torch_cuda",
+          "ptxas",
+          "oa"
+        ],
+        [
+          "ptxas",
+          "oa",
+          "torch_cuda"
+        ],
+        [
+          "torch_cuda",
+          "ptxas",
+          "oa"
+        ],
+        [
+          "torch_cuda",
+          "oa",
+          "ptxas"
+        ],
+        [
+          "ptxas",
+          "torch_cuda",
+          "oa"
+        ],
+        [
+          "oa",
+          "ptxas",
+          "torch_cuda"
+        ]
+      ],
+      "torch_cuda_extra_copy": false,
+      "torch_output_allocation": true,
+      "algorithm_boundary": "one thread per element; current scalar native compiler"
+    },
+    {
+      "name": "adam_step_4194304",
+      "op": "adam_step",
+      "shape": [
+        4194304
+      ],
+      "tolerance": {
+        "rtol": 2e-05,
+        "atol": 2e-06
+      },
+      "patterns": [
+        {
+          "pattern": "normal",
+          "checks": {
+            "oa": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 4194304,
+                "mismatched_elements": 0,
+                "relative_l2": 2.536045652313251e-08,
+                "max_abs": 2.3820550421049802e-07
+              },
+              "mo": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 4194304,
+                "mismatched_elements": 0,
+                "relative_l2": 4.3187832750963935e-08,
+                "max_abs": 5.066394814789987e-08
+              },
+              "vo": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 4194304,
+                "mismatched_elements": 0,
+                "relative_l2": 3.069992462244299e-08,
+                "max_abs": 8.0295665116914e-09
+              },
+              "canaries": true,
+              "guarded_outputs": true
+            },
+            "ptxas": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 4194304,
+                "mismatched_elements": 0,
+                "relative_l2": 2.5360452568019704e-08,
+                "max_abs": 2.3820550421049802e-07
+              },
+              "mo": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 4194304,
+                "mismatched_elements": 0,
+                "relative_l2": 3.831298096481671e-08,
+                "max_abs": 5.252659318610853e-08
+              },
+              "vo": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 4194304,
+                "mismatched_elements": 0,
+                "relative_l2": 2.3937650285065223e-08,
+                "max_abs": 6.791578924247865e-09
+              },
+              "canaries": true,
+              "guarded_outputs": true
+            },
+            "torch_cuda": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 4194304,
+                "mismatched_elements": 0,
+                "relative_l2": 2.536045652313251e-08,
+                "max_abs": 2.3820550421049802e-07
+              },
+              "mo": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 4194304,
+                "mismatched_elements": 0,
+                "relative_l2": 4.3187832750963935e-08,
+                "max_abs": 5.066394814789987e-08
+              },
+              "vo": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 4194304,
+                "mismatched_elements": 0,
+                "relative_l2": 3.069992462244299e-08,
+                "max_abs": 8.0295665116914e-09
+              },
+              "canaries": null,
+              "guarded_outputs": false
+            }
+          },
+          "oa_ptxas_bitwise_equal": false
+        },
+        {
+          "pattern": "zero",
+          "checks": {
+            "oa": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 4194304,
+                "mismatched_elements": 0,
+                "relative_l2": 0.0,
+                "max_abs": 0.0
+              },
+              "mo": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 4194304,
+                "mismatched_elements": 0,
+                "relative_l2": 0.0,
+                "max_abs": 0.0
+              },
+              "vo": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 4194304,
+                "mismatched_elements": 0,
+                "relative_l2": 1.6929747447112914e-08,
+                "max_abs": 8.45640897584321e-10
+              },
+              "canaries": true,
+              "guarded_outputs": true
+            },
+            "ptxas": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 4194304,
+                "mismatched_elements": 0,
+                "relative_l2": 0.0,
+                "max_abs": 0.0
+              },
+              "mo": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 4194304,
+                "mismatched_elements": 0,
+                "relative_l2": 0.0,
+                "max_abs": 0.0
+              },
+              "vo": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 4194304,
+                "mismatched_elements": 0,
+                "relative_l2": 1.6929747447112914e-08,
+                "max_abs": 8.45640897584321e-10
+              },
+              "canaries": true,
+              "guarded_outputs": true
+            },
+            "torch_cuda": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 4194304,
+                "mismatched_elements": 0,
+                "relative_l2": 0.0,
+                "max_abs": 0.0
+              },
+              "mo": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 4194304,
+                "mismatched_elements": 0,
+                "relative_l2": 0.0,
+                "max_abs": 0.0
+              },
+              "vo": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 4194304,
+                "mismatched_elements": 0,
+                "relative_l2": 1.6929747447112914e-08,
+                "max_abs": 8.45640897584321e-10
+              },
+              "canaries": null,
+              "guarded_outputs": false
+            }
+          },
+          "oa_ptxas_bitwise_equal": true
+        }
+      ],
+      "status": "ok",
+      "eligible_for_timing": [
+        "oa",
+        "ptxas",
+        "torch_cuda"
+      ],
+      "timings": {
+        "oa": {
+          "samples_ms": [
+            0.13926400244235992,
+            0.1228799968957901,
+            0.11673600226640701,
+            0.11980800330638885,
+            0.1228799968957901,
+            0.11980800330638885,
+            0.11468800157308578,
+            0.12083200365304947,
+            0.11980800330638885,
+            0.14233599603176117,
+            0.11776000261306763,
+            0.12492799758911133,
+            0.12390399724245071,
+            0.11878400295972824,
+            0.11673600226640701,
+            0.12185599654912949,
+            0.1157120019197464,
+            0.11673600226640701,
+            0.12083200365304947,
+            0.13209599256515503
+          ],
+          "median_ms": 0.12032000347971916,
+          "mean_ms": 0.12241920046508312,
+          "min_ms": 0.11468800157308578,
+          "max_ms": 0.14233599603176117
+        },
+        "ptxas": {
+          "samples_ms": [
+            0.11878400295972824,
+            0.10239999741315842,
+            0.17715199291706085,
+            0.12390399724245071,
+            0.1228799968957901,
+            0.11059200018644333,
+            0.10751999914646149,
+            0.11161600053310394,
+            0.12800000607967377,
+            0.1515520066022873,
+            0.12595200538635254,
+            0.10956799983978271,
+            0.10239999741315842,
+            0.11264000087976456,
+            0.10547199845314026,
+            0.1085439994931221,
+            0.1085439994931221,
+            0.10956799983978271,
+            0.12902399897575378,
+            0.11059200018644333
+          ],
+          "median_ms": 0.11110400035977364,
+          "mean_ms": 0.11883519999682904,
+          "min_ms": 0.10239999741315842,
+          "max_ms": 0.17715199291706085
+        },
+        "torch_cuda": {
+          "samples_ms": [
+            0.39321601390838623,
+            0.37785598635673523,
+            0.37990400195121765,
+            0.3850240111351013,
+            0.3891200125217438,
+            0.38707199692726135,
+            0.38092800974845886,
+            0.3768320083618164,
+            0.3901439905166626,
+            0.41574400663375854,
+            0.3840000033378601,
+            0.3840000033378601,
+            0.37887999415397644,
+            0.37887999415397644,
+            0.3850240111351013,
+            0.37990400195121765,
+            0.38707199692726135,
+            0.3829759955406189,
+            0.5662720203399658,
+            0.419840008020401
+          ],
+          "median_ms": 0.3845120072364807,
+          "mean_ms": 0.39613440334796907,
+          "min_ms": 0.3768320083618164,
+          "max_ms": 0.5662720203399658
+        }
+      },
+      "timing_order": [
+        [
+          "oa",
+          "torch_cuda",
+          "ptxas"
+        ],
+        [
+          "torch_cuda",
+          "oa",
+          "ptxas"
+        ],
+        [
+          "oa",
+          "torch_cuda",
+          "ptxas"
+        ],
+        [
+          "ptxas",
+          "oa",
+          "torch_cuda"
+        ],
+        [
+          "ptxas",
+          "torch_cuda",
+          "oa"
+        ],
+        [
+          "torch_cuda",
+          "ptxas",
+          "oa"
+        ],
+        [
+          "oa",
+          "torch_cuda",
+          "ptxas"
+        ],
+        [
+          "torch_cuda",
+          "ptxas",
+          "oa"
+        ],
+        [
+          "torch_cuda",
+          "oa",
+          "ptxas"
+        ],
+        [
+          "oa",
+          "ptxas",
+          "torch_cuda"
+        ],
+        [
+          "ptxas",
+          "oa",
+          "torch_cuda"
+        ],
+        [
+          "ptxas",
+          "torch_cuda",
+          "oa"
+        ],
+        [
+          "ptxas",
+          "oa",
+          "torch_cuda"
+        ],
+        [
+          "torch_cuda",
+          "ptxas",
+          "oa"
+        ],
+        [
+          "oa",
+          "ptxas",
+          "torch_cuda"
+        ],
+        [
+          "ptxas",
+          "torch_cuda",
+          "oa"
+        ],
+        [
+          "oa",
+          "torch_cuda",
+          "ptxas"
+        ],
+        [
+          "ptxas",
+          "oa",
+          "torch_cuda"
+        ],
+        [
+          "oa",
+          "torch_cuda",
+          "ptxas"
+        ],
+        [
+          "oa",
+          "torch_cuda",
+          "ptxas"
+        ]
+      ],
+      "torch_cuda_extra_copy": false,
+      "torch_output_allocation": true,
+      "algorithm_boundary": "one thread per element; current scalar native compiler"
+    },
+    {
+      "name": "softmax_128x128",
+      "op": "softmax",
+      "shape": [
+        128,
+        128
+      ],
+      "tolerance": {
+        "rtol": 5e-05,
+        "atol": 1e-06
+      },
+      "patterns": [
+        {
+          "pattern": "normal",
+          "checks": {
+            "oa": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 16384,
+                "mismatched_elements": 0,
+                "relative_l2": 1.62063300171007e-07,
+                "max_abs": 3.309803024709179e-08
+              },
+              "canaries": true,
+              "guarded_outputs": true
+            },
+            "ptxas": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 16384,
+                "mismatched_elements": 0,
+                "relative_l2": 1.62063300171007e-07,
+                "max_abs": 3.309803024709179e-08
+              },
+              "canaries": true,
+              "guarded_outputs": true
+            },
+            "torch_cuda": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 16384,
+                "mismatched_elements": 0,
+                "relative_l2": 6.366177237726756e-08,
+                "max_abs": 1.1642737329786712e-08
+              },
+              "canaries": true,
+              "guarded_outputs": true
+            }
+          },
+          "oa_ptxas_bitwise_equal": true
+        },
+        {
+          "pattern": "zero",
+          "checks": {
+            "oa": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 16384,
+                "mismatched_elements": 0,
+                "relative_l2": 0.0,
+                "max_abs": 0.0
+              },
+              "canaries": true,
+              "guarded_outputs": true
+            },
+            "ptxas": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 16384,
+                "mismatched_elements": 0,
+                "relative_l2": 0.0,
+                "max_abs": 0.0
+              },
+              "canaries": true,
+              "guarded_outputs": true
+            },
+            "torch_cuda": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 16384,
+                "mismatched_elements": 0,
+                "relative_l2": 0.0,
+                "max_abs": 0.0
+              },
+              "canaries": true,
+              "guarded_outputs": true
+            }
+          },
+          "oa_ptxas_bitwise_equal": true
+        }
+      ],
+      "status": "ok",
+      "eligible_for_timing": [
+        "oa",
+        "ptxas",
+        "torch_cuda"
+      ],
+      "timings": {
+        "oa": {
+          "samples_ms": [
+            0.11776000261306763,
+            0.11776000261306763,
+            0.11673600226640701,
+            0.11776000261306763,
+            0.11059200018644333,
+            0.10956799983978271,
+            0.1157120019197464,
+            0.1157120019197464,
+            0.10956799983978271,
+            0.10956799983978271,
+            0.11161600053310394,
+            0.11673600226640701,
+            0.1085439994931221,
+            0.11673600226640701,
+            0.1157120019197464,
+            0.1085439994931221,
+            0.1157120019197464,
+            0.1085439994931221,
+            0.11059200018644333,
+            0.10751999914646149
+          ],
+          "median_ms": 0.11366400122642517,
+          "mean_ms": 0.1130496010184288,
+          "min_ms": 0.10751999914646149,
+          "max_ms": 0.11776000261306763
+        },
+        "ptxas": {
+          "samples_ms": [
+            0.0942080020904541,
+            0.0870399996638298,
+            0.0870399996638298,
+            0.08601599931716919,
+            0.0870399996638298,
+            0.08908800035715103,
+            0.09011200070381165,
+            0.08908800035715103,
+            0.08806400001049042,
+            0.08806400001049042,
+            0.08806400001049042,
+            0.08806400001049042,
+            0.08908800035715103,
+            0.08908800035715103,
+            0.08806400001049042,
+            0.08908800035715103,
+            0.08806400001049042,
+            0.08806400001049042,
+            0.08806400001049042,
+            0.0870399996638298
+          ],
+          "median_ms": 0.08806400001049042,
+          "mean_ms": 0.08842240013182164,
+          "min_ms": 0.08601599931716919,
+          "max_ms": 0.0942080020904541
+        },
+        "torch_cuda": {
+          "samples_ms": [
+            0.03276799991726875,
+            0.023552000522613525,
+            0.027648000046610832,
+            0.023552000522613525,
+            0.02457600086927414,
+            0.02457600086927414,
+            0.026623999699950218,
+            0.025599999353289604,
+            0.023552000522613525,
+            0.02457600086927414,
+            0.02457600086927414,
+            0.021503999829292297,
+            0.027648000046610832,
+            0.023552000522613525,
+            0.02252800017595291,
+            0.025599999353289604,
+            0.02252800017595291,
+            0.030719999223947525,
+            0.02457600086927414,
+            0.02252800017595291
+          ],
+          "median_ms": 0.02457600086927414,
+          "mean_ms": 0.02513920022174716,
+          "min_ms": 0.021503999829292297,
+          "max_ms": 0.03276799991726875
+        }
+      },
+      "timing_order": [
+        [
+          "ptxas",
+          "torch_cuda",
+          "oa"
+        ],
+        [
+          "torch_cuda",
+          "oa",
+          "ptxas"
+        ],
+        [
+          "ptxas",
+          "oa",
+          "torch_cuda"
+        ],
+        [
+          "torch_cuda",
+          "ptxas",
+          "oa"
+        ],
+        [
+          "torch_cuda",
+          "oa",
+          "ptxas"
+        ],
+        [
+          "torch_cuda",
+          "oa",
+          "ptxas"
+        ],
+        [
+          "torch_cuda",
+          "ptxas",
+          "oa"
+        ],
+        [
+          "oa",
+          "torch_cuda",
+          "ptxas"
+        ],
+        [
+          "torch_cuda",
+          "ptxas",
+          "oa"
+        ],
+        [
+          "ptxas",
+          "torch_cuda",
+          "oa"
+        ],
+        [
+          "ptxas",
+          "oa",
+          "torch_cuda"
+        ],
+        [
+          "torch_cuda",
+          "oa",
+          "ptxas"
+        ],
+        [
+          "torch_cuda",
+          "ptxas",
+          "oa"
+        ],
+        [
+          "torch_cuda",
+          "ptxas",
+          "oa"
+        ],
+        [
+          "oa",
+          "torch_cuda",
+          "ptxas"
+        ],
+        [
+          "ptxas",
+          "torch_cuda",
+          "oa"
+        ],
+        [
+          "oa",
+          "torch_cuda",
+          "ptxas"
+        ],
+        [
+          "torch_cuda",
+          "ptxas",
+          "oa"
+        ],
+        [
+          "ptxas",
+          "torch_cuda",
+          "oa"
+        ],
+        [
+          "ptxas",
+          "oa",
+          "torch_cuda"
+        ]
+      ],
+      "torch_cuda_extra_copy": false,
+      "torch_output_allocation": false,
+      "algorithm_boundary": "one thread per row, serial loops, strided lane access"
+    },
+    {
+      "name": "softmax_1024x512",
+      "op": "softmax",
+      "shape": [
+        1024,
+        512
+      ],
+      "tolerance": {
+        "rtol": 5e-05,
+        "atol": 1e-06
+      },
+      "patterns": [
+        {
+          "pattern": "normal",
+          "checks": {
+            "oa": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 524288,
+                "mismatched_elements": 0,
+                "relative_l2": 3.4198469677638265e-07,
+                "max_abs": 5.251337392708777e-08
+              },
+              "canaries": true,
+              "guarded_outputs": true
+            },
+            "ptxas": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 524288,
+                "mismatched_elements": 0,
+                "relative_l2": 3.4198469677638265e-07,
+                "max_abs": 5.251337392708777e-08
+              },
+              "canaries": true,
+              "guarded_outputs": true
+            },
+            "torch_cuda": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 524288,
+                "mismatched_elements": 0,
+                "relative_l2": 6.940400210463434e-08,
+                "max_abs": 7.091270848302855e-09
+              },
+              "canaries": true,
+              "guarded_outputs": true
+            }
+          },
+          "oa_ptxas_bitwise_equal": true
+        },
+        {
+          "pattern": "zero",
+          "checks": {
+            "oa": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 524288,
+                "mismatched_elements": 0,
+                "relative_l2": 0.0,
+                "max_abs": 0.0
+              },
+              "canaries": true,
+              "guarded_outputs": true
+            },
+            "ptxas": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 524288,
+                "mismatched_elements": 0,
+                "relative_l2": 0.0,
+                "max_abs": 0.0
+              },
+              "canaries": true,
+              "guarded_outputs": true
+            },
+            "torch_cuda": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 524288,
+                "mismatched_elements": 0,
+                "relative_l2": 0.0,
+                "max_abs": 0.0
+              },
+              "canaries": true,
+              "guarded_outputs": true
+            }
+          },
+          "oa_ptxas_bitwise_equal": true
+        }
+      ],
+      "status": "ok",
+      "eligible_for_timing": [
+        "oa",
+        "ptxas",
+        "torch_cuda"
+      ],
+      "timings": {
+        "oa": {
+          "samples_ms": [
+            0.4136959910392761,
+            0.4136959910392761,
+            0.4136959910392761,
+            0.41574400663375854,
+            0.41471999883651733,
+            0.4126720130443573,
+            0.4136959910392761,
+            0.4136959910392761,
+            0.4126720130443573,
+            0.41676801443099976,
+            0.4136959910392761,
+            0.40959998965263367,
+            0.4106239974498749,
+            0.4126720130443573,
+            0.42188799381256104,
+            0.41471999883651733,
+            0.4136959910392761,
+            0.41471999883651733,
+            0.4106239974498749,
+            0.4106239974498749
+          ],
+          "median_ms": 0.4136959910392761,
+          "mean_ms": 0.4136959984898567,
+          "min_ms": 0.40959998965263367,
+          "max_ms": 0.42188799381256104
+        },
+        "ptxas": {
+          "samples_ms": [
+            0.317440003156662,
+            0.3123199939727783,
+            0.3092480003833771,
+            0.3112959861755371,
+            0.31334400177001953,
+            0.31436800956726074,
+            0.31334400177001953,
+            0.3112959861755371,
+            0.3123199939727783,
+            0.3123199939727783,
+            0.3112959861755371,
+            0.3123199939727783,
+            0.3112959861755371,
+            0.3112959861755371,
+            0.31436800956726074,
+            0.32972800731658936,
+            0.3112959861755371,
+            0.31334400177001953,
+            0.31334400177001953,
+            0.3112959861755371
+          ],
+          "median_ms": 0.3123199939727783,
+          "mean_ms": 0.3133439958095551,
+          "min_ms": 0.3092480003833771,
+          "max_ms": 0.32972800731658936
+        },
+        "torch_cuda": {
+          "samples_ms": [
+            0.03481600061058998,
+            0.026623999699950218,
+            0.027648000046610832,
+            0.023552000522613525,
+            0.030719999223947525,
+            0.023552000522613525,
+            0.025599999353289604,
+            0.026623999699950218,
+            0.025599999353289604,
+            0.02252800017595291,
+            0.027648000046610832,
+            0.03379200026392937,
+            0.03276799991726875,
+            0.02252800017595291,
+            0.027648000046610832,
+            0.025599999353289604,
+            0.025599999353289604,
+            0.026623999699950218,
+            0.027648000046610832,
+            0.026623999699950218
+          ],
+          "median_ms": 0.026623999699950218,
+          "mean_ms": 0.027187199890613557,
+          "min_ms": 0.02252800017595291,
+          "max_ms": 0.03481600061058998
+        }
+      },
+      "timing_order": [
+        [
+          "ptxas",
+          "torch_cuda",
+          "oa"
+        ],
+        [
+          "torch_cuda",
+          "ptxas",
+          "oa"
+        ],
+        [
+          "ptxas",
+          "oa",
+          "torch_cuda"
+        ],
+        [
+          "torch_cuda",
+          "oa",
+          "ptxas"
+        ],
+        [
+          "ptxas",
+          "oa",
+          "torch_cuda"
+        ],
+        [
+          "ptxas",
+          "torch_cuda",
+          "oa"
+        ],
+        [
+          "torch_cuda",
+          "oa",
+          "ptxas"
+        ],
+        [
+          "ptxas",
+          "oa",
+          "torch_cuda"
+        ],
+        [
+          "oa",
+          "ptxas",
+          "torch_cuda"
+        ],
+        [
+          "torch_cuda",
+          "ptxas",
+          "oa"
+        ],
+        [
+          "torch_cuda",
+          "oa",
+          "ptxas"
+        ],
+        [
+          "oa",
+          "ptxas",
+          "torch_cuda"
+        ],
+        [
+          "oa",
+          "ptxas",
+          "torch_cuda"
+        ],
+        [
+          "torch_cuda",
+          "oa",
+          "ptxas"
+        ],
+        [
+          "oa",
+          "torch_cuda",
+          "ptxas"
+        ],
+        [
+          "oa",
+          "torch_cuda",
+          "ptxas"
+        ],
+        [
+          "ptxas",
+          "torch_cuda",
+          "oa"
+        ],
+        [
+          "torch_cuda",
+          "ptxas",
+          "oa"
+        ],
+        [
+          "oa",
+          "torch_cuda",
+          "ptxas"
+        ],
+        [
+          "oa",
+          "torch_cuda",
+          "ptxas"
+        ]
+      ],
+      "torch_cuda_extra_copy": false,
+      "torch_output_allocation": false,
+      "algorithm_boundary": "one thread per row, serial loops, strided lane access"
+    },
+    {
+      "name": "layernorm_128x128",
+      "op": "layernorm",
+      "shape": [
+        128,
+        128
+      ],
+      "tolerance": {
+        "rtol": 0.0001,
+        "atol": 2e-05
+      },
+      "patterns": [
+        {
+          "pattern": "normal",
+          "checks": {
+            "oa": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 16384,
+                "mismatched_elements": 0,
+                "relative_l2": 1.0143517312462782e-07,
+                "max_abs": 9.386189634419395e-07
+              },
+              "canaries": true,
+              "guarded_outputs": true
+            },
+            "ptxas": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 16384,
+                "mismatched_elements": 0,
+                "relative_l2": 1.0111777700368129e-07,
+                "max_abs": 9.386189634419395e-07
+              },
+              "canaries": true,
+              "guarded_outputs": true
+            },
+            "torch_cuda": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 16384,
+                "mismatched_elements": 0,
+                "relative_l2": 5.616001437070657e-08,
+                "max_abs": 4.979993062370625e-07
+              },
+              "canaries": null,
+              "guarded_outputs": false
+            }
+          },
+          "oa_ptxas_bitwise_equal": false
+        },
+        {
+          "pattern": "zero",
+          "checks": {
+            "oa": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 16384,
+                "mismatched_elements": 0,
+                "relative_l2": 0.0,
+                "max_abs": 0.0
+              },
+              "canaries": true,
+              "guarded_outputs": true
+            },
+            "ptxas": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 16384,
+                "mismatched_elements": 0,
+                "relative_l2": 0.0,
+                "max_abs": 0.0
+              },
+              "canaries": true,
+              "guarded_outputs": true
+            },
+            "torch_cuda": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 16384,
+                "mismatched_elements": 0,
+                "relative_l2": 0.0,
+                "max_abs": 0.0
+              },
+              "canaries": null,
+              "guarded_outputs": false
+            }
+          },
+          "oa_ptxas_bitwise_equal": true
+        }
+      ],
+      "status": "ok",
+      "eligible_for_timing": [
+        "oa",
+        "ptxas",
+        "torch_cuda"
+      ],
+      "timings": {
+        "oa": {
+          "samples_ms": [
+            0.09830400347709656,
+            0.09318400174379349,
+            0.09625600278377533,
+            0.10342399775981903,
+            0.0942080020904541,
+            0.09625600278377533,
+            0.09625600278377533,
+            0.09523200243711472,
+            0.09625600278377533,
+            0.11161600053310394,
+            0.0942080020904541,
+            0.09932799637317657,
+            0.1013759970664978,
+            0.09625600278377533,
+            0.09523200243711472,
+            0.10751999914646149,
+            0.10035199671983719,
+            0.1013759970664978,
+            0.10956799983978271,
+            0.09728000313043594
+          ],
+          "median_ms": 0.09676800295710564,
+          "mean_ms": 0.09917440079152584,
+          "min_ms": 0.09318400174379349,
+          "max_ms": 0.11161600053310394
+        },
+        "ptxas": {
+          "samples_ms": [
+            0.09318400174379349,
+            0.08396799862384796,
+            0.08499199897050858,
+            0.08499199897050858,
+            0.08396799862384796,
+            0.08191999793052673,
+            0.08601599931716919,
+            0.08191999793052673,
+            0.08908800035715103,
+            0.08499199897050858,
+            0.08396799862384796,
+            0.08499199897050858,
+            0.08601599931716919,
+            0.08601599931716919,
+            0.0870399996638298,
+            0.09830400347709656,
+            0.09216000139713287,
+            0.10751999914646149,
+            0.08499199897050858,
+            0.0870399996638298
+          ],
+          "median_ms": 0.08550399914383888,
+          "mean_ms": 0.08765439949929714,
+          "min_ms": 0.08191999793052673,
+          "max_ms": 0.10751999914646149
+        },
+        "torch_cuda": {
+          "samples_ms": [
+            0.07577600330114365,
+            0.04608000069856644,
+            0.053247999399900436,
+            0.03891199827194214,
+            0.05632000043988228,
+            0.04505600035190582,
+            0.04095999896526337,
+            0.04915200173854828,
+            0.043007999658584595,
+            0.09625600278377533,
+            0.055296000093221664,
+            0.062463998794555664,
+            0.062463998794555664,
+            0.05427199974656105,
+            0.053247999399900436,
+            0.08191999793052673,
+            0.08396799862384796,
+            0.06656000018119812,
+            0.0727040022611618,
+            0.04505600035190582
+          ],
+          "median_ms": 0.05478399991989136,
+          "mean_ms": 0.059136000089347364,
+          "min_ms": 0.03891199827194214,
+          "max_ms": 0.09625600278377533
+        }
+      },
+      "timing_order": [
+        [
+          "ptxas",
+          "torch_cuda",
+          "oa"
+        ],
+        [
+          "oa",
+          "ptxas",
+          "torch_cuda"
+        ],
+        [
+          "ptxas",
+          "oa",
+          "torch_cuda"
+        ],
+        [
+          "torch_cuda",
+          "oa",
+          "ptxas"
+        ],
+        [
+          "torch_cuda",
+          "oa",
+          "ptxas"
+        ],
+        [
+          "torch_cuda",
+          "oa",
+          "ptxas"
+        ],
+        [
+          "torch_cuda",
+          "ptxas",
+          "oa"
+        ],
+        [
+          "oa",
+          "ptxas",
+          "torch_cuda"
+        ],
+        [
+          "oa",
+          "torch_cuda",
+          "ptxas"
+        ],
+        [
+          "ptxas",
+          "torch_cuda",
+          "oa"
+        ],
+        [
+          "torch_cuda",
+          "oa",
+          "ptxas"
+        ],
+        [
+          "ptxas",
+          "oa",
+          "torch_cuda"
+        ],
+        [
+          "torch_cuda",
+          "oa",
+          "ptxas"
+        ],
+        [
+          "oa",
+          "torch_cuda",
+          "ptxas"
+        ],
+        [
+          "torch_cuda",
+          "oa",
+          "ptxas"
+        ],
+        [
+          "ptxas",
+          "oa",
+          "torch_cuda"
+        ],
+        [
+          "oa",
+          "ptxas",
+          "torch_cuda"
+        ],
+        [
+          "torch_cuda",
+          "ptxas",
+          "oa"
+        ],
+        [
+          "oa",
+          "ptxas",
+          "torch_cuda"
+        ],
+        [
+          "ptxas",
+          "oa",
+          "torch_cuda"
+        ]
+      ],
+      "torch_cuda_extra_copy": false,
+      "torch_output_allocation": true,
+      "algorithm_boundary": "one thread per row, serial loops, strided lane access"
+    },
+    {
+      "name": "layernorm_1024x512",
+      "op": "layernorm",
+      "shape": [
+        1024,
+        512
+      ],
+      "tolerance": {
+        "rtol": 0.0001,
+        "atol": 2e-05
+      },
+      "patterns": [
+        {
+          "pattern": "normal",
+          "checks": {
+            "oa": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 524288,
+                "mismatched_elements": 0,
+                "relative_l2": 1.5703354234506776e-07,
+                "max_abs": 1.558558320180481e-06
+              },
+              "canaries": true,
+              "guarded_outputs": true
+            },
+            "ptxas": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 524288,
+                "mismatched_elements": 0,
+                "relative_l2": 1.5771337490336414e-07,
+                "max_abs": 1.558558320180481e-06
+              },
+              "canaries": true,
+              "guarded_outputs": true
+            },
+            "torch_cuda": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 524288,
+                "mismatched_elements": 0,
+                "relative_l2": 5.983655448453738e-08,
+                "max_abs": 5.858333365083013e-07
+              },
+              "canaries": null,
+              "guarded_outputs": false
+            }
+          },
+          "oa_ptxas_bitwise_equal": false
+        },
+        {
+          "pattern": "zero",
+          "checks": {
+            "oa": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 524288,
+                "mismatched_elements": 0,
+                "relative_l2": 0.0,
+                "max_abs": 0.0
+              },
+              "canaries": true,
+              "guarded_outputs": true
+            },
+            "ptxas": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 524288,
+                "mismatched_elements": 0,
+                "relative_l2": 0.0,
+                "max_abs": 0.0
+              },
+              "canaries": true,
+              "guarded_outputs": true
+            },
+            "torch_cuda": {
+              "out": {
+                "passed": true,
+                "finite": true,
+                "elements_checked": 524288,
+                "mismatched_elements": 0,
+                "relative_l2": 0.0,
+                "max_abs": 0.0
+              },
+              "canaries": null,
+              "guarded_outputs": false
+            }
+          },
+          "oa_ptxas_bitwise_equal": true
+        }
+      ],
+      "status": "ok",
+      "eligible_for_timing": [
+        "oa",
+        "ptxas",
+        "torch_cuda"
+      ],
+      "timings": {
+        "oa": {
+          "samples_ms": [
+            0.34406399726867676,
+            0.3409920036792755,
+            0.3399679958820343,
+            0.3399679958820343,
+            0.34508800506591797,
+            0.33689600229263306,
+            0.33689600229263306,
+            0.3389439880847931,
+            0.3389439880847931,
+            0.33792001008987427,
+            0.34303998947143555,
+            0.3389439880847931,
+            0.33792001008987427,
+            0.33587199449539185,
+            0.3420160114765167,
+            0.33792001008987427,
+            0.33587199449539185,
+            0.33792001008987427,
+            0.33792001008987427,
+            0.33587199449539185
+          ],
+          "median_ms": 0.3384319990873337,
+          "mean_ms": 0.33914880007505416,
+          "min_ms": 0.33587199449539185,
+          "max_ms": 0.34508800506591797
+        },
+        "ptxas": {
+          "samples_ms": [
+            0.28467199206352234,
+            0.28672000765800476,
+            0.2887679934501648,
+            0.2887679934501648,
+            0.2887679934501648,
+            0.28672000765800476,
+            0.28569599986076355,
+            0.2826240062713623,
+            0.28569599986076355,
+            0.2836480140686035,
+            0.28569599986076355,
+            0.28467199206352234,
+            0.28569599986076355,
+            0.2826240062713623,
+            0.2836480140686035,
+            0.28569599986076355,
+            0.28467199206352234,
+            0.2836480140686035,
+            0.28467199206352234,
+            0.28467199206352234
+          ],
+          "median_ms": 0.28518399596214294,
+          "mean_ms": 0.2853888005018234,
+          "min_ms": 0.2826240062713623,
+          "max_ms": 0.2887679934501648
+        },
+        "torch_cuda": {
+          "samples_ms": [
+            0.07680000364780426,
+            0.06348799914121628,
+            0.06656000018119812,
+            0.07065600156784058,
+            0.050175998359918594,
+            0.05119999870657921,
+            0.04608000069856644,
+            0.04710400104522705,
+            0.043007999658584595,
+            0.04710400104522705,
+            0.03788800165057182,
+            0.05427199974656105,
+            0.050175998359918594,
+            0.04505600035190582,
+            0.058368001133203506,
+            0.04505600035190582,
+            0.03788800165057182,
+            0.04710400104522705,
+            0.04403200000524521,
+            0.04608000069856644
+          ],
+          "median_ms": 0.04710400104522705,
+          "mean_ms": 0.05140480045229197,
+          "min_ms": 0.03788800165057182,
+          "max_ms": 0.07680000364780426
+        }
+      },
+      "timing_order": [
+        [
+          "torch_cuda",
+          "oa",
+          "ptxas"
+        ],
+        [
+          "torch_cuda",
+          "oa",
+          "ptxas"
+        ],
+        [
+          "torch_cuda",
+          "oa",
+          "ptxas"
+        ],
+        [
+          "oa",
+          "ptxas",
+          "torch_cuda"
+        ],
+        [
+          "ptxas",
+          "oa",
+          "torch_cuda"
+        ],
+        [
+          "ptxas",
+          "oa",
+          "torch_cuda"
+        ],
+        [
+          "ptxas",
+          "torch_cuda",
+          "oa"
+        ],
+        [
+          "ptxas",
+          "oa",
+          "torch_cuda"
+        ],
+        [
+          "ptxas",
+          "torch_cuda",
+          "oa"
+        ],
+        [
+          "oa",
+          "ptxas",
+          "torch_cuda"
+        ],
+        [
+          "torch_cuda",
+          "ptxas",
+          "oa"
+        ],
+        [
+          "torch_cuda",
+          "oa",
+          "ptxas"
+        ],
+        [
+          "oa",
+          "torch_cuda",
+          "ptxas"
+        ],
+        [
+          "torch_cuda",
+          "oa",
+          "ptxas"
+        ],
+        [
+          "ptxas",
+          "oa",
+          "torch_cuda"
+        ],
+        [
+          "oa",
+          "ptxas",
+          "torch_cuda"
+        ],
+        [
+          "torch_cuda",
+          "ptxas",
+          "oa"
+        ],
+        [
+          "oa",
+          "ptxas",
+          "torch_cuda"
+        ],
+        [
+          "oa",
+          "torch_cuda",
+          "ptxas"
+        ],
+        [
+          "oa",
+          "torch_cuda",
+          "ptxas"
+        ]
+      ],
+      "torch_cuda_extra_copy": false,
+      "torch_output_allocation": true,
+      "algorithm_boundary": "one thread per row, serial loops, strided lane access"
+    }
+  ],
+  "provenance": {
+    "oa_sha256": "290b7ee6221df1eb48ce9f8f3de3ab4ad89fcf3bc9bfe0728a0704a70a2d95ad",
+    "ptxas_sha256": "cfaae13b2e413bf076b4766326dee8369882e2673a22795c46f32283eb271aee",
+    "source_sha256": "bb2505eebdea95477d0def17667cf14e7da829d009b42be4fa72a9e74bc4f497",
+    "manifest": {
+      "openassembler": "0.2.0",
+      "schema": 1,
+      "arch": "sm_80",
+      "opt_level": "opt",
+      "root": "/Users/lucasfang/Desktop/OpenAssembler/examples",
+      "entries": [
+        {
+          "source": "nn_ops.py",
+          "source_sha256": "bb2505eebdea95477d0def17667cf14e7da829d009b42be4fa72a9e74bc4f497",
+          "language": "python",
+          "cubin": "cubin/native_ops.cubin",
+          "sass": "sass/native_ops.sass",
+          "ptx": ".build/ptx/native_ops.ptx",
+          "reference": ".build/reference/native_ops.cubin",
+          "kernels": [
+            {
+              "name": "relu",
+              "params": [
+                [
+                  "u64",
+                  "x"
+                ],
+                [
+                  "u64",
+                  "out"
+                ],
+                [
+                  "s32",
+                  "n"
+                ]
+              ],
+              "compiled_by": "openassembler",
+              "instructions": 31,
+              "registers": 16,
+              "verify": "not-run"
+            },
+            {
+              "name": "gelu",
+              "params": [
+                [
+                  "u64",
+                  "x"
+                ],
+                [
+                  "u64",
+                  "out"
+                ],
+                [
+                  "s32",
+                  "n"
+                ]
+              ],
+              "compiled_by": "openassembler",
+              "instructions": 42,
+              "registers": 16,
+              "verify": "not-run"
+            },
+            {
+              "name": "softmax",
+              "params": [
+                [
+                  "u64",
+                  "x"
+                ],
+                [
+                  "u64",
+                  "out"
+                ],
+                [
+                  "s32",
+                  "rows"
+                ],
+                [
+                  "s32",
+                  "width"
+                ]
+              ],
+              "compiled_by": "openassembler",
+              "instructions": 192,
+              "registers": 22,
+              "verify": "not-run"
+            },
+            {
+              "name": "layernorm",
+              "params": [
+                [
+                  "u64",
+                  "x"
+                ],
+                [
+                  "u64",
+                  "out"
+                ],
+                [
+                  "s32",
+                  "rows"
+                ],
+                [
+                  "s32",
+                  "width"
+                ]
+              ],
+              "compiled_by": "openassembler",
+              "instructions": 305,
+              "registers": 20,
+              "verify": "not-run"
+            },
+            {
+              "name": "adam_step",
+              "params": [
+                [
+                  "u64",
+                  "w"
+                ],
+                [
+                  "u64",
+                  "g"
+                ],
+                [
+                  "u64",
+                  "m"
+                ],
+                [
+                  "u64",
+                  "v"
+                ],
+                [
+                  "u64",
+                  "out"
+                ],
+                [
+                  "u64",
+                  "mo"
+                ],
+                [
+                  "u64",
+                  "vo"
+                ],
+                [
+                  "s32",
+                  "n"
+                ]
+              ],
+              "compiled_by": "openassembler",
+              "instructions": 256,
+              "registers": 24,
+              "verify": "not-run"
+            },
+            {
+              "name": "cross_entropy",
+              "params": [
+                [
+                  "u64",
+                  "x"
+                ],
+                [
+                  "u64",
+                  "labels"
+                ],
+                [
+                  "u64",
+                  "loss"
+                ],
+                [
+                  "s32",
+                  "rows"
+                ],
+                [
+                  "s32",
+                  "width"
+                ]
+              ],
+              "compiled_by": "openassembler",
+              "instructions": 85,
+              "registers": 18,
+              "verify": "not-run"
+            },
+            {
+              "name": "matmul",
+              "params": [
+                [
+                  "u64",
+                  "a"
+                ],
+                [
+                  "u64",
+                  "b"
+                ],
+                [
+                  "u64",
+                  "out"
+                ],
+                [
+                  "s32",
+                  "m"
+                ],
+                [
+                  "s32",
+                  "n"
+                ],
+                [
+                  "s32",
+                  "k"
+                ]
+              ],
+              "compiled_by": "openassembler",
+              "instructions": 127,
+              "registers": 22,
+              "verify": "not-run"
+            },
+            {
+              "name": "attention_scores",
+              "params": [
+                [
+                  "u64",
+                  "q"
+                ],
+                [
+                  "u64",
+                  "k"
+                ],
+                [
+                  "u64",
+                  "out"
+                ],
+                [
+                  "s32",
+                  "tokens"
+                ],
+                [
+                  "s32",
+                  "dim"
+                ]
+              ],
+              "compiled_by": "openassembler",
+              "instructions": 132,
+              "registers": 22,
+              "verify": "not-run"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "timestamp_utc": "2026-11-06T11:02:05.429699+00:00"
+}

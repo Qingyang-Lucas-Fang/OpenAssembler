@@ -1,0 +1,5102 @@
+{
+  "schema": 1,
+  "device": "NVIDIA A100-SXM4-40GB",
+  "driver": {
+    "name": "NVIDIA A100-SXM4-40GB",
+    "cc": "8.0",
+    "driver": 13030,
+    "sm_count": 108,
+    "clock_khz": 1410000,
+    "mem_bytes": 42429251584
+  },
+  "torch": "2.7.1+cu128",
+  "cuda": "12.8",
+  "contract": "FP32 master params/LayerNorm/ReLU/MSE/residual/AdamW; FP16 GEMM operands, FP32 accumulation/output; straight-through operand-conversion backward implemented by explicit autograd; casts/transposed packing included",
+  "scope": "Hybrid equivalent residual MLP, not a whole-native transformer. Only forward/dX/dW GEMMs differ. No CUDA graph capture.",
+  "timing": "15 shuffled paired single-step CUDA-event spans after 5 warmup steps; diagnostic stage events measured separately; synchronized host wall samples retained",
+  "resources": {
+    "oa/512_512_2048": {
+      "max_threads": 256,
+      "shared_bytes": 0,
+      "const_bytes": 0,
+      "local_bytes": 0,
+      "num_regs": 216,
+      "ptx_version": 80,
+      "binary_version": 80
+    },
+    "ptxas/512_512_2048": {
+      "max_threads": 256,
+      "shared_bytes": 0,
+      "const_bytes": 0,
+      "local_bytes": 0,
+      "num_regs": 234,
+      "ptx_version": 80,
+      "binary_version": 80
+    },
+    "oa/512_2048_512": {
+      "max_threads": 256,
+      "shared_bytes": 0,
+      "const_bytes": 0,
+      "local_bytes": 0,
+      "num_regs": 216,
+      "ptx_version": 80,
+      "binary_version": 80
+    },
+    "ptxas/512_2048_512": {
+      "max_threads": 256,
+      "shared_bytes": 0,
+      "const_bytes": 0,
+      "local_bytes": 0,
+      "num_regs": 231,
+      "ptx_version": 80,
+      "binary_version": 80
+    },
+    "oa/1024_1024_4096": {
+      "max_threads": 256,
+      "shared_bytes": 0,
+      "const_bytes": 0,
+      "local_bytes": 0,
+      "num_regs": 216,
+      "ptx_version": 80,
+      "binary_version": 80
+    },
+    "ptxas/1024_1024_4096": {
+      "max_threads": 256,
+      "shared_bytes": 0,
+      "const_bytes": 0,
+      "local_bytes": 0,
+      "num_regs": 234,
+      "ptx_version": 80,
+      "binary_version": 80
+    },
+    "oa/1024_4096_1024": {
+      "max_threads": 256,
+      "shared_bytes": 0,
+      "const_bytes": 0,
+      "local_bytes": 0,
+      "num_regs": 216,
+      "ptx_version": 80,
+      "binary_version": 80
+    },
+    "ptxas/1024_4096_1024": {
+      "max_threads": 256,
+      "shared_bytes": 0,
+      "const_bytes": 0,
+      "local_bytes": 0,
+      "num_regs": 231,
+      "ptx_version": 80,
+      "binary_version": 80
+    },
+    "oa/2048_512_512": {
+      "max_threads": 256,
+      "shared_bytes": 0,
+      "const_bytes": 0,
+      "local_bytes": 0,
+      "num_regs": 216,
+      "ptx_version": 80,
+      "binary_version": 80
+    },
+    "ptxas/2048_512_512": {
+      "max_threads": 256,
+      "shared_bytes": 0,
+      "const_bytes": 0,
+      "local_bytes": 0,
+      "num_regs": 231,
+      "ptx_version": 80,
+      "binary_version": 80
+    },
+    "oa/4096_1024_1024": {
+      "max_threads": 256,
+      "shared_bytes": 0,
+      "const_bytes": 0,
+      "local_bytes": 0,
+      "num_regs": 216,
+      "ptx_version": 80,
+      "binary_version": 80
+    },
+    "ptxas/4096_1024_1024": {
+      "max_threads": 256,
+      "shared_bytes": 0,
+      "const_bytes": 0,
+      "local_bytes": 0,
+      "num_regs": 231,
+      "ptx_version": 80,
+      "binary_version": 80
+    }
+  },
+  "elapsed_s": 3.6255188449999993,
+  "cases": [
+    {
+      "case": {
+        "name": "mlp_512_512_2048",
+        "batch": 512,
+        "width": 512,
+        "hidden": 2048
+      },
+      "validation": {
+        "cublas": {
+          "canaries": true,
+          "gemm_checks": [
+            {
+              "label": "fc1/forward_gemm",
+              "shape": [
+                512,
+                2048,
+                512
+              ],
+              "relative_l2_vs_fp32": 6.17174180206348e-07,
+              "passed": true,
+              "elements_checked": 1048576
+            },
+            {
+              "label": "fc2/forward_gemm",
+              "shape": [
+                512,
+                512,
+                2048
+              ],
+              "relative_l2_vs_fp32": 1.6630224308755714e-06,
+              "passed": true,
+              "elements_checked": 262144
+            },
+            {
+              "label": "fc2/dx_gemm",
+              "shape": [
+                512,
+                2048,
+                512
+              ],
+              "relative_l2_vs_fp32": 4.2495150864851894e-07,
+              "passed": true,
+              "elements_checked": 1048576
+            },
+            {
+              "label": "fc2/dw_gemm",
+              "shape": [
+                512,
+                2048,
+                512
+              ],
+              "relative_l2_vs_fp32": 3.7728375446022255e-07,
+              "passed": true,
+              "elements_checked": 1048576
+            },
+            {
+              "label": "fc1/dx_gemm",
+              "shape": [
+                512,
+                512,
+                2048
+              ],
+              "relative_l2_vs_fp32": 7.628491971445328e-07,
+              "passed": true,
+              "elements_checked": 262144
+            },
+            {
+              "label": "fc1/dw_gemm",
+              "shape": [
+                2048,
+                512,
+                512
+              ],
+              "relative_l2_vs_fp32": 1.7669621854565776e-07,
+              "passed": true,
+              "elements_checked": 1048576
+            },
+            {
+              "label": "fc1/forward_gemm",
+              "shape": [
+                512,
+                2048,
+                512
+              ],
+              "relative_l2_vs_fp32": 6.173057158775919e-07,
+              "passed": true,
+              "elements_checked": 1048576
+            },
+            {
+              "label": "fc2/forward_gemm",
+              "shape": [
+                512,
+                512,
+                2048
+              ],
+              "relative_l2_vs_fp32": 1.6844625179146533e-06,
+              "passed": true,
+              "elements_checked": 262144
+            },
+            {
+              "label": "fc2/dx_gemm",
+              "shape": [
+                512,
+                2048,
+                512
+              ],
+              "relative_l2_vs_fp32": 4.215771411963942e-07,
+              "passed": true,
+              "elements_checked": 1048576
+            },
+            {
+              "label": "fc2/dw_gemm",
+              "shape": [
+                512,
+                2048,
+                512
+              ],
+              "relative_l2_vs_fp32": 3.40463486736553e-07,
+              "passed": true,
+              "elements_checked": 1048576
+            },
+            {
+              "label": "fc1/dx_gemm",
+              "shape": [
+                512,
+                512,
+                2048
+              ],
+              "relative_l2_vs_fp32": 7.441108209604863e-07,
+              "passed": true,
+              "elements_checked": 262144
+            },
+            {
+              "label": "fc1/dw_gemm",
+              "shape": [
+                2048,
+                512,
+                512
+              ],
+              "relative_l2_vs_fp32": 1.747308289168359e-07,
+              "passed": true,
+              "elements_checked": 1048576
+            },
+            {
+              "label": "fc1/forward_gemm",
+              "shape": [
+                512,
+                2048,
+                512
+              ],
+              "relative_l2_vs_fp32": 6.183511800372798e-07,
+              "passed": true,
+              "elements_checked": 1048576
+            },
+            {
+              "label": "fc2/forward_gemm",
+              "shape": [
+                512,
+                512,
+                2048
+              ],
+              "relative_l2_vs_fp32": 1.7029408354574116e-06,
+              "passed": true,
+              "elements_checked": 262144
+            },
+            {
+              "label": "fc2/dx_gemm",
+              "shape": [
+                512,
+                2048,
+                512
+              ],
+              "relative_l2_vs_fp32": 4.187197362170991e-07,
+              "passed": true,
+              "elements_checked": 1048576
+            },
+            {
+              "label": "fc2/dw_gemm",
+              "shape": [
+                512,
+                2048,
+                512
+              ],
+              "relative_l2_vs_fp32": 3.026501076419663e-07,
+              "passed": true,
+              "elements_checked": 1048576
+            },
+            {
+              "label": "fc1/dx_gemm",
+              "shape": [
+                512,
+                512,
+                2048
+              ],
+              "relative_l2_vs_fp32": 7.336229828069918e-07,
+              "passed": true,
+              "elements_checked": 262144
+            },
+            {
+              "label": "fc1/dw_gemm",
+              "shape": [
+                2048,
+                512,
+                512
+              ],
+              "relative_l2_vs_fp32": 1.7377888639202865e-07,
+              "passed": true,
+              "elements_checked": 1048576
+            }
+          ]
+        },
+        "ptxas": {
+          "canaries": true,
+          "gemm_checks": [
+            {
+              "label": "fc1/forward_gemm",
+              "shape": [
+                512,
+                2048,
+                512
+              ],
+              "relative_l2_vs_fp32": 9.689565558801405e-07,
+              "passed": true,
+              "elements_checked": 1048576
+            },
+            {
+              "label": "fc2/forward_gemm",
+              "shape": [
+                512,
+                512,
+                2048
+              ],
+              "relative_l2_vs_fp32": 3.2649008971930016e-06,
+              "passed": true,
+              "elements_checked": 262144
+            },
+            {
+              "label": "fc2/dx_gemm",
+              "shape": [
+                512,
+                2048,
+                512
+              ],
+              "relative_l2_vs_fp32": 7.556228638350149e-07,
+              "passed": true,
+              "elements_checked": 1048576
+            },
+            {
+              "label": "fc2/dw_gemm",
+              "shape": [
+                512,
+                2048,
+                512
+              ],
+              "relative_l2_vs_fp32": 8.354157898793346e-07,
+              "passed": true,
+              "elements_checked": 1048576
+            },
+            {
+              "label": "fc1/dx_gemm",
+              "shape": [
+                512,
+                512,
+                2048
+              ],
+              "relative_l2_vs_fp32": 1.8314102590011316e-06,
+              "passed": true,
+              "elements_checked": 262144
+            },
+            {
+              "label": "fc1/dw_gemm",
+              "shape": [
+                2048,
+                512,
+                512
+              ],
+              "relative_l2_vs_fp32": 3.5033502854275866e-07,
+              "passed": true,
+              "elements_checked": 1048576
+            },
+            {
+              "label": "fc1/forward_gemm",
+              "shape": [
+                512,
+                2048,
+                512
+              ],
+              "relative_l2_vs_fp32": 9.690112392490846e-07,
+              "passed": true,
+              "elements_checked": 1048576
+            },
+            {
+              "label": "fc2/forward_gemm",
+              "shape": [
+                512,
+                512,
+                2048
+              ],
+              "relative_l2_vs_fp32": 3.293186864539166e-06,
+              "passed": true,
+              "elements_checked": 262144
+            },
+            {
+              "label": "fc2/dx_gemm",
+              "shape": [
+                512,
+                2048,
+                512
+              ],
+              "relative_l2_vs_fp32": 7.52169114548451e-07,
+              "passed": true,
+              "elements_checked": 1048576
+            },
+            {
+              "label": "fc2/dw_gemm",
+              "shape": [
+                512,
+                2048,
+                512
+              ],
+              "relative_l2_vs_fp32": 7.346991424128646e-07,
+              "passed": true,
+              "elements_checked": 1048576
+            },
+            {
+              "label": "fc1/dx_gemm",
+              "shape": [
+                512,
+                512,
+                2048
+              ],
+              "relative_l2_vs_fp32": 1.780818593033473e-06,
+              "passed": true,
+              "elements_checked": 262144
+            },
+            {
+              "label": "fc1/dw_gemm",
+              "shape": [
+                2048,
+                512,
+                512
+              ],
+              "relative_l2_vs_fp32": 3.4015258165709383e-07,
+              "passed": true,
+              "elements_checked": 1048576
+            },
+            {
+              "label": "fc1/forward_gemm",
+              "shape": [
+                512,
+                2048,
+                512
+              ],
+              "relative_l2_vs_fp32": 9.699180054667522e-07,
+              "passed": true,
+              "elements_checked": 1048576
+            },
+            {
+              "label": "fc2/forward_gemm",
+              "shape": [
+                512,
+                512,
+                2048
+              ],
+              "relative_l2_vs_fp32": 3.316585889479029e-06,
+              "passed": true,
+              "elements_checked": 262144
+            },
+            {
+              "label": "fc2/dx_gemm",
+              "shape": [
+                512,
+                2048,
+                512
+              ],
+              "relative_l2_vs_fp32": 7.492305940104416e-07,
+              "passed": true,
+              "elements_checked": 1048576
+            },
+            {
+              "label": "fc2/dw_gemm",
+              "shape": [
+                512,
+                2048,
+                512
+              ],
+              "relative_l2_vs_fp32": 6.344071152852848e-07,
+              "passed": true,
+              "elements_checked": 1048576
+            },
+            {
+              "label": "fc1/dx_gemm",
+              "shape": [
+                512,
+                512,
+                2048
+              ],
+              "relative_l2_vs_fp32": 1.7549081121615018e-06,
+              "passed": true,
+              "elements_checked": 262144
+            },
+            {
+              "label": "fc1/dw_gemm",
+              "shape": [
+                2048,
+                512,
+                512
+              ],
+              "relative_l2_vs_fp32": 3.3505847341075423e-07,
+              "passed": true,
+              "elements_checked": 1048576
+            }
+          ]
+        },
+        "oa": {
+          "canaries": true,
+          "gemm_checks": [
+            {
+              "label": "fc1/forward_gemm",
+              "shape": [
+                512,
+                2048,
+                512
+              ],
+              "relative_l2_vs_fp32": 9.689565558801405e-07,
+              "passed": true,
+              "elements_checked": 1048576
+            },
+            {
+              "label": "fc2/forward_gemm",
+              "shape": [
+                512,
+                512,
+                2048
+              ],
+              "relative_l2_vs_fp32": 3.2649008971930016e-06,
+              "passed": true,
+              "elements_checked": 262144
+            },
+            {
+              "label": "fc2/dx_gemm",
+              "shape": [
+                512,
+                2048,
+                512
+              ],
+              "relative_l2_vs_fp32": 7.556228638350149e-07,
+              "passed": true,
+              "elements_checked": 1048576
+            },
+            {
+              "label": "fc2/dw_gemm",
+              "shape": [
+                512,
+                2048,
+                512
+              ],
+              "relative_l2_vs_fp32": 8.354157898793346e-07,
+              "passed": true,
+              "elements_checked": 1048576
+            },
+            {
+              "label": "fc1/dx_gemm",
+              "shape": [
+                512,
+                512,
+                2048
+              ],
+              "relative_l2_vs_fp32": 1.8314102590011316e-06,
+              "passed": true,
+              "elements_checked": 262144
+            },
+            {
+              "label": "fc1/dw_gemm",
+              "shape": [
+                2048,
+                512,
+                512
+              ],
+              "relative_l2_vs_fp32": 3.5033502854275866e-07,
+              "passed": true,
+              "elements_checked": 1048576
+            },
+            {
+              "label": "fc1/forward_gemm",
+              "shape": [
+                512,
+                2048,
+                512
+              ],
+              "relative_l2_vs_fp32": 9.690112392490846e-07,
+              "passed": true,
+              "elements_checked": 1048576
+            },
+            {
+              "label": "fc2/forward_gemm",
+              "shape": [
+                512,
+                512,
+                2048
+              ],
+              "relative_l2_vs_fp32": 3.293186864539166e-06,
+              "passed": true,
+              "elements_checked": 262144
+            },
+            {
+              "label": "fc2/dx_gemm",
+              "shape": [
+                512,
+                2048,
+                512
+              ],
+              "relative_l2_vs_fp32": 7.52169114548451e-07,
+              "passed": true,
+              "elements_checked": 1048576
+            },
+            {
+              "label": "fc2/dw_gemm",
+              "shape": [
+                512,
+                2048,
+                512
+              ],
+              "relative_l2_vs_fp32": 7.346991424128646e-07,
+              "passed": true,
+              "elements_checked": 1048576
+            },
+            {
+              "label": "fc1/dx_gemm",
+              "shape": [
+                512,
+                512,
+                2048
+              ],
+              "relative_l2_vs_fp32": 1.780818593033473e-06,
+              "passed": true,
+              "elements_checked": 262144
+            },
+            {
+              "label": "fc1/dw_gemm",
+              "shape": [
+                2048,
+                512,
+                512
+              ],
+              "relative_l2_vs_fp32": 3.4015258165709383e-07,
+              "passed": true,
+              "elements_checked": 1048576
+            },
+            {
+              "label": "fc1/forward_gemm",
+              "shape": [
+                512,
+                2048,
+                512
+              ],
+              "relative_l2_vs_fp32": 9.699180054667522e-07,
+              "passed": true,
+              "elements_checked": 1048576
+            },
+            {
+              "label": "fc2/forward_gemm",
+              "shape": [
+                512,
+                512,
+                2048
+              ],
+              "relative_l2_vs_fp32": 3.316585889479029e-06,
+              "passed": true,
+              "elements_checked": 262144
+            },
+            {
+              "label": "fc2/dx_gemm",
+              "shape": [
+                512,
+                2048,
+                512
+              ],
+              "relative_l2_vs_fp32": 7.492305940104416e-07,
+              "passed": true,
+              "elements_checked": 1048576
+            },
+            {
+              "label": "fc2/dw_gemm",
+              "shape": [
+                512,
+                2048,
+                512
+              ],
+              "relative_l2_vs_fp32": 6.344071152852848e-07,
+              "passed": true,
+              "elements_checked": 1048576
+            },
+            {
+              "label": "fc1/dx_gemm",
+              "shape": [
+                512,
+                512,
+                2048
+              ],
+              "relative_l2_vs_fp32": 1.7549081121615018e-06,
+              "passed": true,
+              "elements_checked": 262144
+            },
+            {
+              "label": "fc1/dw_gemm",
+              "shape": [
+                2048,
+                512,
+                512
+              ],
+              "relative_l2_vs_fp32": 3.3505847341075423e-07,
+              "passed": true,
+              "elements_checked": 1048576
+            }
+          ]
+        },
+        "oa_vs_ptxas": {
+          "passed": true,
+          "require_bitwise": true,
+          "tensor_checks": [
+            {
+              "tensor": "output",
+              "elements": 262144,
+              "relative_l2": 0.0,
+              "max_abs": 0.0,
+              "bitwise_equal": true,
+              "passed": true
+            },
+            {
+              "tensor": "loss",
+              "elements": 1,
+              "relative_l2": 0.0,
+              "max_abs": 0.0,
+              "bitwise_equal": true,
+              "passed": true
+            },
+            {
+              "tensor": "dx",
+              "elements": 262144,
+              "relative_l2": 0.0,
+              "max_abs": 0.0,
+              "bitwise_equal": true,
+              "passed": true
+            },
+            {
+              "tensor": "parameter/norm_weight",
+              "elements": 512,
+              "relative_l2": 0.0,
+              "max_abs": 0.0,
+              "bitwise_equal": true,
+              "passed": true
+            },
+            {
+              "tensor": "gradient/norm_weight",
+              "elements": 512,
+              "relative_l2": 0.0,
+              "max_abs": 0.0,
+              "bitwise_equal": true,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/norm_weight/step",
+              "elements": 1,
+              "relative_l2": 0.0,
+              "max_abs": 0.0,
+              "bitwise_equal": true,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/norm_weight/exp_avg",
+              "elements": 512,
+              "relative_l2": 0.0,
+              "max_abs": 0.0,
+              "bitwise_equal": true,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/norm_weight/exp_avg_sq",
+              "elements": 512,
+              "relative_l2": 0.0,
+              "max_abs": 0.0,
+              "bitwise_equal": true,
+              "passed": true
+            },
+            {
+              "tensor": "parameter/norm_bias",
+              "elements": 512,
+              "relative_l2": 0.0,
+              "max_abs": 0.0,
+              "bitwise_equal": true,
+              "passed": true
+            },
+            {
+              "tensor": "gradient/norm_bias",
+              "elements": 512,
+              "relative_l2": 0.0,
+              "max_abs": 0.0,
+              "bitwise_equal": true,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/norm_bias/step",
+              "elements": 1,
+              "relative_l2": 0.0,
+              "max_abs": 0.0,
+              "bitwise_equal": true,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/norm_bias/exp_avg",
+              "elements": 512,
+              "relative_l2": 0.0,
+              "max_abs": 0.0,
+              "bitwise_equal": true,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/norm_bias/exp_avg_sq",
+              "elements": 512,
+              "relative_l2": 0.0,
+              "max_abs": 0.0,
+              "bitwise_equal": true,
+              "passed": true
+            },
+            {
+              "tensor": "parameter/w1",
+              "elements": 1048576,
+              "relative_l2": 0.0,
+              "max_abs": 0.0,
+              "bitwise_equal": true,
+              "passed": true
+            },
+            {
+              "tensor": "gradient/w1",
+              "elements": 1048576,
+              "relative_l2": 0.0,
+              "max_abs": 0.0,
+              "bitwise_equal": true,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/w1/step",
+              "elements": 1,
+              "relative_l2": 0.0,
+              "max_abs": 0.0,
+              "bitwise_equal": true,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/w1/exp_avg",
+              "elements": 1048576,
+              "relative_l2": 0.0,
+              "max_abs": 0.0,
+              "bitwise_equal": true,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/w1/exp_avg_sq",
+              "elements": 1048576,
+              "relative_l2": 0.0,
+              "max_abs": 0.0,
+              "bitwise_equal": true,
+              "passed": true
+            },
+            {
+              "tensor": "parameter/b1",
+              "elements": 2048,
+              "relative_l2": 0.0,
+              "max_abs": 0.0,
+              "bitwise_equal": true,
+              "passed": true
+            },
+            {
+              "tensor": "gradient/b1",
+              "elements": 2048,
+              "relative_l2": 0.0,
+              "max_abs": 0.0,
+              "bitwise_equal": true,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/b1/step",
+              "elements": 1,
+              "relative_l2": 0.0,
+              "max_abs": 0.0,
+              "bitwise_equal": true,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/b1/exp_avg",
+              "elements": 2048,
+              "relative_l2": 0.0,
+              "max_abs": 0.0,
+              "bitwise_equal": true,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/b1/exp_avg_sq",
+              "elements": 2048,
+              "relative_l2": 0.0,
+              "max_abs": 0.0,
+              "bitwise_equal": true,
+              "passed": true
+            },
+            {
+              "tensor": "parameter/w2",
+              "elements": 1048576,
+              "relative_l2": 0.0,
+              "max_abs": 0.0,
+              "bitwise_equal": true,
+              "passed": true
+            },
+            {
+              "tensor": "gradient/w2",
+              "elements": 1048576,
+              "relative_l2": 0.0,
+              "max_abs": 0.0,
+              "bitwise_equal": true,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/w2/step",
+              "elements": 1,
+              "relative_l2": 0.0,
+              "max_abs": 0.0,
+              "bitwise_equal": true,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/w2/exp_avg",
+              "elements": 1048576,
+              "relative_l2": 0.0,
+              "max_abs": 0.0,
+              "bitwise_equal": true,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/w2/exp_avg_sq",
+              "elements": 1048576,
+              "relative_l2": 0.0,
+              "max_abs": 0.0,
+              "bitwise_equal": true,
+              "passed": true
+            },
+            {
+              "tensor": "parameter/b2",
+              "elements": 512,
+              "relative_l2": 0.0,
+              "max_abs": 0.0,
+              "bitwise_equal": true,
+              "passed": true
+            },
+            {
+              "tensor": "gradient/b2",
+              "elements": 512,
+              "relative_l2": 0.0,
+              "max_abs": 0.0,
+              "bitwise_equal": true,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/b2/step",
+              "elements": 1,
+              "relative_l2": 0.0,
+              "max_abs": 0.0,
+              "bitwise_equal": true,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/b2/exp_avg",
+              "elements": 512,
+              "relative_l2": 0.0,
+              "max_abs": 0.0,
+              "bitwise_equal": true,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/b2/exp_avg_sq",
+              "elements": 512,
+              "relative_l2": 0.0,
+              "max_abs": 0.0,
+              "bitwise_equal": true,
+              "passed": true
+            }
+          ]
+        },
+        "oa_vs_cublas": {
+          "passed": true,
+          "require_bitwise": false,
+          "tensor_checks": [
+            {
+              "tensor": "output",
+              "elements": 262144,
+              "relative_l2": 7.80087721068412e-05,
+              "max_abs": 0.00047528743743896484,
+              "bitwise_equal": false,
+              "passed": true
+            },
+            {
+              "tensor": "loss",
+              "elements": 1,
+              "relative_l2": 6.21149752078054e-07,
+              "max_abs": 1.430511474609375e-06,
+              "bitwise_equal": false,
+              "passed": true
+            },
+            {
+              "tensor": "dx",
+              "elements": 262144,
+              "relative_l2": 0.003161514876410365,
+              "max_abs": 1.7893535186885856e-06,
+              "bitwise_equal": false,
+              "passed": true
+            },
+            {
+              "tensor": "parameter/norm_weight",
+              "elements": 512,
+              "relative_l2": 4.234699346739035e-08,
+              "max_abs": 1.7881393432617188e-07,
+              "bitwise_equal": false,
+              "passed": true
+            },
+            {
+              "tensor": "gradient/norm_weight",
+              "elements": 512,
+              "relative_l2": 0.0008008062141016126,
+              "max_abs": 5.036941729485989e-06,
+              "bitwise_equal": false,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/norm_weight/step",
+              "elements": 1,
+              "relative_l2": 0.0,
+              "max_abs": 0.0,
+              "bitwise_equal": true,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/norm_weight/exp_avg",
+              "elements": 512,
+              "relative_l2": 0.00024312501773238182,
+              "max_abs": 4.270987119525671e-07,
+              "bitwise_equal": false,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/norm_weight/exp_avg_sq",
+              "elements": 512,
+              "relative_l2": 0.0003330911276862025,
+              "max_abs": 1.0801137761973223e-11,
+              "bitwise_equal": false,
+              "passed": true
+            },
+            {
+              "tensor": "parameter/norm_bias",
+              "elements": 512,
+              "relative_l2": 0.0003500642778817564,
+              "max_abs": 2.252367266919464e-06,
+              "bitwise_equal": false,
+              "passed": true
+            },
+            {
+              "tensor": "gradient/norm_bias",
+              "elements": 512,
+              "relative_l2": 0.0019749277271330357,
+              "max_abs": 3.522116458043456e-06,
+              "bitwise_equal": false,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/norm_bias/step",
+              "elements": 1,
+              "relative_l2": 0.0,
+              "max_abs": 0.0,
+              "bitwise_equal": true,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/norm_bias/exp_avg",
+              "elements": 512,
+              "relative_l2": 0.00046629903954453766,
+              "max_abs": 3.2922980608418584e-07,
+              "bitwise_equal": false,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/norm_bias/exp_avg_sq",
+              "elements": 512,
+              "relative_l2": 0.0003225835971534252,
+              "max_abs": 5.702993632894504e-12,
+              "bitwise_equal": false,
+              "passed": true
+            },
+            {
+              "tensor": "parameter/w1",
+              "elements": 1048576,
+              "relative_l2": 9.449153367313556e-06,
+              "max_abs": 3.824383020401001e-05,
+              "bitwise_equal": false,
+              "passed": true
+            },
+            {
+              "tensor": "gradient/w1",
+              "elements": 1048576,
+              "relative_l2": 0.0048583694733679295,
+              "max_abs": 3.4360353311058134e-05,
+              "bitwise_equal": false,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/w1/step",
+              "elements": 1,
+              "relative_l2": 0.0,
+              "max_abs": 0.0,
+              "bitwise_equal": true,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/w1/exp_avg",
+              "elements": 1048576,
+              "relative_l2": 0.0017225337214767933,
+              "max_abs": 3.4282984415767714e-06,
+              "bitwise_equal": false,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/w1/exp_avg_sq",
+              "elements": 1048576,
+              "relative_l2": 0.001689781667664647,
+              "max_abs": 1.2567974438937313e-11,
+              "bitwise_equal": false,
+              "passed": true
+            },
+            {
+              "tensor": "parameter/b1",
+              "elements": 2048,
+              "relative_l2": 0.00019547886040527374,
+              "max_abs": 3.557768650352955e-06,
+              "bitwise_equal": false,
+              "passed": true
+            },
+            {
+              "tensor": "gradient/b1",
+              "elements": 2048,
+              "relative_l2": 0.0018937044078484178,
+              "max_abs": 1.14166468847543e-05,
+              "bitwise_equal": false,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/b1/step",
+              "elements": 1,
+              "relative_l2": 0.0,
+              "max_abs": 0.0,
+              "bitwise_equal": true,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/b1/exp_avg",
+              "elements": 2048,
+              "relative_l2": 0.0004509233694989234,
+              "max_abs": 1.1397351045161486e-06,
+              "bitwise_equal": false,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/b1/exp_avg_sq",
+              "elements": 2048,
+              "relative_l2": 0.00042072858195751905,
+              "max_abs": 8.246958671520588e-12,
+              "bitwise_equal": false,
+              "passed": true
+            },
+            {
+              "tensor": "parameter/w2",
+              "elements": 1048576,
+              "relative_l2": 2.7317553303873865e-06,
+              "max_abs": 1.5422701835632324e-06,
+              "bitwise_equal": false,
+              "passed": true
+            },
+            {
+              "tensor": "gradient/w2",
+              "elements": 1048576,
+              "relative_l2": 0.0003315384965389967,
+              "max_abs": 8.613060344941914e-07,
+              "bitwise_equal": false,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/w2/step",
+              "elements": 1,
+              "relative_l2": 0.0,
+              "max_abs": 0.0,
+              "bitwise_equal": true,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/w2/exp_avg",
+              "elements": 1048576,
+              "relative_l2": 0.00010085903340950608,
+              "max_abs": 9.107679943554103e-08,
+              "bitwise_equal": false,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/w2/exp_avg_sq",
+              "elements": 1048576,
+              "relative_l2": 6.665374530712143e-05,
+              "max_abs": 1.6635581800983346e-12,
+              "bitwise_equal": false,
+              "passed": true
+            },
+            {
+              "tensor": "parameter/b2",
+              "elements": 512,
+              "relative_l2": 7.066774560371414e-05,
+              "max_abs": 3.5714765544980764e-07,
+              "bitwise_equal": false,
+              "passed": true
+            },
+            {
+              "tensor": "gradient/b2",
+              "elements": 512,
+              "relative_l2": 0.00012080515443813056,
+              "max_abs": 3.6714482121169567e-07,
+              "bitwise_equal": false,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/b2/step",
+              "elements": 1,
+              "relative_l2": 0.0,
+              "max_abs": 0.0,
+              "bitwise_equal": true,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/b2/exp_avg",
+              "elements": 512,
+              "relative_l2": 2.955091440526303e-05,
+              "max_abs": 4.698222255683504e-08,
+              "bitwise_equal": false,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/b2/exp_avg_sq",
+              "elements": 512,
+              "relative_l2": 6.477861461462453e-06,
+              "max_abs": 3.694822225952521e-13,
+              "bitwise_equal": false,
+              "passed": true
+            }
+          ]
+        },
+        "ptxas_vs_cublas": {
+          "passed": true,
+          "require_bitwise": false,
+          "tensor_checks": [
+            {
+              "tensor": "output",
+              "elements": 262144,
+              "relative_l2": 7.80087721068412e-05,
+              "max_abs": 0.00047528743743896484,
+              "bitwise_equal": false,
+              "passed": true
+            },
+            {
+              "tensor": "loss",
+              "elements": 1,
+              "relative_l2": 6.21149752078054e-07,
+              "max_abs": 1.430511474609375e-06,
+              "bitwise_equal": false,
+              "passed": true
+            },
+            {
+              "tensor": "dx",
+              "elements": 262144,
+              "relative_l2": 0.003161514876410365,
+              "max_abs": 1.7893535186885856e-06,
+              "bitwise_equal": false,
+              "passed": true
+            },
+            {
+              "tensor": "parameter/norm_weight",
+              "elements": 512,
+              "relative_l2": 4.234699346739035e-08,
+              "max_abs": 1.7881393432617188e-07,
+              "bitwise_equal": false,
+              "passed": true
+            },
+            {
+              "tensor": "gradient/norm_weight",
+              "elements": 512,
+              "relative_l2": 0.0008008062141016126,
+              "max_abs": 5.036941729485989e-06,
+              "bitwise_equal": false,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/norm_weight/step",
+              "elements": 1,
+              "relative_l2": 0.0,
+              "max_abs": 0.0,
+              "bitwise_equal": true,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/norm_weight/exp_avg",
+              "elements": 512,
+              "relative_l2": 0.00024312501773238182,
+              "max_abs": 4.270987119525671e-07,
+              "bitwise_equal": false,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/norm_weight/exp_avg_sq",
+              "elements": 512,
+              "relative_l2": 0.0003330911276862025,
+              "max_abs": 1.0801137761973223e-11,
+              "bitwise_equal": false,
+              "passed": true
+            },
+            {
+              "tensor": "parameter/norm_bias",
+              "elements": 512,
+              "relative_l2": 0.0003500642778817564,
+              "max_abs": 2.252367266919464e-06,
+              "bitwise_equal": false,
+              "passed": true
+            },
+            {
+              "tensor": "gradient/norm_bias",
+              "elements": 512,
+              "relative_l2": 0.0019749277271330357,
+              "max_abs": 3.522116458043456e-06,
+              "bitwise_equal": false,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/norm_bias/step",
+              "elements": 1,
+              "relative_l2": 0.0,
+              "max_abs": 0.0,
+              "bitwise_equal": true,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/norm_bias/exp_avg",
+              "elements": 512,
+              "relative_l2": 0.00046629903954453766,
+              "max_abs": 3.2922980608418584e-07,
+              "bitwise_equal": false,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/norm_bias/exp_avg_sq",
+              "elements": 512,
+              "relative_l2": 0.0003225835971534252,
+              "max_abs": 5.702993632894504e-12,
+              "bitwise_equal": false,
+              "passed": true
+            },
+            {
+              "tensor": "parameter/w1",
+              "elements": 1048576,
+              "relative_l2": 9.449153367313556e-06,
+              "max_abs": 3.824383020401001e-05,
+              "bitwise_equal": false,
+              "passed": true
+            },
+            {
+              "tensor": "gradient/w1",
+              "elements": 1048576,
+              "relative_l2": 0.0048583694733679295,
+              "max_abs": 3.4360353311058134e-05,
+              "bitwise_equal": false,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/w1/step",
+              "elements": 1,
+              "relative_l2": 0.0,
+              "max_abs": 0.0,
+              "bitwise_equal": true,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/w1/exp_avg",
+              "elements": 1048576,
+              "relative_l2": 0.0017225337214767933,
+              "max_abs": 3.4282984415767714e-06,
+              "bitwise_equal": false,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/w1/exp_avg_sq",
+              "elements": 1048576,
+              "relative_l2": 0.001689781667664647,
+              "max_abs": 1.2567974438937313e-11,
+              "bitwise_equal": false,
+              "passed": true
+            },
+            {
+              "tensor": "parameter/b1",
+              "elements": 2048,
+              "relative_l2": 0.00019547886040527374,
+              "max_abs": 3.557768650352955e-06,
+              "bitwise_equal": false,
+              "passed": true
+            },
+            {
+              "tensor": "gradient/b1",
+              "elements": 2048,
+              "relative_l2": 0.0018937044078484178,
+              "max_abs": 1.14166468847543e-05,
+              "bitwise_equal": false,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/b1/step",
+              "elements": 1,
+              "relative_l2": 0.0,
+              "max_abs": 0.0,
+              "bitwise_equal": true,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/b1/exp_avg",
+              "elements": 2048,
+              "relative_l2": 0.0004509233694989234,
+              "max_abs": 1.1397351045161486e-06,
+              "bitwise_equal": false,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/b1/exp_avg_sq",
+              "elements": 2048,
+              "relative_l2": 0.00042072858195751905,
+              "max_abs": 8.246958671520588e-12,
+              "bitwise_equal": false,
+              "passed": true
+            },
+            {
+              "tensor": "parameter/w2",
+              "elements": 1048576,
+              "relative_l2": 2.7317553303873865e-06,
+              "max_abs": 1.5422701835632324e-06,
+              "bitwise_equal": false,
+              "passed": true
+            },
+            {
+              "tensor": "gradient/w2",
+              "elements": 1048576,
+              "relative_l2": 0.0003315384965389967,
+              "max_abs": 8.613060344941914e-07,
+              "bitwise_equal": false,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/w2/step",
+              "elements": 1,
+              "relative_l2": 0.0,
+              "max_abs": 0.0,
+              "bitwise_equal": true,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/w2/exp_avg",
+              "elements": 1048576,
+              "relative_l2": 0.00010085903340950608,
+              "max_abs": 9.107679943554103e-08,
+              "bitwise_equal": false,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/w2/exp_avg_sq",
+              "elements": 1048576,
+              "relative_l2": 6.665374530712143e-05,
+              "max_abs": 1.6635581800983346e-12,
+              "bitwise_equal": false,
+              "passed": true
+            },
+            {
+              "tensor": "parameter/b2",
+              "elements": 512,
+              "relative_l2": 7.066774560371414e-05,
+              "max_abs": 3.5714765544980764e-07,
+              "bitwise_equal": false,
+              "passed": true
+            },
+            {
+              "tensor": "gradient/b2",
+              "elements": 512,
+              "relative_l2": 0.00012080515443813056,
+              "max_abs": 3.6714482121169567e-07,
+              "bitwise_equal": false,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/b2/step",
+              "elements": 1,
+              "relative_l2": 0.0,
+              "max_abs": 0.0,
+              "bitwise_equal": true,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/b2/exp_avg",
+              "elements": 512,
+              "relative_l2": 2.955091440526303e-05,
+              "max_abs": 4.698222255683504e-08,
+              "bitwise_equal": false,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/b2/exp_avg_sq",
+              "elements": 512,
+              "relative_l2": 6.477861461462453e-06,
+              "max_abs": 3.694822225952521e-13,
+              "bitwise_equal": false,
+              "passed": true
+            }
+          ]
+        }
+      },
+      "inference_validation": {
+        "oa": {
+          "passed": true,
+          "require_bitwise": true,
+          "tensor_checks": [
+            {
+              "tensor": "output",
+              "elements": 262144,
+              "relative_l2": 0.0,
+              "max_abs": 0.0,
+              "bitwise_equal": true,
+              "passed": true
+            }
+          ]
+        },
+        "ptxas": {
+          "passed": true,
+          "require_bitwise": true,
+          "tensor_checks": [
+            {
+              "tensor": "output",
+              "elements": 262144,
+              "relative_l2": 0.0,
+              "max_abs": 0.0,
+              "bitwise_equal": true,
+              "passed": true
+            }
+          ]
+        },
+        "cublas": {
+          "passed": true,
+          "require_bitwise": false,
+          "tensor_checks": [
+            {
+              "tensor": "output",
+              "elements": 262144,
+              "relative_l2": 9.705292541184463e-06,
+              "max_abs": 0.00016570091247558594,
+              "bitwise_equal": false,
+              "passed": true
+            }
+          ]
+        }
+      },
+      "admitted_timing_methods": [
+        "oa",
+        "ptxas",
+        "cublas"
+      ],
+      "paired_orders": [
+        [
+          "ptxas",
+          "oa",
+          "cublas"
+        ],
+        [
+          "ptxas",
+          "cublas",
+          "oa"
+        ],
+        [
+          "cublas",
+          "ptxas",
+          "oa"
+        ],
+        [
+          "oa",
+          "cublas",
+          "ptxas"
+        ],
+        [
+          "ptxas",
+          "cublas",
+          "oa"
+        ],
+        [
+          "oa",
+          "ptxas",
+          "cublas"
+        ],
+        [
+          "ptxas",
+          "cublas",
+          "oa"
+        ],
+        [
+          "cublas",
+          "ptxas",
+          "oa"
+        ],
+        [
+          "cublas",
+          "oa",
+          "ptxas"
+        ],
+        [
+          "ptxas",
+          "oa",
+          "cublas"
+        ],
+        [
+          "cublas",
+          "oa",
+          "ptxas"
+        ],
+        [
+          "ptxas",
+          "cublas",
+          "oa"
+        ],
+        [
+          "ptxas",
+          "oa",
+          "cublas"
+        ],
+        [
+          "ptxas",
+          "cublas",
+          "oa"
+        ],
+        [
+          "cublas",
+          "ptxas",
+          "oa"
+        ]
+      ],
+      "training_samples_ms": {
+        "oa": [
+          1.7070080041885376,
+          1.8800640106201172,
+          1.6895999908447266,
+          1.667072057723999,
+          1.6762880086898804,
+          1.6783360242843628,
+          2.001919984817505,
+          1.773568034172058,
+          1.6640000343322754,
+          1.6599040031433105,
+          1.6660480499267578,
+          1.6957440376281738,
+          1.6906239986419678,
+          1.698815941810608,
+          1.7582080364227295
+        ],
+        "ptxas": [
+          1.7203199863433838,
+          1.7756160497665405,
+          1.7428480386734009,
+          2.066431999206543,
+          1.721343994140625,
+          1.6855039596557617,
+          1.7121280431747437,
+          1.7868800163269043,
+          1.7111040353775024,
+          1.656831979751587,
+          1.679360032081604,
+          1.6803840398788452,
+          1.6824320554733276,
+          1.7418240308761597,
+          2.8835840225219727
+        ],
+        "cublas": [
+          1.6721919775009155,
+          1.5923199653625488,
+          1.6363519430160522,
+          2.0060160160064697,
+          1.7192959785461426,
+          1.7244160175323486,
+          1.6087039709091187,
+          1.6895999908447266,
+          1.768447995185852,
+          1.6138240098953247,
+          1.5800319910049438,
+          1.575935959815979,
+          1.6220159530639648,
+          1.605631947517395,
+          1.7817599773406982
+        ]
+      },
+      "training_wall_samples_ms": {
+        "oa": [
+          1.7408410000001595,
+          1.9109730000002045,
+          1.720581999999915,
+          1.7000100000004181,
+          1.7068829999997703,
+          1.708516999999965,
+          2.033875000000407,
+          1.8034749999999988,
+          1.695078999999211,
+          1.6891210000000711,
+          1.6957910000003906,
+          1.7255149999995112,
+          1.7194229999999422,
+          1.7285190000002615,
+          1.7885159999995182
+        ],
+        "ptxas": [
+          1.7821830000004368,
+          1.8076119999994589,
+          1.7745140000000603,
+          2.097882000000162,
+          1.7528399999999777,
+          1.7156929999995185,
+          1.7432120000000495,
+          1.817903000000065,
+          1.746932000000534,
+          1.6868979999999922,
+          1.7091620000000418,
+          1.7106800000004085,
+          1.722258000000032,
+          1.7711609999997435,
+          2.9136880000004695
+        ],
+        "cublas": [
+          1.703853999999616,
+          1.6235680000002972,
+          1.6686919999999716,
+          2.0413579999996045,
+          1.7500240000005718,
+          1.7546330000000054,
+          1.6377020000000186,
+          1.7201910000004261,
+          1.8033940000004023,
+          1.6433899999999113,
+          1.6103369999997952,
+          1.604588999999379,
+          1.6509139999998368,
+          1.634150000000112,
+          1.8148080000006672
+        ]
+      },
+      "training_median_ms": {
+        "oa": 1.6906239986419678,
+        "ptxas": 1.7203199863433838,
+        "cublas": 1.6363519430160522
+      },
+      "inference_samples_ms": {
+        "oa": [
+          0.35942399501800537,
+          0.38604798913002014,
+          0.3614720106124878,
+          0.35942399501800537,
+          0.3829759955406189,
+          0.3553279936313629,
+          0.374783992767334,
+          0.4505600035190582,
+          0.38604798913002014,
+          0.3686400055885315,
+          0.3532800078392029,
+          0.3819519877433777,
+          0.3840000033378601,
+          0.3563520014286041,
+          0.3819519877433777
+        ],
+        "ptxas": [
+          0.37990400195121765,
+          0.3461120128631592,
+          0.3481599986553192,
+          0.37376001477241516,
+          0.34508800506591797,
+          0.374783992767334,
+          0.38809600472450256,
+          0.34508800506591797,
+          0.33587199449539185,
+          0.3481599986553192,
+          0.34303998947143555,
+          0.35225600004196167,
+          0.3461120128631592,
+          0.3758080005645752,
+          0.33792001008987427
+        ],
+        "cublas": [
+          0.35225600004196167,
+          0.3338240087032318,
+          0.3532800078392029,
+          0.3409920036792755,
+          0.3328000009059906,
+          0.32767999172210693,
+          0.3338240087032318,
+          0.3553279936313629,
+          0.32870399951934814,
+          0.35020801424980164,
+          0.36454400420188904,
+          0.32870399951934814,
+          0.32972800731658936,
+          0.3420160114765167,
+          0.3256320059299469
+        ]
+      },
+      "inference_wall_samples_ms": {
+        "oa": [
+          0.3885249999999729,
+          0.41404899999974987,
+          0.3896640000000673,
+          0.38686500000029156,
+          0.4120199999997354,
+          0.38319600000047416,
+          0.4029100000000341,
+          0.4783430000001587,
+          0.4136739999998085,
+          0.39692300000027103,
+          0.39575999999996725,
+          0.40975200000037404,
+          0.4114899999994037,
+          0.3844399999994863,
+          0.40996599999942873
+        ],
+        "ptxas": [
+          0.40752000000043864,
+          0.37383600000051587,
+          0.37524900000018846,
+          0.4011980000004911,
+          0.37378999999937434,
+          0.4043430000004733,
+          0.4168949999998617,
+          0.3726889999997596,
+          0.36443699999999524,
+          0.3764479999999182,
+          0.3706560000003023,
+          0.38263299999918843,
+          0.3738650000002508,
+          0.4040639999995932,
+          0.3668479999996421
+        ],
+        "cublas": [
+          0.3916949999993591,
+          0.363070000000576,
+          0.3806750000006076,
+          0.3694919999999158,
+          0.3603989999998447,
+          0.36832300000000373,
+          0.365110999999807,
+          0.38334899999981076,
+          0.35792999999983977,
+          0.3785670000002739,
+          0.3935129999996789,
+          0.3556890000000479,
+          0.3583090000001121,
+          0.37018500000041143,
+          0.3537900000001315
+        ]
+      },
+      "inference_median_ms": {
+        "oa": 0.374783992767334,
+        "ptxas": 0.3481599986553192,
+        "cublas": 0.3338240087032318
+      },
+      "stage_timings_diagnostic": {
+        "oa": {
+          "layernorm_forward": {
+            "samples_ms": [
+              0.043007999658584595,
+              0.043007999658584595,
+              0.043007999658584595,
+              0.04198399931192398,
+              0.043007999658584595
+            ],
+            "median_ms": 0.043007999658584595,
+            "mean_ms": 0.04280319958925247,
+            "calls": 5
+          },
+          "fc1/forward_pack_cast": {
+            "samples_ms": [
+              0.04608000069856644,
+              0.048128001391887665,
+              0.04608000069856644,
+              0.048128001391887665,
+              0.07372800260782242
+            ],
+            "median_ms": 0.048128001391887665,
+            "mean_ms": 0.05242880135774612,
+            "calls": 5
+          },
+          "fc1/forward_gemm": {
+            "samples_ms": [
+              0.05734400078654289,
+              0.058368001133203506,
+              0.07782399654388428,
+              0.05632000043988228,
+              0.05734400078654289
+            ],
+            "median_ms": 0.05734400078654289,
+            "mean_ms": 0.06143999993801117,
+            "calls": 5
+          },
+          "fc1/bias": {
+            "samples_ms": [
+              0.03174399957060814,
+              0.03481600061058998,
+              0.03379200026392937,
+              0.02969600073993206,
+              0.02969600073993206
+            ],
+            "median_ms": 0.03174399957060814,
+            "mean_ms": 0.031948800384998324,
+            "calls": 5
+          },
+          "relu_forward": {
+            "samples_ms": [
+              0.025599999353289604,
+              0.026623999699950218,
+              0.026623999699950218,
+              0.027648000046610832,
+              0.026623999699950218
+            ],
+            "median_ms": 0.026623999699950218,
+            "mean_ms": 0.026623999699950218,
+            "calls": 5
+          },
+          "fc2/forward_pack_cast": {
+            "samples_ms": [
+              0.04095999896526337,
+              0.04198399931192398,
+              0.043007999658584595,
+              0.04198399931192398,
+              0.04198399931192398
+            ],
+            "median_ms": 0.04198399931192398,
+            "mean_ms": 0.04198399931192398,
+            "calls": 5
+          },
+          "fc2/forward_gemm": {
+            "samples_ms": [
+              0.0942080020904541,
+              0.09728000313043594,
+              0.09523200243711472,
+              0.09523200243711472,
+              0.09523200243711472
+            ],
+            "median_ms": 0.09523200243711472,
+            "mean_ms": 0.09543680250644684,
+            "calls": 5
+          },
+          "fc2/bias": {
+            "samples_ms": [
+              0.011264000087976456,
+              0.010239999741315842,
+              0.011264000087976456,
+              0.013311999849975109,
+              0.011264000087976456
+            ],
+            "median_ms": 0.011264000087976456,
+            "mean_ms": 0.011468799971044063,
+            "calls": 5
+          },
+          "residual_add": {
+            "samples_ms": [
+              0.01740800030529499,
+              0.015359999611973763,
+              0.01740800030529499,
+              0.014336000196635723,
+              0.016383999958634377
+            ],
+            "median_ms": 0.016383999958634377,
+            "mean_ms": 0.01617920007556677,
+            "calls": 5
+          },
+          "forward_total": {
+            "samples_ms": [
+              0.6174719929695129,
+              0.6133760213851929,
+              0.6225919723510742,
+              0.596992015838623,
+              0.6225919723510742
+            ],
+            "median_ms": 0.6174719929695129,
+            "mean_ms": 0.6146047949790955,
+            "calls": 5
+          },
+          "loss_forward": {
+            "samples_ms": [
+              0.07577600330114365,
+              0.09011200070381165,
+              0.06963200122117996,
+              0.09625600278377533,
+              0.07065600156784058
+            ],
+            "median_ms": 0.07577600330114365,
+            "mean_ms": 0.08048640191555023,
+            "calls": 5
+          },
+          "fc2/backward_pack_cast_transpose": {
+            "samples_ms": [
+              0.09113600105047226,
+              0.09011200070381165,
+              0.08908800035715103,
+              0.10342399775981903,
+              0.08908800035715103
+            ],
+            "median_ms": 0.09011200070381165,
+            "mean_ms": 0.092569600045681,
+            "calls": 5
+          },
+          "fc2/dx_gemm": {
+            "samples_ms": [
+              0.06656000018119812,
+              0.06348799914121628,
+              0.10342399775981903,
+              0.05734400078654289,
+              0.05734400078654289
+            ],
+            "median_ms": 0.06348799914121628,
+            "mean_ms": 0.06963199973106385,
+            "calls": 5
+          },
+          "fc2/dw_gemm": {
+            "samples_ms": [
+              0.05119999870657921,
+              0.048128001391887665,
+              0.05222399905323982,
+              0.04505600035190582,
+              0.07680000364780426
+            ],
+            "median_ms": 0.05119999870657921,
+            "mean_ms": 0.05468160063028336,
+            "calls": 5
+          },
+          "fc2/bias_gradient": {
+            "samples_ms": [
+              0.043007999658584595,
+              0.04095999896526337,
+              0.060416001826524734,
+              0.03788800165057182,
+              0.04915200173854828
+            ],
+            "median_ms": 0.043007999658584595,
+            "mean_ms": 0.04628480076789856,
+            "calls": 5
+          },
+          "relu_backward": {
+            "samples_ms": [
+              0.053247999399900436,
+              0.09932799637317657,
+              0.05632000043988228,
+              0.06348799914121628,
+              0.05222399905323982
+            ],
+            "median_ms": 0.05632000043988228,
+            "mean_ms": 0.06492159888148308,
+            "calls": 5
+          },
+          "fc1/backward_pack_cast_transpose": {
+            "samples_ms": [
+              0.08806400001049042,
+              0.09523200243711472,
+              0.09932799637317657,
+              0.0870399996638298,
+              0.131071999669075
+            ],
+            "median_ms": 0.09523200243711472,
+            "mean_ms": 0.1001471996307373,
+            "calls": 5
+          },
+          "fc1/dx_gemm": {
+            "samples_ms": [
+              0.09728000313043594,
+              0.09728000313043594,
+              0.09932799637317657,
+              0.09625600278377533,
+              0.09932799637317657
+            ],
+            "median_ms": 0.09728000313043594,
+            "mean_ms": 0.09789440035820007,
+            "calls": 5
+          },
+          "fc1/dw_gemm": {
+            "samples_ms": [
+              0.05734400078654289,
+              0.026623999699950218,
+              0.11878400295972824,
+              0.060416001826524734,
+              0.02969600073993206
+            ],
+            "median_ms": 0.05734400078654289,
+            "mean_ms": 0.05857280120253563,
+            "calls": 5
+          },
+          "fc1/bias_gradient": {
+            "samples_ms": [
+              0.04710400104522705,
+              0.11161600053310394,
+              0.050175998359918594,
+              0.048128001391887665,
+              0.05222399905323982
+            ],
+            "median_ms": 0.050175998359918594,
+            "mean_ms": 0.061849600076675414,
+            "calls": 5
+          },
+          "layernorm_backward": {
+            "samples_ms": [
+              0.06860800087451935,
+              0.05939200147986412,
+              0.05632000043988228,
+              0.058368001133203506,
+              0.05632000043988228
+            ],
+            "median_ms": 0.058368001133203506,
+            "mean_ms": 0.059801600873470306,
+            "calls": 5
+          },
+          "backward_total": {
+            "samples_ms": [
+              1.2769279479980469,
+              1.2922879457473755,
+              1.3844480514526367,
+              1.3260799646377563,
+              1.2625919580459595
+            ],
+            "median_ms": 1.2922879457473755,
+            "mean_ms": 1.308467173576355,
+            "calls": 5
+          },
+          "adamw": {
+            "samples_ms": [
+              0.374783992767334,
+              0.3676159977912903,
+              0.39423999190330505,
+              0.3676159977912903,
+              0.3686400055885315
+            ],
+            "median_ms": 0.3686400055885315,
+            "mean_ms": 0.3745791971683502,
+            "calls": 5
+          },
+          "step_total": {
+            "samples_ms": [
+              2.4791040420532227,
+              2.491391897201538,
+              2.5661439895629883,
+              2.4872961044311523,
+              2.4350719451904297
+            ],
+            "median_ms": 2.4872961044311523,
+            "mean_ms": 2.4918015956878663,
+            "calls": 5
+          }
+        },
+        "ptxas": {
+          "layernorm_forward": {
+            "samples_ms": [
+              0.04505600035190582,
+              0.04198399931192398,
+              0.043007999658584595,
+              0.04198399931192398,
+              0.043007999658584595
+            ],
+            "median_ms": 0.043007999658584595,
+            "mean_ms": 0.043007999658584595,
+            "calls": 5
+          },
+          "fc1/forward_pack_cast": {
+            "samples_ms": [
+              0.05119999870657921,
+              0.04710400104522705,
+              0.050175998359918594,
+              0.05119999870657921,
+              0.048128001391887665
+            ],
+            "median_ms": 0.050175998359918594,
+            "mean_ms": 0.049561599642038344,
+            "calls": 5
+          },
+          "fc1/forward_gemm": {
+            "samples_ms": [
+              0.05119999870657921,
+              0.053247999399900436,
+              0.05119999870657921,
+              0.05119999870657921,
+              0.05119999870657921
+            ],
+            "median_ms": 0.05119999870657921,
+            "mean_ms": 0.05160959884524345,
+            "calls": 5
+          },
+          "fc1/bias": {
+            "samples_ms": [
+              0.030719999223947525,
+              0.03174399957060814,
+              0.03174399957060814,
+              0.03174399957060814,
+              0.03174399957060814
+            ],
+            "median_ms": 0.03174399957060814,
+            "mean_ms": 0.03153919950127602,
+            "calls": 5
+          },
+          "relu_forward": {
+            "samples_ms": [
+              0.026623999699950218,
+              0.025599999353289604,
+              0.026623999699950218,
+              0.026623999699950218,
+              0.025599999353289604
+            ],
+            "median_ms": 0.026623999699950218,
+            "mean_ms": 0.026214399561285972,
+            "calls": 5
+          },
+          "fc2/forward_pack_cast": {
+            "samples_ms": [
+              0.04198399931192398,
+              0.04198399931192398,
+              0.03993599861860275,
+              0.05632000043988228,
+              0.04095999896526337
+            ],
+            "median_ms": 0.04198399931192398,
+            "mean_ms": 0.04423679932951927,
+            "calls": 5
+          },
+          "fc2/forward_gemm": {
+            "samples_ms": [
+              0.07680000364780426,
+              0.07680000364780426,
+              0.07680000364780426,
+              0.08089599758386612,
+              0.07782399654388428
+            ],
+            "median_ms": 0.07680000364780426,
+            "mean_ms": 0.07782400101423263,
+            "calls": 5
+          },
+          "fc2/bias": {
+            "samples_ms": [
+              0.011264000087976456,
+              0.010239999741315842,
+              0.011264000087976456,
+              0.01228800043463707,
+              0.011264000087976456
+            ],
+            "median_ms": 0.011264000087976456,
+            "mean_ms": 0.011264000087976456,
+            "calls": 5
+          },
+          "residual_add": {
+            "samples_ms": [
+              0.025599999353289604,
+              0.025599999353289604,
+              0.026623999699950218,
+              0.035840000957250595,
+              0.025599999353289604
+            ],
+            "median_ms": 0.025599999353289604,
+            "mean_ms": 0.027852799743413925,
+            "calls": 5
+          },
+          "forward_total": {
+            "samples_ms": [
+              0.6287360191345215,
+              0.5928959846496582,
+              0.6287360191345215,
+              0.8202239871025085,
+              0.6246399879455566
+            ],
+            "median_ms": 0.6287360191345215,
+            "mean_ms": 0.6590463995933533,
+            "calls": 5
+          },
+          "loss_forward": {
+            "samples_ms": [
+              0.07065600156784058,
+              0.07782399654388428,
+              0.07168000191450119,
+              0.07475200295448303,
+              0.07168000191450119
+            ],
+            "median_ms": 0.07168000191450119,
+            "mean_ms": 0.07331840097904205,
+            "calls": 5
+          },
+          "fc2/backward_pack_cast_transpose": {
+            "samples_ms": [
+              0.08908800035715103,
+              0.08908800035715103,
+              0.08806400001049042,
+              0.11366400122642517,
+              0.09011200070381165
+            ],
+            "median_ms": 0.08908800035715103,
+            "mean_ms": 0.09400320053100586,
+            "calls": 5
+          },
+          "fc2/dx_gemm": {
+            "samples_ms": [
+              0.11980800330638885,
+              0.06143999844789505,
+              0.07577600330114365,
+              0.05222399905323982,
+              0.05222399905323982
+            ],
+            "median_ms": 0.06143999844789505,
+            "mean_ms": 0.07229440063238143,
+            "calls": 5
+          },
+          "fc2/dw_gemm": {
+            "samples_ms": [
+              0.04915200173854828,
+              0.04198399931192398,
+              0.043007999658584595,
+              0.03993599861860275,
+              0.04710400104522705
+            ],
+            "median_ms": 0.043007999658584595,
+            "mean_ms": 0.04423680007457733,
+            "calls": 5
+          },
+          "fc2/bias_gradient": {
+            "samples_ms": [
+              0.04710400104522705,
+              0.04608000069856644,
+              0.04608000069856644,
+              0.1085439994931221,
+              0.04608000069856644
+            ],
+            "median_ms": 0.04608000069856644,
+            "mean_ms": 0.05877760052680969,
+            "calls": 5
+          },
+          "relu_backward": {
+            "samples_ms": [
+              0.05427199974656105,
+              0.11673600226640701,
+              0.11059200018644333,
+              0.05222399905323982,
+              0.09113600105047226
+            ],
+            "median_ms": 0.09113600105047226,
+            "mean_ms": 0.08499200046062469,
+            "calls": 5
+          },
+          "fc1/backward_pack_cast_transpose": {
+            "samples_ms": [
+              0.10239999741315842,
+              0.09830400347709656,
+              0.09523200243711472,
+              0.08908800035715103,
+              0.09318400174379349
+            ],
+            "median_ms": 0.09523200243711472,
+            "mean_ms": 0.09564160108566284,
+            "calls": 5
+          },
+          "fc1/dx_gemm": {
+            "samples_ms": [
+              0.0798719972372055,
+              0.09523200243711472,
+              0.07782399654388428,
+              0.08806400001049042,
+              0.07782399654388428
+            ],
+            "median_ms": 0.0798719972372055,
+            "mean_ms": 0.08376319855451583,
+            "calls": 5
+          },
+          "fc1/dw_gemm": {
+            "samples_ms": [
+              0.025599999353289604,
+              0.0798719972372055,
+              0.06963200122117996,
+              0.03379200026392937,
+              0.0655359998345375
+            ],
+            "median_ms": 0.0655359998345375,
+            "mean_ms": 0.054886399582028386,
+            "calls": 5
+          },
+          "fc1/bias_gradient": {
+            "samples_ms": [
+              0.05222399905323982,
+              0.05119999870657921,
+              0.053247999399900436,
+              0.04505600035190582,
+              0.050175998359918594
+            ],
+            "median_ms": 0.05119999870657921,
+            "mean_ms": 0.05038079917430878,
+            "calls": 5
+          },
+          "layernorm_backward": {
+            "samples_ms": [
+              0.05632000043988228,
+              0.055296000093221664,
+              0.05632000043988228,
+              0.06963200122117996,
+              0.055296000093221664
+            ],
+            "median_ms": 0.05632000043988228,
+            "mean_ms": 0.05857280045747757,
+            "calls": 5
+          },
+          "backward_total": {
+            "samples_ms": [
+              1.3066240549087524,
+              1.316864013671875,
+              1.7868800163269043,
+              1.32915198802948,
+              1.3567999601364136
+            ],
+            "median_ms": 1.32915198802948,
+            "mean_ms": 1.419264006614685,
+            "calls": 5
+          },
+          "adamw": {
+            "samples_ms": [
+              0.39321601390838623,
+              0.3758080005645752,
+              0.37785598635673523,
+              0.3696640133857727,
+              0.3696640133857727
+            ],
+            "median_ms": 0.3758080005645752,
+            "mean_ms": 0.37724160552024844,
+            "calls": 5
+          },
+          "step_total": {
+            "samples_ms": [
+              2.5241599082946777,
+              2.4791040420532227,
+              2.9870080947875977,
+              2.692095994949341,
+              2.5589759349823
+            ],
+            "median_ms": 2.5589759349823,
+            "mean_ms": 2.648268795013428,
+            "calls": 5
+          }
+        },
+        "cublas": {
+          "layernorm_forward": {
+            "samples_ms": [
+              0.04608000069856644,
+              0.043007999658584595,
+              0.06758400052785873,
+              0.043007999658584595,
+              0.04403200000524521
+            ],
+            "median_ms": 0.04403200000524521,
+            "mean_ms": 0.048742400109767915,
+            "calls": 5
+          },
+          "fc1/forward_pack_cast": {
+            "samples_ms": [
+              0.04915200173854828,
+              0.048128001391887665,
+              0.04915200173854828,
+              0.04710400104522705,
+              0.048128001391887665
+            ],
+            "median_ms": 0.048128001391887665,
+            "mean_ms": 0.048332801461219786,
+            "calls": 5
+          },
+          "fc1/forward_gemm": {
+            "samples_ms": [
+              0.06348799914121628,
+              0.05427199974656105,
+              0.055296000093221664,
+              0.0655359998345375,
+              0.055296000093221664
+            ],
+            "median_ms": 0.055296000093221664,
+            "mean_ms": 0.058777599781751635,
+            "calls": 5
+          },
+          "fc1/bias": {
+            "samples_ms": [
+              0.03993599861860275,
+              0.03379200026392937,
+              0.03276799991726875,
+              0.03481600061058998,
+              0.03379200026392937
+            ],
+            "median_ms": 0.03379200026392937,
+            "mean_ms": 0.035020799934864046,
+            "calls": 5
+          },
+          "relu_forward": {
+            "samples_ms": [
+              0.02969600073993206,
+              0.03891199827194214,
+              0.026623999699950218,
+              0.027648000046610832,
+              0.025599999353289604
+            ],
+            "median_ms": 0.027648000046610832,
+            "mean_ms": 0.02969599962234497,
+            "calls": 5
+          },
+          "fc2/forward_pack_cast": {
+            "samples_ms": [
+              0.04403200000524521,
+              0.043007999658584595,
+              0.04198399931192398,
+              0.04403200000524521,
+              0.04198399931192398
+            ],
+            "median_ms": 0.043007999658584595,
+            "mean_ms": 0.043007999658584595,
+            "calls": 5
+          },
+          "fc2/forward_gemm": {
+            "samples_ms": [
+              0.04198399931192398,
+              0.04095999896526337,
+              0.03993599861860275,
+              0.06143999844789505,
+              0.03993599861860275
+            ],
+            "median_ms": 0.04095999896526337,
+            "mean_ms": 0.04485119879245758,
+            "calls": 5
+          },
+          "fc2/bias": {
+            "samples_ms": [
+              0.03174399957060814,
+              0.030719999223947525,
+              0.02969600073993206,
+              0.03276799991726875,
+              0.02969600073993206
+            ],
+            "median_ms": 0.030719999223947525,
+            "mean_ms": 0.030924800038337707,
+            "calls": 5
+          },
+          "residual_add": {
+            "samples_ms": [
+              0.025599999353289604,
+              0.02457600086927414,
+              0.025599999353289604,
+              0.025599999353289604,
+              0.026623999699950218
+            ],
+            "median_ms": 0.025599999353289604,
+            "mean_ms": 0.025599999725818633,
+            "calls": 5
+          },
+          "forward_total": {
+            "samples_ms": [
+              0.6666240096092224,
+              0.6215680241584778,
+              0.6297600269317627,
+              0.6533120274543762,
+              0.6082559823989868
+            ],
+            "median_ms": 0.6297600269317627,
+            "mean_ms": 0.6359040141105652,
+            "calls": 5
+          },
+          "loss_forward": {
+            "samples_ms": [
+              0.07168000191450119,
+              0.09318400174379349,
+              0.0727040022611618,
+              0.07168000191450119,
+              0.07475200295448303
+            ],
+            "median_ms": 0.0727040022611618,
+            "mean_ms": 0.07680000215768815,
+            "calls": 5
+          },
+          "fc2/backward_pack_cast_transpose": {
+            "samples_ms": [
+              0.11468800157308578,
+              0.11161600053310394,
+              0.09216000139713287,
+              0.08806400001049042,
+              0.11059200018644333
+            ],
+            "median_ms": 0.11059200018644333,
+            "mean_ms": 0.10342400074005127,
+            "calls": 5
+          },
+          "fc2/dx_gemm": {
+            "samples_ms": [
+              0.06451199948787689,
+              0.055296000093221664,
+              0.06656000018119812,
+              0.05427199974656105,
+              0.062463998794555664
+            ],
+            "median_ms": 0.062463998794555664,
+            "mean_ms": 0.06062079966068268,
+            "calls": 5
+          },
+          "fc2/dw_gemm": {
+            "samples_ms": [
+              0.043007999658584595,
+              0.04198399931192398,
+              0.04505600035190582,
+              0.05427199974656105,
+              0.04505600035190582
+            ],
+            "median_ms": 0.04505600035190582,
+            "mean_ms": 0.04587519988417625,
+            "calls": 5
+          },
+          "fc2/bias_gradient": {
+            "samples_ms": [
+              0.06758400052785873,
+              0.03993599861860275,
+              0.11878400295972824,
+              0.05222399905323982,
+              0.10239999741315842
+            ],
+            "median_ms": 0.06758400052785873,
+            "mean_ms": 0.07618559971451759,
+            "calls": 5
+          },
+          "relu_backward": {
+            "samples_ms": [
+              0.0727040022611618,
+              0.07577600330114365,
+              0.05632000043988228,
+              0.053247999399900436,
+              0.05734400078654289
+            ],
+            "median_ms": 0.05734400078654289,
+            "mean_ms": 0.0630784012377262,
+            "calls": 5
+          },
+          "fc1/backward_pack_cast_transpose": {
+            "samples_ms": [
+              0.09113600105047226,
+              0.09011200070381165,
+              0.09011200070381165,
+              0.131071999669075,
+              0.08908800035715103
+            ],
+            "median_ms": 0.09011200070381165,
+            "mean_ms": 0.09830400049686432,
+            "calls": 5
+          },
+          "fc1/dx_gemm": {
+            "samples_ms": [
+              0.04198399931192398,
+              0.04198399931192398,
+              0.05119999870657921,
+              0.043007999658584595,
+              0.09011200070381165
+            ],
+            "median_ms": 0.043007999658584595,
+            "mean_ms": 0.05365759953856468,
+            "calls": 5
+          },
+          "fc1/dw_gemm": {
+            "samples_ms": [
+              0.062463998794555664,
+              0.06143999844789505,
+              0.04710400104522705,
+              0.04608000069856644,
+              0.055296000093221664
+            ],
+            "median_ms": 0.055296000093221664,
+            "mean_ms": 0.05447679981589317,
+            "calls": 5
+          },
+          "fc1/bias_gradient": {
+            "samples_ms": [
+              0.048128001391887665,
+              0.04915200173854828,
+              0.04710400104522705,
+              0.06348799914121628,
+              0.04608000069856644
+            ],
+            "median_ms": 0.048128001391887665,
+            "mean_ms": 0.05079040080308914,
+            "calls": 5
+          },
+          "layernorm_backward": {
+            "samples_ms": [
+              0.05734400078654289,
+              0.10956799983978271,
+              0.07782399654388428,
+              0.05632000043988228,
+              0.08294399827718735
+            ],
+            "median_ms": 0.07782399654388428,
+            "mean_ms": 0.0767999991774559,
+            "calls": 5
+          },
+          "backward_total": {
+            "samples_ms": [
+              1.346560001373291,
+              1.4202879667282104,
+              1.393664002418518,
+              1.3312000036239624,
+              1.4510079622268677
+            ],
+            "median_ms": 1.393664002418518,
+            "mean_ms": 1.3885439872741698,
+            "calls": 5
+          },
+          "adamw": {
+            "samples_ms": [
+              0.37171199917793274,
+              0.3696640133857727,
+              0.3676159977912903,
+              0.3624959886074066,
+              0.36556801199913025
+            ],
+            "median_ms": 0.3676159977912903,
+            "mean_ms": 0.3674112021923065,
+            "calls": 5
+          },
+          "step_total": {
+            "samples_ms": [
+              2.5866239070892334,
+              2.623487949371338,
+              2.5712640285491943,
+              2.5128960609436035,
+              2.6368000507354736
+            ],
+            "median_ms": 2.5866239070892334,
+            "mean_ms": 2.5862143993377686,
+            "calls": 5
+          }
+        }
+      }
+    },
+    {
+      "case": {
+        "name": "mlp_1024_1024_4096",
+        "batch": 1024,
+        "width": 1024,
+        "hidden": 4096
+      },
+      "validation": {
+        "cublas": {
+          "canaries": true,
+          "gemm_checks": [
+            {
+              "label": "fc1/forward_gemm",
+              "shape": [
+                1024,
+                4096,
+                1024
+              ],
+              "relative_l2_vs_fp32": 1.7965014649234945e-06,
+              "passed": true,
+              "elements_checked": 4194304
+            },
+            {
+              "label": "fc2/forward_gemm",
+              "shape": [
+                1024,
+                1024,
+                4096
+              ],
+              "relative_l2_vs_fp32": 2.236299451396917e-06,
+              "passed": true,
+              "elements_checked": 1048576
+            },
+            {
+              "label": "fc2/dx_gemm",
+              "shape": [
+                1024,
+                4096,
+                1024
+              ],
+              "relative_l2_vs_fp32": 9.157216709354543e-07,
+              "passed": true,
+              "elements_checked": 4194304
+            },
+            {
+              "label": "fc2/dw_gemm",
+              "shape": [
+                1024,
+                4096,
+                1024
+              ],
+              "relative_l2_vs_fp32": 1.1310605714243138e-06,
+              "passed": true,
+              "elements_checked": 4194304
+            },
+            {
+              "label": "fc1/dx_gemm",
+              "shape": [
+                1024,
+                1024,
+                4096
+              ],
+              "relative_l2_vs_fp32": 7.122101237655443e-07,
+              "passed": true,
+              "elements_checked": 1048576
+            },
+            {
+              "label": "fc1/dw_gemm",
+              "shape": [
+                4096,
+                1024,
+                1024
+              ],
+              "relative_l2_vs_fp32": 4.49483167130893e-07,
+              "passed": true,
+              "elements_checked": 4194304
+            },
+            {
+              "label": "fc1/forward_gemm",
+              "shape": [
+                1024,
+                4096,
+                1024
+              ],
+              "relative_l2_vs_fp32": 1.7968676502277958e-06,
+              "passed": true,
+              "elements_checked": 4194304
+            },
+            {
+              "label": "fc2/forward_gemm",
+              "shape": [
+                1024,
+                1024,
+                4096
+              ],
+              "relative_l2_vs_fp32": 2.3117195269151125e-06,
+              "passed": true,
+              "elements_checked": 1048576
+            },
+            {
+              "label": "fc2/dx_gemm",
+              "shape": [
+                1024,
+                4096,
+                1024
+              ],
+              "relative_l2_vs_fp32": 9.002080219033815e-07,
+              "passed": true,
+              "elements_checked": 4194304
+            },
+            {
+              "label": "fc2/dw_gemm",
+              "shape": [
+                1024,
+                4096,
+                1024
+              ],
+              "relative_l2_vs_fp32": 8.003711400306202e-07,
+              "passed": true,
+              "elements_checked": 4194304
+            },
+            {
+              "label": "fc1/dx_gemm",
+              "shape": [
+                1024,
+                1024,
+                4096
+              ],
+              "relative_l2_vs_fp32": 7.481639272555185e-07,
+              "passed": true,
+              "elements_checked": 1048576
+            },
+            {
+              "label": "fc1/dw_gemm",
+              "shape": [
+                4096,
+                1024,
+                1024
+              ],
+              "relative_l2_vs_fp32": 4.7329720587185875e-07,
+              "passed": true,
+              "elements_checked": 4194304
+            },
+            {
+              "label": "fc1/forward_gemm",
+              "shape": [
+                1024,
+                4096,
+                1024
+              ],
+              "relative_l2_vs_fp32": 1.7969520058613853e-06,
+              "passed": true,
+              "elements_checked": 4194304
+            },
+            {
+              "label": "fc2/forward_gemm",
+              "shape": [
+                1024,
+                1024,
+                4096
+              ],
+              "relative_l2_vs_fp32": 2.3050620256981347e-06,
+              "passed": true,
+              "elements_checked": 1048576
+            },
+            {
+              "label": "fc2/dx_gemm",
+              "shape": [
+                1024,
+                4096,
+                1024
+              ],
+              "relative_l2_vs_fp32": 8.963435220721294e-07,
+              "passed": true,
+              "elements_checked": 4194304
+            },
+            {
+              "label": "fc2/dw_gemm",
+              "shape": [
+                1024,
+                4096,
+                1024
+              ],
+              "relative_l2_vs_fp32": 5.8979952655136e-07,
+              "passed": true,
+              "elements_checked": 4194304
+            },
+            {
+              "label": "fc1/dx_gemm",
+              "shape": [
+                1024,
+                1024,
+                4096
+              ],
+              "relative_l2_vs_fp32": 7.544595064246096e-07,
+              "passed": true,
+              "elements_checked": 1048576
+            },
+            {
+              "label": "fc1/dw_gemm",
+              "shape": [
+                4096,
+                1024,
+                1024
+              ],
+              "relative_l2_vs_fp32": 4.785886744684831e-07,
+              "passed": true,
+              "elements_checked": 4194304
+            }
+          ]
+        },
+        "ptxas": {
+          "canaries": true,
+          "gemm_checks": [
+            {
+              "label": "fc1/forward_gemm",
+              "shape": [
+                1024,
+                4096,
+                1024
+              ],
+              "relative_l2_vs_fp32": 1.7965014649234945e-06,
+              "passed": true,
+              "elements_checked": 4194304
+            },
+            {
+              "label": "fc2/forward_gemm",
+              "shape": [
+                1024,
+                1024,
+                4096
+              ],
+              "relative_l2_vs_fp32": 6.450426553783473e-06,
+              "passed": true,
+              "elements_checked": 1048576
+            },
+            {
+              "label": "fc2/dx_gemm",
+              "shape": [
+                1024,
+                4096,
+                1024
+              ],
+              "relative_l2_vs_fp32": 9.157222393696429e-07,
+              "passed": true,
+              "elements_checked": 4194304
+            },
+            {
+              "label": "fc2/dw_gemm",
+              "shape": [
+                1024,
+                4096,
+                1024
+              ],
+              "relative_l2_vs_fp32": 1.1310371519357432e-06,
+              "passed": true,
+              "elements_checked": 4194304
+            },
+            {
+              "label": "fc1/dx_gemm",
+              "shape": [
+                1024,
+                1024,
+                4096
+              ],
+              "relative_l2_vs_fp32": 1.929387281052186e-06,
+              "passed": true,
+              "elements_checked": 1048576
+            },
+            {
+              "label": "fc1/dw_gemm",
+              "shape": [
+                4096,
+                1024,
+                1024
+              ],
+              "relative_l2_vs_fp32": 5.837417234033637e-07,
+              "passed": true,
+              "elements_checked": 4194304
+            },
+            {
+              "label": "fc1/forward_gemm",
+              "shape": [
+                1024,
+                4096,
+                1024
+              ],
+              "relative_l2_vs_fp32": 1.7968352494790452e-06,
+              "passed": true,
+              "elements_checked": 4194304
+            },
+            {
+              "label": "fc2/forward_gemm",
+              "shape": [
+                1024,
+                1024,
+                4096
+              ],
+              "relative_l2_vs_fp32": 6.602832854696317e-06,
+              "passed": true,
+              "elements_checked": 1048576
+            },
+            {
+              "label": "fc2/dx_gemm",
+              "shape": [
+                1024,
+                4096,
+                1024
+              ],
+              "relative_l2_vs_fp32": 9.001261673802219e-07,
+              "passed": true,
+              "elements_checked": 4194304
+            },
+            {
+              "label": "fc2/dw_gemm",
+              "shape": [
+                1024,
+                4096,
+                1024
+              ],
+              "relative_l2_vs_fp32": 8.005865197446838e-07,
+              "passed": true,
+              "elements_checked": 4194304
+            },
+            {
+              "label": "fc1/dx_gemm",
+              "shape": [
+                1024,
+                1024,
+                4096
+              ],
+              "relative_l2_vs_fp32": 1.8801343912855373e-06,
+              "passed": true,
+              "elements_checked": 1048576
+            },
+            {
+              "label": "fc1/dw_gemm",
+              "shape": [
+                4096,
+                1024,
+                1024
+              ],
+              "relative_l2_vs_fp32": 6.079746981413336e-07,
+              "passed": true,
+              "elements_checked": 4194304
+            },
+            {
+              "label": "fc1/forward_gemm",
+              "shape": [
+                1024,
+                4096,
+                1024
+              ],
+              "relative_l2_vs_fp32": 1.796778178686509e-06,
+              "passed": true,
+              "elements_checked": 4194304
+            },
+            {
+              "label": "fc2/forward_gemm",
+              "shape": [
+                1024,
+                1024,
+                4096
+              ],
+              "relative_l2_vs_fp32": 6.613214281969704e-06,
+              "passed": true,
+              "elements_checked": 1048576
+            },
+            {
+              "label": "fc2/dx_gemm",
+              "shape": [
+                1024,
+                4096,
+                1024
+              ],
+              "relative_l2_vs_fp32": 8.961984576671966e-07,
+              "passed": true,
+              "elements_checked": 4194304
+            },
+            {
+              "label": "fc2/dw_gemm",
+              "shape": [
+                1024,
+                4096,
+                1024
+              ],
+              "relative_l2_vs_fp32": 5.89786452565022e-07,
+              "passed": true,
+              "elements_checked": 4194304
+            },
+            {
+              "label": "fc1/dx_gemm",
+              "shape": [
+                1024,
+                1024,
+                4096
+              ],
+              "relative_l2_vs_fp32": 1.8713009239945677e-06,
+              "passed": true,
+              "elements_checked": 1048576
+            },
+            {
+              "label": "fc1/dw_gemm",
+              "shape": [
+                4096,
+                1024,
+                1024
+              ],
+              "relative_l2_vs_fp32": 6.134657155598688e-07,
+              "passed": true,
+              "elements_checked": 4194304
+            }
+          ]
+        },
+        "oa": {
+          "canaries": true,
+          "gemm_checks": [
+            {
+              "label": "fc1/forward_gemm",
+              "shape": [
+                1024,
+                4096,
+                1024
+              ],
+              "relative_l2_vs_fp32": 1.7965014649234945e-06,
+              "passed": true,
+              "elements_checked": 4194304
+            },
+            {
+              "label": "fc2/forward_gemm",
+              "shape": [
+                1024,
+                1024,
+                4096
+              ],
+              "relative_l2_vs_fp32": 6.450426553783473e-06,
+              "passed": true,
+              "elements_checked": 1048576
+            },
+            {
+              "label": "fc2/dx_gemm",
+              "shape": [
+                1024,
+                4096,
+                1024
+              ],
+              "relative_l2_vs_fp32": 9.157222393696429e-07,
+              "passed": true,
+              "elements_checked": 4194304
+            },
+            {
+              "label": "fc2/dw_gemm",
+              "shape": [
+                1024,
+                4096,
+                1024
+              ],
+              "relative_l2_vs_fp32": 1.1310371519357432e-06,
+              "passed": true,
+              "elements_checked": 4194304
+            },
+            {
+              "label": "fc1/dx_gemm",
+              "shape": [
+                1024,
+                1024,
+                4096
+              ],
+              "relative_l2_vs_fp32": 1.929387281052186e-06,
+              "passed": true,
+              "elements_checked": 1048576
+            },
+            {
+              "label": "fc1/dw_gemm",
+              "shape": [
+                4096,
+                1024,
+                1024
+              ],
+              "relative_l2_vs_fp32": 5.837417234033637e-07,
+              "passed": true,
+              "elements_checked": 4194304
+            },
+            {
+              "label": "fc1/forward_gemm",
+              "shape": [
+                1024,
+                4096,
+                1024
+              ],
+              "relative_l2_vs_fp32": 1.7968352494790452e-06,
+              "passed": true,
+              "elements_checked": 4194304
+            },
+            {
+              "label": "fc2/forward_gemm",
+              "shape": [
+                1024,
+                1024,
+                4096
+              ],
+              "relative_l2_vs_fp32": 6.602832854696317e-06,
+              "passed": true,
+              "elements_checked": 1048576
+            },
+            {
+              "label": "fc2/dx_gemm",
+              "shape": [
+                1024,
+                4096,
+                1024
+              ],
+              "relative_l2_vs_fp32": 9.001261673802219e-07,
+              "passed": true,
+              "elements_checked": 4194304
+            },
+            {
+              "label": "fc2/dw_gemm",
+              "shape": [
+                1024,
+                4096,
+                1024
+              ],
+              "relative_l2_vs_fp32": 8.005865197446838e-07,
+              "passed": true,
+              "elements_checked": 4194304
+            },
+            {
+              "label": "fc1/dx_gemm",
+              "shape": [
+                1024,
+                1024,
+                4096
+              ],
+              "relative_l2_vs_fp32": 1.8801343912855373e-06,
+              "passed": true,
+              "elements_checked": 1048576
+            },
+            {
+              "label": "fc1/dw_gemm",
+              "shape": [
+                4096,
+                1024,
+                1024
+              ],
+              "relative_l2_vs_fp32": 6.079746981413336e-07,
+              "passed": true,
+              "elements_checked": 4194304
+            },
+            {
+              "label": "fc1/forward_gemm",
+              "shape": [
+                1024,
+                4096,
+                1024
+              ],
+              "relative_l2_vs_fp32": 1.796778178686509e-06,
+              "passed": true,
+              "elements_checked": 4194304
+            },
+            {
+              "label": "fc2/forward_gemm",
+              "shape": [
+                1024,
+                1024,
+                4096
+              ],
+              "relative_l2_vs_fp32": 6.613214281969704e-06,
+              "passed": true,
+              "elements_checked": 1048576
+            },
+            {
+              "label": "fc2/dx_gemm",
+              "shape": [
+                1024,
+                4096,
+                1024
+              ],
+              "relative_l2_vs_fp32": 8.961984576671966e-07,
+              "passed": true,
+              "elements_checked": 4194304
+            },
+            {
+              "label": "fc2/dw_gemm",
+              "shape": [
+                1024,
+                4096,
+                1024
+              ],
+              "relative_l2_vs_fp32": 5.89786452565022e-07,
+              "passed": true,
+              "elements_checked": 4194304
+            },
+            {
+              "label": "fc1/dx_gemm",
+              "shape": [
+                1024,
+                1024,
+                4096
+              ],
+              "relative_l2_vs_fp32": 1.8713009239945677e-06,
+              "passed": true,
+              "elements_checked": 1048576
+            },
+            {
+              "label": "fc1/dw_gemm",
+              "shape": [
+                4096,
+                1024,
+                1024
+              ],
+              "relative_l2_vs_fp32": 6.134657155598688e-07,
+              "passed": true,
+              "elements_checked": 4194304
+            }
+          ]
+        },
+        "oa_vs_ptxas": {
+          "passed": true,
+          "require_bitwise": true,
+          "tensor_checks": [
+            {
+              "tensor": "output",
+              "elements": 1048576,
+              "relative_l2": 0.0,
+              "max_abs": 0.0,
+              "bitwise_equal": true,
+              "passed": true
+            },
+            {
+              "tensor": "loss",
+              "elements": 1,
+              "relative_l2": 0.0,
+              "max_abs": 0.0,
+              "bitwise_equal": true,
+              "passed": true
+            },
+            {
+              "tensor": "dx",
+              "elements": 1048576,
+              "relative_l2": 0.0,
+              "max_abs": 0.0,
+              "bitwise_equal": true,
+              "passed": true
+            },
+            {
+              "tensor": "parameter/norm_weight",
+              "elements": 1024,
+              "relative_l2": 0.0,
+              "max_abs": 0.0,
+              "bitwise_equal": true,
+              "passed": true
+            },
+            {
+              "tensor": "gradient/norm_weight",
+              "elements": 1024,
+              "relative_l2": 0.0,
+              "max_abs": 0.0,
+              "bitwise_equal": true,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/norm_weight/step",
+              "elements": 1,
+              "relative_l2": 0.0,
+              "max_abs": 0.0,
+              "bitwise_equal": true,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/norm_weight/exp_avg",
+              "elements": 1024,
+              "relative_l2": 0.0,
+              "max_abs": 0.0,
+              "bitwise_equal": true,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/norm_weight/exp_avg_sq",
+              "elements": 1024,
+              "relative_l2": 0.0,
+              "max_abs": 0.0,
+              "bitwise_equal": true,
+              "passed": true
+            },
+            {
+              "tensor": "parameter/norm_bias",
+              "elements": 1024,
+              "relative_l2": 0.0,
+              "max_abs": 0.0,
+              "bitwise_equal": true,
+              "passed": true
+            },
+            {
+              "tensor": "gradient/norm_bias",
+              "elements": 1024,
+              "relative_l2": 0.0,
+              "max_abs": 0.0,
+              "bitwise_equal": true,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/norm_bias/step",
+              "elements": 1,
+              "relative_l2": 0.0,
+              "max_abs": 0.0,
+              "bitwise_equal": true,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/norm_bias/exp_avg",
+              "elements": 1024,
+              "relative_l2": 0.0,
+              "max_abs": 0.0,
+              "bitwise_equal": true,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/norm_bias/exp_avg_sq",
+              "elements": 1024,
+              "relative_l2": 0.0,
+              "max_abs": 0.0,
+              "bitwise_equal": true,
+              "passed": true
+            },
+            {
+              "tensor": "parameter/w1",
+              "elements": 4194304,
+              "relative_l2": 0.0,
+              "max_abs": 0.0,
+              "bitwise_equal": true,
+              "passed": true
+            },
+            {
+              "tensor": "gradient/w1",
+              "elements": 4194304,
+              "relative_l2": 0.0,
+              "max_abs": 0.0,
+              "bitwise_equal": true,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/w1/step",
+              "elements": 1,
+              "relative_l2": 0.0,
+              "max_abs": 0.0,
+              "bitwise_equal": true,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/w1/exp_avg",
+              "elements": 4194304,
+              "relative_l2": 0.0,
+              "max_abs": 0.0,
+              "bitwise_equal": true,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/w1/exp_avg_sq",
+              "elements": 4194304,
+              "relative_l2": 0.0,
+              "max_abs": 0.0,
+              "bitwise_equal": true,
+              "passed": true
+            },
+            {
+              "tensor": "parameter/b1",
+              "elements": 4096,
+              "relative_l2": 0.0,
+              "max_abs": 0.0,
+              "bitwise_equal": true,
+              "passed": true
+            },
+            {
+              "tensor": "gradient/b1",
+              "elements": 4096,
+              "relative_l2": 0.0,
+              "max_abs": 0.0,
+              "bitwise_equal": true,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/b1/step",
+              "elements": 1,
+              "relative_l2": 0.0,
+              "max_abs": 0.0,
+              "bitwise_equal": true,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/b1/exp_avg",
+              "elements": 4096,
+              "relative_l2": 0.0,
+              "max_abs": 0.0,
+              "bitwise_equal": true,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/b1/exp_avg_sq",
+              "elements": 4096,
+              "relative_l2": 0.0,
+              "max_abs": 0.0,
+              "bitwise_equal": true,
+              "passed": true
+            },
+            {
+              "tensor": "parameter/w2",
+              "elements": 4194304,
+              "relative_l2": 0.0,
+              "max_abs": 0.0,
+              "bitwise_equal": true,
+              "passed": true
+            },
+            {
+              "tensor": "gradient/w2",
+              "elements": 4194304,
+              "relative_l2": 0.0,
+              "max_abs": 0.0,
+              "bitwise_equal": true,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/w2/step",
+              "elements": 1,
+              "relative_l2": 0.0,
+              "max_abs": 0.0,
+              "bitwise_equal": true,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/w2/exp_avg",
+              "elements": 4194304,
+              "relative_l2": 0.0,
+              "max_abs": 0.0,
+              "bitwise_equal": true,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/w2/exp_avg_sq",
+              "elements": 4194304,
+              "relative_l2": 0.0,
+              "max_abs": 0.0,
+              "bitwise_equal": true,
+              "passed": true
+            },
+            {
+              "tensor": "parameter/b2",
+              "elements": 1024,
+              "relative_l2": 0.0,
+              "max_abs": 0.0,
+              "bitwise_equal": true,
+              "passed": true
+            },
+            {
+              "tensor": "gradient/b2",
+              "elements": 1024,
+              "relative_l2": 0.0,
+              "max_abs": 0.0,
+              "bitwise_equal": true,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/b2/step",
+              "elements": 1,
+              "relative_l2": 0.0,
+              "max_abs": 0.0,
+              "bitwise_equal": true,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/b2/exp_avg",
+              "elements": 1024,
+              "relative_l2": 0.0,
+              "max_abs": 0.0,
+              "bitwise_equal": true,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/b2/exp_avg_sq",
+              "elements": 1024,
+              "relative_l2": 0.0,
+              "max_abs": 0.0,
+              "bitwise_equal": true,
+              "passed": true
+            }
+          ]
+        },
+        "oa_vs_cublas": {
+          "passed": false,
+          "require_bitwise": false,
+          "tensor_checks": [
+            {
+              "tensor": "output",
+              "elements": 1048576,
+              "relative_l2": 9.815529483603314e-05,
+              "max_abs": 0.0006247758865356445,
+              "bitwise_equal": false,
+              "passed": true
+            },
+            {
+              "tensor": "loss",
+              "elements": 1,
+              "relative_l2": 1.0309310027878382e-06,
+              "max_abs": 2.384185791015625e-06,
+              "bitwise_equal": false,
+              "passed": true
+            },
+            {
+              "tensor": "dx",
+              "elements": 1048576,
+              "relative_l2": 0.004209541250020266,
+              "max_abs": 3.430523065617308e-07,
+              "bitwise_equal": false,
+              "passed": true
+            },
+            {
+              "tensor": "parameter/norm_weight",
+              "elements": 1024,
+              "relative_l2": 4.9985235506255776e-08,
+              "max_abs": 2.384185791015625e-07,
+              "bitwise_equal": false,
+              "passed": true
+            },
+            {
+              "tensor": "gradient/norm_weight",
+              "elements": 1024,
+              "relative_l2": 0.0007343743345700204,
+              "max_abs": 1.601001713424921e-06,
+              "bitwise_equal": false,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/norm_weight/step",
+              "elements": 1,
+              "relative_l2": 0.0,
+              "max_abs": 0.0,
+              "bitwise_equal": true,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/norm_weight/exp_avg",
+              "elements": 1024,
+              "relative_l2": 0.0002801469527184963,
+              "max_abs": 2.4313339963555336e-07,
+              "bitwise_equal": false,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/norm_weight/exp_avg_sq",
+              "elements": 1024,
+              "relative_l2": 0.0004363142070360482,
+              "max_abs": 3.813616089587413e-12,
+              "bitwise_equal": false,
+              "passed": true
+            },
+            {
+              "tensor": "parameter/norm_bias",
+              "elements": 1024,
+              "relative_l2": 0.0005272991838864982,
+              "max_abs": 1.841657649492845e-06,
+              "bitwise_equal": false,
+              "passed": true
+            },
+            {
+              "tensor": "gradient/norm_bias",
+              "elements": 1024,
+              "relative_l2": 0.0019684985745698214,
+              "max_abs": 1.546497514937073e-06,
+              "bitwise_equal": false,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/norm_bias/step",
+              "elements": 1,
+              "relative_l2": 0.0,
+              "max_abs": 0.0,
+              "bitwise_equal": true,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/norm_bias/exp_avg",
+              "elements": 1024,
+              "relative_l2": 0.0007242052815854549,
+              "max_abs": 2.0473817130550742e-07,
+              "bitwise_equal": false,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/norm_bias/exp_avg_sq",
+              "elements": 1024,
+              "relative_l2": 0.00045177683932706714,
+              "max_abs": 1.7609247393579608e-12,
+              "bitwise_equal": false,
+              "passed": true
+            },
+            {
+              "tensor": "parameter/w1",
+              "elements": 4194304,
+              "relative_l2": 1.2096611499146093e-05,
+              "max_abs": 1.5237368643283844e-05,
+              "bitwise_equal": false,
+              "passed": true
+            },
+            {
+              "tensor": "gradient/w1",
+              "elements": 4194304,
+              "relative_l2": 0.006364095024764538,
+              "max_abs": 9.838717232923955e-06,
+              "bitwise_equal": false,
+              "passed": false
+            },
+            {
+              "tensor": "adamw/w1/step",
+              "elements": 1,
+              "relative_l2": 0.0,
+              "max_abs": 0.0,
+              "bitwise_equal": true,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/w1/exp_avg",
+              "elements": 4194304,
+              "relative_l2": 0.0027454886585474014,
+              "max_abs": 9.824780136113986e-07,
+              "bitwise_equal": false,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/w1/exp_avg_sq",
+              "elements": 4194304,
+              "relative_l2": 0.0028951303102076054,
+              "max_abs": 1.6436435545941208e-12,
+              "bitwise_equal": false,
+              "passed": true
+            },
+            {
+              "tensor": "parameter/b1",
+              "elements": 4096,
+              "relative_l2": 0.00016036664601415396,
+              "max_abs": 2.3238826543092728e-06,
+              "bitwise_equal": false,
+              "passed": true
+            },
+            {
+              "tensor": "gradient/b1",
+              "elements": 4096,
+              "relative_l2": 0.0011848375434055924,
+              "max_abs": 2.6085035642609e-06,
+              "bitwise_equal": false,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/b1/step",
+              "elements": 1,
+              "relative_l2": 0.0,
+              "max_abs": 0.0,
+              "bitwise_equal": true,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/b1/exp_avg",
+              "elements": 4096,
+              "relative_l2": 0.00040158070623874664,
+              "max_abs": 2.770138962659985e-07,
+              "bitwise_equal": false,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/b1/exp_avg_sq",
+              "elements": 4096,
+              "relative_l2": 0.000320878520142287,
+              "max_abs": 1.3051365543859106e-12,
+              "bitwise_equal": false,
+              "passed": true
+            },
+            {
+              "tensor": "parameter/w2",
+              "elements": 4194304,
+              "relative_l2": 3.905926405423088e-06,
+              "max_abs": 9.825453162193298e-07,
+              "bitwise_equal": false,
+              "passed": true
+            },
+            {
+              "tensor": "gradient/w2",
+              "elements": 4194304,
+              "relative_l2": 0.0005783734377473593,
+              "max_abs": 6.854243110865355e-07,
+              "bitwise_equal": false,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/w2/step",
+              "elements": 1,
+              "relative_l2": 0.0,
+              "max_abs": 0.0,
+              "bitwise_equal": true,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/w2/exp_avg",
+              "elements": 4194304,
+              "relative_l2": 0.0002475063665769994,
+              "max_abs": 7.099333743099123e-08,
+              "bitwise_equal": false,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/w2/exp_avg_sq",
+              "elements": 4194304,
+              "relative_l2": 0.00011586074833758175,
+              "max_abs": 4.769518113789672e-13,
+              "bitwise_equal": false,
+              "passed": true
+            },
+            {
+              "tensor": "parameter/b2",
+              "elements": 1024,
+              "relative_l2": 8.497467206325382e-05,
+              "max_abs": 3.874902176903561e-07,
+              "bitwise_equal": false,
+              "passed": true
+            },
+            {
+              "tensor": "gradient/b2",
+              "elements": 1024,
+              "relative_l2": 0.00021449402265716344,
+              "max_abs": 2.7751957532018423e-07,
+              "bitwise_equal": false,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/b2/step",
+              "elements": 1,
+              "relative_l2": 0.0,
+              "max_abs": 0.0,
+              "bitwise_equal": true,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/b2/exp_avg",
+              "elements": 1024,
+              "relative_l2": 8.765198435867205e-05,
+              "max_abs": 2.8197973733767867e-08,
+              "bitwise_equal": false,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/b2/exp_avg_sq",
+              "elements": 1024,
+              "relative_l2": 2.7543699616217054e-05,
+              "max_abs": 1.6930901125533637e-13,
+              "bitwise_equal": false,
+              "passed": true
+            }
+          ]
+        },
+        "ptxas_vs_cublas": {
+          "passed": false,
+          "require_bitwise": false,
+          "tensor_checks": [
+            {
+              "tensor": "output",
+              "elements": 1048576,
+              "relative_l2": 9.815529483603314e-05,
+              "max_abs": 0.0006247758865356445,
+              "bitwise_equal": false,
+              "passed": true
+            },
+            {
+              "tensor": "loss",
+              "elements": 1,
+              "relative_l2": 1.0309310027878382e-06,
+              "max_abs": 2.384185791015625e-06,
+              "bitwise_equal": false,
+              "passed": true
+            },
+            {
+              "tensor": "dx",
+              "elements": 1048576,
+              "relative_l2": 0.004209541250020266,
+              "max_abs": 3.430523065617308e-07,
+              "bitwise_equal": false,
+              "passed": true
+            },
+            {
+              "tensor": "parameter/norm_weight",
+              "elements": 1024,
+              "relative_l2": 4.9985235506255776e-08,
+              "max_abs": 2.384185791015625e-07,
+              "bitwise_equal": false,
+              "passed": true
+            },
+            {
+              "tensor": "gradient/norm_weight",
+              "elements": 1024,
+              "relative_l2": 0.0007343743345700204,
+              "max_abs": 1.601001713424921e-06,
+              "bitwise_equal": false,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/norm_weight/step",
+              "elements": 1,
+              "relative_l2": 0.0,
+              "max_abs": 0.0,
+              "bitwise_equal": true,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/norm_weight/exp_avg",
+              "elements": 1024,
+              "relative_l2": 0.0002801469527184963,
+              "max_abs": 2.4313339963555336e-07,
+              "bitwise_equal": false,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/norm_weight/exp_avg_sq",
+              "elements": 1024,
+              "relative_l2": 0.0004363142070360482,
+              "max_abs": 3.813616089587413e-12,
+              "bitwise_equal": false,
+              "passed": true
+            },
+            {
+              "tensor": "parameter/norm_bias",
+              "elements": 1024,
+              "relative_l2": 0.0005272991838864982,
+              "max_abs": 1.841657649492845e-06,
+              "bitwise_equal": false,
+              "passed": true
+            },
+            {
+              "tensor": "gradient/norm_bias",
+              "elements": 1024,
+              "relative_l2": 0.0019684985745698214,
+              "max_abs": 1.546497514937073e-06,
+              "bitwise_equal": false,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/norm_bias/step",
+              "elements": 1,
+              "relative_l2": 0.0,
+              "max_abs": 0.0,
+              "bitwise_equal": true,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/norm_bias/exp_avg",
+              "elements": 1024,
+              "relative_l2": 0.0007242052815854549,
+              "max_abs": 2.0473817130550742e-07,
+              "bitwise_equal": false,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/norm_bias/exp_avg_sq",
+              "elements": 1024,
+              "relative_l2": 0.00045177683932706714,
+              "max_abs": 1.7609247393579608e-12,
+              "bitwise_equal": false,
+              "passed": true
+            },
+            {
+              "tensor": "parameter/w1",
+              "elements": 4194304,
+              "relative_l2": 1.2096611499146093e-05,
+              "max_abs": 1.5237368643283844e-05,
+              "bitwise_equal": false,
+              "passed": true
+            },
+            {
+              "tensor": "gradient/w1",
+              "elements": 4194304,
+              "relative_l2": 0.006364095024764538,
+              "max_abs": 9.838717232923955e-06,
+              "bitwise_equal": false,
+              "passed": false
+            },
+            {
+              "tensor": "adamw/w1/step",
+              "elements": 1,
+              "relative_l2": 0.0,
+              "max_abs": 0.0,
+              "bitwise_equal": true,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/w1/exp_avg",
+              "elements": 4194304,
+              "relative_l2": 0.0027454886585474014,
+              "max_abs": 9.824780136113986e-07,
+              "bitwise_equal": false,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/w1/exp_avg_sq",
+              "elements": 4194304,
+              "relative_l2": 0.0028951303102076054,
+              "max_abs": 1.6436435545941208e-12,
+              "bitwise_equal": false,
+              "passed": true
+            },
+            {
+              "tensor": "parameter/b1",
+              "elements": 4096,
+              "relative_l2": 0.00016036664601415396,
+              "max_abs": 2.3238826543092728e-06,
+              "bitwise_equal": false,
+              "passed": true
+            },
+            {
+              "tensor": "gradient/b1",
+              "elements": 4096,
+              "relative_l2": 0.0011848375434055924,
+              "max_abs": 2.6085035642609e-06,
+              "bitwise_equal": false,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/b1/step",
+              "elements": 1,
+              "relative_l2": 0.0,
+              "max_abs": 0.0,
+              "bitwise_equal": true,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/b1/exp_avg",
+              "elements": 4096,
+              "relative_l2": 0.00040158070623874664,
+              "max_abs": 2.770138962659985e-07,
+              "bitwise_equal": false,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/b1/exp_avg_sq",
+              "elements": 4096,
+              "relative_l2": 0.000320878520142287,
+              "max_abs": 1.3051365543859106e-12,
+              "bitwise_equal": false,
+              "passed": true
+            },
+            {
+              "tensor": "parameter/w2",
+              "elements": 4194304,
+              "relative_l2": 3.905926405423088e-06,
+              "max_abs": 9.825453162193298e-07,
+              "bitwise_equal": false,
+              "passed": true
+            },
+            {
+              "tensor": "gradient/w2",
+              "elements": 4194304,
+              "relative_l2": 0.0005783734377473593,
+              "max_abs": 6.854243110865355e-07,
+              "bitwise_equal": false,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/w2/step",
+              "elements": 1,
+              "relative_l2": 0.0,
+              "max_abs": 0.0,
+              "bitwise_equal": true,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/w2/exp_avg",
+              "elements": 4194304,
+              "relative_l2": 0.0002475063665769994,
+              "max_abs": 7.099333743099123e-08,
+              "bitwise_equal": false,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/w2/exp_avg_sq",
+              "elements": 4194304,
+              "relative_l2": 0.00011586074833758175,
+              "max_abs": 4.769518113789672e-13,
+              "bitwise_equal": false,
+              "passed": true
+            },
+            {
+              "tensor": "parameter/b2",
+              "elements": 1024,
+              "relative_l2": 8.497467206325382e-05,
+              "max_abs": 3.874902176903561e-07,
+              "bitwise_equal": false,
+              "passed": true
+            },
+            {
+              "tensor": "gradient/b2",
+              "elements": 1024,
+              "relative_l2": 0.00021449402265716344,
+              "max_abs": 2.7751957532018423e-07,
+              "bitwise_equal": false,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/b2/step",
+              "elements": 1,
+              "relative_l2": 0.0,
+              "max_abs": 0.0,
+              "bitwise_equal": true,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/b2/exp_avg",
+              "elements": 1024,
+              "relative_l2": 8.765198435867205e-05,
+              "max_abs": 2.8197973733767867e-08,
+              "bitwise_equal": false,
+              "passed": true
+            },
+            {
+              "tensor": "adamw/b2/exp_avg_sq",
+              "elements": 1024,
+              "relative_l2": 2.7543699616217054e-05,
+              "max_abs": 1.6930901125533637e-13,
+              "bitwise_equal": false,
+              "passed": true
+            }
+          ]
+        }
+      },
+      "inference_validation": {
+        "oa": {
+          "passed": true,
+          "require_bitwise": true,
+          "tensor_checks": [
+            {
+              "tensor": "output",
+              "elements": 1048576,
+              "relative_l2": 0.0,
+              "max_abs": 0.0,
+              "bitwise_equal": true,
+              "passed": true
+            }
+          ]
+        },
+        "ptxas": {
+          "passed": true,
+          "require_bitwise": true,
+          "tensor_checks": [
+            {
+              "tensor": "output",
+              "elements": 1048576,
+              "relative_l2": 0.0,
+              "max_abs": 0.0,
+              "bitwise_equal": true,
+              "passed": true
+            }
+          ]
+        }
+      },
+      "admitted_timing_methods": [
+        "oa",
+        "ptxas"
+      ],
+      "paired_orders": [
+        [
+          "ptxas",
+          "oa"
+        ],
+        [
+          "ptxas",
+          "oa"
+        ],
+        [
+          "ptxas",
+          "oa"
+        ],
+        [
+          "ptxas",
+          "oa"
+        ],
+        [
+          "oa",
+          "ptxas"
+        ],
+        [
+          "oa",
+          "ptxas"
+        ],
+        [
+          "oa",
+          "ptxas"
+        ],
+        [
+          "ptxas",
+          "oa"
+        ],
+        [
+          "ptxas",
+          "oa"
+        ],
+        [
+          "oa",
+          "ptxas"
+        ],
+        [
+          "ptxas",
+          "oa"
+        ],
+        [
+          "ptxas",
+          "oa"
+        ],
+        [
+          "ptxas",
+          "oa"
+        ],
+        [
+          "oa",
+          "ptxas"
+        ],
+        [
+          "oa",
+          "ptxas"
+        ]
+      ],
+      "training_samples_ms": {
+        "oa": [
+          2.411520004272461,
+          2.1565439701080322,
+          2.1237759590148926,
+          2.092031955718994,
+          2.0787200927734375,
+          2.0992000102996826,
+          2.091007947921753,
+          2.0736000537872314,
+          2.100224018096924,
+          2.120703935623169,
+          2.0971519947052,
+          2.075648069381714,
+          2.0828158855438232,
+          2.209791898727417,
+          2.0889599323272705
+        ],
+        "ptxas": [
+          2.287616014480591,
+          2.4586238861083984,
+          2.08076810836792,
+          2.0183041095733643,
+          2.08076810836792,
+          2.0254719257354736,
+          2.1913599967956543,
+          2.051071882247925,
+          2.027519941329956,
+          2.042880058288574,
+          2.0305919647216797,
+          2.0592639446258545,
+          1.99782395362854,
+          2.0387840270996094,
+          2.032639980316162
+        ]
+      },
+      "training_wall_samples_ms": {
+        "oa": [
+          2.464122000000124,
+          2.187239000000396,
+          2.1566740000000806,
+          2.1262879999994766,
+          2.1135179999998144,
+          2.131685000000161,
+          2.1233970000000824,
+          2.1074180000004716,
+          2.133310000000499,
+          2.1535169999999937,
+          2.128665000000751,
+          2.1090209999998777,
+          2.115927000000184,
+          2.242477999999437,
+          2.118894999999732
+        ],
+        "ptxas": [
+          2.3342130000001404,
+          2.4931869999997858,
+          2.112429999999499,
+          2.0524379999997677,
+          2.1143330000006344,
+          2.0566049999999336,
+          2.2235840000002227,
+          2.0850029999994746,
+          2.0610650000003616,
+          2.0748350000001636,
+          2.063832000000154,
+          2.0931189999995325,
+          2.0324939999998293,
+          2.069692999999262,
+          2.062544000000166
+        ]
+      },
+      "training_median_ms": {
+        "oa": 2.0971519947052,
+        "ptxas": 2.042880058288574
+      },
+      "inference_samples_ms": {
+        "oa": [
+          0.4485119879245758,
+          0.4556800127029419,
+          0.4505600035190582,
+          0.45977601408958435,
+          0.47308799624443054,
+          0.4679679870605469,
+          0.4638719856739044,
+          0.47513601183891296,
+          0.4761599898338318,
+          0.4689919948577881,
+          0.45158401131629944,
+          0.45158401131629944,
+          0.449535995721817,
+          0.44441598653793335,
+          0.45977601408958435
+        ],
+        "ptxas": [
+          0.32153600454330444,
+          0.40857601165771484,
+          0.4055039882659912,
+          0.4116480052471161,
+          0.39321601390838623,
+          0.3911679983139038,
+          0.5314559936523438,
+          0.40959998965263367,
+          0.39321601390838623,
+          0.39423999190330505,
+          0.4126720130443573,
+          0.4208639860153198,
+          0.39321601390838623,
+          0.39526399970054626,
+          0.38707199692726135
+        ]
+      },
+      "inference_wall_samples_ms": {
+        "oa": [
+          0.4773780000002503,
+          0.4840520000000126,
+          0.48101700000025005,
+          0.48981499999989353,
+          0.5019139999999922,
+          0.49632499999940904,
+          0.5109709999997492,
+          0.5047750000004569,
+          0.5051130000000015,
+          0.497349999999841,
+          0.47988399999976394,
+          0.4823109999998465,
+          0.4785449999999969,
+          0.4745430000001605,
+          0.49082299999980705
+        ],
+        "ptxas": [
+          0.44751400000020425,
+          0.43866800000014194,
+          0.43328299999956243,
+          0.44176600000067623,
+          0.42227000000050197,
+          0.42015899999992,
+          0.5609220000000192,
+          0.43922500000004305,
+          0.423193000000488,
+          0.4238069999997762,
+          0.4415829999997456,
+          0.4507589999995787,
+          0.42227600000011023,
+          0.42373700000020165,
+          0.43416200000034877
+        ]
+      },
+      "inference_median_ms": {
+        "oa": 0.45977601408958435,
+        "ptxas": 0.39526399970054626
+      },
+      "stage_timings_diagnostic": {
+        "oa": {
+          "layernorm_forward": {
+            "samples_ms": [
+              0.04608000069856644,
+              0.02252800017595291,
+              0.01945599913597107,
+              0.01945599913597107,
+              0.020479999482631683
+            ],
+            "median_ms": 0.020479999482631683,
+            "mean_ms": 0.025599999725818633,
+            "calls": 5
+          },
+          "fc1/forward_pack_cast": {
+            "samples_ms": [
+              0.05427199974656105,
+              0.028672000393271446,
+              0.027648000046610832,
+              0.02969600073993206,
+              0.028672000393271446
+            ],
+            "median_ms": 0.028672000393271446,
+            "mean_ms": 0.03379200026392937,
+            "calls": 5
+          },
+          "fc1/forward_gemm": {
+            "samples_ms": [
+              0.12697599828243256,
+              0.09625600278377533,
+              0.0870399996638298,
+              0.09523200243711472,
+              0.09625600278377533
+            ],
+            "median_ms": 0.09625600278377533,
+            "mean_ms": 0.10035200119018554,
+            "calls": 5
+          },
+          "fc1/bias": {
+            "samples_ms": [
+              0.03174399957060814,
+              0.03276799991726875,
+              0.03174399957060814,
+              0.03174399957060814,
+              0.030719999223947525
+            ],
+            "median_ms": 0.03174399957060814,
+            "mean_ms": 0.03174399957060814,
+            "calls": 5
+          },
+          "relu_forward": {
+            "samples_ms": [
+              0.02252800017595291,
+              0.02252800017595291,
+              0.023552000522613525,
+              0.02252800017595291,
+              0.02252800017595291
+            ],
+            "median_ms": 0.02252800017595291,
+            "mean_ms": 0.022732800245285033,
+            "calls": 5
+          },
+          "fc2/forward_pack_cast": {
+            "samples_ms": [
+              0.053247999399900436,
+              0.03891199827194214,
+              0.03993599861860275,
+              0.03993599861860275,
+              0.04095999896526337
+            ],
+            "median_ms": 0.03993599861860275,
+            "mean_ms": 0.04259839877486229,
+            "calls": 5
+          },
+          "fc2/forward_gemm": {
+            "samples_ms": [
+              0.1525759994983673,
+              0.15360000729560852,
+              0.12492799758911133,
+              0.12492799758911133,
+              0.12595200538635254
+            ],
+            "median_ms": 0.12595200538635254,
+            "mean_ms": 0.1363968014717102,
+            "calls": 5
+          },
+          "fc2/bias": {
+            "samples_ms": [
+              0.014336000196635723,
+              0.014336000196635723,
+              0.015359999611973763,
+              0.014336000196635723,
+              0.014336000196635723
+            ],
+            "median_ms": 0.014336000196635723,
+            "mean_ms": 0.01454080007970333,
+            "calls": 5
+          },
+          "residual_add": {
+            "samples_ms": [
+              0.014336000196635723,
+              0.014336000196635723,
+              0.014336000196635723,
+              0.015359999611973763,
+              0.014336000196635723
+            ],
+            "median_ms": 0.014336000196635723,
+            "mean_ms": 0.01454080007970333,
+            "calls": 5
+          },
+          "forward_total": {
+            "samples_ms": [
+              0.6932479739189148,
+              0.48230400681495667,
+              0.4331519901752472,
+              0.4413439929485321,
+              0.43827199935913086
+            ],
+            "median_ms": 0.4413439929485321,
+            "mean_ms": 0.4976639926433563,
+            "calls": 5
+          },
+          "loss_forward": {
+            "samples_ms": [
+              0.10342399775981903,
+              0.04403200000524521,
+              0.028672000393271446,
+              0.028672000393271446,
+              0.028672000393271446
+            ],
+            "median_ms": 0.028672000393271446,
+            "mean_ms": 0.046694399788975716,
+            "calls": 5
+          },
+          "fc2/backward_pack_cast_transpose": {
+            "samples_ms": [
+              0.19660800695419312,
+              0.18329599499702454,
+              0.1802240014076233,
+              0.1802240014076233,
+              0.18432000279426575
+            ],
+            "median_ms": 0.18329599499702454,
+            "mean_ms": 0.184934401512146,
+            "calls": 5
+          },
+          "fc2/dx_gemm": {
+            "samples_ms": [
+              0.0942080020904541,
+              0.0942080020904541,
+              0.09523200243711472,
+              0.0942080020904541,
+              0.09728000313043594
+            ],
+            "median_ms": 0.0942080020904541,
+            "mean_ms": 0.09502720236778259,
+            "calls": 5
+          },
+          "fc2/dw_gemm": {
+            "samples_ms": [
+              0.0942080020904541,
+              0.0942080020904541,
+              0.09728000313043594,
+              0.09318400174379349,
+              0.09523200243711472
+            ],
+            "median_ms": 0.0942080020904541,
+            "mean_ms": 0.09482240229845047,
+            "calls": 5
+          },
+          "fc2/bias_gradient": {
+            "samples_ms": [
+              0.02457600086927414,
+              0.023552000522613525,
+              0.023552000522613525,
+              0.025599999353289604,
+              0.023552000522613525
+            ],
+            "median_ms": 0.023552000522613525,
+            "mean_ms": 0.024166400358080865,
+            "calls": 5
+          },
+          "relu_backward": {
+            "samples_ms": [
+              0.06348799914121628,
+              0.06451199948787689,
+              0.06348799914121628,
+              0.06348799914121628,
+              0.062463998794555664
+            ],
+            "median_ms": 0.06348799914121628,
+            "mean_ms": 0.06348799914121628,
+            "calls": 5
+          },
+          "fc1/backward_pack_cast_transpose": {
+            "samples_ms": [
+              0.17919999361038208,
+              0.158720001578331,
+              0.159743994474411,
+              0.158720001578331,
+              0.15564799308776855
+            ],
+            "median_ms": 0.158720001578331,
+            "mean_ms": 0.16240639686584474,
+            "calls": 5
+          },
+          "fc1/dx_gemm": {
+            "samples_ms": [
+              0.12595200538635254,
+              0.12492799758911133,
+              0.12800000607967377,
+              0.12492799758911133,
+              0.12595200538635254
+            ],
+            "median_ms": 0.12595200538635254,
+            "mean_ms": 0.1259520024061203,
+            "calls": 5
+          },
+          "fc1/dw_gemm": {
+            "samples_ms": [
+              0.09523200243711472,
+              0.09523200243711472,
+              0.0942080020904541,
+              0.09625600278377533,
+              0.09318400174379349
+            ],
+            "median_ms": 0.09523200243711472,
+            "mean_ms": 0.09482240229845047,
+            "calls": 5
+          },
+          "fc1/bias_gradient": {
+            "samples_ms": [
+              0.03686400130391121,
+              0.035840000957250595,
+              0.035840000957250595,
+              0.035840000957250595,
+              0.03686400130391121
+            ],
+            "median_ms": 0.035840000957250595,
+            "mean_ms": 0.03624960109591484,
+            "calls": 5
+          },
+          "layernorm_backward": {
+            "samples_ms": [
+              0.03276799991726875,
+              0.03174399957060814,
+              0.035840000957250595,
+              0.03276799991726875,
+              0.03276799991726875
+            ],
+            "median_ms": 0.03276799991726875,
+            "mean_ms": 0.033177600055932996,
+            "calls": 5
+          },
+          "backward_total": {
+            "samples_ms": [
+              1.3383680582046509,
+              1.1704319715499878,
+              1.1304960250854492,
+              1.1284480094909668,
+              1.112064003944397
+            ],
+            "median_ms": 1.1304960250854492,
+            "mean_ms": 1.1759616136550903,
+            "calls": 5
+          },
+          "adamw": {
+            "samples_ms": [
+              0.796671986579895,
+              0.7260159850120544,
+              0.6768640279769897,
+              0.6809599995613098,
+              0.711679995059967
+            ],
+            "median_ms": 0.711679995059967,
+            "mean_ms": 0.7184383988380432,
+            "calls": 5
+          },
+          "step_total": {
+            "samples_ms": [
+              3.140608072280884,
+              2.4586238861083984,
+              2.2906880378723145,
+              2.303999900817871,
+              2.3214080333709717
+            ],
+            "median_ms": 2.3214080333709717,
+            "mean_ms": 2.503065586090088,
+            "calls": 5
+          }
+        },
+        "ptxas": {
+          "layernorm_forward": {
+            "samples_ms": [
+              0.04915200173854828,
+              0.020479999482631683,
+              0.01945599913597107,
+              0.01945599913597107,
+              0.020479999482631683
+            ],
+            "median_ms": 0.020479999482631683,
+            "mean_ms": 0.025804799795150758,
+            "calls": 5
+          },
+          "fc1/forward_pack_cast": {
+            "samples_ms": [
+              0.05632000043988228,
+              0.05632000043988228,
+              0.028672000393271446,
+              0.027648000046610832,
+              0.028672000393271446
+            ],
+            "median_ms": 0.028672000393271446,
+            "mean_ms": 0.03952640034258366,
+            "calls": 5
+          },
+          "fc1/forward_gemm": {
+            "samples_ms": [
+              0.10035199671983719,
+              0.11776000261306763,
+              0.06860800087451935,
+              0.07065600156784058,
+              0.06758400052785873
+            ],
+            "median_ms": 0.07065600156784058,
+            "mean_ms": 0.08499200046062469,
+            "calls": 5
+          },
+          "fc1/bias": {
+            "samples_ms": [
+              0.03276799991726875,
+              0.03174399957060814,
+              0.03174399957060814,
+              0.03276799991726875,
+              0.03276799991726875
+            ],
+            "median_ms": 0.03276799991726875,
+            "mean_ms": 0.03235839977860451,
+            "calls": 5
+          },
+          "relu_forward": {
+            "samples_ms": [
+              0.02252800017595291,
+              0.03993599861860275,
+              0.02252800017595291,
+              0.023552000522613525,
+              0.02252800017595291
+            ],
+            "median_ms": 0.02252800017595291,
+            "mean_ms": 0.026214399933815004,
+            "calls": 5
+          },
+          "fc2/forward_pack_cast": {
+            "samples_ms": [
+              0.05734400078654289,
+              0.07680000364780426,
+              0.03993599861860275,
+              0.04095999896526337,
+              0.03891199827194214
+            ],
+            "median_ms": 0.04095999896526337,
+            "mean_ms": 0.05079040005803108,
+            "calls": 5
+          },
+          "fc2/forward_gemm": {
+            "samples_ms": [
+              0.11878400295972824,
+              0.12185599654912949,
+              0.09011200070381165,
+              0.09011200070381165,
+              0.0942080020904541
+            ],
+            "median_ms": 0.0942080020904541,
+            "mean_ms": 0.10301440060138703,
+            "calls": 5
+          },
+          "fc2/bias": {
+            "samples_ms": [
+              0.03686400130391121,
+              0.016383999958634377,
+              0.014336000196635723,
+              0.014336000196635723,
+              0.014336000196635723
+            ],
+            "median_ms": 0.014336000196635723,
+            "mean_ms": 0.01925120037049055,
+            "calls": 5
+          },
+          "residual_add": {
+            "samples_ms": [
+              0.028672000393271446,
+              0.014336000196635723,
+              0.016383999958634377,
+              0.013311999849975109,
+              0.014336000196635723
+            ],
+            "median_ms": 0.014336000196635723,
+            "mean_ms": 0.017408000119030476,
+            "calls": 5
+          },
+          "forward_total": {
+            "samples_ms": [
+              0.7956479787826538,
+              0.6174719929695129,
+              0.37990400195121765,
+              0.37785598635673523,
+              0.38707199692726135
+            ],
+            "median_ms": 0.38707199692726135,
+            "mean_ms": 0.5115903913974762,
+            "calls": 5
+          },
+          "loss_forward": {
+            "samples_ms": [
+              0.07372800260782242,
+              0.0942080020904541,
+              0.0655359998345375,
+              0.06758400052785873,
+              0.07475200295448303
+            ],
+            "median_ms": 0.07372800260782242,
+            "mean_ms": 0.07516160160303116,
+            "calls": 5
+          },
+          "fc2/backward_pack_cast_transpose": {
+            "samples_ms": [
+              0.1812479943037033,
+              0.1945600062608719,
+              0.18534399569034576,
+              0.19148799777030945,
+              0.18534399569034576
+            ],
+            "median_ms": 0.18534399569034576,
+            "mean_ms": 0.18759679794311523,
+            "calls": 5
+          },
+          "fc2/dx_gemm": {
+            "samples_ms": [
+              0.06963200122117996,
+              0.06860800087451935,
+              0.06758400052785873,
+              0.06963200122117996,
+              0.07065600156784058
+            ],
+            "median_ms": 0.06963200122117996,
+            "mean_ms": 0.06922240108251572,
+            "calls": 5
+          },
+          "fc2/dw_gemm": {
+            "samples_ms": [
+              0.06860800087451935,
+              0.06963200122117996,
+              0.06860800087451935,
+              0.06758400052785873,
+              0.06860800087451935
+            ],
+            "median_ms": 0.06860800087451935,
+            "mean_ms": 0.06860800087451935,
+            "calls": 5
+          },
+          "fc2/bias_gradient": {
+            "samples_ms": [
+              0.02457600086927414,
+              0.02457600086927414,
+              0.025599999353289604,
+              0.02457600086927414,
+              0.023552000522613525
+            ],
+            "median_ms": 0.02457600086927414,
+            "mean_ms": 0.02457600049674511,
+            "calls": 5
+          },
+          "relu_backward": {
+            "samples_ms": [
+              0.07884799689054489,
+              0.10956799983978271,
+              0.06348799914121628,
+              0.08499199897050858,
+              0.08089599758386612
+            ],
+            "median_ms": 0.08089599758386612,
+            "mean_ms": 0.08355839848518372,
+            "calls": 5
+          },
+          "fc1/backward_pack_cast_transpose": {
+            "samples_ms": [
+              0.1802240014076233,
+              0.18227200210094452,
+              0.17919999361038208,
+              0.1802240014076233,
+              0.17817600071430206
+            ],
+            "median_ms": 0.1802240014076233,
+            "mean_ms": 0.18001919984817505,
+            "calls": 5
+          },
+          "fc1/dx_gemm": {
+            "samples_ms": [
+              0.09216000139713287,
+              0.09318400174379349,
+              0.09216000139713287,
+              0.09216000139713287,
+              0.09011200070381165
+            ],
+            "median_ms": 0.09216000139713287,
+            "mean_ms": 0.09195520132780075,
+            "calls": 5
+          },
+          "fc1/dw_gemm": {
+            "samples_ms": [
+              0.06860800087451935,
+              0.06860800087451935,
+              0.06963200122117996,
+              0.06758400052785873,
+              0.06860800087451935
+            ],
+            "median_ms": 0.06860800087451935,
+            "mean_ms": 0.06860800087451935,
+            "calls": 5
+          },
+          "fc1/bias_gradient": {
+            "samples_ms": [
+              0.03481600061058998,
+              0.035840000957250595,
+              0.03481600061058998,
+              0.035840000957250595,
+              0.03686400130391121
+            ],
+            "median_ms": 0.035840000957250595,
+            "mean_ms": 0.035635200887918474,
+            "calls": 5
+          },
+          "layernorm_backward": {
+            "samples_ms": [
+              0.03276799991726875,
+              0.03481600061058998,
+              0.03276799991726875,
+              0.03276799991726875,
+              0.03276799991726875
+            ],
+            "median_ms": 0.03276799991726875,
+            "mean_ms": 0.033177600055932996,
+            "calls": 5
+          },
+          "backward_total": {
+            "samples_ms": [
+              1.218559980392456,
+              1.2472319602966309,
+              1.1182080507278442,
+              1.2421120405197144,
+              1.1212799549102783
+            ],
+            "median_ms": 1.218559980392456,
+            "mean_ms": 1.1894783973693848,
+            "calls": 5
+          },
+          "adamw": {
+            "samples_ms": [
+              0.8806399703025818,
+              0.7260159850120544,
+              0.7342079877853394,
+              0.7157760262489319,
+              0.7065600156784058
+            ],
+            "median_ms": 0.7260159850120544,
+            "mean_ms": 0.7526399970054627,
+            "calls": 5
+          },
+          "step_total": {
+            "samples_ms": [
+              3.127295970916748,
+              2.737152099609375,
+              2.342911958694458,
+              2.4483840465545654,
+              2.347007989883423
+            ],
+            "median_ms": 2.4483840465545654,
+            "mean_ms": 2.600550413131714,
+            "calls": 5
+          }
+        }
+      }
+    }
+  ],
+  "builds": {
+    "512_512_2048": {
+      "shape": [
+        512,
+        512,
+        2048
+      ],
+      "oa_sha256": "ebc8d878a50d3355c51256a1e35aec0248426f4aceaa0bd44135586ba4379114",
+      "ptxas_sha256": "b347c0fb5890fc597d8907d3be60404f30abd5107668ca0d77f96a303def96be",
+      "manifest_sha256": "f5dde7958b6c340f1b4bacbbf5a8202a2683e20908994ab24aeeb682f9f06804"
+    },
+    "512_2048_512": {
+      "shape": [
+        512,
+        2048,
+        512
+      ],
+      "oa_sha256": "fcfe8fbbb216089c2287cde84f711874cd76de11110aff31ecc318f0fb41c027",
+      "ptxas_sha256": "53856fe8c588971417f4445ca7432099da617658dc9c91371094917f99fc2704",
+      "manifest_sha256": "e3491fe25d7b587bdb626fa41c0f38ebd8dde8ba2ff78c297398ed9e8212e57b"
+    },
+    "1024_1024_4096": {
+      "shape": [
+        1024,
+        1024,
+        4096
+      ],
+      "oa_sha256": "17fd6c2e0f361bb9b864fb50638c7a4577a14843cd29bdedbf046000449c7a6b",
+      "ptxas_sha256": "e940f3114d13abc45119281baa62b3f60932c2d87bc75084a1998af3515eeac8",
+      "manifest_sha256": "c7a2d97a4224f47c8b97b80f33e52346fb6a9bad022eea990dd493c3005b7fc6"
+    },
+    "1024_4096_1024": {
+      "shape": [
+        1024,
+        4096,
+        1024
+      ],
+      "oa_sha256": "ab858b089f001889758380613c4e2f3437505eb428f965af04177f8ac3b540ab",
+      "ptxas_sha256": "81e8f9a01f4e81fa9cb31924212bc408f1a612250a0faad74901fd3639db503d",
+      "manifest_sha256": "8a1005765669fec349bed895e314edd1ea5002590db572a3327b91a2875d6eea"
+    },
+    "2048_512_512": {
+      "shape": [
+        2048,
+        512,
+        512
+      ],
+      "oa_sha256": "822828d4378e9d43476315a828dbe0456bf59e400fee97963bfc123889d29bab",
+      "ptxas_sha256": "40068900d69e1a6bb2a57de291a84540ebd761861e339bbef1e084018e0321f0",
+      "manifest_sha256": "b4cd92db35b1d0d158808bad1593709f7dbb2cfaa0175d3bb9dcf885e695c622"
+    },
+    "4096_1024_1024": {
+      "shape": [
+        4096,
+        1024,
+        1024
+      ],
+      "oa_sha256": "fa492b3e01fae8f9ad70da7b4e66b028d06044bfcc2aa75b94d9979225e2db3e",
+      "ptxas_sha256": "35c57a89805176b16464256c9c64dd8038532afd917dd3a1ee99eaeed5232495",
+      "manifest_sha256": "e6fb376b197af7a5e1a37b9f12c97bc2e48e2e04d91c31276849df67bcd4886d"
+    }
+  },
+  "timestamp_utc": "2026-11-06T10:58:01.256906+00:00",
+  "harness_sha256": "c7ec8bc39e563a7acdaea971303b6fbfbed32838fd8d0963ad141e2181b7b97b"
+}

@@ -1,0 +1,16 @@
+[application]
+frontend = "torch"
+entrypoint = "model.py"
+args = ["--mode", "train", "--batch", "2", "--seq", "32", "--width", "64", "--heads", "4", "--layers", "1", "--vocab", "256", "--steps", "3", "--warmup", "2"]
+requirements = []
+seed = 1729
+torch = "2.7.1"
+build_backend = "modal"
+gpu = "A100-40GB"
+budget = 600
+job_timeout = 480
+verification = "state"
+rtol = 0.001
+atol = 0.0001
+state_rtol = 0.02
+state_atol = 0.002

@@ -1,6 +1,6 @@
 # A100 MMA and Training-Kernel Research Ledger
 
-Last consolidated: 2026-11-05. Target: NVIDIA A100-SXM4-40GB (SM80) unless a
+Last consolidated: 2026-11-06. Target: NVIDIA A100-SXM4-40GB (SM80) unless a
 row explicitly says otherwise. The experiments compare a mix of compiler
 kernels, ptxas, cuBLAS/cuBLASLt, and non-OpenAssembler prototypes. They do not
 all use the same numerical contract. Each claim below states its actual
@@ -28,7 +28,9 @@ baseline and scope.
    earlier direct experimental schedule it reduced time16.13–26.69% over six
    FP16/BF16 square, MLP and tall workloads. It reached79.76–98.91% of matched
    default cuBLAS in the phase-three final run. Later cuBLASLt comparisons
-   exposed a remaining gap. No whole-training-step result exists.
+   exposed a remaining gap. The later whole-stack study covers bounded hybrid
+   MLP and Inductor-backed transformer steps; no all-native OA transformer
+   training speedup is established.
 2. A four-wide software pipeline and larger CTA/warp tiles were not general
    wins. Three/four shared stages, software producer warps, tested asymmetric
    swizzles and bounded fragment windows did not beat the selected direct
@@ -426,6 +428,14 @@ performed.
 | Whole transformer fusion | Possible but resource-/semantics-bound | One GEMM epilogue measured. No full forward/backward training step. |
 
 ## Next research priorities
+
+The November 6 [whole-stack and native-stage study](WHOLE_STACK_RESULTS.md)
+now adds ten transformer application configurations, native-GEMM hybrid MLP
+steps, scalar neural stages and six matched GEMM profiles. The transformer
+frontend uses Inductor/Triton; the native MLPs explicitly include packing and
+shared CUDA operations. Two BF16 transformer comparisons and one larger MLP
+cuBLAS state comparison fail numerical gates. These bounded step measurements
+do not establish all-native LLM pretraining acceleration.
 
 1. **Close the measured direct-kernel gap with counters.** Matched OA/ptxas/
    cuBLAS profiles now cover tensor issue, shared-bank traffic, scoreboards and

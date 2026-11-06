@@ -8,7 +8,7 @@ these documents:
 |---|---|
 | [A100 MMA results](A100_MMA_RESULTS.md) | Full chronological ledger of A100 tensor-core research, including positive, negative, failed and superseded results. |
 | [A100 counter profiles, 2026-11-05](A100_COUNTERS_20261105.md) | Matched OA, ptxas and cuBLAS measurements, counter replays, repeatability notes and harness failures. |
-| [A100 counter replay, 2026-11-05](A100_COUNTERS_20261105.md) | Current matched A100 NCU profiles for the tall direct OA and ptxas kernels, including a repeat run. |
+| [Whole-stack and stage results, 2026-11-06](WHOLE_STACK_RESULTS.md) | Ten transformer configurations, native-GEMM hybrid MLPs, scalar neural operators, complete CLI replay proof and numerical failures. |
 | [Scalar compiler results](SCALAR_COMPILER_RESULTS.md) | Scalar A100 timing, cubin/encoding findings, compiler scheduling evidence and FP32 AlphaTensor study. |
 | [A100 compiler contract](A100_MMA_COMPILER.md) | Current production SM80 GEMM compiler behavior, measurements, supported options and limits. |
 | [SASS reverse engineering](REVERSE_ENGINEERING.md) | Methods, verified findings, evidence levels and links to the detailed encoding/cubin/bridge notes. |
