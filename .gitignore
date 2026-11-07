@@ -56,6 +56,8 @@ exp/a100_mma/*pytest*-cache/
 exp/a100_mma/*pytest*-temp/
 exp/a100_mma/runs/
 **/.build/writer.lock
+testcases/
+
 
 # Unecessary files for open source
 docs/paper
