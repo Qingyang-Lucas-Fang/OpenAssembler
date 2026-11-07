@@ -1,0 +1,2419 @@
+{
+  "schema": 1,
+  "generated_utc": "2026-11-07T14:45:00.747770+00:00",
+  "source_file": "exp/nn_round2/runs/operator-standard-fma-20261107T144401.126097Z.json",
+  "source_sha256": "c49087fcb8fbbfb7c415170063948ee9080ab06919d5dccf2ee324ccfc0b2697",
+  "runtime": {
+    "torch": "2.7.1+cu128",
+    "cuda": "12.8",
+    "name": "NVIDIA A100-SXM4-40GB",
+    "cc": "8.0",
+    "driver": 13030,
+    "sm_count": 108,
+    "clock_khz": 1410000,
+    "mem_bytes": 42429251584
+  },
+  "total_cases": 64,
+  "statuses": {
+    "ok": 64
+  },
+  "paired_settings": 32,
+  "same_inputs_verified_by_seed": true,
+  "precision": "original unchanged per-op FP64 gates; explicit FMA changes local rounding, ptxas previously may contract unconstrained operations",
+  "pairs": [
+    {
+      "round": 0,
+      "op": "softmax_backward",
+      "shape": [
+        1024,
+        512
+      ],
+      "threads": 128,
+      "input_seed": 2252188612,
+      "baseline_over_fma": {
+        "oa": 0.9488636607922128,
+        "ptxas": 0.9457364690869925
+      },
+      "median_us": {
+        "fma": {
+          "oa": 5.632000043988228,
+          "ptxas": 4.127999767661095
+        },
+        "baseline": {
+          "oa": 5.344000179320574,
+          "ptxas": 3.903999924659729
+        }
+      },
+      "resources": {
+        "fma": {
+          "oa": {
+            "max_threads": 1024,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 41,
+            "ptx_version": 80,
+            "binary_version": 80
+          },
+          "ptxas": {
+            "max_threads": 1024,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 40,
+            "ptx_version": 80,
+            "binary_version": 80
+          }
+        },
+        "baseline": {
+          "oa": {
+            "max_threads": 1024,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 53,
+            "ptx_version": 80,
+            "binary_version": 80
+          },
+          "ptxas": {
+            "max_threads": 1024,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 40,
+            "ptx_version": 80,
+            "binary_version": 80
+          }
+        }
+      },
+      "fma_ptxas_over_oa": 0.7329544984765137
+    },
+    {
+      "round": 0,
+      "op": "softmax_backward",
+      "shape": [
+        4096,
+        512
+      ],
+      "threads": 128,
+      "input_seed": 1883342658,
+      "baseline_over_fma": {
+        "oa": 1.1785714257158724,
+        "ptxas": 0.9463087064792745
+      },
+      "median_us": {
+        "fma": {
+          "oa": 11.648000217974186,
+          "ptxas": 9.535999968647957
+        },
+        "baseline": {
+          "oa": 13.728000223636627,
+          "ptxas": 9.02399979531765
+        }
+      },
+      "resources": {
+        "fma": {
+          "oa": {
+            "max_threads": 1024,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 41,
+            "ptx_version": 80,
+            "binary_version": 80
+          },
+          "ptxas": {
+            "max_threads": 1024,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 40,
+            "ptx_version": 80,
+            "binary_version": 80
+          }
+        },
+        "baseline": {
+          "oa": {
+            "max_threads": 1024,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 53,
+            "ptx_version": 80,
+            "binary_version": 80
+          },
+          "ptxas": {
+            "max_threads": 1024,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 40,
+            "ptx_version": 80,
+            "binary_version": 80
+          }
+        }
+      },
+      "fma_ptxas_over_oa": 0.8186813006693481
+    },
+    {
+      "round": 0,
+      "op": "rmsnorm_backward",
+      "shape": [
+        1024,
+        1024
+      ],
+      "threads": 256,
+      "input_seed": 898182588,
+      "baseline_over_fma": {
+        "oa": 1.0031055232561292,
+        "ptxas": 0.9792531353338976
+      },
+      "median_us": {
+        "baseline": {
+          "oa": 10.33599954098463,
+          "ptxas": 7.552000228315592
+        },
+        "fma": {
+          "oa": 10.304000228643417,
+          "ptxas": 7.712000049650669
+        }
+      },
+      "resources": {
+        "baseline": {
+          "oa": {
+            "max_threads": 512,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 106,
+            "ptx_version": 80,
+            "binary_version": 80
+          },
+          "ptxas": {
+            "max_threads": 896,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 72,
+            "ptx_version": 80,
+            "binary_version": 80
+          }
+        },
+        "fma": {
+          "oa": {
+            "max_threads": 768,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 74,
+            "ptx_version": 80,
+            "binary_version": 80
+          },
+          "ptxas": {
+            "max_threads": 896,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 72,
+            "ptx_version": 80,
+            "binary_version": 80
+          }
+        }
+      },
+      "fma_ptxas_over_oa": 0.748447193179653
+    },
+    {
+      "round": 0,
+      "op": "rmsnorm_backward",
+      "shape": [
+        4096,
+        1024
+      ],
+      "threads": 256,
+      "input_seed": 4185746945,
+      "baseline_over_fma": {
+        "oa": 1.2311926418680907,
+        "ptxas": 1.0
+      },
+      "median_us": {
+        "baseline": {
+          "oa": 64.41599875688553,
+          "ptxas": 40.57599976658821
+        },
+        "fma": {
+          "oa": 52.319999784231186,
+          "ptxas": 40.57599976658821
+        }
+      },
+      "resources": {
+        "baseline": {
+          "oa": {
+            "max_threads": 512,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 106,
+            "ptx_version": 80,
+            "binary_version": 80
+          },
+          "ptxas": {
+            "max_threads": 896,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 72,
+            "ptx_version": 80,
+            "binary_version": 80
+          }
+        },
+        "fma": {
+          "oa": {
+            "max_threads": 768,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 74,
+            "ptx_version": 80,
+            "binary_version": 80
+          },
+          "ptxas": {
+            "max_threads": 896,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 72,
+            "ptx_version": 80,
+            "binary_version": 80
+          }
+        }
+      },
+      "fma_ptxas_over_oa": 0.775535166932808
+    },
+    {
+      "round": 0,
+      "op": "rmsnorm_backward",
+      "shape": [
+        1024,
+        512
+      ],
+      "threads": 256,
+      "input_seed": 495384244,
+      "baseline_over_fma": {
+        "oa": 0.9799999927240423,
+        "ptxas": 0.980645107988823
+      },
+      "median_us": {
+        "baseline": {
+          "oa": 6.271999794989824,
+          "ptxas": 4.863999783992767
+        },
+        "fma": {
+          "oa": 6.399999838322401,
+          "ptxas": 4.9600000493228436
+        }
+      },
+      "resources": {
+        "baseline": {
+          "oa": {
+            "max_threads": 1024,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 58,
+            "ptx_version": 80,
+            "binary_version": 80
+          },
+          "ptxas": {
+            "max_threads": 1024,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 40,
+            "ptx_version": 80,
+            "binary_version": 80
+          }
+        },
+        "fma": {
+          "oa": {
+            "max_threads": 1024,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 42,
+            "ptx_version": 80,
+            "binary_version": 80
+          },
+          "ptxas": {
+            "max_threads": 1024,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 40,
+            "ptx_version": 80,
+            "binary_version": 80
+          }
+        }
+      },
+      "fma_ptxas_over_oa": 0.7750000272848417
+    },
+    {
+      "round": 0,
+      "op": "rmsnorm_backward",
+      "shape": [
+        4096,
+        512
+      ],
+      "threads": 256,
+      "input_seed": 2738241648,
+      "baseline_over_fma": {
+        "oa": 1.291989701004398,
+        "ptxas": 0.9820358790964184
+      },
+      "median_us": {
+        "baseline": {
+          "oa": 16.00000075995922,
+          "ptxas": 10.495999827980995
+        },
+        "fma": {
+          "oa": 12.384000234305859,
+          "ptxas": 10.688000358641148
+        }
+      },
+      "resources": {
+        "baseline": {
+          "oa": {
+            "max_threads": 1024,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 58,
+            "ptx_version": 80,
+            "binary_version": 80
+          },
+          "ptxas": {
+            "max_threads": 1024,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 40,
+            "ptx_version": 80,
+            "binary_version": 80
+          }
+        },
+        "fma": {
+          "oa": {
+            "max_threads": 1024,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 42,
+            "ptx_version": 80,
+            "binary_version": 80
+          },
+          "ptxas": {
+            "max_threads": 1024,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 40,
+            "ptx_version": 80,
+            "binary_version": 80
+          }
+        }
+      },
+      "fma_ptxas_over_oa": 0.8630491082383467
+    },
+    {
+      "round": 0,
+      "op": "softmax_backward",
+      "shape": [
+        1024,
+        1024
+      ],
+      "threads": 256,
+      "input_seed": 4145730189,
+      "baseline_over_fma": {
+        "oa": 1.0,
+        "ptxas": 1.0
+      },
+      "median_us": {
+        "fma": {
+          "oa": 9.727999567985535,
+          "ptxas": 7.455999962985516
+        },
+        "baseline": {
+          "oa": 9.727999567985535,
+          "ptxas": 7.455999962985516
+        }
+      },
+      "resources": {
+        "fma": {
+          "oa": {
+            "max_threads": 768,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 73,
+            "ptx_version": 80,
+            "binary_version": 80
+          },
+          "ptxas": {
+            "max_threads": 896,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 72,
+            "ptx_version": 80,
+            "binary_version": 80
+          }
+        },
+        "baseline": {
+          "oa": {
+            "max_threads": 512,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 101,
+            "ptx_version": 80,
+            "binary_version": 80
+          },
+          "ptxas": {
+            "max_threads": 896,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 72,
+            "ptx_version": 80,
+            "binary_version": 80
+          }
+        }
+      },
+      "fma_ptxas_over_oa": 0.7664473986535648
+    },
+    {
+      "round": 0,
+      "op": "softmax_backward",
+      "shape": [
+        4096,
+        1024
+      ],
+      "threads": 256,
+      "input_seed": 3130555333,
+      "baseline_over_fma": {
+        "oa": 1.2059186065990406,
+        "ptxas": 0.998433908457259
+      },
+      "median_us": {
+        "fma": {
+          "oa": 51.90400034189224,
+          "ptxas": 40.863998234272
+        },
+        "baseline": {
+          "oa": 62.591999769210815,
+          "ptxas": 40.800001472234726
+        }
+      },
+      "resources": {
+        "fma": {
+          "oa": {
+            "max_threads": 768,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 73,
+            "ptx_version": 80,
+            "binary_version": 80
+          },
+          "ptxas": {
+            "max_threads": 896,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 72,
+            "ptx_version": 80,
+            "binary_version": 80
+          }
+        },
+        "baseline": {
+          "oa": {
+            "max_threads": 512,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 101,
+            "ptx_version": 80,
+            "binary_version": 80
+          },
+          "ptxas": {
+            "max_threads": 896,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 72,
+            "ptx_version": 80,
+            "binary_version": 80
+          }
+        }
+      },
+      "fma_ptxas_over_oa": 0.7872995908812497
+    },
+    {
+      "round": 0,
+      "op": "rmsnorm_backward",
+      "shape": [
+        1024,
+        1024
+      ],
+      "threads": 128,
+      "input_seed": 898182588,
+      "baseline_over_fma": {
+        "oa": 1.0,
+        "ptxas": 1.0099009936653063
+      },
+      "median_us": {
+        "fma": {
+          "oa": 9.8879998549819,
+          "ptxas": 6.463999859988689
+        },
+        "baseline": {
+          "oa": 9.8879998549819,
+          "ptxas": 6.527999881654978
+        }
+      },
+      "resources": {
+        "fma": {
+          "oa": {
+            "max_threads": 768,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 74,
+            "ptx_version": 80,
+            "binary_version": 80
+          },
+          "ptxas": {
+            "max_threads": 896,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 72,
+            "ptx_version": 80,
+            "binary_version": 80
+          }
+        },
+        "baseline": {
+          "oa": {
+            "max_threads": 512,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 106,
+            "ptx_version": 80,
+            "binary_version": 80
+          },
+          "ptxas": {
+            "max_threads": 896,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 72,
+            "ptx_version": 80,
+            "binary_version": 80
+          }
+        }
+      },
+      "fma_ptxas_over_oa": 0.6537216782757045
+    },
+    {
+      "round": 0,
+      "op": "rmsnorm_backward",
+      "shape": [
+        4096,
+        1024
+      ],
+      "threads": 128,
+      "input_seed": 4185746945,
+      "baseline_over_fma": {
+        "oa": 1.233766289865949,
+        "ptxas": 1.0
+      },
+      "median_us": {
+        "fma": {
+          "oa": 51.7439991235733,
+          "ptxas": 40.832001715898514
+        },
+        "baseline": {
+          "oa": 63.840001821517944,
+          "ptxas": 40.832001715898514
+        }
+      },
+      "resources": {
+        "fma": {
+          "oa": {
+            "max_threads": 768,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 74,
+            "ptx_version": 80,
+            "binary_version": 80
+          },
+          "ptxas": {
+            "max_threads": 896,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 72,
+            "ptx_version": 80,
+            "binary_version": 80
+          }
+        },
+        "baseline": {
+          "oa": {
+            "max_threads": 512,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 106,
+            "ptx_version": 80,
+            "binary_version": 80
+          },
+          "ptxas": {
+            "max_threads": 896,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 72,
+            "ptx_version": 80,
+            "binary_version": 80
+          }
+        }
+      },
+      "fma_ptxas_over_oa": 0.7891156927856481
+    },
+    {
+      "round": 0,
+      "op": "rmsnorm_backward",
+      "shape": [
+        1024,
+        512
+      ],
+      "threads": 128,
+      "input_seed": 495384244,
+      "baseline_over_fma": {
+        "oa": 0.9427082780689002,
+        "ptxas": 0.9398497104387566
+      },
+      "median_us": {
+        "fma": {
+          "oa": 6.144000217318535,
+          "ptxas": 4.255999810993671
+        },
+        "baseline": {
+          "oa": 5.791999865323305,
+          "ptxas": 4.000000189989805
+        }
+      },
+      "resources": {
+        "fma": {
+          "oa": {
+            "max_threads": 1024,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 42,
+            "ptx_version": 80,
+            "binary_version": 80
+          },
+          "ptxas": {
+            "max_threads": 1024,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 40,
+            "ptx_version": 80,
+            "binary_version": 80
+          }
+        },
+        "baseline": {
+          "oa": {
+            "max_threads": 1024,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 58,
+            "ptx_version": 80,
+            "binary_version": 80
+          },
+          "ptxas": {
+            "max_threads": 1024,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 40,
+            "ptx_version": 80,
+            "binary_version": 80
+          }
+        }
+      },
+      "fma_ptxas_over_oa": 0.6927082780689002
+    },
+    {
+      "round": 0,
+      "op": "rmsnorm_backward",
+      "shape": [
+        4096,
+        512
+      ],
+      "threads": 128,
+      "input_seed": 2738241648,
+      "baseline_over_fma": {
+        "oa": 1.2753247363892155,
+        "ptxas": 0.9337349603543584
+      },
+      "median_us": {
+        "fma": {
+          "oa": 12.319999746978283,
+          "ptxas": 10.623999871313572
+        },
+        "baseline": {
+          "oa": 15.71200042963028,
+          "ptxas": 9.920000098645687
+        }
+      },
+      "resources": {
+        "fma": {
+          "oa": {
+            "max_threads": 1024,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 42,
+            "ptx_version": 80,
+            "binary_version": 80
+          },
+          "ptxas": {
+            "max_threads": 1024,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 40,
+            "ptx_version": 80,
+            "binary_version": 80
+          }
+        },
+        "baseline": {
+          "oa": {
+            "max_threads": 1024,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 58,
+            "ptx_version": 80,
+            "binary_version": 80
+          },
+          "ptxas": {
+            "max_threads": 1024,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 40,
+            "ptx_version": 80,
+            "binary_version": 80
+          }
+        }
+      },
+      "fma_ptxas_over_oa": 0.8623376696025755
+    },
+    {
+      "round": 0,
+      "op": "softmax_backward",
+      "shape": [
+        1024,
+        1024
+      ],
+      "threads": 128,
+      "input_seed": 4145730189,
+      "baseline_over_fma": {
+        "oa": 1.0545454468485738,
+        "ptxas": 1.0425531272606747
+      },
+      "median_us": {
+        "baseline": {
+          "oa": 9.279999881982803,
+          "ptxas": 6.271999794989824
+        },
+        "fma": {
+          "oa": 8.799999952316284,
+          "ptxas": 6.016000173985958
+        }
+      },
+      "resources": {
+        "baseline": {
+          "oa": {
+            "max_threads": 512,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 101,
+            "ptx_version": 80,
+            "binary_version": 80
+          },
+          "ptxas": {
+            "max_threads": 896,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 72,
+            "ptx_version": 80,
+            "binary_version": 80
+          }
+        },
+        "fma": {
+          "oa": {
+            "max_threads": 768,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 73,
+            "ptx_version": 80,
+            "binary_version": 80
+          },
+          "ptxas": {
+            "max_threads": 896,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 72,
+            "ptx_version": 80,
+            "binary_version": 80
+          }
+        }
+      },
+      "fma_ptxas_over_oa": 0.6836363871118502
+    },
+    {
+      "round": 0,
+      "op": "softmax_backward",
+      "shape": [
+        4096,
+        1024
+      ],
+      "threads": 128,
+      "input_seed": 3130555333,
+      "baseline_over_fma": {
+        "oa": 1.2490372572370654,
+        "ptxas": 1.0
+      },
+      "median_us": {
+        "baseline": {
+          "oa": 62.272001057863235,
+          "ptxas": 40.32000154256821
+        },
+        "fma": {
+          "oa": 49.855999648571014,
+          "ptxas": 40.32000154256821
+        }
+      },
+      "resources": {
+        "baseline": {
+          "oa": {
+            "max_threads": 512,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 101,
+            "ptx_version": 80,
+            "binary_version": 80
+          },
+          "ptxas": {
+            "max_threads": 896,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 72,
+            "ptx_version": 80,
+            "binary_version": 80
+          }
+        },
+        "fma": {
+          "oa": {
+            "max_threads": 768,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 73,
+            "ptx_version": 80,
+            "binary_version": 80
+          },
+          "ptxas": {
+            "max_threads": 896,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 72,
+            "ptx_version": 80,
+            "binary_version": 80
+          }
+        }
+      },
+      "fma_ptxas_over_oa": 0.8087291765640862
+    },
+    {
+      "round": 0,
+      "op": "softmax_backward",
+      "shape": [
+        1024,
+        512
+      ],
+      "threads": 256,
+      "input_seed": 2252188612,
+      "baseline_over_fma": {
+        "oa": 0.9885714242949472,
+        "ptxas": 0.9927535681717142
+      },
+      "median_us": {
+        "fma": {
+          "oa": 5.59999980032444,
+          "ptxas": 4.416000097990036
+        },
+        "baseline": {
+          "oa": 5.535999778658152,
+          "ptxas": 4.383999854326248
+        }
+      },
+      "resources": {
+        "fma": {
+          "oa": {
+            "max_threads": 1024,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 41,
+            "ptx_version": 80,
+            "binary_version": 80
+          },
+          "ptxas": {
+            "max_threads": 1024,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 40,
+            "ptx_version": 80,
+            "binary_version": 80
+          }
+        },
+        "baseline": {
+          "oa": {
+            "max_threads": 1024,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 53,
+            "ptx_version": 80,
+            "binary_version": 80
+          },
+          "ptxas": {
+            "max_threads": 1024,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 40,
+            "ptx_version": 80,
+            "binary_version": 80
+          }
+        }
+      },
+      "fma_ptxas_over_oa": 0.7885714741872297
+    },
+    {
+      "round": 0,
+      "op": "softmax_backward",
+      "shape": [
+        4096,
+        512
+      ],
+      "threads": 256,
+      "input_seed": 1883342658,
+      "baseline_over_fma": {
+        "oa": 1.3104477889428376,
+        "ptxas": 0.9930555029227621
+      },
+      "median_us": {
+        "fma": {
+          "oa": 10.71999967098236,
+          "ptxas": 9.216000325977802
+        },
+        "baseline": {
+          "oa": 14.047999866306782,
+          "ptxas": 9.151999838650227
+        }
+      },
+      "resources": {
+        "fma": {
+          "oa": {
+            "max_threads": 1024,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 41,
+            "ptx_version": 80,
+            "binary_version": 80
+          },
+          "ptxas": {
+            "max_threads": 1024,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 40,
+            "ptx_version": 80,
+            "binary_version": 80
+          }
+        },
+        "baseline": {
+          "oa": {
+            "max_threads": 1024,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 53,
+            "ptx_version": 80,
+            "binary_version": 80
+          },
+          "ptxas": {
+            "max_threads": 1024,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 40,
+            "ptx_version": 80,
+            "binary_version": 80
+          }
+        }
+      },
+      "fma_ptxas_over_oa": 0.8597015493316023
+    },
+    {
+      "round": 1,
+      "op": "rmsnorm_backward",
+      "shape": [
+        1024,
+        1024
+      ],
+      "threads": 128,
+      "input_seed": 898182588,
+      "baseline_over_fma": {
+        "oa": 0.9967741690175833,
+        "ptxas": 1.0049260741212902
+      },
+      "median_us": {
+        "baseline": {
+          "oa": 9.8879998549819,
+          "ptxas": 6.527999881654978
+        },
+        "fma": {
+          "oa": 9.920000098645687,
+          "ptxas": 6.496000103652477
+        }
+      },
+      "resources": {
+        "baseline": {
+          "oa": {
+            "max_threads": 512,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 106,
+            "ptx_version": 80,
+            "binary_version": 80
+          },
+          "ptxas": {
+            "max_threads": 896,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 72,
+            "ptx_version": 80,
+            "binary_version": 80
+          }
+        },
+        "fma": {
+          "oa": {
+            "max_threads": 768,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 74,
+            "ptx_version": 80,
+            "binary_version": 80
+          },
+          "ptxas": {
+            "max_threads": 896,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 72,
+            "ptx_version": 80,
+            "binary_version": 80
+          }
+        }
+      },
+      "fma_ptxas_over_oa": 0.6548387136144619
+    },
+    {
+      "round": 1,
+      "op": "rmsnorm_backward",
+      "shape": [
+        4096,
+        1024
+      ],
+      "threads": 128,
+      "input_seed": 4185746945,
+      "baseline_over_fma": {
+        "oa": 1.2316244992487293,
+        "ptxas": 0.9976488850177045
+      },
+      "median_us": {
+        "baseline": {
+          "oa": 63.80800157785416,
+          "ptxas": 40.73600098490715
+        },
+        "fma": {
+          "oa": 51.80799961090088,
+          "ptxas": 40.832001715898514
+        }
+      },
+      "resources": {
+        "baseline": {
+          "oa": {
+            "max_threads": 512,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 106,
+            "ptx_version": 80,
+            "binary_version": 80
+          },
+          "ptxas": {
+            "max_threads": 896,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 72,
+            "ptx_version": 80,
+            "binary_version": 80
+          }
+        },
+        "fma": {
+          "oa": {
+            "max_threads": 768,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 74,
+            "ptx_version": 80,
+            "binary_version": 80
+          },
+          "ptxas": {
+            "max_threads": 896,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 72,
+            "ptx_version": 80,
+            "binary_version": 80
+          }
+        }
+      },
+      "fma_ptxas_over_oa": 0.7881408667109989
+    },
+    {
+      "round": 1,
+      "op": "rmsnorm_backward",
+      "shape": [
+        1024,
+        512
+      ],
+      "threads": 256,
+      "input_seed": 495384244,
+      "baseline_over_fma": {
+        "oa": 1.0,
+        "ptxas": 1.0064935561943489
+      },
+      "median_us": {
+        "fma": {
+          "oa": 6.432000081986189,
+          "ptxas": 4.927999805659056
+        },
+        "baseline": {
+          "oa": 6.432000081986189,
+          "ptxas": 4.9600000493228436
+        }
+      },
+      "resources": {
+        "fma": {
+          "oa": {
+            "max_threads": 1024,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 42,
+            "ptx_version": 80,
+            "binary_version": 80
+          },
+          "ptxas": {
+            "max_threads": 1024,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 40,
+            "ptx_version": 80,
+            "binary_version": 80
+          }
+        },
+        "baseline": {
+          "oa": {
+            "max_threads": 1024,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 58,
+            "ptx_version": 80,
+            "binary_version": 80
+          },
+          "ptxas": {
+            "max_threads": 1024,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 40,
+            "ptx_version": 80,
+            "binary_version": 80
+          }
+        }
+      },
+      "fma_ptxas_over_oa": 0.7661691142480985
+    },
+    {
+      "round": 1,
+      "op": "rmsnorm_backward",
+      "shape": [
+        4096,
+        512
+      ],
+      "threads": 256,
+      "input_seed": 2738241648,
+      "baseline_over_fma": {
+        "oa": 1.3056994724893027,
+        "ptxas": 0.9970059653265341
+      },
+      "median_us": {
+        "fma": {
+          "oa": 12.35199999064207,
+          "ptxas": 10.688000358641148
+        },
+        "baseline": {
+          "oa": 16.127999871969223,
+          "ptxas": 10.65600011497736
+        }
+      },
+      "resources": {
+        "fma": {
+          "oa": {
+            "max_threads": 1024,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 42,
+            "ptx_version": 80,
+            "binary_version": 80
+          },
+          "ptxas": {
+            "max_threads": 1024,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 40,
+            "ptx_version": 80,
+            "binary_version": 80
+          }
+        },
+        "baseline": {
+          "oa": {
+            "max_threads": 1024,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 58,
+            "ptx_version": 80,
+            "binary_version": 80
+          },
+          "ptxas": {
+            "max_threads": 1024,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 40,
+            "ptx_version": 80,
+            "binary_version": 80
+          }
+        }
+      },
+      "fma_ptxas_over_oa": 0.865285003783875
+    },
+    {
+      "round": 1,
+      "op": "rmsnorm_backward",
+      "shape": [
+        1024,
+        1024
+      ],
+      "threads": 256,
+      "input_seed": 898182588,
+      "baseline_over_fma": {
+        "oa": 1.0124223641782109,
+        "ptxas": 0.9958677971701094
+      },
+      "median_us": {
+        "fma": {
+          "oa": 10.304000228643417,
+          "ptxas": 7.74399982765317
+        },
+        "baseline": {
+          "oa": 10.432000271975994,
+          "ptxas": 7.712000049650669
+        }
+      },
+      "resources": {
+        "fma": {
+          "oa": {
+            "max_threads": 768,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 74,
+            "ptx_version": 80,
+            "binary_version": 80
+          },
+          "ptxas": {
+            "max_threads": 896,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 72,
+            "ptx_version": 80,
+            "binary_version": 80
+          }
+        },
+        "baseline": {
+          "oa": {
+            "max_threads": 512,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 106,
+            "ptx_version": 80,
+            "binary_version": 80
+          },
+          "ptxas": {
+            "max_threads": 896,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 72,
+            "ptx_version": 80,
+            "binary_version": 80
+          }
+        }
+      },
+      "fma_ptxas_over_oa": 0.7515527616280646
+    },
+    {
+      "round": 1,
+      "op": "rmsnorm_backward",
+      "shape": [
+        4096,
+        1024
+      ],
+      "threads": 256,
+      "input_seed": 4185746945,
+      "baseline_over_fma": {
+        "oa": 1.224464904269224,
+        "ptxas": 0.9992162950059015
+      },
+      "median_us": {
+        "fma": {
+          "oa": 52.319999784231186,
+          "ptxas": 40.832001715898514
+        },
+        "baseline": {
+          "oa": 64.06400352716446,
+          "ptxas": 40.800001472234726
+        }
+      },
+      "resources": {
+        "fma": {
+          "oa": {
+            "max_threads": 768,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 74,
+            "ptx_version": 80,
+            "binary_version": 80
+          },
+          "ptxas": {
+            "max_threads": 896,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 72,
+            "ptx_version": 80,
+            "binary_version": 80
+          }
+        },
+        "baseline": {
+          "oa": {
+            "max_threads": 512,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 106,
+            "ptx_version": 80,
+            "binary_version": 80
+          },
+          "ptxas": {
+            "max_threads": 896,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 72,
+            "ptx_version": 80,
+            "binary_version": 80
+          }
+        }
+      },
+      "fma_ptxas_over_oa": 0.780428170571303
+    },
+    {
+      "round": 1,
+      "op": "softmax_backward",
+      "shape": [
+        1024,
+        512
+      ],
+      "threads": 128,
+      "input_seed": 2252188612,
+      "baseline_over_fma": {
+        "oa": 0.9943819797586132,
+        "ptxas": 1.0
+      },
+      "median_us": {
+        "baseline": {
+          "oa": 5.663999821990728,
+          "ptxas": 4.127999767661095
+        },
+        "fma": {
+          "oa": 5.696000065654516,
+          "ptxas": 4.127999767661095
+        }
+      },
+      "resources": {
+        "baseline": {
+          "oa": {
+            "max_threads": 1024,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 53,
+            "ptx_version": 80,
+            "binary_version": 80
+          },
+          "ptxas": {
+            "max_threads": 1024,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 40,
+            "ptx_version": 80,
+            "binary_version": 80
+          }
+        },
+        "fma": {
+          "oa": {
+            "max_threads": 1024,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 41,
+            "ptx_version": 80,
+            "binary_version": 80
+          },
+          "ptxas": {
+            "max_threads": 1024,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 40,
+            "ptx_version": 80,
+            "binary_version": 80
+          }
+        }
+      },
+      "fma_ptxas_over_oa": 0.7247190519803399
+    },
+    {
+      "round": 1,
+      "op": "softmax_backward",
+      "shape": [
+        4096,
+        512
+      ],
+      "threads": 128,
+      "input_seed": 1883342658,
+      "baseline_over_fma": {
+        "oa": 1.1622340347304667,
+        "ptxas": 0.9899665763442125
+      },
+      "median_us": {
+        "baseline": {
+          "oa": 13.98400031030178,
+          "ptxas": 9.472000412642956
+        },
+        "fma": {
+          "oa": 12.032000347971916,
+          "ptxas": 9.568000212311745
+        }
+      },
+      "resources": {
+        "baseline": {
+          "oa": {
+            "max_threads": 1024,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 53,
+            "ptx_version": 80,
+            "binary_version": 80
+          },
+          "ptxas": {
+            "max_threads": 1024,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 40,
+            "ptx_version": 80,
+            "binary_version": 80
+          }
+        },
+        "fma": {
+          "oa": {
+            "max_threads": 1024,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 41,
+            "ptx_version": 80,
+            "binary_version": 80
+          },
+          "ptxas": {
+            "max_threads": 1024,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 40,
+            "ptx_version": 80,
+            "binary_version": 80
+          }
+        }
+      },
+      "fma_ptxas_over_oa": 0.7952127606050562
+    },
+    {
+      "round": 1,
+      "op": "softmax_backward",
+      "shape": [
+        1024,
+        512
+      ],
+      "threads": 256,
+      "input_seed": 2252188612,
+      "baseline_over_fma": {
+        "oa": 0.9892473084629634,
+        "ptxas": 1.006896604325592
+      },
+      "median_us": {
+        "baseline": {
+          "oa": 5.888000130653381,
+          "ptxas": 4.6720001846551895
+        },
+        "fma": {
+          "oa": 5.95200015231967,
+          "ptxas": 4.639999940991402
+        }
+      },
+      "resources": {
+        "baseline": {
+          "oa": {
+            "max_threads": 1024,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 53,
+            "ptx_version": 80,
+            "binary_version": 80
+          },
+          "ptxas": {
+            "max_threads": 1024,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 40,
+            "ptx_version": 80,
+            "binary_version": 80
+          }
+        },
+        "fma": {
+          "oa": {
+            "max_threads": 1024,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 41,
+            "ptx_version": 80,
+            "binary_version": 80
+          },
+          "ptxas": {
+            "max_threads": 1024,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 40,
+            "ptx_version": 80,
+            "binary_version": 80
+          }
+        }
+      },
+      "fma_ptxas_over_oa": 0.7795698626088
+    },
+    {
+      "round": 1,
+      "op": "softmax_backward",
+      "shape": [
+        4096,
+        512
+      ],
+      "threads": 256,
+      "input_seed": 1883342658,
+      "baseline_over_fma": {
+        "oa": 1.2540983919417694,
+        "ptxas": 1.0033002590240843
+      },
+      "median_us": {
+        "baseline": {
+          "oa": 14.688000082969666,
+          "ptxas": 9.727999567985535
+        },
+        "fma": {
+          "oa": 11.711999773979187,
+          "ptxas": 9.696000255644321
+        }
+      },
+      "resources": {
+        "baseline": {
+          "oa": {
+            "max_threads": 1024,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 53,
+            "ptx_version": 80,
+            "binary_version": 80
+          },
+          "ptxas": {
+            "max_threads": 1024,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 40,
+            "ptx_version": 80,
+            "binary_version": 80
+          }
+        },
+        "fma": {
+          "oa": {
+            "max_threads": 1024,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 41,
+            "ptx_version": 80,
+            "binary_version": 80
+          },
+          "ptxas": {
+            "max_threads": 1024,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 40,
+            "ptx_version": 80,
+            "binary_version": 80
+          }
+        }
+      },
+      "fma_ptxas_over_oa": 0.8278688902629714
+    },
+    {
+      "round": 1,
+      "op": "softmax_backward",
+      "shape": [
+        1024,
+        1024
+      ],
+      "threads": 128,
+      "input_seed": 4145730189,
+      "baseline_over_fma": {
+        "oa": 1.0,
+        "ptxas": 1.0
+      },
+      "median_us": {
+        "fma": {
+          "oa": 9.344000369310379,
+          "ptxas": 6.304000038653612
+        },
+        "baseline": {
+          "oa": 9.344000369310379,
+          "ptxas": 6.304000038653612
+        }
+      },
+      "resources": {
+        "fma": {
+          "oa": {
+            "max_threads": 768,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 73,
+            "ptx_version": 80,
+            "binary_version": 80
+          },
+          "ptxas": {
+            "max_threads": 896,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 72,
+            "ptx_version": 80,
+            "binary_version": 80
+          }
+        },
+        "baseline": {
+          "oa": {
+            "max_threads": 512,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 101,
+            "ptx_version": 80,
+            "binary_version": 80
+          },
+          "ptxas": {
+            "max_threads": 896,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 72,
+            "ptx_version": 80,
+            "binary_version": 80
+          }
+        }
+      },
+      "fma_ptxas_over_oa": 0.6746575117182781
+    },
+    {
+      "round": 1,
+      "op": "softmax_backward",
+      "shape": [
+        4096,
+        1024
+      ],
+      "threads": 128,
+      "input_seed": 3130555333,
+      "baseline_over_fma": {
+        "oa": 1.2149122333534847,
+        "ptxas": 0.9976284403834362
+      },
+      "median_us": {
+        "fma": {
+          "oa": 51.072001457214355,
+          "ptxas": 40.47999903559685
+        },
+        "baseline": {
+          "oa": 62.04799935221672,
+          "ptxas": 40.383998304605484
+        }
+      },
+      "resources": {
+        "fma": {
+          "oa": {
+            "max_threads": 768,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 73,
+            "ptx_version": 80,
+            "binary_version": 80
+          },
+          "ptxas": {
+            "max_threads": 896,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 72,
+            "ptx_version": 80,
+            "binary_version": 80
+          }
+        },
+        "baseline": {
+          "oa": {
+            "max_threads": 512,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 101,
+            "ptx_version": 80,
+            "binary_version": 80
+          },
+          "ptxas": {
+            "max_threads": 896,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 72,
+            "ptx_version": 80,
+            "binary_version": 80
+          }
+        }
+      },
+      "fma_ptxas_over_oa": 0.7926064747924364
+    },
+    {
+      "round": 1,
+      "op": "rmsnorm_backward",
+      "shape": [
+        1024,
+        512
+      ],
+      "threads": 128,
+      "input_seed": 495384244,
+      "baseline_over_fma": {
+        "oa": 1.0,
+        "ptxas": 1.0
+      },
+      "median_us": {
+        "baseline": {
+          "oa": 6.144000217318535,
+          "ptxas": 4.255999810993671
+        },
+        "fma": {
+          "oa": 6.144000217318535,
+          "ptxas": 4.255999810993671
+        }
+      },
+      "resources": {
+        "baseline": {
+          "oa": {
+            "max_threads": 1024,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 58,
+            "ptx_version": 80,
+            "binary_version": 80
+          },
+          "ptxas": {
+            "max_threads": 1024,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 40,
+            "ptx_version": 80,
+            "binary_version": 80
+          }
+        },
+        "fma": {
+          "oa": {
+            "max_threads": 1024,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 42,
+            "ptx_version": 80,
+            "binary_version": 80
+          },
+          "ptxas": {
+            "max_threads": 1024,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 40,
+            "ptx_version": 80,
+            "binary_version": 80
+          }
+        }
+      },
+      "fma_ptxas_over_oa": 0.6927082780689002
+    },
+    {
+      "round": 1,
+      "op": "rmsnorm_backward",
+      "shape": [
+        4096,
+        512
+      ],
+      "threads": 128,
+      "input_seed": 2738241648,
+      "baseline_over_fma": {
+        "oa": 1.3064935031555733,
+        "ptxas": 0.9969511962473094
+      },
+      "median_us": {
+        "baseline": {
+          "oa": 16.095999628305435,
+          "ptxas": 10.463999584317207
+        },
+        "fma": {
+          "oa": 12.319999746978283,
+          "ptxas": 10.495999827980995
+        }
+      },
+      "resources": {
+        "baseline": {
+          "oa": {
+            "max_threads": 1024,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 58,
+            "ptx_version": 80,
+            "binary_version": 80
+          },
+          "ptxas": {
+            "max_threads": 1024,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 40,
+            "ptx_version": 80,
+            "binary_version": 80
+          }
+        },
+        "fma": {
+          "oa": {
+            "max_threads": 1024,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 42,
+            "ptx_version": 80,
+            "binary_version": 80
+          },
+          "ptxas": {
+            "max_threads": 1024,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 40,
+            "ptx_version": 80,
+            "binary_version": 80
+          }
+        }
+      },
+      "fma_ptxas_over_oa": 0.851948055482334
+    },
+    {
+      "round": 1,
+      "op": "softmax_backward",
+      "shape": [
+        1024,
+        1024
+      ],
+      "threads": 256,
+      "input_seed": 4145730189,
+      "baseline_over_fma": {
+        "oa": 0.9935065382986108,
+        "ptxas": 1.0
+      },
+      "median_us": {
+        "baseline": {
+          "oa": 9.79200005531311,
+          "ptxas": 7.519999984651804
+        },
+        "fma": {
+          "oa": 9.855999611318111,
+          "ptxas": 7.519999984651804
+        }
+      },
+      "resources": {
+        "baseline": {
+          "oa": {
+            "max_threads": 512,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 101,
+            "ptx_version": 80,
+            "binary_version": 80
+          },
+          "ptxas": {
+            "max_threads": 896,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 72,
+            "ptx_version": 80,
+            "binary_version": 80
+          }
+        },
+        "fma": {
+          "oa": {
+            "max_threads": 768,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 73,
+            "ptx_version": 80,
+            "binary_version": 80
+          },
+          "ptxas": {
+            "max_threads": 896,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 72,
+            "ptx_version": 80,
+            "binary_version": 80
+          }
+        }
+      },
+      "fma_ptxas_over_oa": 0.7629870415189781
+    },
+    {
+      "round": 1,
+      "op": "softmax_backward",
+      "shape": [
+        4096,
+        1024
+      ],
+      "threads": 256,
+      "input_seed": 3130555333,
+      "baseline_over_fma": {
+        "oa": 1.2122904515230644,
+        "ptxas": 0.9968577923320805
+      },
+      "median_us": {
+        "baseline": {
+          "oa": 62.49599903821945,
+          "ptxas": 40.608000010252
+        },
+        "fma": {
+          "oa": 51.552001386880875,
+          "ptxas": 40.73600098490715
+        }
+      },
+      "resources": {
+        "baseline": {
+          "oa": {
+            "max_threads": 512,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 101,
+            "ptx_version": 80,
+            "binary_version": 80
+          },
+          "ptxas": {
+            "max_threads": 896,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 72,
+            "ptx_version": 80,
+            "binary_version": 80
+          }
+        },
+        "fma": {
+          "oa": {
+            "max_threads": 768,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 73,
+            "ptx_version": 80,
+            "binary_version": 80
+          },
+          "ptxas": {
+            "max_threads": 896,
+            "shared_bytes": 0,
+            "const_bytes": 0,
+            "local_bytes": 0,
+            "num_regs": 72,
+            "ptx_version": 80,
+            "binary_version": 80
+          }
+        }
+      },
+      "fma_ptxas_over_oa": 0.7901924249108548
+    }
+  ],
+  "settings": [
+    {
+      "op": "rmsnorm_backward",
+      "shape": [
+        4096,
+        512
+      ],
+      "threads": 256,
+      "rounds": 2,
+      "min_oa_baseline_over_fma": 1.291989701004398,
+      "max_oa_baseline_over_fma": 1.3056994724893027,
+      "median_oa_baseline_over_fma": 1.2988445867468503,
+      "decision": "selective_gain_candidate",
+      "scope": "two reverse-order rounds in one GPU worker; requires independent-process confirmation and whole-workload admission"
+    },
+    {
+      "op": "rmsnorm_backward",
+      "shape": [
+        4096,
+        512
+      ],
+      "threads": 128,
+      "rounds": 2,
+      "min_oa_baseline_over_fma": 1.2753247363892155,
+      "max_oa_baseline_over_fma": 1.3064935031555733,
+      "median_oa_baseline_over_fma": 1.2909091197723943,
+      "decision": "selective_gain_candidate",
+      "scope": "two reverse-order rounds in one GPU worker; requires independent-process confirmation and whole-workload admission"
+    },
+    {
+      "op": "softmax_backward",
+      "shape": [
+        4096,
+        512
+      ],
+      "threads": 256,
+      "rounds": 2,
+      "min_oa_baseline_over_fma": 1.2540983919417694,
+      "max_oa_baseline_over_fma": 1.3104477889428376,
+      "median_oa_baseline_over_fma": 1.2822730904423034,
+      "decision": "selective_gain_candidate",
+      "scope": "two reverse-order rounds in one GPU worker; requires independent-process confirmation and whole-workload admission"
+    },
+    {
+      "op": "rmsnorm_backward",
+      "shape": [
+        4096,
+        1024
+      ],
+      "threads": 128,
+      "rounds": 2,
+      "min_oa_baseline_over_fma": 1.2316244992487293,
+      "max_oa_baseline_over_fma": 1.233766289865949,
+      "median_oa_baseline_over_fma": 1.2326953945573391,
+      "decision": "selective_gain_candidate",
+      "scope": "two reverse-order rounds in one GPU worker; requires independent-process confirmation and whole-workload admission"
+    },
+    {
+      "op": "rmsnorm_backward",
+      "shape": [
+        4096,
+        1024
+      ],
+      "threads": 256,
+      "rounds": 2,
+      "min_oa_baseline_over_fma": 1.224464904269224,
+      "max_oa_baseline_over_fma": 1.2311926418680907,
+      "median_oa_baseline_over_fma": 1.2278287730686572,
+      "decision": "selective_gain_candidate",
+      "scope": "two reverse-order rounds in one GPU worker; requires independent-process confirmation and whole-workload admission"
+    },
+    {
+      "op": "softmax_backward",
+      "shape": [
+        4096,
+        1024
+      ],
+      "threads": 128,
+      "rounds": 2,
+      "min_oa_baseline_over_fma": 1.2149122333534847,
+      "max_oa_baseline_over_fma": 1.2490372572370654,
+      "median_oa_baseline_over_fma": 1.231974745295275,
+      "decision": "selective_gain_candidate",
+      "scope": "two reverse-order rounds in one GPU worker; requires independent-process confirmation and whole-workload admission"
+    },
+    {
+      "op": "softmax_backward",
+      "shape": [
+        4096,
+        1024
+      ],
+      "threads": 256,
+      "rounds": 2,
+      "min_oa_baseline_over_fma": 1.2059186065990406,
+      "max_oa_baseline_over_fma": 1.2122904515230644,
+      "median_oa_baseline_over_fma": 1.2091045290610525,
+      "decision": "selective_gain_candidate",
+      "scope": "two reverse-order rounds in one GPU worker; requires independent-process confirmation and whole-workload admission"
+    },
+    {
+      "op": "softmax_backward",
+      "shape": [
+        4096,
+        512
+      ],
+      "threads": 128,
+      "rounds": 2,
+      "min_oa_baseline_over_fma": 1.1622340347304667,
+      "max_oa_baseline_over_fma": 1.1785714257158724,
+      "median_oa_baseline_over_fma": 1.1704027302231697,
+      "decision": "selective_gain_candidate",
+      "scope": "two reverse-order rounds in one GPU worker; requires independent-process confirmation and whole-workload admission"
+    },
+    {
+      "op": "rmsnorm_backward",
+      "shape": [
+        1024,
+        1024
+      ],
+      "threads": 256,
+      "rounds": 2,
+      "min_oa_baseline_over_fma": 1.0031055232561292,
+      "max_oa_baseline_over_fma": 1.0124223641782109,
+      "median_oa_baseline_over_fma": 1.00776394371717,
+      "decision": "regression_or_neutral_do_not_globally_select",
+      "scope": "two reverse-order rounds in one GPU worker; requires independent-process confirmation and whole-workload admission"
+    },
+    {
+      "op": "softmax_backward",
+      "shape": [
+        1024,
+        1024
+      ],
+      "threads": 128,
+      "rounds": 2,
+      "min_oa_baseline_over_fma": 1.0,
+      "max_oa_baseline_over_fma": 1.0545454468485738,
+      "median_oa_baseline_over_fma": 1.0272727234242869,
+      "decision": "regression_or_neutral_do_not_globally_select",
+      "scope": "two reverse-order rounds in one GPU worker; requires independent-process confirmation and whole-workload admission"
+    },
+    {
+      "op": "rmsnorm_backward",
+      "shape": [
+        1024,
+        1024
+      ],
+      "threads": 128,
+      "rounds": 2,
+      "min_oa_baseline_over_fma": 0.9967741690175833,
+      "max_oa_baseline_over_fma": 1.0,
+      "median_oa_baseline_over_fma": 0.9983870845087917,
+      "decision": "regression_or_neutral_do_not_globally_select",
+      "scope": "two reverse-order rounds in one GPU worker; requires independent-process confirmation and whole-workload admission"
+    },
+    {
+      "op": "softmax_backward",
+      "shape": [
+        1024,
+        1024
+      ],
+      "threads": 256,
+      "rounds": 2,
+      "min_oa_baseline_over_fma": 0.9935065382986108,
+      "max_oa_baseline_over_fma": 1.0,
+      "median_oa_baseline_over_fma": 0.9967532691493054,
+      "decision": "regression_or_neutral_do_not_globally_select",
+      "scope": "two reverse-order rounds in one GPU worker; requires independent-process confirmation and whole-workload admission"
+    },
+    {
+      "op": "softmax_backward",
+      "shape": [
+        1024,
+        512
+      ],
+      "threads": 256,
+      "rounds": 2,
+      "min_oa_baseline_over_fma": 0.9885714242949472,
+      "max_oa_baseline_over_fma": 0.9892473084629634,
+      "median_oa_baseline_over_fma": 0.9889093663789552,
+      "decision": "regression_or_neutral_do_not_globally_select",
+      "scope": "two reverse-order rounds in one GPU worker; requires independent-process confirmation and whole-workload admission"
+    },
+    {
+      "op": "rmsnorm_backward",
+      "shape": [
+        1024,
+        512
+      ],
+      "threads": 256,
+      "rounds": 2,
+      "min_oa_baseline_over_fma": 0.9799999927240423,
+      "max_oa_baseline_over_fma": 1.0,
+      "median_oa_baseline_over_fma": 0.9899999963620212,
+      "decision": "regression_or_neutral_do_not_globally_select",
+      "scope": "two reverse-order rounds in one GPU worker; requires independent-process confirmation and whole-workload admission"
+    },
+    {
+      "op": "softmax_backward",
+      "shape": [
+        1024,
+        512
+      ],
+      "threads": 128,
+      "rounds": 2,
+      "min_oa_baseline_over_fma": 0.9488636607922128,
+      "max_oa_baseline_over_fma": 0.9943819797586132,
+      "median_oa_baseline_over_fma": 0.971622820275413,
+      "decision": "regression_or_neutral_do_not_globally_select",
+      "scope": "two reverse-order rounds in one GPU worker; requires independent-process confirmation and whole-workload admission"
+    },
+    {
+      "op": "rmsnorm_backward",
+      "shape": [
+        1024,
+        512
+      ],
+      "threads": 128,
+      "rounds": 2,
+      "min_oa_baseline_over_fma": 0.9427082780689002,
+      "max_oa_baseline_over_fma": 1.0,
+      "median_oa_baseline_over_fma": 0.9713541390344501,
+      "decision": "regression_or_neutral_do_not_globally_select",
+      "scope": "two reverse-order rounds in one GPU worker; requires independent-process confirmation and whole-workload admission"
+    }
+  ],
+  "op_summary": [
+    {
+      "op": "rmsnorm_backward",
+      "pairs": 16,
+      "min": 0.9427082780689002,
+      "median": 1.1184436342237174,
+      "max": 1.3064935031555733
+    },
+    {
+      "op": "softmax_backward",
+      "pairs": 16,
+      "min": 0.9488636607922128,
+      "median": 1.1083897407895202,
+      "max": 1.3104477889428376
+    }
+  ],
+  "interpretation": [
+    "Large width513 backward reductions benefit selectively, especially RMSNorm and softmax backward at4096rows.",
+    "Forward norms mostly neutral or regress; lower register/instruction counts alone do not justify selection.",
+    "Every FMA candidate remains behind matched ptxas in this measured set. This closes part of the OA gap but does not establish the user target.",
+    "No synchronization is removed, no hidden cross-thread dependencies are weakened, and no production source is edited.",
+    "Local accumulation fusion and reduced live products change both instruction choice and allocation; counters are needed to distinguish the hardware cause.",
+    "Comparisons are paired by setting across reverse-order blocks; within each kernel the OA/PTXAS event order is shuffled. Baseline/FMA themselves are not alternated within each individual sample."
+  ]
+}

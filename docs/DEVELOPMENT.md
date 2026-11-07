@@ -54,6 +54,10 @@ CPU tests, and a separately authenticated `modal` executable. Do not assume
 every one of those environments contains every dependency. Windows is not a
 supported host path in the current wrapper.
 
+The [repository workflow guide](REPOSITORY_WORKFLOW.md) gives workstation SSH,
+interactive SSH-terminal and Modal commands, including remote-only compilation
+without a local CUDA toolkit.
+
 ## Common validation commands
 
 ```sh

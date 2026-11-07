@@ -1,0 +1,338 @@
+✓ Initialized. View run at 
+https://modal.com/apps/qingyang-lucas-fang/main/ap-muDXyYw8qqWR31y48zrWzY
+Building image im-eZ3XZa24wchgwwRmC8DzPC
+
+=> Step 0: FROM base
+
+=> Step 1: COPY . /
+Saving image...
+Image saved, took 2.52s
+
+Built image im-eZ3XZa24wchgwwRmC8DzPC in 4.66s
+
+
+Building image im-IlUA4iBpTp64VV1NXebtMd
+
+=> Step 0: FROM base
+
+=> Step 1: COPY . /
+Saving image...
+Image saved, took 1.70s
+
+Built image im-IlUA4iBpTp64VV1NXebtMd in 3.80s
+
+
+Building image im-CqWTIsJpx16983e5uaanGm
+
+=> Step 0: FROM base
+
+=> Step 1: COPY . /
+Saving image...
+Image saved, took 1.27s
+
+Built image im-CqWTIsJpx16983e5uaanGm in 3.81s
+
+
+✓ Created objects.
+├── ✓ Uploaded /Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/campaign.py
+├── ✓ Uploaded /Users/lucasfang/Desktop/OpenAssembler/openassembler
+├── ✓ Uploaded 
+│   /Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/operator_worker.py
+├── ✓ Uploaded 
+│   /Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/tensor_suite.py
+├── ✓ Uploaded 
+│   /Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/whole_worker.py
+└── ✓ Created Function execute.
+
+==========
+== CUDA ==
+==========
+
+CUDA Version 12.8.0
+
+Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+
+This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+By pulling and using the container, you accept the terms and conditions of this license:
+https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+
+A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
+
+{'operator': 'op_residual_add_scalar', 'shape': (65536,), 'threads': 128, 'ptxas_over_oa': 1.0227272802437577}
+{'operator': 'op_residual_add_scalar', 'shape': (65536,), 'threads': 256, 'ptxas_over_oa': 1.0}
+{'operator': 'op_residual_add_scalar', 'shape': (1048576,), 'threads': 128, 'ptxas_over_oa': 1.0}
+{'operator': 'op_residual_add_scalar', 'shape': (1048576,), 'threads': 256, 'ptxas_over_oa': 0.9904761871764365}
+{'operator': 'op_residual_add_scalar', 'shape': (65539,), 'threads': 128, 'ptxas_over_oa': 1.0227272802437577}
+{'operator': 'op_residual_add_scalar4', 'shape': (65536,), 'threads': 128, 'ptxas_over_oa': 0.9772727197562422}
+{'operator': 'op_residual_add_scalar4', 'shape': (65536,), 'threads': 256, 'ptxas_over_oa': 1.0}
+{'operator': 'op_residual_add_scalar4', 'shape': (1048576,), 'threads': 128, 'ptxas_over_oa': 1.1944443752030784}
+{'operator': 'op_residual_add_scalar4', 'shape': (1048576,), 'threads': 256, 'ptxas_over_oa': 1.2352941428233835}
+{'operator': 'op_residual_add_vector4', 'shape': (65536,), 'threads': 128, 'ptxas_over_oa': 0.9523809358821822}
+{'operator': 'op_residual_add_vector4', 'shape': (65536,), 'threads': 256, 'ptxas_over_oa': 0.9749999909050527}
+{'operator': 'op_residual_add_vector4', 'shape': (1048576,), 'threads': 128, 'ptxas_over_oa': 0.9775280825391163}
+{'operator': 'op_residual_add_vector4', 'shape': (1048576,), 'threads': 256, 'ptxas_over_oa': 0.9354838507777803}
+{'operator': 'op_gated_multiply_scalar', 'shape': (65536,), 'threads': 128, 'ptxas_over_oa': 1.0}
+{'operator': 'op_gated_multiply_scalar', 'shape': (65536,), 'threads': 256, 'ptxas_over_oa': 1.0}
+{'operator': 'op_gated_multiply_scalar', 'shape': (1048576,), 'threads': 128, 'ptxas_over_oa': 1.0}
+{'operator': 'op_gated_multiply_scalar', 'shape': (1048576,), 'threads': 256, 'ptxas_over_oa': 1.009433965501939}
+{'operator': 'op_gated_multiply_scalar', 'shape': (65539,), 'threads': 128, 'ptxas_over_oa': 1.0}
+{'operator': 'op_gated_multiply_scalar4', 'shape': (65536,), 'threads': 128, 'ptxas_over_oa': 0.9772727197562422}
+{'operator': 'op_gated_multiply_scalar4', 'shape': (65536,), 'threads': 256, 'ptxas_over_oa': 1.0}
+{'operator': 'op_gated_multiply_scalar4', 'shape': (1048576,), 'threads': 128, 'ptxas_over_oa': 1.1944443752030784}
+{'operator': 'op_gated_multiply_scalar4', 'shape': (1048576,), 'threads': 256, 'ptxas_over_oa': 1.2184874139686772}
+{'operator': 'op_gated_multiply_vector4', 'shape': (65536,), 'threads': 128, 'ptxas_over_oa': 0.9756097474408594}
+{'operator': 'op_gated_multiply_vector4', 'shape': (65536,), 'threads': 256, 'ptxas_over_oa': 1.0}
+{'operator': 'op_gated_multiply_vector4', 'shape': (1048576,), 'threads': 128, 'ptxas_over_oa': 1.0}
+{'operator': 'op_gated_multiply_vector4', 'shape': (1048576,), 'threads': 256, 'ptxas_over_oa': 0.9462365423148169}
+{'operator': 'op_relu_scalar', 'shape': (65536,), 'threads': 128, 'ptxas_over_oa': 1.0}
+{'operator': 'op_relu_scalar', 'shape': (65536,), 'threads': 256, 'ptxas_over_oa': 1.0}
+{'operator': 'op_relu_scalar', 'shape': (1048576,), 'threads': 128, 'ptxas_over_oa': 1.0}
+{'operator': 'op_relu_scalar', 'shape': (1048576,), 'threads': 256, 'ptxas_over_oa': 1.0100000036379788}
+{'operator': 'op_relu_scalar', 'shape': (65539,), 'threads': 128, 'ptxas_over_oa': 1.0232558218236427}
+{'operator': 'op_relu_scalar4', 'shape': (65536,), 'threads': 128, 'ptxas_over_oa': 1.0}
+{'operator': 'op_relu_scalar4', 'shape': (65536,), 'threads': 256, 'ptxas_over_oa': 1.0}
+{'operator': 'op_relu_scalar4', 'shape': (1048576,), 'threads': 128, 'ptxas_over_oa': 1.1489361389218673}
+{'operator': 'op_relu_scalar4', 'shape': (1048576,), 'threads': 256, 'ptxas_over_oa': 1.500000037122234}
+{'operator': 'op_relu_vector4', 'shape': (65536,), 'threads': 128, 'ptxas_over_oa': 1.0}
+{'operator': 'op_relu_vector4', 'shape': (65536,), 'threads': 256, 'ptxas_over_oa': 1.0}
+{'operator': 'op_relu_vector4', 'shape': (1048576,), 'threads': 128, 'ptxas_over_oa': 1.0}
+{'operator': 'op_relu_vector4', 'shape': (1048576,), 'threads': 256, 'ptxas_over_oa': 0.9759036060084684}
+{'operator': 'op_relu_backward_scalar', 'shape': (65536,), 'threads': 128, 'ptxas_over_oa': 1.0}
+{'operator': 'op_relu_backward_scalar', 'shape': (65536,), 'threads': 256, 'ptxas_over_oa': 1.0}
+{'operator': 'op_relu_backward_scalar', 'shape': (1048576,), 'threads': 128, 'ptxas_over_oa': 1.0}
+{'operator': 'op_relu_backward_scalar', 'shape': (1048576,), 'threads': 256, 'ptxas_over_oa': 1.0}
+{'operator': 'op_relu_backward_scalar', 'shape': (65539,), 'threads': 128, 'ptxas_over_oa': 1.0}
+{'operator': 'op_relu_backward_scalar4', 'shape': (65536,), 'threads': 128, 'ptxas_over_oa': 0.9555555411832938}
+{'operator': 'op_relu_backward_scalar4', 'shape': (65536,), 'threads': 256, 'ptxas_over_oa': 1.0}
+{'operator': 'op_relu_backward_scalar4', 'shape': (1048576,), 'threads': 128, 'ptxas_over_oa': 0.6646341604086036}
+{'operator': 'op_relu_backward_scalar4', 'shape': (1048576,), 'threads': 256, 'ptxas_over_oa': 0.6809815846856719}
+{'operator': 'op_relu_backward_vector4', 'shape': (65536,), 'threads': 128, 'ptxas_over_oa': 1.0}
+{'operator': 'op_relu_backward_vector4', 'shape': (65536,), 'threads': 256, 'ptxas_over_oa': 1.0}
+{'operator': 'op_relu_backward_vector4', 'shape': (1048576,), 'threads': 128, 'ptxas_over_oa': 0.9887640412695581}
+{'operator': 'op_relu_backward_vector4', 'shape': (1048576,), 'threads': 256, 'ptxas_over_oa': 0.9784946169259268}
+{'operator': 'op_gelu_tanh_scalar', 'shape': (65536,), 'threads': 128, 'ptxas_over_oa': 1.0227272802437577}
+{'operator': 'op_gelu_tanh_scalar', 'shape': (65536,), 'threads': 256, 'ptxas_over_oa': 1.0}
+{'operator': 'op_gelu_tanh_scalar', 'shape': (1048576,), 'threads': 128, 'ptxas_over_oa': 0.9937887727186122}
+{'operator': 'op_gelu_tanh_scalar', 'shape': (1048576,), 'threads': 256, 'ptxas_over_oa': 1.0}
+{'operator': 'op_gelu_tanh_scalar', 'shape': (65539,), 'threads': 128, 'ptxas_over_oa': 1.0}
+{'operator': 'op_gelu_tanh_scalar4', 'shape': (65536,), 'threads': 128, 'ptxas_over_oa': 0.9111110823665877}
+{'operator': 'op_gelu_tanh_scalar4', 'shape': (65536,), 'threads': 256, 'ptxas_over_oa': 0.8913043134406547}
+{'operator': 'op_gelu_tanh_scalar4', 'shape': (1048576,), 'threads': 128, 'ptxas_over_oa': 0.514450893550717}
+{'operator': 'op_gelu_tanh_scalar4', 'shape': (1048576,), 'threads': 256, 'ptxas_over_oa': 0.48901098549645816}
+{'operator': 'op_gelu_tanh_vector4', 'shape': (65536,), 'threads': 128, 'ptxas_over_oa': 0.9534883563527148}
+{'operator': 'op_gelu_tanh_vector4', 'shape': (65536,), 'threads': 256, 'ptxas_over_oa': 1.0}
+{'operator': 'op_gelu_tanh_vector4', 'shape': (1048576,), 'threads': 128, 'ptxas_over_oa': 1.0}
+{'operator': 'op_gelu_tanh_vector4', 'shape': (1048576,), 'threads': 256, 'ptxas_over_oa': 0.9772727197562422}
+{'operator': 'op_gelu_tanh_backward_scalar', 'shape': (65536,), 'threads': 128, 'ptxas_over_oa': 0.9787233976677615}
+{'operator': 'op_gelu_tanh_backward_scalar', 'shape': (65536,), 'threads': 256, 'ptxas_over_oa': 0.9545454395124844}
+{'operator': 'op_gelu_tanh_backward_scalar', 'shape': (1048576,), 'status': 'correctness_failure'}
+{'operator': 'op_gelu_tanh_backward_scalar', 'shape': (1048576,), 'status': 'correctness_failure'}
+{'operator': 'op_gelu_tanh_backward_scalar', 'shape': (65539,), 'threads': 128, 'ptxas_over_oa': 0.9787233976677615}
+{'operator': 'op_gelu_tanh_backward_scalar4', 'shape': (65536,), 'status': 'correctness_failure'}
+{'operator': 'op_gelu_tanh_backward_scalar4', 'shape': (65536,), 'status': 'correctness_failure'}
+{'operator': 'op_gelu_tanh_backward_scalar4', 'shape': (1048576,), 'status': 'correctness_failure'}
+{'operator': 'op_gelu_tanh_backward_scalar4', 'shape': (1048576,), 'status': 'correctness_failure'}
+{'operator': 'op_gelu_tanh_backward_vector4', 'shape': (65536,), 'status': 'correctness_failure'}
+{'operator': 'op_gelu_tanh_backward_vector4', 'shape': (65536,), 'status': 'correctness_failure'}
+{'operator': 'op_gelu_tanh_backward_vector4', 'shape': (1048576,), 'status': 'correctness_failure'}
+{'operator': 'op_gelu_tanh_backward_vector4', 'shape': (1048576,), 'status': 'correctness_failure'}
+{'operator': 'op_silu_scalar', 'shape': (65536,), 'threads': 128, 'ptxas_over_oa': 1.0}
+{'operator': 'op_silu_scalar', 'shape': (65536,), 'threads': 256, 'ptxas_over_oa': 1.0}
+{'operator': 'op_silu_scalar', 'shape': (1048576,), 'threads': 128, 'ptxas_over_oa': 1.0}
+{'operator': 'op_silu_scalar', 'shape': (1048576,), 'threads': 256, 'ptxas_over_oa': 1.0}
+{'operator': 'op_silu_scalar', 'shape': (65539,), 'threads': 128, 'ptxas_over_oa': 1.0}
+{'operator': 'op_silu_scalar4', 'shape': (65536,), 'threads': 128, 'ptxas_over_oa': 0.8913043134406547}
+{'operator': 'op_silu_scalar4', 'shape': (65536,), 'threads': 256, 'ptxas_over_oa': 0.8039215700261356}
+{'operator': 'op_silu_scalar4', 'shape': (1048576,), 'threads': 128, 'ptxas_over_oa': 0.5056818200609394}
+{'operator': 'op_silu_scalar4', 'shape': (1048576,), 'threads': 256, 'ptxas_over_oa': 0.5}
+{'operator': 'op_silu_vector4', 'shape': (65536,), 'threads': 128, 'ptxas_over_oa': 0.9534883563527148}
+{'operator': 'op_silu_vector4', 'shape': (65536,), 'threads': 256, 'ptxas_over_oa': 1.0}
+{'operator': 'op_silu_vector4', 'shape': (1048576,), 'threads': 128, 'ptxas_over_oa': 0.9767441781763574}
+{'operator': 'op_silu_vector4', 'shape': (1048576,), 'threads': 256, 'ptxas_over_oa': 0.9761904679410911}
+{'operator': 'op_silu_backward_scalar', 'shape': (65536,), 'threads': 128, 'ptxas_over_oa': 0.9787233976677615}
+{'operator': 'op_silu_backward_scalar', 'shape': (65536,), 'threads': 256, 'ptxas_over_oa': 0.9767441781763574}
+{'operator': 'op_silu_backward_scalar', 'shape': (1048576,), 'threads': 128, 'ptxas_over_oa': 0.9938649841201114}
+{'operator': 'op_silu_backward_scalar', 'shape': (1048576,), 'threads': 256, 'ptxas_over_oa': 0.9217391056772715}
+{'operator': 'op_silu_backward_scalar', 'shape': (65539,), 'threads': 128, 'ptxas_over_oa': 0.957446795335523}
+{'operator': 'op_silu_backward_scalar4', 'shape': (65536,), 'threads': 128, 'ptxas_over_oa': 0.8653846382565238}
+{'operator': 'op_silu_backward_scalar4', 'shape': (65536,), 'threads': 256, 'ptxas_over_oa': 0.9200000436557468}
+{'operator': 'op_silu_backward_scalar4', 'shape': (1048576,), 'threads': 128, 'ptxas_over_oa': 0.5369458068047622}
+{'operator': 'op_silu_backward_scalar4', 'shape': (1048576,), 'threads': 256, 'ptxas_over_oa': 0.5165876656314807}
+{'operator': 'op_silu_backward_vector4', 'shape': (65536,), 'threads': 128, 'ptxas_over_oa': 0.9545454395124844}
+{'operator': 'op_silu_backward_vector4', 'shape': (65536,), 'threads': 256, 'ptxas_over_oa': 0.9761904679410911}
+{'operator': 'op_silu_backward_vector4', 'shape': (1048576,), 'threads': 128, 'ptxas_over_oa': 0.9887640412695581}
+{'operator': 'op_silu_backward_vector4', 'shape': (1048576,), 'threads': 256, 'ptxas_over_oa': 0.9468084941694038}
+{'operator': 'op_sigmoid_scalar', 'shape': (65536,), 'threads': 128, 'ptxas_over_oa': 1.0}
+{'operator': 'op_sigmoid_scalar', 'shape': (65536,), 'threads': 256, 'ptxas_over_oa': 1.0}
+{'operator': 'op_sigmoid_scalar', 'shape': (1048576,), 'threads': 128, 'ptxas_over_oa': 0.9937887727186122}
+{'operator': 'op_sigmoid_scalar', 'shape': (1048576,), 'threads': 256, 'ptxas_over_oa': 0.9902912587067784}
+{'operator': 'op_sigmoid_scalar', 'shape': (65539,), 'threads': 128, 'ptxas_over_oa': 0.9777777705916469}
+{'operator': 'op_sigmoid_scalar4', 'shape': (65536,), 'threads': 128, 'ptxas_over_oa': 0.9761904679410911}
+{'operator': 'op_sigmoid_scalar4', 'shape': (65536,), 'threads': 256, 'ptxas_over_oa': 1.0}
+{'operator': 'op_sigmoid_scalar4', 'shape': (1048576,), 'threads': 128, 'ptxas_over_oa': 0.8090909120975032}
+{'operator': 'op_sigmoid_scalar4', 'shape': (1048576,), 'threads': 256, 'ptxas_over_oa': 0.8380952512942543}
+{'operator': 'op_sigmoid_vector4', 'shape': (65536,), 'threads': 128, 'ptxas_over_oa': 0.9761904679410911}
+{'operator': 'op_sigmoid_vector4', 'shape': (65536,), 'threads': 256, 'ptxas_over_oa': 0.9749999909050527}
+{'operator': 'op_sigmoid_vector4', 'shape': (1048576,), 'threads': 128, 'ptxas_over_oa': 0.965116267264536}
+{'operator': 'op_sigmoid_vector4', 'shape': (1048576,), 'threads': 256, 'ptxas_over_oa': 0.9523809358821822}
+{'operator': 'op_tanh_backward_scalar', 'shape': (65536,), 'threads': 128, 'ptxas_over_oa': 1.0}
+{'operator': 'op_tanh_backward_scalar', 'shape': (65536,), 'threads': 256, 'ptxas_over_oa': 1.0243902525591406}
+{'operator': 'op_tanh_backward_scalar', 'shape': (1048576,), 'threads': 128, 'ptxas_over_oa': 1.0062111368968232}
+{'operator': 'op_tanh_backward_scalar', 'shape': (1048576,), 'threads': 256, 'ptxas_over_oa': 1.0}
+{'operator': 'op_tanh_backward_scalar', 'shape': (65539,), 'threads': 128, 'ptxas_over_oa': 1.0227272802437577}
+{'operator': 'op_tanh_backward_scalar4', 'shape': (65536,), 'threads': 128, 'ptxas_over_oa': 0.9555555411832938}
+{'operator': 'op_tanh_backward_scalar4', 'shape': (65536,), 'threads': 256, 'ptxas_over_oa': 0.9772727197562422}
+{'operator': 'op_tanh_backward_scalar4', 'shape': (1048576,), 'threads': 128, 'ptxas_over_oa': 1.0}
+{'operator': 'op_tanh_backward_scalar4', 'shape': (1048576,), 'threads': 256, 'ptxas_over_oa': 0.915966416868972}
+{'operator': 'op_tanh_backward_vector4', 'shape': (65536,), 'threads': 128, 'ptxas_over_oa': 0.9756097474408594}
+{'operator': 'op_tanh_backward_vector4', 'shape': (65536,), 'threads': 256, 'ptxas_over_oa': 1.0}
+{'operator': 'op_tanh_backward_vector4', 'shape': (1048576,), 'threads': 128, 'ptxas_over_oa': 1.0}
+{'operator': 'op_tanh_backward_vector4', 'shape': (1048576,), 'threads': 256, 'ptxas_over_oa': 0.9462365423148169}
+{'operator': 'op_divide_scalar', 'shape': (65536,), 'threads': 128, 'ptxas_over_oa': 1.0}
+{'operator': 'op_divide_scalar', 'shape': (65536,), 'threads': 256, 'ptxas_over_oa': 1.0}
+{'operator': 'op_divide_scalar', 'shape': (1048576,), 'threads': 128, 'ptxas_over_oa': 1.0}
+{'operator': 'op_divide_scalar', 'shape': (1048576,), 'threads': 256, 'ptxas_over_oa': 1.0}
+{'operator': 'op_divide_scalar', 'shape': (65539,), 'threads': 128, 'ptxas_over_oa': 1.0}
+{'operator': 'op_divide_scalar4', 'shape': (65536,), 'threads': 128, 'ptxas_over_oa': 0.9374999810521943}
+{'operator': 'op_divide_scalar4', 'shape': (65536,), 'threads': 256, 'ptxas_over_oa': 0.978260862688131}
+{'operator': 'op_divide_scalar4', 'shape': (1048576,), 'threads': 128, 'ptxas_over_oa': 1.0090909120975031}
+{'operator': 'op_divide_scalar4', 'shape': (1048576,), 'threads': 256, 'ptxas_over_oa': 0.886178828123669}
+{'operator': 'op_divide_vector4', 'shape': (65536,), 'threads': 128, 'ptxas_over_oa': 1.0}
+{'operator': 'op_divide_vector4', 'shape': (65536,), 'threads': 256, 'ptxas_over_oa': 0.9767441781763574}
+{'operator': 'op_divide_vector4', 'shape': (1048576,), 'threads': 128, 'ptxas_over_oa': 1.0}
+{'operator': 'op_divide_vector4', 'shape': (1048576,), 'threads': 256, 'ptxas_over_oa': 0.9374999810521943}
+{'operator': 'op_rsqrt_scale_scalar', 'shape': (65536,), 'threads': 128, 'ptxas_over_oa': 1.0}
+{'operator': 'op_rsqrt_scale_scalar', 'shape': (65536,), 'threads': 256, 'ptxas_over_oa': 0.9761904679410911}
+{'operator': 'op_rsqrt_scale_scalar', 'shape': (1048576,), 'threads': 128, 'ptxas_over_oa': 0.993827203189205}
+{'operator': 'op_rsqrt_scale_scalar', 'shape': (1048576,), 'threads': 256, 'ptxas_over_oa': 0.9904761871764365}
+{'operator': 'op_rsqrt_scale_scalar', 'shape': (65539,), 'threads': 128, 'ptxas_over_oa': 1.0}
+{'operator': 'op_rsqrt_scale_scalar4', 'shape': (65536,), 'threads': 128, 'ptxas_over_oa': 0.9555555411832938}
+{'operator': 'op_rsqrt_scale_scalar4', 'shape': (65536,), 'threads': 256, 'ptxas_over_oa': 0.9772727197562422}
+{'operator': 'op_rsqrt_scale_scalar4', 'shape': (1048576,), 'threads': 128, 'ptxas_over_oa': 0.9909090879024969}
+{'operator': 'op_rsqrt_scale_scalar4', 'shape': (1048576,), 'threads': 256, 'ptxas_over_oa': 0.886178828123669}
+{'operator': 'op_rsqrt_scale_vector4', 'shape': (65536,), 'threads': 128, 'ptxas_over_oa': 1.0}
+{'operator': 'op_rsqrt_scale_vector4', 'shape': (65536,), 'threads': 256, 'ptxas_over_oa': 1.0}
+{'operator': 'op_rsqrt_scale_vector4', 'shape': (1048576,), 'threads': 128, 'ptxas_over_oa': 0.9887640412695581}
+{'operator': 'op_rsqrt_scale_vector4', 'shape': (1048576,), 'threads': 256, 'ptxas_over_oa': 1.0219780290070837}
+{'operator': 'op_dropout_mask_scale_scalar', 'shape': (65536,), 'threads': 128, 'ptxas_over_oa': 1.0}
+{'operator': 'op_dropout_mask_scale_scalar', 'shape': (65536,), 'threads': 256, 'ptxas_over_oa': 1.0}
+{'operator': 'op_dropout_mask_scale_scalar', 'shape': (1048576,), 'threads': 128, 'ptxas_over_oa': 1.0061349266043373}
+{'operator': 'op_dropout_mask_scale_scalar', 'shape': (1048576,), 'threads': 256, 'ptxas_over_oa': 1.0}
+{'operator': 'op_dropout_mask_scale_scalar', 'shape': (65539,), 'threads': 128, 'ptxas_over_oa': 1.0}
+{'operator': 'op_dropout_mask_scale_scalar4', 'shape': (65536,), 'threads': 128, 'ptxas_over_oa': 1.0}
+{'operator': 'op_dropout_mask_scale_scalar4', 'shape': (65536,), 'threads': 256, 'ptxas_over_oa': 0.9772727197562422}
+{'operator': 'op_dropout_mask_scale_scalar4', 'shape': (1048576,), 'threads': 128, 'ptxas_over_oa': 1.0092592623782397}
+{'operator': 'op_dropout_mask_scale_scalar4', 'shape': (1048576,), 'threads': 256, 'ptxas_over_oa': 0.9316239103631897}
+{'operator': 'op_dropout_mask_scale_vector4', 'shape': (65536,), 'threads': 128, 'ptxas_over_oa': 0.9756097474408594}
+{'operator': 'op_dropout_mask_scale_vector4', 'shape': (65536,), 'threads': 256, 'ptxas_over_oa': 1.0}
+{'operator': 'op_dropout_mask_scale_vector4', 'shape': (1048576,), 'threads': 128, 'ptxas_over_oa': 0.9886363598781212}
+{'operator': 'op_dropout_mask_scale_vector4', 'shape': (1048576,), 'threads': 256, 'ptxas_over_oa': 0.9456521567203274}
+{'operator': 'op_rope_pairs_scalar', 'shape': (65536,), 'threads': 128, 'ptxas_over_oa': 0.9591837325619235}
+{'operator': 'op_rope_pairs_scalar', 'shape': (65536,), 'threads': 256, 'ptxas_over_oa': 0.9361701930032845}
+{'operator': 'op_rope_pairs_scalar', 'shape': (1048576,), 'threads': 128, 'ptxas_over_oa': 0.9385475042001381}
+{'operator': 'op_rope_pairs_scalar', 'shape': (1048576,), 'threads': 256, 'ptxas_over_oa': 0.8342541640788779}
+{'operator': 'op_rope_pairs_scalar', 'shape': (65539,), 'threads': 128, 'ptxas_over_oa': 0.9591837325619235}
+{'operator': 'op_rope_pairs_scalar4', 'shape': (65536,), 'threads': 128, 'ptxas_over_oa': 0.9629629504870412}
+{'operator': 'op_rope_pairs_scalar4', 'shape': (65536,), 'threads': 256, 'ptxas_over_oa': 0.9444444257305618}
+{'operator': 'op_rope_pairs_scalar4', 'shape': (1048576,), 'threads': 128, 'ptxas_over_oa': 0.9100000400177679}
+{'operator': 'op_rope_pairs_scalar4', 'shape': (1048576,), 'threads': 256, 'ptxas_over_oa': 0.880341843135582}
+{'operator': 'op_rope_pairs_vector4', 'shape': (65536,), 'threads': 128, 'ptxas_over_oa': 0.957446795335523}
+{'operator': 'op_rope_pairs_vector4', 'shape': (65536,), 'threads': 256, 'ptxas_over_oa': 1.0}
+{'operator': 'op_rope_pairs_vector4', 'shape': (1048576,), 'threads': 128, 'ptxas_over_oa': 1.0}
+{'operator': 'op_rope_pairs_vector4', 'shape': (1048576,), 'threads': 256, 'ptxas_over_oa': 0.963414621161289}
+{'operator': 'op_sgd_momentum_scalar', 'shape': (65536,), 'threads': 128, 'ptxas_over_oa': 0.9787233976677615}
+{'operator': 'op_sgd_momentum_scalar', 'shape': (65536,), 'threads': 256, 'ptxas_over_oa': 0.9772727197562422}
+{'operator': 'op_sgd_momentum_scalar', 'shape': (1048576,), 'threads': 128, 'ptxas_over_oa': 1.0}
+{'operator': 'op_sgd_momentum_scalar', 'shape': (1048576,), 'threads': 256, 'ptxas_over_oa': 0.970802908853598}
+{'operator': 'op_sgd_momentum_scalar', 'shape': (65539,), 'threads': 128, 'ptxas_over_oa': 0.978260862688131}
+{'operator': 'op_sgd_momentum_scalar4', 'shape': (65536,), 'threads': 128, 'ptxas_over_oa': 0.9607842997386433}
+{'operator': 'op_sgd_momentum_scalar4', 'shape': (65536,), 'threads': 256, 'ptxas_over_oa': 0.9423076721265966}
+{'operator': 'op_sgd_momentum_scalar4', 'shape': (1048576,), 'threads': 128, 'ptxas_over_oa': 0.8735631760943144}
+{'operator': 'op_sgd_momentum_scalar4', 'shape': (1048576,), 'threads': 256, 'ptxas_over_oa': 0.9771689746514268}
+{'operator': 'op_sgd_momentum_vector4', 'shape': (65536,), 'threads': 128, 'ptxas_over_oa': 0.9772727197562422}
+{'operator': 'op_sgd_momentum_vector4', 'shape': (65536,), 'threads': 256, 'ptxas_over_oa': 0.9767441781763574}
+{'operator': 'op_sgd_momentum_vector4', 'shape': (1048576,), 'threads': 128, 'ptxas_over_oa': 0.9856115055192066}
+{'operator': 'op_sgd_momentum_vector4', 'shape': (1048576,), 'threads': 256, 'ptxas_over_oa': 0.9655172794461521}
+{'operator': 'op_adam_like_scalar', 'shape': (65536,), 'threads': 128, 'ptxas_over_oa': 0.9259259009740823}
+{'operator': 'op_adam_like_scalar', 'shape': (65536,), 'threads': 256, 'ptxas_over_oa': 0.9411765209408841}
+{'operator': 'op_adam_like_scalar', 'shape': (1048576,), 'threads': 128, 'ptxas_over_oa': 0.8784314130549288}
+{'operator': 'op_adam_like_scalar', 'shape': (1048576,), 'threads': 256, 'ptxas_over_oa': 0.8357142864567304}
+{'operator': 'op_adam_like_scalar', 'shape': (65539,), 'threads': 128, 'ptxas_over_oa': 0.9245282759844868}
+{'operator': 'op_adam_like_scalar4', 'shape': (65536,), 'threads': 128, 'ptxas_over_oa': 0.8636363736583438}
+{'operator': 'op_adam_like_scalar4', 'shape': (65536,), 'threads': 256, 'ptxas_over_oa': 1.0}
+{'operator': 'op_adam_like_scalar4', 'shape': (1048576,), 'threads': 128, 'ptxas_over_oa': 0.8550724706452024}
+{'operator': 'op_adam_like_scalar4', 'shape': (1048576,), 'threads': 256, 'ptxas_over_oa': 0.8698630246214409}
+{'operator': 'op_adam_like_vector4', 'shape': (65536,), 'threads': 128, 'ptxas_over_oa': 0.9285714053700335}
+{'operator': 'op_adam_like_vector4', 'shape': (65536,), 'threads': 256, 'ptxas_over_oa': 0.9298245390090567}
+{'operator': 'op_adam_like_vector4', 'shape': (1048576,), 'threads': 128, 'ptxas_over_oa': 0.8553719388437108}
+{'operator': 'op_adam_like_vector4', 'shape': (1048576,), 'threads': 256, 'ptxas_over_oa': 0.8136882289167919}
+{'operator': 'op_div_const7_scalar', 'shape': (65536,), 'threads': 128, 'ptxas_over_oa': 1.0227272802437577}
+{'operator': 'op_div_const7_scalar', 'shape': (65536,), 'threads': 256, 'ptxas_over_oa': 1.0}
+{'operator': 'op_div_const7_scalar', 'shape': (1048576,), 'threads': 128, 'ptxas_over_oa': 1.0}
+{'operator': 'op_div_const7_scalar', 'shape': (1048576,), 'threads': 256, 'ptxas_over_oa': 1.0198019873306126}
+{'operator': 'op_div_const7_scalar', 'shape': (65539,), 'threads': 128, 'ptxas_over_oa': 1.0}
+{'operator': 'op_div_const7_scalar4', 'shape': (65536,), 'threads': 128, 'ptxas_over_oa': 1.0250000090949472}
+{'operator': 'op_div_const7_scalar4', 'shape': (65536,), 'threads': 256, 'ptxas_over_oa': 1.0}
+{'operator': 'op_div_const7_scalar4', 'shape': (1048576,), 'threads': 128, 'ptxas_over_oa': 0.6821705863587406}
+{'operator': 'op_div_const7_scalar4', 'shape': (1048576,), 'threads': 256, 'ptxas_over_oa': 0.6769230803673172}
+{'operator': 'op_div_const7_vector4', 'shape': (65536,), 'threads': 128, 'ptxas_over_oa': 1.0}
+{'operator': 'op_div_const7_vector4', 'shape': (65536,), 'threads': 256, 'ptxas_over_oa': 1.0263157995511882}
+{'operator': 'op_div_const7_vector4', 'shape': (1048576,), 'threads': 128, 'ptxas_over_oa': 1.0121951262795703}
+{'operator': 'op_div_const7_vector4', 'shape': (1048576,), 'threads': 256, 'ptxas_over_oa': 1.0487805051182812}
+{'operator': 'op_rem_const7_scalar', 'shape': (65536,), 'threads': 128, 'ptxas_over_oa': 1.0227272802437577}
+{'operator': 'op_rem_const7_scalar', 'shape': (65536,), 'threads': 256, 'ptxas_over_oa': 1.0}
+{'operator': 'op_rem_const7_scalar', 'shape': (1048576,), 'threads': 128, 'ptxas_over_oa': 1.0}
+{'operator': 'op_rem_const7_scalar', 'shape': (1048576,), 'threads': 256, 'ptxas_over_oa': 1.0098039250653392}
+{'operator': 'op_rem_const7_scalar', 'shape': (65539,), 'threads': 128, 'ptxas_over_oa': 1.0227272802437577}
+{'operator': 'op_rem_const7_scalar4', 'shape': (65536,), 'threads': 128, 'ptxas_over_oa': 0.9756097474408594}
+{'operator': 'op_rem_const7_scalar4', 'shape': (65536,), 'threads': 256, 'ptxas_over_oa': 1.0}
+{'operator': 'op_rem_const7_scalar4', 'shape': (1048576,), 'threads': 128, 'ptxas_over_oa': 0.6423357927841192}
+{'operator': 'op_rem_const7_scalar4', 'shape': (1048576,), 'threads': 256, 'ptxas_over_oa': 0.6197182954255953}
+{'operator': 'op_rem_const7_vector4', 'shape': (65536,), 'threads': 128, 'ptxas_over_oa': 1.0}
+{'operator': 'op_rem_const7_vector4', 'shape': (65536,), 'threads': 256, 'ptxas_over_oa': 1.0263157995511882}
+{'operator': 'op_rem_const7_vector4', 'shape': (1048576,), 'threads': 128, 'ptxas_over_oa': 1.0}
+{'operator': 'op_rem_const7_vector4', 'shape': (1048576,), 'threads': 256, 'ptxas_over_oa': 1.0240963939915317}
+{'operator': 'op_softmax_w128_c4', 'shape': (257, 128), 'threads': 128, 'ptxas_over_oa': 0.8076923103831205}
+{'operator': 'op_softmax_w128_c8', 'shape': (257, 128), 'threads': 256, 'ptxas_over_oa': 0.8076923103831205}
+{'operator': 'op_softmax_backward_w128_c4', 'shape': (257, 128), 'threads': 128, 'ptxas_over_oa': 0.8163265366730178}
+{'operator': 'op_softmax_backward_w128_c8', 'shape': (257, 128), 'threads': 256, 'ptxas_over_oa': 0.8541666224551202}
+{'operator': 'op_layernorm_w128_c4', 'shape': (257, 128), 'threads': 128, 'ptxas_over_oa': 0.823529420156814}
+{'operator': 'op_layernorm_w128_c8', 'shape': (257, 128), 'threads': 256, 'ptxas_over_oa': 0.8400000145519156}
+{'operator': 'op_layernorm_backward_w128_c4', 'shape': (257, 128), 'threads': 128, 'ptxas_over_oa': 0.6615384598163414}
+{'operator': 'op_layernorm_backward_w128_c8', 'shape': (257, 128), 'threads': 256, 'ptxas_over_oa': 0.692307700918293}
+{'operator': 'op_rmsnorm_w128_c4', 'shape': (257, 128), 'threads': 128, 'ptxas_over_oa': 0.8695651761287857}
+{'operator': 'op_rmsnorm_w128_c8', 'shape': (257, 128), 'threads': 256, 'ptxas_over_oa': 0.8888888529582345}
+{'operator': 'op_rmsnorm_backward_w128_c4', 'shape': (257, 128), 'threads': 128, 'ptxas_over_oa': 0.7407407207792659}
+{'operator': 'op_rmsnorm_backward_w128_c8', 'shape': (257, 128), 'threads': 256, 'ptxas_over_oa': 0.7454545274149813}
+{'operator': 'op_cross_entropy_w128_c4', 'shape': (257, 128), 'threads': 128, 'ptxas_over_oa': 0.8076923103831205}
+{'operator': 'op_cross_entropy_w128_c8', 'shape': (257, 128), 'threads': 256, 'ptxas_over_oa': 0.8269230863409216}
+{'operator': 'op_row_sum_w128_c4', 'shape': (257, 128), 'threads': 128, 'ptxas_over_oa': 0.886363598781211}
+{'operator': 'op_row_sum_w128_c8', 'shape': (257, 128), 'threads': 256, 'ptxas_over_oa': 0.886363598781211}
+{'operator': 'op_softmax_w256_c4', 'shape': (257, 256), 'threads': 128, 'ptxas_over_oa': 0.745762695142873}
+{'operator': 'op_softmax_w256_c8', 'shape': (257, 256), 'threads': 256, 'ptxas_over_oa': 0.7931034461129735}
+{'operator': 'op_softmax_backward_w256_c4', 'shape': (257, 256), 'threads': 128, 'ptxas_over_oa': 0.7288135373750207}
+{'operator': 'op_softmax_backward_w256_c8', 'shape': (257, 256), 'threads': 256, 'ptxas_over_oa': 0.733333357586526}
+{'operator': 'op_rmsnorm_w256_c4', 'shape': (257, 256), 'threads': 128, 'ptxas_over_oa': 0.8}
+{'operator': 'op_rmsnorm_w256_c8', 'shape': (257, 256), 'threads': 256, 'ptxas_over_oa': 0.8400000145519156}
+{'operator': 'op_rmsnorm_backward_w256_c4', 'shape': (257, 256), 'threads': 128, 'ptxas_over_oa': 0.6615384598163414}
+{'operator': 'op_rmsnorm_backward_w256_c8', 'shape': (257, 256), 'threads': 256, 'ptxas_over_oa': 0.6818181868291718}
+{'operator': 'op_softmax_w513_c4', 'shape': (257, 513), 'threads': 128, 'ptxas_over_oa': 0.6621621116715892}
+{'operator': 'op_softmax_w513_c8', 'shape': (257, 513), 'threads': 256, 'ptxas_over_oa': 0.7051282350261253}
+{'operator': 'op_softmax_backward_w513_c4', 'shape': (257, 513), 'threads': 128, 'ptxas_over_oa': 0.6075949763471505}
+{'operator': 'op_softmax_backward_w513_c8', 'shape': (257, 513), 'threads': 256, 'ptxas_over_oa': 0.6588235409928738}
+{'operator': 'op_layernorm_w513_c4', 'shape': (257, 513), 'threads': 128, 'ptxas_over_oa': 0.7058823655293383}
+{'operator': 'op_layernorm_w513_c8', 'shape': (257, 513), 'threads': 256, 'ptxas_over_oa': 0.7564103054428456}
+{'operator': 'op_layernorm_backward_w513_c4', 'shape': (257, 513), 'threads': 128, 'ptxas_over_oa': 0.5252525345321368}
+{'operator': 'op_layernorm_backward_w513_c8', 'shape': (257, 513), 'threads': 256, 'ptxas_over_oa': 0.6380952512942543}
+{'operator': 'op_rmsnorm_w513_c4', 'shape': (257, 513), 'threads': 128, 'ptxas_over_oa': 0.7377049434526877}
+{'operator': 'op_rmsnorm_w513_c8', 'shape': (257, 513), 'threads': 256, 'ptxas_over_oa': 0.7727272526833125}
+{'operator': 'op_rmsnorm_backward_w513_c4', 'shape': (257, 513), 'threads': 128, 'ptxas_over_oa': 0.5697674231688488}
+{'operator': 'op_rmsnorm_backward_w513_c8', 'shape': (257, 513), 'threads': 256, 'ptxas_over_oa': 0.6195652156720327}
+{'operator': 'op_cross_entropy_w513_c4', 'shape': (257, 513), 'threads': 128, 'ptxas_over_oa': 0.6756756291712006}
+{'operator': 'op_cross_entropy_w513_c8', 'shape': (257, 513), 'threads': 256, 'ptxas_over_oa': 0.7307692702344855}
+{'operator': 'op_row_sum_w513_c4', 'shape': (257, 513), 'threads': 128, 'ptxas_over_oa': 0.7118643796071686}
+{'operator': 'op_row_sum_w513_c8', 'shape': (257, 513), 'threads': 256, 'ptxas_over_oa': 0.7166666848565612}
+evidence: /Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/runs/operators-20261107T143128.366417Z.json
+Stopping app - local entrypoint completed.
+✓ App completed. View run at 
+https://modal.com/apps/qingyang-lucas-fang/main/ap-muDXyYw8qqWR31y48zrWzY

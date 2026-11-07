@@ -1,0 +1,67 @@
+✓ Initialized. View run at 
+https://modal.com/apps/qingyang-lucas-fang/main/ap-OGgJ6JJNPZPBcpLK9XrP4d
+Building image im-SCH3M4NUJP2ZDo2PXpdyqn
+
+=> Step 0: FROM base
+
+=> Step 1: COPY . /
+Saving image...
+Image saved, took 3.02s
+
+Built image im-SCH3M4NUJP2ZDo2PXpdyqn in 5.02s
+
+
+Building image im-njdLYAHeJcnm6iwv4I1r9k
+
+=> Step 0: FROM base
+
+=> Step 1: COPY . /
+Saving image...
+Image saved, took 1.39s
+
+Built image im-njdLYAHeJcnm6iwv4I1r9k in 3.30s
+
+
+✓ Created objects.
+├── ✓ Uploaded /Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/campaign.py
+├── ✓ Uploaded /Users/lucasfang/Desktop/OpenAssembler/openassembler
+├── ✓ Uploaded 
+│   /Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/operator_worker.py
+├── ✓ Uploaded 
+│   /Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/tensor_suite.py
+├── ✓ Uploaded 
+│   /Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/whole_worker.py
+├── ✓ Uploaded 
+│   /Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/counter_worker.py
+└── ✓ Created Function execute.
+
+==========
+== CUDA ==
+==========
+
+CUDA Version 12.8.0
+
+Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+
+This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+By pulling and using the container, you accept the terms and conditions of this license:
+https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+
+A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
+
+{"counter": "op_gelu_tanh_scalar4/oa", "status": "failed", "metrics": 0}
+{"counter": "op_gelu_tanh_scalar4/ptxas", "status": "failed", "metrics": 0}
+{"counter": "op_rmsnorm_backward_w513_c4/oa", "status": "failed", "metrics": 0}
+{"counter": "op_rmsnorm_backward_w513_c4/ptxas", "status": "failed", "metrics": 0}
+{"counter": "mlp_wide_forward_f16/oa_legacy", "status": "failed", "metrics": 0}
+{"counter": "mlp_wide_forward_f16/oa_direct", "status": "failed", "metrics": 0}
+{"counter": "mlp_wide_forward_f16/ptxas_m_fast", "status": "failed", "metrics": 0}
+{"counter": "mlp_wide_forward_f16/ptxas_morton8", "status": "failed", "metrics": 0}
+{"counter": "tall_f16/oa_legacy", "status": "failed", "metrics": 0}
+{"counter": "tall_f16/oa_morton", "status": "failed", "metrics": 0}
+{"counter": "tall_f16/ptxas_m_fast", "status": "failed", "metrics": 0}
+{"counter": "tall_f16/ptxas_morton8", "status": "failed", "metrics": 0}
+evidence: /Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/runs/counters-20261107T143821.759059Z.json
+Stopping app - local entrypoint completed.
+✓ App completed. View run at 
+https://modal.com/apps/qingyang-lucas-fang/main/ap-OGgJ6JJNPZPBcpLK9XrP4d

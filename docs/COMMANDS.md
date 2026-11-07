@@ -28,7 +28,7 @@ Python environment: the CLI invokes its `modal` executable.
 | `openassembler compile SRC` | Compile a kernel file/tree, or capture a configured PyTorch application. |
 | `openassembler gemm ...` | Generate and compile a checked native A100 FP16/BF16 GEMM. |
 | `openassembler rowwise ...` | Generate and compile cooperative native FP32 softmax or LayerNorm. |
-| `openassembler run [OUTDIR]` | Execute existing kernel cubins or replay a bundled application. |
+| `openassembler run [PATH]` | Execute existing kernel cubins or replay a bundled application. |
 | `openassembler cnr SRC` | Compile, then run the outputs built by this invocation. |
 | `openassembler verify CUBIN PTX --kernel NAME` | Compare a probe-ABI cubin's emulated SASS with the PTX interpreter. |
 | `openassembler corpus` | Build the instruction-probe corpus with NVIDIA's tools. |
@@ -80,7 +80,7 @@ openassembler compile examples/div_by_const.ptx -o division --verify
 openassembler compile examples/vector_add.py --out-dir output_python
 openassembler compile examples/vector_add.cu -I include --nvcc-flag=-DTILE=32 --out-dir output_cuda
 openassembler compile my_kernel_repo/ --out-dir output_repo
-openassembler compile testcases/test_whole_repo --verify --build-backend modal --out-dir output_app
+openassembler compile testcases/test_whole_repo --verify --backend modal
 ```
 
 `SRC` is required. A standalone `.ptx` file goes to the native backend; a
@@ -103,7 +103,7 @@ These options are also accepted by `cnr`.
 | Option | Default | Meaning |
 |---|---|---|
 | `-o NAME`, `--out NAME` | Source stem; application default name | Name one file's output or an application bundle. Use a name, not a path; use `--out-dir` for its directory. |
-| `--out-dir DIR` | `output` | Output root. |
+| `--out-dir DIR` | `REPO/output` for directory builds; `./output` for files | Build root; use the same override with `run REPO`. |
 | `--kernel NAME` | All entries | Compile only the named entry in a standalone source. |
 | `--arch ARCH` | `sm_80` | Target architecture. The validated native product target is SM80/A100; accepting an architecture string is not a support guarantee. |
 | `--opt-level LEVEL` | `opt` | One of `safe`, `mined`, `sched`, `opt`; see below. |
@@ -114,11 +114,16 @@ These options are also accepted by `cnr`.
 | `--nvcc-flag FLAG` | None | Additional CUDA compiler flag; repeatable. Use `--nvcc-flag=-DNAME=VALUE` when a value begins with `-`. |
 | `--dump-ptx` | Off | Print generated/input PTX. |
 | `--no-sass` | Off | Omit the readable `nvdisasm` listing; still produce cubins and metadata. |
-| `--build-backend MODE` | Application configuration | Application capture transport: `auto`, `local`, `modal`, `ssh`. |
-| `--build-host USER@HOST` | Application configuration | Host for application SSH capture; saved in the bundle for replay. |
+| `--backend MODE` | `auto` | Shared build/run destination: `local`, `modal`, `user@host`, or `ssh` with `--host`. Native auto builds locally; applications use configuration. |
+| `--host USER@HOST` | None | SSH target or SSH config alias. Ports/keys/ProxyJump come from SSH configuration. |
+| `--gpu TYPE` | Application config / `A100-40GB` | Modal GPU for application capture/execution. Native remote compilation is CPU-only. |
+| `--budget SECONDS` | Application config / native build `900` | Per-stage budget. Remote native compilation accepts 30–1800 seconds. |
+| `--job-timeout SECONDS` | Application config | Application capture watchdog; native compiler work is bounded by its build budget. |
+| `--build-backend MODE` | Shared `--backend` / application config | Override only compilation, e.g. build on Modal and execute via SSH. Also accepts legacy `ssh`. |
+| `--build-host USER@HOST` | Shared `--host` / application config | Override the SSH compilation target. The application bundle records its capture host. |
 | `--build-gpu GPU` | Application configuration | Requested Modal GPU for application capture. Actual returned hardware is recorded separately. |
-| `--build-budget SECONDS` | Application configuration | Application capture time budget. |
-| `--dry-run` | Off | For `compile`, show an application capture plan only; standalone `compile --dry-run` is rejected. For `cnr`, see its section. |
+| `--build-budget SECONDS` | Shared `--budget` / configuration | Override only compilation time budget. |
+| `--dry-run` | Off | Plan native compilation or application capture, without writing outputs, uploading sources or running workloads. `cnr` plans both stages. |
 
 For scalar kernels, `safe` uses conservative in-order scheduling; `mined`
 uses dependency-distance stall selection; `sched` adds list scheduling; `opt`
@@ -128,10 +133,13 @@ tensor kernels use their separate validated tensor policy at every level.
 
 Application capture currently requires `--arch sm_80`. Standalone-only flags
 (`--kernel`, `--fallback`, `-I`, `--nvcc-flag`, `--dump-ptx`, and nondefault
-`--opt-level`/`--trials`) are rejected for applications. Build transport flags
-are meaningful only for configured applications and are rejected on standalone
-builds, including `--build-host` supplied alone. They are not kernel-execution
-selectors.
+`--opt-level`/`--trials`) are rejected for applications. Transport selection
+works for both frontends. `--backend` applies to both stages of `cnr`; an
+explicit `--build-backend` overrides only compilation. Native remote builds
+ship the same compiler and encoding data and publish their results locally,
+without requiring a local toolkit. Local native compilation has no build
+watchdog and rejects explicit build-budget requests; `cnr --budget` still
+bounds GPU execution. See [repository setup](REPOSITORY_WORKFLOW.md).
 
 Capture `--build-backend auto` selects local execution on Linux when a `torch`
 module is discoverable, otherwise Modal. This selection is not a GPU or pinned
@@ -247,10 +255,16 @@ openassembler run output_repo --source kernels/ops.ptx --kernel relu --spec laun
 openassembler run output_app --application test_whole_repo --backend modal --verify-application
 ```
 
-`OUTDIR` is optional and defaults to `output`. The command reads its manifest;
-it does not recompile the source. With a single application-only manifest it
-can replay that application automatically. With mixed application/kernel
-outputs, select the application explicitly using `--application NAME`.
+`PATH` accepts a source repository/file or an existing build directory.
+`run REPO` reads `REPO/output/manifest.json`; custom builds use
+`run REPO --out-dir DIR`. A source path restricts execution to its own saved
+records; a sole matching application is selected automatically. It never
+compiles or recaptures. `run DIR` still accepts a directory containing a
+manifest, and bare `run` retains the `./output` workflow. Legacy builds in
+`./output` are found only when their recorded source matches the supplied
+repository. The repository-local build takes priority over that legacy path;
+ambiguous single-file builds require `--out-dir`. With an explicit
+mixed kernel/application build directory, select `--application NAME`.
 
 ### Kernel and shared execution options
 
@@ -258,7 +272,9 @@ These flags are also accepted by `cnr`, except where its section says otherwise.
 
 | Option | Default for standalone kernels | Meaning |
 |---|---|---|
-| `--backend MODE` | `auto`, resolved to `local` | `local`, `modal`, or an SSH target such as `user@host`. Application semantics differ below. |
+| `--backend MODE` | `auto`, resolved to `local` for kernels | `local`, `modal`, `user@host`, or `ssh` with `--host`. Applications reuse their saved capture transport in auto mode. |
+| `--host USER@HOST` | Saved application host when using `ssh` | Select or override the SSH destination; SSH config aliases work. |
+| `--out-dir DIR` | `REPO/output` | Build root when PATH names sources; bare `run --out-dir DIR` also selects an artifact directory. |
 | `--spec FILE` | None | JSON buffer/launch/pipeline specification; replaces guessed auto-harness arguments. |
 | `-n N`, `--n N` | `1048576` | Elements per generic auto-harness pointer buffer; positive. Generated GEMM/rowwise contracts supply their own dimensions. |
 | `--reps N` | `20` | Timed repetitions; nonnegative. `0` runs correctness without repetition timing. |
@@ -285,18 +301,20 @@ runner, not a full CUDA toolkit. Modal execution needs the authenticated
 | `--from-results RES.pkl` | None | Re-report an existing GPU results pickle rather than execute jobs. The manifest/job selection must still describe that run. |
 | `--application NAME` | Auto when unambiguous | Select a saved application bundle. Cannot combine with `--kernel`, `--source`, `--spec`, `--from-results`, or `--save-jobs`. |
 | `--app-arg ARG` | Saved arguments | Repeatable application-argument entries. A supplied list must exactly match the saved argument list; it does not specialize a new shape. Use `--app-arg=--flag` for a token beginning with `-`. |
-| `--verify-application` | Off | Compare eager/compiled application state on replay using the saved numerical policies. Requires explicit `--application NAME`. |
+| `--verify-application` | Off | Compare eager/compiled application state on replay using the saved numerical policies. Requires a selected application, inferred from the repository or an unambiguous application-only build. |
 
 For applications, `--backend auto` chooses the saved capture transport. The
-accepted replay transports are `local`, `modal`, and `ssh`; for `ssh`, the host
-comes from the saved bundle, not an arbitrary `user@host` backend string.
+accepted replay transports are `local`, `modal`, and SSH targets. Use
+`--backend user@host` directly, or `--backend ssh --host user@host`; a saved
+SSH host remains usable with `--backend auto` or `--backend ssh`.
 Application `--gpu`, `--budget` and `--job-timeout` default to saved values;
 budgets must be 30–1800 seconds and the watchdog must be positive and no larger
 than that budget. Nondefault `-n` or `--reps` is rejected with explicit application
 selection. Model arguments are saved in the bundle. Cache-only replay blocks
 new GPU code generation and rejects missing or changed runtime artifacts.
-Both `--app-arg` and `--verify-application` require explicit `--application NAME`,
-even when that application would otherwise be selected automatically.
+Both `--app-arg` and `--verify-application` accept the application inferred
+from a repository path; an explicit `--application NAME` is only needed when
+selection is ambiguous.
 
 ### What the native auto-harness verifies
 
@@ -361,7 +379,7 @@ defaults to all buffers. Spec-level `reps` overrides the CLI repetition count.
 openassembler cnr examples/vector_add.py --spec examples/run_spec.json --backend modal --out-dir output_cnr
 openassembler cnr examples/vector_add.cu --backend user@host --out-dir output_cnr
 openassembler cnr examples/div_by_const.ptx --verify --dry-run --out-dir output_cnr
-openassembler cnr testcases/test_whole_repo --verify --build-backend modal --backend modal --out-dir output_app
+openassembler cnr testcases/test_whole_repo --verify --backend modal
 ```
 
 `SRC` is required. `cnr` accepts the compilation-option table and the shared
@@ -370,13 +388,13 @@ source/entry pairs successfully built by this invocation, not unrelated stale
 manifest entries. It does **not** expose `run`-only `--source`, `--from-results`,
 `--application`, `--app-arg`, or `--verify-application` flags.
 
-For a standalone source, `--dry-run` still compiles but skips GPU execution.
-For a configured application it describes capture and replay without running
-either. `--verify` also requests application replay verification. Application
-`cnr` rejects `--spec`, `--save-jobs`, nondefault `-n`/`--reps`, and explicit
-SSH backend strings; use `--backend auto` to reuse an application configured
-and captured with `--build-backend ssh --build-host user@host`, or compile and
-then use `run --application NAME --backend ssh`.
+`--backend` selects both compilation and execution for either frontend.
+`--build-backend` optionally separates those locations. `--dry-run` plans both
+stages without builds, uploads, output writes or GPU jobs, including for native
+sources. `--verify` also requests application replay verification. Application
+`cnr` rejects `--spec`, `--save-jobs` and nondefault `-n`/`--reps`. Both native
+and application workflows accept SSH target strings directly. Each stage has
+its own budget; a `cnr` budget is not a combined end-to-end wall-time cap.
 
 ## `verify`: a compiled probe under emulation
 

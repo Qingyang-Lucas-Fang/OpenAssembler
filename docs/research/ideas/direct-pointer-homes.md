@@ -2,6 +2,11 @@
 
 Status: implemented
 
+The later [joint option search](joint-tensor-options.md) and
+[earlier pointer-placement experiment](early-gemm-pointer-advance.md) do not
+extend this production contract. They use isolated experiment compilers, retain
+the protected dependencies and show conditional gains plus tall-shape losses.
+
 This is an explicit `--pointer-mode direct` tuning option. The default remains
 `legacy`: the idea improves the measured MLP matrix products but regresses on
 the tall control. “Implemented” does not mean selected automatically or faster

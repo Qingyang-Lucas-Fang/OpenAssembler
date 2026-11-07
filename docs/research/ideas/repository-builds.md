@@ -36,6 +36,15 @@ directory. Missing files do not accidentally trigger training capture.
 Application-only and kernel-only options are checked before execution, and
 source/output ownership collisions or unsafe output overlap fail early.
 
+Repository commands now share the same source path: `compile REPO`, `run REPO`
+and `cnr REPO`. The conventional build root is `REPO/output`; explicit build
+roots and legacy working-directory outputs remain supported. Source-based
+execution checks provenance and restricts selection to that repository.
+Compilation and execution both accept local, SSH and Modal destinations. Native
+remote builds stage the installed compiler/data and rebase returned manifest
+sources to the local tree; they retain the existing code-generation pipeline.
+See [repository workflow](../../REPOSITORY_WORKFLOW.md) for setup and migration.
+
 ## Methodology and findings
 
 Tests exercise nested paths, extension/case collisions, source selection,
@@ -55,7 +64,7 @@ openassembler compile examples/mlp --out-dir output_repository
 openassembler run output_repository --backend modal --dry-run
 openassembler compile testcases/test_whole_repo --verify --dry-run
 .venv/bin/python -m pytest -q tests/test_cli_compile.py tests/test_runner.py \
-  tests/test_integration.py tests/test_torchfront.py
+  tests/test_integration.py tests/test_torchfront.py tests/test_repo_workflow.py
 openassembler benchmark --help
 ```
 
@@ -69,7 +78,9 @@ matrix rather than guessing its options; see [COMMANDS.md](../../COMMANDS.md).
 - [Discovery](../../../openassembler/frontend.py),
   [paths/manifests/locking](../../../openassembler/project.py),
   [build/publication](../../../openassembler/build.py),
-  [run validation](../../../openassembler/runner.py).
+  [run validation](../../../openassembler/runner.py),
+  [source/build resolution](../../../openassembler/workflow.py),
+  [native remote builds](../../../openassembler/remote_build.py).
 - [CLI build regressions](../../../tests/test_cli_compile.py),
   [integration tests](../../../tests/test_integration.py),
   [integration evidence](../../evidence/integration-20261104.json).

@@ -1,0 +1,282 @@
+✓ Initialized. View run at 
+https://modal.com/apps/qingyang-lucas-fang/main/ap-jcRjOlWoqd0MfvTOR8KhNQ
+Building image im-7ophQdcX4p9MtL2Ls2YUQ7
+
+=> Step 0: FROM base
+
+=> Step 1: COPY . /
+Saving image...
+Image saved, took 783.03ms
+
+Built image im-7ophQdcX4p9MtL2Ls2YUQ7 in 2.94s
+
+
+✓ Created objects.
+├── ✓ Uploaded 
+│   /Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/operator_candidates_mod
+│   al.py
+├── ✓ Uploaded /Users/lucasfang/Desktop/OpenAssembler/openassembler
+├── ✓ Uploaded 
+│   /Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/operator_worker.py
+├── ✓ Uploaded 
+│   /Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/operator_candidates.py
+└── ✓ Created Function execute.
+
+==========
+== CUDA ==
+==========
+
+CUDA Version 12.8.0
+
+Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+
+This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+By pulling and using the container, you accept the terms and conditions of this license:
+https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+
+A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
+
+{'operator': 'op_layernorm_backward_w256_c8_baseline', 'shape': (257, 256), 'threads': 256, 'ptxas_over_oa': 0.6199999864182131}
+{'operator': 'op_layernorm_backward_w256_c8_baseline', 'shape': (4096, 256), 'threads': 256, 'ptxas_over_oa': 0.7558139980859154}
+{'operator': 'op_layernorm_w128_c4_fma', 'shape': (257, 128), 'threads': 128, 'ptxas_over_oa': 0.8085105790098537}
+{'operator': 'op_layernorm_w128_c4_fma', 'shape': (4096, 128), 'threads': 128, 'ptxas_over_oa': 0.8642856719663701}
+{'operator': 'op_rmsnorm_w128_c4_baseline', 'shape': (257, 128), 'threads': 128, 'ptxas_over_oa': 0.8674699207087169}
+{'operator': 'op_rmsnorm_w128_c4_baseline', 'shape': (4096, 128), 'threads': 128, 'ptxas_over_oa': 0.9296874760191826}
+{'operator': 'op_layernorm_w128_c8_baseline', 'shape': (257, 128), 'threads': 256, 'ptxas_over_oa': 0.8279569354074141}
+{'operator': 'op_layernorm_w128_c8_baseline', 'shape': (4096, 128), 'threads': 256, 'ptxas_over_oa': 0.841726665401313}
+{'operator': 'op_softmax_backward_w128_c8_fma', 'shape': (257, 128), 'threads': 256, 'ptxas_over_oa': 0.811111130872971}
+{'operator': 'op_softmax_backward_w128_c8_fma', 'shape': (4096, 128), 'threads': 256, 'ptxas_over_oa': 0.8999999688173254}
+{'operator': 'op_rmsnorm_w256_c8_baseline', 'shape': (257, 256), 'threads': 256, 'ptxas_over_oa': 0.8260869015050476}
+{'operator': 'op_rmsnorm_w256_c8_baseline', 'shape': (4096, 256), 'threads': 256, 'ptxas_over_oa': 0.8654970785116642}
+{'operator': 'op_rmsnorm_backward_w256_c8_fma', 'shape': (257, 256), 'threads': 256, 'ptxas_over_oa': 0.6612903206878362}
+{'operator': 'op_rmsnorm_backward_w256_c8_fma', 'shape': (4096, 256), 'threads': 256, 'ptxas_over_oa': 0.8169642587426639}
+{'operator': 'op_rmsnorm_w256_c4_baseline', 'shape': (257, 256), 'threads': 128, 'ptxas_over_oa': 0.8043478432796726}
+{'operator': 'op_rmsnorm_w256_c4_baseline', 'shape': (4096, 256), 'threads': 128, 'ptxas_over_oa': 0.8764705887388206}
+{'operator': 'op_layernorm_w513_c4_fma', 'shape': (257, 513), 'threads': 128, 'ptxas_over_oa': 0.6953125097699626}
+{'operator': 'op_layernorm_w513_c4_fma', 'shape': (4096, 513), 'threads': 128, 'ptxas_over_oa': 0.8766666065187533}
+{'operator': 'op_rmsnorm_backward_w513_c8_baseline', 'shape': (257, 513), 'threads': 256, 'ptxas_over_oa': 0.5919540119337413}
+{'operator': 'op_rmsnorm_backward_w513_c8_baseline', 'shape': (4096, 513), 'threads': 256, 'ptxas_over_oa': 0.6698473526232495}
+{'operator': 'op_softmax_backward_w256_c8_baseline', 'shape': (257, 256), 'threads': 256, 'ptxas_over_oa': 0.7297297066989413}
+{'operator': 'op_softmax_backward_w256_c8_baseline', 'shape': (4096, 256), 'threads': 256, 'ptxas_over_oa': 0.8750000262354244}
+{'operator': 'op_rmsnorm_w128_c8_baseline', 'shape': (257, 128), 'threads': 256, 'ptxas_over_oa': 0.8658536996559182}
+{'operator': 'op_rmsnorm_w128_c8_baseline', 'shape': (4096, 128), 'threads': 256, 'ptxas_over_oa': 0.8790322741533925}
+{'operator': 'op_rmsnorm_backward_w128_c4_fma', 'shape': (257, 128), 'threads': 128, 'ptxas_over_oa': 0.7227723214497973}
+{'operator': 'op_rmsnorm_backward_w128_c4_fma', 'shape': (4096, 128), 'threads': 128, 'ptxas_over_oa': 0.8157894988779707}
+{'operator': 'op_softmax_backward_w256_c8_fma', 'shape': (257, 256), 'threads': 256, 'ptxas_over_oa': 0.7207206947372672}
+{'operator': 'op_softmax_backward_w256_c8_fma', 'shape': (4096, 256), 'threads': 256, 'ptxas_over_oa': 0.8653846382565238}
+{'operator': 'op_layernorm_backward_w128_c4_baseline', 'shape': (257, 128), 'threads': 128, 'ptxas_over_oa': 0.639344252518197}
+{'operator': 'op_layernorm_backward_w128_c4_baseline', 'shape': (4096, 128), 'threads': 128, 'ptxas_over_oa': 0.7354497207841619}
+{'operator': 'op_softmax_backward_w513_c4_fma', 'shape': (257, 513), 'threads': 128, 'ptxas_over_oa': 0.5973154450903498}
+{'operator': 'op_softmax_backward_w513_c4_fma', 'shape': (4096, 513), 'threads': 128, 'ptxas_over_oa': 0.7563451705406893}
+{'operator': 'op_softmax_backward_w128_c4_fma', 'shape': (257, 128), 'threads': 128, 'ptxas_over_oa': 0.8000000161687945}
+{'operator': 'op_softmax_backward_w128_c4_fma', 'shape': (4096, 128), 'threads': 128, 'ptxas_over_oa': 0.8633093547774829}
+{'operator': 'op_rmsnorm_w256_c4_fma', 'shape': (257, 256), 'threads': 128, 'ptxas_over_oa': 0.8043478432796726}
+{'operator': 'op_rmsnorm_w256_c4_fma', 'shape': (4096, 256), 'threads': 128, 'ptxas_over_oa': 0.8764705887388206}
+{'operator': 'op_layernorm_w128_c8_fma', 'shape': (257, 128), 'threads': 256, 'ptxas_over_oa': 0.8279569354074141}
+{'operator': 'op_layernorm_w128_c8_fma', 'shape': (4096, 128), 'threads': 256, 'ptxas_over_oa': 0.8405797124372897}
+{'operator': 'op_rmsnorm_backward_w513_c8_fma', 'shape': (257, 513), 'threads': 256, 'ptxas_over_oa': 0.6023391479436996}
+{'operator': 'op_rmsnorm_backward_w513_c8_fma', 'shape': (4096, 513), 'threads': 256, 'ptxas_over_oa': 0.7777777777777778}
+{'operator': 'op_rmsnorm_backward_w128_c4_baseline', 'shape': (257, 128), 'threads': 128, 'ptxas_over_oa': 0.7254902408363414}
+{'operator': 'op_rmsnorm_backward_w128_c4_baseline', 'shape': (4096, 128), 'threads': 128, 'ptxas_over_oa': 0.8223684966339121}
+{'operator': 'op_rmsnorm_backward_w513_c4_baseline', 'shape': (257, 513), 'threads': 128, 'ptxas_over_oa': 0.5460122619969602}
+{'operator': 'op_rmsnorm_backward_w513_c4_baseline', 'shape': (4096, 513), 'threads': 128, 'ptxas_over_oa': 0.5791506221028203}
+{'operator': 'op_rmsnorm_w513_c8_baseline', 'shape': (257, 513), 'threads': 256, 'ptxas_over_oa': 0.7500000293385392}
+{'operator': 'op_rmsnorm_w513_c8_baseline', 'shape': (4096, 513), 'threads': 256, 'ptxas_over_oa': 0.9830508173588659}
+{'operator': 'op_softmax_backward_w128_c4_baseline', 'shape': (257, 128), 'threads': 128, 'ptxas_over_oa': 0.8000000161687945}
+{'operator': 'op_softmax_backward_w128_c4_baseline', 'shape': (4096, 128), 'threads': 128, 'ptxas_over_oa': 0.8759124157369728}
+{'operator': 'op_rmsnorm_backward_w513_c4_fma', 'shape': (257, 513), 'threads': 128, 'ptxas_over_oa': 0.5493827337929164}
+{'operator': 'op_rmsnorm_backward_w513_c4_fma', 'shape': (4096, 513), 'threads': 128, 'ptxas_over_oa': 0.7849741145555419}
+{'operator': 'op_layernorm_w513_c8_fma', 'shape': (257, 513), 'threads': 256, 'ptxas_over_oa': 0.7463767840858572}
+{'operator': 'op_layernorm_w513_c8_fma', 'shape': (4096, 513), 'threads': 256, 'ptxas_over_oa': 0.860248470783551}
+{'operator': 'op_layernorm_backward_w256_c8_fma', 'shape': (257, 256), 'threads': 256, 'ptxas_over_oa': 0.6216216083346288}
+{'operator': 'op_layernorm_backward_w256_c8_fma', 'shape': (4096, 256), 'threads': 256, 'ptxas_over_oa': 0.7738095320589089}
+{'operator': 'op_softmax_backward_w513_c4_baseline', 'shape': (257, 513), 'threads': 128, 'ptxas_over_oa': 0.5906040334002591}
+{'operator': 'op_softmax_backward_w513_c4_baseline', 'shape': (4096, 513), 'threads': 128, 'ptxas_over_oa': 0.6221765923574777}
+{'operator': 'op_layernorm_backward_w256_c4_fma', 'shape': (257, 256), 'threads': 128, 'ptxas_over_oa': 0.5862069017426571}
+{'operator': 'op_layernorm_backward_w256_c4_fma', 'shape': (4096, 256), 'threads': 128, 'ptxas_over_oa': 0.7619047949023023}
+{'operator': 'op_softmax_backward_w256_c4_baseline', 'shape': (257, 256), 'threads': 128, 'ptxas_over_oa': 0.6902654513971834}
+{'operator': 'op_softmax_backward_w256_c4_baseline', 'shape': (4096, 256), 'threads': 128, 'ptxas_over_oa': 0.855072417920873}
+{'operator': 'op_layernorm_w256_c8_baseline', 'shape': (257, 256), 'threads': 256, 'ptxas_over_oa': 0.7830188620965095}
+{'operator': 'op_layernorm_w256_c8_baseline', 'shape': (4096, 256), 'threads': 256, 'ptxas_over_oa': 0.8263157745589793}
+{'operator': 'op_layernorm_w256_c8_fma', 'shape': (257, 256), 'threads': 256, 'ptxas_over_oa': 0.7904761871764364}
+{'operator': 'op_layernorm_w256_c8_fma', 'shape': (4096, 256), 'threads': 256, 'ptxas_over_oa': 0.8235293888771384}
+{'operator': 'op_rmsnorm_backward_w256_c4_fma', 'shape': (257, 256), 'threads': 128, 'ptxas_over_oa': 0.6341462924087748}
+{'operator': 'op_rmsnorm_backward_w256_c4_fma', 'shape': (4096, 256), 'threads': 128, 'ptxas_over_oa': 0.7982063034852229}
+{'operator': 'op_rmsnorm_w513_c8_fma', 'shape': (257, 513), 'threads': 256, 'ptxas_over_oa': 0.7419355103702935}
+{'operator': 'op_rmsnorm_w513_c8_fma', 'shape': (4096, 513), 'threads': 256, 'ptxas_over_oa': 0.9022801475858041}
+{'operator': 'op_layernorm_backward_w513_c4_fma', 'shape': (257, 513), 'threads': 128, 'ptxas_over_oa': 0.5240641600953485}
+{'operator': 'op_layernorm_backward_w513_c4_fma', 'shape': (4096, 513), 'threads': 128, 'ptxas_over_oa': 0.6003716959309817}
+{'operator': 'op_layernorm_backward_w128_c8_baseline', 'shape': (257, 128), 'threads': 256, 'ptxas_over_oa': 0.6639344252518197}
+{'operator': 'op_layernorm_backward_w128_c8_baseline', 'shape': (4096, 128), 'threads': 256, 'ptxas_over_oa': 0.7724868091507063}
+{'operator': 'op_softmax_backward_w256_c4_fma', 'shape': (257, 256), 'threads': 128, 'ptxas_over_oa': 0.6846846468905704}
+{'operator': 'op_softmax_backward_w256_c4_fma', 'shape': (4096, 256), 'threads': 128, 'ptxas_over_oa': 0.8509615213076072}
+{'operator': 'op_layernorm_backward_w128_c8_fma', 'shape': (257, 128), 'threads': 256, 'ptxas_over_oa': 0.6639344252518197}
+{'operator': 'op_layernorm_backward_w128_c8_fma', 'shape': (4096, 128), 'threads': 256, 'ptxas_over_oa': 0.7891892325579365}
+{'operator': 'op_rmsnorm_backward_w128_c8_baseline', 'shape': (257, 128), 'threads': 256, 'ptxas_over_oa': 0.7326733151151035}
+{'operator': 'op_rmsnorm_backward_w128_c8_baseline', 'shape': (4096, 128), 'threads': 256, 'ptxas_over_oa': 0.8376623235497528}
+{'operator': 'op_softmax_backward_w513_c8_fma', 'shape': (257, 513), 'threads': 256, 'ptxas_over_oa': 0.6375000045474736}
+{'operator': 'op_softmax_backward_w513_c8_fma', 'shape': (4096, 513), 'threads': 256, 'ptxas_over_oa': 0.8179487500949606}
+{'operator': 'op_layernorm_w256_c4_fma', 'shape': (257, 256), 'threads': 128, 'ptxas_over_oa': 0.7692307584675182}
+{'operator': 'op_layernorm_w256_c4_fma', 'shape': (4096, 256), 'threads': 128, 'ptxas_over_oa': 0.8333333202939831}
+{'operator': 'op_layernorm_backward_w513_c4_baseline', 'shape': (257, 513), 'threads': 128, 'ptxas_over_oa': 0.5212765636303374}
+{'operator': 'op_layernorm_backward_w513_c4_baseline', 'shape': (4096, 513), 'threads': 128, 'ptxas_over_oa': 0.5472028012946116}
+{'operator': 'op_rmsnorm_w513_c4_fma', 'shape': (257, 513), 'threads': 128, 'ptxas_over_oa': 0.7130434507525238}
+{'operator': 'op_rmsnorm_w513_c4_fma', 'shape': (4096, 513), 'threads': 128, 'ptxas_over_oa': 0.9131943928643069}
+{'operator': 'op_rmsnorm_w513_c4_baseline', 'shape': (257, 513), 'threads': 128, 'ptxas_over_oa': 0.7130434507525238}
+{'operator': 'op_rmsnorm_w513_c4_baseline', 'shape': (4096, 513), 'threads': 128, 'ptxas_over_oa': 0.9128919320025007}
+{'operator': 'op_layernorm_backward_w513_c8_baseline', 'shape': (257, 513), 'threads': 256, 'ptxas_over_oa': 0.5920397766824023}
+{'operator': 'op_layernorm_backward_w513_c8_baseline', 'shape': (4096, 513), 'threads': 256, 'ptxas_over_oa': 0.6114864456289834}
+{'operator': 'op_rmsnorm_w256_c8_fma', 'shape': (257, 256), 'threads': 256, 'ptxas_over_oa': 0.8260869015050476}
+{'operator': 'op_rmsnorm_w256_c8_fma', 'shape': (4096, 256), 'threads': 256, 'ptxas_over_oa': 0.8654970785116642}
+{'operator': 'op_layernorm_w128_c4_baseline', 'shape': (257, 128), 'threads': 128, 'ptxas_over_oa': 0.79999993872878}
+{'operator': 'op_layernorm_w128_c4_baseline', 'shape': (4096, 128), 'threads': 128, 'ptxas_over_oa': 0.8759124157369728}
+{'operator': 'op_layernorm_w513_c4_baseline', 'shape': (257, 513), 'threads': 128, 'ptxas_over_oa': 0.6953125097699626}
+{'operator': 'op_layernorm_w513_c4_baseline', 'shape': (4096, 513), 'threads': 128, 'ptxas_over_oa': 0.8679867574693346}
+{'operator': 'op_rmsnorm_w128_c4_fma', 'shape': (257, 128), 'threads': 128, 'ptxas_over_oa': 0.8571428942650902}
+{'operator': 'op_rmsnorm_w128_c4_fma', 'shape': (4096, 128), 'threads': 128, 'ptxas_over_oa': 0.9448818166839189}
+{'operator': 'op_rmsnorm_w128_c8_fma', 'shape': (257, 128), 'threads': 256, 'ptxas_over_oa': 0.855421723712951}
+{'operator': 'op_rmsnorm_w128_c8_fma', 'shape': (4096, 128), 'threads': 256, 'ptxas_over_oa': 0.8719999627470988}
+{'operator': 'op_rmsnorm_backward_w128_c8_fma', 'shape': (257, 128), 'threads': 256, 'ptxas_over_oa': 0.7326733151151035}
+{'operator': 'op_rmsnorm_backward_w128_c8_fma', 'shape': (4096, 128), 'threads': 256, 'ptxas_over_oa': 0.8431372026844004}
+{'operator': 'op_rmsnorm_backward_w256_c8_baseline', 'shape': (257, 256), 'threads': 256, 'ptxas_over_oa': 0.6693548396560819}
+{'operator': 'op_rmsnorm_backward_w256_c8_baseline', 'shape': (4096, 256), 'threads': 256, 'ptxas_over_oa': 0.82142857838899}
+{'operator': 'op_layernorm_w513_c8_baseline', 'shape': (257, 513), 'threads': 256, 'ptxas_over_oa': 0.7163120574695395}
+{'operator': 'op_layernorm_w513_c8_baseline', 'shape': (4096, 513), 'threads': 256, 'ptxas_over_oa': 0.8580644694902201}
+{'operator': 'op_layernorm_backward_w128_c4_fma', 'shape': (257, 128), 'threads': 128, 'ptxas_over_oa': 0.639344252518197}
+{'operator': 'op_layernorm_backward_w128_c4_fma', 'shape': (4096, 128), 'threads': 128, 'ptxas_over_oa': 0.7540983919417694}
+{'operator': 'op_softmax_backward_w128_c8_baseline', 'shape': (257, 128), 'threads': 256, 'ptxas_over_oa': 0.8202247420652617}
+{'operator': 'op_softmax_backward_w128_c8_baseline', 'shape': (4096, 128), 'threads': 256, 'ptxas_over_oa': 0.9051095068833748}
+{'operator': 'op_layernorm_backward_w513_c8_fma', 'shape': (257, 513), 'threads': 256, 'ptxas_over_oa': 0.5920397766824023}
+{'operator': 'op_layernorm_backward_w513_c8_fma', 'shape': (4096, 513), 'threads': 256, 'ptxas_over_oa': 0.582167848712995}
+{'operator': 'op_layernorm_backward_w256_c4_baseline', 'shape': (257, 256), 'threads': 128, 'ptxas_over_oa': 0.5862069017426571}
+{'operator': 'op_layernorm_backward_w256_c4_baseline', 'shape': (4096, 256), 'threads': 128, 'ptxas_over_oa': 0.7431906381246806}
+{'operator': 'op_layernorm_w256_c4_baseline', 'shape': (257, 256), 'threads': 128, 'ptxas_over_oa': 0.7596153704886176}
+{'operator': 'op_layernorm_w256_c4_baseline', 'shape': (4096, 256), 'threads': 128, 'ptxas_over_oa': 0.8235293888771384}
+{'operator': 'op_softmax_backward_w513_c8_baseline', 'shape': (257, 513), 'threads': 256, 'ptxas_over_oa': 0.6335403471273435}
+{'operator': 'op_softmax_backward_w513_c8_baseline', 'shape': (4096, 513), 'threads': 256, 'ptxas_over_oa': 0.6203522577339586}
+{'operator': 'op_rmsnorm_backward_w256_c4_baseline', 'shape': (257, 256), 'threads': 128, 'ptxas_over_oa': 0.642276376114227}
+{'operator': 'op_rmsnorm_backward_w256_c4_baseline', 'shape': (4096, 256), 'threads': 128, 'ptxas_over_oa': 0.7937219643154404}
+{'operator': 'op_rmsnorm_backward_w256_c4_baseline', 'shape': (257, 256), 'threads': 128, 'ptxas_over_oa': 0.6341462924087748}
+{'operator': 'op_rmsnorm_backward_w256_c4_baseline', 'shape': (4096, 256), 'threads': 128, 'ptxas_over_oa': 0.7937219643154404}
+{'operator': 'op_softmax_backward_w513_c8_baseline', 'shape': (257, 513), 'threads': 256, 'ptxas_over_oa': 0.6335403471273435}
+{'operator': 'op_softmax_backward_w513_c8_baseline', 'shape': (4096, 513), 'threads': 256, 'ptxas_over_oa': 0.6591836363774594}
+{'operator': 'op_layernorm_w256_c4_baseline', 'shape': (257, 256), 'threads': 128, 'ptxas_over_oa': 0.7692307584675182}
+{'operator': 'op_layernorm_w256_c4_baseline', 'shape': (4096, 256), 'threads': 128, 'ptxas_over_oa': 0.8404254825082114}
+{'operator': 'op_layernorm_backward_w256_c4_baseline', 'shape': (257, 256), 'threads': 128, 'ptxas_over_oa': 0.5862069017426571}
+{'operator': 'op_layernorm_backward_w256_c4_baseline', 'shape': (4096, 256), 'threads': 128, 'ptxas_over_oa': 0.7392996146403814}
+{'operator': 'op_layernorm_backward_w513_c8_fma', 'shape': (257, 513), 'threads': 256, 'ptxas_over_oa': 0.5920397766824023}
+{'operator': 'op_layernorm_backward_w513_c8_fma', 'shape': (4096, 513), 'threads': 256, 'ptxas_over_oa': 0.5933098494122768}
+{'operator': 'op_softmax_backward_w128_c8_baseline', 'shape': (257, 128), 'threads': 256, 'ptxas_over_oa': 0.8202247420652617}
+{'operator': 'op_softmax_backward_w128_c8_baseline', 'shape': (4096, 128), 'threads': 256, 'ptxas_over_oa': 0.9051095068833748}
+{'operator': 'op_layernorm_backward_w128_c4_fma', 'shape': (257, 128), 'threads': 128, 'ptxas_over_oa': 0.6475409767627379}
+{'operator': 'op_layernorm_backward_w128_c4_fma', 'shape': (4096, 128), 'threads': 128, 'ptxas_over_oa': 0.7595628350121314}
+{'operator': 'op_layernorm_w513_c8_baseline', 'shape': (257, 513), 'threads': 256, 'ptxas_over_oa': 0.7234042586129279}
+{'operator': 'op_layernorm_w513_c8_baseline', 'shape': (4096, 513), 'threads': 256, 'ptxas_over_oa': 0.8302469648701488}
+{'operator': 'op_rmsnorm_backward_w256_c8_baseline', 'shape': (257, 256), 'threads': 256, 'ptxas_over_oa': 0.6693548396560819}
+{'operator': 'op_rmsnorm_backward_w256_c8_baseline', 'shape': (4096, 256), 'threads': 256, 'ptxas_over_oa': 0.820627803568456}
+{'operator': 'op_rmsnorm_backward_w128_c8_fma', 'shape': (257, 128), 'threads': 256, 'ptxas_over_oa': 0.7425743087804098}
+{'operator': 'op_rmsnorm_backward_w128_c8_fma', 'shape': (4096, 128), 'threads': 256, 'ptxas_over_oa': 0.8376623235497528}
+{'operator': 'op_rmsnorm_w128_c8_fma', 'shape': (257, 128), 'threads': 256, 'ptxas_over_oa': 0.8658536996559182}
+{'operator': 'op_rmsnorm_w128_c8_fma', 'shape': (4096, 128), 'threads': 256, 'ptxas_over_oa': 0.8719999627470988}
+{'operator': 'op_rmsnorm_w128_c4_fma', 'shape': (257, 128), 'threads': 128, 'ptxas_over_oa': 0.8571428942650902}
+{'operator': 'op_rmsnorm_w128_c4_fma', 'shape': (4096, 128), 'threads': 128, 'ptxas_over_oa': 0.9370077986803361}
+{'operator': 'op_layernorm_w513_c4_baseline', 'shape': (257, 513), 'threads': 128, 'ptxas_over_oa': 0.6953125097699626}
+{'operator': 'op_layernorm_w513_c4_baseline', 'shape': (4096, 513), 'threads': 128, 'ptxas_over_oa': 0.8684210979803473}
+{'operator': 'op_layernorm_w128_c4_baseline', 'shape': (257, 128), 'threads': 128, 'ptxas_over_oa': 0.79999993872878}
+{'operator': 'op_layernorm_w128_c4_baseline', 'shape': (4096, 128), 'threads': 128, 'ptxas_over_oa': 0.8695651761287857}
+{'operator': 'op_rmsnorm_w256_c8_fma', 'shape': (257, 256), 'threads': 256, 'ptxas_over_oa': 0.8172042438703775}
+{'operator': 'op_rmsnorm_w256_c8_fma', 'shape': (4096, 256), 'threads': 256, 'ptxas_over_oa': 0.8596490810040412}
+{'operator': 'op_layernorm_backward_w513_c8_baseline', 'shape': (257, 513), 'threads': 256, 'ptxas_over_oa': 0.5920397766824023}
+{'operator': 'op_layernorm_backward_w513_c8_baseline', 'shape': (4096, 513), 'threads': 256, 'ptxas_over_oa': 0.6140651470507187}
+{'operator': 'op_rmsnorm_w513_c4_baseline', 'shape': (257, 513), 'threads': 128, 'ptxas_over_oa': 0.7130434507525238}
+{'operator': 'op_rmsnorm_w513_c4_baseline', 'shape': (4096, 513), 'threads': 128, 'ptxas_over_oa': 0.9094076863519769}
+{'operator': 'op_rmsnorm_w513_c4_fma', 'shape': (257, 513), 'threads': 128, 'ptxas_over_oa': 0.7043477958277762}
+{'operator': 'op_rmsnorm_w513_c4_fma', 'shape': (4096, 513), 'threads': 128, 'ptxas_over_oa': 0.922807039042535}
+{'operator': 'op_layernorm_backward_w513_c4_baseline', 'shape': (257, 513), 'threads': 128, 'ptxas_over_oa': 0.5212765636303374}
+{'operator': 'op_layernorm_backward_w513_c4_baseline', 'shape': (4096, 513), 'threads': 128, 'ptxas_over_oa': 0.5780142125772723}
+{'operator': 'op_layernorm_w256_c4_fma', 'shape': (257, 256), 'threads': 128, 'ptxas_over_oa': 0.7669902796030463}
+{'operator': 'op_layernorm_w256_c4_fma', 'shape': (4096, 256), 'threads': 128, 'ptxas_over_oa': 0.8342245797881521}
+{'operator': 'op_softmax_backward_w513_c8_fma', 'shape': (257, 513), 'threads': 256, 'ptxas_over_oa': 0.6335403471273435}
+{'operator': 'op_softmax_backward_w513_c8_fma', 'shape': (4096, 513), 'threads': 256, 'ptxas_over_oa': 0.8654353314814902}
+{'operator': 'op_rmsnorm_backward_w128_c8_baseline', 'shape': (257, 128), 'threads': 256, 'ptxas_over_oa': 0.7326733151151035}
+{'operator': 'op_rmsnorm_backward_w128_c8_baseline', 'shape': (4096, 128), 'threads': 256, 'ptxas_over_oa': 0.8376623235497528}
+{'operator': 'op_layernorm_backward_w128_c8_fma', 'shape': (257, 128), 'threads': 256, 'ptxas_over_oa': 0.6639344252518197}
+{'operator': 'op_layernorm_backward_w128_c8_fma', 'shape': (4096, 128), 'threads': 256, 'ptxas_over_oa': 0.7837837859097028}
+{'operator': 'op_softmax_backward_w256_c4_fma', 'shape': (257, 256), 'threads': 128, 'ptxas_over_oa': 0.6936936588522445}
+{'operator': 'op_softmax_backward_w256_c4_fma', 'shape': (4096, 256), 'threads': 128, 'ptxas_over_oa': 0.8428571230586186}
+{'operator': 'op_layernorm_backward_w128_c8_baseline', 'shape': (257, 128), 'threads': 256, 'ptxas_over_oa': 0.6585365435251315}
+{'operator': 'op_layernorm_backward_w128_c8_baseline', 'shape': (4096, 128), 'threads': 256, 'ptxas_over_oa': 0.7724868091507063}
+{'operator': 'op_layernorm_backward_w513_c4_fma', 'shape': (257, 513), 'threads': 128, 'ptxas_over_oa': 0.5291005199345457}
+{'operator': 'op_layernorm_backward_w513_c4_fma', 'shape': (4096, 513), 'threads': 128, 'ptxas_over_oa': 0.5761467789964124}
+{'operator': 'op_rmsnorm_w513_c8_fma', 'shape': (257, 513), 'threads': 256, 'ptxas_over_oa': 0.7359999813735494}
+{'operator': 'op_rmsnorm_w513_c8_fma', 'shape': (4096, 513), 'threads': 256, 'ptxas_over_oa': 0.924590160805823}
+{'operator': 'op_rmsnorm_backward_w256_c4_fma', 'shape': (257, 256), 'threads': 128, 'ptxas_over_oa': 0.6341462924087748}
+{'operator': 'op_rmsnorm_backward_w256_c4_fma', 'shape': (4096, 256), 'threads': 128, 'ptxas_over_oa': 0.7901785357564264}
+{'operator': 'op_layernorm_w256_c8_fma', 'shape': (257, 256), 'threads': 256, 'ptxas_over_oa': 0.8}
+{'operator': 'op_layernorm_w256_c8_fma', 'shape': (4096, 256), 'threads': 256, 'ptxas_over_oa': 0.8395722141525237}
+{'operator': 'op_layernorm_w256_c8_baseline', 'shape': (257, 256), 'threads': 256, 'ptxas_over_oa': 0.7830188620965095}
+{'operator': 'op_layernorm_w256_c8_baseline', 'shape': (4096, 256), 'threads': 256, 'ptxas_over_oa': 0.8191488801759729}
+{'operator': 'op_softmax_backward_w256_c4_baseline', 'shape': (257, 256), 'threads': 128, 'ptxas_over_oa': 0.6936936588522445}
+{'operator': 'op_softmax_backward_w256_c4_baseline', 'shape': (4096, 256), 'threads': 128, 'ptxas_over_oa': 0.855072417920873}
+{'operator': 'op_layernorm_backward_w256_c4_fma', 'shape': (257, 256), 'threads': 128, 'ptxas_over_oa': 0.5821917555629179}
+{'operator': 'op_layernorm_backward_w256_c4_fma', 'shape': (4096, 256), 'threads': 128, 'ptxas_over_oa': 0.7619047949023023}
+{'operator': 'op_softmax_backward_w513_c4_baseline', 'shape': (257, 513), 'threads': 128, 'ptxas_over_oa': 0.5866666433836034}
+{'operator': 'op_softmax_backward_w513_c4_baseline', 'shape': (4096, 513), 'threads': 128, 'ptxas_over_oa': 0.6152263454577934}
+{'operator': 'op_layernorm_backward_w256_c8_fma', 'shape': (257, 256), 'threads': 256, 'ptxas_over_oa': 0.6258503589917919}
+{'operator': 'op_layernorm_backward_w256_c8_fma', 'shape': (4096, 256), 'threads': 256, 'ptxas_over_oa': 0.7755905155433925}
+{'operator': 'op_layernorm_w513_c8_fma', 'shape': (257, 513), 'threads': 256, 'ptxas_over_oa': 0.7410072040357591}
+{'operator': 'op_layernorm_w513_c8_fma', 'shape': (4096, 513), 'threads': 256, 'ptxas_over_oa': 0.8271605215514318}
+{'operator': 'op_rmsnorm_backward_w513_c4_fma', 'shape': (257, 513), 'threads': 128, 'ptxas_over_oa': 0.5460122619969602}
+{'operator': 'op_rmsnorm_backward_w513_c4_fma', 'shape': (4096, 513), 'threads': 128, 'ptxas_over_oa': 0.7712082758426682}
+{'operator': 'op_softmax_backward_w128_c4_baseline', 'shape': (257, 128), 'threads': 128, 'ptxas_over_oa': 0.8000000161687945}
+{'operator': 'op_softmax_backward_w128_c4_baseline', 'shape': (4096, 128), 'threads': 128, 'ptxas_over_oa': 0.8695651761287857}
+{'operator': 'op_rmsnorm_w513_c8_baseline', 'shape': (257, 513), 'threads': 256, 'ptxas_over_oa': 0.7419355103702935}
+{'operator': 'op_rmsnorm_w513_c8_baseline', 'shape': (4096, 513), 'threads': 256, 'ptxas_over_oa': 0.8993507294242289}
+{'operator': 'op_rmsnorm_backward_w513_c4_baseline', 'shape': (257, 513), 'threads': 128, 'ptxas_over_oa': 0.5493827337929164}
+{'operator': 'op_rmsnorm_backward_w513_c4_baseline', 'shape': (4096, 513), 'threads': 128, 'ptxas_over_oa': 0.5972222125979396}
+{'operator': 'op_rmsnorm_backward_w128_c4_baseline', 'shape': (257, 128), 'threads': 128, 'ptxas_over_oa': 0.7227723214497973}
+{'operator': 'op_rmsnorm_backward_w128_c4_baseline', 'shape': (4096, 128), 'threads': 128, 'ptxas_over_oa': 0.8211920408540683}
+{'operator': 'op_rmsnorm_backward_w513_c8_fma', 'shape': (257, 513), 'threads': 256, 'ptxas_over_oa': 0.598837200448402}
+{'operator': 'op_rmsnorm_backward_w513_c8_fma', 'shape': (4096, 513), 'threads': 256, 'ptxas_over_oa': 0.779126223879665}
+{'operator': 'op_layernorm_w128_c8_fma', 'shape': (257, 128), 'threads': 256, 'ptxas_over_oa': 0.8279569354074141}
+{'operator': 'op_layernorm_w128_c8_fma', 'shape': (4096, 128), 'threads': 256, 'ptxas_over_oa': 0.8405797124372897}
+{'operator': 'op_rmsnorm_w256_c4_fma', 'shape': (257, 256), 'threads': 128, 'ptxas_over_oa': 0.8043478432796726}
+{'operator': 'op_rmsnorm_w256_c4_fma', 'shape': (4096, 256), 'threads': 128, 'ptxas_over_oa': 0.8837208908817868}
+{'operator': 'op_softmax_backward_w128_c4_fma', 'shape': (257, 128), 'threads': 128, 'ptxas_over_oa': 0.8000000161687945}
+{'operator': 'op_softmax_backward_w128_c4_fma', 'shape': (4096, 128), 'threads': 128, 'ptxas_over_oa': 0.8633093547774829}
+{'operator': 'op_softmax_backward_w513_c4_fma', 'shape': (257, 513), 'threads': 128, 'ptxas_over_oa': 0.5973154450903498}
+{'operator': 'op_softmax_backward_w513_c4_fma', 'shape': (4096, 513), 'threads': 128, 'ptxas_over_oa': 0.7569620228915251}
+{'operator': 'op_layernorm_backward_w128_c4_baseline', 'shape': (257, 128), 'threads': 128, 'ptxas_over_oa': 0.6479999557621798}
+{'operator': 'op_layernorm_backward_w128_c4_baseline', 'shape': (4096, 128), 'threads': 128, 'ptxas_over_oa': 0.7354497207841619}
+{'operator': 'op_softmax_backward_w256_c8_fma', 'shape': (257, 256), 'threads': 256, 'ptxas_over_oa': 0.7232142607727859}
+{'operator': 'op_softmax_backward_w256_c8_fma', 'shape': (4096, 256), 'threads': 256, 'ptxas_over_oa': 0.8834951751217063}
+{'operator': 'op_rmsnorm_backward_w128_c4_fma', 'shape': (257, 128), 'threads': 128, 'ptxas_over_oa': 0.7254902408363414}
+{'operator': 'op_rmsnorm_backward_w128_c4_fma', 'shape': (4096, 128), 'threads': 128, 'ptxas_over_oa': 0.8157894988779707}
+{'operator': 'op_rmsnorm_w128_c8_baseline', 'shape': (257, 128), 'threads': 256, 'ptxas_over_oa': 0.8658536996559182}
+{'operator': 'op_rmsnorm_w128_c8_baseline', 'shape': (4096, 128), 'threads': 256, 'ptxas_over_oa': 0.8790322741533925}
+{'operator': 'op_softmax_backward_w256_c8_baseline', 'shape': (257, 256), 'threads': 256, 'ptxas_over_oa': 0.7232142607727859}
+{'operator': 'op_softmax_backward_w256_c8_baseline', 'shape': (4096, 256), 'threads': 256, 'ptxas_over_oa': 0.8792270500836138}
+{'operator': 'op_rmsnorm_backward_w513_c8_baseline', 'shape': (257, 513), 'threads': 256, 'ptxas_over_oa': 0.5852272595734238}
+{'operator': 'op_rmsnorm_backward_w513_c8_baseline', 'shape': (4096, 513), 'threads': 256, 'ptxas_over_oa': 0.6057143183422546}
+{'operator': 'op_layernorm_w513_c4_fma', 'shape': (257, 513), 'threads': 128, 'ptxas_over_oa': 0.6953125097699626}
+{'operator': 'op_layernorm_w513_c4_fma', 'shape': (4096, 513), 'threads': 128, 'ptxas_over_oa': 0.8646864023930072}
+{'operator': 'op_rmsnorm_w256_c4_baseline', 'shape': (257, 256), 'threads': 128, 'ptxas_over_oa': 0.8131868333953656}
+{'operator': 'op_rmsnorm_w256_c4_baseline', 'shape': (4096, 256), 'threads': 128, 'ptxas_over_oa': 0.8764705887388206}
+{'operator': 'op_rmsnorm_backward_w256_c8_fma', 'shape': (257, 256), 'threads': 256, 'ptxas_over_oa': 0.6612903206878362}
+{'operator': 'op_rmsnorm_backward_w256_c8_fma', 'shape': (4096, 256), 'threads': 256, 'ptxas_over_oa': 0.8222222236594484}
+{'operator': 'op_rmsnorm_w256_c8_baseline', 'shape': (257, 256), 'threads': 256, 'ptxas_over_oa': 0.8260869015050476}
+{'operator': 'op_rmsnorm_w256_c8_baseline', 'shape': (4096, 256), 'threads': 256, 'ptxas_over_oa': 0.8670520989708599}
+{'operator': 'op_softmax_backward_w128_c8_fma', 'shape': (257, 128), 'threads': 256, 'ptxas_over_oa': 0.8202247420652617}
+{'operator': 'op_softmax_backward_w128_c8_fma', 'shape': (4096, 128), 'threads': 256, 'ptxas_over_oa': 0.8920863437390697}
+{'operator': 'op_layernorm_w128_c8_baseline', 'shape': (257, 128), 'threads': 256, 'ptxas_over_oa': 0.8279569354074141}
+{'operator': 'op_layernorm_w128_c8_baseline', 'shape': (4096, 128), 'threads': 256, 'ptxas_over_oa': 0.8405797124372897}
+{'operator': 'op_rmsnorm_w128_c4_baseline', 'shape': (257, 128), 'threads': 128, 'ptxas_over_oa': 0.8452381282356357}
+{'operator': 'op_rmsnorm_w128_c4_baseline', 'shape': (4096, 128), 'threads': 128, 'ptxas_over_oa': 0.9302325869967688}
+{'operator': 'op_layernorm_w128_c4_fma', 'shape': (257, 128), 'threads': 128, 'ptxas_over_oa': 0.8105262577430546}
+{'operator': 'op_layernorm_w128_c4_fma', 'shape': (4096, 128), 'threads': 128, 'ptxas_over_oa': 0.8695651761287857}
+{'operator': 'op_layernorm_backward_w256_c8_baseline', 'shape': (257, 256), 'threads': 256, 'ptxas_over_oa': 0.6216216083346288}
+{'operator': 'op_layernorm_backward_w256_c8_baseline', 'shape': (4096, 256), 'threads': 256, 'ptxas_over_oa': 0.7548637651998148}
+evidence: /Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/runs/operator-fma-20261107T143537.650425Z.json
+Stopping app - local entrypoint completed.
+✓ App completed. View run at 
+https://modal.com/apps/qingyang-lucas-fang/main/ap-jcRjOlWoqd0MfvTOR8KhNQ

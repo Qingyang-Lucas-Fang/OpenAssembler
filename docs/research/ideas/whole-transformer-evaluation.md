@@ -103,3 +103,10 @@ Add tuned compiled-PyTorch controls, more model families, real KV-cache decode,
 larger vocabularies and sustained numerical/convergence evaluation. Integrating
 native kernels must include saved activations, packing and backward/optimizer
 costs before claiming transformer tokens-per-second acceleration.
+
+The later [native NN arithmetic campaign](nn-arithmetic-campaign.md) addresses
+part of that native integration question using explicit forward/backward
+adapters across six networks. It is separate from this Inductor study. Matched
+GEMM-only OA passes all six full-state training cases, while several native
+operator combinations fail and remain excluded. Standard compiled-PyTorch and
+production fused-attention comparisons are still outside that new contract.

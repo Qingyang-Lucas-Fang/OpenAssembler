@@ -1,24 +1,46 @@
 # OpenAssembler architecture and status
 
-Updated **November 6, 2026**. This page describes the current source tree and
-latest completed validation. The documentation reorganization adds no new GPU
-performance measurement. Full command syntax is in [COMMANDS.md](COMMANDS.md);
+Updated **November 7, 2026**. This page describes the current source tree and
+latest completed validation. The repository CLI update adds workflow/correctness
+checks; the separate November 7 native NN campaign adds GPU measurements and
+experimental candidates without promoting them into production. Full command syntax is in [COMMANDS.md](COMMANDS.md);
 every researched feature has a dossier in the [catalogue](research/README.md).
 
 ## Headline validation
 
 | Area | Latest completed evidence | Interpretation |
 |---|---|---|
-| Repository regression | 579 passed, one optional PyTorch module skipped; its 18 tests pass separately and in pinned PyTorch 2.7.1 | Current native/compiler integration checks; not a performance result |
+| Repository regression | 630 passed, one optional PyTorch module skipped; its 18 tests pass separately | Current native/compiler integration checks; not a performance result |
 | Whole transformer workflow | 10 configurations, two process-order rounds; nine pass both numerical gates | Gains use Inductor/Triton; BF16 training remains excluded |
 | Native cooperative reductions | 18 shape/operator cases, five patterns, 17,408,740 output elements pass, plus guards and graph replay | Explicit FP32 operators; same-source ptxas still faster on main shapes |
 | Native direct-pointer GEMM | 486 full method/input checks across three independent runs; six MLP products improve about 1.03–1.12× | Opt-in; tall GEMM regresses and default stays legacy |
 | Existing scalar operators | Paired native-before/native-after checks pass for ten cases, with unchanged resources and no observed slowdown | Scheduler correctness fixes do not establish another general speedup |
 | BF16 application state | All 127 tensors checked; two parameter tensors fail the unchanged gate | Improved diagnostics, not a numerical repair |
+| Repository CLI on Modal | Three native input languages plus an external include; transformer capture emits 67 kernels, replay checks 77 tensors across six optimizer steps with zero new GPU code generation | Shared compile/run/cnr source paths; integration smoke, not new performance estimates |
+| Native NN arithmetic campaign | 264/274 initial arithmetic configurations pass; 402/402 tensor checks plus 134 graph checks; six composed NN configurations with full-state gates | Experimental only; rejected gates and slower methods retained |
+| New conditional candidates | Backward FMA reductions improve selected standard-width cases about 1.16–1.31×; earlier pointer placement gains about 1.5–2.3% over direct mode on one wide shape | Smaller/tall cases can regress; neither establishes general ptxas superiority |
 
 These are measured snapshots, not promises for every shape, toolkit, GPU or
 training trajectory. Raw device metadata distinguishes A100-SXM4-40GB from
 80GB; paired comparisons stay within a device and absolute times are not pooled.
+
+### Repository command workflow
+
+`compile REPO`, `run REPO` and `cnr REPO` now use the same source path and
+`--backend local|modal|user@host` transport selection. Directory artifacts
+default to `REPO/output/{cubin,sass}`; custom build roots and explicit artifact
+directories remain supported. Native remote compilation ships the same compiler
+and data, while saved applications retain their matching Python/PyTorch runtime.
+`run` never compiles, and source-based selection excludes unrelated builds.
+Both stages of `cnr --dry-run` are read-only plans.
+
+See [the workflow guide](REPOSITORY_WORKFLOW.md) for setup/migration and the
+[November 7 integration record](evidence/repository-cli-20261107.json) for
+native/application runs, runtime identities, numerical gates and source hashes.
+Native backend/generator/ISA/optimization files are unchanged; the existing
+legacy and direct-pointer encoded-stream hash checks remain regression gates.
+SSH transport has automated coverage; no live SSH GPU destination was supplied
+for this update's hardware tests.
 
 ## Architecture
 
@@ -216,6 +238,45 @@ retains the original tolerances. Preserving eager cast rounding was tested and
 still failed the layer-zero parameter gate, with no precision-policy promotion.
 Changing Adam epsilon is a separate training-policy intervention, not a repair
 of the original comparison. No BF16 training speedup is admitted.
+
+## November 7 native NN research round
+
+The [native NN campaign](research/ideas/nn-arithmetic-campaign.md) tests 26
+named arithmetic/operator families, 18 FP16/BF16 tensor cases, and six explicit
+networks spanning residual MLP, gated MLP and decoder-transformer configurations.
+This is native-routed experimental code under `exp/nn_round2/`, separate from
+the Inductor application results above. Production compiler behavior is unchanged.
+
+The first complete 40GB whole-network cohort admits 21 of 36 method/configuration
+training pairs after both initial and post-trajectory state checks. GEMM-only
+native OA passes all six against ptxas with identical shared surrounding CUDA
+operations. Some all-native operator combinations fail training-state gates,
+even though isolated outputs pass. Their stored times remain excluded. The
+original direct-tanh GELU derivative also fails its unchanged isolated gate;
+a [stable analytic derivative](research/ideas/stable-gelu-backward.md) repairs
+that contract in a separate candidate.
+
+[Backward FMA reductions](research/ideas/fused-backward-reductions.md) pass 240
+initial cases, 16 separate-process selected confirmations and 64 standard-width
+cases. At 4096 rows, widths 512/1024 improve about 1.16–1.31× over the earlier OA
+forms, while smaller row counts can lose. Same-source ptxas remains faster.
+[Earlier GEMM pointer updates](research/ideas/early-gemm-pointer-advance.md)
+help one wide shape in FP16/BF16 and regress tall controls; the
+[joint option search](research/ideas/joint-tensor-options.md) does not justify
+an unconditional combination. These are not CLI defaults or new production passes.
+
+A separate A100-80GB [inference packing study](research/ideas/inference-weight-packing-cache.md)
+admits 26 method/network pairs, including changed-input graph checks and eager
+weight-version invalidation. Cached OA graph inference improves about 2.3–7.6%
+over its uncached form; equally cached ptxas is still faster. Captured weights
+must stay immutable until recapture. These are within-device ratios, not pooled
+40GB/80GB absolute times.
+
+The [counter follow-up](research/ideas/tensor-counter-profiling.md) observes
+substantial traversal-dependent DRAM/L2 traffic and remaining OA scoreboard
+stalls. FMA candidates execute fewer instructions and allow more active warps;
+that supports further register/occupancy work without proving a unique cause.
+No whole-native-transformer or general faster-than-CUDA claim is admitted.
 
 ## Verification, dependencies and limits
 

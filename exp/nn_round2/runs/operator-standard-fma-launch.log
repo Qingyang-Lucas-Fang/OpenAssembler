@@ -1,0 +1,95 @@
+✓ Initialized. View run at 
+https://modal.com/apps/qingyang-lucas-fang/main/ap-bBTNBpRYPyXVrooS9zHsi5
+✓ Created objects.
+├── ✓ Uploaded 
+│   /Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/operator_standard_fma_m
+│   odal.py
+├── ✓ Uploaded /Users/lucasfang/Desktop/OpenAssembler/openassembler
+├── ✓ Uploaded 
+│   /Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/operator_worker.py
+├── ✓ Uploaded 
+│   /Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/operator_candidates.py
+└── ✓ Created Function execute.
+
+==========
+== CUDA ==
+==========
+
+CUDA Version 12.8.0
+
+Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+
+This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+By pulling and using the container, you accept the terms and conditions of this license:
+https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+
+A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
+
+{'operator': 'op_softmax_backward_w512_c4_fma', 'shape': (1024, 512), 'threads': 128, 'ptxas_over_oa': 0.7329544984765137}
+{'operator': 'op_softmax_backward_w512_c4_fma', 'shape': (4096, 512), 'threads': 128, 'ptxas_over_oa': 0.8186813006693481}
+{'operator': 'op_rmsnorm_backward_w1024_c8_baseline', 'shape': (1024, 1024), 'threads': 256, 'ptxas_over_oa': 0.7306502093358425}
+{'operator': 'op_rmsnorm_backward_w1024_c8_baseline', 'shape': (4096, 1024), 'threads': 256, 'ptxas_over_oa': 0.629905622044725}
+{'operator': 'op_rmsnorm_backward_w512_c8_baseline', 'shape': (1024, 512), 'threads': 256, 'ptxas_over_oa': 0.7755101949904734}
+{'operator': 'op_rmsnorm_backward_w512_c8_baseline', 'shape': (4096, 512), 'threads': 256, 'ptxas_over_oa': 0.6559999580904862}
+{'operator': 'op_softmax_backward_w1024_c8_fma', 'shape': (1024, 1024), 'threads': 256, 'ptxas_over_oa': 0.7664473986535648}
+{'operator': 'op_softmax_backward_w1024_c8_fma', 'shape': (4096, 1024), 'threads': 256, 'ptxas_over_oa': 0.7872995908812497}
+{'operator': 'op_softmax_backward_w1024_c8_baseline', 'shape': (1024, 1024), 'threads': 256, 'ptxas_over_oa': 0.7664473986535648}
+{'operator': 'op_softmax_backward_w1024_c8_baseline', 'shape': (4096, 1024), 'threads': 256, 'ptxas_over_oa': 0.6518405167221445}
+{'operator': 'op_rmsnorm_backward_w1024_c4_fma', 'shape': (1024, 1024), 'threads': 128, 'ptxas_over_oa': 0.6537216782757045}
+{'operator': 'op_rmsnorm_backward_w1024_c4_fma', 'shape': (4096, 1024), 'threads': 128, 'ptxas_over_oa': 0.7891156927856481}
+{'operator': 'op_rmsnorm_backward_w512_c4_fma', 'shape': (1024, 512), 'threads': 128, 'ptxas_over_oa': 0.6927082780689002}
+{'operator': 'op_rmsnorm_backward_w512_c4_fma', 'shape': (4096, 512), 'threads': 128, 'ptxas_over_oa': 0.8623376696025755}
+{'operator': 'op_softmax_backward_w1024_c4_baseline', 'shape': (1024, 1024), 'threads': 128, 'ptxas_over_oa': 0.6758620554690915}
+{'operator': 'op_softmax_backward_w1024_c4_baseline', 'shape': (4096, 1024), 'threads': 128, 'ptxas_over_oa': 0.6474820281606625}
+{'operator': 'op_softmax_backward_w512_c8_fma', 'shape': (1024, 512), 'threads': 256, 'ptxas_over_oa': 0.7885714741872297}
+{'operator': 'op_softmax_backward_w512_c8_fma', 'shape': (4096, 512), 'threads': 256, 'ptxas_over_oa': 0.8597015493316023}
+{'operator': 'op_rmsnorm_backward_w512_c4_baseline', 'shape': (1024, 512), 'threads': 128, 'ptxas_over_oa': 0.6906077836668817}
+{'operator': 'op_rmsnorm_backward_w512_c4_baseline', 'shape': (4096, 512), 'threads': 128, 'ptxas_over_oa': 0.6313645511324057}
+{'operator': 'op_softmax_backward_w1024_c4_fma', 'shape': (1024, 1024), 'threads': 128, 'ptxas_over_oa': 0.6836363871118502}
+{'operator': 'op_softmax_backward_w1024_c4_fma', 'shape': (4096, 1024), 'threads': 128, 'ptxas_over_oa': 0.8087291765640862}
+{'operator': 'op_softmax_backward_w512_c8_baseline', 'shape': (1024, 512), 'threads': 256, 'ptxas_over_oa': 0.7919075197992274}
+{'operator': 'op_softmax_backward_w512_c8_baseline', 'shape': (4096, 512), 'threads': 256, 'ptxas_over_oa': 0.6514806325276743}
+{'operator': 'op_softmax_backward_w512_c4_baseline', 'shape': (1024, 512), 'threads': 128, 'ptxas_over_oa': 0.730538883543989}
+{'operator': 'op_softmax_backward_w512_c4_baseline', 'shape': (4096, 512), 'threads': 128, 'ptxas_over_oa': 0.6573426317243416}
+{'operator': 'op_rmsnorm_backward_w1024_c8_fma', 'shape': (1024, 1024), 'threads': 256, 'ptxas_over_oa': 0.748447193179653}
+{'operator': 'op_rmsnorm_backward_w1024_c8_fma', 'shape': (4096, 1024), 'threads': 256, 'ptxas_over_oa': 0.775535166932808}
+{'operator': 'op_rmsnorm_backward_w512_c8_fma', 'shape': (1024, 512), 'threads': 256, 'ptxas_over_oa': 0.7750000272848417}
+{'operator': 'op_rmsnorm_backward_w512_c8_fma', 'shape': (4096, 512), 'threads': 256, 'ptxas_over_oa': 0.8630491082383467}
+{'operator': 'op_rmsnorm_backward_w1024_c4_baseline', 'shape': (1024, 1024), 'threads': 128, 'ptxas_over_oa': 0.6601941724711856}
+{'operator': 'op_rmsnorm_backward_w1024_c4_baseline', 'shape': (4096, 1024), 'threads': 128, 'ptxas_over_oa': 0.6395990061224538}
+{'operator': 'op_rmsnorm_backward_w1024_c4_baseline', 'shape': (1024, 1024), 'threads': 128, 'ptxas_over_oa': 0.6601941724711856}
+{'operator': 'op_rmsnorm_backward_w1024_c4_baseline', 'shape': (4096, 1024), 'threads': 128, 'ptxas_over_oa': 0.6384152453858607}
+{'operator': 'op_rmsnorm_backward_w512_c8_fma', 'shape': (1024, 512), 'threads': 256, 'ptxas_over_oa': 0.7661691142480985}
+{'operator': 'op_rmsnorm_backward_w512_c8_fma', 'shape': (4096, 512), 'threads': 256, 'ptxas_over_oa': 0.865285003783875}
+{'operator': 'op_rmsnorm_backward_w1024_c8_fma', 'shape': (1024, 1024), 'threads': 256, 'ptxas_over_oa': 0.7515527616280646}
+{'operator': 'op_rmsnorm_backward_w1024_c8_fma', 'shape': (4096, 1024), 'threads': 256, 'ptxas_over_oa': 0.780428170571303}
+{'operator': 'op_softmax_backward_w512_c4_baseline', 'shape': (1024, 512), 'threads': 128, 'ptxas_over_oa': 0.7288135412070378}
+{'operator': 'op_softmax_backward_w512_c4_baseline', 'shape': (4096, 512), 'threads': 128, 'ptxas_over_oa': 0.6773455522355137}
+{'operator': 'op_softmax_backward_w512_c8_baseline', 'shape': (1024, 512), 'threads': 256, 'ptxas_over_oa': 0.7934782746237381}
+{'operator': 'op_softmax_backward_w512_c8_baseline', 'shape': (4096, 512), 'threads': 256, 'ptxas_over_oa': 0.6623093350377145}
+{'operator': 'op_softmax_backward_w1024_c4_fma', 'shape': (1024, 1024), 'threads': 128, 'ptxas_over_oa': 0.6746575117182781}
+{'operator': 'op_softmax_backward_w1024_c4_fma', 'shape': (4096, 1024), 'threads': 128, 'ptxas_over_oa': 0.7926064747924364}
+{'operator': 'op_rmsnorm_backward_w512_c4_baseline', 'shape': (1024, 512), 'threads': 128, 'ptxas_over_oa': 0.6927082780689002}
+{'operator': 'op_rmsnorm_backward_w512_c4_baseline', 'shape': (4096, 512), 'threads': 128, 'ptxas_over_oa': 0.6500993927656323}
+{'operator': 'op_softmax_backward_w512_c8_fma', 'shape': (1024, 512), 'threads': 256, 'ptxas_over_oa': 0.7795698626088}
+{'operator': 'op_softmax_backward_w512_c8_fma', 'shape': (4096, 512), 'threads': 256, 'ptxas_over_oa': 0.8278688902629714}
+{'operator': 'op_softmax_backward_w1024_c4_baseline', 'shape': (1024, 1024), 'threads': 128, 'ptxas_over_oa': 0.6746575117182781}
+{'operator': 'op_softmax_backward_w1024_c4_baseline', 'shape': (4096, 1024), 'threads': 128, 'ptxas_over_oa': 0.6508509335710392}
+{'operator': 'op_rmsnorm_backward_w512_c4_fma', 'shape': (1024, 512), 'threads': 128, 'ptxas_over_oa': 0.6927082780689002}
+{'operator': 'op_rmsnorm_backward_w512_c4_fma', 'shape': (4096, 512), 'threads': 128, 'ptxas_over_oa': 0.851948055482334}
+{'operator': 'op_rmsnorm_backward_w1024_c4_fma', 'shape': (1024, 1024), 'threads': 128, 'ptxas_over_oa': 0.6548387136144619}
+{'operator': 'op_rmsnorm_backward_w1024_c4_fma', 'shape': (4096, 1024), 'threads': 128, 'ptxas_over_oa': 0.7881408667109989}
+{'operator': 'op_softmax_backward_w1024_c8_baseline', 'shape': (1024, 1024), 'threads': 256, 'ptxas_over_oa': 0.7679738503035929}
+{'operator': 'op_softmax_backward_w1024_c8_baseline', 'shape': (4096, 1024), 'threads': 256, 'ptxas_over_oa': 0.6497695954171108}
+{'operator': 'op_softmax_backward_w1024_c8_fma', 'shape': (1024, 1024), 'threads': 256, 'ptxas_over_oa': 0.7629870415189781}
+{'operator': 'op_softmax_backward_w1024_c8_fma', 'shape': (4096, 1024), 'threads': 256, 'ptxas_over_oa': 0.7901924249108548}
+{'operator': 'op_rmsnorm_backward_w512_c8_baseline', 'shape': (1024, 512), 'threads': 256, 'ptxas_over_oa': 0.7711442764458432}
+{'operator': 'op_rmsnorm_backward_w512_c8_baseline', 'shape': (4096, 512), 'threads': 256, 'ptxas_over_oa': 0.6607142980883633}
+{'operator': 'op_rmsnorm_backward_w1024_c8_baseline', 'shape': (1024, 1024), 'threads': 256, 'ptxas_over_oa': 0.7392637891668582}
+{'operator': 'op_rmsnorm_backward_w1024_c8_baseline', 'shape': (4096, 1024), 'threads': 256, 'ptxas_over_oa': 0.6368631247801222}
+{'operator': 'op_softmax_backward_w512_c4_fma', 'shape': (1024, 512), 'threads': 128, 'ptxas_over_oa': 0.7247190519803399}
+{'operator': 'op_softmax_backward_w512_c4_fma', 'shape': (4096, 512), 'threads': 128, 'ptxas_over_oa': 0.7952127606050562}
+evidence: /Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/runs/operator-standard-fma-20261107T144401.126097Z.json
+Stopping app - local entrypoint completed.
+✓ App completed. View run at 
+https://modal.com/apps/qingyang-lucas-fang/main/ap-bBTNBpRYPyXVrooS9zHsi5

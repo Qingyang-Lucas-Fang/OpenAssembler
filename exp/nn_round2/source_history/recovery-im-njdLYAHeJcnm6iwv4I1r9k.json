@@ -1,0 +1,44 @@
+{
+  "schema": 1,
+  "timestamp_utc": "2026-11-07T14:49:13.837328+00:00",
+  "image_id": "im-njdLYAHeJcnm6iwv4I1r9k",
+  "cpu_only": true,
+  "gpu_requested": null,
+  "network_blocked": true,
+  "files": [
+    {
+      "path": "/root/exp/nn_round2/whole_worker.py",
+      "sha256": "7aaa85220ffd07976acf6baae1f247b327f1d0fac8dd4ca0e40b93439fc7243a",
+      "bytes": 32796,
+      "archive": "exp/nn_round2/source_history/7aaa85220ffd07976acf6baae1f247b327f1d0fac8dd4ca0e40b93439fc7243a.py.gz",
+      "origin": "modal_immutable_image_cpu_read",
+      "image_id": "im-njdLYAHeJcnm6iwv4I1r9k"
+    },
+    {
+      "path": "/root/exp/nn_round2/counter_worker.py",
+      "sha256": "a0025eaf818763939b1bdd97d8108fd9e9fa01d723466853859947bf90f1c8bc",
+      "bytes": 13852,
+      "archive": "exp/nn_round2/source_history/a0025eaf818763939b1bdd97d8108fd9e9fa01d723466853859947bf90f1c8bc.py.gz",
+      "origin": "modal_immutable_image_cpu_read",
+      "image_id": "im-njdLYAHeJcnm6iwv4I1r9k"
+    },
+    {
+      "path": "/root/exp/nn_round2/operator_worker.py",
+      "sha256": "0338e4191041404c1808f395ad9acc554b5eb24267653220f4dcf11ce2ca8d19",
+      "bytes": 13286,
+      "archive": "exp/nn_round2/source_history/0338e4191041404c1808f395ad9acc554b5eb24267653220f4dcf11ce2ca8d19.py.gz",
+      "origin": "modal_immutable_image_cpu_read",
+      "image_id": "im-njdLYAHeJcnm6iwv4I1r9k"
+    },
+    {
+      "path": "/root/exp/nn_round2/tensor_suite.py",
+      "sha256": "79b4f7669f7a90ad5b0ba5aba5d97512d526232fd51b274bfa7e01523696ad7b",
+      "bytes": 28549,
+      "archive": "exp/nn_round2/source_history/79b4f7669f7a90ad5b0ba5aba5d97512d526232fd51b274bfa7e01523696ad7b.py.gz",
+      "origin": "modal_immutable_image_cpu_read",
+      "image_id": "im-njdLYAHeJcnm6iwv4I1r9k"
+    }
+  ],
+  "status": "completed",
+  "finished_utc": "2026-11-07T14:49:25.888385+00:00"
+}

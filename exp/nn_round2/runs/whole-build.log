@@ -1,0 +1,185 @@
+exp/nn_round2/whole_build/128_128_128/legacy/cubin/gemm.cubin  (gemm: 906 instructions, opt-level=opt, regs=184)
+exp/nn_round2/whole_build/128_128_128/legacy/sass/gemm.sass  (SASS listing from nvdisasm)
+launch: grid [1, 1, 1], block 128, dynamic shared memory 65536 bytes
+run: openassembler run /Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/whole_build/128_128_128/legacy
+exp/nn_round2/whole_build/128_128_128/direct/cubin/gemm.cubin  (gemm: 906 instructions, opt-level=opt, regs=184)
+exp/nn_round2/whole_build/128_128_128/direct/sass/gemm.sass  (SASS listing from nvdisasm)
+launch: grid [1, 1, 1], block 128, dynamic shared memory 65536 bytes
+run: openassembler run /Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/whole_build/128_128_128/direct
+exp/nn_round2/whole_build/128_128_256/legacy/cubin/gemm.cubin  (gemm: 1579 instructions, opt-level=opt, regs=216)
+exp/nn_round2/whole_build/128_128_256/legacy/sass/gemm.sass  (SASS listing from nvdisasm)
+launch: grid [1, 1, 1], block 128, dynamic shared memory 65536 bytes
+run: openassembler run /Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/whole_build/128_128_256/legacy
+exp/nn_round2/whole_build/128_128_256/direct/cubin/gemm.cubin  (gemm: 1451 instructions, opt-level=opt, regs=216)
+exp/nn_round2/whole_build/128_128_256/direct/sass/gemm.sass  (SASS listing from nvdisasm)
+launch: grid [1, 1, 1], block 128, dynamic shared memory 65536 bytes
+run: openassembler run /Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/whole_build/128_128_256/direct
+exp/nn_round2/whole_build/128_128_384/legacy/cubin/gemm.cubin  (gemm: 1579 instructions, opt-level=opt, regs=216)
+exp/nn_round2/whole_build/128_128_384/legacy/sass/gemm.sass  (SASS listing from nvdisasm)
+launch: grid [1, 1, 1], block 128, dynamic shared memory 65536 bytes
+run: openassembler run /Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/whole_build/128_128_384/legacy
+exp/nn_round2/whole_build/128_128_384/direct/cubin/gemm.cubin  (gemm: 1451 instructions, opt-level=opt, regs=216)
+exp/nn_round2/whole_build/128_128_384/direct/sass/gemm.sass  (SASS listing from nvdisasm)
+launch: grid [1, 1, 1], block 128, dynamic shared memory 65536 bytes
+run: openassembler run /Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/whole_build/128_128_384/direct
+exp/nn_round2/whole_build/128_128_512/legacy/cubin/gemm.cubin  (gemm: 1579 instructions, opt-level=opt, regs=216)
+exp/nn_round2/whole_build/128_128_512/legacy/sass/gemm.sass  (SASS listing from nvdisasm)
+launch: grid [1, 1, 1], block 128, dynamic shared memory 65536 bytes
+run: openassembler run /Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/whole_build/128_128_512/legacy
+exp/nn_round2/whole_build/128_128_512/direct/cubin/gemm.cubin  (gemm: 1451 instructions, opt-level=opt, regs=216)
+exp/nn_round2/whole_build/128_128_512/direct/sass/gemm.sass  (SASS listing from nvdisasm)
+launch: grid [1, 1, 1], block 128, dynamic shared memory 65536 bytes
+run: openassembler run /Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/whole_build/128_128_512/direct
+exp/nn_round2/whole_build/128_256_128/legacy/cubin/gemm.cubin  (gemm: 906 instructions, opt-level=opt, regs=184)
+exp/nn_round2/whole_build/128_256_128/legacy/sass/gemm.sass  (SASS listing from nvdisasm)
+launch: grid [1, 2, 1], block 128, dynamic shared memory 65536 bytes
+run: openassembler run /Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/whole_build/128_256_128/legacy
+exp/nn_round2/whole_build/128_256_128/direct/cubin/gemm.cubin  (gemm: 906 instructions, opt-level=opt, regs=184)
+exp/nn_round2/whole_build/128_256_128/direct/sass/gemm.sass  (SASS listing from nvdisasm)
+launch: grid [1, 2, 1], block 128, dynamic shared memory 65536 bytes
+run: openassembler run /Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/whole_build/128_256_128/direct
+exp/nn_round2/whole_build/128_256_256/legacy/cubin/gemm.cubin  (gemm: 1579 instructions, opt-level=opt, regs=216)
+exp/nn_round2/whole_build/128_256_256/legacy/sass/gemm.sass  (SASS listing from nvdisasm)
+launch: grid [1, 2, 1], block 128, dynamic shared memory 65536 bytes
+run: openassembler run /Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/whole_build/128_256_256/legacy
+exp/nn_round2/whole_build/128_256_256/direct/cubin/gemm.cubin  (gemm: 1451 instructions, opt-level=opt, regs=216)
+exp/nn_round2/whole_build/128_256_256/direct/sass/gemm.sass  (SASS listing from nvdisasm)
+launch: grid [1, 2, 1], block 128, dynamic shared memory 65536 bytes
+run: openassembler run /Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/whole_build/128_256_256/direct
+exp/nn_round2/whole_build/128_384_128/legacy/cubin/gemm.cubin  (gemm: 906 instructions, opt-level=opt, regs=184)
+exp/nn_round2/whole_build/128_384_128/legacy/sass/gemm.sass  (SASS listing from nvdisasm)
+launch: grid [1, 3, 1], block 128, dynamic shared memory 65536 bytes
+run: openassembler run /Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/whole_build/128_384_128/legacy
+exp/nn_round2/whole_build/128_384_128/direct/cubin/gemm.cubin  (gemm: 906 instructions, opt-level=opt, regs=184)
+exp/nn_round2/whole_build/128_384_128/direct/sass/gemm.sass  (SASS listing from nvdisasm)
+launch: grid [1, 3, 1], block 128, dynamic shared memory 65536 bytes
+run: openassembler run /Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/whole_build/128_384_128/direct
+exp/nn_round2/whole_build/128_512_128/legacy/cubin/gemm.cubin  (gemm: 906 instructions, opt-level=opt, regs=184)
+exp/nn_round2/whole_build/128_512_128/legacy/sass/gemm.sass  (SASS listing from nvdisasm)
+launch: grid [1, 4, 1], block 128, dynamic shared memory 65536 bytes
+run: openassembler run /Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/whole_build/128_512_128/legacy
+exp/nn_round2/whole_build/128_512_128/direct/cubin/gemm.cubin  (gemm: 906 instructions, opt-level=opt, regs=184)
+exp/nn_round2/whole_build/128_512_128/direct/sass/gemm.sass  (SASS listing from nvdisasm)
+launch: grid [1, 4, 1], block 128, dynamic shared memory 65536 bytes
+run: openassembler run /Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/whole_build/128_512_128/direct
+exp/nn_round2/whole_build/256_128_128/legacy/cubin/gemm.cubin  (gemm: 906 instructions, opt-level=opt, regs=184)
+exp/nn_round2/whole_build/256_128_128/legacy/sass/gemm.sass  (SASS listing from nvdisasm)
+launch: grid [2, 1, 1], block 128, dynamic shared memory 65536 bytes
+run: openassembler run /Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/whole_build/256_128_128/legacy
+exp/nn_round2/whole_build/256_128_128/direct/cubin/gemm.cubin  (gemm: 906 instructions, opt-level=opt, regs=184)
+exp/nn_round2/whole_build/256_128_128/direct/sass/gemm.sass  (SASS listing from nvdisasm)
+launch: grid [2, 1, 1], block 128, dynamic shared memory 65536 bytes
+run: openassembler run /Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/whole_build/256_128_128/direct
+exp/nn_round2/whole_build/256_128_256/legacy/cubin/gemm.cubin  (gemm: 1579 instructions, opt-level=opt, regs=216)
+exp/nn_round2/whole_build/256_128_256/legacy/sass/gemm.sass  (SASS listing from nvdisasm)
+launch: grid [2, 1, 1], block 128, dynamic shared memory 65536 bytes
+run: openassembler run /Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/whole_build/256_128_256/legacy
+exp/nn_round2/whole_build/256_128_256/direct/cubin/gemm.cubin  (gemm: 1451 instructions, opt-level=opt, regs=216)
+exp/nn_round2/whole_build/256_128_256/direct/sass/gemm.sass  (SASS listing from nvdisasm)
+launch: grid [2, 1, 1], block 128, dynamic shared memory 65536 bytes
+run: openassembler run /Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/whole_build/256_128_256/direct
+exp/nn_round2/whole_build/256_256_128/legacy/cubin/gemm.cubin  (gemm: 906 instructions, opt-level=opt, regs=184)
+exp/nn_round2/whole_build/256_256_128/legacy/sass/gemm.sass  (SASS listing from nvdisasm)
+launch: grid [2, 2, 1], block 128, dynamic shared memory 65536 bytes
+run: openassembler run /Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/whole_build/256_256_128/legacy
+exp/nn_round2/whole_build/256_256_128/direct/cubin/gemm.cubin  (gemm: 906 instructions, opt-level=opt, regs=184)
+exp/nn_round2/whole_build/256_256_128/direct/sass/gemm.sass  (SASS listing from nvdisasm)
+launch: grid [2, 2, 1], block 128, dynamic shared memory 65536 bytes
+run: openassembler run /Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/whole_build/256_256_128/direct
+exp/nn_round2/whole_build/256_256_256/legacy/cubin/gemm.cubin  (gemm: 1579 instructions, opt-level=opt, regs=216)
+exp/nn_round2/whole_build/256_256_256/legacy/sass/gemm.sass  (SASS listing from nvdisasm)
+launch: grid [2, 2, 1], block 128, dynamic shared memory 65536 bytes
+run: openassembler run /Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/whole_build/256_256_256/legacy
+exp/nn_round2/whole_build/256_256_256/direct/cubin/gemm.cubin  (gemm: 1451 instructions, opt-level=opt, regs=216)
+exp/nn_round2/whole_build/256_256_256/direct/sass/gemm.sass  (SASS listing from nvdisasm)
+launch: grid [2, 2, 1], block 128, dynamic shared memory 65536 bytes
+run: openassembler run /Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/whole_build/256_256_256/direct
+exp/nn_round2/whole_build/256_256_768/legacy/cubin/gemm.cubin  (gemm: 1579 instructions, opt-level=opt, regs=216)
+exp/nn_round2/whole_build/256_256_768/legacy/sass/gemm.sass  (SASS listing from nvdisasm)
+launch: grid [2, 2, 1], block 128, dynamic shared memory 65536 bytes
+run: openassembler run /Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/whole_build/256_256_768/legacy
+exp/nn_round2/whole_build/256_256_768/direct/cubin/gemm.cubin  (gemm: 1451 instructions, opt-level=opt, regs=216)
+exp/nn_round2/whole_build/256_256_768/direct/sass/gemm.sass  (SASS listing from nvdisasm)
+launch: grid [2, 2, 1], block 128, dynamic shared memory 65536 bytes
+run: openassembler run /Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/whole_build/256_256_768/direct
+exp/nn_round2/whole_build/256_256_1024/legacy/cubin/gemm.cubin  (gemm: 1579 instructions, opt-level=opt, regs=216)
+exp/nn_round2/whole_build/256_256_1024/legacy/sass/gemm.sass  (SASS listing from nvdisasm)
+launch: grid [2, 2, 1], block 128, dynamic shared memory 65536 bytes
+run: openassembler run /Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/whole_build/256_256_1024/legacy
+exp/nn_round2/whole_build/256_256_1024/direct/cubin/gemm.cubin  (gemm: 1451 instructions, opt-level=opt, regs=216)
+exp/nn_round2/whole_build/256_256_1024/direct/sass/gemm.sass  (SASS listing from nvdisasm)
+launch: grid [2, 2, 1], block 128, dynamic shared memory 65536 bytes
+run: openassembler run /Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/whole_build/256_256_1024/direct
+exp/nn_round2/whole_build/256_768_256/legacy/cubin/gemm.cubin  (gemm: 1579 instructions, opt-level=opt, regs=216)
+exp/nn_round2/whole_build/256_768_256/legacy/sass/gemm.sass  (SASS listing from nvdisasm)
+launch: grid [2, 6, 1], block 128, dynamic shared memory 65536 bytes
+run: openassembler run /Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/whole_build/256_768_256/legacy
+exp/nn_round2/whole_build/256_768_256/direct/cubin/gemm.cubin  (gemm: 1451 instructions, opt-level=opt, regs=216)
+exp/nn_round2/whole_build/256_768_256/direct/sass/gemm.sass  (SASS listing from nvdisasm)
+launch: grid [2, 6, 1], block 128, dynamic shared memory 65536 bytes
+run: openassembler run /Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/whole_build/256_768_256/direct
+exp/nn_round2/whole_build/256_1024_256/legacy/cubin/gemm.cubin  (gemm: 1579 instructions, opt-level=opt, regs=216)
+exp/nn_round2/whole_build/256_1024_256/legacy/sass/gemm.sass  (SASS listing from nvdisasm)
+launch: grid [2, 8, 1], block 128, dynamic shared memory 65536 bytes
+run: openassembler run /Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/whole_build/256_1024_256/legacy
+exp/nn_round2/whole_build/256_1024_256/direct/cubin/gemm.cubin  (gemm: 1451 instructions, opt-level=opt, regs=216)
+exp/nn_round2/whole_build/256_1024_256/direct/sass/gemm.sass  (SASS listing from nvdisasm)
+launch: grid [2, 8, 1], block 128, dynamic shared memory 65536 bytes
+run: openassembler run /Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/whole_build/256_1024_256/direct
+exp/nn_round2/whole_build/384_128_128/legacy/cubin/gemm.cubin  (gemm: 906 instructions, opt-level=opt, regs=184)
+exp/nn_round2/whole_build/384_128_128/legacy/sass/gemm.sass  (SASS listing from nvdisasm)
+launch: grid [3, 1, 1], block 128, dynamic shared memory 65536 bytes
+run: openassembler run /Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/whole_build/384_128_128/legacy
+exp/nn_round2/whole_build/384_128_128/direct/cubin/gemm.cubin  (gemm: 906 instructions, opt-level=opt, regs=184)
+exp/nn_round2/whole_build/384_128_128/direct/sass/gemm.sass  (SASS listing from nvdisasm)
+launch: grid [3, 1, 1], block 128, dynamic shared memory 65536 bytes
+run: openassembler run /Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/whole_build/384_128_128/direct
+exp/nn_round2/whole_build/512_128_128/legacy/cubin/gemm.cubin  (gemm: 906 instructions, opt-level=opt, regs=184)
+exp/nn_round2/whole_build/512_128_128/legacy/sass/gemm.sass  (SASS listing from nvdisasm)
+launch: grid [4, 1, 1], block 128, dynamic shared memory 65536 bytes
+run: openassembler run /Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/whole_build/512_128_128/legacy
+exp/nn_round2/whole_build/512_128_128/direct/cubin/gemm.cubin  (gemm: 906 instructions, opt-level=opt, regs=184)
+exp/nn_round2/whole_build/512_128_128/direct/sass/gemm.sass  (SASS listing from nvdisasm)
+launch: grid [4, 1, 1], block 128, dynamic shared memory 65536 bytes
+run: openassembler run /Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/whole_build/512_128_128/direct
+exp/nn_round2/whole_build/512_512_2048/legacy/cubin/gemm.cubin  (gemm: 1579 instructions, opt-level=opt, regs=216)
+exp/nn_round2/whole_build/512_512_2048/legacy/sass/gemm.sass  (SASS listing from nvdisasm)
+launch: grid [4, 4, 1], block 128, dynamic shared memory 65536 bytes
+run: openassembler run /Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/whole_build/512_512_2048/legacy
+exp/nn_round2/whole_build/512_512_2048/direct/cubin/gemm.cubin  (gemm: 1451 instructions, opt-level=opt, regs=216)
+exp/nn_round2/whole_build/512_512_2048/direct/sass/gemm.sass  (SASS listing from nvdisasm)
+launch: grid [4, 4, 1], block 128, dynamic shared memory 65536 bytes
+run: openassembler run /Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/whole_build/512_512_2048/direct
+exp/nn_round2/whole_build/512_2048_512/legacy/cubin/gemm.cubin  (gemm: 1579 instructions, opt-level=opt, regs=216)
+exp/nn_round2/whole_build/512_2048_512/legacy/sass/gemm.sass  (SASS listing from nvdisasm)
+launch: grid [4, 16, 1], block 128, dynamic shared memory 65536 bytes
+run: openassembler run /Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/whole_build/512_2048_512/legacy
+exp/nn_round2/whole_build/512_2048_512/direct/cubin/gemm.cubin  (gemm: 1451 instructions, opt-level=opt, regs=216)
+exp/nn_round2/whole_build/512_2048_512/direct/sass/gemm.sass  (SASS listing from nvdisasm)
+launch: grid [4, 16, 1], block 128, dynamic shared memory 65536 bytes
+run: openassembler run /Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/whole_build/512_2048_512/direct
+exp/nn_round2/whole_build/768_256_256/legacy/cubin/gemm.cubin  (gemm: 1579 instructions, opt-level=opt, regs=216)
+exp/nn_round2/whole_build/768_256_256/legacy/sass/gemm.sass  (SASS listing from nvdisasm)
+launch: grid [6, 2, 1], block 128, dynamic shared memory 65536 bytes
+run: openassembler run /Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/whole_build/768_256_256/legacy
+exp/nn_round2/whole_build/768_256_256/direct/cubin/gemm.cubin  (gemm: 1451 instructions, opt-level=opt, regs=216)
+exp/nn_round2/whole_build/768_256_256/direct/sass/gemm.sass  (SASS listing from nvdisasm)
+launch: grid [6, 2, 1], block 128, dynamic shared memory 65536 bytes
+run: openassembler run /Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/whole_build/768_256_256/direct
+exp/nn_round2/whole_build/1024_256_256/legacy/cubin/gemm.cubin  (gemm: 1579 instructions, opt-level=opt, regs=216)
+exp/nn_round2/whole_build/1024_256_256/legacy/sass/gemm.sass  (SASS listing from nvdisasm)
+launch: grid [8, 2, 1], block 128, dynamic shared memory 65536 bytes
+run: openassembler run /Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/whole_build/1024_256_256/legacy
+exp/nn_round2/whole_build/1024_256_256/direct/cubin/gemm.cubin  (gemm: 1451 instructions, opt-level=opt, regs=216)
+exp/nn_round2/whole_build/1024_256_256/direct/sass/gemm.sass  (SASS listing from nvdisasm)
+launch: grid [8, 2, 1], block 128, dynamic shared memory 65536 bytes
+run: openassembler run /Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/whole_build/1024_256_256/direct
+exp/nn_round2/whole_build/2048_512_512/legacy/cubin/gemm.cubin  (gemm: 1579 instructions, opt-level=opt, regs=216)
+exp/nn_round2/whole_build/2048_512_512/legacy/sass/gemm.sass  (SASS listing from nvdisasm)
+launch: grid [16, 4, 1], block 128, dynamic shared memory 65536 bytes
+run: openassembler run /Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/whole_build/2048_512_512/legacy
+exp/nn_round2/whole_build/2048_512_512/direct/cubin/gemm.cubin  (gemm: 1451 instructions, opt-level=opt, regs=216)
+exp/nn_round2/whole_build/2048_512_512/direct/sass/gemm.sass  (SASS listing from nvdisasm)
+launch: grid [16, 4, 1], block 128, dynamic shared memory 65536 bytes
+run: openassembler run /Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/whole_build/2048_512_512/direct
+/Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/whole_build/payload.json

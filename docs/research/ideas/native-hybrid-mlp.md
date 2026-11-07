@@ -107,3 +107,14 @@ results record their own hashes and must not be silently pooled with old data.
 Packing fusion, real transposed/tail kernels, saved activations, affine norm,
 attention and automatic forward/backward integration remain open. They need
 the same full-state gate before their timing can count as acceleration.
+
+## Later native arithmetic integration cohort
+
+The [November 7 campaign](nn-arithmetic-campaign.md) adds six explicit networks,
+including gated MLP and per-head causal attention, plus independent inference
+and cache checks. Its reference groups distinguish native GEMMs with identical
+Torch surroundings from native pointwise/norm combinations. GEMM-only OA passes
+all six training networks; several all-native operator combinations fail their
+initial or post-trajectory state gate. That is a new numerical contract and
+cohort, not a replacement for the earlier MLP tables or an admitted whole-native
+transformer. Its whole-training graph captures also have retained stream errors.

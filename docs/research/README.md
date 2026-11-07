@@ -19,7 +19,7 @@ a short glossary are in [DEVELOPMENT](../DEVELOPMENT.md). The complete
 cross-cutting [whole-stack study](WHOLE_STACK_RESULTS.md) and
 [primary references](REFERENCES.md) remain essential companion documents.
 
-There are **66 dossiers**: **33 implemented**, **10 validated but not integrated**, **13 tested but not selected**, and **10 open or hardware unavailable**.
+There are **72 dossiers**: **33 implemented**, **16 validated but not integrated**, **13 tested but not selected**, and **10 open or hardware unavailable**.
 
 ## 1. Validated and implemented
 
@@ -77,6 +77,12 @@ These capabilities, diagnostics and research prototypes have bounded validation.
 | [Hardware-counter-guided tensor analysis](ideas/tensor-counter-profiling.md) | Retained matched profiles show equal tensor work but different overhead and stalls. |
 | [Clocked tensor probes and synchronization sweeps](ideas/tensor-timing-and-synchronization.md) | Corrected exact-SASS probes measured an approximately eight-cycle-per-operation slope for the tested dependent HMMA sequence and about 41 cycles per iteration for LDSM→LOP3→IADD3. |
 | [Whole-transformer training and inference evaluation](ideas/whole-transformer-evaluation.md) | Nine of ten configurations pass both rounds; gains use Inductor/Triton and BF16 training remains excluded. |
+| [Native NN arithmetic and composed-network campaign](ideas/nn-arithmetic-campaign.md) | 26 operator families and six custom NN configurations expose conditional gains and failed training gates; no general CUDA superiority. |
+| [Fused local dot products for backward row reductions](ideas/fused-backward-reductions.md) | Explicit FMA improves selected native backward reductions; smaller cases can lose and same-source ptxas remains faster. |
+| [Stable analytic GELU backward](ideas/stable-gelu-backward.md) | A stable exponential derivative passes the unchanged accuracy gate after the direct-tanh form fails; no ptxas speed win. |
+| [Earlier pointer advancement in tensor mainloops](ideas/early-gemm-pointer-advance.md) | Legal pointer placement helps tested wide GEMMs but regresses tall controls; retained as an isolated conditional candidate. |
+| [Joint direct-pointer, traversal and epilogue options](ideas/joint-tensor-options.md) | Joint combinations pass full correctness; direct-plus-fusion has narrow gains while direct-plus-Morton is mostly neutral or worse. |
+| [Immutable inference weight-packing cache](ideas/inference-weight-packing-cache.md) | Versioned eager packing and immutable captured inference pass 26 method/network pairs; equally cached ptxas remains faster. |
 
 ## 3. Tested and rejected or not selected
 

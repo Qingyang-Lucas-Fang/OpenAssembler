@@ -1,0 +1,18 @@
+✓ Initialized. View run at 
+https://modal.com/apps/qingyang-lucas-fang/main/ap-qtvzYV5TydluiTp1tqX3g3
+Building image im-0mcrJa1DQsF2cRUvuQBtZq
+
+=> Step 0: FROM base
+
+=> Step 1: COPY . /
+Saving image...
+Image saved, took 1.49s
+
+Built image im-0mcrJa1DQsF2cRUvuQBtZq in 4.47s
+
+
+Stopping app - uncaught exception raised locally: ExecutionError('/Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/test_operator_suite.py was modified during build process.').
+╭─ Error ──────────────────────────────────────────────────────────────────────╮
+│ /Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/test_operator_suite.py  │
+│ was modified during build process.                                           │
+╰──────────────────────────────────────────────────────────────────────────────╯

@@ -1,0 +1,21 @@
+{
+  "schema": 1,
+  "timestamp_utc": "2026-11-07T14:50:42.405490+00:00",
+  "new_gpu_measurement": false,
+  "files": [
+    {
+      "source_path": "exp/nn_round2/tensor_followup.py",
+      "sha256": "fa7609203c60052fc99b88df2e2cc0783b081a4284eae041836a94eb0957ed95",
+      "archive": "exp/nn_round2/source_history/fa7609203c60052fc99b88df2e2cc0783b081a4284eae041836a94eb0957ed95.py.gz",
+      "origin": "exact_reconstruction_of_recorded_local_edit_verified_against_preexisting_sha256",
+      "edit": "remove resolve() from base-manifest metadata path, matching the retained initial failed build"
+    },
+    {
+      "source_path": "exp/nn_round2/tensor_followup_run.py",
+      "sha256": "f8a611f9dc212a85b97ea6fe806e4880e6c6e2d44948ebc9caca430ba3ffee9a",
+      "archive": "exp/nn_round2/source_history/f8a611f9dc212a85b97ea6fe806e4880e6c6e2d44948ebc9caca430ba3ffee9a.py.gz",
+      "origin": "exact_reconstruction_of_recorded_local_edit_verified_against_preexisting_sha256",
+      "edit": "restore original nested serialized Modal launcher, matching the retained pre-GPU Python-version failure"
+    }
+  ]
+}

@@ -1,0 +1,97 @@
+{
+  "cases": [
+    {
+      "name": "relu_mlp_small",
+      "family": "mlp",
+      "tokens": 128,
+      "width": 128,
+      "hidden": 512,
+      "layers": 1,
+      "activation": "relu"
+    },
+    {
+      "name": "relu_mlp_wide",
+      "family": "mlp",
+      "tokens": 512,
+      "width": 512,
+      "hidden": 2048,
+      "layers": 1,
+      "activation": "relu"
+    },
+    {
+      "name": "silu_gated_mlp",
+      "family": "gated",
+      "tokens": 256,
+      "width": 256,
+      "hidden": 1024,
+      "layers": 1,
+      "activation": "silu"
+    },
+    {
+      "name": "transformer_single",
+      "family": "transformer",
+      "batch": 1,
+      "seq": 128,
+      "tokens": 128,
+      "width": 128,
+      "hidden": 512,
+      "heads": 1,
+      "layers": 1,
+      "activation": "gelu_tanh"
+    },
+    {
+      "name": "transformer_multihead",
+      "family": "transformer",
+      "batch": 2,
+      "seq": 128,
+      "tokens": 256,
+      "width": 256,
+      "hidden": 1024,
+      "heads": 2,
+      "layers": 2,
+      "activation": "gelu_tanh"
+    },
+    {
+      "name": "transformer_long",
+      "family": "transformer",
+      "batch": 1,
+      "seq": 256,
+      "tokens": 256,
+      "width": 256,
+      "hidden": 1024,
+      "heads": 2,
+      "layers": 1,
+      "activation": "gelu_tanh"
+    }
+  ],
+  "gates": {
+    "output": {
+      "rtol": 0.001,
+      "atol": 1e-05
+    },
+    "gradient": {
+      "rtol": 0.002,
+      "atol": 2e-05
+    },
+    "parameter": {
+      "rtol": 0.001,
+      "atol": 1e-05
+    },
+    "optimizer": {
+      "rtol": 0.002,
+      "atol": 2e-05
+    }
+  },
+  "optimizer": "AdamW lr=1e-4, eps=1e-8, wd=.01, capturable foreach=False",
+  "precision": "FP32 parameters and non-GEMM operations; every GEMM rounds both operands to FP16, accumulates/outputs FP32; explicit straight-through derivative",
+  "methods": [
+    "oa_legacy",
+    "oa_direct",
+    "oa_tensor_only",
+    "ptxas",
+    "cuda_library"
+  ],
+  "coverage": "Native GEMM forward/dX/dW and eligible native pointwise/RMSNorm/softmax; shared Torch embeddings, masks, loss, norm affine, optimizer, clipping, packing, casts",
+  "goal": "faster after full output/gradient/state correctness, no guaranteed superiority",
+  "timing": "paired shuffled event and host-wall spans; graph replay tested separately, full post-timing state gate"
+}

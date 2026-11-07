@@ -1,0 +1,94 @@
+✓ Initialized. View run at 
+https://modal.com/apps/qingyang-lucas-fang/main/ap-RifhbLiroT5SfDorVjvkcg
+Building image im-kgULE16RkuS7qwrZa9jcZv
+
+=> Step 0: FROM base
+
+=> Step 1: COPY . /
+Saving image...
+Image saved, took 2.84s
+
+Built image im-kgULE16RkuS7qwrZa9jcZv in 4.92s
+
+
+✓ Created objects.
+├── ✓ Uploaded 
+│   /Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/operator_gelu_stable_mo
+│   dal.py
+├── ✓ Uploaded /Users/lucasfang/Desktop/OpenAssembler/openassembler
+├── ✓ Uploaded 
+│   /Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/operator_worker.py
+├── ✓ Uploaded 
+│   /Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/operator_gelu_stable.py
+└── ✓ Created Function execute.
+
+==========
+== CUDA ==
+==========
+
+CUDA Version 12.8.0
+
+Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+
+This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+By pulling and using the container, you accept the terms and conditions of this license:
+https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+
+A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
+
+{'operator': 'op_gelu_tanh_backward_scalar_tanh', 'shape': (65536,), 'threads': 128, 'ptxas_over_oa': 0.965517229843904}
+{'operator': 'op_gelu_tanh_backward_scalar_tanh', 'shape': (65536,), 'threads': 256, 'ptxas_over_oa': 0.9499999818101055}
+{'operator': 'op_gelu_tanh_backward_scalar_tanh', 'shape': (1048576,), 'status': 'correctness_failure'}
+{'operator': 'op_gelu_tanh_backward_scalar_tanh', 'shape': (1048576,), 'status': 'correctness_failure'}
+{'operator': 'op_gelu_tanh_backward_scalar_tanh', 'shape': (65539,), 'threads': 128, 'ptxas_over_oa': 0.9540229731252052}
+{'operator': 'op_gelu_tanh_backward_scalar_stable_ex2', 'shape': (65536,), 'threads': 128, 'ptxas_over_oa': 0.965517229843904}
+{'operator': 'op_gelu_tanh_backward_scalar_stable_ex2', 'shape': (65536,), 'threads': 256, 'ptxas_over_oa': 0.9746835349771411}
+{'operator': 'op_gelu_tanh_backward_scalar_stable_ex2', 'shape': (1048576,), 'threads': 128, 'ptxas_over_oa': 0.990625019326763}
+{'operator': 'op_gelu_tanh_backward_scalar_stable_ex2', 'shape': (1048576,), 'threads': 256, 'ptxas_over_oa': 0.8907563235869127}
+{'operator': 'op_gelu_tanh_backward_scalar_stable_ex2', 'shape': (65539,), 'threads': 128, 'ptxas_over_oa': 0.9770114865626026}
+{'operator': 'op_gelu_tanh_backward_scalar4_tanh', 'shape': (65536,), 'threads': 128, 'ptxas_over_oa': 0.8350515595378132}
+{'operator': 'op_gelu_tanh_backward_scalar4_tanh', 'shape': (65536,), 'threads': 256, 'ptxas_over_oa': 0.8736841718287032}
+{'operator': 'op_gelu_tanh_backward_scalar4_tanh', 'shape': (1048576,), 'status': 'correctness_failure'}
+{'operator': 'op_gelu_tanh_backward_scalar4_tanh', 'shape': (1048576,), 'status': 'correctness_failure'}
+{'operator': 'op_gelu_tanh_backward_scalar4_stable_ex2', 'shape': (65536,), 'threads': 128, 'ptxas_over_oa': 0.8039215700261356}
+{'operator': 'op_gelu_tanh_backward_scalar4_stable_ex2', 'shape': (65536,), 'threads': 256, 'ptxas_over_oa': 0.8300000109139367}
+{'operator': 'op_gelu_tanh_backward_scalar4_stable_ex2', 'shape': (1048576,), 'threads': 128, 'ptxas_over_oa': 0.5298507559937058}
+{'operator': 'op_gelu_tanh_backward_scalar4_stable_ex2', 'shape': (1048576,), 'threads': 256, 'ptxas_over_oa': 0.4817351863658518}
+{'operator': 'op_gelu_tanh_backward_vector4_tanh', 'shape': (65536,), 'threads': 128, 'ptxas_over_oa': 0.9390243686021483}
+{'operator': 'op_gelu_tanh_backward_vector4_tanh', 'shape': (65536,), 'threads': 256, 'ptxas_over_oa': 0.9624999863575792}
+{'operator': 'op_gelu_tanh_backward_vector4_tanh', 'shape': (1048576,), 'status': 'correctness_failure'}
+{'operator': 'op_gelu_tanh_backward_vector4_tanh', 'shape': (1048576,), 'status': 'correctness_failure'}
+{'operator': 'op_gelu_tanh_backward_vector4_stable_ex2', 'shape': (65536,), 'threads': 128, 'ptxas_over_oa': 0.9186046236172508}
+{'operator': 'op_gelu_tanh_backward_vector4_stable_ex2', 'shape': (65536,), 'threads': 256, 'ptxas_over_oa': 0.9285714038232732}
+{'operator': 'op_gelu_tanh_backward_vector4_stable_ex2', 'shape': (1048576,), 'threads': 128, 'ptxas_over_oa': 0.9141414193379966}
+{'operator': 'op_gelu_tanh_backward_vector4_stable_ex2', 'shape': (1048576,), 'threads': 256, 'ptxas_over_oa': 0.9292929768045405}
+{'operator': 'op_gelu_tanh_backward_vector4_stable_ex2', 'shape': (65536,), 'threads': 128, 'ptxas_over_oa': 0.9186046236172508}
+{'operator': 'op_gelu_tanh_backward_vector4_stable_ex2', 'shape': (65536,), 'threads': 256, 'ptxas_over_oa': 0.9294117405366112}
+{'operator': 'op_gelu_tanh_backward_vector4_stable_ex2', 'shape': (1048576,), 'threads': 128, 'ptxas_over_oa': 0.9187816988910332}
+{'operator': 'op_gelu_tanh_backward_vector4_stable_ex2', 'shape': (1048576,), 'threads': 256, 'ptxas_over_oa': 0.9292929768045405}
+{'operator': 'op_gelu_tanh_backward_vector4_tanh', 'shape': (65536,), 'threads': 128, 'ptxas_over_oa': 0.9390243686021483}
+{'operator': 'op_gelu_tanh_backward_vector4_tanh', 'shape': (65536,), 'threads': 256, 'ptxas_over_oa': 0.9506172662070836}
+{'operator': 'op_gelu_tanh_backward_vector4_tanh', 'shape': (1048576,), 'status': 'correctness_failure'}
+{'operator': 'op_gelu_tanh_backward_vector4_tanh', 'shape': (1048576,), 'status': 'correctness_failure'}
+{'operator': 'op_gelu_tanh_backward_scalar4_stable_ex2', 'shape': (65536,), 'threads': 128, 'ptxas_over_oa': 0.8039215700261356}
+{'operator': 'op_gelu_tanh_backward_scalar4_stable_ex2', 'shape': (65536,), 'threads': 256, 'ptxas_over_oa': 0.8469387929349261}
+{'operator': 'op_gelu_tanh_backward_scalar4_stable_ex2', 'shape': (1048576,), 'threads': 128, 'ptxas_over_oa': 0.5272277505893886}
+{'operator': 'op_gelu_tanh_backward_scalar4_stable_ex2', 'shape': (1048576,), 'threads': 256, 'ptxas_over_oa': 0.48063783133368804}
+{'operator': 'op_gelu_tanh_backward_scalar4_tanh', 'shape': (65536,), 'threads': 128, 'ptxas_over_oa': 0.8265306220936539}
+{'operator': 'op_gelu_tanh_backward_scalar4_tanh', 'shape': (65536,), 'threads': 256, 'ptxas_over_oa': 0.9222221970707641}
+{'operator': 'op_gelu_tanh_backward_scalar4_tanh', 'shape': (1048576,), 'status': 'correctness_failure'}
+{'operator': 'op_gelu_tanh_backward_scalar4_tanh', 'shape': (1048576,), 'status': 'correctness_failure'}
+{'operator': 'op_gelu_tanh_backward_scalar_stable_ex2', 'shape': (65536,), 'threads': 128, 'ptxas_over_oa': 0.9883720890881786}
+{'operator': 'op_gelu_tanh_backward_scalar_stable_ex2', 'shape': (65536,), 'threads': 256, 'ptxas_over_oa': 0.9749999909050527}
+{'operator': 'op_gelu_tanh_backward_scalar_stable_ex2', 'shape': (1048576,), 'threads': 128, 'ptxas_over_oa': 0.993730360047212}
+{'operator': 'op_gelu_tanh_backward_scalar_stable_ex2', 'shape': (1048576,), 'threads': 256, 'ptxas_over_oa': 0.8949580363718406}
+{'operator': 'op_gelu_tanh_backward_scalar_stable_ex2', 'shape': (65539,), 'threads': 128, 'ptxas_over_oa': 0.9767441781763574}
+{'operator': 'op_gelu_tanh_backward_scalar_tanh', 'shape': (65536,), 'threads': 128, 'ptxas_over_oa': 0.965517229843904}
+{'operator': 'op_gelu_tanh_backward_scalar_tanh', 'shape': (65536,), 'threads': 256, 'ptxas_over_oa': 0.9746835349771411}
+{'operator': 'op_gelu_tanh_backward_scalar_tanh', 'shape': (1048576,), 'status': 'correctness_failure'}
+{'operator': 'op_gelu_tanh_backward_scalar_tanh', 'shape': (1048576,), 'status': 'correctness_failure'}
+{'operator': 'op_gelu_tanh_backward_scalar_tanh', 'shape': (65539,), 'threads': 128, 'ptxas_over_oa': 0.965116267264536}
+evidence: /Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/runs/operator-gelu-stable-20261107T143841.822588Z.json
+Stopping app - local entrypoint completed.
+✓ App completed. View run at 
+https://modal.com/apps/qingyang-lucas-fang/main/ap-RifhbLiroT5SfDorVjvkcg

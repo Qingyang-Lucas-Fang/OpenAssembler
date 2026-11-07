@@ -1,0 +1,44 @@
+{
+  "schema": 1,
+  "timestamp_utc": "2026-11-07T14:49:20.046620+00:00",
+  "image_id": "im-7LiIocjSDR2H5eGAty6kpl",
+  "cpu_only": true,
+  "gpu_requested": null,
+  "network_blocked": true,
+  "files": [
+    {
+      "path": "/root/exp/nn_round2/whole_worker.py",
+      "sha256": "aa5bd7b0a181c22e154043f6080a1b118cda3b0cfca75c40a02f0b697dc2a045",
+      "bytes": 24630,
+      "archive": "exp/nn_round2/source_history/aa5bd7b0a181c22e154043f6080a1b118cda3b0cfca75c40a02f0b697dc2a045.py.gz",
+      "origin": "modal_immutable_image_cpu_read",
+      "image_id": "im-7LiIocjSDR2H5eGAty6kpl"
+    },
+    {
+      "path": "/root/exp/nn_round2/operator_worker.py",
+      "sha256": "0338e4191041404c1808f395ad9acc554b5eb24267653220f4dcf11ce2ca8d19",
+      "bytes": 13286,
+      "archive": "exp/nn_round2/source_history/0338e4191041404c1808f395ad9acc554b5eb24267653220f4dcf11ce2ca8d19.py.gz",
+      "origin": "modal_immutable_image_cpu_read",
+      "image_id": "im-7LiIocjSDR2H5eGAty6kpl"
+    },
+    {
+      "path": "/root/exp/nn_round2/tensor_suite.py",
+      "sha256": "79b4f7669f7a90ad5b0ba5aba5d97512d526232fd51b274bfa7e01523696ad7b",
+      "bytes": 28549,
+      "archive": "exp/nn_round2/source_history/79b4f7669f7a90ad5b0ba5aba5d97512d526232fd51b274bfa7e01523696ad7b.py.gz",
+      "origin": "modal_immutable_image_cpu_read",
+      "image_id": "im-7LiIocjSDR2H5eGAty6kpl"
+    },
+    {
+      "path": "/root/exp/nn_round2/campaign.py",
+      "sha256": "b41e92e5c5616c0578b4c40f2e5d95f83f0597fef675598f24ee35bee3984084",
+      "bytes": 4263,
+      "archive": "exp/nn_round2/source_history/b41e92e5c5616c0578b4c40f2e5d95f83f0597fef675598f24ee35bee3984084.py.gz",
+      "origin": "modal_immutable_image_cpu_read",
+      "image_id": "im-7LiIocjSDR2H5eGAty6kpl"
+    }
+  ],
+  "status": "completed",
+  "finished_utc": "2026-11-07T14:49:27.485867+00:00"
+}

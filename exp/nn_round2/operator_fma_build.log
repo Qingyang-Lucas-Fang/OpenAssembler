@@ -1,0 +1,83 @@
+warning: op_layernorm_w128_c4_baseline: 1 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R0, R0, 0x80, RZ' -> 'IMAD.SHL R0, R0, 0x80, RZ'
+warning: op_layernorm_w128_c4_fma: 1 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R0, R0, 0x80, RZ' -> 'IMAD.SHL R0, R0, 0x80, RZ'
+warning: op_layernorm_w128_c8_baseline: 1 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R0, R0, 0x80, RZ' -> 'IMAD.SHL R0, R0, 0x80, RZ'
+warning: op_layernorm_w128_c8_fma: 1 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R0, R0, 0x80, RZ' -> 'IMAD.SHL R0, R0, 0x80, RZ'
+warning: op_layernorm_backward_w128_c4_baseline: 1 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R0, R0, 0x80, RZ' -> 'IMAD.SHL R0, R0, 0x80, RZ'
+warning: op_layernorm_backward_w128_c4_fma: 1 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R0, R0, 0x80, RZ' -> 'IMAD.SHL R0, R0, 0x80, RZ'
+warning: op_layernorm_backward_w128_c8_baseline: 1 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R0, R0, 0x80, RZ' -> 'IMAD.SHL R0, R0, 0x80, RZ'
+warning: op_layernorm_backward_w128_c8_fma: 1 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R0, R0, 0x80, RZ' -> 'IMAD.SHL R0, R0, 0x80, RZ'
+warning: op_layernorm_w256_c4_baseline: 1 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R0, R0, 0x100, RZ' -> 'IMAD.SHL R0, R0, 0x100, RZ'
+warning: op_layernorm_w256_c4_fma: 1 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R0, R0, 0x100, RZ' -> 'IMAD.SHL R0, R0, 0x100, RZ'
+warning: op_layernorm_w256_c8_baseline: 1 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R0, R0, 0x100, RZ' -> 'IMAD.SHL R0, R0, 0x100, RZ'
+warning: op_layernorm_w256_c8_fma: 1 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R0, R0, 0x100, RZ' -> 'IMAD.SHL R0, R0, 0x100, RZ'
+warning: op_layernorm_backward_w256_c4_baseline: 1 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R0, R0, 0x100, RZ' -> 'IMAD.SHL R0, R0, 0x100, RZ'
+warning: op_layernorm_backward_w256_c4_fma: 1 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R0, R0, 0x100, RZ' -> 'IMAD.SHL R0, R0, 0x100, RZ'
+warning: op_layernorm_backward_w256_c8_baseline: 1 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R0, R0, 0x100, RZ' -> 'IMAD.SHL R0, R0, 0x100, RZ'
+warning: op_layernorm_backward_w256_c8_fma: 1 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R0, R0, 0x100, RZ' -> 'IMAD.SHL R0, R0, 0x100, RZ'
+exp/nn_round2/operator_fma_build/compiled/cubin/fma_operators.cubin  (60 kernels, opt-level=opt)
+  op_softmax_backward_w128_c4_baseline: 65 instructions, regs=17
+  op_softmax_backward_w128_c4_fma: 62 instructions, regs=17
+  op_softmax_backward_w128_c8_baseline: 65 instructions, regs=17
+  op_softmax_backward_w128_c8_fma: 62 instructions, regs=17
+  op_layernorm_w128_c4_baseline: 91 instructions, regs=20
+  op_layernorm_w128_c4_fma: 88 instructions, regs=17
+  op_layernorm_w128_c8_baseline: 91 instructions, regs=20
+  op_layernorm_w128_c8_fma: 88 instructions, regs=17
+  op_layernorm_backward_w128_c4_baseline: 161 instructions, regs=27
+  op_layernorm_backward_w128_c4_fma: 154 instructions, regs=23
+  op_layernorm_backward_w128_c8_baseline: 161 instructions, regs=27
+  op_layernorm_backward_w128_c8_fma: 154 instructions, regs=23
+  op_rmsnorm_w128_c4_baseline: 59 instructions, regs=16
+  op_rmsnorm_w128_c4_fma: 56 instructions, regs=16
+  op_rmsnorm_w128_c8_baseline: 59 instructions, regs=16
+  op_rmsnorm_w128_c8_fma: 56 instructions, regs=16
+  op_rmsnorm_backward_w128_c4_baseline: 105 instructions, regs=22
+  op_rmsnorm_backward_w128_c4_fma: 98 instructions, regs=18
+  op_rmsnorm_backward_w128_c8_baseline: 105 instructions, regs=22
+  op_rmsnorm_backward_w128_c8_fma: 98 instructions, regs=18
+  op_softmax_backward_w256_c4_baseline: 93 instructions, regs=29
+  op_softmax_backward_w256_c4_fma: 86 instructions, regs=25
+  op_softmax_backward_w256_c8_baseline: 93 instructions, regs=29
+  op_softmax_backward_w256_c8_fma: 86 instructions, regs=25
+  op_layernorm_w256_c4_baseline: 123 instructions, regs=28
+  op_layernorm_w256_c4_fma: 116 instructions, regs=21
+  op_layernorm_w256_c8_baseline: 123 instructions, regs=28
+  op_layernorm_w256_c8_fma: 116 instructions, regs=21
+  op_layernorm_backward_w256_c4_baseline: 221 instructions, regs=39
+  op_layernorm_backward_w256_c4_fma: 206 instructions, regs=31
+  op_layernorm_backward_w256_c8_baseline: 221 instructions, regs=39
+  op_layernorm_backward_w256_c8_fma: 206 instructions, regs=31
+  op_rmsnorm_w256_c4_baseline: 79 instructions, regs=21
+  op_rmsnorm_w256_c4_fma: 72 instructions, regs=17
+  op_rmsnorm_w256_c8_baseline: 79 instructions, regs=21
+  op_rmsnorm_w256_c8_fma: 72 instructions, regs=17
+  op_rmsnorm_backward_w256_c4_baseline: 145 instructions, regs=34
+  op_rmsnorm_backward_w256_c4_fma: 130 instructions, regs=26
+  op_rmsnorm_backward_w256_c8_baseline: 145 instructions, regs=34
+  op_rmsnorm_backward_w256_c8_fma: 130 instructions, regs=26
+  op_softmax_backward_w513_c4_baseline: 159 instructions, regs=56
+  op_softmax_backward_w513_c4_fma: 143 instructions, regs=43
+  op_softmax_backward_w513_c8_baseline: 159 instructions, regs=56
+  op_softmax_backward_w513_c8_fma: 143 instructions, regs=43
+  op_layernorm_w513_c4_baseline: 199 instructions, regs=46
+  op_layernorm_w513_c4_fma: 183 instructions, regs=30
+  op_layernorm_w513_c8_baseline: 199 instructions, regs=46
+  op_layernorm_w513_c8_fma: 183 instructions, regs=30
+  op_layernorm_backward_w513_c4_baseline: 361 instructions, regs=66
+  op_layernorm_backward_w513_c4_fma: 328 instructions, regs=49
+  op_layernorm_backward_w513_c8_baseline: 361 instructions, regs=66
+  op_layernorm_backward_w513_c8_fma: 328 instructions, regs=49
+  op_rmsnorm_w513_c4_baseline: 126 instructions, regs=39
+  op_rmsnorm_w513_c4_fma: 110 instructions, regs=26
+  op_rmsnorm_w513_c8_baseline: 126 instructions, regs=39
+  op_rmsnorm_w513_c8_fma: 110 instructions, regs=26
+  op_rmsnorm_backward_w513_c4_baseline: 238 instructions, regs=61
+  op_rmsnorm_backward_w513_c4_fma: 205 instructions, regs=44
+  op_rmsnorm_backward_w513_c8_baseline: 238 instructions, regs=61
+  op_rmsnorm_backward_w513_c8_fma: 205 instructions, regs=44
+exp/nn_round2/operator_fma_build/compiled/sass/fma_operators.sass  (SASS listing from nvdisasm)
+{
+  "kernels": 60,
+  "source_sha256": "5af8745a1b0dc775105cd304892a18699ecd66b56002f1dd8ea8b20f63aff2fa",
+  "payload": "/Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/operator_fma_build/payload.json"
+}

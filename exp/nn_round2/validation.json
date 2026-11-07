@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "local_tests": {
+    "passed": 100,
+    "failed": 0,
+    "log": "exp/nn_round2/local-tests.log"
+  },
+  "production_unchanged_snapshot": "exp/nn_round2/source_snapshot.json",
+  "evidence_verification_command": "PYTHONPATH=. .venv/bin/python exp/nn_round2/check_campaign.py",
+  "documentation_check_command": ".venv/bin/python tools/check_docs.py",
+  "gpu_resources_active": 0,
+  "production_promotion": false,
+  "general_cuda_superiority_established": false
+}

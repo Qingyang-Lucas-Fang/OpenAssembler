@@ -1,0 +1,48 @@
+✓ Initialized. View run at 
+https://modal.com/apps/qingyang-lucas-fang/main/ap-1fVDGGXEYnDyNOKVKpy7R2
+Building image im-OLdmCIztSrWPfZLKadAlhu
+
+=> Step 0: FROM base
+
+=> Step 1: COPY . /
+Saving image...
+Image saved, took 1.96s
+
+Built image im-OLdmCIztSrWPfZLKadAlhu in 5.67s
+
+
+✓ Created objects.
+├── ✓ Uploaded /Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/campaign.py
+├── ✓ Uploaded /Users/lucasfang/Desktop/OpenAssembler/openassembler
+├── ✓ Uploaded 
+│   /Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/operator_worker.py
+├── ✓ Uploaded 
+│   /Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/tensor_suite.py
+├── ✓ Uploaded 
+│   /Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/whole_worker.py
+├── ✓ Uploaded 
+│   /Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/counter_worker.py
+└── ✓ Created Function execute.
+
+==========
+== CUDA ==
+==========
+
+CUDA Version 12.8.0
+
+Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+
+This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+By pulling and using the container, you accept the terms and conditions of this license:
+https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+
+A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
+
+{"counter": "op_rmsnorm_backward_w513_c4_baseline/oa", "status": "collected", "metrics": 306}
+{"counter": "op_rmsnorm_backward_w513_c4_fma/oa", "status": "collected", "metrics": 306}
+{"counter": "op_softmax_backward_w513_c8_baseline/oa", "status": "collected", "metrics": 306}
+{"counter": "op_softmax_backward_w513_c8_fma/oa", "status": "collected", "metrics": 306}
+evidence: /Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/runs/counters-20261107T144534.159647Z.json
+Stopping app - local entrypoint completed.
+✓ App completed. View run at 
+https://modal.com/apps/qingyang-lucas-fang/main/ap-1fVDGGXEYnDyNOKVKpy7R2

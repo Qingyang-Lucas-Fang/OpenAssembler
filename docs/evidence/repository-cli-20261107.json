@@ -1,0 +1,738 @@
+{
+  "schema": 1,
+  "date": "2026-11-07T14:22:59.696463+00:00",
+  "git_base": "f9617515d8a2d9d69f9e44a4abc8ae7c4960ba51",
+  "scope": "Repository CLI integration and correctness smoke. Event timings are not a performance regression benchmark.",
+  "native": [
+    {
+      "repository": "native-repo",
+      "entries": [
+        {
+          "source": "vector_add.py",
+          "cubin": "cubin/vector_add.cubin",
+          "sass": "sass/vector_add.sass",
+          "cubin_sha256": "caa4b88a5236168bb61b8ce259cd74373ed9dde881c298c010382c1cf6fce8c4",
+          "kernels": [
+            {
+              "name": "vector_add",
+              "compiled_by": "openassembler",
+              "verify": "ok",
+              "nregs": null
+            }
+          ]
+        }
+      ],
+      "hardware_runs": [
+        {
+          "openassembler": "0.2.0",
+          "backend": "modal",
+          "device": "NVIDIA A100-SXM4-80GB cc 8.0 (Modal A100-40GB)",
+          "cases": [
+            {
+              "kernel": "vector_add",
+              "source": "run_spec.json",
+              "result": "OK",
+              "detail": "",
+              "ours_ms": 0.011264000087976456,
+              "ptxas_ms": 0.011264000087976456,
+              "speedup": 1.0,
+              "note": "",
+              "launch_description": "1 step(s), buffers a, b, out"
+            }
+          ],
+          "timestamp": "20261107T141143.268895Z"
+        },
+        {
+          "openassembler": "0.2.0",
+          "backend": "modal",
+          "device": "NVIDIA A100-SXM4-40GB cc 8.0 (Modal A100-40GB)",
+          "cases": [
+            {
+              "kernel": "vector_add",
+              "source": "run_spec.json",
+              "result": "OK",
+              "detail": "",
+              "ours_ms": 0.009216000325977802,
+              "ptxas_ms": 0.008191999979317188,
+              "speedup": 0.8888888552039012,
+              "note": "",
+              "launch_description": "1 step(s), buffers a, b, out"
+            }
+          ],
+          "timestamp": "20261107T141631.835285Z"
+        }
+      ]
+    },
+    {
+      "repository": "mixed-repo",
+      "entries": [
+        {
+          "source": "kernels/div.ptx",
+          "cubin": "cubin/kernels/div.cubin",
+          "sass": "sass/kernels/div.sass",
+          "cubin_sha256": "623c91d119019f6b6332f8161a7673f2390a6a0cfb726563681689daa487d07e",
+          "kernels": [
+            {
+              "name": "div_by_const",
+              "compiled_by": "openassembler",
+              "verify": "ok",
+              "nregs": null
+            }
+          ]
+        },
+        {
+          "source": "ops.cu",
+          "cubin": "cubin/ops.cu.cubin",
+          "sass": "sass/ops.cu.sass",
+          "cubin_sha256": "26fbc226c416682afa4f242beb953d6b925db6f9d6c7c24c7a0856dfba8f02a7",
+          "kernels": [
+            {
+              "name": "cuda_add",
+              "compiled_by": "openassembler",
+              "verify": "ok",
+              "nregs": null
+            }
+          ]
+        },
+        {
+          "source": "ops.py",
+          "cubin": "cubin/ops.py.cubin",
+          "sass": "sass/ops.py.sass",
+          "cubin_sha256": "caa4b88a5236168bb61b8ce259cd74373ed9dde881c298c010382c1cf6fce8c4",
+          "kernels": [
+            {
+              "name": "vector_add",
+              "compiled_by": "openassembler",
+              "verify": "ok",
+              "nregs": null
+            }
+          ]
+        }
+      ],
+      "hardware_runs": [
+        {
+          "openassembler": "0.2.0",
+          "backend": "modal",
+          "device": "NVIDIA A100-SXM4-40GB cc 8.0 (Modal A100-40GB)",
+          "cases": [
+            {
+              "kernel": "vector_add",
+              "source": "run_spec.json",
+              "result": "OK",
+              "detail": "",
+              "ours_ms": 0.014336000196635723,
+              "ptxas_ms": 0.015359999611973763,
+              "speedup": 1.0714285296660602,
+              "note": "",
+              "launch_description": "1 step(s), buffers a, b, out"
+            }
+          ],
+          "timestamp": "20261107T141954.373836Z"
+        }
+      ]
+    }
+  ],
+  "application": {
+    "capture": {
+      "status": "ok",
+      "runtime": {
+        "torch": "2.7.1+cu128",
+        "cuda": "12.8",
+        "python": "3.11.13",
+        "device": "NVIDIA A100-SXM4-40GB",
+        "capability": [
+          8,
+          0
+        ]
+      },
+      "optimizer_steps": 6,
+      "new_gpu_codegen": 0,
+      "verification": {
+        "status": "ok",
+        "tensors_checked": 77,
+        "rtol": 0.0001,
+        "atol": 1e-05,
+        "state_rtol": 0.001,
+        "state_atol": 0.001,
+        "scope": "observed model outputs, final parameters, gradients and optimizer state",
+        "groups": {
+          "outputs": {
+            "tensors_checked": 2,
+            "tensors_failed": 0,
+            "non_tensor_values_failed": 0
+          },
+          "parameters": {
+            "tensors_checked": 15,
+            "tensors_failed": 0,
+            "non_tensor_values_failed": 0
+          },
+          "gradients": {
+            "tensors_checked": 15,
+            "tensors_failed": 0,
+            "non_tensor_values_failed": 0
+          },
+          "optimizer": {
+            "tensors_checked": 45,
+            "tensors_failed": 0,
+            "non_tensor_values_failed": 0
+          }
+        },
+        "gradient_scope": "retained application gradients; raw versus clipped is not inferred"
+      },
+      "seconds": 16.852791404,
+      "eager_timing": {
+        "schema": 1,
+        "device": "NVIDIA A100-SXM4-40GB",
+        "profile_steps": 4,
+        "timing_warmup_steps": 2,
+        "batch_size": 2,
+        "sequence_length": 16,
+        "stages": {
+          "batch": {
+            "samples_ms": [
+              0.15014399588108063,
+              0.1493760049343109,
+              0.1377280056476593,
+              0.13699199259281158
+            ],
+            "mean_ms": 0.1435599997639656,
+            "median_ms": 0.1435520052909851,
+            "p90_ms": 0.15014399588108063
+          },
+          "forward_loss": {
+            "samples_ms": [
+              1.230847954750061,
+              1.206272006034851,
+              1.2257280349731445,
+              1.2042239904403687
+            ],
+            "mean_ms": 1.2167679965496063,
+            "median_ms": 1.2160000205039978,
+            "p90_ms": 1.230847954750061
+          },
+          "backward": {
+            "samples_ms": [
+              1.7121280431747437,
+              1.686527967453003,
+              1.7551360130310059,
+              1.6957440376281738
+            ],
+            "mean_ms": 1.7123840153217316,
+            "median_ms": 1.7039360404014587,
+            "p90_ms": 1.7551360130310059
+          },
+          "optimizer": {
+            "samples_ms": [
+              0.6604800224304199,
+              0.6696959733963013,
+              0.6625279784202576,
+              0.6492159962654114
+            ],
+            "mean_ms": 0.6604799926280975,
+            "median_ms": 0.6615040004253387,
+            "p90_ms": 0.6696959733963013
+          },
+          "end_to_end": {
+            "samples_ms": [
+              3.8345279693603516,
+              3.776927947998047,
+              3.8452160358428955,
+              3.750368118286133
+            ],
+            "mean_ms": 3.8017600178718567,
+            "median_ms": 3.805727958679199,
+            "p90_ms": 3.8452160358428955
+          },
+          "tokens_per_second": 8408.378199240966
+        }
+      },
+      "timing": {
+        "schema": 1,
+        "device": "NVIDIA A100-SXM4-40GB",
+        "profile_steps": 4,
+        "timing_warmup_steps": 2,
+        "batch_size": 2,
+        "sequence_length": 16,
+        "stages": {
+          "batch": {
+            "samples_ms": [
+              0.1379839926958084,
+              0.13254399597644806,
+              0.13308799266815186,
+              0.13132800161838531
+            ],
+            "mean_ms": 0.1337359957396984,
+            "median_ms": 0.13281599432229996,
+            "p90_ms": 0.1379839926958084
+          },
+          "forward_loss": {
+            "samples_ms": [
+              0.8007680177688599,
+              0.881663978099823,
+              0.7526400089263916,
+              0.7505919933319092
+            ],
+            "mean_ms": 0.7964159995317459,
+            "median_ms": 0.7767040133476257,
+            "p90_ms": 0.881663978099823
+          },
+          "backward": {
+            "samples_ms": [
+              0.894976019859314,
+              0.9021440148353577,
+              0.886784017086029,
+              0.8888319730758667
+            ],
+            "mean_ms": 0.8931840062141418,
+            "median_ms": 0.8919039964675903,
+            "p90_ms": 0.9021440148353577
+          },
+          "optimizer": {
+            "samples_ms": [
+              0.6553599834442139,
+              0.6635519862174988,
+              0.6543359756469727,
+              0.6440960168838501
+            ],
+            "mean_ms": 0.6543359905481339,
+            "median_ms": 0.6548479795455933,
+            "p90_ms": 0.6635519862174988
+          },
+          "end_to_end": {
+            "samples_ms": [
+              2.5538880825042725,
+              2.6404480934143066,
+              2.4972798824310303,
+              2.475872039794922
+            ],
+            "mean_ms": 2.541872024536133,
+            "median_ms": 2.5255839824676514,
+            "p90_ms": 2.6404480934143066
+          },
+          "tokens_per_second": 12670.336928861112
+        }
+      }
+    },
+    "captured_kernel_count": 67,
+    "compiled_by": "torch-inductor-triton",
+    "source_sha256": "114cc0148a04e583593aefbda95637d880c100929badd14febb2e4275718d185",
+    "graphs": [
+      {
+        "nodes": 100
+      },
+      {
+        "nodes": 184
+      }
+    ],
+    "replays": [
+      {
+        "status": "ok",
+        "runtime": {
+          "torch": "2.7.1+cu128",
+          "cuda": "12.8",
+          "python": "3.11.13",
+          "device": "NVIDIA A100-SXM4-40GB",
+          "capability": [
+            8,
+            0
+          ]
+        },
+        "optimizer_steps": 6,
+        "new_gpu_codegen": 0,
+        "verification": {
+          "status": "ok",
+          "tensors_checked": 77,
+          "rtol": 0.0001,
+          "atol": 1e-05,
+          "state_rtol": 0.001,
+          "state_atol": 0.001,
+          "scope": "observed model outputs, final parameters, gradients and optimizer state",
+          "groups": {
+            "outputs": {
+              "tensors_checked": 2,
+              "tensors_failed": 0,
+              "non_tensor_values_failed": 0
+            },
+            "parameters": {
+              "tensors_checked": 15,
+              "tensors_failed": 0,
+              "non_tensor_values_failed": 0
+            },
+            "gradients": {
+              "tensors_checked": 15,
+              "tensors_failed": 0,
+              "non_tensor_values_failed": 0
+            },
+            "optimizer": {
+              "tensors_checked": 45,
+              "tensors_failed": 0,
+              "non_tensor_values_failed": 0
+            }
+          },
+          "gradient_scope": "retained application gradients; raw versus clipped is not inferred"
+        },
+        "seconds": 5.905573382000002,
+        "eager_timing": {
+          "schema": 1,
+          "device": "NVIDIA A100-SXM4-40GB",
+          "profile_steps": 4,
+          "timing_warmup_steps": 2,
+          "batch_size": 2,
+          "sequence_length": 16,
+          "stages": {
+            "batch": {
+              "samples_ms": [
+                0.19724799692630768,
+                0.2009280025959015,
+                0.18172800540924072,
+                0.1775680035352707
+              ],
+              "mean_ms": 0.18936800211668015,
+              "median_ms": 0.1894880011677742,
+              "p90_ms": 0.2009280025959015
+            },
+            "forward_loss": {
+              "samples_ms": [
+                1.556480050086975,
+                1.4602240324020386,
+                1.5052800178527832,
+                1.4489599466323853
+              ],
+              "mean_ms": 1.4927360117435455,
+              "median_ms": 1.4827520251274109,
+              "p90_ms": 1.556480050086975
+            },
+            "backward": {
+              "samples_ms": [
+                2.0039680004119873,
+                2.12172794342041,
+                2.027519941329956,
+                1.9394559860229492
+              ],
+              "mean_ms": 2.0231679677963257,
+              "median_ms": 2.0157439708709717,
+              "p90_ms": 2.12172794342041
+            },
+            "optimizer": {
+              "samples_ms": [
+                0.9881600141525269,
+                1.1847679615020752,
+                0.9451519846916199,
+                0.9041919708251953
+              ],
+              "mean_ms": 1.0055679827928543,
+              "median_ms": 0.9666559994220734,
+              "p90_ms": 1.1847679615020752
+            },
+            "end_to_end": {
+              "samples_ms": [
+                4.84281587600708,
+                5.0287041664123535,
+                4.717887878417969,
+                4.549056053161621
+              ],
+              "mean_ms": 4.784615993499756,
+              "median_ms": 4.780351877212524,
+              "p90_ms": 5.0287041664123535
+            },
+            "tokens_per_second": 6694.06788913195
+          }
+        },
+        "timing": {
+          "schema": 1,
+          "device": "NVIDIA A100-SXM4-40GB",
+          "profile_steps": 4,
+          "timing_warmup_steps": 2,
+          "batch_size": 2,
+          "sequence_length": 16,
+          "stages": {
+            "batch": {
+              "samples_ms": [
+                0.19644799828529358,
+                0.18512000143527985,
+                0.17443199455738068,
+                0.16841599345207214
+              ],
+              "mean_ms": 0.18110399693250656,
+              "median_ms": 0.17977599799633026,
+              "p90_ms": 0.19644799828529358
+            },
+            "forward_loss": {
+              "samples_ms": [
+                1.2124160528182983,
+                1.3404159545898438,
+                1.2144639492034912,
+                1.0414079427719116
+              ],
+              "mean_ms": 1.2021759748458862,
+              "median_ms": 1.2134400010108948,
+              "p90_ms": 1.3404159545898438
+            },
+            "backward": {
+              "samples_ms": [
+                1.5656960010528564,
+                1.1970560550689697,
+                1.183743953704834,
+                1.1233279705047607
+              ],
+              "mean_ms": 1.2674559950828552,
+              "median_ms": 1.1904000043869019,
+              "p90_ms": 1.5656960010528564
+            },
+            "optimizer": {
+              "samples_ms": [
+                1.1878399848937988,
+                0.9861119985580444,
+                0.9175040125846863,
+                1.0577919483184814
+              ],
+              "mean_ms": 1.0373119860887527,
+              "median_ms": 1.021951973438263,
+              "p90_ms": 1.1878399848937988
+            },
+            "end_to_end": {
+              "samples_ms": [
+                4.2491841316223145,
+                3.7700159549713135,
+                3.5495359897613525,
+                3.450687885284424
+              ],
+              "mean_ms": 3.754855990409851,
+              "median_ms": 3.659775972366333,
+              "p90_ms": 4.2491841316223145
+            },
+            "tokens_per_second": 8743.704598757033
+          }
+        }
+      },
+      {
+        "status": "ok",
+        "runtime": {
+          "torch": "2.7.1+cu128",
+          "cuda": "12.8",
+          "python": "3.11.13",
+          "device": "NVIDIA A100-SXM4-40GB",
+          "capability": [
+            8,
+            0
+          ]
+        },
+        "optimizer_steps": 6,
+        "new_gpu_codegen": 0,
+        "verification": {
+          "status": "ok",
+          "tensors_checked": 77,
+          "rtol": 0.0001,
+          "atol": 1e-05,
+          "state_rtol": 0.001,
+          "state_atol": 0.001,
+          "scope": "observed model outputs, final parameters, gradients and optimizer state",
+          "groups": {
+            "outputs": {
+              "tensors_checked": 2,
+              "tensors_failed": 0,
+              "non_tensor_values_failed": 0
+            },
+            "parameters": {
+              "tensors_checked": 15,
+              "tensors_failed": 0,
+              "non_tensor_values_failed": 0
+            },
+            "gradients": {
+              "tensors_checked": 15,
+              "tensors_failed": 0,
+              "non_tensor_values_failed": 0
+            },
+            "optimizer": {
+              "tensors_checked": 45,
+              "tensors_failed": 0,
+              "non_tensor_values_failed": 0
+            }
+          },
+          "gradient_scope": "retained application gradients; raw versus clipped is not inferred"
+        },
+        "seconds": 7.445671667000003,
+        "eager_timing": {
+          "schema": 1,
+          "device": "NVIDIA A100-SXM4-40GB",
+          "profile_steps": 4,
+          "timing_warmup_steps": 2,
+          "batch_size": 2,
+          "sequence_length": 16,
+          "stages": {
+            "batch": {
+              "samples_ms": [
+                0.23100799322128296,
+                0.27324798703193665,
+                0.2152319997549057,
+                0.2622080147266388
+              ],
+              "mean_ms": 0.24542399868369102,
+              "median_ms": 0.24660800397396088,
+              "p90_ms": 0.27324798703193665
+            },
+            "forward_loss": {
+              "samples_ms": [
+                2.0346879959106445,
+                1.9128320217132568,
+                1.768447995185852,
+                2.150399923324585
+              ],
+              "mean_ms": 1.9665919840335846,
+              "median_ms": 1.9737600088119507,
+              "p90_ms": 2.150399923324585
+            },
+            "backward": {
+              "samples_ms": [
+                2.659327983856201,
+                2.4934399127960205,
+                2.5958399772644043,
+                2.8149759769439697
+              ],
+              "mean_ms": 2.640895962715149,
+              "median_ms": 2.6275839805603027,
+              "p90_ms": 2.8149759769439697
+            },
+            "optimizer": {
+              "samples_ms": [
+                1.3230079412460327,
+                1.1376639604568481,
+                1.2431360483169556,
+                1.1612160205841064
+              ],
+              "mean_ms": 1.2162559926509857,
+              "median_ms": 1.202176034450531,
+              "p90_ms": 1.3230079412460327
+            },
+            "end_to_end": {
+              "samples_ms": [
+                6.346848011016846,
+                5.889920234680176,
+                5.892928123474121,
+                6.462560176849365
+              ],
+              "mean_ms": 6.148064136505127,
+              "median_ms": 6.119888067245483,
+              "p90_ms": 6.462560176849365
+            },
+            "tokens_per_second": 5228.853803923078
+          }
+        },
+        "timing": {
+          "schema": 1,
+          "device": "NVIDIA A100-SXM4-40GB",
+          "profile_steps": 4,
+          "timing_warmup_steps": 2,
+          "batch_size": 2,
+          "sequence_length": 16,
+          "stages": {
+            "batch": {
+              "samples_ms": [
+                0.24223999679088593,
+                0.19779199361801147,
+                0.19120000302791595,
+                0.18911999464035034
+              ],
+              "mean_ms": 0.20508799701929092,
+              "median_ms": 0.19449599832296371,
+              "p90_ms": 0.24223999679088593
+            },
+            "forward_loss": {
+              "samples_ms": [
+                1.5523840188980103,
+                1.277951955795288,
+                1.218559980392456,
+                1.2113920450210571
+              ],
+              "mean_ms": 1.3150720000267029,
+              "median_ms": 1.248255968093872,
+              "p90_ms": 1.5523840188980103
+            },
+            "backward": {
+              "samples_ms": [
+                1.4499839544296265,
+                1.4090240001678467,
+                1.385472059249878,
+                1.4079999923706055
+              ],
+              "mean_ms": 1.4131200015544891,
+              "median_ms": 1.408511996269226,
+              "p90_ms": 1.4499839544296265
+            },
+            "optimizer": {
+              "samples_ms": [
+                1.1458560228347778,
+                1.0557440519332886,
+                1.0424319505691528,
+                1.0158079862594604
+              ],
+              "mean_ms": 1.06496000289917,
+              "median_ms": 1.0490880012512207,
+              "p90_ms": 1.1458560228347778
+            },
+            "end_to_end": {
+              "samples_ms": [
+                4.4962239265441895,
+                4.012864112854004,
+                3.90883207321167,
+                3.8940799236297607
+              ],
+              "mean_ms": 4.078000009059906,
+              "median_ms": 3.960848093032837,
+              "p90_ms": 4.4962239265441895
+            },
+            "tokens_per_second": 8079.077825854582
+          }
+        }
+      }
+    ]
+  },
+  "source_sha256": {
+    "openassembler/cli.py": "43ef8bfab9ebdd25f26ba1470e6330aad95935acebdbf8439221ae2e0966d187",
+    "openassembler/workflow.py": "a6eb6162380db437bdda51fc0d6aec2f57cfec1b41cd92116eeff9ca77891f04",
+    "openassembler/transport.py": "d27c6356d287e3a42b70e0ac4a38d99269f023ed2351f2f4463d22add15d9fe8",
+    "openassembler/remote_build.py": "ff5a81217deb8cf2bcf43095a2f4a15ca43e080e3d6230296065e92be1796aec",
+    "openassembler/build_modal.py": "0b2ac5914af577a64872b75e4b1d9264eb15b44a2aaeee0539e35fbebe33f900",
+    "openassembler/build.py": "5a847f21c85caaea974c85cccae6e3c8ab29cf675019ac8d085f7baea1c95b27",
+    "openassembler/runner.py": "9eea0087c122ac512cff882510abb3d5255482d2a0553ea1b9a157d7e1247398",
+    "openassembler/torchfront/frontend.py": "fd9ed4e04255ef88de10b07dd634d4eb49e2ddca79e0806b093e6ef0f0fb537f",
+    "tests/test_repo_workflow.py": "cfbe611481c0cde2e0af721f2a63b94801f876f1d387c0876c94969039c397d5"
+  },
+  "ssh": {
+    "live_hardware": "not run: no SSH GPU destination supplied",
+    "automated": "backend selection, source staging, publication, failure/cleanup handling and application dispatch"
+  },
+  "compiler_invariants": "Native backend, kernels, ISA and optimization files are unchanged. Existing legacy and direct-pointer instruction-stream hash tests run in the regression suite.",
+  "reproduction": [
+    "openassembler cnr output/repo-cli-validation/native-repo --backend modal --verify --spec examples/run_spec.json --budget 180 --job-timeout 30",
+    "openassembler compile output/repo-cli-validation/mixed-repo --backend modal --verify -I output/repo-cli-validation/include --budget 180",
+    "openassembler run output/repo-cli-validation/mixed-repo --backend modal --spec examples/run_spec.json --budget 90 --job-timeout 30",
+    "openassembler cnr testcases/test_whole_repo --backend modal --verify --out-dir output/repo-cli-validation/application --budget 900 --job-timeout 600",
+    "openassembler run testcases/test_whole_repo --out-dir output/repo-cli-validation/application --backend modal --verify-application --budget 300 --job-timeout 180"
+  ],
+  "fixtures": {
+    "native": "examples/vector_add.py copied into a temporary repository",
+    "mixed": "ops.py copied from examples/vector_add.py; ops.cu from examples/vector_add.cu with entry renamed cuda_add and #include scale.h; kernels/div.ptx from examples/div_by_const.ptx; external scale.h defines SCALE=1.0f"
+  },
+  "validation": {
+    "main_pytest_log": "output/repo-cli-validation/pytest-final.log",
+    "numerics": {
+      "command": "python3.13 -m pytest -q tests/test_torchfront_numerics.py",
+      "passed": 18
+    },
+    "transformer_cpu": {
+      "command": "python3.13 -m unittest -q testcases/test_whole_repo/test_train_transformer.py",
+      "passed": 5
+    },
+    "wheel": "build and extracted-wheel CLI/runtime-data checks pass",
+    "documentation": "tools/check_docs.py passes",
+    "pytest": {
+      "command": ".venv/bin/python -m pytest -q",
+      "passed": 630,
+      "skipped": 1,
+      "seconds": 221.45,
+      "skip_reason": "optional PyTorch module unavailable in the compiler-only environment; its 18 tests pass separately"
+    },
+    "modal_apps": "All nine apps started during validation are stopped with zero tasks, confirmed by modal app list --json."
+  }
+}

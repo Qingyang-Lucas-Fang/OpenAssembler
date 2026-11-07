@@ -1,0 +1,134 @@
+✓ Initialized. View run at 
+https://modal.com/apps/qingyang-lucas-fang/main/ap-e0q2xcyw1ys5xCFjLq0OZv
+Building image im-SAj5OMBdf6wRKlum26FHO7
+
+=> Step 0: FROM base
+
+=> Step 1: COPY . /
+Saving image...
+Image saved, took 877.00ms
+
+Built image im-SAj5OMBdf6wRKlum26FHO7 in 3.74s
+
+
+Building image im-BfzU8IFJ0kmeaqyKdT1aP5
+
+=> Step 0: FROM base
+
+=> Step 1: COPY . /
+Saving image...
+Image saved, took 762.24ms
+
+Built image im-BfzU8IFJ0kmeaqyKdT1aP5 in 2.31s
+
+
+✓ Created objects.
+├── ✓ Uploaded /Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/campaign.py
+├── ✓ Uploaded /Users/lucasfang/Desktop/OpenAssembler/openassembler
+├── ✓ Uploaded 
+│   /Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/operator_worker.py
+├── ✓ Uploaded 
+│   /Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/tensor_suite.py
+├── ✓ Uploaded 
+│   /Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/whole_worker.py
+├── ✓ Uploaded 
+│   /Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/counter_worker.py
+└── ✓ Created Function execute.
+
+==========
+== CUDA ==
+==========
+
+CUDA Version 12.8.0
+
+Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+
+This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+By pulling and using the container, you accept the terms and conditions of this license:
+https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+
+A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
+
+RuntimeError: captures_underway.empty() INTERNAL ASSERT FAILED at "/pytorch/c10/cuda/CUDACachingAllocator.cpp":3089, please report a bug to PyTorch.
+evidence: /Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/runs/whole-20261107T143844.026614Z.json
+Traceback (most recent call last):
+  File "/pkg/modal/_runtime/container_io_manager.py", line 987, in handle_input_exception
+    yield
+  File "/pkg/modal/_container_entrypoint.py", line 189, in run_input_sync
+    values = io_context.call_function_sync()
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/pkg/modal/_runtime/container_io_manager.py", line 266, in call_function_sync
+    expected_value_or_values = self.finalized_function.callable(*args, **kwargs)
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/campaign.py", line 42, in execute
+    return run(payload, **options)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/exp/nn_round2/whole_worker.py", line 538, in run
+    torch.cuda.empty_cache()
+  File "/opt/conda/lib/python3.11/site-packages/torch/cuda/memory.py", line 222, in empty_cache
+    torch._C._cuda_emptyCache()
+RuntimeError: captures_underway.empty() INTERNAL ASSERT FAILED at "/pytorch/c10/cuda/CUDACachingAllocator.cpp":3089, please report a bug to PyTorch.
+Stopping app - uncaught exception raised locally: RuntimeError('captures_underway.empty() INTERNAL ASSERT FAILED at "/pytorch/c10/cuda/CUDACachingAllocator.cpp":3089, please report a bug to PyTorch. ').
+╭───────────────────── Traceback (most recent call last) ──────────────────────╮
+│ /Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/campaign.py:84 in main  │
+│                                                                              │
+│   83 │   try:                                                                │
+│ ❱ 84 │   │   result = execute.remote(phase, data, options)                   │
+│   85 │   │   record.update(status="completed", result=result)                │
+│                                                                              │
+│ /Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packa │
+│ ges/modal/_object.py:49 in wrapped                                           │
+│                                                                              │
+│    48 │   │   await self.hydrate()                                           │
+│ ❱  49 │   │   return await method(self, *args, **kwargs)                     │
+│    50                                                                        │
+│                                                                              │
+│ /Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packa │
+│ ges/modal/_functions.py:2081 in remote                                       │
+│                                                                              │
+│   2080 │   │                                                                 │
+│ ❱ 2081 │   │   return await self._call_function(args, kwargs)                │
+│   2082                                                                       │
+│                                                                              │
+│ /Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packa │
+│ ges/modal/_functions.py:2018 in _call_function                               │
+│                                                                              │
+│   2017 │   │                                                                 │
+│ ❱ 2018 │   │   return await invocation.run_function()                        │
+│   2019                                                                       │
+│                                                                              │
+│ /Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packa │
+│ ges/modal/_functions.py:517 in run_function                                  │
+│                                                                              │
+│    516 │   │   │   # No more retries left.                                   │
+│ ❱  517 │   │   │   return await _process_result(                             │
+│    518 │   │   │   │   await_response.output.result, await_response.output.d │
+│                                                                              │
+│ /Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packa │
+│ ges/modal/_utils/function_utils.py:572 in _process_result                    │
+│                                                                              │
+│   571 │   │   │                                                              │
+│ ❱ 572 │   │   │   raise exc_with_hints(exc)                                  │
+│   573                                                                        │
+│                                                                              │
+│     ...Remote call to Modal Function (ta-01M6V75CG1VY3FXRM650PD6Z0R)...      │
+│                                                                              │
+│ /root/campaign.py:42 in execute                                              │
+│                                                                              │
+│ ❱ 42 return run(payload, **options)                                          │
+│                                                                              │
+│                                                                              │
+│ /root/exp/nn_round2/whole_worker.py:538 in run                               │
+│                                                                              │
+│ ❱ 538 torch.cuda.empty_cache()                                               │
+│                                                                              │
+│                                                                              │
+│ /opt/conda/lib/python3.11/site-packages/torch/cuda/memory.py:222 in          │
+│ empty_cache                                                                  │
+│                                                                              │
+│ ❱ 222 torch._C._cuda_emptyCache()                                            │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+RuntimeError: captures_underway.empty() INTERNAL ASSERT FAILED at 
+"/pytorch/c10/cuda/CUDACachingAllocator.cpp":3089, please report a bug to 
+PyTorch. 

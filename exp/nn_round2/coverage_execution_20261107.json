@@ -1,0 +1,464 @@
+{
+  "schema": 1,
+  "created_utc": "2026-11-07T14:49:30.743645+00:00",
+  "plan": "exp/nn_round2/coverage.json",
+  "prospective_plan_status": "planned",
+  "evidence": {
+    "operators": {
+      "path": "exp/nn_round2/runs/operators-20261107T143128.366417Z.json",
+      "sha256": "17f97a4f8944098a13dc0088e269797f44844682fb745276e817ec45b45029ed"
+    },
+    "tensor": {
+      "path": "exp/nn_round2/runs/tensor-20261107T143201.758879Z.json",
+      "sha256": "25305e8b9c9b6cdfbf39b60b7b8ac48501cdb1ad7d737aedee47663748392c15"
+    },
+    "whole": {
+      "path": "exp/nn_round2/runs/whole-20261107T143549.109468Z.json",
+      "sha256": "852d7372f9a60ecba29e2c62a5141da14b919847a500a47dffd33d8da889be60"
+    }
+  },
+  "counts": {
+    "arithmetic_families": 23,
+    "isolated_named_operations": 26,
+    "isolated_configurations": 274,
+    "isolated_configuration_status": {
+      "ok": 264,
+      "correctness_failure": 10
+    },
+    "tensor_shape_precision_cases": 18,
+    "tensor_pattern_method_checks": 402,
+    "tensor_graph_checks": 134,
+    "whole_configurations": 6,
+    "whole_method_pairs": 36,
+    "whole_training_admitted": 21
+  },
+  "categories": [
+    {
+      "id": "dense_linear",
+      "execution_status": "isolated_native_and_hybrid_gemm_validated",
+      "finding": "18 isolated shape/precision cases and six custom networks cover explicit full-tile forward/dX/dW GEMMs. Arbitrary alpha/beta, strides and tails remain absent.",
+      "evidence_scopes": [
+        "tensor",
+        "whole"
+      ],
+      "operator_names": [],
+      "isolated_operator_case_counts": {},
+      "scope_note": "Kernel configurations are not independent model replications; shared-runtime coverage is not native OA implementation."
+    },
+    {
+      "id": "batched_attention_products",
+      "execution_status": "hybrid_gemm_composition_validated",
+      "finding": "Three transformer configurations include per-head QK/PV products and backward. The admitted OA tensor-only route uses shared Torch softmax/masking; this is not a fused native SDPA kernel.",
+      "evidence_scopes": [
+        "whole"
+      ],
+      "operator_names": [],
+      "isolated_operator_case_counts": {},
+      "scope_note": "Kernel configurations are not independent model replications; shared-runtime coverage is not native OA implementation."
+    },
+    {
+      "id": "residual_bias_scale",
+      "execution_status": "isolated_native_and_shared_whole_coverage",
+      "finding": "Residual add and gated multiply are isolated native functions. Tensor candidates cover bias/residual/ReLU. Whole bias/residual/scale are shared CUDA operations.",
+      "evidence_scopes": [
+        "operators",
+        "tensor",
+        "whole"
+      ],
+      "operator_names": [
+        "residual_add",
+        "gated_multiply"
+      ],
+      "isolated_operator_case_counts": {
+        "ok": 26
+      },
+      "scope_note": "Kernel configurations are not independent model replications; shared-runtime coverage is not native OA implementation."
+    },
+    {
+      "id": "relu",
+      "execution_status": "isolated_validated_partial_whole_admission",
+      "finding": "Forward/backward isolated functions pass. Native-all-operator wide MLP passes post-trajectory gate; small native-all-operator MLP fails it. Tensor-only routes retain shared Torch ReLU.",
+      "evidence_scopes": [
+        "operators",
+        "whole"
+      ],
+      "operator_names": [
+        "relu",
+        "relu_backward"
+      ],
+      "isolated_operator_case_counts": {
+        "ok": 26
+      },
+      "scope_note": "Kernel configurations are not independent model replications; shared-runtime coverage is not native OA implementation."
+    },
+    {
+      "id": "gelu",
+      "execution_status": "forward_validated_backward_has_failed_gates",
+      "finding": "GELU forward passes isolated gates. Ten backward configurations fail the declared mathematical gate in both OA and ptxas; their timings are excluded. Native-all-operator transformer routes fail whole-state gates.",
+      "evidence_scopes": [
+        "operators",
+        "whole"
+      ],
+      "operator_names": [
+        "gelu_tanh",
+        "gelu_tanh_backward"
+      ],
+      "isolated_operator_case_counts": {
+        "ok": 16,
+        "correctness_failure": 10
+      },
+      "scope_note": "Kernel configurations are not independent model replications; shared-runtime coverage is not native OA implementation."
+    },
+    {
+      "id": "silu_gate",
+      "execution_status": "isolated_validated_whole_native_excluded",
+      "finding": "Isolated expressions pass. Native-all-operator gated network fails initial output gate; the OA tensor-only variant with shared Torch surrounding operations passes whole-state gates.",
+      "evidence_scopes": [
+        "operators",
+        "whole"
+      ],
+      "operator_names": [
+        "silu",
+        "silu_backward",
+        "sigmoid",
+        "gated_multiply"
+      ],
+      "isolated_operator_case_counts": {
+        "ok": 52
+      },
+      "scope_note": "Kernel configurations are not independent model replications; shared-runtime coverage is not native OA implementation."
+    },
+    {
+      "id": "softmax",
+      "execution_status": "isolated_nonfused_forward_backward_validated",
+      "finding": "Complete finite FP32 rows and derivatives are tested. Native-all-operator transformer state admission fails; tensor-only models use shared Torch softmax.",
+      "evidence_scopes": [
+        "operators",
+        "whole"
+      ],
+      "operator_names": [
+        "softmax",
+        "softmax_backward"
+      ],
+      "isolated_operator_case_counts": {
+        "ok": 12
+      },
+      "scope_note": "Kernel configurations are not independent model replications; shared-runtime coverage is not native OA implementation."
+    },
+    {
+      "id": "layernorm",
+      "execution_status": "isolated_nonaffine_forward_dx_validated",
+      "finding": "Only non-affine output and dX are covered; no native saved-statistics API or dGamma/dBeta implementation, and this whole cohort uses RMSNorm instead.",
+      "evidence_scopes": [
+        "operators"
+      ],
+      "operator_names": [
+        "layernorm",
+        "layernorm_backward"
+      ],
+      "isolated_operator_case_counts": {
+        "ok": 8
+      },
+      "scope_note": "Kernel configurations are not independent model replications; shared-runtime coverage is not native OA implementation."
+    },
+    {
+      "id": "rmsnorm",
+      "execution_status": "isolated_nonaffine_forward_dx_validated_whole_gap",
+      "finding": "Isolated output/dX pass. Native-all-operator model routes generally fail state gates; successful tensor-only models share Torch RMSNorm and affine gradients. Failures do not isolate RMSNorm as the root cause.",
+      "evidence_scopes": [
+        "operators",
+        "whole"
+      ],
+      "operator_names": [
+        "rmsnorm",
+        "rmsnorm_backward"
+      ],
+      "isolated_operator_case_counts": {
+        "ok": 12
+      },
+      "scope_note": "Kernel configurations are not independent model replications; shared-runtime coverage is not native OA implementation."
+    },
+    {
+      "id": "bias_gradient",
+      "execution_status": "shared_cuda_only",
+      "finding": "Bias-gradient reductions execute through shared Torch autograd in all whole methods; no new native reduction implementation.",
+      "evidence_scopes": [
+        "whole"
+      ],
+      "operator_names": [],
+      "isolated_operator_case_counts": {},
+      "scope_note": "Kernel configurations are not independent model replications; shared-runtime coverage is not native OA implementation."
+    },
+    {
+      "id": "loss_mse",
+      "execution_status": "shared_cuda_only",
+      "finding": "MLPs include shared Torch MSE and its full derivative inside the whole timing boundary.",
+      "evidence_scopes": [
+        "whole"
+      ],
+      "operator_names": [],
+      "isolated_operator_case_counts": {},
+      "scope_note": "Kernel configurations are not independent model replications; shared-runtime coverage is not native OA implementation."
+    },
+    {
+      "id": "loss_cross_entropy",
+      "execution_status": "restricted_native_isolated_shared_whole",
+      "finding": "Native isolated kernel uses fixed label zero and per-row loss plus unaveraged gradient. Whole transformer mean cross-entropy/labels/backward remain shared Torch.",
+      "evidence_scopes": [
+        "operators",
+        "whole"
+      ],
+      "operator_names": [
+        "cross_entropy"
+      ],
+      "isolated_operator_case_counts": {
+        "ok": 4
+      },
+      "scope_note": "Kernel configurations are not independent model replications; shared-runtime coverage is not native OA implementation."
+    },
+    {
+      "id": "gradient_clipping",
+      "execution_status": "shared_cuda_only",
+      "finding": "Fixed global-norm clipping is timed; raw and clipped gradients are checked separately. No native clipping implementation is claimed.",
+      "evidence_scopes": [
+        "whole"
+      ],
+      "operator_names": [],
+      "isolated_operator_case_counts": {},
+      "scope_note": "Kernel configurations are not independent model replications; shared-runtime coverage is not native OA implementation."
+    },
+    {
+      "id": "adamw",
+      "execution_status": "restricted_adam_like_isolated_true_adamw_shared",
+      "finding": "Native isolated Adam-like update lacks bias correction/decay. True AdamW lr1e-4, eps1e-8, decay.01, moments and step counters execute through shared Torch and are checked in whole workloads.",
+      "evidence_scopes": [
+        "operators",
+        "whole"
+      ],
+      "operator_names": [
+        "adam_like"
+      ],
+      "isolated_operator_case_counts": {
+        "ok": 13
+      },
+      "scope_note": "Kernel configurations are not independent model replications; shared-runtime coverage is not native OA implementation."
+    },
+    {
+      "id": "sgd_momentum",
+      "execution_status": "isolated_restricted_update_validated",
+      "finding": "Isolated momentum/parameter update only, with no Nesterov, dampening, decay or full optimizer integration claim.",
+      "evidence_scopes": [
+        "operators"
+      ],
+      "operator_names": [
+        "sgd_momentum"
+      ],
+      "isolated_operator_case_counts": {
+        "ok": 13
+      },
+      "scope_note": "Kernel configurations are not independent model replications; shared-runtime coverage is not native OA implementation."
+    },
+    {
+      "id": "elementary_math",
+      "execution_status": "isolated_domains_and_composed_expressions_validated",
+      "finding": "Division/rsqrt and composed exp/tanh/sqrt expressions have bounded finite inputs and declared tolerances. No exhaustive exceptional-value/precision-contract claim.",
+      "evidence_scopes": [
+        "operators"
+      ],
+      "operator_names": [
+        "divide",
+        "rsqrt_scale",
+        "sigmoid",
+        "tanh_backward",
+        "gelu_tanh",
+        "adam_like"
+      ],
+      "isolated_operator_case_counts": {
+        "ok": 78
+      },
+      "scope_note": "Kernel configurations are not independent model replications; shared-runtime coverage is not native OA implementation."
+    },
+    {
+      "id": "integer_addressing",
+      "execution_status": "isolated_uint32_constant7_validated",
+      "finding": "Exact unsigned quotient/remainder for divisor7 includes structured boundary patterns. This round does not exhaust every divisor, signed mode or address expression.",
+      "evidence_scopes": [
+        "operators",
+        "tensor"
+      ],
+      "operator_names": [
+        "div_const7",
+        "rem_const7"
+      ],
+      "isolated_operator_case_counts": {
+        "ok": 26
+      },
+      "scope_note": "Kernel configurations are not independent model replications; shared-runtime coverage is not native OA implementation."
+    },
+    {
+      "id": "layout_and_cast",
+      "execution_status": "shared_cuda_costs_included",
+      "finding": "FP16 operand casts, transposed contiguous packing and head split/merge are present in whole latency. New native packing/cast implementations are absent.",
+      "evidence_scopes": [
+        "whole"
+      ],
+      "operator_names": [],
+      "isolated_operator_case_counts": {},
+      "scope_note": "Kernel configurations are not independent model replications; shared-runtime coverage is not native OA implementation."
+    },
+    {
+      "id": "masking_position",
+      "execution_status": "restricted_rotation_isolated_shared_whole_masks",
+      "finding": "Isolated native paired rotations use supplied cosine/sine arrays. Whole models use learned positions and shared CUDA finite causal masking; no integrated native RoPE/position convention claim.",
+      "evidence_scopes": [
+        "operators",
+        "whole"
+      ],
+      "operator_names": [
+        "rope_pairs"
+      ],
+      "isolated_operator_case_counts": {
+        "ok": 13
+      },
+      "scope_note": "Kernel configurations are not independent model replications; shared-runtime coverage is not native OA implementation."
+    },
+    {
+      "id": "embedding_gather_scatter",
+      "execution_status": "shared_cuda_only",
+      "finding": "Whole transformer embeddings/position gradients execute through shared Torch; no native gather/scatter atomic implementation.",
+      "evidence_scopes": [
+        "whole"
+      ],
+      "operator_names": [],
+      "isolated_operator_case_counts": {},
+      "scope_note": "Kernel configurations are not independent model replications; shared-runtime coverage is not native OA implementation."
+    },
+    {
+      "id": "dropout_rng",
+      "execution_status": "supplied_mask_only_rng_missing",
+      "finding": "Native test multiplies an externally supplied mask and fixed scale. No RNG, dropout layer or saved-mask training integration; whole models disable dropout.",
+      "evidence_scopes": [
+        "operators"
+      ],
+      "operator_names": [
+        "dropout_mask_scale"
+      ],
+      "isolated_operator_case_counts": {
+        "ok": 13
+      },
+      "scope_note": "Kernel configurations are not independent model replications; shared-runtime coverage is not native OA implementation."
+    },
+    {
+      "id": "convolution_pooling",
+      "execution_status": "not_covered",
+      "finding": "No CNN convolution/pooling tests or native implementation in this round.",
+      "evidence_scopes": [],
+      "operator_names": [],
+      "isolated_operator_case_counts": {},
+      "scope_note": "Kernel configurations are not independent model replications; shared-runtime coverage is not native OA implementation."
+    },
+    {
+      "id": "distributed_collectives",
+      "execution_status": "not_covered",
+      "finding": "Single-GPU only; no actual multi-GPU collective/communication overlap experiment.",
+      "evidence_scopes": [],
+      "operator_names": [],
+      "isolated_operator_case_counts": {},
+      "scope_note": "Kernel configurations are not independent model replications; shared-runtime coverage is not native OA implementation."
+    }
+  ],
+  "separate_followup_records": [
+    {
+      "kind": "local_fma_initial",
+      "path": "exp/nn_round2/runs/operator-fma-20261107T143537.650425Z.json",
+      "sha256": "c1b496eaaf9ed5bdbfd7df094e95d32feb8a7c2920b258b989df5aa8b602026e",
+      "status": "completed",
+      "scope": "Separate experiment/control/shape record; counts are not pooled into independent-replication totals.",
+      "configurations": 240,
+      "configuration_status": {
+        "ok": 240
+      }
+    },
+    {
+      "kind": "local_fma_independent_confirmation",
+      "path": "exp/nn_round2/runs/operator-fma-confirm-20261107T144005.532354Z.json",
+      "sha256": "57c20d296e94aacd7f3bb7195cc0ca1f0088e27c2fcc3dd41d5821cabbf53b7d",
+      "status": "completed",
+      "scope": "Separate experiment/control/shape record; counts are not pooled into independent-replication totals.",
+      "configurations": 16,
+      "configuration_status": {
+        "ok": 16
+      }
+    },
+    {
+      "kind": "stable_gelu_backward",
+      "path": "exp/nn_round2/runs/operator-gelu-stable-20261107T143841.822588Z.json",
+      "sha256": "e3269b5aa316681d5d311a1d4e907f21db5a591517c2602032f5ccacfee593ee",
+      "status": "completed",
+      "scope": "Separate experiment/control/shape record; counts are not pooled into independent-replication totals.",
+      "configurations": 52,
+      "configuration_status": {
+        "ok": 40,
+        "correctness_failure": 12
+      }
+    },
+    {
+      "kind": "inference_weight_cache_80gb",
+      "path": "exp/nn_round2/runs/whole-20261107T144210.754688Z.json",
+      "sha256": "7f7ae174ce77b7aa23f1083e9a461e65cce88b803859ec563743213fabe1e998",
+      "status": "completed",
+      "scope": "Separate experiment/control/shape record; counts are not pooled into independent-replication totals.",
+      "workloads": 6,
+      "inference_cache_method_pairs": 26,
+      "admitted_inference_cache_pairs": 26,
+      "device": {
+        "torch": "2.7.1+cu128",
+        "cuda": "12.8",
+        "name": "NVIDIA A100-SXM4-80GB",
+        "cc": "8.0",
+        "driver": 13030,
+        "sm_count": 108,
+        "clock_khz": 1410000,
+        "mem_bytes": 85118156800
+      }
+    },
+    {
+      "kind": "early_pointer_fp16",
+      "path": "exp/nn_round2/runs/tensor-followup-20261107T143807.885774Z.json",
+      "sha256": "e20353ab5f1adec03ec71e946e315379a9df847b820665053188505246bcd4e2",
+      "status": "completed",
+      "scope": "Separate experiment/control/shape record; counts are not pooled into independent-replication totals.",
+      "tensor_cases": 2,
+      "full_pattern_checks": 42,
+      "graph_checks": 14
+    },
+    {
+      "kind": "early_pointer_bf16",
+      "path": "exp/nn_round2/runs/tensor-followup-20261107T144047.961466Z.json",
+      "sha256": "09998f3919a0c59d01abe781d1711dfda0a7f9a3f81fb79d8d418b4caa552c6f",
+      "status": "completed",
+      "scope": "Separate experiment/control/shape record; counts are not pooled into independent-replication totals.",
+      "tensor_cases": 2,
+      "full_pattern_checks": 42,
+      "graph_checks": 14
+    },
+    {
+      "kind": "diagnostic_counters_recovered",
+      "path": "exp/nn_round2/counter_recovered_20261107T143821.759059Z.json",
+      "sha256": "1f8b9b0394f8ce3265fffaff4ff91a94c81feeaf3534bb28d9e2cbad771b99cc",
+      "status": "derived_counter_recovery",
+      "scope": "Separate experiment/control/shape record; counts are not pooled into independent-replication totals.",
+      "diagnostic_profiles": 12
+    },
+    {
+      "kind": "diagnostic_fma_counters",
+      "path": "exp/nn_round2/runs/counters-20261107T144534.159647Z.json",
+      "sha256": "9910daf62f2b90f54359c1ca126ff10ff21ef7f74f79b9b4d2fb43735b0bb2cc",
+      "status": "completed",
+      "scope": "Separate experiment/control/shape record; counts are not pooled into independent-replication totals.",
+      "diagnostic_profiles": 4
+    }
+  ],
+  "followup_note": "Original GEMM/whole/operator failures remain recorded above. Follow-up numerical fixes, local FMA and inference caching have their own restricted contracts and dossiers; a passing follow-up does not retroactively admit an original failure.",
+  "limit": "This is a current coverage map, not evidence that every NN arithmetic family is implemented or universally faster. Native, shared-runtime and uncovered categories stay distinct."
+}

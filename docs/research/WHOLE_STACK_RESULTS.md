@@ -10,6 +10,15 @@ Current deployment and the newest admitted results are summarized in
 [STATUS.md](../STATUS.md); per-feature methods and commands are in the
 [research catalogue](README.md).
 
+The later [November 7 native NN arithmetic campaign](ideas/nn-arithmetic-campaign.md)
+is a separate experiment: 26 named operator families, 18 shape/precision tensor
+cases and six custom networks with full-state training gates. Its new native
+templates remain under `exp/nn_round2/`. Some composed training routes fail
+even when isolated formulas pass; matched ptxas remains faster in the captured
+GEMM-only inference comparisons. See that dossier for its own 40GB/80GB records,
+conditional improvements, exclusions and reproduction. The tables below remain
+the original November 6 study and are not overwritten or pooled with the new one.
+
 ## What was compared
 
 The study has three distinct attribution levels:

@@ -687,7 +687,9 @@ def _run_ssh(host: str, jobs_path: Path, res_path: Path, budget: float, job_time
     if not shutil.which("ssh") or not shutil.which("scp"):
         raise RunError("--backend user@host needs ssh and scp on this machine")
     q = shlex.quote
-    opts = ["-o", "ConnectTimeout=20"]
+    from openassembler.transport import ssh_destination
+    destination = ssh_destination(host)
+    opts = ["-o", "BatchMode=yes", "-o", "ConnectTimeout=20"]
 
     def sh(cmd: list[str], timeout: float = 120, capture: bool = False) -> subprocess.CompletedProcess:
         try:
@@ -698,22 +700,26 @@ def _run_ssh(host: str, jobs_path: Path, res_path: Path, budget: float, job_time
             raise RunError(f"{cmd[0]} to {host} failed (exit {e.returncode}): "
                            f"{(e.stderr or '').strip().splitlines()[-1:] or ''}") from None
 
-    rdir = sh(["ssh", *opts, host, "mktemp -d /tmp/openassembler_run_XXXXXX"], capture=True).stdout.strip()
-    if not rdir.startswith("/tmp/openassembler_run_"):
+    rdir = sh(["ssh", *opts, destination, "mktemp -d /tmp/openassembler_run_XXXXXX"], capture=True).stdout.strip()
+    import re
+    if not re.fullmatch(r'/tmp/openassembler_run_[A-Za-z0-9]+', rdir):
         raise RunError(f"unexpected answer from {host} creating a temp dir: {rdir!r}")
     try:
-        sh(["ssh", *opts, host, f"mkdir -p {q(rdir)}/openassembler/gpu"])
+        sh(["ssh", *opts, destination, f"mkdir -p {q(rdir)}/openassembler/gpu"])
         sh(["scp", "-q", *opts, str(ROOT / "openassembler" / "__init__.py"), f"{host}:{rdir}/openassembler/"])
         sh(["scp", "-q", *opts, *[str(p) for p in _gpu_files()[1:]], f"{host}:{rdir}/openassembler/gpu/"])
         sh(["scp", "-q", *opts, str(jobs_path), f"{host}:{rdir}/jobs.pkl"])
-        sh(["ssh", *opts, host, f"cd {q(rdir)} && timeout {int(budget + 60)} python3 -m openassembler.gpu.batch "
+        sh(["ssh", *opts, destination, f"cd {q(rdir)} && timeout {int(budget + 60)} python3 -m openassembler.gpu.batch "
             f"jobs.pkl res.pkl --job-timeout {job_timeout:g} --budget {budget:g}"], timeout=budget + 120)
         sh(["scp", "-q", *opts, f"{host}:{rdir}/res.pkl", str(res_path)])
-        info = subprocess.run(["ssh", *opts, host, f"cd {q(rdir)} && python3 -c 'from openassembler.gpu.batch "
+        info = subprocess.run(["ssh", *opts, destination, f"cd {q(rdir)} && python3 -c 'from openassembler.gpu.batch "
                                "import device_info as d; i = d(); print(i[\"name\"], \"cc\", i[\"cc\"])'"],
                               capture_output=True, text=True, timeout=60).stdout.strip()
     finally:
-        subprocess.run(["ssh", *opts, host, f"rm -rf {q(rdir)}"], timeout=60, capture_output=True)
+        try:
+            subprocess.run(["ssh", *opts, destination, f"rm -rf -- {q(rdir)}"], timeout=30, capture_output=True)
+        except (OSError, subprocess.SubprocessError):
+            pass
     return {**pickle.loads(res_path.read_bytes()), "device": info}
 
 
@@ -770,16 +776,26 @@ class RunOptions:
     only: set[tuple[str, str]] | None = None     # cnr: (abs source, kernel) compiled this run
 
 
-def build_plan(o: RunOptions) -> tuple[Plan, dict]:
-    out_dir = Path(o.out_dir)
-    m, warns = load(out_dir)
-    plan = Plan(warnings=warns)
+def validate_options(o: RunOptions, *, check_spec: bool = False) -> None:
+    """Validate before a caller starts a potentially expensive build."""
+    _check_backend(o.backend)
     if not math.isfinite(o.budget) or not math.isfinite(o.job_timeout) or o.budget <= 0 or o.job_timeout <= 0:
         raise RunError("--budget and --job-timeout must be finite positive seconds")
     if o.backend == "modal" and o.budget > 1800:
         raise RunError("Modal --budget must not exceed 1800 seconds")
     if o.n <= 0 or o.reps < 0:
         raise RunError("-n must be > 0 and --reps >= 0")
+    if o.spec is not None and check_spec:
+        if o.kernel:
+            raise RunError("--spec names its kernels in its steps; drop --kernel (or drop --spec)")
+        load_spec(o.spec)
+
+
+def build_plan(o: RunOptions) -> tuple[Plan, dict]:
+    validate_options(o)
+    out_dir = Path(o.out_dir)
+    m, warns = load(out_dir)
+    plan = Plan(warnings=warns)
     if o.spec is not None:
         if o.kernel:
             raise RunError("--spec names its kernels in its steps; drop --kernel (or drop --spec)")
@@ -815,13 +831,15 @@ def execute(plan: Plan, o: RunOptions) -> tuple[dict, str]:
 def _check_backend(b: str) -> None:
     if b in ("local", "modal"):
         return
-    if b.startswith("-") or not b or any(c.isspace() for c in b):
-        raise RunError(f"--backend {b!r}: use local, modal, or an SSH target like user@host")
+    from openassembler.transport import TransportError, ssh_host
+    try:
+        ssh_host(b)
+    except TransportError as exc:
+        raise RunError(str(exc)) from None
 
 
 def run_command(o: RunOptions) -> int:
     try:
-        _check_backend(o.backend)
         plan, _m = build_plan(o)
         for w in plan.warnings:
             print(f"warning: {w}", file=sys.stderr)

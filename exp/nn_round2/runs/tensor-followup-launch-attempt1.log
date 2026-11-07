@@ -1,0 +1,14 @@
+Traceback (most recent call last):
+  File "/Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/tensor_followup_run.py", line 65, in <module>
+    main()
+  File "/Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/tensor_followup_run.py", line 35, in main
+    def remote(data, options):
+  File "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packages/synchronicity/synchronizer.py", line 809, in f_wrapped
+    f_res = res(*args, **kwargs)
+  File "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packages/modal/app.py", line 959, in wrapped
+    raise InvalidError(
+modal.exception.InvalidError: 
+The `@app.function` decorator must apply to functions in global scope,
+unless `serialized=True` is set.
+If trying to apply additional decorators, they may need to use `functools.wraps`.
+

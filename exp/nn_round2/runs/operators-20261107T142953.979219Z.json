@@ -1,0 +1,22 @@
+{
+  "schema": 1,
+  "phase": "operators",
+  "started_utc": "2026-11-07T14:29:53.979270+00:00",
+  "harness_sha256": {
+    "exp/nn_round2/operator_suite.py": "ca16861a97ac8a4fb3bcc423a95f16ac12eef089d995c2ff4f0472bd507094fc",
+    "exp/nn_round2/test_coverage.py": "842310e49f8e9714f05daac8cb3aa3bc9a516b16e43e26d18d23e9af5af7e57b",
+    "exp/nn_round2/tensor_suite.py": "79b4f7669f7a90ad5b0ba5aba5d97512d526232fd51b274bfa7e01523696ad7b",
+    "exp/nn_round2/whole_suite.py": "c50971588a836440b10e07061e8605a12b214ff066247c71b967397165d37bc1",
+    "exp/nn_round2/whole_worker.py": "aa5bd7b0a181c22e154043f6080a1b118cda3b0cfca75c40a02f0b697dc2a045",
+    "exp/nn_round2/campaign.py": "b41e92e5c5616c0578b4c40f2e5d95f83f0597fef675598f24ee35bee3984084",
+    "exp/nn_round2/operator_worker.py": "0338e4191041404c1808f395ad9acc554b5eb24267653220f4dcf11ce2ca8d19",
+    "exp/nn_round2/test_operator_suite.py": "b49103dad3239d9c81b7d2b24893aaf746dca35826872d6079490b197baefb52",
+    "exp/nn_round2/test_tensor_suite.py": "c21ae1494070c3517982d0ae885a6efcb09bd80510dc14219137b03fdc609b4f"
+  },
+  "payload_sha256": "7d5ec8114fba35a4f73ad963ad7d8f4e44b027336056d3171a847b15f3d37738",
+  "options": {
+    "samples": 11,
+    "graph_repeats": 16
+  },
+  "status": "running"
+}

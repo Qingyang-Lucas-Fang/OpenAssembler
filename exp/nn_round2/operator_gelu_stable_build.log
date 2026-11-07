@@ -1,0 +1,19 @@
+warning: op_gelu_tanh_backward_scalar_tanh: 1 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R0, R0, 0x1, RZ' -> 'IMAD.MOV R0, R0, 0x1, RZ'
+warning: op_gelu_tanh_backward_scalar_stable_ex2: 1 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R0, R0, 0x1, RZ' -> 'IMAD.MOV R0, R0, 0x1, RZ'
+warning: op_gelu_tanh_backward_scalar4_tanh: 1 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R0, R0, 0x4, RZ' -> 'IMAD.SHL R0, R0, 0x4, RZ'
+warning: op_gelu_tanh_backward_scalar4_stable_ex2: 1 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R0, R0, 0x4, RZ' -> 'IMAD.SHL R0, R0, 0x4, RZ'
+warning: op_gelu_tanh_backward_vector4_tanh: 1 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R0, R0, 0x4, RZ' -> 'IMAD.SHL R0, R0, 0x4, RZ'
+warning: op_gelu_tanh_backward_vector4_stable_ex2: 1 instruction(s) disassemble differently than we encoded them, e.g. 'IMAD R0, R0, 0x4, RZ' -> 'IMAD.SHL R0, R0, 0x4, RZ'
+exp/nn_round2/operator_gelu_stable_build/compiled/cubin/gelu_stable.cubin  (6 kernels, opt-level=opt)
+  op_gelu_tanh_backward_scalar_tanh: 38 instructions, regs=16
+  op_gelu_tanh_backward_scalar_stable_ex2: 43 instructions, regs=16
+  op_gelu_tanh_backward_scalar4_tanh: 107 instructions, regs=17
+  op_gelu_tanh_backward_scalar4_stable_ex2: 127 instructions, regs=18
+  op_gelu_tanh_backward_vector4_tanh: 98 instructions, regs=18
+  op_gelu_tanh_backward_vector4_stable_ex2: 118 instructions, regs=18
+exp/nn_round2/operator_gelu_stable_build/compiled/sass/gelu_stable.sass  (SASS listing from nvdisasm)
+{
+  "kernels": 6,
+  "payload": "/Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/operator_gelu_stable_build/payload.json",
+  "source_sha256": "2174c919571130ca63234176e184c66b81cf958563f3673139a6b5bb99d4ca4a"
+}

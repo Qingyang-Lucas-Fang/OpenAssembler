@@ -1,0 +1,32 @@
+✓ Initialized. View run at 
+https://modal.com/apps/qingyang-lucas-fang/main/ap-SXH6a60UzodgJhijoIR7uC
+✓ Created objects.
+├── ✓ Uploaded /Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/campaign.py
+├── ✓ Uploaded /Users/lucasfang/Desktop/OpenAssembler/openassembler
+├── ✓ Uploaded 
+│   /Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/operator_worker.py
+├── ✓ Uploaded 
+│   /Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/tensor_suite.py
+├── ✓ Uploaded 
+│   /Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/whole_worker.py
+└── ✓ Created Function execute.
+
+==========
+== CUDA ==
+==========
+
+CUDA Version 12.8.0
+
+Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+
+This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+By pulling and using the container, you accept the terms and conditions of this license:
+https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+
+A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
+
+{'whole': 'relu_mlp_small', 'eligible': ['oa_legacy', 'oa_direct', 'ptxas'], 'training_ms': {'oa_legacy': 3.031040000915527, 'oa_direct': 3.035750389099121, 'ptxas': 3.0330879211425783}}
+evidence: /Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/runs/whole-20261107T143246.737450Z.json
+Stopping app - local entrypoint completed.
+✓ App completed. View run at 
+https://modal.com/apps/qingyang-lucas-fang/main/ap-SXH6a60UzodgJhijoIR7uC

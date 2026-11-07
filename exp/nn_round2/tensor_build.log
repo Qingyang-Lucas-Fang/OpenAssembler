@@ -1,0 +1,19 @@
+tensor build smoke_f16: 6 native/ptxas methods
+tensor build smoke_bf16: 6 native/ptxas methods
+tensor build mlp_small_forward_f16: 6 native/ptxas methods
+tensor build mlp_small_forward_bf16: 6 native/ptxas methods
+tensor build mlp_small_dx_f16: 3 native/ptxas methods
+tensor build mlp_small_dx_bf16: 3 native/ptxas methods
+tensor build mlp_small_dw_f16: 3 native/ptxas methods
+tensor build mlp_small_dw_bf16: 3 native/ptxas methods
+tensor build mlp_wide_forward_f16: 9 native/ptxas methods
+tensor build mlp_wide_forward_bf16: 9 native/ptxas methods
+tensor build mlp_wide_dx_f16: 6 native/ptxas methods
+tensor build mlp_wide_dx_bf16: 6 native/ptxas methods
+tensor build mlp_wide_dw_f16: 6 native/ptxas methods
+tensor build mlp_wide_dw_bf16: 6 native/ptxas methods
+tensor build square_f16: 9 native/ptxas methods
+tensor build square_bf16: 9 native/ptxas methods
+tensor build tall_f16: 6 native/ptxas methods
+tensor build tall_bf16: 6 native/ptxas methods
+/Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/tensor_build_20261107T142912.570956Z.json

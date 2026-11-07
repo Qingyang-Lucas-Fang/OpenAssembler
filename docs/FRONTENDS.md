@@ -22,6 +22,9 @@ fail or use only an explicitly requested, labeled fallback.
 
 ## Repository builds
 
+Start with [the repository workflow guide](REPOSITORY_WORKFLOW.md) for the shared
+`compile REPO`, `run REPO`, `cnr REPO` interface and local/SSH/Modal setup.
+
 [Discovery, manifests and publication](research/ideas/repository-builds.md)
 explains what directory compilation finds, output ownership and limits.
 

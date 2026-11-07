@@ -1,0 +1,14 @@
+tensor build mlp_wide_forward_f16: 3 native/ptxas methods
+tensor build tall_f16: 3 native/ptxas methods
+Traceback (most recent call last):
+  File "/Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/tensor_followup.py", line 141, in <module>
+    main()
+    ~~~~^^
+  File "/Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/tensor_followup.py", line 134, in main
+    payload = build_payload(args.base_manifest, dtypes)
+  File "/Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/tensor_followup.py", line 103, in build_payload
+    payload["frozen_control_manifest"] = str(Path(base_manifest).relative_to(ROOT))
+                                             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/Users/lucasfang/.local/share/uv/python/cpython-3.14.5-macos-aarch64-none/lib/python3.14/pathlib/__init__.py", line 490, in relative_to
+    raise ValueError(f"{str(self)!r} is not in the subpath of {str(other)!r}")
+ValueError: 'exp/nn_round2/tensor_build_20261107T142912.570956Z.json' is not in the subpath of '/Users/lucasfang/Desktop/OpenAssembler'

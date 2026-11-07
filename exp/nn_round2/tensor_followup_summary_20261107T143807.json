@@ -1,0 +1,180 @@
+{
+  "schema": 1,
+  "source_record": "exp/nn_round2/runs/tensor-followup-20261107T143807.885774Z.json",
+  "source_record_sha256": "e20353ab5f1adec03ec71e946e315379a9df847b820665053188505246bcd4e2",
+  "device": {
+    "name": "NVIDIA A100-SXM4-40GB",
+    "cc": "8.0",
+    "driver": 13030,
+    "sm_count": 108,
+    "clock_khz": 1410000,
+    "mem_bytes": 42429251584
+  },
+  "cases": 2,
+  "full_checks": 42,
+  "full_checks_passed": 42,
+  "full_output_elements_checked": 1497366528,
+  "graph_checks": 14,
+  "graph_checks_passed": 14,
+  "graph_output_elements_checked": 499122176,
+  "worst_relative_l2_vs_fp64": 6.60138858049426e-06,
+  "worst_absolute_error_vs_fp64": 0.00318706821417436,
+  "all_inputs_unchanged": true,
+  "interpretation": "ratios>1 favor native/candidate; tune once on round0, evaluate fixed methods on later within-process rounds; no independent-process replication or exhaustive CUDA tuning implied",
+  "results": [
+    {
+      "name": "mlp_wide_forward_f16",
+      "shape": [
+        1024,
+        4096,
+        1024
+      ],
+      "dtype": "f16",
+      "comparisons": {
+        "direct_vs_legacy": {
+          "baseline": "oa_legacy",
+          "candidate": "oa_direct",
+          "holdout_round_ratios": [
+            1.1136364237682463,
+            1.1243654681724131
+          ],
+          "median_ratio": 1.1190009459703298,
+          "greater_than_2pct_in_every_holdout_round": true
+        },
+        "legacy_early_vs_legacy": {
+          "baseline": "oa_legacy",
+          "candidate": "exp_legacy_early_advance",
+          "holdout_round_ratios": [
+            1.0703883920359487,
+            1.0752427273623764
+          ],
+          "median_ratio": 1.0728155596991624,
+          "greater_than_2pct_in_every_holdout_round": true
+        },
+        "direct_early_vs_direct": {
+          "baseline": "oa_direct",
+          "candidate": "exp_direct_early_advance",
+          "holdout_round_ratios": [
+            1.017994846302594,
+            1.0154639608304432
+          ],
+          "median_ratio": 1.0167294035665186,
+          "greater_than_2pct_in_every_holdout_round": false
+        }
+      },
+      "selection": {
+        "none": {
+          "selection_round": 0,
+          "fixed_methods": {
+            "native_oa": "exp_direct_early_advance",
+            "same_ptx_ptxas": "ptxas_early_advance",
+            "vendor_library": "cublas_gemmex"
+          },
+          "holdout_ms": {
+            "native_oa": [
+              0.0796671986579895,
+              0.07946239709854126
+            ],
+            "same_ptx_ptxas": [
+              0.06430720090866089,
+              0.06430720090866089
+            ],
+            "vendor_library": [
+              0.06307839751243591,
+              0.06307839751243591
+            ]
+          },
+          "holdout_round_ratios": {
+            "same_ptx_ptxas_over_native": [
+              0.8071979684478561,
+              0.8092783915002411
+            ],
+            "vendor_library_over_native": [
+              0.7917737610334568,
+              0.7938144306697976
+            ]
+          }
+        }
+      },
+      "all_full_checks_passed": true,
+      "all_graph_checks_passed": true
+    },
+    {
+      "name": "tall_f16",
+      "shape": [
+        16384,
+        4096,
+        4096
+      ],
+      "dtype": "f16",
+      "comparisons": {
+        "direct_vs_legacy": {
+          "baseline": "oa_legacy",
+          "candidate": "oa_direct",
+          "holdout_round_ratios": [
+            0.9251283440766814,
+            0.9205260447976485
+          ],
+          "median_ratio": 0.922827194437165,
+          "greater_than_2pct_in_every_holdout_round": false
+        },
+        "legacy_early_vs_legacy": {
+          "baseline": "oa_legacy",
+          "candidate": "exp_legacy_early_advance",
+          "holdout_round_ratios": [
+            0.9938715636701728,
+            0.9924531489999002
+          ],
+          "median_ratio": 0.9931623563350365,
+          "greater_than_2pct_in_every_holdout_round": false
+        },
+        "direct_early_vs_direct": {
+          "baseline": "oa_direct",
+          "candidate": "exp_direct_early_advance",
+          "holdout_round_ratios": [
+            0.9523938880444616,
+            0.9589775381256244
+          ],
+          "median_ratio": 0.9556857130850429,
+          "greater_than_2pct_in_every_holdout_round": false
+        }
+      },
+      "selection": {
+        "none": {
+          "selection_round": 0,
+          "fixed_methods": {
+            "native_oa": "exp_legacy_early_advance",
+            "same_ptx_ptxas": "ptxas_early_advance",
+            "vendor_library": "cublas_gemmex"
+          },
+          "holdout_ms": {
+            "native_oa": [
+              2.6734592437744142,
+              2.6865663528442383
+            ],
+            "same_ptx_ptxas": [
+              3.519692611694336,
+              3.5172351837158202
+            ],
+            "vendor_library": [
+              2.2620159149169923,
+              2.266726493835449
+            ]
+          },
+          "holdout_round_ratios": {
+            "same_ptx_ptxas_over_native": [
+              1.3165312394009798,
+              1.3091934915332213
+            ],
+            "vendor_library_over_native": [
+              0.8461007663327822,
+              0.8437262275080945
+            ]
+          }
+        }
+      },
+      "all_full_checks_passed": true,
+      "all_graph_checks_passed": true
+    }
+  ]
+}

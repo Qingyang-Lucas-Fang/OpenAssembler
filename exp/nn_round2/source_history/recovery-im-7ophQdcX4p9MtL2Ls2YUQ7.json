@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "timestamp_utc": "2026-11-07T14:49:13.827053+00:00",
+  "image_id": "im-7ophQdcX4p9MtL2Ls2YUQ7",
+  "cpu_only": true,
+  "gpu_requested": null,
+  "network_blocked": true,
+  "files": [
+    {
+      "path": "/root/exp/nn_round2/operator_worker.py",
+      "sha256": "0338e4191041404c1808f395ad9acc554b5eb24267653220f4dcf11ce2ca8d19",
+      "bytes": 13286,
+      "archive": "exp/nn_round2/source_history/0338e4191041404c1808f395ad9acc554b5eb24267653220f4dcf11ce2ca8d19.py.gz",
+      "origin": "modal_immutable_image_cpu_read",
+      "image_id": "im-7ophQdcX4p9MtL2Ls2YUQ7"
+    }
+  ],
+  "status": "completed",
+  "finished_utc": "2026-11-07T14:49:19.544039+00:00"
+}

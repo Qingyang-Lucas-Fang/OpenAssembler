@@ -3,14 +3,20 @@
 # OpenAssembler
 
 
-**A from-scratch Python/CUDA to SASS/CUDA Binary compiler for your Neural Network training repo, built entirely by reverse-engineering nvidia tools as a black box and applying kernel optimizations to the compiler.**
+**Compile a local GPU-kernel repository or a configured PyTorch workload to
+NVIDIA SASS and CUDA binaries, then execute its saved build on an A100.**
 
-Do you always feel like when the newest nvidia GPU come out with unbearable high price while your existing older GPUs are making you left behind in model serving and training? 
-
-We provide a more efficient compiler eith optimization kernels that reduce the number of instruction down by up to ~12% comparing to the NVIDIA ptxas compiler, and reach an approximate 13% speed up in LLM inferencing and training comparing to using the SASS/cubin compiled by the nvidia compiler on various existing architectures (A100, H100 etc). Our goal is to create efficient and fast compiler and low level assembly language/binary file so that you can (without buying expensive frontier GPUs) with a ~10% speedup in training speed. OpenAssembler currently support compiling and executing whole NN training repo on your A100 GPU (including Python, CUDA C, CUDA C++ down to SASS and further down to CUDA Binary file, which is directly executable on your NVIDIA GPUs). We are currently working on more optimization kernels and wider hardware supports including V100 and H100. 
+OpenAssembler's native Python-kernel/CUDA C/C++/PTX route owns instruction
+selection, register allocation, scheduling and SASS encoding. Its application
+route captures configured PyTorch forward/backward graphs through
+TorchInductor/Triton and saves the required Python runtime cache. Both routes
+use the same repository commands and support local Linux, SSH and Modal.
+Current production support is SM80/A100; performance results and limitations
+are documented per workload in the linked research evidence.
 
 [Architecture and status](docs/STATUS.md) · [All commands](docs/COMMANDS.md) ·
 [Research catalogue](docs/research/README.md) · [Development setup](docs/DEVELOPMENT.md)
+· [Repository workflow and SSH/Modal setup](docs/REPOSITORY_WORKFLOW.md)
 
 ## What you can do
 
@@ -29,6 +35,9 @@ Support and performance are workload-specific. The [status page](docs/STATUS.md)
 separates native compiler results, library controls and application-frontend
 results. The [research catalogue](docs/research/README.md) includes successful,
 rejected, mixed and untested ideas, each with its own methods and reproduction.
+The [native NN arithmetic campaign](docs/research/ideas/nn-arithmetic-campaign.md)
+adds isolated operators, forward/backward GEMMs and six composed networks;
+its new candidates remain experimental and its failed gates remain excluded.
 
 ## Quick start
 
@@ -40,8 +49,40 @@ source .venv/bin/activate
 pip install -e .
 ```
 
-Compilation needs CUDA toolkit tools, not a local GPU. On Linux an installed
-CUDA toolkit can be used. On macOS the toolkit runs in a Colima Linux VM:
+For Modal, set up its optional client once. The local machine does not need a
+CUDA toolkit or GPU when both compilation and execution are remote:
+
+```sh
+pip install modal
+modal setup
+openassembler compile testcases/test_whole_repo --backend modal --verify
+openassembler run testcases/test_whole_repo --backend modal --verify-application
+# Or capture and replay in one command:
+openassembler cnr testcases/test_whole_repo --backend modal --verify
+```
+
+Replace that example with your repository path. A PyTorch repository provides
+`openassembler.toml` with its entry point and bounded workload; a native-kernel
+repository needs no application configuration. Directory builds default to
+`REPO/output/cubin/`, `REPO/output/sass/` and `REPO/output/manifest.json`.
+For a custom location, use the same `--out-dir DIR` on `compile` and `run`.
+
+Use an existing Linux A100 host over SSH with the same commands:
+
+```sh
+openassembler compile /path/to/my_repo --backend user@a100 --verify
+openassembler run /path/to/my_repo --backend user@a100
+openassembler cnr /path/to/my_repo --backend user@a100 --verify
+```
+
+SSH needs noninteractive access and the remote toolkit/runtime described in
+the [setup guide](docs/REPOSITORY_WORKFLOW.md#ssh-from-your-workstation).
+Inside an SSH terminal on the GPU host, use `--backend local` instead.
+Native multi-kernel execution needs your actual buffers and launches in
+`--spec launch.json`; discovery alone does not infer a training program.
+
+For local native compilation, an installed Linux CUDA toolkit can be used.
+On macOS the toolkit runs in a Colima Linux VM:
 
 ```sh
 # macOS only: install Colima if necessary, then start its VM.
@@ -68,10 +109,12 @@ openassembler gemm --m 1024 --n 1024 --k 1024 --dtype f16 --out-dir output/gemm
 openassembler rowwise --op softmax --rows 1024 --width 512 --out-dir output/softmax
 ```
 
-A configured application selects its own entry point and workload:
+A configured application selects its own entry point and workload. Inspect
+either route before submitting any work:
 
 ```sh
 openassembler compile testcases/test_whole_repo --verify --dry-run
+openassembler cnr /path/to/my_repo --backend user@a100 --dry-run
 ```
 
 To execute native outputs on an authenticated Modal GPU:

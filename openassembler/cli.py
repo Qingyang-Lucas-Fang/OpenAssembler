@@ -1,8 +1,8 @@
 """OpenAssembler 0.2.0: a Python / CUDA C / C++ (and PTX) to NVIDIA SASS compiler with its own backend.
 
     openassembler compile kernel.py|kernel.cu|kernel.ptx [-o NAME] [--verify]   # -> output/cubin + output/sass
-    openassembler compile my_repo/                    # every kernel in a repo, mirrored into output/
-    openassembler run [output] [--backend local|modal|user@host] [--dry-run]   # ours vs ptxas on a GPU
+    openassembler compile my_repo/                    # -> my_repo/output/{cubin,sass}
+    openassembler run my_repo/ [--backend local|modal|user@host] [--dry-run]
     openassembler cnr SRC [compile + run options]     # compile, then run what compiled
     openassembler gemm --m M --n N --k K --dtype f16  # specialized A100 tensor GEMM
     openassembler status                              # headline results (docs/STATUS.md)
@@ -61,8 +61,33 @@ def _application_compile_opts(a: argparse.Namespace) -> dict:
         raise ApplicationError('--kernel, --fallback, -I, --nvcc-flag, --dump-ptx and nondefault '
                                '--opt-level/--trials apply to standalone kernels, not PyTorch applications')
     return {'verify': a.verify, 'dry_run': a.dry_run,
-            'build_backend': a.build_backend, 'build_host': getattr(a, 'build_host', None),
-            'gpu': a.build_gpu, 'budget': a.build_budget, 'no_sass': a.no_sass}
+            'build_backend': a.build_backend or (a.backend if a.backend != 'auto' else None),
+            'build_host': a.build_host or a.host,
+            'gpu': a.build_gpu or a.gpu,
+            'budget': a.build_budget if a.build_budget is not None else a.budget,
+            'job_timeout': a.job_timeout, 'no_sass': a.no_sass}
+
+
+def _native_build(a: argparse.Namespace):
+    from openassembler.build import compile_paths
+    from openassembler.remote_build import compile_native
+    from openassembler.transport import backend
+    from openassembler.workflow import output_dir
+    out = output_dir(Path(a.src), a.out_dir)
+    kind, host = backend(a.build_backend or a.backend, a.build_host or a.host)
+    kind = 'local' if kind == 'auto' else kind
+    if kind == 'local' and (a.build_budget is not None or (a.cmd == 'compile' and a.budget is not None)):
+        from openassembler.project import ProjectError
+        raise ProjectError('local native compilation has no build watchdog; omit --budget/--build-budget '
+                           'or select a remote build backend. For cnr, --budget still bounds GPU execution')
+    options = _compile_opts(a)
+    if kind != 'local' or a.dry_run:
+        rc, only = compile_native(Path(a.src), out, options, a.out, backend=kind, host=host,
+                                  budget=a.build_budget if a.build_budget is not None else (
+                                      a.budget if a.budget is not None else 900), dry_run=a.dry_run)
+        return rc, out, only
+    result = compile_paths(Path(a.src), out, options, a.out)
+    return result.rc, result.out_dir, {(str(so.src.resolve()), k.name) for so in result.built for k in so.kept}
 
 
 def cmd_compile(a: argparse.Namespace) -> int:
@@ -72,22 +97,22 @@ def cmd_compile(a: argparse.Namespace) -> int:
     .cu/.cuh/.cpp/.cc/.cxx (via nvcc --ptx, openassembler.cppfront) -- all end up as
     PTX handed to the same backend. ptxas builds the ELF container our code is
     spliced into (README.md "How it works"); see openassembler/build.py."""
-    from openassembler.build import compile_paths
+    from openassembler import project
+    from openassembler.transport import TransportError
+    from openassembler.workflow import output_dir
     if (root := _application_root(Path(a.src))) is not None:
         from openassembler.torchfront.frontend import ApplicationError, compile_application
         try:
-            return compile_application(root, Path(a.out_dir), output_name=a.out,
+            return compile_application(root, output_dir(root, a.out_dir), output_name=a.out,
                                        **_application_compile_opts(a)).rc
         except (ApplicationError, OSError) as exc:
             print(f"error: {exc}", file=sys.stderr)
             return 1
-    if a.dry_run:
-        print("error: --dry-run is only available for configured PyTorch application builds", file=sys.stderr)
+    try:
+        return _native_build(a)[0]
+    except (project.ProjectError, TransportError, OSError, ValueError) as exc:
+        print(f'error: {exc}', file=sys.stderr)
         return 1
-    if a.build_backend or a.build_host or a.build_gpu or a.build_budget is not None:
-        print('error: --build-backend, --build-gpu and --build-budget require a configured application directory', file=sys.stderr)
-        return 1
-    return compile_paths(Path(a.src), Path(a.out_dir), _compile_opts(a), a.out).rc
 
 
 def cmd_gemm(a: argparse.Namespace) -> int:
@@ -119,8 +144,10 @@ def cmd_rowwise(a: argparse.Namespace) -> int:
 
 def _run_opts(a: argparse.Namespace, out_dir: str, only=None):
     from openassembler.runner import RunOptions
+    from openassembler.transport import backend as resolve_backend
 
-    backend = "local" if a.backend == "auto" else a.backend
+    kind, host = resolve_backend(a.backend, a.host)
+    backend = host if kind == 'ssh' else ('local' if kind == 'auto' else kind)
     return RunOptions(out_dir=Path(out_dir), backend=backend, kernel=getattr(a, "run_kernel", None),
                       source=getattr(a, "source", None), spec=Path(a.spec) if a.spec else None, n=a.n,
                       reps=a.reps, gpu=a.gpu or "A100-40GB", budget=a.budget if a.budget is not None else 300,
@@ -136,8 +163,17 @@ def cmd_run(a: argparse.Namespace) -> int:
     and timing per kernel. See openassembler/runner.py for the auto-harness and the
     --spec format."""
     from openassembler.runner import run_command
+    from openassembler import project
+    from openassembler.transport import TransportError
+    from openassembler.workflow import resolve_run
 
     from openassembler.torchfront.frontend import ApplicationError, run_application
+    try:
+        target = resolve_run(a.outdir, a.out_dir, a.application)
+    except (project.ProjectError, OSError) as exc:
+        print(f'error: {exc}', file=sys.stderr)
+        return 1
+    a.application = target.application
     kernel_selection = a.kernel or a.source or a.spec or a.from_results or a.save_jobs
     if a.application and kernel_selection:
         print('error: --application cannot be combined with kernel selection, --spec, '
@@ -149,77 +185,83 @@ def cmd_run(a: argparse.Namespace) -> int:
     if not a.application and (a.app_arg or a.verify_application):
         print('error: --app-arg and --verify-application require --application NAME', file=sys.stderr)
         return 1
-    if kernel_selection:
-        a.run_kernel = a.kernel
-        return run_command(_run_opts(a, a.outdir))
     try:
-        application = run_application(Path(a.outdir), name=a.application, backend=a.backend,
+        if kernel_selection:
+            a.run_kernel = a.kernel
+            return run_command(_run_opts(a, str(target.out_dir), target.only))
+        application = run_application(target.out_dir, name=a.application, backend=a.backend, host=a.host,
                                        gpu=a.gpu, budget=a.budget, dry_run=a.dry_run,
                                        extra_args=a.app_arg, verify=a.verify_application, job_timeout=a.job_timeout)
-    except (ApplicationError, OSError) as exc:
+        if application is not None:
+            return application
+        a.run_kernel = a.kernel
+        return run_command(_run_opts(a, str(target.out_dir), target.only))
+    except (ApplicationError, TransportError, OSError) as exc:
         print(f"error: {exc}", file=sys.stderr)
         return 1
-    if application is not None:
-        return application
-
-    a.run_kernel = a.kernel
-    return run_command(_run_opts(a, a.outdir))
 
 
 def cmd_cnr(a: argparse.Namespace) -> int:
     """compile SRC into --out-dir, then run every kernel that compiled (`run`). Kernels
     that failed to compile are reported and not run; nonzero exit if anything failed."""
-    from openassembler.build import compile_paths
-    from openassembler.runner import run_command
+    from openassembler.runner import RunError, run_command, validate_options
+    from openassembler import project
+    from openassembler.transport import TransportError
+    from openassembler.workflow import output_dir
 
     if (root := _application_root(Path(a.src))) is not None:
         from openassembler.torchfront.frontend import ApplicationError, compile_application, run_application
         try:
             if a.spec or a.save_jobs:
                 raise ApplicationError('--spec and --save-jobs apply to standalone kernels')
-            if a.backend not in ('auto', 'local', 'modal'):
-                raise ApplicationError('PyTorch applications support --backend auto, local or modal')
             if a.n != 1 << 20 or a.reps != 20:
                 raise ApplicationError('-n and --reps apply to standalone kernels')
             from openassembler.torchfront.frontend import load_config
             config = load_config(root / 'openassembler.toml')
+            from openassembler.transport import backend as resolve_backend
+            resolve_backend(a.backend, a.host or ((config.get('build_host') or a.build_host)
+                                                 if a.backend == 'ssh' else None))
             duration = a.budget if a.budget is not None else (
                 a.build_budget if a.build_budget is not None else config['budget'])
             if type(duration) not in (int, float) or not 30 <= duration <= 1800:
                 raise ApplicationError('application --budget must be between 30 and 1800 seconds')
             if a.job_timeout is not None and not 0 < a.job_timeout <= duration:
                 raise ApplicationError('application --job-timeout must be finite, positive, and no greater than --budget')
-            result = compile_application(root, Path(a.out_dir), output_name=a.out,
+            result = compile_application(root, output_dir(root, a.out_dir), output_name=a.out,
                                          **_application_compile_opts(a))
             if result.entry is None:
                 if a.dry_run:
                     app_config = result.config
-                    backend = a.backend if a.backend != "auto" else (a.build_backend or app_config["build_backend"])
+                    backend = a.backend if a.backend != "auto" else app_config["build_backend"]
                     gpu = a.gpu or a.build_gpu or app_config["gpu"]
                     budget = a.budget or a.build_budget or app_config["budget"]
                     print(f"run: would replay {result.name} on {backend} with GPU {gpu} and budget {budget:g}s")
                 return result.rc
-            return run_application(result.out_dir, name=result.name, backend=a.backend, gpu=a.gpu,
+            return run_application(result.out_dir, name=result.name, backend=a.backend, host=a.host, gpu=a.gpu,
                                    budget=a.budget, dry_run=a.dry_run, verify=a.verify,
                                    job_timeout=a.job_timeout) or result.rc
-        except (ApplicationError, OSError) as exc:
+        except (ApplicationError, TransportError, OSError) as exc:
             print(f"error: {exc}", file=sys.stderr)
             return 1
 
-    if a.build_backend or a.build_host or a.build_gpu or a.build_budget is not None:
-        print('error: --build-backend, --build-gpu and --build-budget require a configured application directory', file=sys.stderr)
+    try:
+        # Validate execution flags before incurring remote build work.
+        validate_options(_run_opts(a, str(output_dir(Path(a.src), a.out_dir))), check_spec=True)
+        compile_rc, out, only = _native_build(a)
+        if a.dry_run:
+            print(f'run: would execute the newly compiled kernels on {a.host or a.backend}; nothing was run')
+            return compile_rc
+        if not only:
+            print('error: nothing compiled, so nothing to run', file=sys.stderr)
+            return 1
+        print(f'\nrunning {len(only)} newly compiled kernel(s) ({a.host or a.backend})')
+        a.run_kernel = None
+        a.source = None
+        rc = run_command(_run_opts(a, str(out), only))
+        return 1 if 1 in (rc, compile_rc) else max(rc, compile_rc)
+    except (project.ProjectError, RunError, TransportError, OSError, ValueError) as exc:
+        print(f'error: {exc}', file=sys.stderr)
         return 1
-    res = compile_paths(Path(a.src), Path(a.out_dir), _compile_opts(a), a.out)
-    if not res.built:
-        print("error: nothing compiled, so nothing to run", file=sys.stderr)
-        return 1
-    only = {(str(so.src.resolve()), k.name) for so in res.built for k in so.kept}
-    print(f"\nrunning {len(only)} kernel{'s' * (len(only) != 1)} "
-          f"({'dry run' if a.dry_run else a.backend})")
-    a.run_kernel = None              # --kernel already restricted what was compiled
-    a.source = None
-    rc = run_command(_run_opts(a, str(res.out_dir), only))
-    return 1 if 1 in (rc, res.rc) else max(rc, res.rc)
 
 
 def cmd_verify(a: argparse.Namespace) -> int:
@@ -393,11 +435,13 @@ def cmd_status(a: argparse.Namespace) -> int:
     return 0
 
 
-COMPILE_HELP = """Compile a source file or a whole source tree with OpenAssembler's own backend.
+COMPILE_HELP = """Compile a source file or a whole source tree to SASS and CUDA binaries.
 
   openassembler compile examples/div_by_const.ptx -o out --verify
       -> output/cubin/out.cubin  output/sass/out.sass  (+ output/manifest.json, output/.build/)
-  openassembler compile my_repo/ --out-dir build_oa
+  openassembler compile my_repo/ --backend modal
+      -> my_repo/output/cubin/ and my_repo/output/sass/
+  openassembler compile my_repo/ --backend me@gpubox --out-dir build_oa
       -> build_oa/cubin/<path>.cubin and build_oa/sass/<path>.sass for every kernel source
 
 In a directory: .ptx with .entry, .cu/.cuh/.cpp/.cc/.cxx with __global__ (compiled as
@@ -410,13 +454,19 @@ PyTorch capture frontend (TorchInductor/Triton). It executes the configured CUDA
 workload to build cubins, SASS and a Python runtime bundle. Files always use the
 standalone kernel frontend, even inside a configured application directory.
 Native tensor PTX selects the SM80 tensor backend; `gemm` generates its validated plan.
+The same --backend local|modal|user@host selects the build location for either frontend.
+Native compilation needs toolkit tools, not a GPU. PyTorch capture executes the
+configured workload on an A100. `run` reuses a saved build; it never recompiles.
 """
 
 RUN_HELP = """Run the cubins of a previous compile on a real NVIDIA GPU: our cubin and
 ptxas's reference build of the same PTX, on identical inputs, compared bit for bit,
 with the median time of each.
 
-  openassembler run                                    # every kernel in output/, this machine's GPU
+  openassembler run my_repo/ --backend modal            # reuse my_repo/output/
+  openassembler run my_repo/ --backend me@gpubox        # saved build on a Linux A100 over SSH
+  openassembler run output/gemm --backend local         # explicit artifact directory also works
+  openassembler run                                    # ./output, this machine's GPU
   openassembler run --backend modal --dry-run          # jobs, upload size and estimated cost
   openassembler run --backend me@gpubox --kernel relu  # any Linux box with an NVIDIA driver
   openassembler run --spec pipeline.json               # your own buffers / launches / pipeline
@@ -435,14 +485,20 @@ Buffer dtypes: f32/i32/u32 (4 bytes), f16/bf16 (2 bytes). Half-precision random
 inputs are exact small integers. A validated gemm contract supplies its own
 half-precision sizes, 2-D launch and shared-memory requirement.
 With mixed kernel/application outputs, select the app with --application NAME.
+A repository path selects its own saved application automatically. A custom build
+root must be passed as --out-dir DIR, or directly as the positional artifact path.
 """
 
 CNR_HELP = """Compile SRC (file or directory, same options as `compile`) into --out-dir, then
 run every kernel that compiled (same options as `run`). Kernels that failed to compile
 are reported and not run. Exit code is nonzero if anything failed.
 
+  openassembler cnr my_repo/ --backend modal --verify
+  openassembler cnr my_repo/ --backend me@gpubox --verify
   openassembler cnr examples/vector_add.cu --backend modal --dry-run
-  openassembler cnr my_repo/ --backend me@gpubox
+
+--backend selects both compilation and execution. --build-backend can override
+only the build location. --dry-run plans both stages without builds or GPU jobs.
 """
 
 
@@ -450,7 +506,8 @@ def _add_compile_args(pc: argparse.ArgumentParser) -> None:
     pc.add_argument("-o", "--out", default=None, metavar="NAME",
                     help="output name for a single file: output/cubin/NAME.cubin + output/sass/NAME.sass "
                          "(default: the source file's stem)")
-    pc.add_argument("--out-dir", default="output", metavar="DIR", help="output folder (default: ./output)")
+    pc.add_argument("--out-dir", default=None, metavar="DIR",
+                    help="output folder (default: REPO/output for directories; ./output for files)")
     pc.add_argument("--kernel", default=None, help="compile only this kernel")
     pc.add_argument("--arch", default="sm_80")
     pc.add_argument("--opt-level", choices=OPT_LEVELS, default="opt")
@@ -466,29 +523,38 @@ def _add_compile_args(pc: argparse.ArgumentParser) -> None:
                     help="extra nvcc flag, e.g. --nvcc-flag=-DTILE=32 (repeatable)")
     pc.add_argument("--dump-ptx", action="store_true", help="print the PTX each source compiled to")
     pc.add_argument("--no-sass", action="store_true", help="write only the cubins; skip the nvdisasm listing")
-    pc.add_argument("--build-backend", choices=("auto", "local", "modal", "ssh"), default=None,
-                    help="PyTorch capture transport; ssh uses --build-host and a preconfigured remote runtime")
+    pc.add_argument("--build-backend", default=None, metavar="auto|local|modal|user@host",
+                    help="override only compilation's backend (otherwise --backend or application config)")
     pc.add_argument("--build-host", default=None, metavar="USER@HOST",
-                    help="SSH host for PyTorch application capture/replay (Python 3.11, torch 2.7.1, CUDA 12.8, sm_80)")
-    pc.add_argument("--build-gpu", default=None, help="Modal GPU for PyTorch capture (default: application config)")
+                    help="SSH target for --build-backend ssh; --host is shared by build and run")
+    pc.add_argument("--build-gpu", default=None, help="override only the application capture GPU")
     pc.add_argument("--build-budget", type=float, default=None, metavar="SECONDS",
-                    help="PyTorch capture budget; defaults to openassembler.toml")
+                    help="override only the compilation budget")
     pc.add_argument("--dry-run", action="store_true",
-                    help="show PyTorch capture plan; with cnr, also skip the GPU launch")
+                    help="plan compilation and execution without writing outputs or submitting jobs")
+    _add_backend_args(pc)
 
 
-def _add_run_args(pr: argparse.ArgumentParser, *, include_dry_run: bool = True) -> None:
-    pr.add_argument("--backend", default="auto", metavar="auto|local|modal|user@host",
-                    help="'local' (this Linux machine's GPU), 'modal' (cloud, needs `modal setup`), "
-                         "or an SSH target user@host (any Linux box with an NVIDIA driver)")
+def _add_backend_args(parser: argparse.ArgumentParser) -> None:
+    parser.add_argument("--backend", default="auto", metavar="auto|local|modal|user@host",
+                        help="build/run here, on Modal, or on an existing Linux SSH host; auto uses application config or local")
+    parser.add_argument("--host", default=None, metavar="USER@HOST",
+                        help="SSH destination for --backend ssh (SSH config aliases are supported)")
+    parser.add_argument("--gpu", default=None,
+                        help="Modal GPU for application capture and execution (default: config or A100-40GB)")
+    parser.add_argument("--budget", type=float, default=None,
+                        help="remote build / GPU-stage limit, seconds (native build 900, kernel run 300; app config otherwise)")
+    parser.add_argument("--job-timeout", type=float, default=None,
+                        help="worker watchdog in seconds (kernel run 60; application config otherwise)")
+
+
+def _add_run_args(pr: argparse.ArgumentParser, *, include_dry_run: bool = True,
+                  include_backend: bool = True) -> None:
+    if include_backend:
+        _add_backend_args(pr)
     pr.add_argument("--spec", default=None, metavar="SPEC.json", help="buffers/launches to use (see above)")
     pr.add_argument("-n", "--n", type=int, default=1 << 20, help="auto-harness elements per buffer (default 1048576)")
     pr.add_argument("--reps", type=int, default=20, help="timed repetitions (median reported)")
-    pr.add_argument("--gpu", default=None, help="Modal GPU type (default: application config or A100-40GB)")
-    pr.add_argument("--budget", type=float, default=None,
-                    help="hard time limit in seconds (default 300 for kernels; application config for PyTorch)")
-    pr.add_argument("--job-timeout", type=float, default=None,
-                    help="per-job watchdog in seconds (default: 60 for kernels; application config for PyTorch)")
     if include_dry_run:
         pr.add_argument("--dry-run", action="store_true", help="print what would run (and the cost); touch no GPU")
     pr.add_argument("--save-jobs", default=None, metavar="FILE", help="also write the GPU jobs pickle here")
@@ -545,10 +611,11 @@ def build_parser() -> argparse.ArgumentParser:
     pw.add_argument("--emit-only", action="store_true")
     pw.set_defaults(func=cmd_rowwise)
 
-    pr = sub.add_parser("run", help="run compiled cubins on a GPU: ours vs ptxas, bit-exact + timing",
+    pr = sub.add_parser("run", help="run a repository's saved build, or an explicit artifact directory",
                         description=RUN_HELP, formatter_class=argparse.RawDescriptionHelpFormatter)
-    pr.add_argument("outdir", metavar="OUTDIR", nargs="?", default="output",
-                    help="output folder of a previous compile (default: output)")
+    pr.add_argument("outdir", metavar="PATH", nargs="?", default=None,
+                    help="source repository/file or built output directory (default: current repo/output)")
+    pr.add_argument("--out-dir", default=None, metavar="DIR", help="custom build root for the source PATH")
     pr.add_argument("--kernel", default=None, help="run only this kernel")
     pr.add_argument("--source", default=None, metavar="FILE",
                     help="only kernels compiled from FILE (needed when --kernel is in several sources)")
@@ -564,7 +631,7 @@ def build_parser() -> argparse.ArgumentParser:
                         description=CNR_HELP, formatter_class=argparse.RawDescriptionHelpFormatter)
     pn.add_argument("src", metavar="SRC", help="a source file or a directory (repo)")
     _add_compile_args(pn)
-    _add_run_args(pn, include_dry_run=False)
+    _add_run_args(pn, include_dry_run=False, include_backend=False)
     pn.set_defaults(func=cmd_cnr)
 
     pv = sub.add_parser("verify", help="check a compiled cubin's SASS against the PTX reference interpreter")

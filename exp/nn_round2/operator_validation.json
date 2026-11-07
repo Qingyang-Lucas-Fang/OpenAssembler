@@ -1,0 +1,164 @@
+{
+  "schema": 1,
+  "source_files": {
+    "exp/nn_round2/operator_suite.py": {
+      "bytes": 14522,
+      "sha256": "ca16861a97ac8a4fb3bcc423a95f16ac12eef089d995c2ff4f0472bd507094fc"
+    },
+    "exp/nn_round2/operator_worker.py": {
+      "bytes": 13286,
+      "sha256": "0338e4191041404c1808f395ad9acc554b5eb24267653220f4dcf11ce2ca8d19"
+    },
+    "exp/nn_round2/operator_candidates.py": {
+      "bytes": 7560,
+      "sha256": "7091359135f89eee8a832f45603e4bd6d749191a14131aff8b939071a04afee8"
+    },
+    "exp/nn_round2/operator_candidates_modal.py": {
+      "bytes": 2393,
+      "sha256": "658fef534d936599b33ce225af6a9cd50ca9728d86470a0581ee865b62168d2a"
+    },
+    "exp/nn_round2/operator_fma_confirm_modal.py": {
+      "bytes": 2562,
+      "sha256": "3d23933c3d8708d707caf341ad245b4b3ea1a9ceb7124698ff85acc5ae11449d"
+    },
+    "exp/nn_round2/operator_standard_fma.py": {
+      "bytes": 3142,
+      "sha256": "45732c65998746a06b16cb748fc37011917f2e2af252eaff1c03b5745399c5df"
+    },
+    "exp/nn_round2/operator_standard_fma_modal.py": {
+      "bytes": 2454,
+      "sha256": "e88a7105a81a447374ec2d9330af458d0f334243f7c02035b9ff789ee685c01f"
+    },
+    "exp/nn_round2/operator_gelu_stable.py": {
+      "bytes": 7967,
+      "sha256": "8130396c6a42afa8b0e0002daa49654f12adfc6a5eda7eb8c73ed0a30de68e92"
+    },
+    "exp/nn_round2/operator_gelu_stable_modal.py": {
+      "bytes": 2408,
+      "sha256": "b2a7ca2f8ae4508723287fc340c9d6cd154968d462517c3498861e438bf423ef"
+    },
+    "exp/nn_round2/operator_analysis.py": {
+      "bytes": 5061,
+      "sha256": "b678b2f258c1140adb7c4fb58f9971b665699aeaa36fc5388c220320f6beb5df"
+    },
+    "exp/nn_round2/operator_fma_analysis.py": {
+      "bytes": 3981,
+      "sha256": "6704e244ea78b446bc134d13eae4c33a78152d5a2f695bc52549efbf3a59a566"
+    },
+    "exp/nn_round2/operator_gelu_analysis.py": {
+      "bytes": 2311,
+      "sha256": "4c70f3af60a56e57433f35b6d8806d3a417d99c7bfce5db588458fbc5cb84479"
+    },
+    "exp/nn_round2/test_operator_suite.py": {
+      "bytes": 5639,
+      "sha256": "b49103dad3239d9c81b7d2b24893aaf746dca35826872d6079490b197baefb52"
+    },
+    "exp/nn_round2/test_operator_candidates.py": {
+      "bytes": 2549,
+      "sha256": "fe9bea6c7df35d40d0ec5e85c40a7e50df1ad9689705605539689a63ec7fee1a"
+    },
+    "exp/nn_round2/test_operator_gelu_stable.py": {
+      "bytes": 1582,
+      "sha256": "230e27cedfe42c94a1177c22e5aaade867d141efe90328d7b589fd2968ab8d67"
+    },
+    "exp/nn_round2/test_operator_standard_fma.py": {
+      "bytes": 2076,
+      "sha256": "d593ad8260fb107ccaeb36e9f2dbc9cc5fef3ae7bef8bddb7d11c331b3e8c2b4"
+    }
+  },
+  "cpu_validation": {
+    "command": ".venv/bin/python -m pytest -q exp/nn_round2/test_operator_suite.py exp/nn_round2/test_operator_candidates.py exp/nn_round2/test_operator_gelu_stable.py exp/nn_round2/test_operator_standard_fma.py",
+    "passed": 71,
+    "log": "exp/nn_round2/operator_validation.log"
+  },
+  "gpu_records": {
+    "exp/nn_round2/runs/operators-20261107T143128.366417Z.json": {
+      "sha256": "17f97a4f8944098a13dc0088e269797f44844682fb745276e817ec45b45029ed",
+      "cases": 274,
+      "statuses": {
+        "correctness_failure": 10,
+        "ok": 264
+      },
+      "device": {
+        "torch": "2.7.1+cu128",
+        "cuda": "12.8",
+        "name": "NVIDIA A100-SXM4-40GB",
+        "cc": "8.0",
+        "driver": 13030,
+        "sm_count": 108,
+        "clock_khz": 1410000,
+        "mem_bytes": 42429251584
+      }
+    },
+    "exp/nn_round2/runs/operator-fma-20261107T143537.650425Z.json": {
+      "sha256": "c1b496eaaf9ed5bdbfd7df094e95d32feb8a7c2920b258b989df5aa8b602026e",
+      "cases": 240,
+      "statuses": {
+        "ok": 240
+      },
+      "device": {
+        "torch": "2.7.1+cu128",
+        "cuda": "12.8",
+        "name": "NVIDIA A100-SXM4-40GB",
+        "cc": "8.0",
+        "driver": 13030,
+        "sm_count": 108,
+        "clock_khz": 1410000,
+        "mem_bytes": 42429251584
+      }
+    },
+    "exp/nn_round2/runs/operator-fma-confirm-20261107T144005.532354Z.json": {
+      "sha256": "57c20d296e94aacd7f3bb7195cc0ca1f0088e27c2fcc3dd41d5821cabbf53b7d",
+      "cases": 16,
+      "statuses": {
+        "ok": 16
+      },
+      "device": {
+        "torch": "2.7.1+cu128",
+        "cuda": "12.8",
+        "name": "NVIDIA A100-SXM4-40GB",
+        "cc": "8.0",
+        "driver": 13030,
+        "sm_count": 108,
+        "clock_khz": 1410000,
+        "mem_bytes": 42429251584
+      }
+    },
+    "exp/nn_round2/runs/operator-standard-fma-20261107T144401.126097Z.json": {
+      "sha256": "c49087fcb8fbbfb7c415170063948ee9080ab06919d5dccf2ee324ccfc0b2697",
+      "cases": 64,
+      "statuses": {
+        "ok": 64
+      },
+      "device": {
+        "torch": "2.7.1+cu128",
+        "cuda": "12.8",
+        "name": "NVIDIA A100-SXM4-40GB",
+        "cc": "8.0",
+        "driver": 13030,
+        "sm_count": 108,
+        "clock_khz": 1410000,
+        "mem_bytes": 42429251584
+      }
+    },
+    "exp/nn_round2/runs/operator-gelu-stable-20261107T143841.822588Z.json": {
+      "sha256": "e3269b5aa316681d5d311a1d4e907f21db5a591517c2602032f5ccacfee593ee",
+      "cases": 52,
+      "statuses": {
+        "correctness_failure": 12,
+        "ok": 40
+      },
+      "device": {
+        "torch": "2.7.1+cu128",
+        "cuda": "12.8",
+        "name": "NVIDIA A100-SXM4-40GB",
+        "cc": "8.0",
+        "driver": 13030,
+        "sm_count": 108,
+        "clock_khz": 1410000,
+        "mem_bytes": 42429251584
+      }
+    }
+  },
+  "scope": "experiment code and assigned dossiers only; no production source mutation by operator agent"
+}

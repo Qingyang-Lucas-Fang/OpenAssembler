@@ -1,0 +1,62 @@
+✓ Initialized. View run at 
+https://modal.com/apps/qingyang-lucas-fang/main/ap-v04RFbInLDsjd8UVzDzDJH
+Building image im-hrXkLysVrFfODl2VY5Uwhr
+
+=> Step 0: FROM base
+
+=> Step 1: COPY . /
+Saving image...
+Image saved, took 1.62s
+
+Built image im-hrXkLysVrFfODl2VY5Uwhr in 3.89s
+
+
+Building image im-2PMiyk20FyMwt305BfJSTF
+
+=> Step 0: FROM base
+
+=> Step 1: COPY . /
+Saving image...
+Image saved, took 710.39ms
+
+Built image im-2PMiyk20FyMwt305BfJSTF in 2.85s
+
+
+✓ Created objects.
+├── ✓ Uploaded /Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/campaign.py
+├── ✓ Uploaded /Users/lucasfang/Desktop/OpenAssembler/openassembler
+├── ✓ Uploaded 
+│   /Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/operator_worker.py
+├── ✓ Uploaded 
+│   /Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/tensor_suite.py
+├── ✓ Uploaded 
+│   /Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/whole_worker.py
+├── ✓ Uploaded 
+│   /Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/counter_worker.py
+└── ✓ Created Function execute.
+
+==========
+== CUDA ==
+==========
+
+CUDA Version 12.8.0
+
+Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+
+This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+By pulling and using the container, you accept the terms and conditions of this license:
+https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+
+A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
+
+{'whole': 'relu_mlp_small', 'eligible': ['oa_legacy', 'oa_direct', 'oa_tensor_only', 'ptxas', 'ptxas_tensor_only', 'cuda_library'], 'training_ms': {'oa_legacy': 3.001139259338379, 'oa_direct': 3.0025728225708006, 'oa_tensor_only': 3.0228479385375975, 'ptxas': 3.0435327529907226, 'ptxas_tensor_only': 3.0105600357055664, 'cuda_library': 3.033292770385742}}
+{'training_graph_error': 'ptxas_tensor_only', 'error': 'RuntimeError: CUDA error: operation failed due to a previous error during capture\nCUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.\nFor debugging consider passing CUDA_LAUNCH_BLOCKING=1\nCompile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.\n', 'traceback': 'Traceback (most recent call last):\n  File "/root/exp/nn_round2/whole_worker.py", line 391, in run\n    with torch.cuda.graph(graph):gout,gloss=training_step(model,opt,x,y)\n                                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "/root/exp/nn_round2/whole_worker.py", line 308, in training_step\n    loss.backward()\n  File "/opt/conda/lib/python3.11/site-packages/torch/_tensor.py", line 648, in backward\n    torch.autograd.backward(\n  File "/opt/conda/lib/python3.11/site-packages/torch/autograd/__init__.py", line 353, in backward\n    _engine_run_backward(\n  File "/opt/conda/lib/python3.11/site-packages/torch/autograd/graph.py", line 824, in _engine_run_backward\n    return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nRuntimeError: CUDA error: operation would make the legacy stream depend on a capturing blocking stream\nCUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.\nFor debugging consider passing CUDA_LAUNCH_BLOCKING=1\nCompile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.\n\n\nDuring handling of the above exception, another exception occurred:\n\nTraceback (most recent call last):\n  File "/root/exp/nn_round2/whole_worker.py", line 391, in run\n    with torch.cuda.graph(graph):gout,gloss=training_step(model,opt,x,y)\n  File "/opt/conda/lib/python3.11/site-packages/torch/cuda/graphs.py", line 186, in __exit__\n    self.cuda_graph.capture_end()\n  File "/opt/conda/lib/python3.11/site-packages/torch/cuda/graphs.py", line 84, in capture_end\n    super().capture_end()\nRuntimeError: CUDA error: operation failed due to a previous error during capture\nCUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.\nFor debugging consider passing CUDA_LAUNCH_BLOCKING=1\nCompile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.\n\n'}
+RuntimeError: CUDA error: operation failed due to a previous error during capture
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+
+evidence: /Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/runs/whole-20261107T144401.752483Z.json
+Stopping app - local entrypoint completed.
+✓ App completed. View run at 
+https://modal.com/apps/qingyang-lucas-fang/main/ap-v04RFbInLDsjd8UVzDzDJH

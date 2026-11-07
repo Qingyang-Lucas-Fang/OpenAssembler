@@ -1,0 +1,48 @@
+✓ Initialized. View run at 
+https://modal.com/apps/qingyang-lucas-fang/main/ap-eBlpUXyMc8sFnx2A3qHr6B
+Building image im-D6lDquEpES2T7Yw42K2rJd
+
+=> Step 0: FROM base
+
+=> Step 1: COPY . /
+Saving image...
+Image saved, took 1.32s
+
+Built image im-D6lDquEpES2T7Yw42K2rJd in 2.93s
+
+
+✓ Created objects.
+├── ✓ Uploaded /Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/campaign.py
+├── ✓ Uploaded /Users/lucasfang/Desktop/OpenAssembler/openassembler
+├── ✓ Uploaded 
+│   /Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/operator_worker.py
+├── ✓ Uploaded 
+│   /Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/tensor_suite.py
+├── ✓ Uploaded 
+│   /Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/whole_worker.py
+└── ✓ Created Function execute.
+
+==========
+== CUDA ==
+==========
+
+CUDA Version 12.8.0
+
+Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+
+This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+By pulling and using the container, you accept the terms and conditions of this license:
+https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+
+A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
+
+{'whole': 'relu_mlp_small', 'eligible': ['oa_legacy', 'oa_direct', 'oa_tensor_only', 'ptxas', 'ptxas_tensor_only', 'cuda_library'], 'training_ms': {'oa_legacy': 3.4414592742919923, 'oa_direct': 3.428761672973633, 'oa_tensor_only': 3.459686279296875, 'ptxas': 3.4314239501953123, 'ptxas_tensor_only': 3.503104019165039, 'cuda_library': 3.521126556396484}}
+{'whole': 'relu_mlp_wide', 'eligible': ['oa_legacy', 'oa_direct', 'oa_tensor_only', 'ptxas', 'ptxas_tensor_only'], 'training_ms': {'oa_legacy': 3.460300827026367, 'oa_direct': 3.5364864349365233, 'oa_tensor_only': 3.296051025390625, 'ptxas': 3.485491180419922, 'ptxas_tensor_only': 3.4484222412109373}}
+{'whole': 'silu_gated_mlp', 'eligible': ['oa_tensor_only', 'ptxas', 'ptxas_tensor_only'], 'training_ms': {'oa_tensor_only': 4.915814590454102, 'ptxas': 4.763647842407226, 'ptxas_tensor_only': 4.902912139892578}}
+{'whole': 'transformer_single', 'eligible': ['oa_tensor_only', 'ptxas', 'ptxas_tensor_only', 'cuda_library'], 'training_ms': {'oa_tensor_only': 9.794355010986328, 'ptxas': 9.671475219726563, 'ptxas_tensor_only': 9.313075256347656, 'cuda_library': 10.200678253173828}}
+{'whole': 'transformer_multihead', 'eligible': ['oa_tensor_only', 'ptxas', 'ptxas_tensor_only'], 'training_ms': {'oa_tensor_only': 24.767897033691405, 'ptxas': 24.680447387695313, 'ptxas_tensor_only': 25.20862731933594}}
+{'whole': 'transformer_long', 'eligible': ['oa_tensor_only', 'ptxas', 'ptxas_tensor_only'], 'training_ms': {'oa_tensor_only': 10.458930969238281, 'ptxas': 10.652467346191406, 'ptxas_tensor_only': 11.084185791015624}}
+evidence: /Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/runs/whole-20261107T143549.109468Z.json
+Stopping app - local entrypoint completed.
+✓ App completed. View run at 
+https://modal.com/apps/qingyang-lucas-fang/main/ap-eBlpUXyMc8sFnx2A3qHr6B

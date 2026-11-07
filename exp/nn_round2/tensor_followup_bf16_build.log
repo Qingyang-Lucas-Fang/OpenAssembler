@@ -1,0 +1,3 @@
+tensor build mlp_wide_forward_bf16: 3 native/ptxas methods
+tensor build tall_bf16: 3 native/ptxas methods
+/Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/tensor_followup_payload_20261107T144004.242308Z.json

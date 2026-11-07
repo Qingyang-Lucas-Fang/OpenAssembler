@@ -74,3 +74,9 @@ contract is being tested. Do not relax one after seeing a faster candidate.
 
 Other GELU definitions, backward kernels, dtypes and model fusion remain separate
 contracts; this example is not a complete activation-training package.
+
+
+A separate [stable tanh-GELU backward experiment](stable-gelu-backward.md)
+retains the failed direct-tanh derivative gates and validates a more stable
+exponential formulation. It remains experimental; it is not part of this
+implemented forward operator.

@@ -1,0 +1,23 @@
+exp/nn_round2/operator_standard_fma_build/compiled/cubin/standard_fma.cubin  (16 kernels, opt-level=opt)
+  op_softmax_backward_w512_c4_baseline: 149 instructions, regs=53
+  op_softmax_backward_w512_c4_fma: 134 instructions, regs=41
+  op_softmax_backward_w512_c8_baseline: 149 instructions, regs=53
+  op_softmax_backward_w512_c8_fma: 134 instructions, regs=41
+  op_rmsnorm_backward_w512_c4_baseline: 225 instructions, regs=58
+  op_rmsnorm_backward_w512_c4_fma: 194 instructions, regs=42
+  op_rmsnorm_backward_w512_c8_baseline: 225 instructions, regs=58
+  op_rmsnorm_backward_w512_c8_fma: 194 instructions, regs=42
+  op_softmax_backward_w1024_c4_baseline: 261 instructions, regs=101
+  op_softmax_backward_w1024_c4_fma: 230 instructions, regs=73
+  op_softmax_backward_w1024_c8_baseline: 261 instructions, regs=101
+  op_softmax_backward_w1024_c8_fma: 230 instructions, regs=73
+  op_rmsnorm_backward_w1024_c4_baseline: 385 instructions, regs=106
+  op_rmsnorm_backward_w1024_c4_fma: 322 instructions, regs=74
+  op_rmsnorm_backward_w1024_c8_baseline: 385 instructions, regs=106
+  op_rmsnorm_backward_w1024_c8_fma: 322 instructions, regs=74
+exp/nn_round2/operator_standard_fma_build/compiled/sass/standard_fma.sass  (SASS listing from nvdisasm)
+{
+  "kernels": 16,
+  "source_sha256": "dd9dba72f14629c74f7dc4461766d49f6c849e6fb13ba0e62ff2b7459d13afb8",
+  "payload": "/Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/operator_standard_fma_build/payload.json"
+}

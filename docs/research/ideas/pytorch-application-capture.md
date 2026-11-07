@@ -27,7 +27,10 @@ versions. Replay must match the saved PyTorch, CUDA, Python and capability.
 Native
 OpenAssembler compilation on the host separately requires Python 3.12+.
 Compilation can run locally with a compatible GPU/runtime or in the pinned
-Modal image. Dependencies are constrained so they cannot silently replace the
+Modal image, or over SSH on an existing compatible Linux A100 host. The same
+`--backend user@host` syntax works for compile, run and cnr; `run REPO` selects
+its saved application. The [workflow guide](../../REPOSITORY_WORKFLOW.md)
+documents required remote runtimes and source/build selection. Dependencies are constrained so they cannot silently replace the
 supported PyTorch runtime.
 
 With verification enabled, eager and compiled execution run in separate seeded

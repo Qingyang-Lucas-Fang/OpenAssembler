@@ -1,0 +1,47 @@
+✓ Initialized. View run at 
+https://modal.com/apps/qingyang-lucas-fang/main/ap-0z4z6sKvkGuJnFSXqIB9jD
+✓ Created objects.
+├── ✓ Uploaded 
+│   /Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/operator_fma_confirm_mo
+│   dal.py
+├── ✓ Uploaded /Users/lucasfang/Desktop/OpenAssembler/openassembler
+├── ✓ Uploaded 
+│   /Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/operator_worker.py
+├── ✓ Uploaded 
+│   /Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/operator_candidates.py
+└── ✓ Created Function execute.
+
+==========
+== CUDA ==
+==========
+
+CUDA Version 12.8.0
+
+Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+
+This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+By pulling and using the container, you accept the terms and conditions of this license:
+https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+
+A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
+
+{'operator': 'op_rmsnorm_backward_w513_c4_baseline', 'shape': (4096, 513), 'threads': 128, 'ptxas_over_oa': 0.5964391535926851}
+{'operator': 'op_rmsnorm_backward_w513_c8_fma', 'shape': (4096, 513), 'threads': 256, 'ptxas_over_oa': 0.8165374278636759}
+{'operator': 'op_rmsnorm_backward_w513_c4_fma', 'shape': (4096, 513), 'threads': 128, 'ptxas_over_oa': 0.8048780545516223}
+{'operator': 'op_softmax_backward_w513_c8_baseline', 'shape': (4096, 513), 'threads': 256, 'ptxas_over_oa': 0.6704900823920616}
+{'operator': 'op_softmax_backward_w513_c4_fma', 'shape': (4096, 513), 'threads': 128, 'ptxas_over_oa': 0.7790849603579201}
+{'operator': 'op_softmax_backward_w513_c4_baseline', 'shape': (4096, 513), 'threads': 128, 'ptxas_over_oa': 0.6260504358390448}
+{'operator': 'op_softmax_backward_w513_c8_fma', 'shape': (4096, 513), 'threads': 256, 'ptxas_over_oa': 0.872654196078052}
+{'operator': 'op_rmsnorm_backward_w513_c8_baseline', 'shape': (4096, 513), 'threads': 256, 'ptxas_over_oa': 0.6248813044618909}
+{'operator': 'op_rmsnorm_backward_w513_c8_baseline', 'shape': (4096, 513), 'threads': 256, 'ptxas_over_oa': 0.6236966863344192}
+{'operator': 'op_softmax_backward_w513_c8_fma', 'shape': (4096, 513), 'threads': 256, 'ptxas_over_oa': 0.8724831926361765}
+{'operator': 'op_softmax_backward_w513_c4_baseline', 'shape': (4096, 513), 'threads': 128, 'ptxas_over_oa': 0.6267087100203353}
+{'operator': 'op_softmax_backward_w513_c4_fma', 'shape': (4096, 513), 'threads': 128, 'ptxas_over_oa': 0.7767623774865537}
+{'operator': 'op_softmax_backward_w513_c8_baseline', 'shape': (4096, 513), 'threads': 256, 'ptxas_over_oa': 0.6481664759870611}
+{'operator': 'op_rmsnorm_backward_w513_c4_fma', 'shape': (4096, 513), 'threads': 128, 'ptxas_over_oa': 0.7680412626322255}
+{'operator': 'op_rmsnorm_backward_w513_c8_fma', 'shape': (4096, 513), 'threads': 256, 'ptxas_over_oa': 0.8482490025615146}
+{'operator': 'op_rmsnorm_backward_w513_c4_baseline', 'shape': (4096, 513), 'threads': 128, 'ptxas_over_oa': 0.57864075058267}
+evidence: /Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/runs/operator-fma-confirm-20261107T144005.532354Z.json
+Stopping app - local entrypoint completed.
+✓ App completed. View run at 
+https://modal.com/apps/qingyang-lucas-fang/main/ap-0z4z6sKvkGuJnFSXqIB9jD

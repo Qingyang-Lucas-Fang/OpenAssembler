@@ -1,0 +1,10 @@
+# Regenerable local build products; retained manifests and raw run JSON are tracked.
+operator_build/
+operator_candidate_build/
+operator_fma_build/
+operator_gelu_stable_build/
+operator_standard_fma_build/
+tensor_builds/
+tensor_followup_builds/
+whole_build/
+__pycache__/

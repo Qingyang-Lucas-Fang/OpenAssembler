@@ -1,0 +1,39 @@
+{
+  "schema": 1,
+  "phase": "whole",
+  "started_utc": "2026-11-07T14:38:44.026752+00:00",
+  "harness_sha256": {
+    "exp/nn_round2/operator_suite.py": "ca16861a97ac8a4fb3bcc423a95f16ac12eef089d995c2ff4f0472bd507094fc",
+    "exp/nn_round2/test_coverage.py": "842310e49f8e9714f05daac8cb3aa3bc9a516b16e43e26d18d23e9af5af7e57b",
+    "exp/nn_round2/tensor_suite.py": "79b4f7669f7a90ad5b0ba5aba5d97512d526232fd51b274bfa7e01523696ad7b",
+    "exp/nn_round2/test_whole_suite.py": "b892445c5c2b178415c8a076ced476a9caa91e46675234160ef8f6fcd6be2f2d",
+    "exp/nn_round2/counter_plan.py": "6826e631be26b3176daa88cae4079477a6d29a57d5467712ce265ec149d0a4fe",
+    "exp/nn_round2/test_counter_worker.py": "be7f08624223aeb645c812b07728f2aca2c9dbfc2558e523d5d43213a715062f",
+    "exp/nn_round2/whole_suite.py": "cc6c5ec081ad330f5739af91d86f297d73babd1ac50a0641328a2422e4b25d20",
+    "exp/nn_round2/test_tensor_followup.py": "54d2892a2187dfb13a6884f0bda8d46e7db21ba10053daea26ddf2f58ea8c0e0",
+    "exp/nn_round2/tensor_analyze.py": "bb7662013ef727307f95971874c7362f9bfb53152ab76dc2039ee0206b973b87",
+    "exp/nn_round2/whole_worker.py": "d119ea1c052e4ac0c99b7ec75578ca004d0b2c0411dcfc636609a7fdf4167c1a",
+    "exp/nn_round2/test_operator_gelu_stable.py": "230e27cedfe42c94a1177c22e5aaade867d141efe90328d7b589fd2968ab8d67",
+    "exp/nn_round2/campaign.py": "6b563acc870ded2c9a6d37ccc445b235306fe3735b8fa23cfa64fb568cbad5c9",
+    "exp/nn_round2/counter_worker.py": "a0025eaf818763939b1bdd97d8108fd9e9fa01d723466853859947bf90f1c8bc",
+    "exp/nn_round2/operator_candidates.py": "7091359135f89eee8a832f45603e4bd6d749191a14131aff8b939071a04afee8",
+    "exp/nn_round2/operator_worker.py": "0338e4191041404c1808f395ad9acc554b5eb24267653220f4dcf11ce2ca8d19",
+    "exp/nn_round2/tensor_followup_run.py": "47e5f15592109bb477b2c7783767373069898fdaa0510d93f0fafd36b96b5a6b",
+    "exp/nn_round2/test_operator_suite.py": "b49103dad3239d9c81b7d2b24893aaf746dca35826872d6079490b197baefb52",
+    "exp/nn_round2/test_operator_candidates.py": "fe9bea6c7df35d40d0ec5e85c40a7e50df1ad9689705605539689a63ec7fee1a",
+    "exp/nn_round2/tensor_followup.py": "46b046b7c0628409c0ed43fb04a5b26a94a64bf6e6b202b9004df44b04f8dce5",
+    "exp/nn_round2/operator_analysis.py": "b678b2f258c1140adb7c4fb58f9971b665699aeaa36fc5388c220320f6beb5df",
+    "exp/nn_round2/operator_gelu_stable.py": "8130396c6a42afa8b0e0002daa49654f12adfc6a5eda7eb8c73ed0a30de68e92",
+    "exp/nn_round2/operator_candidates_modal.py": "658fef534d936599b33ce225af6a9cd50ca9728d86470a0581ee865b62168d2a",
+    "exp/nn_round2/operator_gelu_stable_modal.py": "b2a7ca2f8ae4508723287fc340c9d6cd154968d462517c3498861e438bf423ef",
+    "exp/nn_round2/test_tensor_suite.py": "c21ae1494070c3517982d0ae885a6efcb09bd80510dc14219137b03fdc609b4f"
+  },
+  "payload_sha256": "857cf2582cf818e16846539527904dfd7448af4207a26d5ea7eebaa5e97b1687",
+  "options": {
+    "samples": 7,
+    "cache_experiment": true
+  },
+  "status": "failed",
+  "error": "RuntimeError: captures_underway.empty() INTERNAL ASSERT FAILED at \"/pytorch/c10/cuda/CUDACachingAllocator.cpp\":3089, please report a bug to PyTorch. ",
+  "finished_utc": "2026-11-07T14:39:03.563899+00:00"
+}

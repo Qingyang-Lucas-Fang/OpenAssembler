@@ -87,11 +87,11 @@ def test_cnr_rejects_invalid_application_run_options_before_capture(app_repo, op
     assert main(['cnr', str(app_repo), '--dry-run', *options]) == 1
 
 
-def test_standalone_compile_rejects_application_transport_flags(tmp_path, capsys):
+def test_standalone_compile_accepts_shared_transport_flags(tmp_path, capsys):
     src = tmp_path / 'k.ptx'
     src.write_text('.visible .entry k() { ret; }')
-    assert main(['compile', str(src), '--build-backend', 'modal']) == 1
-    assert 'application directory' in capsys.readouterr().err
+    assert main(['compile', str(src), '--build-backend', 'modal', '--dry-run']) == 0
+    assert 'bundle on modal' in capsys.readouterr().out
 
 
 @pytest.mark.parametrize('name', ['..', 'nested/out', 'x' * 81])

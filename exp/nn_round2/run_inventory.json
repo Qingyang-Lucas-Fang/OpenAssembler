@@ -1,0 +1,147 @@
+{
+  "schema": 1,
+  "all_jobs_finished": true,
+  "raw_records_unchanged": true,
+  "records": [
+    {
+      "path": "exp/nn_round2/runs/counters-20261107T143821.759059Z.json",
+      "raw_status": "completed",
+      "resolution": "completed",
+      "phase": "counters",
+      "sha256": "3d104988d40d75c7f382da292341526f0e7381c001e875476d0c5b1ce5030b50"
+    },
+    {
+      "path": "exp/nn_round2/runs/counters-20261107T144534.159647Z.json",
+      "raw_status": "completed",
+      "resolution": "completed",
+      "phase": "counters",
+      "sha256": "9910daf62f2b90f54359c1ca126ff10ff21ef7f74f79b9b4d2fb43735b0bb2cc"
+    },
+    {
+      "path": "exp/nn_round2/runs/operator-fma-20261107T143537.650425Z.json",
+      "raw_status": "completed",
+      "resolution": "completed",
+      "phase": "operator-local-fma",
+      "sha256": "c1b496eaaf9ed5bdbfd7df094e95d32feb8a7c2920b258b989df5aa8b602026e"
+    },
+    {
+      "path": "exp/nn_round2/runs/operator-fma-confirm-20261107T144005.532354Z.json",
+      "raw_status": "completed",
+      "resolution": "completed",
+      "phase": "operator-local-fma-independent-confirmation",
+      "sha256": "57c20d296e94aacd7f3bb7195cc0ca1f0088e27c2fcc3dd41d5821cabbf53b7d"
+    },
+    {
+      "path": "exp/nn_round2/runs/operator-gelu-stable-20261107T143841.822588Z.json",
+      "raw_status": "completed",
+      "resolution": "completed",
+      "phase": "operator-gelu-stable",
+      "sha256": "e3269b5aa316681d5d311a1d4e907f21db5a591517c2602032f5ccacfee593ee"
+    },
+    {
+      "path": "exp/nn_round2/runs/operator-standard-fma-20261107T144401.126097Z.json",
+      "raw_status": "completed",
+      "resolution": "completed",
+      "phase": "operator-standard-width-fma",
+      "sha256": "c49087fcb8fbbfb7c415170063948ee9080ab06919d5dccf2ee324ccfc0b2697"
+    },
+    {
+      "path": "exp/nn_round2/runs/operators-20261107T142953.979219Z.json",
+      "raw_status": "running",
+      "resolution": "interrupted-startup; process stopped; no returned GPU measurements",
+      "phase": "operators",
+      "sha256": "dbe848d051c6a7ddf40cf29f05399dc88155d59b97a04c233af7fab43f264630"
+    },
+    {
+      "path": "exp/nn_round2/runs/operators-20261107T143128.366417Z.json",
+      "raw_status": "completed",
+      "resolution": "completed",
+      "phase": "operators",
+      "sha256": "17f97a4f8944098a13dc0088e269797f44844682fb745276e817ec45b45029ed"
+    },
+    {
+      "path": "exp/nn_round2/runs/tensor-20261107T143201.758879Z.json",
+      "raw_status": "completed",
+      "resolution": "completed",
+      "phase": "tensor",
+      "sha256": "25305e8b9c9b6cdfbf39b60b7b8ac48501cdb1ad7d737aedee47663748392c15"
+    },
+    {
+      "path": "exp/nn_round2/runs/tensor-followup-20261107T143728.683644Z.json",
+      "raw_status": "failed",
+      "resolution": "failed",
+      "phase": "tensor_followup",
+      "sha256": "a9bda032bfb97cbfcc3b7d3279f7bd495db148848fd2bc12fcfd41752cd3bdd6"
+    },
+    {
+      "path": "exp/nn_round2/runs/tensor-followup-20261107T143807.885774Z.json",
+      "raw_status": "completed",
+      "resolution": "completed",
+      "phase": "tensor_followup",
+      "sha256": "e20353ab5f1adec03ec71e946e315379a9df847b820665053188505246bcd4e2"
+    },
+    {
+      "path": "exp/nn_round2/runs/tensor-followup-20261107T144047.961466Z.json",
+      "raw_status": "completed",
+      "resolution": "completed",
+      "phase": "tensor_followup",
+      "sha256": "09998f3919a0c59d01abe781d1711dfda0a7f9a3f81fb79d8d418b4caa552c6f"
+    },
+    {
+      "path": "exp/nn_round2/runs/whole-20261107T143246.737450Z.json",
+      "raw_status": "completed",
+      "resolution": "completed",
+      "phase": "whole",
+      "sha256": "cb1f6f7860608d23b52fa282110a43797b1192b2ab15283d90b5f7ba6ebc7437"
+    },
+    {
+      "path": "exp/nn_round2/runs/whole-20261107T143549.109468Z.json",
+      "raw_status": "completed",
+      "resolution": "completed",
+      "phase": "whole",
+      "sha256": "852d7372f9a60ecba29e2c62a5141da14b919847a500a47dffd33d8da889be60"
+    },
+    {
+      "path": "exp/nn_round2/runs/whole-20261107T143844.026614Z.json",
+      "raw_status": "failed",
+      "resolution": "failed",
+      "phase": "whole",
+      "sha256": "9a063218ec9374d6db0d7c884e0e3d325da1e45e5bea3dc7b1f6f288cd52f13f"
+    },
+    {
+      "path": "exp/nn_round2/runs/whole-20261107T144210.754688Z.json",
+      "raw_status": "completed",
+      "resolution": "completed",
+      "phase": "whole",
+      "sha256": "7f7ae174ce77b7aa23f1083e9a461e65cce88b803859ec563743213fabe1e998"
+    },
+    {
+      "path": "exp/nn_round2/runs/whole-20261107T144210.828388Z.json",
+      "raw_status": "completed",
+      "resolution": "partial or failed training capture; do not admit a complete cohort",
+      "phase": "whole",
+      "sha256": "7b3b3261c69bca00563a84d7e802ea6d05e7a0226c4a3ac38efdbc3f704f00af"
+    },
+    {
+      "path": "exp/nn_round2/runs/whole-20261107T144401.752483Z.json",
+      "raw_status": "completed",
+      "resolution": "partial or failed training capture; do not admit a complete cohort",
+      "phase": "whole",
+      "sha256": "8dcc0c7c94754fb5d8b8a6d830edbdb0f762749a07d1619a994647502a2e5be0"
+    },
+    {
+      "path": "exp/nn_round2/runs/whole-20261107T144634.060612Z.json",
+      "raw_status": "completed",
+      "resolution": "partial or failed training capture; do not admit a complete cohort",
+      "phase": "whole",
+      "sha256": "b4b2627442614713488a4212645a124de89f389943556d933fc0e44bb0b59548"
+    },
+    {
+      "path": "exp/nn_round2/runs/whole-20261107T144905.233755Z.json",
+      "raw_status": "completed",
+      "resolution": "partial or failed training capture; do not admit a complete cohort",
+      "phase": "whole",
+      "sha256": "3ab5a71c940621f279317e8773ceebc627f1f689d57c0e6b4ef971cab8765760"
+    }
+  ]
+}

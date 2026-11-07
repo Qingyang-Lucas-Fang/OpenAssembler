@@ -1,0 +1,4919 @@
+{
+  "schema": 1,
+  "created_utc": "2026-11-07T14:46:17.378460+00:00",
+  "evidence": "exp/nn_round2/runs/whole-20261107T143549.109468Z.json",
+  "evidence_sha256": "852d7372f9a60ecba29e2c62a5141da14b919847a500a47dffd33d8da889be60",
+  "runtime": {
+    "torch": "2.7.1+cu128",
+    "cuda": "12.8",
+    "name": "NVIDIA A100-SXM4-40GB",
+    "cc": "8.0",
+    "driver": 13030,
+    "sm_count": 108,
+    "clock_khz": 1410000,
+    "mem_bytes": 42429251584
+  },
+  "contract": "FP32 master params/normalization/activation/loss/AdamW; GEMM input rounding to FP16, FP32 accumulation/output and explicit straight-through backward. No dropout. Mask uses finite -1e4. Fixed resident data; no KV cache.",
+  "scope": "Native-routed experiments, not automatic whole-program compilation. oa_tensor_only shares Torch pointwise/reductions; oa_legacy/direct use native operators when present. Embedding/masks/loss/bias/affine/packing/clipping/optimizer are shared CUDA; cuda_library uses matched GemmEx and shared Torch operations. No Inductor attribution.",
+  "counts": {
+    "cases": 6,
+    "method_case_pairs": 36,
+    "initial_admitted": 24,
+    "training_admitted": 21,
+    "inference_admitted": 24,
+    "inference_graph_admitted": 24
+  },
+  "cache_counts": {
+    "method_case_pairs": 0,
+    "admitted": 0
+  },
+  "total_training_updates_per_timed_method": 52,
+  "admission_by_method": {
+    "cuda_library": {
+      "initial": 2,
+      "training": 1,
+      "inference": 2,
+      "inference_graph": 2
+    },
+    "oa_direct": {
+      "initial": 2,
+      "training": 1,
+      "inference": 2,
+      "inference_graph": 2
+    },
+    "oa_legacy": {
+      "initial": 2,
+      "training": 1,
+      "inference": 2,
+      "inference_graph": 2
+    },
+    "oa_tensor_only": {
+      "initial": 6,
+      "training": 6,
+      "inference": 6,
+      "inference_graph": 6
+    },
+    "ptxas": {
+      "initial": 6,
+      "training": 6,
+      "inference": 6,
+      "inference_graph": 6
+    },
+    "ptxas_tensor_only": {
+      "initial": 6,
+      "training": 6,
+      "inference": 6,
+      "inference_graph": 6
+    }
+  },
+  "cases": [
+    {
+      "case": {
+        "name": "relu_mlp_small",
+        "family": "mlp",
+        "tokens": 128,
+        "width": 128,
+        "hidden": 512,
+        "layers": 1,
+        "activation": "relu"
+      },
+      "status": "completed",
+      "methods": [
+        {
+          "method": "cuda_library",
+          "reference_method": "ptxas_tensor_only",
+          "reference_group": "shared_torch_surrounding",
+          "initial_admitted": true,
+          "training_admitted": true,
+          "inference_admitted": true,
+          "inference_graph_admitted": true,
+          "training_event_ms": 3.521126556396484,
+          "training_host_wall_ms": 3.528146000000021,
+          "inference_event_ms": 0.43438081741333007,
+          "inference_graph_ms": 0.04464640021324158,
+          "initial_failure": {
+            "tensors_failed": 0,
+            "by_category": {},
+            "details": []
+          },
+          "post_trajectory_failure": {
+            "tensors_failed": 0,
+            "by_category": {},
+            "details": []
+          },
+          "reference_over_method_training": 0.9948815991294873,
+          "reference_over_method_inference": 0.9773691038468538,
+          "reference_over_method_inference_graph": 1.2293578079635823,
+          "within_method_host_over_graph_inference": 9.729358141723104
+        },
+        {
+          "method": "oa_direct",
+          "reference_method": "ptxas",
+          "reference_group": "generated_native_operator_sources",
+          "initial_admitted": true,
+          "training_admitted": false,
+          "inference_admitted": true,
+          "inference_graph_admitted": true,
+          "training_event_ms": 3.428761672973633,
+          "training_host_wall_ms": 3.43702799999992,
+          "inference_event_ms": 0.4366335868835449,
+          "inference_graph_ms": 0.05427200198173523,
+          "initial_failure": {
+            "tensors_failed": 0,
+            "by_category": {},
+            "details": []
+          },
+          "post_trajectory_failure": {
+            "tensors_failed": 10,
+            "by_category": {
+              "gradient": 7,
+              "optimizer": 1,
+              "output": 1,
+              "parameter": 1
+            },
+            "details": [
+              {
+                "name": "gradient/clipped/blocks.0.fc1.bias",
+                "elements": 512,
+                "mismatched": 5,
+                "max_abs": 0.00014574459055438638,
+                "relative_l2": 0.013213740400442785
+              },
+              {
+                "name": "gradient/clipped/blocks.0.fc1.weight",
+                "elements": 65536,
+                "mismatched": 428,
+                "max_abs": 0.0003991416597273201,
+                "relative_l2": 0.013926730825260839
+              },
+              {
+                "name": "gradient/clipped/blocks.0.norm_weight",
+                "elements": 128,
+                "mismatched": 18,
+                "max_abs": 7.633969653397799e-05,
+                "relative_l2": 0.007696550165594943
+              },
+              {
+                "name": "gradient/input",
+                "elements": 16384,
+                "mismatched": 17,
+                "max_abs": 3.4160271752625704e-05,
+                "relative_l2": 0.009331119856805358
+              },
+              {
+                "name": "gradient/raw/blocks.0.fc1.bias",
+                "elements": 512,
+                "mismatched": 5,
+                "max_abs": 0.00014574459055438638,
+                "relative_l2": 0.013213740400442785
+              },
+              {
+                "name": "gradient/raw/blocks.0.fc1.weight",
+                "elements": 65536,
+                "mismatched": 428,
+                "max_abs": 0.0003991416597273201,
+                "relative_l2": 0.013926730825260839
+              },
+              {
+                "name": "gradient/raw/blocks.0.norm_weight",
+                "elements": 128,
+                "mismatched": 18,
+                "max_abs": 7.633969653397799e-05,
+                "relative_l2": 0.007696550165594943
+              },
+              {
+                "name": "optimizer/blocks.0.fc1.weight/exp_avg",
+                "elements": 65536,
+                "mismatched": 27,
+                "max_abs": 3.91795692848973e-05,
+                "relative_l2": 0.0017761151160110174
+              },
+              {
+                "name": "output/prediction",
+                "elements": 16384,
+                "mismatched": 679,
+                "max_abs": 0.000451505184173584,
+                "relative_l2": 8.277978655661475e-05
+              },
+              {
+                "name": "parameter/blocks.0.fc1.weight",
+                "elements": 65536,
+                "mismatched": 34,
+                "max_abs": 0.00024177134037017822,
+                "relative_l2": 2.8100938063412194e-05
+              }
+            ]
+          },
+          "exclusion_reason": "post_trajectory_full_state_gate",
+          "reference_over_method_training": null,
+          "reference_over_method_inference": 1.0661351531691505,
+          "reference_over_method_inference_graph": 0.8566037302762525,
+          "within_method_host_over_graph_inference": 8.045282483415486
+        },
+        {
+          "method": "oa_legacy",
+          "reference_method": "ptxas",
+          "reference_group": "generated_native_operator_sources",
+          "initial_admitted": true,
+          "training_admitted": false,
+          "inference_admitted": true,
+          "inference_graph_admitted": true,
+          "training_event_ms": 3.4414592742919923,
+          "training_host_wall_ms": 3.4484446000000446,
+          "inference_event_ms": 0.45998082160949705,
+          "inference_graph_ms": 0.05509120225906372,
+          "initial_failure": {
+            "tensors_failed": 0,
+            "by_category": {},
+            "details": []
+          },
+          "post_trajectory_failure": {
+            "tensors_failed": 10,
+            "by_category": {
+              "gradient": 7,
+              "optimizer": 1,
+              "output": 1,
+              "parameter": 1
+            },
+            "details": [
+              {
+                "name": "gradient/clipped/blocks.0.fc1.bias",
+                "elements": 512,
+                "mismatched": 5,
+                "max_abs": 0.00014574459055438638,
+                "relative_l2": 0.013213740400442785
+              },
+              {
+                "name": "gradient/clipped/blocks.0.fc1.weight",
+                "elements": 65536,
+                "mismatched": 428,
+                "max_abs": 0.0003991416597273201,
+                "relative_l2": 0.013926730825260839
+              },
+              {
+                "name": "gradient/clipped/blocks.0.norm_weight",
+                "elements": 128,
+                "mismatched": 18,
+                "max_abs": 7.633969653397799e-05,
+                "relative_l2": 0.007696550165594943
+              },
+              {
+                "name": "gradient/input",
+                "elements": 16384,
+                "mismatched": 17,
+                "max_abs": 3.4160271752625704e-05,
+                "relative_l2": 0.009331119856805358
+              },
+              {
+                "name": "gradient/raw/blocks.0.fc1.bias",
+                "elements": 512,
+                "mismatched": 5,
+                "max_abs": 0.00014574459055438638,
+                "relative_l2": 0.013213740400442785
+              },
+              {
+                "name": "gradient/raw/blocks.0.fc1.weight",
+                "elements": 65536,
+                "mismatched": 428,
+                "max_abs": 0.0003991416597273201,
+                "relative_l2": 0.013926730825260839
+              },
+              {
+                "name": "gradient/raw/blocks.0.norm_weight",
+                "elements": 128,
+                "mismatched": 18,
+                "max_abs": 7.633969653397799e-05,
+                "relative_l2": 0.007696550165594943
+              },
+              {
+                "name": "optimizer/blocks.0.fc1.weight/exp_avg",
+                "elements": 65536,
+                "mismatched": 27,
+                "max_abs": 3.91795692848973e-05,
+                "relative_l2": 0.0017761151160110174
+              },
+              {
+                "name": "output/prediction",
+                "elements": 16384,
+                "mismatched": 679,
+                "max_abs": 0.000451505184173584,
+                "relative_l2": 8.277978655661475e-05
+              },
+              {
+                "name": "parameter/blocks.0.fc1.weight",
+                "elements": 65536,
+                "mismatched": 34,
+                "max_abs": 0.00024177134037017822,
+                "relative_l2": 2.8100938063412194e-05
+              }
+            ]
+          },
+          "exclusion_reason": "post_trajectory_full_state_gate",
+          "reference_over_method_training": null,
+          "reference_over_method_inference": 1.0120213586341238,
+          "reference_over_method_inference_graph": 0.8438661245492424,
+          "within_method_host_over_graph_inference": 8.349442429055358
+        },
+        {
+          "method": "oa_tensor_only",
+          "reference_method": "ptxas_tensor_only",
+          "reference_group": "shared_torch_surrounding",
+          "initial_admitted": true,
+          "training_admitted": true,
+          "inference_admitted": true,
+          "inference_graph_admitted": true,
+          "training_event_ms": 3.459686279296875,
+          "training_host_wall_ms": 3.4662873999998567,
+          "inference_event_ms": 0.42414078712463377,
+          "inference_graph_ms": 0.06287360191345215,
+          "initial_failure": {
+            "tensors_failed": 0,
+            "by_category": {},
+            "details": []
+          },
+          "post_trajectory_failure": {
+            "tensors_failed": 0,
+            "by_category": {},
+            "details": []
+          },
+          "reference_over_method_training": 1.0125496176135913,
+          "reference_over_method_inference": 1.0009657244276677,
+          "reference_over_method_inference_graph": 0.8729641539412463,
+          "within_method_host_over_graph_inference": 6.745927928679501
+        },
+        {
+          "method": "ptxas",
+          "reference_method": "ptxas",
+          "reference_group": "generated_native_operator_sources",
+          "initial_admitted": true,
+          "training_admitted": true,
+          "inference_admitted": true,
+          "inference_graph_admitted": true,
+          "training_event_ms": 3.4314239501953123,
+          "training_host_wall_ms": 3.4386601999999655,
+          "inference_event_ms": 0.4655104160308838,
+          "inference_graph_ms": 0.046489599347114566,
+          "initial_failure": {
+            "tensors_failed": 0,
+            "by_category": {},
+            "details": []
+          },
+          "post_trajectory_failure": {
+            "tensors_failed": 0,
+            "by_category": {},
+            "details": []
+          },
+          "reference_over_method_training": 1.0,
+          "reference_over_method_inference": 1.0,
+          "reference_over_method_inference_graph": 1.0,
+          "within_method_host_over_graph_inference": 10.013216344480634
+        },
+        {
+          "method": "ptxas_tensor_only",
+          "reference_method": "ptxas_tensor_only",
+          "reference_group": "shared_torch_surrounding",
+          "initial_admitted": true,
+          "training_admitted": true,
+          "inference_admitted": true,
+          "inference_graph_admitted": true,
+          "training_event_ms": 3.503104019165039,
+          "training_host_wall_ms": 3.509844000000051,
+          "inference_event_ms": 0.42455039024353025,
+          "inference_graph_ms": 0.05488640069961548,
+          "initial_failure": {
+            "tensors_failed": 0,
+            "by_category": {},
+            "details": []
+          },
+          "post_trajectory_failure": {
+            "tensors_failed": 0,
+            "by_category": {},
+            "details": []
+          },
+          "reference_over_method_training": 1.0,
+          "reference_over_method_inference": 1.0,
+          "reference_over_method_inference_graph": 1.0,
+          "within_method_host_over_graph_inference": 7.735074350512194
+        }
+      ],
+      "comparisons": [
+        {
+          "candidate": "oa_legacy",
+          "baseline": "ptxas",
+          "training_admitted": false,
+          "training_baseline_over_candidate": null,
+          "inference_admitted": true,
+          "inference_baseline_over_candidate": 1.0120213586341238,
+          "inference_graph_admitted": true,
+          "inference_graph_baseline_over_candidate": 0.8438661245492424
+        },
+        {
+          "candidate": "oa_direct",
+          "baseline": "ptxas",
+          "training_admitted": false,
+          "training_baseline_over_candidate": null,
+          "inference_admitted": true,
+          "inference_baseline_over_candidate": 1.0661351531691505,
+          "inference_graph_admitted": true,
+          "inference_graph_baseline_over_candidate": 0.8566037302762525
+        },
+        {
+          "candidate": "oa_tensor_only",
+          "baseline": "ptxas_tensor_only",
+          "training_admitted": true,
+          "training_baseline_over_candidate": 1.0125496176135913,
+          "inference_admitted": true,
+          "inference_baseline_over_candidate": 1.0009657244276677,
+          "inference_graph_admitted": true,
+          "inference_graph_baseline_over_candidate": 0.8729641539412463
+        },
+        {
+          "candidate": "oa_tensor_only",
+          "baseline": "cuda_library",
+          "training_admitted": true,
+          "training_baseline_over_candidate": 1.0177589157338556,
+          "inference_admitted": true,
+          "inference_baseline_over_candidate": 1.0241429982674297,
+          "inference_graph_admitted": true,
+          "inference_graph_baseline_over_candidate": 0.7100977016506707
+        }
+      ],
+      "stage_diagnostics": {
+        "oa_legacy": {
+          "training_admitted": false,
+          "largest_nested_spans": [
+            {
+              "name": "backward",
+              "median_ms": 1.9374079704284668,
+              "observed_calls": 1
+            },
+            {
+              "name": "optimizer/adamw",
+              "median_ms": 1.6353280544281006,
+              "observed_calls": 1
+            },
+            {
+              "name": "mlp/residual",
+              "median_ms": 0.9226239919662476,
+              "observed_calls": 1
+            },
+            {
+              "name": "block0/fc2/pack_forward",
+              "median_ms": 0.6768640279769897,
+              "observed_calls": 1
+            },
+            {
+              "name": "optimizer/clip",
+              "median_ms": 0.47411200404167175,
+              "observed_calls": 1
+            },
+            {
+              "name": "optimizer/zero_grad",
+              "median_ms": 0.21913599967956543,
+              "observed_calls": 1
+            },
+            {
+              "name": "block0/fc2/pack_backward",
+              "median_ms": 0.14336000382900238,
+              "observed_calls": 1
+            },
+            {
+              "name": "loss",
+              "median_ms": 0.10444799810647964,
+              "observed_calls": 1
+            },
+            {
+              "name": "block0/fc1/pack_backward",
+              "median_ms": 0.09113600105047226,
+              "observed_calls": 1
+            },
+            {
+              "name": "native/relu",
+              "median_ms": 0.09011200070381165,
+              "observed_calls": 1
+            },
+            {
+              "name": "block0/fc2/gemm_dx",
+              "median_ms": 0.08396799862384796,
+              "observed_calls": 1
+            },
+            {
+              "name": "native/relu_backward",
+              "median_ms": 0.07884799689054489,
+              "observed_calls": 1
+            }
+          ],
+          "semantic_call_counts": {
+            "optimizer/zero_grad": 1,
+            "native/rmsnorm": 1,
+            "block0/fc1/pack_forward": 1,
+            "block0/fc1/gemm_forward": 1,
+            "block0/fc1/bias": 1,
+            "native/relu": 1,
+            "mlp/residual": 1,
+            "block0/fc2/pack_forward": 1,
+            "block0/fc2/gemm_forward": 1,
+            "block0/fc2/bias": 1,
+            "loss": 1,
+            "backward": 1,
+            "block0/fc2/pack_backward": 1,
+            "block0/fc2/gemm_dx": 1,
+            "block0/fc2/gemm_dw": 1,
+            "native/relu_backward": 1,
+            "block0/fc1/pack_backward": 1,
+            "block0/fc1/gemm_dx": 1,
+            "block0/fc1/gemm_dw": 1,
+            "native/rmsnorm_backward": 1,
+            "optimizer/clip": 1,
+            "optimizer/adamw": 1
+          },
+          "scope": "One separately instrumented diagnostic step. Nested/overlapping spans, host enqueue gaps and event overhead remain; do not sum. Semantic call counts are not actual CUDA kernel launch counts."
+        },
+        "oa_direct": {
+          "training_admitted": false,
+          "largest_nested_spans": [
+            {
+              "name": "backward",
+              "median_ms": 1.5605759620666504,
+              "observed_calls": 1
+            },
+            {
+              "name": "optimizer/adamw",
+              "median_ms": 1.4837759733200073,
+              "observed_calls": 1
+            },
+            {
+              "name": "optimizer/clip",
+              "median_ms": 0.4055039882659912,
+              "observed_calls": 1
+            },
+            {
+              "name": "mlp/residual",
+              "median_ms": 0.2836480140686035,
+              "observed_calls": 1
+            },
+            {
+              "name": "optimizer/zero_grad",
+              "median_ms": 0.1812479943037033,
+              "observed_calls": 1
+            },
+            {
+              "name": "block0/fc2/gemm_dw",
+              "median_ms": 0.13516800105571747,
+              "observed_calls": 1
+            },
+            {
+              "name": "loss",
+              "median_ms": 0.10342399775981903,
+              "observed_calls": 1
+            },
+            {
+              "name": "block0/fc1/gemm_dw",
+              "median_ms": 0.1013759970664978,
+              "observed_calls": 1
+            },
+            {
+              "name": "block0/fc2/pack_backward",
+              "median_ms": 0.09932799637317657,
+              "observed_calls": 1
+            },
+            {
+              "name": "block0/fc1/pack_backward",
+              "median_ms": 0.08908800035715103,
+              "observed_calls": 1
+            },
+            {
+              "name": "native/rmsnorm",
+              "median_ms": 0.08499199897050858,
+              "observed_calls": 1
+            },
+            {
+              "name": "native/relu",
+              "median_ms": 0.08396799862384796,
+              "observed_calls": 1
+            }
+          ],
+          "semantic_call_counts": {
+            "optimizer/zero_grad": 1,
+            "native/rmsnorm": 1,
+            "block0/fc1/pack_forward": 1,
+            "block0/fc1/gemm_forward": 1,
+            "block0/fc1/bias": 1,
+            "native/relu": 1,
+            "mlp/residual": 1,
+            "block0/fc2/pack_forward": 1,
+            "block0/fc2/gemm_forward": 1,
+            "block0/fc2/bias": 1,
+            "loss": 1,
+            "backward": 1,
+            "block0/fc2/pack_backward": 1,
+            "block0/fc2/gemm_dx": 1,
+            "block0/fc2/gemm_dw": 1,
+            "native/relu_backward": 1,
+            "block0/fc1/pack_backward": 1,
+            "block0/fc1/gemm_dx": 1,
+            "block0/fc1/gemm_dw": 1,
+            "native/rmsnorm_backward": 1,
+            "optimizer/clip": 1,
+            "optimizer/adamw": 1
+          },
+          "scope": "One separately instrumented diagnostic step. Nested/overlapping spans, host enqueue gaps and event overhead remain; do not sum. Semantic call counts are not actual CUDA kernel launch counts."
+        },
+        "oa_tensor_only": {
+          "training_admitted": true,
+          "largest_nested_spans": [
+            {
+              "name": "backward",
+              "median_ms": 1.5257600545883179,
+              "observed_calls": 1
+            },
+            {
+              "name": "optimizer/adamw",
+              "median_ms": 1.418239951133728,
+              "observed_calls": 1
+            },
+            {
+              "name": "optimizer/clip",
+              "median_ms": 0.34406399726867676,
+              "observed_calls": 1
+            },
+            {
+              "name": "mlp/residual",
+              "median_ms": 0.2611199915409088,
+              "observed_calls": 1
+            },
+            {
+              "name": "optimizer/zero_grad",
+              "median_ms": 0.17612800002098083,
+              "observed_calls": 1
+            },
+            {
+              "name": "shared_cuda/rmsnorm_backward",
+              "median_ms": 0.16281600296497345,
+              "observed_calls": 1
+            },
+            {
+              "name": "loss",
+              "median_ms": 0.15052799880504608,
+              "observed_calls": 1
+            },
+            {
+              "name": "shared_cuda/rmsnorm",
+              "median_ms": 0.1228799968957901,
+              "observed_calls": 1
+            },
+            {
+              "name": "shared_cuda/relu_backward",
+              "median_ms": 0.09932799637317657,
+              "observed_calls": 1
+            },
+            {
+              "name": "block0/fc2/pack_backward",
+              "median_ms": 0.09011200070381165,
+              "observed_calls": 1
+            },
+            {
+              "name": "block0/fc1/pack_backward",
+              "median_ms": 0.08396799862384796,
+              "observed_calls": 1
+            },
+            {
+              "name": "block0/fc1/gemm_dx",
+              "median_ms": 0.05734400078654289,
+              "observed_calls": 1
+            }
+          ],
+          "semantic_call_counts": {
+            "optimizer/zero_grad": 1,
+            "shared_cuda/rmsnorm": 1,
+            "block0/fc1/pack_forward": 1,
+            "block0/fc1/gemm_forward": 1,
+            "block0/fc1/bias": 1,
+            "shared_cuda/relu": 1,
+            "mlp/residual": 1,
+            "block0/fc2/pack_forward": 1,
+            "block0/fc2/gemm_forward": 1,
+            "block0/fc2/bias": 1,
+            "loss": 1,
+            "backward": 1,
+            "block0/fc2/pack_backward": 1,
+            "block0/fc2/gemm_dx": 1,
+            "block0/fc2/gemm_dw": 1,
+            "shared_cuda/relu_backward": 1,
+            "block0/fc1/pack_backward": 1,
+            "block0/fc1/gemm_dx": 1,
+            "block0/fc1/gemm_dw": 1,
+            "shared_cuda/rmsnorm_backward": 1,
+            "optimizer/clip": 1,
+            "optimizer/adamw": 1
+          },
+          "scope": "One separately instrumented diagnostic step. Nested/overlapping spans, host enqueue gaps and event overhead remain; do not sum. Semantic call counts are not actual CUDA kernel launch counts."
+        },
+        "ptxas": {
+          "training_admitted": true,
+          "largest_nested_spans": [
+            {
+              "name": "backward",
+              "median_ms": 1.5800319910049438,
+              "observed_calls": 1
+            },
+            {
+              "name": "optimizer/adamw",
+              "median_ms": 1.4510079622268677,
+              "observed_calls": 1
+            },
+            {
+              "name": "optimizer/clip",
+              "median_ms": 0.33689600229263306,
+              "observed_calls": 1
+            },
+            {
+              "name": "mlp/residual",
+              "median_ms": 0.25600001215934753,
+              "observed_calls": 1
+            },
+            {
+              "name": "block0/fc1/gemm_dw",
+              "median_ms": 0.18432000279426575,
+              "observed_calls": 1
+            },
+            {
+              "name": "optimizer/zero_grad",
+              "median_ms": 0.1382399946451187,
+              "observed_calls": 1
+            },
+            {
+              "name": "block0/fc2/pack_backward",
+              "median_ms": 0.11366400122642517,
+              "observed_calls": 1
+            },
+            {
+              "name": "native/rmsnorm_backward",
+              "median_ms": 0.10956799983978271,
+              "observed_calls": 1
+            },
+            {
+              "name": "block0/fc1/pack_backward",
+              "median_ms": 0.0870399996638298,
+              "observed_calls": 1
+            },
+            {
+              "name": "native/rmsnorm",
+              "median_ms": 0.07782399654388428,
+              "observed_calls": 1
+            },
+            {
+              "name": "loss",
+              "median_ms": 0.07065600156784058,
+              "observed_calls": 1
+            },
+            {
+              "name": "native/relu_backward",
+              "median_ms": 0.06860800087451935,
+              "observed_calls": 1
+            }
+          ],
+          "semantic_call_counts": {
+            "optimizer/zero_grad": 1,
+            "native/rmsnorm": 1,
+            "block0/fc1/pack_forward": 1,
+            "block0/fc1/gemm_forward": 1,
+            "block0/fc1/bias": 1,
+            "native/relu": 1,
+            "mlp/residual": 1,
+            "block0/fc2/pack_forward": 1,
+            "block0/fc2/gemm_forward": 1,
+            "block0/fc2/bias": 1,
+            "loss": 1,
+            "backward": 1,
+            "block0/fc2/pack_backward": 1,
+            "block0/fc2/gemm_dx": 1,
+            "block0/fc2/gemm_dw": 1,
+            "native/relu_backward": 1,
+            "block0/fc1/pack_backward": 1,
+            "block0/fc1/gemm_dx": 1,
+            "block0/fc1/gemm_dw": 1,
+            "native/rmsnorm_backward": 1,
+            "optimizer/clip": 1,
+            "optimizer/adamw": 1
+          },
+          "scope": "One separately instrumented diagnostic step. Nested/overlapping spans, host enqueue gaps and event overhead remain; do not sum. Semantic call counts are not actual CUDA kernel launch counts."
+        },
+        "ptxas_tensor_only": {
+          "training_admitted": true,
+          "largest_nested_spans": [
+            {
+              "name": "backward",
+              "median_ms": 1.4950400590896606,
+              "observed_calls": 1
+            },
+            {
+              "name": "optimizer/adamw",
+              "median_ms": 1.3967360258102417,
+              "observed_calls": 1
+            },
+            {
+              "name": "optimizer/clip",
+              "median_ms": 0.34406399726867676,
+              "observed_calls": 1
+            },
+            {
+              "name": "mlp/residual",
+              "median_ms": 0.26419198513031006,
+              "observed_calls": 1
+            },
+            {
+              "name": "shared_cuda/rmsnorm_backward",
+              "median_ms": 0.158720001578331,
+              "observed_calls": 1
+            },
+            {
+              "name": "optimizer/zero_grad",
+              "median_ms": 0.13209599256515503,
+              "observed_calls": 1
+            },
+            {
+              "name": "shared_cuda/relu_backward",
+              "median_ms": 0.11059200018644333,
+              "observed_calls": 1
+            },
+            {
+              "name": "shared_cuda/rmsnorm",
+              "median_ms": 0.10547199845314026,
+              "observed_calls": 1
+            },
+            {
+              "name": "block0/fc2/gemm_dx",
+              "median_ms": 0.09728000313043594,
+              "observed_calls": 1
+            },
+            {
+              "name": "block0/fc2/pack_backward",
+              "median_ms": 0.08908800035715103,
+              "observed_calls": 1
+            },
+            {
+              "name": "block0/fc1/pack_backward",
+              "median_ms": 0.08499199897050858,
+              "observed_calls": 1
+            },
+            {
+              "name": "loss",
+              "median_ms": 0.06963200122117996,
+              "observed_calls": 1
+            }
+          ],
+          "semantic_call_counts": {
+            "optimizer/zero_grad": 1,
+            "shared_cuda/rmsnorm": 1,
+            "block0/fc1/pack_forward": 1,
+            "block0/fc1/gemm_forward": 1,
+            "block0/fc1/bias": 1,
+            "shared_cuda/relu": 1,
+            "mlp/residual": 1,
+            "block0/fc2/pack_forward": 1,
+            "block0/fc2/gemm_forward": 1,
+            "block0/fc2/bias": 1,
+            "loss": 1,
+            "backward": 1,
+            "block0/fc2/pack_backward": 1,
+            "block0/fc2/gemm_dx": 1,
+            "block0/fc2/gemm_dw": 1,
+            "shared_cuda/relu_backward": 1,
+            "block0/fc1/pack_backward": 1,
+            "block0/fc1/gemm_dx": 1,
+            "block0/fc1/gemm_dw": 1,
+            "shared_cuda/rmsnorm_backward": 1,
+            "optimizer/clip": 1,
+            "optimizer/adamw": 1
+          },
+          "scope": "One separately instrumented diagnostic step. Nested/overlapping spans, host enqueue gaps and event overhead remain; do not sum. Semantic call counts are not actual CUDA kernel launch counts."
+        },
+        "cuda_library": {
+          "training_admitted": true,
+          "largest_nested_spans": [
+            {
+              "name": "backward",
+              "median_ms": 2.12992000579834,
+              "observed_calls": 1
+            },
+            {
+              "name": "optimizer/adamw",
+              "median_ms": 1.4407680034637451,
+              "observed_calls": 1
+            },
+            {
+              "name": "optimizer/clip",
+              "median_ms": 0.4136959910392761,
+              "observed_calls": 1
+            },
+            {
+              "name": "mlp/residual",
+              "median_ms": 0.2611199915409088,
+              "observed_calls": 1
+            },
+            {
+              "name": "block0/fc2/pack_backward",
+              "median_ms": 0.22732800245285034,
+              "observed_calls": 1
+            },
+            {
+              "name": "shared_cuda/rmsnorm_backward",
+              "median_ms": 0.187391996383667,
+              "observed_calls": 1
+            },
+            {
+              "name": "shared_cuda/relu_backward",
+              "median_ms": 0.15769599378108978,
+              "observed_calls": 1
+            },
+            {
+              "name": "optimizer/zero_grad",
+              "median_ms": 0.131071999669075,
+              "observed_calls": 1
+            },
+            {
+              "name": "shared_cuda/rmsnorm",
+              "median_ms": 0.10444799810647964,
+              "observed_calls": 1
+            },
+            {
+              "name": "block0/fc1/pack_backward",
+              "median_ms": 0.09830400347709656,
+              "observed_calls": 1
+            },
+            {
+              "name": "block0/fc1/gemm_forward",
+              "median_ms": 0.0942080020904541,
+              "observed_calls": 1
+            },
+            {
+              "name": "block0/fc2/gemm_dx",
+              "median_ms": 0.08601599931716919,
+              "observed_calls": 1
+            }
+          ],
+          "semantic_call_counts": {
+            "optimizer/zero_grad": 1,
+            "shared_cuda/rmsnorm": 1,
+            "block0/fc1/pack_forward": 1,
+            "block0/fc1/gemm_forward": 1,
+            "block0/fc1/bias": 1,
+            "shared_cuda/relu": 1,
+            "mlp/residual": 1,
+            "block0/fc2/pack_forward": 1,
+            "block0/fc2/gemm_forward": 1,
+            "block0/fc2/bias": 1,
+            "loss": 1,
+            "backward": 1,
+            "block0/fc2/pack_backward": 1,
+            "block0/fc2/gemm_dx": 1,
+            "block0/fc2/gemm_dw": 1,
+            "shared_cuda/relu_backward": 1,
+            "block0/fc1/pack_backward": 1,
+            "block0/fc1/gemm_dx": 1,
+            "block0/fc1/gemm_dw": 1,
+            "shared_cuda/rmsnorm_backward": 1,
+            "optimizer/clip": 1,
+            "optimizer/adamw": 1
+          },
+          "scope": "One separately instrumented diagnostic step. Nested/overlapping spans, host enqueue gaps and event overhead remain; do not sum. Semantic call counts are not actual CUDA kernel launch counts."
+        }
+      },
+      "initial_method_pairs": 6,
+      "training_method_pairs": 4,
+      "inference_method_pairs": 6,
+      "inference_graph_method_pairs": 6,
+      "inference_weight_cache_summary": []
+    },
+    {
+      "case": {
+        "name": "relu_mlp_wide",
+        "family": "mlp",
+        "tokens": 512,
+        "width": 512,
+        "hidden": 2048,
+        "layers": 1,
+        "activation": "relu"
+      },
+      "status": "completed",
+      "methods": [
+        {
+          "method": "cuda_library",
+          "reference_method": "ptxas_tensor_only",
+          "reference_group": "shared_torch_surrounding",
+          "initial_admitted": false,
+          "training_admitted": false,
+          "inference_admitted": false,
+          "inference_graph_admitted": false,
+          "training_event_ms": null,
+          "training_host_wall_ms": null,
+          "inference_event_ms": null,
+          "inference_graph_ms": null,
+          "initial_failure": {
+            "tensors_failed": 5,
+            "by_category": {
+              "gradient": 2,
+              "output": 1,
+              "parameter": 2
+            },
+            "details": [
+              {
+                "name": "gradient/clipped/blocks.0.fc1.weight",
+                "elements": 1048576,
+                "mismatched": 1,
+                "max_abs": 2.1992007532389835e-05,
+                "relative_l2": 0.00336258097427743
+              },
+              {
+                "name": "gradient/raw/blocks.0.fc1.weight",
+                "elements": 1048576,
+                "mismatched": 1,
+                "max_abs": 2.1992007532389835e-05,
+                "relative_l2": 0.00336258097427743
+              },
+              {
+                "name": "output/prediction",
+                "elements": 262144,
+                "mismatched": 12149,
+                "max_abs": 0.0007119178771972656,
+                "relative_l2": 8.41579990977557e-05
+              },
+              {
+                "name": "parameter/blocks.0.fc1.weight",
+                "elements": 1048576,
+                "mismatched": 692,
+                "max_abs": 0.00047910958528518677,
+                "relative_l2": 6.398425942626082e-05
+              },
+              {
+                "name": "parameter/blocks.0.fc2.weight",
+                "elements": 1048576,
+                "mismatched": 16,
+                "max_abs": 0.00017714127898216248,
+                "relative_l2": 2.0700760347888033e-05
+              }
+            ]
+          },
+          "post_trajectory_failure": {
+            "tensors_failed": 0,
+            "by_category": {},
+            "details": []
+          },
+          "exclusion_reason": "initial_full_state_or_guard_gate",
+          "reference_over_method_training": null,
+          "reference_over_method_inference": null,
+          "reference_over_method_inference_graph": null,
+          "within_method_host_over_graph_inference": null
+        },
+        {
+          "method": "oa_direct",
+          "reference_method": "ptxas",
+          "reference_group": "generated_native_operator_sources",
+          "initial_admitted": true,
+          "training_admitted": true,
+          "inference_admitted": true,
+          "inference_graph_admitted": true,
+          "training_event_ms": 3.5364864349365233,
+          "training_host_wall_ms": 3.544023599999946,
+          "inference_event_ms": 0.4788224220275879,
+          "inference_graph_ms": 0.13905919790267945,
+          "initial_failure": {
+            "tensors_failed": 0,
+            "by_category": {},
+            "details": []
+          },
+          "post_trajectory_failure": {
+            "tensors_failed": 0,
+            "by_category": {},
+            "details": []
+          },
+          "reference_over_method_training": 0.985580248799253,
+          "reference_over_method_inference": 0.9901624576239285,
+          "reference_over_method_inference_graph": 0.8497791409286359,
+          "within_method_host_over_graph_inference": 3.4432991794091294
+        },
+        {
+          "method": "oa_legacy",
+          "reference_method": "ptxas",
+          "reference_group": "generated_native_operator_sources",
+          "initial_admitted": true,
+          "training_admitted": true,
+          "inference_admitted": true,
+          "inference_graph_admitted": true,
+          "training_event_ms": 3.460300827026367,
+          "training_host_wall_ms": 3.4669305999997846,
+          "inference_event_ms": 0.47656960487365724,
+          "inference_graph_ms": 0.1439743995666504,
+          "initial_failure": {
+            "tensors_failed": 0,
+            "by_category": {},
+            "details": []
+          },
+          "post_trajectory_failure": {
+            "tensors_failed": 0,
+            "by_category": {},
+            "details": []
+          },
+          "reference_over_method_training": 1.0072798160196963,
+          "reference_over_method_inference": 0.9948431064670387,
+          "reference_over_method_inference_graph": 0.8207681788404305,
+          "within_method_host_over_graph_inference": 3.310099617071421
+        },
+        {
+          "method": "oa_tensor_only",
+          "reference_method": "ptxas_tensor_only",
+          "reference_group": "shared_torch_surrounding",
+          "initial_admitted": true,
+          "training_admitted": true,
+          "inference_admitted": true,
+          "inference_graph_admitted": true,
+          "training_event_ms": 3.296051025390625,
+          "training_host_wall_ms": 3.303882799999869,
+          "inference_event_ms": 0.4374527931213379,
+          "inference_graph_ms": 0.13312000036239624,
+          "initial_failure": {
+            "tensors_failed": 0,
+            "by_category": {},
+            "details": []
+          },
+          "post_trajectory_failure": {
+            "tensors_failed": 0,
+            "by_category": {},
+            "details": []
+          },
+          "reference_over_method_training": 1.0462284153511412,
+          "reference_over_method_inference": 0.9892322365803543,
+          "reference_over_method_inference_graph": 0.8461538392653656,
+          "within_method_host_over_graph_inference": 3.2861537855352174
+        },
+        {
+          "method": "ptxas",
+          "reference_method": "ptxas",
+          "reference_group": "generated_native_operator_sources",
+          "initial_admitted": true,
+          "training_admitted": true,
+          "inference_admitted": true,
+          "inference_graph_admitted": true,
+          "training_event_ms": 3.485491180419922,
+          "training_host_wall_ms": 3.4962024000002145,
+          "inference_event_ms": 0.47411198616027833,
+          "inference_graph_ms": 0.11816960573196411,
+          "initial_failure": {
+            "tensors_failed": 0,
+            "by_category": {},
+            "details": []
+          },
+          "post_trajectory_failure": {
+            "tensors_failed": 0,
+            "by_category": {},
+            "details": []
+          },
+          "reference_over_method_training": 1.0,
+          "reference_over_method_inference": 1.0,
+          "reference_over_method_inference_graph": 1.0,
+          "within_method_host_over_graph_inference": 4.012131404040338
+        },
+        {
+          "method": "ptxas_tensor_only",
+          "reference_method": "ptxas_tensor_only",
+          "reference_group": "shared_torch_surrounding",
+          "initial_admitted": true,
+          "training_admitted": true,
+          "inference_admitted": true,
+          "inference_graph_admitted": true,
+          "training_event_ms": 3.4484222412109373,
+          "training_host_wall_ms": 3.4548065999999267,
+          "inference_event_ms": 0.43274240493774413,
+          "inference_graph_ms": 0.11263999938964844,
+          "initial_failure": {
+            "tensors_failed": 0,
+            "by_category": {},
+            "details": []
+          },
+          "post_trajectory_failure": {
+            "tensors_failed": 0,
+            "by_category": {},
+            "details": []
+          },
+          "reference_over_method_training": 1.0,
+          "reference_over_method_inference": 1.0,
+          "reference_over_method_inference_graph": 1.0,
+          "within_method_host_over_graph_inference": 3.8418182464719806
+        }
+      ],
+      "comparisons": [
+        {
+          "candidate": "oa_legacy",
+          "baseline": "ptxas",
+          "training_admitted": true,
+          "training_baseline_over_candidate": 1.0072798160196963,
+          "inference_admitted": true,
+          "inference_baseline_over_candidate": 0.9948431064670387,
+          "inference_graph_admitted": true,
+          "inference_graph_baseline_over_candidate": 0.8207681788404305
+        },
+        {
+          "candidate": "oa_direct",
+          "baseline": "ptxas",
+          "training_admitted": true,
+          "training_baseline_over_candidate": 0.985580248799253,
+          "inference_admitted": true,
+          "inference_baseline_over_candidate": 0.9901624576239285,
+          "inference_graph_admitted": true,
+          "inference_graph_baseline_over_candidate": 0.8497791409286359
+        },
+        {
+          "candidate": "oa_tensor_only",
+          "baseline": "ptxas_tensor_only",
+          "training_admitted": true,
+          "training_baseline_over_candidate": 1.0462284153511412,
+          "inference_admitted": true,
+          "inference_baseline_over_candidate": 0.9892322365803543,
+          "inference_graph_admitted": true,
+          "inference_graph_baseline_over_candidate": 0.8461538392653656
+        },
+        {
+          "candidate": "oa_tensor_only",
+          "baseline": "cuda_library",
+          "training_admitted": false,
+          "training_baseline_over_candidate": null,
+          "inference_admitted": false,
+          "inference_baseline_over_candidate": null,
+          "inference_graph_admitted": false,
+          "inference_graph_baseline_over_candidate": null
+        }
+      ],
+      "stage_diagnostics": {
+        "oa_legacy": {
+          "training_admitted": true,
+          "largest_nested_spans": [
+            {
+              "name": "backward",
+              "median_ms": 2.144256114959717,
+              "observed_calls": 1
+            },
+            {
+              "name": "optimizer/adamw",
+              "median_ms": 1.4489599466323853,
+              "observed_calls": 1
+            },
+            {
+              "name": "mlp/residual",
+              "median_ms": 0.7106559872627258,
+              "observed_calls": 1
+            },
+            {
+              "name": "block0/fc2/bias",
+              "median_ms": 0.45875200629234314,
+              "observed_calls": 1
+            },
+            {
+              "name": "optimizer/clip",
+              "median_ms": 0.3993600010871887,
+              "observed_calls": 1
+            },
+            {
+              "name": "optimizer/zero_grad",
+              "median_ms": 0.21606400609016418,
+              "observed_calls": 1
+            },
+            {
+              "name": "shared_cuda/rmsnorm_backward",
+              "median_ms": 0.1812479943037033,
+              "observed_calls": 1
+            },
+            {
+              "name": "loss",
+              "median_ms": 0.131071999669075,
+              "observed_calls": 1
+            },
+            {
+              "name": "block0/fc2/pack_backward",
+              "median_ms": 0.10547199845314026,
+              "observed_calls": 1
+            },
+            {
+              "name": "block0/fc1/gemm_dx",
+              "median_ms": 0.10444799810647964,
+              "observed_calls": 1
+            },
+            {
+              "name": "shared_cuda/rmsnorm",
+              "median_ms": 0.09932799637317657,
+              "observed_calls": 1
+            },
+            {
+              "name": "block0/fc2/gemm_forward",
+              "median_ms": 0.09318400174379349,
+              "observed_calls": 1
+            }
+          ],
+          "semantic_call_counts": {
+            "optimizer/zero_grad": 1,
+            "shared_cuda/rmsnorm": 1,
+            "block0/fc1/pack_forward": 1,
+            "block0/fc1/gemm_forward": 1,
+            "block0/fc1/bias": 1,
+            "native/relu": 1,
+            "mlp/residual": 1,
+            "block0/fc2/pack_forward": 1,
+            "block0/fc2/gemm_forward": 1,
+            "block0/fc2/bias": 1,
+            "loss": 1,
+            "backward": 1,
+            "block0/fc2/pack_backward": 1,
+            "block0/fc2/gemm_dx": 1,
+            "block0/fc2/gemm_dw": 1,
+            "native/relu_backward": 1,
+            "block0/fc1/pack_backward": 1,
+            "block0/fc1/gemm_dx": 1,
+            "block0/fc1/gemm_dw": 1,
+            "shared_cuda/rmsnorm_backward": 1,
+            "optimizer/clip": 1,
+            "optimizer/adamw": 1
+          },
+          "scope": "One separately instrumented diagnostic step. Nested/overlapping spans, host enqueue gaps and event overhead remain; do not sum. Semantic call counts are not actual CUDA kernel launch counts."
+        },
+        "oa_direct": {
+          "training_admitted": true,
+          "largest_nested_spans": [
+            {
+              "name": "backward",
+              "median_ms": 1.4981119632720947,
+              "observed_calls": 1
+            },
+            {
+              "name": "optimizer/adamw",
+              "median_ms": 1.3260799646377563,
+              "observed_calls": 1
+            },
+            {
+              "name": "optimizer/clip",
+              "median_ms": 0.36556801199913025,
+              "observed_calls": 1
+            },
+            {
+              "name": "mlp/residual",
+              "median_ms": 0.26419198513031006,
+              "observed_calls": 1
+            },
+            {
+              "name": "shared_cuda/rmsnorm_backward",
+              "median_ms": 0.1945600062608719,
+              "observed_calls": 1
+            },
+            {
+              "name": "optimizer/zero_grad",
+              "median_ms": 0.13619199395179749,
+              "observed_calls": 1
+            },
+            {
+              "name": "shared_cuda/rmsnorm",
+              "median_ms": 0.09932799637317657,
+              "observed_calls": 1
+            },
+            {
+              "name": "block0/fc2/gemm_dw",
+              "median_ms": 0.09932799637317657,
+              "observed_calls": 1
+            },
+            {
+              "name": "native/relu_backward",
+              "median_ms": 0.09728000313043594,
+              "observed_calls": 1
+            },
+            {
+              "name": "block0/fc1/gemm_dx",
+              "median_ms": 0.09318400174379349,
+              "observed_calls": 1
+            },
+            {
+              "name": "block0/fc2/gemm_forward",
+              "median_ms": 0.09113600105047226,
+              "observed_calls": 1
+            },
+            {
+              "name": "block0/fc1/pack_backward",
+              "median_ms": 0.09011200070381165,
+              "observed_calls": 1
+            }
+          ],
+          "semantic_call_counts": {
+            "optimizer/zero_grad": 1,
+            "shared_cuda/rmsnorm": 1,
+            "block0/fc1/pack_forward": 1,
+            "block0/fc1/gemm_forward": 1,
+            "block0/fc1/bias": 1,
+            "native/relu": 1,
+            "mlp/residual": 1,
+            "block0/fc2/pack_forward": 1,
+            "block0/fc2/gemm_forward": 1,
+            "block0/fc2/bias": 1,
+            "loss": 1,
+            "backward": 1,
+            "block0/fc2/pack_backward": 1,
+            "block0/fc2/gemm_dx": 1,
+            "block0/fc2/gemm_dw": 1,
+            "native/relu_backward": 1,
+            "block0/fc1/pack_backward": 1,
+            "block0/fc1/gemm_dx": 1,
+            "block0/fc1/gemm_dw": 1,
+            "shared_cuda/rmsnorm_backward": 1,
+            "optimizer/clip": 1,
+            "optimizer/adamw": 1
+          },
+          "scope": "One separately instrumented diagnostic step. Nested/overlapping spans, host enqueue gaps and event overhead remain; do not sum. Semantic call counts are not actual CUDA kernel launch counts."
+        },
+        "oa_tensor_only": {
+          "training_admitted": true,
+          "largest_nested_spans": [
+            {
+              "name": "backward",
+              "median_ms": 1.5011839866638184,
+              "observed_calls": 1
+            },
+            {
+              "name": "optimizer/adamw",
+              "median_ms": 1.324031949043274,
+              "observed_calls": 1
+            },
+            {
+              "name": "mlp/residual",
+              "median_ms": 0.419840008020401,
+              "observed_calls": 1
+            },
+            {
+              "name": "optimizer/clip",
+              "median_ms": 0.3317759931087494,
+              "observed_calls": 1
+            },
+            {
+              "name": "block0/fc2/gemm_forward",
+              "median_ms": 0.24166400730609894,
+              "observed_calls": 1
+            },
+            {
+              "name": "shared_cuda/rmsnorm_backward",
+              "median_ms": 0.17203199863433838,
+              "observed_calls": 1
+            },
+            {
+              "name": "optimizer/zero_grad",
+              "median_ms": 0.13209599256515503,
+              "observed_calls": 1
+            },
+            {
+              "name": "shared_cuda/rmsnorm",
+              "median_ms": 0.12390399724245071,
+              "observed_calls": 1
+            },
+            {
+              "name": "shared_cuda/relu_backward",
+              "median_ms": 0.10547199845314026,
+              "observed_calls": 1
+            },
+            {
+              "name": "block0/fc1/gemm_dx",
+              "median_ms": 0.0942080020904541,
+              "observed_calls": 1
+            },
+            {
+              "name": "block0/fc2/pack_backward",
+              "median_ms": 0.08806400001049042,
+              "observed_calls": 1
+            },
+            {
+              "name": "loss",
+              "median_ms": 0.0870399996638298,
+              "observed_calls": 1
+            }
+          ],
+          "semantic_call_counts": {
+            "optimizer/zero_grad": 1,
+            "shared_cuda/rmsnorm": 1,
+            "block0/fc1/pack_forward": 1,
+            "block0/fc1/gemm_forward": 1,
+            "block0/fc1/bias": 1,
+            "shared_cuda/relu": 1,
+            "mlp/residual": 1,
+            "block0/fc2/pack_forward": 1,
+            "block0/fc2/gemm_forward": 1,
+            "block0/fc2/bias": 1,
+            "loss": 1,
+            "backward": 1,
+            "block0/fc2/pack_backward": 1,
+            "block0/fc2/gemm_dx": 1,
+            "block0/fc2/gemm_dw": 1,
+            "shared_cuda/relu_backward": 1,
+            "block0/fc1/pack_backward": 1,
+            "block0/fc1/gemm_dx": 1,
+            "block0/fc1/gemm_dw": 1,
+            "shared_cuda/rmsnorm_backward": 1,
+            "optimizer/clip": 1,
+            "optimizer/adamw": 1
+          },
+          "scope": "One separately instrumented diagnostic step. Nested/overlapping spans, host enqueue gaps and event overhead remain; do not sum. Semantic call counts are not actual CUDA kernel launch counts."
+        },
+        "ptxas": {
+          "training_admitted": true,
+          "largest_nested_spans": [
+            {
+              "name": "backward",
+              "median_ms": 1.4981119632720947,
+              "observed_calls": 1
+            },
+            {
+              "name": "optimizer/adamw",
+              "median_ms": 1.3107199668884277,
+              "observed_calls": 1
+            },
+            {
+              "name": "optimizer/clip",
+              "median_ms": 0.3317759931087494,
+              "observed_calls": 1
+            },
+            {
+              "name": "mlp/residual",
+              "median_ms": 0.2590720057487488,
+              "observed_calls": 1
+            },
+            {
+              "name": "shared_cuda/rmsnorm_backward",
+              "median_ms": 0.14950400590896606,
+              "observed_calls": 1
+            },
+            {
+              "name": "optimizer/zero_grad",
+              "median_ms": 0.1372160017490387,
+              "observed_calls": 1
+            },
+            {
+              "name": "native/relu",
+              "median_ms": 0.11468800157308578,
+              "observed_calls": 1
+            },
+            {
+              "name": "shared_cuda/rmsnorm",
+              "median_ms": 0.09932799637317657,
+              "observed_calls": 1
+            },
+            {
+              "name": "block0/fc1/pack_backward",
+              "median_ms": 0.0942080020904541,
+              "observed_calls": 1
+            },
+            {
+              "name": "block0/fc2/pack_backward",
+              "median_ms": 0.08908800035715103,
+              "observed_calls": 1
+            },
+            {
+              "name": "native/relu_backward",
+              "median_ms": 0.08089599758386612,
+              "observed_calls": 1
+            },
+            {
+              "name": "block0/fc1/gemm_dx",
+              "median_ms": 0.07884799689054489,
+              "observed_calls": 1
+            }
+          ],
+          "semantic_call_counts": {
+            "optimizer/zero_grad": 1,
+            "shared_cuda/rmsnorm": 1,
+            "block0/fc1/pack_forward": 1,
+            "block0/fc1/gemm_forward": 1,
+            "block0/fc1/bias": 1,
+            "native/relu": 1,
+            "mlp/residual": 1,
+            "block0/fc2/pack_forward": 1,
+            "block0/fc2/gemm_forward": 1,
+            "block0/fc2/bias": 1,
+            "loss": 1,
+            "backward": 1,
+            "block0/fc2/pack_backward": 1,
+            "block0/fc2/gemm_dx": 1,
+            "block0/fc2/gemm_dw": 1,
+            "native/relu_backward": 1,
+            "block0/fc1/pack_backward": 1,
+            "block0/fc1/gemm_dx": 1,
+            "block0/fc1/gemm_dw": 1,
+            "shared_cuda/rmsnorm_backward": 1,
+            "optimizer/clip": 1,
+            "optimizer/adamw": 1
+          },
+          "scope": "One separately instrumented diagnostic step. Nested/overlapping spans, host enqueue gaps and event overhead remain; do not sum. Semantic call counts are not actual CUDA kernel launch counts."
+        },
+        "ptxas_tensor_only": {
+          "training_admitted": true,
+          "largest_nested_spans": [
+            {
+              "name": "backward",
+              "median_ms": 1.5196160078048706,
+              "observed_calls": 1
+            },
+            {
+              "name": "optimizer/adamw",
+              "median_ms": 1.3158400058746338,
+              "observed_calls": 1
+            },
+            {
+              "name": "optimizer/clip",
+              "median_ms": 0.32153600454330444,
+              "observed_calls": 1
+            },
+            {
+              "name": "mlp/residual",
+              "median_ms": 0.2457599937915802,
+              "observed_calls": 1
+            },
+            {
+              "name": "optimizer/zero_grad",
+              "median_ms": 0.15564799308776855,
+              "observed_calls": 1
+            },
+            {
+              "name": "shared_cuda/rmsnorm_backward",
+              "median_ms": 0.14745600521564484,
+              "observed_calls": 1
+            },
+            {
+              "name": "shared_cuda/rmsnorm",
+              "median_ms": 0.10035199671983719,
+              "observed_calls": 1
+            },
+            {
+              "name": "block0/fc2/gemm_dw",
+              "median_ms": 0.09830400347709656,
+              "observed_calls": 1
+            },
+            {
+              "name": "block0/fc1/gemm_dw",
+              "median_ms": 0.09625600278377533,
+              "observed_calls": 1
+            },
+            {
+              "name": "shared_cuda/relu_backward",
+              "median_ms": 0.09216000139713287,
+              "observed_calls": 1
+            },
+            {
+              "name": "block0/fc2/pack_backward",
+              "median_ms": 0.08806400001049042,
+              "observed_calls": 1
+            },
+            {
+              "name": "block0/fc1/pack_backward",
+              "median_ms": 0.08601599931716919,
+              "observed_calls": 1
+            }
+          ],
+          "semantic_call_counts": {
+            "optimizer/zero_grad": 1,
+            "shared_cuda/rmsnorm": 1,
+            "block0/fc1/pack_forward": 1,
+            "block0/fc1/gemm_forward": 1,
+            "block0/fc1/bias": 1,
+            "shared_cuda/relu": 1,
+            "mlp/residual": 1,
+            "block0/fc2/pack_forward": 1,
+            "block0/fc2/gemm_forward": 1,
+            "block0/fc2/bias": 1,
+            "loss": 1,
+            "backward": 1,
+            "block0/fc2/pack_backward": 1,
+            "block0/fc2/gemm_dx": 1,
+            "block0/fc2/gemm_dw": 1,
+            "shared_cuda/relu_backward": 1,
+            "block0/fc1/pack_backward": 1,
+            "block0/fc1/gemm_dx": 1,
+            "block0/fc1/gemm_dw": 1,
+            "shared_cuda/rmsnorm_backward": 1,
+            "optimizer/clip": 1,
+            "optimizer/adamw": 1
+          },
+          "scope": "One separately instrumented diagnostic step. Nested/overlapping spans, host enqueue gaps and event overhead remain; do not sum. Semantic call counts are not actual CUDA kernel launch counts."
+        }
+      },
+      "initial_method_pairs": 5,
+      "training_method_pairs": 5,
+      "inference_method_pairs": 5,
+      "inference_graph_method_pairs": 5,
+      "inference_weight_cache_summary": []
+    },
+    {
+      "case": {
+        "name": "silu_gated_mlp",
+        "family": "gated",
+        "tokens": 256,
+        "width": 256,
+        "hidden": 1024,
+        "layers": 1,
+        "activation": "silu"
+      },
+      "status": "completed",
+      "methods": [
+        {
+          "method": "cuda_library",
+          "reference_method": "ptxas_tensor_only",
+          "reference_group": "shared_torch_surrounding",
+          "initial_admitted": false,
+          "training_admitted": false,
+          "inference_admitted": false,
+          "inference_graph_admitted": false,
+          "training_event_ms": null,
+          "training_host_wall_ms": null,
+          "inference_event_ms": null,
+          "inference_graph_ms": null,
+          "initial_failure": {
+            "tensors_failed": 4,
+            "by_category": {
+              "output": 1,
+              "parameter": 3
+            },
+            "details": [
+              {
+                "name": "output/prediction",
+                "elements": 65536,
+                "mismatched": 1446,
+                "max_abs": 0.0004584789276123047,
+                "relative_l2": 5.002192845221504e-05
+              },
+              {
+                "name": "parameter/blocks.0.fc1.weight",
+                "elements": 262144,
+                "mismatched": 59,
+                "max_abs": 0.0002306923270225525,
+                "relative_l2": 2.5172852510618192e-05
+              },
+              {
+                "name": "parameter/blocks.0.fc2.weight",
+                "elements": 262144,
+                "mismatched": 12,
+                "max_abs": 0.0001075519248843193,
+                "relative_l2": 1.532402388219848e-05
+              },
+              {
+                "name": "parameter/blocks.0.gate.weight",
+                "elements": 262144,
+                "mismatched": 63,
+                "max_abs": 0.0001949518918991089,
+                "relative_l2": 2.438603853536118e-05
+              }
+            ]
+          },
+          "post_trajectory_failure": {
+            "tensors_failed": 0,
+            "by_category": {},
+            "details": []
+          },
+          "exclusion_reason": "initial_full_state_or_guard_gate",
+          "reference_over_method_training": null,
+          "reference_over_method_inference": null,
+          "reference_over_method_inference_graph": null,
+          "within_method_host_over_graph_inference": null
+        },
+        {
+          "method": "oa_direct",
+          "reference_method": "ptxas",
+          "reference_group": "generated_native_operator_sources",
+          "initial_admitted": false,
+          "training_admitted": false,
+          "inference_admitted": false,
+          "inference_graph_admitted": false,
+          "training_event_ms": null,
+          "training_host_wall_ms": null,
+          "inference_event_ms": null,
+          "inference_graph_ms": null,
+          "initial_failure": {
+            "tensors_failed": 1,
+            "by_category": {
+              "output": 1
+            },
+            "details": [
+              {
+                "name": "output/prediction",
+                "elements": 65536,
+                "mismatched": 29,
+                "max_abs": 0.0002276897430419922,
+                "relative_l2": 5.833109772148606e-06
+              }
+            ]
+          },
+          "post_trajectory_failure": {
+            "tensors_failed": 0,
+            "by_category": {},
+            "details": []
+          },
+          "exclusion_reason": "initial_full_state_or_guard_gate",
+          "reference_over_method_training": null,
+          "reference_over_method_inference": null,
+          "reference_over_method_inference_graph": null,
+          "within_method_host_over_graph_inference": null
+        },
+        {
+          "method": "oa_legacy",
+          "reference_method": "ptxas",
+          "reference_group": "generated_native_operator_sources",
+          "initial_admitted": false,
+          "training_admitted": false,
+          "inference_admitted": false,
+          "inference_graph_admitted": false,
+          "training_event_ms": null,
+          "training_host_wall_ms": null,
+          "inference_event_ms": null,
+          "inference_graph_ms": null,
+          "initial_failure": {
+            "tensors_failed": 1,
+            "by_category": {
+              "output": 1
+            },
+            "details": [
+              {
+                "name": "output/prediction",
+                "elements": 65536,
+                "mismatched": 29,
+                "max_abs": 0.0002276897430419922,
+                "relative_l2": 5.833109772148606e-06
+              }
+            ]
+          },
+          "post_trajectory_failure": {
+            "tensors_failed": 0,
+            "by_category": {},
+            "details": []
+          },
+          "exclusion_reason": "initial_full_state_or_guard_gate",
+          "reference_over_method_training": null,
+          "reference_over_method_inference": null,
+          "reference_over_method_inference_graph": null,
+          "within_method_host_over_graph_inference": null
+        },
+        {
+          "method": "oa_tensor_only",
+          "reference_method": "ptxas_tensor_only",
+          "reference_group": "shared_torch_surrounding",
+          "initial_admitted": true,
+          "training_admitted": true,
+          "inference_admitted": true,
+          "inference_graph_admitted": true,
+          "training_event_ms": 4.915814590454102,
+          "training_host_wall_ms": 4.9237353999998845,
+          "inference_event_ms": 0.8388607978820801,
+          "inference_graph_ms": 0.12267520427703857,
+          "initial_failure": {
+            "tensors_failed": 0,
+            "by_category": {},
+            "details": []
+          },
+          "post_trajectory_failure": {
+            "tensors_failed": 0,
+            "by_category": {},
+            "details": []
+          },
+          "reference_over_method_training": 0.9973753179001953,
+          "reference_over_method_inference": 0.9951171503075286,
+          "reference_over_method_inference_graph": 0.8631051094274834,
+          "within_method_host_over_graph_inference": 6.838063183393385
+        },
+        {
+          "method": "ptxas",
+          "reference_method": "ptxas",
+          "reference_group": "generated_native_operator_sources",
+          "initial_admitted": true,
+          "training_admitted": true,
+          "inference_admitted": true,
+          "inference_graph_admitted": true,
+          "training_event_ms": 4.763647842407226,
+          "training_host_wall_ms": 4.771488400000123,
+          "inference_event_ms": 0.8226816177368164,
+          "inference_graph_ms": 0.08683519959449768,
+          "initial_failure": {
+            "tensors_failed": 0,
+            "by_category": {},
+            "details": []
+          },
+          "post_trajectory_failure": {
+            "tensors_failed": 0,
+            "by_category": {},
+            "details": []
+          },
+          "reference_over_method_training": 1.0,
+          "reference_over_method_inference": 1.0,
+          "reference_over_method_inference_graph": 1.0,
+          "within_method_host_over_graph_inference": 9.47405685227383
+        },
+        {
+          "method": "ptxas_tensor_only",
+          "reference_method": "ptxas_tensor_only",
+          "reference_group": "shared_torch_surrounding",
+          "initial_admitted": true,
+          "training_admitted": true,
+          "inference_admitted": true,
+          "inference_graph_admitted": true,
+          "training_event_ms": 4.902912139892578,
+          "training_host_wall_ms": 4.910628599999711,
+          "inference_event_ms": 0.8347647666931153,
+          "inference_graph_ms": 0.10588159561157226,
+          "initial_failure": {
+            "tensors_failed": 0,
+            "by_category": {},
+            "details": []
+          },
+          "post_trajectory_failure": {
+            "tensors_failed": 0,
+            "by_category": {},
+            "details": []
+          },
+          "reference_over_method_training": 1.0,
+          "reference_over_method_inference": 1.0,
+          "reference_over_method_inference_graph": 1.0,
+          "within_method_host_over_graph_inference": 7.883945853587799
+        }
+      ],
+      "comparisons": [
+        {
+          "candidate": "oa_legacy",
+          "baseline": "ptxas",
+          "training_admitted": false,
+          "training_baseline_over_candidate": null,
+          "inference_admitted": false,
+          "inference_baseline_over_candidate": null,
+          "inference_graph_admitted": false,
+          "inference_graph_baseline_over_candidate": null
+        },
+        {
+          "candidate": "oa_direct",
+          "baseline": "ptxas",
+          "training_admitted": false,
+          "training_baseline_over_candidate": null,
+          "inference_admitted": false,
+          "inference_baseline_over_candidate": null,
+          "inference_graph_admitted": false,
+          "inference_graph_baseline_over_candidate": null
+        },
+        {
+          "candidate": "oa_tensor_only",
+          "baseline": "ptxas_tensor_only",
+          "training_admitted": true,
+          "training_baseline_over_candidate": 0.9973753179001953,
+          "inference_admitted": true,
+          "inference_baseline_over_candidate": 0.9951171503075286,
+          "inference_graph_admitted": true,
+          "inference_graph_baseline_over_candidate": 0.8631051094274834
+        },
+        {
+          "candidate": "oa_tensor_only",
+          "baseline": "cuda_library",
+          "training_admitted": false,
+          "training_baseline_over_candidate": null,
+          "inference_admitted": false,
+          "inference_baseline_over_candidate": null,
+          "inference_graph_admitted": false,
+          "inference_graph_baseline_over_candidate": null
+        }
+      ],
+      "stage_diagnostics": {
+        "oa_tensor_only": {
+          "training_admitted": true,
+          "largest_nested_spans": [
+            {
+              "name": "backward",
+              "median_ms": 3.0812160968780518,
+              "observed_calls": 1
+            },
+            {
+              "name": "optimizer/adamw",
+              "median_ms": 2.623487949371338,
+              "observed_calls": 1
+            },
+            {
+              "name": "optimizer/clip",
+              "median_ms": 0.605184018611908,
+              "observed_calls": 1
+            },
+            {
+              "name": "block0/gate/pack_forward",
+              "median_ms": 0.4925439953804016,
+              "observed_calls": 1
+            },
+            {
+              "name": "mlp/residual",
+              "median_ms": 0.32870399951934814,
+              "observed_calls": 1
+            },
+            {
+              "name": "block0/gate/bias",
+              "median_ms": 0.32767999172210693,
+              "observed_calls": 1
+            },
+            {
+              "name": "optimizer/zero_grad",
+              "median_ms": 0.27136000990867615,
+              "observed_calls": 1
+            },
+            {
+              "name": "shared_cuda/rmsnorm_backward",
+              "median_ms": 0.21094399690628052,
+              "observed_calls": 2
+            },
+            {
+              "name": "shared_cuda/silu_backward",
+              "median_ms": 0.13414399325847626,
+              "observed_calls": 1
+            },
+            {
+              "name": "block0/fc2/pack_backward",
+              "median_ms": 0.13209599256515503,
+              "observed_calls": 1
+            },
+            {
+              "name": "block0/fc1/pack_backward",
+              "median_ms": 0.13209599256515503,
+              "observed_calls": 1
+            },
+            {
+              "name": "shared_cuda/rmsnorm",
+              "median_ms": 0.13158399984240532,
+              "observed_calls": 2
+            }
+          ],
+          "semantic_call_counts": {
+            "optimizer/zero_grad": 1,
+            "shared_cuda/rmsnorm": 2,
+            "block0/fc1/pack_forward": 1,
+            "block0/fc1/gemm_forward": 1,
+            "block0/fc1/bias": 1,
+            "shared_cuda/silu": 1,
+            "block0/gate/pack_forward": 1,
+            "block0/gate/gemm_forward": 1,
+            "block0/gate/bias": 1,
+            "mlp/residual": 1,
+            "block0/fc2/pack_forward": 1,
+            "block0/fc2/gemm_forward": 1,
+            "block0/fc2/bias": 1,
+            "loss": 1,
+            "backward": 1,
+            "block0/fc2/pack_backward": 1,
+            "block0/fc2/gemm_dx": 1,
+            "block0/fc2/gemm_dw": 1,
+            "block0/gate/pack_backward": 1,
+            "block0/gate/gemm_dx": 1,
+            "block0/gate/gemm_dw": 1,
+            "shared_cuda/rmsnorm_backward": 2,
+            "shared_cuda/silu_backward": 1,
+            "block0/fc1/pack_backward": 1,
+            "block0/fc1/gemm_dx": 1,
+            "block0/fc1/gemm_dw": 1,
+            "optimizer/clip": 1,
+            "optimizer/adamw": 1
+          },
+          "scope": "One separately instrumented diagnostic step. Nested/overlapping spans, host enqueue gaps and event overhead remain; do not sum. Semantic call counts are not actual CUDA kernel launch counts."
+        },
+        "ptxas": {
+          "training_admitted": true,
+          "largest_nested_spans": [
+            {
+              "name": "backward",
+              "median_ms": 2.4340479373931885,
+              "observed_calls": 1
+            },
+            {
+              "name": "optimizer/adamw",
+              "median_ms": 2.4248321056365967,
+              "observed_calls": 1
+            },
+            {
+              "name": "optimizer/clip",
+              "median_ms": 0.5160959959030151,
+              "observed_calls": 1
+            },
+            {
+              "name": "mlp/residual",
+              "median_ms": 0.317440003156662,
+              "observed_calls": 1
+            },
+            {
+              "name": "optimizer/zero_grad",
+              "median_ms": 0.19660800695419312,
+              "observed_calls": 1
+            },
+            {
+              "name": "block0/gate/gemm_forward",
+              "median_ms": 0.16486400365829468,
+              "observed_calls": 1
+            },
+            {
+              "name": "block0/fc1/gemm_dx",
+              "median_ms": 0.131071999669075,
+              "observed_calls": 1
+            },
+            {
+              "name": "block0/fc2/pack_backward",
+              "median_ms": 0.12800000607967377,
+              "observed_calls": 1
+            },
+            {
+              "name": "block0/gate/pack_backward",
+              "median_ms": 0.11059200018644333,
+              "observed_calls": 1
+            },
+            {
+              "name": "block0/fc1/pack_backward",
+              "median_ms": 0.10751999914646149,
+              "observed_calls": 1
+            },
+            {
+              "name": "loss",
+              "median_ms": 0.09728000313043594,
+              "observed_calls": 1
+            },
+            {
+              "name": "native/rmsnorm",
+              "median_ms": 0.07731200009584427,
+              "observed_calls": 2
+            }
+          ],
+          "semantic_call_counts": {
+            "optimizer/zero_grad": 1,
+            "native/rmsnorm": 2,
+            "block0/fc1/pack_forward": 1,
+            "block0/fc1/gemm_forward": 1,
+            "block0/fc1/bias": 1,
+            "native/silu": 1,
+            "block0/gate/pack_forward": 1,
+            "block0/gate/gemm_forward": 1,
+            "block0/gate/bias": 1,
+            "mlp/residual": 1,
+            "block0/fc2/pack_forward": 1,
+            "block0/fc2/gemm_forward": 1,
+            "block0/fc2/bias": 1,
+            "loss": 1,
+            "backward": 1,
+            "block0/fc2/pack_backward": 1,
+            "block0/fc2/gemm_dx": 1,
+            "block0/fc2/gemm_dw": 1,
+            "block0/gate/pack_backward": 1,
+            "block0/gate/gemm_dx": 1,
+            "block0/gate/gemm_dw": 1,
+            "native/rmsnorm_backward": 2,
+            "native/silu_backward": 1,
+            "block0/fc1/pack_backward": 1,
+            "block0/fc1/gemm_dx": 1,
+            "block0/fc1/gemm_dw": 1,
+            "optimizer/clip": 1,
+            "optimizer/adamw": 1
+          },
+          "scope": "One separately instrumented diagnostic step. Nested/overlapping spans, host enqueue gaps and event overhead remain; do not sum. Semantic call counts are not actual CUDA kernel launch counts."
+        },
+        "ptxas_tensor_only": {
+          "training_admitted": true,
+          "largest_nested_spans": [
+            {
+              "name": "backward",
+              "median_ms": 2.673664093017578,
+              "observed_calls": 1
+            },
+            {
+              "name": "optimizer/adamw",
+              "median_ms": 2.416640043258667,
+              "observed_calls": 1
+            },
+            {
+              "name": "optimizer/clip",
+              "median_ms": 0.45977601408958435,
+              "observed_calls": 1
+            },
+            {
+              "name": "mlp/residual",
+              "median_ms": 0.2815999984741211,
+              "observed_calls": 1
+            },
+            {
+              "name": "shared_cuda/rmsnorm_backward",
+              "median_ms": 0.2247679978609085,
+              "observed_calls": 2
+            },
+            {
+              "name": "optimizer/zero_grad",
+              "median_ms": 0.2099200040102005,
+              "observed_calls": 1
+            },
+            {
+              "name": "block0/fc1/pack_backward",
+              "median_ms": 0.15360000729560852,
+              "observed_calls": 1
+            },
+            {
+              "name": "shared_cuda/rmsnorm",
+              "median_ms": 0.12390400096774101,
+              "observed_calls": 2
+            },
+            {
+              "name": "block0/fc2/gemm_dx",
+              "median_ms": 0.12185599654912949,
+              "observed_calls": 1
+            },
+            {
+              "name": "shared_cuda/silu_backward",
+              "median_ms": 0.11776000261306763,
+              "observed_calls": 1
+            },
+            {
+              "name": "block0/fc2/pack_backward",
+              "median_ms": 0.10956799983978271,
+              "observed_calls": 1
+            },
+            {
+              "name": "block0/gate/pack_backward",
+              "median_ms": 0.10547199845314026,
+              "observed_calls": 1
+            }
+          ],
+          "semantic_call_counts": {
+            "optimizer/zero_grad": 1,
+            "shared_cuda/rmsnorm": 2,
+            "block0/fc1/pack_forward": 1,
+            "block0/fc1/gemm_forward": 1,
+            "block0/fc1/bias": 1,
+            "shared_cuda/silu": 1,
+            "block0/gate/pack_forward": 1,
+            "block0/gate/gemm_forward": 1,
+            "block0/gate/bias": 1,
+            "mlp/residual": 1,
+            "block0/fc2/pack_forward": 1,
+            "block0/fc2/gemm_forward": 1,
+            "block0/fc2/bias": 1,
+            "loss": 1,
+            "backward": 1,
+            "block0/fc2/pack_backward": 1,
+            "block0/fc2/gemm_dx": 1,
+            "block0/fc2/gemm_dw": 1,
+            "block0/gate/pack_backward": 1,
+            "block0/gate/gemm_dx": 1,
+            "block0/gate/gemm_dw": 1,
+            "shared_cuda/rmsnorm_backward": 2,
+            "shared_cuda/silu_backward": 1,
+            "block0/fc1/pack_backward": 1,
+            "block0/fc1/gemm_dx": 1,
+            "block0/fc1/gemm_dw": 1,
+            "optimizer/clip": 1,
+            "optimizer/adamw": 1
+          },
+          "scope": "One separately instrumented diagnostic step. Nested/overlapping spans, host enqueue gaps and event overhead remain; do not sum. Semantic call counts are not actual CUDA kernel launch counts."
+        }
+      },
+      "initial_method_pairs": 3,
+      "training_method_pairs": 3,
+      "inference_method_pairs": 3,
+      "inference_graph_method_pairs": 3,
+      "inference_weight_cache_summary": []
+    },
+    {
+      "case": {
+        "name": "transformer_single",
+        "family": "transformer",
+        "batch": 1,
+        "seq": 128,
+        "tokens": 128,
+        "width": 128,
+        "hidden": 512,
+        "heads": 1,
+        "layers": 1,
+        "activation": "gelu_tanh"
+      },
+      "status": "completed",
+      "methods": [
+        {
+          "method": "cuda_library",
+          "reference_method": "ptxas_tensor_only",
+          "reference_group": "shared_torch_surrounding",
+          "initial_admitted": true,
+          "training_admitted": false,
+          "inference_admitted": true,
+          "inference_graph_admitted": true,
+          "training_event_ms": 10.200678253173828,
+          "training_host_wall_ms": 10.208926600000012,
+          "inference_event_ms": 1.6095232009887694,
+          "inference_graph_ms": 0.1486847996711731,
+          "initial_failure": {
+            "tensors_failed": 0,
+            "by_category": {},
+            "details": []
+          },
+          "post_trajectory_failure": {
+            "tensors_failed": 5,
+            "by_category": {
+              "gradient": 1,
+              "output": 1,
+              "parameter": 3
+            },
+            "details": [
+              {
+                "name": "gradient/raw/head.weight",
+                "elements": 32768,
+                "mismatched": 2,
+                "max_abs": 4.479754716157913e-05,
+                "relative_l2": 0.0003228584568795393
+              },
+              {
+                "name": "output/prediction",
+                "elements": 32768,
+                "mismatched": 5333,
+                "max_abs": 0.0025449544191360474,
+                "relative_l2": 0.0002757308437449171
+              },
+              {
+                "name": "parameter/blocks.0.fc1.weight",
+                "elements": 65536,
+                "mismatched": 6,
+                "max_abs": 4.382431507110596e-05,
+                "relative_l2": 8.575991490179973e-06
+              },
+              {
+                "name": "parameter/blocks.0.fc2.weight",
+                "elements": 65536,
+                "mismatched": 6,
+                "max_abs": 4.0306709706783295e-05,
+                "relative_l2": 1.5328060710875688e-05
+              },
+              {
+                "name": "parameter/blocks.0.qkv.bias",
+                "elements": 384,
+                "mismatched": 126,
+                "max_abs": 0.0009556118748150766,
+                "relative_l2": 0.05228969556654264
+              }
+            ]
+          },
+          "exclusion_reason": "post_trajectory_full_state_gate",
+          "reference_over_method_training": null,
+          "reference_over_method_inference": 0.9886754066492807,
+          "reference_over_method_inference_graph": 1.1652892323443775,
+          "within_method_host_over_graph_inference": 10.825068901113923
+        },
+        {
+          "method": "oa_direct",
+          "reference_method": "ptxas",
+          "reference_group": "generated_native_operator_sources",
+          "initial_admitted": false,
+          "training_admitted": false,
+          "inference_admitted": false,
+          "inference_graph_admitted": false,
+          "training_event_ms": null,
+          "training_host_wall_ms": null,
+          "inference_event_ms": null,
+          "inference_graph_ms": null,
+          "initial_failure": {
+            "tensors_failed": 9,
+            "by_category": {
+              "output": 1,
+              "parameter": 8
+            },
+            "details": [
+              {
+                "name": "output/prediction",
+                "elements": 32768,
+                "mismatched": 4711,
+                "max_abs": 0.002048969268798828,
+                "relative_l2": 0.00024588166486781915
+              },
+              {
+                "name": "parameter/blocks.0.fc1.bias",
+                "elements": 512,
+                "mismatched": 1,
+                "max_abs": 0.00018882794392993674,
+                "relative_l2": 0.028082385230837066
+              },
+              {
+                "name": "parameter/blocks.0.fc1.weight",
+                "elements": 65536,
+                "mismatched": 7,
+                "max_abs": 0.0001939535140991211,
+                "relative_l2": 1.6094712285809956e-05
+              },
+              {
+                "name": "parameter/blocks.0.fc2.weight",
+                "elements": 65536,
+                "mismatched": 8,
+                "max_abs": 0.0003056079149246216,
+                "relative_l2": 4.411616793845365e-05
+              },
+              {
+                "name": "parameter/blocks.0.proj.weight",
+                "elements": 16384,
+                "mismatched": 2,
+                "max_abs": 0.0002685263752937317,
+                "relative_l2": 3.143686948652377e-05
+              },
+              {
+                "name": "parameter/blocks.0.qkv.bias",
+                "elements": 384,
+                "mismatched": 116,
+                "max_abs": 0.0005365166871342808,
+                "relative_l2": 0.2859099411096692
+              },
+              {
+                "name": "parameter/blocks.0.qkv.weight",
+                "elements": 49152,
+                "mismatched": 17,
+                "max_abs": 0.00021699070930480957,
+                "relative_l2": 3.563050765445184e-05
+              },
+              {
+                "name": "parameter/embedding.weight",
+                "elements": 32768,
+                "mismatched": 1,
+                "max_abs": 0.00011321157217025757,
+                "relative_l2": 6.64551491876801e-07
+              },
+              {
+                "name": "parameter/head.weight",
+                "elements": 32768,
+                "mismatched": 2,
+                "max_abs": 0.0001488029956817627,
+                "relative_l2": 1.0083868645726192e-05
+              }
+            ]
+          },
+          "post_trajectory_failure": {
+            "tensors_failed": 0,
+            "by_category": {},
+            "details": []
+          },
+          "exclusion_reason": "initial_full_state_or_guard_gate",
+          "reference_over_method_training": null,
+          "reference_over_method_inference": null,
+          "reference_over_method_inference_graph": null,
+          "within_method_host_over_graph_inference": null
+        },
+        {
+          "method": "oa_legacy",
+          "reference_method": "ptxas",
+          "reference_group": "generated_native_operator_sources",
+          "initial_admitted": false,
+          "training_admitted": false,
+          "inference_admitted": false,
+          "inference_graph_admitted": false,
+          "training_event_ms": null,
+          "training_host_wall_ms": null,
+          "inference_event_ms": null,
+          "inference_graph_ms": null,
+          "initial_failure": {
+            "tensors_failed": 9,
+            "by_category": {
+              "output": 1,
+              "parameter": 8
+            },
+            "details": [
+              {
+                "name": "output/prediction",
+                "elements": 32768,
+                "mismatched": 4711,
+                "max_abs": 0.002048969268798828,
+                "relative_l2": 0.00024588166486781915
+              },
+              {
+                "name": "parameter/blocks.0.fc1.bias",
+                "elements": 512,
+                "mismatched": 1,
+                "max_abs": 0.00018882794392993674,
+                "relative_l2": 0.028082385230837066
+              },
+              {
+                "name": "parameter/blocks.0.fc1.weight",
+                "elements": 65536,
+                "mismatched": 7,
+                "max_abs": 0.0001939535140991211,
+                "relative_l2": 1.6094712285809956e-05
+              },
+              {
+                "name": "parameter/blocks.0.fc2.weight",
+                "elements": 65536,
+                "mismatched": 8,
+                "max_abs": 0.0003056079149246216,
+                "relative_l2": 4.411616793845365e-05
+              },
+              {
+                "name": "parameter/blocks.0.proj.weight",
+                "elements": 16384,
+                "mismatched": 2,
+                "max_abs": 0.0002685263752937317,
+                "relative_l2": 3.143686948652377e-05
+              },
+              {
+                "name": "parameter/blocks.0.qkv.bias",
+                "elements": 384,
+                "mismatched": 116,
+                "max_abs": 0.0005365166871342808,
+                "relative_l2": 0.2859099411096692
+              },
+              {
+                "name": "parameter/blocks.0.qkv.weight",
+                "elements": 49152,
+                "mismatched": 17,
+                "max_abs": 0.00021699070930480957,
+                "relative_l2": 3.563050765445184e-05
+              },
+              {
+                "name": "parameter/embedding.weight",
+                "elements": 32768,
+                "mismatched": 1,
+                "max_abs": 0.00011321157217025757,
+                "relative_l2": 6.64551491876801e-07
+              },
+              {
+                "name": "parameter/head.weight",
+                "elements": 32768,
+                "mismatched": 2,
+                "max_abs": 0.0001488029956817627,
+                "relative_l2": 1.0083868645726192e-05
+              }
+            ]
+          },
+          "post_trajectory_failure": {
+            "tensors_failed": 0,
+            "by_category": {},
+            "details": []
+          },
+          "exclusion_reason": "initial_full_state_or_guard_gate",
+          "reference_over_method_training": null,
+          "reference_over_method_inference": null,
+          "reference_over_method_inference_graph": null,
+          "within_method_host_over_graph_inference": null
+        },
+        {
+          "method": "oa_tensor_only",
+          "reference_method": "ptxas_tensor_only",
+          "reference_group": "shared_torch_surrounding",
+          "initial_admitted": true,
+          "training_admitted": true,
+          "inference_admitted": true,
+          "inference_graph_admitted": true,
+          "training_event_ms": 9.794355010986328,
+          "training_host_wall_ms": 9.802774399999947,
+          "inference_event_ms": 1.579212760925293,
+          "inference_graph_ms": 0.19230719804763793,
+          "initial_failure": {
+            "tensors_failed": 0,
+            "by_category": {},
+            "details": []
+          },
+          "post_trajectory_failure": {
+            "tensors_failed": 0,
+            "by_category": {},
+            "details": []
+          },
+          "reference_over_method_training": 0.9508615162408529,
+          "reference_over_method_inference": 1.007651435337092,
+          "reference_over_method_inference_graph": 0.9009584551649443,
+          "within_method_host_over_graph_inference": 8.211927462715638
+        },
+        {
+          "method": "ptxas",
+          "reference_method": "ptxas",
+          "reference_group": "generated_native_operator_sources",
+          "initial_admitted": true,
+          "training_admitted": true,
+          "inference_admitted": true,
+          "inference_graph_admitted": true,
+          "training_event_ms": 9.671475219726563,
+          "training_host_wall_ms": 9.680453400000033,
+          "inference_event_ms": 1.6461824417114257,
+          "inference_graph_ms": 0.15360000133514404,
+          "initial_failure": {
+            "tensors_failed": 0,
+            "by_category": {},
+            "details": []
+          },
+          "post_trajectory_failure": {
+            "tensors_failed": 0,
+            "by_category": {},
+            "details": []
+          },
+          "reference_over_method_training": 1.0,
+          "reference_over_method_inference": 1.0,
+          "reference_over_method_inference_graph": 1.0,
+          "within_method_host_over_graph_inference": 10.717333511733345
+        },
+        {
+          "method": "ptxas_tensor_only",
+          "reference_method": "ptxas_tensor_only",
+          "reference_group": "shared_torch_surrounding",
+          "initial_admitted": true,
+          "training_admitted": true,
+          "inference_admitted": true,
+          "inference_graph_admitted": true,
+          "training_event_ms": 9.313075256347656,
+          "training_host_wall_ms": 9.321645800000056,
+          "inference_event_ms": 1.5912960052490235,
+          "inference_graph_ms": 0.17326079607009887,
+          "initial_failure": {
+            "tensors_failed": 0,
+            "by_category": {},
+            "details": []
+          },
+          "post_trajectory_failure": {
+            "tensors_failed": 0,
+            "by_category": {},
+            "details": []
+          },
+          "reference_over_method_training": 1.0,
+          "reference_over_method_inference": 1.0,
+          "reference_over_method_inference_graph": 1.0,
+          "within_method_host_over_graph_inference": 9.184397401736557
+        }
+      ],
+      "comparisons": [
+        {
+          "candidate": "oa_legacy",
+          "baseline": "ptxas",
+          "training_admitted": false,
+          "training_baseline_over_candidate": null,
+          "inference_admitted": false,
+          "inference_baseline_over_candidate": null,
+          "inference_graph_admitted": false,
+          "inference_graph_baseline_over_candidate": null
+        },
+        {
+          "candidate": "oa_direct",
+          "baseline": "ptxas",
+          "training_admitted": false,
+          "training_baseline_over_candidate": null,
+          "inference_admitted": false,
+          "inference_baseline_over_candidate": null,
+          "inference_graph_admitted": false,
+          "inference_graph_baseline_over_candidate": null
+        },
+        {
+          "candidate": "oa_tensor_only",
+          "baseline": "ptxas_tensor_only",
+          "training_admitted": true,
+          "training_baseline_over_candidate": 0.9508615162408529,
+          "inference_admitted": true,
+          "inference_baseline_over_candidate": 1.007651435337092,
+          "inference_graph_admitted": true,
+          "inference_graph_baseline_over_candidate": 0.9009584551649443
+        },
+        {
+          "candidate": "oa_tensor_only",
+          "baseline": "cuda_library",
+          "training_admitted": false,
+          "training_baseline_over_candidate": null,
+          "inference_admitted": true,
+          "inference_baseline_over_candidate": 1.0191933859790474,
+          "inference_graph_admitted": true,
+          "inference_graph_baseline_over_candidate": 0.7731629454366092
+        }
+      ],
+      "stage_diagnostics": {
+        "oa_tensor_only": {
+          "training_admitted": true,
+          "largest_nested_spans": [
+            {
+              "name": "backward",
+              "median_ms": 4.257791996002197,
+              "observed_calls": 1
+            },
+            {
+              "name": "optimizer/adamw",
+              "median_ms": 3.693567991256714,
+              "observed_calls": 1
+            },
+            {
+              "name": "optimizer/clip",
+              "median_ms": 0.5980160236358643,
+              "observed_calls": 1
+            },
+            {
+              "name": "optimizer/zero_grad",
+              "median_ms": 0.2969599962234497,
+              "observed_calls": 1
+            },
+            {
+              "name": "shared_cuda/gelu_tanh_backward",
+              "median_ms": 0.289792001247406,
+              "observed_calls": 1
+            },
+            {
+              "name": "attention/merge_residual",
+              "median_ms": 0.2887679934501648,
+              "observed_calls": 1
+            },
+            {
+              "name": "mlp/residual",
+              "median_ms": 0.27238398790359497,
+              "observed_calls": 1
+            },
+            {
+              "name": "shared_cuda/rmsnorm_backward",
+              "median_ms": 0.15667199343442917,
+              "observed_calls": 2
+            },
+            {
+              "name": "embedding/position",
+              "median_ms": 0.1515520066022873,
+              "observed_calls": 1
+            },
+            {
+              "name": "block0/proj/pack_backward",
+              "median_ms": 0.10956799983978271,
+              "observed_calls": 1
+            },
+            {
+              "name": "attention/causal_mask",
+              "median_ms": 0.10444799810647964,
+              "observed_calls": 1
+            },
+            {
+              "name": "shared_cuda/rmsnorm",
+              "median_ms": 0.09625600278377533,
+              "observed_calls": 2
+            }
+          ],
+          "semantic_call_counts": {
+            "optimizer/zero_grad": 1,
+            "embedding/position": 1,
+            "shared_cuda/rmsnorm": 2,
+            "block0/qkv/pack_forward": 1,
+            "block0/qkv/gemm_forward": 1,
+            "block0/qkv/bias": 1,
+            "attention/qk/pack_forward": 1,
+            "attention/qk/gemm_forward": 1,
+            "attention/causal_mask": 1,
+            "shared_cuda/softmax": 1,
+            "attention/pv/pack_forward": 1,
+            "attention/pv/gemm_forward": 1,
+            "attention/merge_residual": 1,
+            "block0/proj/pack_forward": 1,
+            "block0/proj/gemm_forward": 1,
+            "block0/proj/bias": 1,
+            "block0/fc1/pack_forward": 1,
+            "block0/fc1/gemm_forward": 1,
+            "block0/fc1/bias": 1,
+            "shared_cuda/gelu_tanh": 1,
+            "mlp/residual": 1,
+            "block0/fc2/pack_forward": 1,
+            "block0/fc2/gemm_forward": 1,
+            "block0/fc2/bias": 1,
+            "head/pack_forward": 1,
+            "head/gemm_forward": 1,
+            "head/bias": 1,
+            "loss": 1,
+            "backward": 1,
+            "head/pack_backward": 1,
+            "head/gemm_dx": 1,
+            "head/gemm_dw": 1,
+            "block0/fc2/pack_backward": 1,
+            "block0/fc2/gemm_dx": 1,
+            "block0/fc2/gemm_dw": 1,
+            "shared_cuda/gelu_tanh_backward": 1,
+            "block0/fc1/pack_backward": 1,
+            "block0/fc1/gemm_dx": 1,
+            "block0/fc1/gemm_dw": 1,
+            "shared_cuda/rmsnorm_backward": 2,
+            "block0/proj/pack_backward": 1,
+            "block0/proj/gemm_dx": 1,
+            "block0/proj/gemm_dw": 1,
+            "attention/pv/pack_backward": 1,
+            "attention/pv/gemm_dx": 1,
+            "attention/pv/gemm_dw": 1,
+            "shared_cuda/softmax_backward": 1,
+            "attention/qk/pack_backward": 1,
+            "attention/qk/gemm_dx": 1,
+            "attention/qk/gemm_dw": 1,
+            "block0/qkv/pack_backward": 1,
+            "block0/qkv/gemm_dx": 1,
+            "block0/qkv/gemm_dw": 1,
+            "optimizer/clip": 1,
+            "optimizer/adamw": 1
+          },
+          "scope": "One separately instrumented diagnostic step. Nested/overlapping spans, host enqueue gaps and event overhead remain; do not sum. Semantic call counts are not actual CUDA kernel launch counts."
+        },
+        "ptxas": {
+          "training_admitted": true,
+          "largest_nested_spans": [
+            {
+              "name": "backward",
+              "median_ms": 4.0714240074157715,
+              "observed_calls": 1
+            },
+            {
+              "name": "optimizer/adamw",
+              "median_ms": 3.580928087234497,
+              "observed_calls": 1
+            },
+            {
+              "name": "optimizer/clip",
+              "median_ms": 0.5724160075187683,
+              "observed_calls": 1
+            },
+            {
+              "name": "attention/merge_residual",
+              "median_ms": 0.2908160090446472,
+              "observed_calls": 1
+            },
+            {
+              "name": "shared_cuda/gelu_tanh_backward",
+              "median_ms": 0.26214399933815,
+              "observed_calls": 1
+            },
+            {
+              "name": "mlp/residual",
+              "median_ms": 0.2611199915409088,
+              "observed_calls": 1
+            },
+            {
+              "name": "optimizer/zero_grad",
+              "median_ms": 0.22630399465560913,
+              "observed_calls": 1
+            },
+            {
+              "name": "native/gelu_tanh",
+              "median_ms": 0.14950400590896606,
+              "observed_calls": 1
+            },
+            {
+              "name": "embedding/position",
+              "median_ms": 0.14233599603176117,
+              "observed_calls": 1
+            },
+            {
+              "name": "block0/qkv/pack_backward",
+              "median_ms": 0.12800000607967377,
+              "observed_calls": 1
+            },
+            {
+              "name": "attention/causal_mask",
+              "median_ms": 0.1085439994931221,
+              "observed_calls": 1
+            },
+            {
+              "name": "attention/pv/gemm_dx",
+              "median_ms": 0.09216000139713287,
+              "observed_calls": 1
+            }
+          ],
+          "semantic_call_counts": {
+            "optimizer/zero_grad": 1,
+            "embedding/position": 1,
+            "native/rmsnorm": 2,
+            "block0/qkv/pack_forward": 1,
+            "block0/qkv/gemm_forward": 1,
+            "block0/qkv/bias": 1,
+            "attention/qk/pack_forward": 1,
+            "attention/qk/gemm_forward": 1,
+            "attention/causal_mask": 1,
+            "native/softmax": 1,
+            "attention/pv/pack_forward": 1,
+            "attention/pv/gemm_forward": 1,
+            "attention/merge_residual": 1,
+            "block0/proj/pack_forward": 1,
+            "block0/proj/gemm_forward": 1,
+            "block0/proj/bias": 1,
+            "block0/fc1/pack_forward": 1,
+            "block0/fc1/gemm_forward": 1,
+            "block0/fc1/bias": 1,
+            "native/gelu_tanh": 1,
+            "mlp/residual": 1,
+            "block0/fc2/pack_forward": 1,
+            "block0/fc2/gemm_forward": 1,
+            "block0/fc2/bias": 1,
+            "head/pack_forward": 1,
+            "head/gemm_forward": 1,
+            "head/bias": 1,
+            "loss": 1,
+            "backward": 1,
+            "head/pack_backward": 1,
+            "head/gemm_dx": 1,
+            "head/gemm_dw": 1,
+            "block0/fc2/pack_backward": 1,
+            "block0/fc2/gemm_dx": 1,
+            "block0/fc2/gemm_dw": 1,
+            "shared_cuda/gelu_tanh_backward": 1,
+            "block0/fc1/pack_backward": 1,
+            "block0/fc1/gemm_dx": 1,
+            "block0/fc1/gemm_dw": 1,
+            "native/rmsnorm_backward": 2,
+            "block0/proj/pack_backward": 1,
+            "block0/proj/gemm_dx": 1,
+            "block0/proj/gemm_dw": 1,
+            "attention/pv/pack_backward": 1,
+            "attention/pv/gemm_dx": 1,
+            "attention/pv/gemm_dw": 1,
+            "native/softmax_backward": 1,
+            "attention/qk/pack_backward": 1,
+            "attention/qk/gemm_dx": 1,
+            "attention/qk/gemm_dw": 1,
+            "block0/qkv/pack_backward": 1,
+            "block0/qkv/gemm_dx": 1,
+            "block0/qkv/gemm_dw": 1,
+            "optimizer/clip": 1,
+            "optimizer/adamw": 1
+          },
+          "scope": "One separately instrumented diagnostic step. Nested/overlapping spans, host enqueue gaps and event overhead remain; do not sum. Semantic call counts are not actual CUDA kernel launch counts."
+        },
+        "ptxas_tensor_only": {
+          "training_admitted": true,
+          "largest_nested_spans": [
+            {
+              "name": "backward",
+              "median_ms": 4.6530561447143555,
+              "observed_calls": 1
+            },
+            {
+              "name": "optimizer/adamw",
+              "median_ms": 3.6177918910980225,
+              "observed_calls": 1
+            },
+            {
+              "name": "optimizer/clip",
+              "median_ms": 0.5611519813537598,
+              "observed_calls": 1
+            },
+            {
+              "name": "attention/merge_residual",
+              "median_ms": 0.29286399483680725,
+              "observed_calls": 1
+            },
+            {
+              "name": "mlp/residual",
+              "median_ms": 0.27852800488471985,
+              "observed_calls": 1
+            },
+            {
+              "name": "shared_cuda/gelu_tanh_backward",
+              "median_ms": 0.24780799448490143,
+              "observed_calls": 1
+            },
+            {
+              "name": "optimizer/zero_grad",
+              "median_ms": 0.2027519941329956,
+              "observed_calls": 1
+            },
+            {
+              "name": "shared_cuda/rmsnorm_backward",
+              "median_ms": 0.15564799308776855,
+              "observed_calls": 2
+            },
+            {
+              "name": "embedding/position",
+              "median_ms": 0.1454080045223236,
+              "observed_calls": 1
+            },
+            {
+              "name": "head/gemm_dx",
+              "median_ms": 0.1382399946451187,
+              "observed_calls": 1
+            },
+            {
+              "name": "block0/fc1/pack_backward",
+              "median_ms": 0.10751999914646149,
+              "observed_calls": 1
+            },
+            {
+              "name": "shared_cuda/rmsnorm",
+              "median_ms": 0.10035200044512749,
+              "observed_calls": 2
+            }
+          ],
+          "semantic_call_counts": {
+            "optimizer/zero_grad": 1,
+            "embedding/position": 1,
+            "shared_cuda/rmsnorm": 2,
+            "block0/qkv/pack_forward": 1,
+            "block0/qkv/gemm_forward": 1,
+            "block0/qkv/bias": 1,
+            "attention/qk/pack_forward": 1,
+            "attention/qk/gemm_forward": 1,
+            "attention/causal_mask": 1,
+            "shared_cuda/softmax": 1,
+            "attention/pv/pack_forward": 1,
+            "attention/pv/gemm_forward": 1,
+            "attention/merge_residual": 1,
+            "block0/proj/pack_forward": 1,
+            "block0/proj/gemm_forward": 1,
+            "block0/proj/bias": 1,
+            "block0/fc1/pack_forward": 1,
+            "block0/fc1/gemm_forward": 1,
+            "block0/fc1/bias": 1,
+            "shared_cuda/gelu_tanh": 1,
+            "mlp/residual": 1,
+            "block0/fc2/pack_forward": 1,
+            "block0/fc2/gemm_forward": 1,
+            "block0/fc2/bias": 1,
+            "head/pack_forward": 1,
+            "head/gemm_forward": 1,
+            "head/bias": 1,
+            "loss": 1,
+            "backward": 1,
+            "head/pack_backward": 1,
+            "head/gemm_dx": 1,
+            "head/gemm_dw": 1,
+            "block0/fc2/pack_backward": 1,
+            "block0/fc2/gemm_dx": 1,
+            "block0/fc2/gemm_dw": 1,
+            "shared_cuda/gelu_tanh_backward": 1,
+            "block0/fc1/pack_backward": 1,
+            "block0/fc1/gemm_dx": 1,
+            "block0/fc1/gemm_dw": 1,
+            "shared_cuda/rmsnorm_backward": 2,
+            "block0/proj/pack_backward": 1,
+            "block0/proj/gemm_dx": 1,
+            "block0/proj/gemm_dw": 1,
+            "attention/pv/pack_backward": 1,
+            "attention/pv/gemm_dx": 1,
+            "attention/pv/gemm_dw": 1,
+            "shared_cuda/softmax_backward": 1,
+            "attention/qk/pack_backward": 1,
+            "attention/qk/gemm_dx": 1,
+            "attention/qk/gemm_dw": 1,
+            "block0/qkv/pack_backward": 1,
+            "block0/qkv/gemm_dx": 1,
+            "block0/qkv/gemm_dw": 1,
+            "optimizer/clip": 1,
+            "optimizer/adamw": 1
+          },
+          "scope": "One separately instrumented diagnostic step. Nested/overlapping spans, host enqueue gaps and event overhead remain; do not sum. Semantic call counts are not actual CUDA kernel launch counts."
+        },
+        "cuda_library": {
+          "training_admitted": false,
+          "largest_nested_spans": [
+            {
+              "name": "backward",
+              "median_ms": 4.625408172607422,
+              "observed_calls": 1
+            },
+            {
+              "name": "optimizer/adamw",
+              "median_ms": 3.5891199111938477,
+              "observed_calls": 1
+            },
+            {
+              "name": "optimizer/clip",
+              "median_ms": 0.5836799740791321,
+              "observed_calls": 1
+            },
+            {
+              "name": "attention/merge_residual",
+              "median_ms": 0.29286399483680725,
+              "observed_calls": 1
+            },
+            {
+              "name": "mlp/residual",
+              "median_ms": 0.2672640085220337,
+              "observed_calls": 1
+            },
+            {
+              "name": "shared_cuda/gelu_tanh_backward",
+              "median_ms": 0.2611199915409088,
+              "observed_calls": 1
+            },
+            {
+              "name": "optimizer/zero_grad",
+              "median_ms": 0.2314240038394928,
+              "observed_calls": 1
+            },
+            {
+              "name": "shared_cuda/rmsnorm_backward",
+              "median_ms": 0.1807359978556633,
+              "observed_calls": 2
+            },
+            {
+              "name": "embedding/position",
+              "median_ms": 0.16383999586105347,
+              "observed_calls": 1
+            },
+            {
+              "name": "block0/qkv/gemm_dx",
+              "median_ms": 0.13926400244235992,
+              "observed_calls": 1
+            },
+            {
+              "name": "shared_cuda/rmsnorm",
+              "median_ms": 0.11315199732780457,
+              "observed_calls": 2
+            },
+            {
+              "name": "shared_cuda/softmax_backward",
+              "median_ms": 0.10444799810647964,
+              "observed_calls": 1
+            }
+          ],
+          "semantic_call_counts": {
+            "optimizer/zero_grad": 1,
+            "embedding/position": 1,
+            "shared_cuda/rmsnorm": 2,
+            "block0/qkv/pack_forward": 1,
+            "block0/qkv/gemm_forward": 1,
+            "block0/qkv/bias": 1,
+            "attention/qk/pack_forward": 1,
+            "attention/qk/gemm_forward": 1,
+            "attention/causal_mask": 1,
+            "shared_cuda/softmax": 1,
+            "attention/pv/pack_forward": 1,
+            "attention/pv/gemm_forward": 1,
+            "attention/merge_residual": 1,
+            "block0/proj/pack_forward": 1,
+            "block0/proj/gemm_forward": 1,
+            "block0/proj/bias": 1,
+            "block0/fc1/pack_forward": 1,
+            "block0/fc1/gemm_forward": 1,
+            "block0/fc1/bias": 1,
+            "shared_cuda/gelu_tanh": 1,
+            "mlp/residual": 1,
+            "block0/fc2/pack_forward": 1,
+            "block0/fc2/gemm_forward": 1,
+            "block0/fc2/bias": 1,
+            "head/pack_forward": 1,
+            "head/gemm_forward": 1,
+            "head/bias": 1,
+            "loss": 1,
+            "backward": 1,
+            "head/pack_backward": 1,
+            "head/gemm_dx": 1,
+            "head/gemm_dw": 1,
+            "block0/fc2/pack_backward": 1,
+            "block0/fc2/gemm_dx": 1,
+            "block0/fc2/gemm_dw": 1,
+            "shared_cuda/gelu_tanh_backward": 1,
+            "block0/fc1/pack_backward": 1,
+            "block0/fc1/gemm_dx": 1,
+            "block0/fc1/gemm_dw": 1,
+            "shared_cuda/rmsnorm_backward": 2,
+            "block0/proj/pack_backward": 1,
+            "block0/proj/gemm_dx": 1,
+            "block0/proj/gemm_dw": 1,
+            "attention/pv/pack_backward": 1,
+            "attention/pv/gemm_dx": 1,
+            "attention/pv/gemm_dw": 1,
+            "shared_cuda/softmax_backward": 1,
+            "attention/qk/pack_backward": 1,
+            "attention/qk/gemm_dx": 1,
+            "attention/qk/gemm_dw": 1,
+            "block0/qkv/pack_backward": 1,
+            "block0/qkv/gemm_dx": 1,
+            "block0/qkv/gemm_dw": 1,
+            "optimizer/clip": 1,
+            "optimizer/adamw": 1
+          },
+          "scope": "One separately instrumented diagnostic step. Nested/overlapping spans, host enqueue gaps and event overhead remain; do not sum. Semantic call counts are not actual CUDA kernel launch counts."
+        }
+      },
+      "initial_method_pairs": 4,
+      "training_method_pairs": 3,
+      "inference_method_pairs": 4,
+      "inference_graph_method_pairs": 4,
+      "inference_weight_cache_summary": []
+    },
+    {
+      "case": {
+        "name": "transformer_multihead",
+        "family": "transformer",
+        "batch": 2,
+        "seq": 128,
+        "tokens": 256,
+        "width": 256,
+        "hidden": 1024,
+        "heads": 2,
+        "layers": 2,
+        "activation": "gelu_tanh"
+      },
+      "status": "completed",
+      "methods": [
+        {
+          "method": "cuda_library",
+          "reference_method": "ptxas_tensor_only",
+          "reference_group": "shared_torch_surrounding",
+          "initial_admitted": false,
+          "training_admitted": false,
+          "inference_admitted": false,
+          "inference_graph_admitted": false,
+          "training_event_ms": null,
+          "training_host_wall_ms": null,
+          "inference_event_ms": null,
+          "inference_graph_ms": null,
+          "initial_failure": {
+            "tensors_failed": 13,
+            "by_category": {
+              "output": 1,
+              "parameter": 12
+            },
+            "details": [
+              {
+                "name": "output/prediction",
+                "elements": 65536,
+                "mismatched": 13438,
+                "max_abs": 0.003162950277328491,
+                "relative_l2": 0.00034544610571521903
+              },
+              {
+                "name": "parameter/blocks.0.fc1.weight",
+                "elements": 262144,
+                "mismatched": 48,
+                "max_abs": 0.00023272354155778885,
+                "relative_l2": 3.436083830409023e-05
+              },
+              {
+                "name": "parameter/blocks.0.fc2.weight",
+                "elements": 262144,
+                "mismatched": 51,
+                "max_abs": 0.00021278485655784607,
+                "relative_l2": 6.775391967178065e-05
+              },
+              {
+                "name": "parameter/blocks.0.proj.weight",
+                "elements": 65536,
+                "mismatched": 12,
+                "max_abs": 0.00019753724336624146,
+                "relative_l2": 3.2584299356222155e-05
+              },
+              {
+                "name": "parameter/blocks.0.qkv.bias",
+                "elements": 768,
+                "mismatched": 229,
+                "max_abs": 0.0005039282550569624,
+                "relative_l2": 0.3236923598398541
+              },
+              {
+                "name": "parameter/blocks.0.qkv.weight",
+                "elements": 196608,
+                "mismatched": 115,
+                "max_abs": 0.00033292174339294434,
+                "relative_l2": 6.354812213071832e-05
+              },
+              {
+                "name": "parameter/blocks.1.fc1.bias",
+                "elements": 1024,
+                "mismatched": 1,
+                "max_abs": 1.6622710973024368e-05,
+                "relative_l2": 0.0019671388974889905
+              },
+              {
+                "name": "parameter/blocks.1.fc1.weight",
+                "elements": 262144,
+                "mismatched": 52,
+                "max_abs": 0.00021316111087799072,
+                "relative_l2": 3.307441865628013e-05
+              },
+              {
+                "name": "parameter/blocks.1.fc2.weight",
+                "elements": 262144,
+                "mismatched": 59,
+                "max_abs": 0.0002120286226272583,
+                "relative_l2": 7.575465010687653e-05
+              },
+              {
+                "name": "parameter/blocks.1.proj.weight",
+                "elements": 65536,
+                "mismatched": 16,
+                "max_abs": 0.00033783912658691406,
+                "relative_l2": 4.1424458996052715e-05
+              },
+              {
+                "name": "parameter/blocks.1.qkv.bias",
+                "elements": 768,
+                "mismatched": 218,
+                "max_abs": 0.0005251608090475202,
+                "relative_l2": 0.3341523908437686
+              },
+              {
+                "name": "parameter/blocks.1.qkv.weight",
+                "elements": 196608,
+                "mismatched": 123,
+                "max_abs": 0.00037763267755508423,
+                "relative_l2": 6.430736174773763e-05
+              },
+              {
+                "name": "parameter/head.weight",
+                "elements": 65536,
+                "mismatched": 11,
+                "max_abs": 0.00020226836204528809,
+                "relative_l2": 3.695069297935593e-05
+              }
+            ]
+          },
+          "post_trajectory_failure": {
+            "tensors_failed": 0,
+            "by_category": {},
+            "details": []
+          },
+          "exclusion_reason": "initial_full_state_or_guard_gate",
+          "reference_over_method_training": null,
+          "reference_over_method_inference": null,
+          "reference_over_method_inference_graph": null,
+          "within_method_host_over_graph_inference": null
+        },
+        {
+          "method": "oa_direct",
+          "reference_method": "ptxas",
+          "reference_group": "generated_native_operator_sources",
+          "initial_admitted": false,
+          "training_admitted": false,
+          "inference_admitted": false,
+          "inference_graph_admitted": false,
+          "training_event_ms": null,
+          "training_host_wall_ms": null,
+          "inference_event_ms": null,
+          "inference_graph_ms": null,
+          "initial_failure": {
+            "tensors_failed": 13,
+            "by_category": {
+              "output": 1,
+              "parameter": 12
+            },
+            "details": [
+              {
+                "name": "output/prediction",
+                "elements": 65536,
+                "mismatched": 13424,
+                "max_abs": 0.0035216808319091797,
+                "relative_l2": 0.0003468117846777451
+              },
+              {
+                "name": "parameter/blocks.0.fc1.weight",
+                "elements": 262144,
+                "mismatched": 57,
+                "max_abs": 0.00026451051235198975,
+                "relative_l2": 3.576024210491389e-05
+              },
+              {
+                "name": "parameter/blocks.0.fc2.weight",
+                "elements": 262144,
+                "mismatched": 30,
+                "max_abs": 0.0002025822177529335,
+                "relative_l2": 5.8043249696370364e-05
+              },
+              {
+                "name": "parameter/blocks.0.proj.weight",
+                "elements": 65536,
+                "mismatched": 8,
+                "max_abs": 0.00018684566020965576,
+                "relative_l2": 2.7263693825139303e-05
+              },
+              {
+                "name": "parameter/blocks.0.qkv.bias",
+                "elements": 768,
+                "mismatched": 215,
+                "max_abs": 0.0005291864508762956,
+                "relative_l2": 0.29358677593664206
+              },
+              {
+                "name": "parameter/blocks.0.qkv.weight",
+                "elements": 196608,
+                "mismatched": 95,
+                "max_abs": 0.0003917645663022995,
+                "relative_l2": 6.0508391204935393e-05
+              },
+              {
+                "name": "parameter/blocks.1.fc1.bias",
+                "elements": 1024,
+                "mismatched": 1,
+                "max_abs": 0.00015331830945797265,
+                "relative_l2": 0.01647793317579253
+              },
+              {
+                "name": "parameter/blocks.1.fc1.weight",
+                "elements": 262144,
+                "mismatched": 42,
+                "max_abs": 0.0001871064305305481,
+                "relative_l2": 2.7183589091739328e-05
+              },
+              {
+                "name": "parameter/blocks.1.fc2.weight",
+                "elements": 262144,
+                "mismatched": 24,
+                "max_abs": 0.0001896452158689499,
+                "relative_l2": 4.1159798510305895e-05
+              },
+              {
+                "name": "parameter/blocks.1.proj.weight",
+                "elements": 65536,
+                "mismatched": 7,
+                "max_abs": 0.00017597153782844543,
+                "relative_l2": 2.113214820231625e-05
+              },
+              {
+                "name": "parameter/blocks.1.qkv.bias",
+                "elements": 768,
+                "mismatched": 212,
+                "max_abs": 0.0005076950474176556,
+                "relative_l2": 0.2651752472144241
+              },
+              {
+                "name": "parameter/blocks.1.qkv.weight",
+                "elements": 196608,
+                "mismatched": 76,
+                "max_abs": 0.00045580416917800903,
+                "relative_l2": 5.0056385895246045e-05
+              },
+              {
+                "name": "parameter/head.weight",
+                "elements": 65536,
+                "mismatched": 7,
+                "max_abs": 0.0001815110445022583,
+                "relative_l2": 2.4935878143215297e-05
+              }
+            ]
+          },
+          "post_trajectory_failure": {
+            "tensors_failed": 0,
+            "by_category": {},
+            "details": []
+          },
+          "exclusion_reason": "initial_full_state_or_guard_gate",
+          "reference_over_method_training": null,
+          "reference_over_method_inference": null,
+          "reference_over_method_inference_graph": null,
+          "within_method_host_over_graph_inference": null
+        },
+        {
+          "method": "oa_legacy",
+          "reference_method": "ptxas",
+          "reference_group": "generated_native_operator_sources",
+          "initial_admitted": false,
+          "training_admitted": false,
+          "inference_admitted": false,
+          "inference_graph_admitted": false,
+          "training_event_ms": null,
+          "training_host_wall_ms": null,
+          "inference_event_ms": null,
+          "inference_graph_ms": null,
+          "initial_failure": {
+            "tensors_failed": 13,
+            "by_category": {
+              "output": 1,
+              "parameter": 12
+            },
+            "details": [
+              {
+                "name": "output/prediction",
+                "elements": 65536,
+                "mismatched": 13424,
+                "max_abs": 0.0035216808319091797,
+                "relative_l2": 0.0003468117846777451
+              },
+              {
+                "name": "parameter/blocks.0.fc1.weight",
+                "elements": 262144,
+                "mismatched": 57,
+                "max_abs": 0.00026451051235198975,
+                "relative_l2": 3.576024210491389e-05
+              },
+              {
+                "name": "parameter/blocks.0.fc2.weight",
+                "elements": 262144,
+                "mismatched": 30,
+                "max_abs": 0.0002025822177529335,
+                "relative_l2": 5.8043249696370364e-05
+              },
+              {
+                "name": "parameter/blocks.0.proj.weight",
+                "elements": 65536,
+                "mismatched": 8,
+                "max_abs": 0.00018684566020965576,
+                "relative_l2": 2.7263693825139303e-05
+              },
+              {
+                "name": "parameter/blocks.0.qkv.bias",
+                "elements": 768,
+                "mismatched": 215,
+                "max_abs": 0.0005291864508762956,
+                "relative_l2": 0.29358677593664206
+              },
+              {
+                "name": "parameter/blocks.0.qkv.weight",
+                "elements": 196608,
+                "mismatched": 95,
+                "max_abs": 0.0003917645663022995,
+                "relative_l2": 6.0508391204935393e-05
+              },
+              {
+                "name": "parameter/blocks.1.fc1.bias",
+                "elements": 1024,
+                "mismatched": 1,
+                "max_abs": 0.00015331830945797265,
+                "relative_l2": 0.01647793317579253
+              },
+              {
+                "name": "parameter/blocks.1.fc1.weight",
+                "elements": 262144,
+                "mismatched": 42,
+                "max_abs": 0.0001871064305305481,
+                "relative_l2": 2.7183589091739328e-05
+              },
+              {
+                "name": "parameter/blocks.1.fc2.weight",
+                "elements": 262144,
+                "mismatched": 24,
+                "max_abs": 0.0001896452158689499,
+                "relative_l2": 4.1159798510305895e-05
+              },
+              {
+                "name": "parameter/blocks.1.proj.weight",
+                "elements": 65536,
+                "mismatched": 7,
+                "max_abs": 0.00017597153782844543,
+                "relative_l2": 2.113214820231625e-05
+              },
+              {
+                "name": "parameter/blocks.1.qkv.bias",
+                "elements": 768,
+                "mismatched": 212,
+                "max_abs": 0.0005076950474176556,
+                "relative_l2": 0.2651752472144241
+              },
+              {
+                "name": "parameter/blocks.1.qkv.weight",
+                "elements": 196608,
+                "mismatched": 76,
+                "max_abs": 0.00045580416917800903,
+                "relative_l2": 5.0056385895246045e-05
+              },
+              {
+                "name": "parameter/head.weight",
+                "elements": 65536,
+                "mismatched": 7,
+                "max_abs": 0.0001815110445022583,
+                "relative_l2": 2.4935878143215297e-05
+              }
+            ]
+          },
+          "post_trajectory_failure": {
+            "tensors_failed": 0,
+            "by_category": {},
+            "details": []
+          },
+          "exclusion_reason": "initial_full_state_or_guard_gate",
+          "reference_over_method_training": null,
+          "reference_over_method_inference": null,
+          "reference_over_method_inference_graph": null,
+          "within_method_host_over_graph_inference": null
+        },
+        {
+          "method": "oa_tensor_only",
+          "reference_method": "ptxas_tensor_only",
+          "reference_group": "shared_torch_surrounding",
+          "initial_admitted": true,
+          "training_admitted": true,
+          "inference_admitted": true,
+          "inference_graph_admitted": true,
+          "training_event_ms": 24.767897033691405,
+          "training_host_wall_ms": 24.778302200000013,
+          "inference_event_ms": 5.446451187133789,
+          "inference_graph_ms": 0.717414379119873,
+          "initial_failure": {
+            "tensors_failed": 0,
+            "by_category": {},
+            "details": []
+          },
+          "post_trajectory_failure": {
+            "tensors_failed": 0,
+            "by_category": {},
+            "details": []
+          },
+          "reference_over_method_training": 1.0177944169036643,
+          "reference_over_method_inference": 0.9917650408386035,
+          "reference_over_method_inference_graph": 0.8878104547143388,
+          "within_method_host_over_graph_inference": 7.591778678614608
+        },
+        {
+          "method": "ptxas",
+          "reference_method": "ptxas",
+          "reference_group": "generated_native_operator_sources",
+          "initial_admitted": true,
+          "training_admitted": true,
+          "inference_admitted": true,
+          "inference_graph_admitted": true,
+          "training_event_ms": 24.680447387695313,
+          "training_host_wall_ms": 24.691441400000258,
+          "inference_event_ms": 5.810585784912109,
+          "inference_graph_ms": 0.5777408123016358,
+          "initial_failure": {
+            "tensors_failed": 0,
+            "by_category": {},
+            "details": []
+          },
+          "post_trajectory_failure": {
+            "tensors_failed": 0,
+            "by_category": {},
+            "details": []
+          },
+          "reference_over_method_training": 1.0,
+          "reference_over_method_inference": 1.0,
+          "reference_over_method_inference_graph": 1.0,
+          "within_method_host_over_graph_inference": 10.057426550434574
+        },
+        {
+          "method": "ptxas_tensor_only",
+          "reference_method": "ptxas_tensor_only",
+          "reference_group": "shared_torch_surrounding",
+          "initial_admitted": true,
+          "training_admitted": true,
+          "inference_admitted": true,
+          "inference_graph_admitted": true,
+          "training_event_ms": 25.20862731933594,
+          "training_host_wall_ms": 25.21647619999996,
+          "inference_event_ms": 5.401599884033203,
+          "inference_graph_ms": 0.6369279861450196,
+          "initial_failure": {
+            "tensors_failed": 0,
+            "by_category": {},
+            "details": []
+          },
+          "post_trajectory_failure": {
+            "tensors_failed": 0,
+            "by_category": {},
+            "details": []
+          },
+          "reference_over_method_training": 1.0,
+          "reference_over_method_inference": 1.0,
+          "reference_over_method_inference_graph": 1.0,
+          "within_method_host_over_graph_inference": 8.480707397905633
+        }
+      ],
+      "comparisons": [
+        {
+          "candidate": "oa_legacy",
+          "baseline": "ptxas",
+          "training_admitted": false,
+          "training_baseline_over_candidate": null,
+          "inference_admitted": false,
+          "inference_baseline_over_candidate": null,
+          "inference_graph_admitted": false,
+          "inference_graph_baseline_over_candidate": null
+        },
+        {
+          "candidate": "oa_direct",
+          "baseline": "ptxas",
+          "training_admitted": false,
+          "training_baseline_over_candidate": null,
+          "inference_admitted": false,
+          "inference_baseline_over_candidate": null,
+          "inference_graph_admitted": false,
+          "inference_graph_baseline_over_candidate": null
+        },
+        {
+          "candidate": "oa_tensor_only",
+          "baseline": "ptxas_tensor_only",
+          "training_admitted": true,
+          "training_baseline_over_candidate": 1.0177944169036643,
+          "inference_admitted": true,
+          "inference_baseline_over_candidate": 0.9917650408386035,
+          "inference_graph_admitted": true,
+          "inference_graph_baseline_over_candidate": 0.8878104547143388
+        },
+        {
+          "candidate": "oa_tensor_only",
+          "baseline": "cuda_library",
+          "training_admitted": false,
+          "training_baseline_over_candidate": null,
+          "inference_admitted": false,
+          "inference_baseline_over_candidate": null,
+          "inference_graph_admitted": false,
+          "inference_graph_baseline_over_candidate": null
+        }
+      ],
+      "stage_diagnostics": {
+        "oa_tensor_only": {
+          "training_admitted": true,
+          "largest_nested_spans": [
+            {
+              "name": "backward",
+              "median_ms": 16.069631576538086,
+              "observed_calls": 1
+            },
+            {
+              "name": "optimizer/adamw",
+              "median_ms": 6.147071838378906,
+              "observed_calls": 1
+            },
+            {
+              "name": "optimizer/clip",
+              "median_ms": 0.9226239919662476,
+              "observed_calls": 1
+            },
+            {
+              "name": "mlp/residual",
+              "median_ms": 0.7710720002651215,
+              "observed_calls": 2
+            },
+            {
+              "name": "block0/fc2/bias",
+              "median_ms": 0.7014399766921997,
+              "observed_calls": 1
+            },
+            {
+              "name": "shared_cuda/gelu_tanh_backward",
+              "median_ms": 0.5145600065588951,
+              "observed_calls": 2
+            },
+            {
+              "name": "optimizer/zero_grad",
+              "median_ms": 0.37990400195121765,
+              "observed_calls": 1
+            },
+            {
+              "name": "block1/fc2/bias",
+              "median_ms": 0.3461120128631592,
+              "observed_calls": 1
+            },
+            {
+              "name": "attention/merge_residual",
+              "median_ms": 0.2954239994287491,
+              "observed_calls": 2
+            },
+            {
+              "name": "embedding/position",
+              "median_ms": 0.18432000279426575,
+              "observed_calls": 1
+            },
+            {
+              "name": "shared_cuda/rmsnorm_backward",
+              "median_ms": 0.16025599837303162,
+              "observed_calls": 4
+            },
+            {
+              "name": "block1/qkv/pack_backward",
+              "median_ms": 0.1382399946451187,
+              "observed_calls": 1
+            }
+          ],
+          "semantic_call_counts": {
+            "optimizer/zero_grad": 1,
+            "embedding/position": 1,
+            "shared_cuda/rmsnorm": 4,
+            "block0/qkv/pack_forward": 1,
+            "block0/qkv/gemm_forward": 1,
+            "block0/qkv/bias": 1,
+            "attention/qk/pack_forward": 8,
+            "attention/qk/gemm_forward": 8,
+            "attention/causal_mask": 8,
+            "shared_cuda/softmax": 8,
+            "attention/pv/pack_forward": 8,
+            "attention/pv/gemm_forward": 8,
+            "attention/merge_residual": 2,
+            "block0/proj/pack_forward": 1,
+            "block0/proj/gemm_forward": 1,
+            "block0/proj/bias": 1,
+            "block0/fc1/pack_forward": 1,
+            "block0/fc1/gemm_forward": 1,
+            "block0/fc1/bias": 1,
+            "shared_cuda/gelu_tanh": 2,
+            "mlp/residual": 2,
+            "block0/fc2/pack_forward": 1,
+            "block0/fc2/gemm_forward": 1,
+            "block0/fc2/bias": 1,
+            "block1/qkv/pack_forward": 1,
+            "block1/qkv/gemm_forward": 1,
+            "block1/qkv/bias": 1,
+            "block1/proj/pack_forward": 1,
+            "block1/proj/gemm_forward": 1,
+            "block1/proj/bias": 1,
+            "block1/fc1/pack_forward": 1,
+            "block1/fc1/gemm_forward": 1,
+            "block1/fc1/bias": 1,
+            "block1/fc2/pack_forward": 1,
+            "block1/fc2/gemm_forward": 1,
+            "block1/fc2/bias": 1,
+            "head/pack_forward": 1,
+            "head/gemm_forward": 1,
+            "head/bias": 1,
+            "loss": 1,
+            "backward": 1,
+            "head/pack_backward": 1,
+            "head/gemm_dx": 1,
+            "head/gemm_dw": 1,
+            "block1/fc2/pack_backward": 1,
+            "block1/fc2/gemm_dx": 1,
+            "block1/fc2/gemm_dw": 1,
+            "shared_cuda/gelu_tanh_backward": 2,
+            "block1/fc1/pack_backward": 1,
+            "block1/fc1/gemm_dx": 1,
+            "block1/fc1/gemm_dw": 1,
+            "shared_cuda/rmsnorm_backward": 4,
+            "block1/proj/pack_backward": 1,
+            "block1/proj/gemm_dx": 1,
+            "block1/proj/gemm_dw": 1,
+            "attention/pv/pack_backward": 8,
+            "attention/pv/gemm_dx": 8,
+            "attention/pv/gemm_dw": 8,
+            "shared_cuda/softmax_backward": 8,
+            "attention/qk/pack_backward": 8,
+            "attention/qk/gemm_dx": 8,
+            "attention/qk/gemm_dw": 8,
+            "block1/qkv/pack_backward": 1,
+            "block1/qkv/gemm_dx": 1,
+            "block1/qkv/gemm_dw": 1,
+            "block0/fc2/pack_backward": 1,
+            "block0/fc2/gemm_dx": 1,
+            "block0/fc2/gemm_dw": 1,
+            "block0/fc1/pack_backward": 1,
+            "block0/fc1/gemm_dx": 1,
+            "block0/fc1/gemm_dw": 1,
+            "block0/proj/pack_backward": 1,
+            "block0/proj/gemm_dx": 1,
+            "block0/proj/gemm_dw": 1,
+            "block0/qkv/pack_backward": 1,
+            "block0/qkv/gemm_dx": 1,
+            "block0/qkv/gemm_dw": 1,
+            "optimizer/clip": 1,
+            "optimizer/adamw": 1
+          },
+          "scope": "One separately instrumented diagnostic step. Nested/overlapping spans, host enqueue gaps and event overhead remain; do not sum. Semantic call counts are not actual CUDA kernel launch counts."
+        },
+        "ptxas": {
+          "training_admitted": true,
+          "largest_nested_spans": [
+            {
+              "name": "backward",
+              "median_ms": 15.723520278930664,
+              "observed_calls": 1
+            },
+            {
+              "name": "optimizer/adamw",
+              "median_ms": 6.0590081214904785,
+              "observed_calls": 1
+            },
+            {
+              "name": "optimizer/clip",
+              "median_ms": 0.839680016040802,
+              "observed_calls": 1
+            },
+            {
+              "name": "attention/merge_residual",
+              "median_ms": 0.3532800078392029,
+              "observed_calls": 2
+            },
+            {
+              "name": "optimizer/zero_grad",
+              "median_ms": 0.3266560137271881,
+              "observed_calls": 1
+            },
+            {
+              "name": "shared_cuda/gelu_tanh_backward",
+              "median_ms": 0.2964479923248291,
+              "observed_calls": 2
+            },
+            {
+              "name": "mlp/residual",
+              "median_ms": 0.25651200115680695,
+              "observed_calls": 2
+            },
+            {
+              "name": "embedding/position",
+              "median_ms": 0.16076800227165222,
+              "observed_calls": 1
+            },
+            {
+              "name": "block1/proj/gemm_forward",
+              "median_ms": 0.14028799533843994,
+              "observed_calls": 1
+            },
+            {
+              "name": "head/pack_backward",
+              "median_ms": 0.11878400295972824,
+              "observed_calls": 1
+            },
+            {
+              "name": "block0/fc1/pack_backward",
+              "median_ms": 0.09830400347709656,
+              "observed_calls": 1
+            },
+            {
+              "name": "attention/pv/pack_backward",
+              "median_ms": 0.09574399888515472,
+              "observed_calls": 8
+            }
+          ],
+          "semantic_call_counts": {
+            "optimizer/zero_grad": 1,
+            "embedding/position": 1,
+            "native/rmsnorm": 4,
+            "block0/qkv/pack_forward": 1,
+            "block0/qkv/gemm_forward": 1,
+            "block0/qkv/bias": 1,
+            "attention/qk/pack_forward": 8,
+            "attention/qk/gemm_forward": 8,
+            "attention/causal_mask": 8,
+            "native/softmax": 8,
+            "attention/pv/pack_forward": 8,
+            "attention/pv/gemm_forward": 8,
+            "attention/merge_residual": 2,
+            "block0/proj/pack_forward": 1,
+            "block0/proj/gemm_forward": 1,
+            "block0/proj/bias": 1,
+            "block0/fc1/pack_forward": 1,
+            "block0/fc1/gemm_forward": 1,
+            "block0/fc1/bias": 1,
+            "native/gelu_tanh": 2,
+            "mlp/residual": 2,
+            "block0/fc2/pack_forward": 1,
+            "block0/fc2/gemm_forward": 1,
+            "block0/fc2/bias": 1,
+            "block1/qkv/pack_forward": 1,
+            "block1/qkv/gemm_forward": 1,
+            "block1/qkv/bias": 1,
+            "block1/proj/pack_forward": 1,
+            "block1/proj/gemm_forward": 1,
+            "block1/proj/bias": 1,
+            "block1/fc1/pack_forward": 1,
+            "block1/fc1/gemm_forward": 1,
+            "block1/fc1/bias": 1,
+            "block1/fc2/pack_forward": 1,
+            "block1/fc2/gemm_forward": 1,
+            "block1/fc2/bias": 1,
+            "head/pack_forward": 1,
+            "head/gemm_forward": 1,
+            "head/bias": 1,
+            "loss": 1,
+            "backward": 1,
+            "head/pack_backward": 1,
+            "head/gemm_dx": 1,
+            "head/gemm_dw": 1,
+            "block1/fc2/pack_backward": 1,
+            "block1/fc2/gemm_dx": 1,
+            "block1/fc2/gemm_dw": 1,
+            "shared_cuda/gelu_tanh_backward": 2,
+            "block1/fc1/pack_backward": 1,
+            "block1/fc1/gemm_dx": 1,
+            "block1/fc1/gemm_dw": 1,
+            "native/rmsnorm_backward": 4,
+            "block1/proj/pack_backward": 1,
+            "block1/proj/gemm_dx": 1,
+            "block1/proj/gemm_dw": 1,
+            "attention/pv/pack_backward": 8,
+            "attention/pv/gemm_dx": 8,
+            "attention/pv/gemm_dw": 8,
+            "native/softmax_backward": 8,
+            "attention/qk/pack_backward": 8,
+            "attention/qk/gemm_dx": 8,
+            "attention/qk/gemm_dw": 8,
+            "block1/qkv/pack_backward": 1,
+            "block1/qkv/gemm_dx": 1,
+            "block1/qkv/gemm_dw": 1,
+            "block0/fc2/pack_backward": 1,
+            "block0/fc2/gemm_dx": 1,
+            "block0/fc2/gemm_dw": 1,
+            "block0/fc1/pack_backward": 1,
+            "block0/fc1/gemm_dx": 1,
+            "block0/fc1/gemm_dw": 1,
+            "block0/proj/pack_backward": 1,
+            "block0/proj/gemm_dx": 1,
+            "block0/proj/gemm_dw": 1,
+            "block0/qkv/pack_backward": 1,
+            "block0/qkv/gemm_dx": 1,
+            "block0/qkv/gemm_dw": 1,
+            "optimizer/clip": 1,
+            "optimizer/adamw": 1
+          },
+          "scope": "One separately instrumented diagnostic step. Nested/overlapping spans, host enqueue gaps and event overhead remain; do not sum. Semantic call counts are not actual CUDA kernel launch counts."
+        },
+        "ptxas_tensor_only": {
+          "training_admitted": true,
+          "largest_nested_spans": [
+            {
+              "name": "backward",
+              "median_ms": 16.36966323852539,
+              "observed_calls": 1
+            },
+            {
+              "name": "optimizer/adamw",
+              "median_ms": 6.041600227355957,
+              "observed_calls": 1
+            },
+            {
+              "name": "optimizer/clip",
+              "median_ms": 0.8581119775772095,
+              "observed_calls": 1
+            },
+            {
+              "name": "attention/merge_residual",
+              "median_ms": 0.34457600116729736,
+              "observed_calls": 2
+            },
+            {
+              "name": "optimizer/zero_grad",
+              "median_ms": 0.30617600679397583,
+              "observed_calls": 1
+            },
+            {
+              "name": "shared_cuda/gelu_tanh_backward",
+              "median_ms": 0.27801600098609924,
+              "observed_calls": 2
+            },
+            {
+              "name": "mlp/residual",
+              "median_ms": 0.26419200003147125,
+              "observed_calls": 2
+            },
+            {
+              "name": "embedding/position",
+              "median_ms": 0.1812479943037033,
+              "observed_calls": 1
+            },
+            {
+              "name": "shared_cuda/rmsnorm_backward",
+              "median_ms": 0.159231998026371,
+              "observed_calls": 4
+            },
+            {
+              "name": "block1/proj/pack_backward",
+              "median_ms": 0.1372160017490387,
+              "observed_calls": 1
+            },
+            {
+              "name": "block1/fc1/pack_backward",
+              "median_ms": 0.13414399325847626,
+              "observed_calls": 1
+            },
+            {
+              "name": "block1/qkv/pack_backward",
+              "median_ms": 0.10751999914646149,
+              "observed_calls": 1
+            }
+          ],
+          "semantic_call_counts": {
+            "optimizer/zero_grad": 1,
+            "embedding/position": 1,
+            "shared_cuda/rmsnorm": 4,
+            "block0/qkv/pack_forward": 1,
+            "block0/qkv/gemm_forward": 1,
+            "block0/qkv/bias": 1,
+            "attention/qk/pack_forward": 8,
+            "attention/qk/gemm_forward": 8,
+            "attention/causal_mask": 8,
+            "shared_cuda/softmax": 8,
+            "attention/pv/pack_forward": 8,
+            "attention/pv/gemm_forward": 8,
+            "attention/merge_residual": 2,
+            "block0/proj/pack_forward": 1,
+            "block0/proj/gemm_forward": 1,
+            "block0/proj/bias": 1,
+            "block0/fc1/pack_forward": 1,
+            "block0/fc1/gemm_forward": 1,
+            "block0/fc1/bias": 1,
+            "shared_cuda/gelu_tanh": 2,
+            "mlp/residual": 2,
+            "block0/fc2/pack_forward": 1,
+            "block0/fc2/gemm_forward": 1,
+            "block0/fc2/bias": 1,
+            "block1/qkv/pack_forward": 1,
+            "block1/qkv/gemm_forward": 1,
+            "block1/qkv/bias": 1,
+            "block1/proj/pack_forward": 1,
+            "block1/proj/gemm_forward": 1,
+            "block1/proj/bias": 1,
+            "block1/fc1/pack_forward": 1,
+            "block1/fc1/gemm_forward": 1,
+            "block1/fc1/bias": 1,
+            "block1/fc2/pack_forward": 1,
+            "block1/fc2/gemm_forward": 1,
+            "block1/fc2/bias": 1,
+            "head/pack_forward": 1,
+            "head/gemm_forward": 1,
+            "head/bias": 1,
+            "loss": 1,
+            "backward": 1,
+            "head/pack_backward": 1,
+            "head/gemm_dx": 1,
+            "head/gemm_dw": 1,
+            "block1/fc2/pack_backward": 1,
+            "block1/fc2/gemm_dx": 1,
+            "block1/fc2/gemm_dw": 1,
+            "shared_cuda/gelu_tanh_backward": 2,
+            "block1/fc1/pack_backward": 1,
+            "block1/fc1/gemm_dx": 1,
+            "block1/fc1/gemm_dw": 1,
+            "shared_cuda/rmsnorm_backward": 4,
+            "block1/proj/pack_backward": 1,
+            "block1/proj/gemm_dx": 1,
+            "block1/proj/gemm_dw": 1,
+            "attention/pv/pack_backward": 8,
+            "attention/pv/gemm_dx": 8,
+            "attention/pv/gemm_dw": 8,
+            "shared_cuda/softmax_backward": 8,
+            "attention/qk/pack_backward": 8,
+            "attention/qk/gemm_dx": 8,
+            "attention/qk/gemm_dw": 8,
+            "block1/qkv/pack_backward": 1,
+            "block1/qkv/gemm_dx": 1,
+            "block1/qkv/gemm_dw": 1,
+            "block0/fc2/pack_backward": 1,
+            "block0/fc2/gemm_dx": 1,
+            "block0/fc2/gemm_dw": 1,
+            "block0/fc1/pack_backward": 1,
+            "block0/fc1/gemm_dx": 1,
+            "block0/fc1/gemm_dw": 1,
+            "block0/proj/pack_backward": 1,
+            "block0/proj/gemm_dx": 1,
+            "block0/proj/gemm_dw": 1,
+            "block0/qkv/pack_backward": 1,
+            "block0/qkv/gemm_dx": 1,
+            "block0/qkv/gemm_dw": 1,
+            "optimizer/clip": 1,
+            "optimizer/adamw": 1
+          },
+          "scope": "One separately instrumented diagnostic step. Nested/overlapping spans, host enqueue gaps and event overhead remain; do not sum. Semantic call counts are not actual CUDA kernel launch counts."
+        }
+      },
+      "initial_method_pairs": 3,
+      "training_method_pairs": 3,
+      "inference_method_pairs": 3,
+      "inference_graph_method_pairs": 3,
+      "inference_weight_cache_summary": []
+    },
+    {
+      "case": {
+        "name": "transformer_long",
+        "family": "transformer",
+        "batch": 1,
+        "seq": 256,
+        "tokens": 256,
+        "width": 256,
+        "hidden": 1024,
+        "heads": 2,
+        "layers": 1,
+        "activation": "gelu_tanh"
+      },
+      "status": "completed",
+      "methods": [
+        {
+          "method": "cuda_library",
+          "reference_method": "ptxas_tensor_only",
+          "reference_group": "shared_torch_surrounding",
+          "initial_admitted": false,
+          "training_admitted": false,
+          "inference_admitted": false,
+          "inference_graph_admitted": false,
+          "training_event_ms": null,
+          "training_host_wall_ms": null,
+          "inference_event_ms": null,
+          "inference_graph_ms": null,
+          "initial_failure": {
+            "tensors_failed": 10,
+            "by_category": {
+              "output": 1,
+              "parameter": 9
+            },
+            "details": [
+              {
+                "name": "output/prediction",
+                "elements": 65536,
+                "mismatched": 9587,
+                "max_abs": 0.0020483732223510742,
+                "relative_l2": 0.0002454558031333814
+              },
+              {
+                "name": "parameter/blocks.0.fc1.bias",
+                "elements": 1024,
+                "mismatched": 1,
+                "max_abs": 0.0001620319890207611,
+                "relative_l2": 0.01722406037838223
+              },
+              {
+                "name": "parameter/blocks.0.fc1.weight",
+                "elements": 262144,
+                "mismatched": 34,
+                "max_abs": 0.00023494893684983253,
+                "relative_l2": 2.327344153340672e-05
+              },
+              {
+                "name": "parameter/blocks.0.fc2.bias",
+                "elements": 256,
+                "mismatched": 1,
+                "max_abs": 1.168667949968949e-05,
+                "relative_l2": 0.0024460703900566023
+              },
+              {
+                "name": "parameter/blocks.0.fc2.weight",
+                "elements": 262144,
+                "mismatched": 38,
+                "max_abs": 0.0002501159906387329,
+                "relative_l2": 4.988501234278878e-05
+              },
+              {
+                "name": "parameter/blocks.0.proj.weight",
+                "elements": 65536,
+                "mismatched": 9,
+                "max_abs": 0.00018300116062164307,
+                "relative_l2": 2.562843524216685e-05
+              },
+              {
+                "name": "parameter/blocks.0.qkv.bias",
+                "elements": 768,
+                "mismatched": 176,
+                "max_abs": 0.0004312757810112089,
+                "relative_l2": 0.20137065325730572
+              },
+              {
+                "name": "parameter/blocks.0.qkv.weight",
+                "elements": 196608,
+                "mismatched": 116,
+                "max_abs": 0.0002429559826850891,
+                "relative_l2": 5.791177351666664e-05
+              },
+              {
+                "name": "parameter/embedding.weight",
+                "elements": 65536,
+                "mismatched": 1,
+                "max_abs": 0.00019732117652893066,
+                "relative_l2": 1.2032290311246904e-06
+              },
+              {
+                "name": "parameter/head.weight",
+                "elements": 65536,
+                "mismatched": 4,
+                "max_abs": 0.00017859786748886108,
+                "relative_l2": 1.5946222617671706e-05
+              }
+            ]
+          },
+          "post_trajectory_failure": {
+            "tensors_failed": 0,
+            "by_category": {},
+            "details": []
+          },
+          "exclusion_reason": "initial_full_state_or_guard_gate",
+          "reference_over_method_training": null,
+          "reference_over_method_inference": null,
+          "reference_over_method_inference_graph": null,
+          "within_method_host_over_graph_inference": null
+        },
+        {
+          "method": "oa_direct",
+          "reference_method": "ptxas",
+          "reference_group": "generated_native_operator_sources",
+          "initial_admitted": false,
+          "training_admitted": false,
+          "inference_admitted": false,
+          "inference_graph_admitted": false,
+          "training_event_ms": null,
+          "training_host_wall_ms": null,
+          "inference_event_ms": null,
+          "inference_graph_ms": null,
+          "initial_failure": {
+            "tensors_failed": 7,
+            "by_category": {
+              "output": 1,
+              "parameter": 6
+            },
+            "details": [
+              {
+                "name": "output/prediction",
+                "elements": 65536,
+                "mismatched": 9237,
+                "max_abs": 0.0021276473999023438,
+                "relative_l2": 0.00023796734553984026
+              },
+              {
+                "name": "parameter/blocks.0.fc1.weight",
+                "elements": 262144,
+                "mismatched": 38,
+                "max_abs": 0.00019451044499874115,
+                "relative_l2": 2.2286926685541294e-05
+              },
+              {
+                "name": "parameter/blocks.0.fc2.weight",
+                "elements": 262144,
+                "mismatched": 24,
+                "max_abs": 0.00019330903887748718,
+                "relative_l2": 3.7747608479644854e-05
+              },
+              {
+                "name": "parameter/blocks.0.proj.weight",
+                "elements": 65536,
+                "mismatched": 2,
+                "max_abs": 0.00010780245065689087,
+                "relative_l2": 9.040442875688316e-06
+              },
+              {
+                "name": "parameter/blocks.0.qkv.bias",
+                "elements": 768,
+                "mismatched": 171,
+                "max_abs": 0.000376511161448434,
+                "relative_l2": 0.16198856228385153
+              },
+              {
+                "name": "parameter/blocks.0.qkv.weight",
+                "elements": 196608,
+                "mismatched": 98,
+                "max_abs": 0.00043472275137901306,
+                "relative_l2": 4.9711265572980354e-05
+              },
+              {
+                "name": "parameter/head.weight",
+                "elements": 65536,
+                "mismatched": 2,
+                "max_abs": 0.0001751519739627838,
+                "relative_l2": 1.2048172730101829e-05
+              }
+            ]
+          },
+          "post_trajectory_failure": {
+            "tensors_failed": 0,
+            "by_category": {},
+            "details": []
+          },
+          "exclusion_reason": "initial_full_state_or_guard_gate",
+          "reference_over_method_training": null,
+          "reference_over_method_inference": null,
+          "reference_over_method_inference_graph": null,
+          "within_method_host_over_graph_inference": null
+        },
+        {
+          "method": "oa_legacy",
+          "reference_method": "ptxas",
+          "reference_group": "generated_native_operator_sources",
+          "initial_admitted": false,
+          "training_admitted": false,
+          "inference_admitted": false,
+          "inference_graph_admitted": false,
+          "training_event_ms": null,
+          "training_host_wall_ms": null,
+          "inference_event_ms": null,
+          "inference_graph_ms": null,
+          "initial_failure": {
+            "tensors_failed": 7,
+            "by_category": {
+              "output": 1,
+              "parameter": 6
+            },
+            "details": [
+              {
+                "name": "output/prediction",
+                "elements": 65536,
+                "mismatched": 9237,
+                "max_abs": 0.0021276473999023438,
+                "relative_l2": 0.00023796734553984026
+              },
+              {
+                "name": "parameter/blocks.0.fc1.weight",
+                "elements": 262144,
+                "mismatched": 38,
+                "max_abs": 0.00019451044499874115,
+                "relative_l2": 2.2286926685541294e-05
+              },
+              {
+                "name": "parameter/blocks.0.fc2.weight",
+                "elements": 262144,
+                "mismatched": 24,
+                "max_abs": 0.00019330903887748718,
+                "relative_l2": 3.7747608479644854e-05
+              },
+              {
+                "name": "parameter/blocks.0.proj.weight",
+                "elements": 65536,
+                "mismatched": 2,
+                "max_abs": 0.00010780245065689087,
+                "relative_l2": 9.040442875688316e-06
+              },
+              {
+                "name": "parameter/blocks.0.qkv.bias",
+                "elements": 768,
+                "mismatched": 171,
+                "max_abs": 0.000376511161448434,
+                "relative_l2": 0.16198856228385153
+              },
+              {
+                "name": "parameter/blocks.0.qkv.weight",
+                "elements": 196608,
+                "mismatched": 98,
+                "max_abs": 0.00043472275137901306,
+                "relative_l2": 4.9711265572980354e-05
+              },
+              {
+                "name": "parameter/head.weight",
+                "elements": 65536,
+                "mismatched": 2,
+                "max_abs": 0.0001751519739627838,
+                "relative_l2": 1.2048172730101829e-05
+              }
+            ]
+          },
+          "post_trajectory_failure": {
+            "tensors_failed": 0,
+            "by_category": {},
+            "details": []
+          },
+          "exclusion_reason": "initial_full_state_or_guard_gate",
+          "reference_over_method_training": null,
+          "reference_over_method_inference": null,
+          "reference_over_method_inference_graph": null,
+          "within_method_host_over_graph_inference": null
+        },
+        {
+          "method": "oa_tensor_only",
+          "reference_method": "ptxas_tensor_only",
+          "reference_group": "shared_torch_surrounding",
+          "initial_admitted": true,
+          "training_admitted": true,
+          "inference_admitted": true,
+          "inference_graph_admitted": true,
+          "training_event_ms": 10.458930969238281,
+          "training_host_wall_ms": 10.466921999999812,
+          "inference_event_ms": 2.00765438079834,
+          "inference_graph_ms": 0.2850816011428833,
+          "initial_failure": {
+            "tensors_failed": 0,
+            "by_category": {},
+            "details": []
+          },
+          "post_trajectory_failure": {
+            "tensors_failed": 0,
+            "by_category": {},
+            "details": []
+          },
+          "reference_over_method_training": 1.0597819053989683,
+          "reference_over_method_inference": 0.9924512803714193,
+          "reference_over_method_inference_graph": 0.8778735537257127,
+          "within_method_host_over_graph_inference": 7.042384961883601
+        },
+        {
+          "method": "ptxas",
+          "reference_method": "ptxas",
+          "reference_group": "generated_native_operator_sources",
+          "initial_admitted": true,
+          "training_admitted": true,
+          "inference_admitted": true,
+          "inference_graph_admitted": true,
+          "training_event_ms": 10.652467346191406,
+          "training_host_wall_ms": 10.660180999999369,
+          "inference_event_ms": 2.1125120162963866,
+          "inference_graph_ms": 0.22507519721984864,
+          "initial_failure": {
+            "tensors_failed": 0,
+            "by_category": {},
+            "details": []
+          },
+          "post_trajectory_failure": {
+            "tensors_failed": 0,
+            "by_category": {},
+            "details": []
+          },
+          "reference_over_method_training": 1.0,
+          "reference_over_method_inference": 1.0,
+          "reference_over_method_inference_graph": 1.0,
+          "within_method_host_over_graph_inference": 9.385805465863616
+        },
+        {
+          "method": "ptxas_tensor_only",
+          "reference_method": "ptxas_tensor_only",
+          "reference_group": "shared_torch_surrounding",
+          "initial_admitted": true,
+          "training_admitted": true,
+          "inference_admitted": true,
+          "inference_graph_admitted": true,
+          "training_event_ms": 11.084185791015624,
+          "training_host_wall_ms": 11.09190139999967,
+          "inference_event_ms": 1.9924991607666016,
+          "inference_graph_ms": 0.25026559829711914,
+          "initial_failure": {
+            "tensors_failed": 0,
+            "by_category": {},
+            "details": []
+          },
+          "post_trajectory_failure": {
+            "tensors_failed": 0,
+            "by_category": {},
+            "details": []
+          },
+          "reference_over_method_training": 1.0,
+          "reference_over_method_inference": 1.0,
+          "reference_over_method_inference_graph": 1.0,
+          "within_method_host_over_graph_inference": 7.961538358944069
+        }
+      ],
+      "comparisons": [
+        {
+          "candidate": "oa_legacy",
+          "baseline": "ptxas",
+          "training_admitted": false,
+          "training_baseline_over_candidate": null,
+          "inference_admitted": false,
+          "inference_baseline_over_candidate": null,
+          "inference_graph_admitted": false,
+          "inference_graph_baseline_over_candidate": null
+        },
+        {
+          "candidate": "oa_direct",
+          "baseline": "ptxas",
+          "training_admitted": false,
+          "training_baseline_over_candidate": null,
+          "inference_admitted": false,
+          "inference_baseline_over_candidate": null,
+          "inference_graph_admitted": false,
+          "inference_graph_baseline_over_candidate": null
+        },
+        {
+          "candidate": "oa_tensor_only",
+          "baseline": "ptxas_tensor_only",
+          "training_admitted": true,
+          "training_baseline_over_candidate": 1.0597819053989683,
+          "inference_admitted": true,
+          "inference_baseline_over_candidate": 0.9924512803714193,
+          "inference_graph_admitted": true,
+          "inference_graph_baseline_over_candidate": 0.8778735537257127
+        },
+        {
+          "candidate": "oa_tensor_only",
+          "baseline": "cuda_library",
+          "training_admitted": false,
+          "training_baseline_over_candidate": null,
+          "inference_admitted": false,
+          "inference_baseline_over_candidate": null,
+          "inference_graph_admitted": false,
+          "inference_graph_baseline_over_candidate": null
+        }
+      ],
+      "stage_diagnostics": {
+        "oa_tensor_only": {
+          "training_admitted": true,
+          "largest_nested_spans": [
+            {
+              "name": "backward",
+              "median_ms": 6.604800224304199,
+              "observed_calls": 1
+            },
+            {
+              "name": "optimizer/adamw",
+              "median_ms": 3.6925439834594727,
+              "observed_calls": 1
+            },
+            {
+              "name": "shared_cuda/gelu_tanh_backward",
+              "median_ms": 1.1970560550689697,
+              "observed_calls": 1
+            },
+            {
+              "name": "mlp/residual",
+              "median_ms": 0.6266880035400391,
+              "observed_calls": 1
+            },
+            {
+              "name": "optimizer/clip",
+              "median_ms": 0.6144000291824341,
+              "observed_calls": 1
+            },
+            {
+              "name": "attention/merge_residual",
+              "median_ms": 0.4362240135669708,
+              "observed_calls": 1
+            },
+            {
+              "name": "block0/fc2/bias",
+              "median_ms": 0.4055039882659912,
+              "observed_calls": 1
+            },
+            {
+              "name": "optimizer/zero_grad",
+              "median_ms": 0.27852800488471985,
+              "observed_calls": 1
+            },
+            {
+              "name": "shared_cuda/rmsnorm_backward",
+              "median_ms": 0.159231998026371,
+              "observed_calls": 2
+            },
+            {
+              "name": "embedding/position",
+              "median_ms": 0.15462400019168854,
+              "observed_calls": 1
+            },
+            {
+              "name": "head/pack_backward",
+              "median_ms": 0.1157120019197464,
+              "observed_calls": 1
+            },
+            {
+              "name": "block0/fc1/pack_backward",
+              "median_ms": 0.11366400122642517,
+              "observed_calls": 1
+            }
+          ],
+          "semantic_call_counts": {
+            "optimizer/zero_grad": 1,
+            "embedding/position": 1,
+            "shared_cuda/rmsnorm": 2,
+            "block0/qkv/pack_forward": 1,
+            "block0/qkv/gemm_forward": 1,
+            "block0/qkv/bias": 1,
+            "attention/qk/pack_forward": 2,
+            "attention/qk/gemm_forward": 2,
+            "attention/causal_mask": 2,
+            "shared_cuda/softmax": 2,
+            "attention/pv/pack_forward": 2,
+            "attention/pv/gemm_forward": 2,
+            "attention/merge_residual": 1,
+            "block0/proj/pack_forward": 1,
+            "block0/proj/gemm_forward": 1,
+            "block0/proj/bias": 1,
+            "block0/fc1/pack_forward": 1,
+            "block0/fc1/gemm_forward": 1,
+            "block0/fc1/bias": 1,
+            "shared_cuda/gelu_tanh": 1,
+            "mlp/residual": 1,
+            "block0/fc2/pack_forward": 1,
+            "block0/fc2/gemm_forward": 1,
+            "block0/fc2/bias": 1,
+            "head/pack_forward": 1,
+            "head/gemm_forward": 1,
+            "head/bias": 1,
+            "loss": 1,
+            "backward": 1,
+            "head/pack_backward": 1,
+            "head/gemm_dx": 1,
+            "head/gemm_dw": 1,
+            "block0/fc2/pack_backward": 1,
+            "block0/fc2/gemm_dx": 1,
+            "block0/fc2/gemm_dw": 1,
+            "shared_cuda/gelu_tanh_backward": 1,
+            "block0/fc1/pack_backward": 1,
+            "block0/fc1/gemm_dx": 1,
+            "block0/fc1/gemm_dw": 1,
+            "shared_cuda/rmsnorm_backward": 2,
+            "block0/proj/pack_backward": 1,
+            "block0/proj/gemm_dx": 1,
+            "block0/proj/gemm_dw": 1,
+            "attention/pv/pack_backward": 2,
+            "attention/pv/gemm_dx": 2,
+            "attention/pv/gemm_dw": 2,
+            "shared_cuda/softmax_backward": 2,
+            "attention/qk/pack_backward": 2,
+            "attention/qk/gemm_dx": 2,
+            "attention/qk/gemm_dw": 2,
+            "block0/qkv/pack_backward": 1,
+            "block0/qkv/gemm_dx": 1,
+            "block0/qkv/gemm_dw": 1,
+            "optimizer/clip": 1,
+            "optimizer/adamw": 1
+          },
+          "scope": "One separately instrumented diagnostic step. Nested/overlapping spans, host enqueue gaps and event overhead remain; do not sum. Semantic call counts are not actual CUDA kernel launch counts."
+        },
+        "ptxas": {
+          "training_admitted": true,
+          "largest_nested_spans": [
+            {
+              "name": "backward",
+              "median_ms": 5.853184223175049,
+              "observed_calls": 1
+            },
+            {
+              "name": "optimizer/adamw",
+              "median_ms": 3.3863680362701416,
+              "observed_calls": 1
+            },
+            {
+              "name": "optimizer/clip",
+              "median_ms": 0.6666240096092224,
+              "observed_calls": 1
+            },
+            {
+              "name": "attention/merge_residual",
+              "median_ms": 0.29286399483680725,
+              "observed_calls": 1
+            },
+            {
+              "name": "shared_cuda/gelu_tanh_backward",
+              "median_ms": 0.2826240062713623,
+              "observed_calls": 1
+            },
+            {
+              "name": "block0/fc1/gemm_dw",
+              "median_ms": 0.26009601354599,
+              "observed_calls": 1
+            },
+            {
+              "name": "mlp/residual",
+              "median_ms": 0.24473600089550018,
+              "observed_calls": 1
+            },
+            {
+              "name": "optimizer/zero_grad",
+              "median_ms": 0.20787200331687927,
+              "observed_calls": 1
+            },
+            {
+              "name": "embedding/position",
+              "median_ms": 0.158720001578331,
+              "observed_calls": 1
+            },
+            {
+              "name": "head/pack_backward",
+              "median_ms": 0.13414399325847626,
+              "observed_calls": 1
+            },
+            {
+              "name": "native/rmsnorm_backward",
+              "median_ms": 0.10240000113844872,
+              "observed_calls": 2
+            },
+            {
+              "name": "head/gemm_dx",
+              "median_ms": 0.08806400001049042,
+              "observed_calls": 1
+            }
+          ],
+          "semantic_call_counts": {
+            "optimizer/zero_grad": 1,
+            "embedding/position": 1,
+            "native/rmsnorm": 2,
+            "block0/qkv/pack_forward": 1,
+            "block0/qkv/gemm_forward": 1,
+            "block0/qkv/bias": 1,
+            "attention/qk/pack_forward": 2,
+            "attention/qk/gemm_forward": 2,
+            "attention/causal_mask": 2,
+            "native/softmax": 2,
+            "attention/pv/pack_forward": 2,
+            "attention/pv/gemm_forward": 2,
+            "attention/merge_residual": 1,
+            "block0/proj/pack_forward": 1,
+            "block0/proj/gemm_forward": 1,
+            "block0/proj/bias": 1,
+            "block0/fc1/pack_forward": 1,
+            "block0/fc1/gemm_forward": 1,
+            "block0/fc1/bias": 1,
+            "native/gelu_tanh": 1,
+            "mlp/residual": 1,
+            "block0/fc2/pack_forward": 1,
+            "block0/fc2/gemm_forward": 1,
+            "block0/fc2/bias": 1,
+            "head/pack_forward": 1,
+            "head/gemm_forward": 1,
+            "head/bias": 1,
+            "loss": 1,
+            "backward": 1,
+            "head/pack_backward": 1,
+            "head/gemm_dx": 1,
+            "head/gemm_dw": 1,
+            "block0/fc2/pack_backward": 1,
+            "block0/fc2/gemm_dx": 1,
+            "block0/fc2/gemm_dw": 1,
+            "shared_cuda/gelu_tanh_backward": 1,
+            "block0/fc1/pack_backward": 1,
+            "block0/fc1/gemm_dx": 1,
+            "block0/fc1/gemm_dw": 1,
+            "native/rmsnorm_backward": 2,
+            "block0/proj/pack_backward": 1,
+            "block0/proj/gemm_dx": 1,
+            "block0/proj/gemm_dw": 1,
+            "attention/pv/pack_backward": 2,
+            "attention/pv/gemm_dx": 2,
+            "attention/pv/gemm_dw": 2,
+            "native/softmax_backward": 2,
+            "attention/qk/pack_backward": 2,
+            "attention/qk/gemm_dx": 2,
+            "attention/qk/gemm_dw": 2,
+            "block0/qkv/pack_backward": 1,
+            "block0/qkv/gemm_dx": 1,
+            "block0/qkv/gemm_dw": 1,
+            "optimizer/clip": 1,
+            "optimizer/adamw": 1
+          },
+          "scope": "One separately instrumented diagnostic step. Nested/overlapping spans, host enqueue gaps and event overhead remain; do not sum. Semantic call counts are not actual CUDA kernel launch counts."
+        },
+        "ptxas_tensor_only": {
+          "training_admitted": true,
+          "largest_nested_spans": [
+            {
+              "name": "backward",
+              "median_ms": 4.938752174377441,
+              "observed_calls": 1
+            },
+            {
+              "name": "optimizer/adamw",
+              "median_ms": 3.229696035385132,
+              "observed_calls": 1
+            },
+            {
+              "name": "optimizer/clip",
+              "median_ms": 0.5386239886283875,
+              "observed_calls": 1
+            },
+            {
+              "name": "attention/merge_residual",
+              "median_ms": 0.2979840040206909,
+              "observed_calls": 1
+            },
+            {
+              "name": "mlp/residual",
+              "median_ms": 0.23654399812221527,
+              "observed_calls": 1
+            },
+            {
+              "name": "shared_cuda/gelu_tanh_backward",
+              "median_ms": 0.21913599967956543,
+              "observed_calls": 1
+            },
+            {
+              "name": "optimizer/zero_grad",
+              "median_ms": 0.2088959962129593,
+              "observed_calls": 1
+            },
+            {
+              "name": "embedding/position",
+              "median_ms": 0.1730560064315796,
+              "observed_calls": 1
+            },
+            {
+              "name": "shared_cuda/rmsnorm_backward",
+              "median_ms": 0.14745600521564484,
+              "observed_calls": 2
+            },
+            {
+              "name": "attention/causal_mask",
+              "median_ms": 0.1085439994931221,
+              "observed_calls": 2
+            },
+            {
+              "name": "block0/qkv/pack_backward",
+              "median_ms": 0.10547199845314026,
+              "observed_calls": 1
+            },
+            {
+              "name": "block0/fc1/pack_backward",
+              "median_ms": 0.10342399775981903,
+              "observed_calls": 1
+            }
+          ],
+          "semantic_call_counts": {
+            "optimizer/zero_grad": 1,
+            "embedding/position": 1,
+            "shared_cuda/rmsnorm": 2,
+            "block0/qkv/pack_forward": 1,
+            "block0/qkv/gemm_forward": 1,
+            "block0/qkv/bias": 1,
+            "attention/qk/pack_forward": 2,
+            "attention/qk/gemm_forward": 2,
+            "attention/causal_mask": 2,
+            "shared_cuda/softmax": 2,
+            "attention/pv/pack_forward": 2,
+            "attention/pv/gemm_forward": 2,
+            "attention/merge_residual": 1,
+            "block0/proj/pack_forward": 1,
+            "block0/proj/gemm_forward": 1,
+            "block0/proj/bias": 1,
+            "block0/fc1/pack_forward": 1,
+            "block0/fc1/gemm_forward": 1,
+            "block0/fc1/bias": 1,
+            "shared_cuda/gelu_tanh": 1,
+            "mlp/residual": 1,
+            "block0/fc2/pack_forward": 1,
+            "block0/fc2/gemm_forward": 1,
+            "block0/fc2/bias": 1,
+            "head/pack_forward": 1,
+            "head/gemm_forward": 1,
+            "head/bias": 1,
+            "loss": 1,
+            "backward": 1,
+            "head/pack_backward": 1,
+            "head/gemm_dx": 1,
+            "head/gemm_dw": 1,
+            "block0/fc2/pack_backward": 1,
+            "block0/fc2/gemm_dx": 1,
+            "block0/fc2/gemm_dw": 1,
+            "shared_cuda/gelu_tanh_backward": 1,
+            "block0/fc1/pack_backward": 1,
+            "block0/fc1/gemm_dx": 1,
+            "block0/fc1/gemm_dw": 1,
+            "shared_cuda/rmsnorm_backward": 2,
+            "block0/proj/pack_backward": 1,
+            "block0/proj/gemm_dx": 1,
+            "block0/proj/gemm_dw": 1,
+            "attention/pv/pack_backward": 2,
+            "attention/pv/gemm_dx": 2,
+            "attention/pv/gemm_dw": 2,
+            "shared_cuda/softmax_backward": 2,
+            "attention/qk/pack_backward": 2,
+            "attention/qk/gemm_dx": 2,
+            "attention/qk/gemm_dw": 2,
+            "block0/qkv/pack_backward": 1,
+            "block0/qkv/gemm_dx": 1,
+            "block0/qkv/gemm_dw": 1,
+            "optimizer/clip": 1,
+            "optimizer/adamw": 1
+          },
+          "scope": "One separately instrumented diagnostic step. Nested/overlapping spans, host enqueue gaps and event overhead remain; do not sum. Semantic call counts are not actual CUDA kernel launch counts."
+        }
+      },
+      "initial_method_pairs": 3,
+      "training_method_pairs": 3,
+      "inference_method_pairs": 3,
+      "inference_graph_method_pairs": 3,
+      "inference_weight_cache_summary": []
+    }
+  ],
+  "interpretation_limits": [
+    "One complete process round; repeated samples within it are not independent campaign replications.",
+    "Initial passing methods can fail after the timed training trajectory; those stored timings remain diagnostic and are excluded.",
+    "Host-dispatched CUDA-event spans include enqueue gaps. Faster such spans can coexist with slower captured GPU graphs; neither alone identifies a specific scheduling cause.",
+    "Graph comparison changes allocation/capture behavior as well as host dispatch; host-over-graph ratios are not pure launch-overhead measurements.",
+    "Generated-native-operator and shared-Torch-surrounding controls have different reference groups; no cross-group scheduling attribution.",
+    "State divergence identifies the failing outputs/gradients/parameters/moments, not a proven compiler root cause. Mixed-precision cast boundaries and optimizer sensitivity require isolated follow-up, not tolerance relaxation.",
+    "Inference is independently admitted on reset immutable weights; training failure cannot be converted into a training claim by passing inference.",
+    "Inference cache removes repeated weight casts, not activation casts or GEMM arithmetic. Cold pack+forward is one observation and not a reliable amortization or pure packing-time estimate; cached graphs require fixed parameters or recapture.",
+    "These are explicit custom networks spanning MLP, gated MLP and a small decoder-transformer family, not six independent production models or an automatic compiler integration."
+  ]
+}

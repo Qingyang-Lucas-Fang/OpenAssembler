@@ -1,0 +1,37 @@
+/Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/runs/tensor-followup-20261107T143728.683644Z.json
+Traceback (most recent call last):
+  File "/Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/tensor_followup_run.py", line 65, in <module>
+    main()
+  File "/Users/lucasfang/Desktop/OpenAssembler/exp/nn_round2/tensor_followup_run.py", line 52, in main
+    with app.run():
+  File "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packages/synchronicity/synchronizer.py", line 870, in proxy_method
+    return wrapped_method(instance, *args, **kwargs)
+  File "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packages/synchronicity/combined_types.py", line 33, in __call__
+    raise uc_exc.exc
+  File "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/contextlib.py", line 199, in __aenter__
+    return await anext(self.gen)
+  File "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packages/modal/app.py", line 494, in run
+    async with _run_app(
+  File "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/contextlib.py", line 199, in __aenter__
+    return await anext(self.gen)
+  File "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packages/modal/runner.py", line 455, in _run_app
+    await _create_all_objects(running_app, local_app_state, load_context)
+  File "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packages/modal/runner.py", line 203, in _create_all_objects
+    await asyncio.gather(*[tc.create_task(_load(tag, obj)) for tag, obj in indexed_objects.items()])
+  File "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packages/modal/runner.py", line 194, in _load
+    await resolver.load(obj, load_context, existing_object_id=existing_object_id)
+  File "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packages/modal/_resolver.py", line 109, in load
+    return await cached_future
+  File "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packages/modal/_resolver.py", line 87, in loader
+    await obj._load(obj, self, load_context, existing_object_id)
+  File "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packages/modal/_functions.py", line 981, in _load
+    with FunctionCreationStatus("Server" if is_server else "Function", tag) as function_creation_status:
+  File "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packages/modal/_output/status.py", line 50, in __exit__
+    raise exc_val
+  File "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packages/modal/_functions.py", line 1192, in _load
+    response: api_pb2.FunctionCreateResponse = await load_context.client._stub.FunctionCreate(request)
+  File "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packages/modal/_grpc_client.py", line 133, in __call__
+    with grpc_error_converter():
+  File "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packages/modal/_grpc_client.py", line 68, in __exit__
+    raise modal_exc from None  # from None to skip the grpc-internal cause
+modal.exception.InvalidError: The 'main.<locals>.remote' Function (using `serialized=True`) was defined with Python 3.10, but its Image has 3.11. A serialized Function must be defined using a Python version that is compatible with the one in its remote environment.

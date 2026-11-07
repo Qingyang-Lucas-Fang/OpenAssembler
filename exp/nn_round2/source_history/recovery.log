@@ -1,0 +1,168 @@
+{"image_id": "im-7ophQdcX4p9MtL2Ls2YUQ7", "status": "completed", "files": [{"path": "/root/exp/nn_round2/operator_worker.py", "sha256": "0338e4191041404c1808f395ad9acc554b5eb24267653220f4dcf11ce2ca8d19"}]}
+{"image_id": "im-OLdmCIztSrWPfZLKadAlhu", "status": "completed", "files": [{"path": "/root/exp/nn_round2/whole_worker.py", "sha256": "d15c4c0939cd406ecce7c2672a5ffa7a70c977a5b1a8f3c45f650dd0a4731e69"}, {"path": "/root/exp/nn_round2/counter_worker.py", "sha256": "7ad3172d86b69f76803fd47275a18e4817a9996043d886cbefd88efd330be839"}, {"path": "/root/exp/nn_round2/operator_worker.py", "sha256": "0338e4191041404c1808f395ad9acc554b5eb24267653220f4dcf11ce2ca8d19"}, {"path": "/root/exp/nn_round2/tensor_suite.py", "sha256": "79b4f7669f7a90ad5b0ba5aba5d97512d526232fd51b274bfa7e01523696ad7b"}]}
+{"image_id": "im-njdLYAHeJcnm6iwv4I1r9k", "status": "completed", "files": [{"path": "/root/exp/nn_round2/whole_worker.py", "sha256": "7aaa85220ffd07976acf6baae1f247b327f1d0fac8dd4ca0e40b93439fc7243a"}, {"path": "/root/exp/nn_round2/counter_worker.py", "sha256": "a0025eaf818763939b1bdd97d8108fd9e9fa01d723466853859947bf90f1c8bc"}, {"path": "/root/exp/nn_round2/operator_worker.py", "sha256": "0338e4191041404c1808f395ad9acc554b5eb24267653220f4dcf11ce2ca8d19"}, {"path": "/root/exp/nn_round2/tensor_suite.py", "sha256": "79b4f7669f7a90ad5b0ba5aba5d97512d526232fd51b274bfa7e01523696ad7b"}]}
+{"image_id": "im-kgULE16RkuS7qwrZa9jcZv", "status": "completed", "files": [{"path": "/root/exp/nn_round2/operator_worker.py", "sha256": "0338e4191041404c1808f395ad9acc554b5eb24267653220f4dcf11ce2ca8d19"}]}
+{"image_id": "im-7LiIocjSDR2H5eGAty6kpl", "status": "completed", "files": [{"path": "/root/exp/nn_round2/whole_worker.py", "sha256": "aa5bd7b0a181c22e154043f6080a1b118cda3b0cfca75c40a02f0b697dc2a045"}, {"path": "/root/exp/nn_round2/operator_worker.py", "sha256": "0338e4191041404c1808f395ad9acc554b5eb24267653220f4dcf11ce2ca8d19"}, {"path": "/root/exp/nn_round2/tensor_suite.py", "sha256": "79b4f7669f7a90ad5b0ba5aba5d97512d526232fd51b274bfa7e01523696ad7b"}, {"path": "/root/exp/nn_round2/campaign.py", "sha256": "b41e92e5c5616c0578b4c40f2e5d95f83f0597fef675598f24ee35bee3984084"}]}
+{"image_id": "im-0mcrJa1DQsF2cRUvuQBtZq", "status": "completed", "files": []}
+{"image_id": "im-CqWTIsJpx16983e5uaanGm", "status": "completed", "files": [{"path": "/root/exp/nn_round2/whole_worker.py", "sha256": "aa5bd7b0a181c22e154043f6080a1b118cda3b0cfca75c40a02f0b697dc2a045"}, {"path": "/root/exp/nn_round2/operator_worker.py", "sha256": "0338e4191041404c1808f395ad9acc554b5eb24267653220f4dcf11ce2ca8d19"}, {"path": "/root/exp/nn_round2/tensor_suite.py", "sha256": "79b4f7669f7a90ad5b0ba5aba5d97512d526232fd51b274bfa7e01523696ad7b"}]}
+{"image_id": "im-o2wmXUOdCi9QbQk0Q9Xz0o", "status": "completed", "files": [{"path": "/root/exp/nn_round2/whole_worker.py", "sha256": "b3fca8ae85c491bcaf425bb603dca95a3bcf59a671613d1a9a0a305cf79ee9a2"}, {"path": "/root/exp/nn_round2/operator_worker.py", "sha256": "0338e4191041404c1808f395ad9acc554b5eb24267653220f4dcf11ce2ca8d19"}, {"path": "/root/exp/nn_round2/tensor_suite.py", "sha256": "79b4f7669f7a90ad5b0ba5aba5d97512d526232fd51b274bfa7e01523696ad7b"}]}
+{"image_id": "im-D6lDquEpES2T7Yw42K2rJd", "status": "completed", "files": [{"path": "/root/exp/nn_round2/whole_worker.py", "sha256": "6c059dab2e5789518a24bbaae6136b24b8ba42493ff31d897a4a8f02ede12386"}, {"path": "/root/exp/nn_round2/operator_worker.py", "sha256": "0338e4191041404c1808f395ad9acc554b5eb24267653220f4dcf11ce2ca8d19"}, {"path": "/root/exp/nn_round2/tensor_suite.py", "sha256": "79b4f7669f7a90ad5b0ba5aba5d97512d526232fd51b274bfa7e01523696ad7b"}]}
+{"image_id": "im-v86vBzCHHLo85aUSu0dYMq", "status": "completed", "files": [{"path": "/root/exp/nn_round2/whole_worker.py", "sha256": "f73e9a91938ea1b11454a93b4cbe75d9595ff04e83e7dba695c3bb095c479861"}, {"path": "/root/exp/nn_round2/counter_worker.py", "sha256": "a0025eaf818763939b1bdd97d8108fd9e9fa01d723466853859947bf90f1c8bc"}, {"path": "/root/exp/nn_round2/operator_worker.py", "sha256": "0338e4191041404c1808f395ad9acc554b5eb24267653220f4dcf11ce2ca8d19"}, {"path": "/root/exp/nn_round2/tensor_suite.py", "sha256": "79b4f7669f7a90ad5b0ba5aba5d97512d526232fd51b274bfa7e01523696ad7b"}]}
+{"image_id": "im-N5vDBLIxA3U6agSu80Ocw9", "status": "completed", "files": [{"path": "/root/exp/nn_round2/whole_worker.py", "sha256": "ebd6c84798b835abdb3482893b70b6bc692069a9e29984485d0680112394f08c"}, {"path": "/root/exp/nn_round2/counter_worker.py", "sha256": "7ad3172d86b69f76803fd47275a18e4817a9996043d886cbefd88efd330be839"}, {"path": "/root/exp/nn_round2/operator_worker.py", "sha256": "0338e4191041404c1808f395ad9acc554b5eb24267653220f4dcf11ce2ca8d19"}, {"path": "/root/exp/nn_round2/tensor_suite.py", "sha256": "79b4f7669f7a90ad5b0ba5aba5d97512d526232fd51b274bfa7e01523696ad7b"}]}
+{"image_id": "im-2PMiyk20FyMwt305BfJSTF", "status": "completed", "files": [{"path": "/root/exp/nn_round2/whole_worker.py", "sha256": "d15c4c0939cd406ecce7c2672a5ffa7a70c977a5b1a8f3c45f650dd0a4731e69"}, {"path": "/root/exp/nn_round2/counter_worker.py", "sha256": "72f4f705d721d8defc34537e4878cf091b2dadf6a2931d670fa957c8e8d9c2f0"}, {"path": "/root/exp/nn_round2/operator_worker.py", "sha256": "0338e4191041404c1808f395ad9acc554b5eb24267653220f4dcf11ce2ca8d19"}, {"path": "/root/exp/nn_round2/tensor_suite.py", "sha256": "79b4f7669f7a90ad5b0ba5aba5d97512d526232fd51b274bfa7e01523696ad7b"}]}
+{"image_id": "im-BfzU8IFJ0kmeaqyKdT1aP5", "status": "completed", "files": [{"path": "/root/exp/nn_round2/whole_worker.py", "sha256": "d119ea1c052e4ac0c99b7ec75578ca004d0b2c0411dcfc636609a7fdf4167c1a"}, {"path": "/root/exp/nn_round2/counter_worker.py", "sha256": "a0025eaf818763939b1bdd97d8108fd9e9fa01d723466853859947bf90f1c8bc"}, {"path": "/root/exp/nn_round2/operator_worker.py", "sha256": "0338e4191041404c1808f395ad9acc554b5eb24267653220f4dcf11ce2ca8d19"}, {"path": "/root/exp/nn_round2/tensor_suite.py", "sha256": "79b4f7669f7a90ad5b0ba5aba5d97512d526232fd51b274bfa7e01523696ad7b"}]}
+{
+  "current_snapshots": 37,
+  "recorded_versions": 57,
+  "archived_versions": 45,
+  "missing_recorded_versions": {
+    "6826e631be26b3176daa88cae4079477a6d29a57d5467712ce265ec149d0a4fe": {
+      "source_paths": [
+        "exp/nn_round2/counter_plan.py"
+      ],
+      "records": [
+        "exp/nn_round2/runs/counters-20261107T143821.759059Z.json",
+        "exp/nn_round2/runs/counters-20261107T144534.159647Z.json",
+        "exp/nn_round2/runs/whole-20261107T143844.026614Z.json",
+        "exp/nn_round2/runs/whole-20261107T144210.754688Z.json",
+        "exp/nn_round2/runs/whole-20261107T144210.828388Z.json",
+        "exp/nn_round2/runs/whole-20261107T144401.752483Z.json"
+      ],
+      "archived": false,
+      "recovered_from_images": []
+    },
+    "be7f08624223aeb645c812b07728f2aca2c9dbfc2558e523d5d43213a715062f": {
+      "source_paths": [
+        "exp/nn_round2/test_counter_worker.py"
+      ],
+      "records": [
+        "exp/nn_round2/runs/counters-20261107T143821.759059Z.json",
+        "exp/nn_round2/runs/whole-20261107T143844.026614Z.json",
+        "exp/nn_round2/runs/whole-20261107T144210.754688Z.json",
+        "exp/nn_round2/runs/whole-20261107T144210.828388Z.json"
+      ],
+      "archived": false,
+      "recovered_from_images": []
+    },
+    "6b563acc870ded2c9a6d37ccc445b235306fe3735b8fa23cfa64fb568cbad5c9": {
+      "source_paths": [
+        "exp/nn_round2/campaign.py"
+      ],
+      "records": [
+        "exp/nn_round2/runs/counters-20261107T143821.759059Z.json",
+        "exp/nn_round2/runs/whole-20261107T143844.026614Z.json"
+      ],
+      "archived": false,
+      "recovered_from_images": []
+    },
+    "786edac19372026895b4c4c4e56c816da409270a618197642f51e8f34153f5c8": {
+      "source_paths": [
+        "exp/nn_round2/test_whole_analysis.py"
+      ],
+      "records": [
+        "exp/nn_round2/runs/counters-20261107T144534.159647Z.json",
+        "exp/nn_round2/runs/whole-20261107T144210.754688Z.json",
+        "exp/nn_round2/runs/whole-20261107T144210.828388Z.json",
+        "exp/nn_round2/runs/whole-20261107T144401.752483Z.json"
+      ],
+      "archived": false,
+      "recovered_from_images": []
+    },
+    "cc678fac4d10c4093223fc7fe56ef1a803f877d7b77f5d90b425a43dd0d32cc3": {
+      "source_paths": [
+        "exp/nn_round2/whole_analysis.py"
+      ],
+      "records": [
+        "exp/nn_round2/runs/counters-20261107T144534.159647Z.json",
+        "exp/nn_round2/runs/whole-20261107T144210.754688Z.json",
+        "exp/nn_round2/runs/whole-20261107T144210.828388Z.json",
+        "exp/nn_round2/runs/whole-20261107T144401.752483Z.json"
+      ],
+      "archived": false,
+      "recovered_from_images": []
+    },
+    "2ddca43397b00099b0bf365289eab3d38d385bac734f609b5220979bc3db12ba": {
+      "source_paths": [
+        "exp/nn_round2/counter_recover.py"
+      ],
+      "records": [
+        "exp/nn_round2/runs/counters-20261107T144534.159647Z.json",
+        "exp/nn_round2/runs/whole-20261107T144401.752483Z.json"
+      ],
+      "archived": false,
+      "recovered_from_images": []
+    },
+    "bfa435b429d30129f0ea550d58e35e605c47ac0831998d46730fc02773876e85": {
+      "source_paths": [
+        "exp/nn_round2/coverage_execution.py"
+      ],
+      "records": [
+        "exp/nn_round2/runs/counters-20261107T144534.159647Z.json",
+        "exp/nn_round2/runs/whole-20261107T144210.754688Z.json",
+        "exp/nn_round2/runs/whole-20261107T144210.828388Z.json",
+        "exp/nn_round2/runs/whole-20261107T144401.752483Z.json"
+      ],
+      "archived": false,
+      "recovered_from_images": []
+    },
+    "c50971588a836440b10e07061e8605a12b214ff066247c71b967397165d37bc1": {
+      "source_paths": [
+        "exp/nn_round2/whole_suite.py"
+      ],
+      "records": [
+        "exp/nn_round2/runs/operators-20261107T142953.979219Z.json",
+        "exp/nn_round2/runs/operators-20261107T143128.366417Z.json",
+        "exp/nn_round2/runs/tensor-20261107T143201.758879Z.json",
+        "exp/nn_round2/runs/whole-20261107T143246.737450Z.json"
+      ],
+      "archived": false,
+      "recovered_from_images": []
+    },
+    "9561fd7f1d6bfaf0bbc892675240c0c24c34484d298c89873ca439c836462054": {
+      "source_paths": [
+        "exp/nn_round2/test_whole_suite.py"
+      ],
+      "records": [
+        "exp/nn_round2/runs/operators-20261107T143128.366417Z.json",
+        "exp/nn_round2/runs/tensor-20261107T143201.758879Z.json",
+        "exp/nn_round2/runs/whole-20261107T143246.737450Z.json",
+        "exp/nn_round2/runs/whole-20261107T143549.109468Z.json"
+      ],
+      "archived": false,
+      "recovered_from_images": []
+    },
+    "c4f1b7cdfcb5ad99164ec235c120fbe74b4e32145c93a928e181fdeb0408d382": {
+      "source_paths": [
+        "exp/nn_round2/campaign.py"
+      ],
+      "records": [
+        "exp/nn_round2/runs/operators-20261107T143128.366417Z.json",
+        "exp/nn_round2/runs/tensor-20261107T143201.758879Z.json",
+        "exp/nn_round2/runs/whole-20261107T143246.737450Z.json",
+        "exp/nn_round2/runs/whole-20261107T143549.109468Z.json"
+      ],
+      "archived": false,
+      "recovered_from_images": []
+    },
+    "fa7609203c60052fc99b88df2e2cc0783b081a4284eae041836a94eb0957ed95": {
+      "source_paths": [
+        "exp/nn_round2/tensor_followup.py"
+      ],
+      "records": [
+        "exp/nn_round2/runs/operators-20261107T143128.366417Z.json"
+      ],
+      "archived": false,
+      "recovered_from_images": []
+    },
+    "f8a611f9dc212a85b97ea6fe806e4880e6c6e2d44948ebc9caca430ba3ffee9a": {
+      "source_paths": [
+        "exp/nn_round2/tensor_followup_run.py"
+      ],
+      "records": [
+        "exp/nn_round2/runs/tensor-followup-20261107T143728.683644Z.json"
+      ],
+      "archived": false,
+      "recovered_from_images": []
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "schema": 1,
+  "timestamp_utc": "2026-11-07T14:49:27.486000+00:00",
+  "image_id": "im-0mcrJa1DQsF2cRUvuQBtZq",
+  "cpu_only": true,
+  "gpu_requested": null,
+  "network_blocked": true,
+  "files": [],
+  "status": "completed",
+  "finished_utc": "2026-11-07T14:49:31.633978+00:00"
+}

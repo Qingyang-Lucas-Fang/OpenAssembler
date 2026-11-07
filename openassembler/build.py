@@ -696,6 +696,7 @@ class CompileResult:
     rc: int
     out_dir: Path | None = None
     built: list[SourceOut] = field(default_factory=list)   # sources whose cubin was written this run
+    failed_sources: list[Path] = field(default_factory=list)
 
 
 def _brief(msg: str) -> str:
@@ -833,7 +834,9 @@ def _compile_paths(src: Path, out_dir: Path, opt: Options, o_name: str | None = 
             if not candidates:
                 what = ", ".join(f"{n} {k}" for k, n in sorted(skipped.items())) or "no files"
                 _err(f"nothing to compile in {src}: no .ptx with .entry, .cu/.cpp with __global__, "
-                     f"or .py with @kernel (found: {what})")
+                     f"or .py with @kernel (found: {what}). For a PyTorch application, configure "
+                     "[application] frontend=\"torch\" and entrypoint in openassembler.toml; "
+                     "see docs/REPOSITORY_WORKFLOW.md")
                 return CompileResult(1)
         out_dir_abs = P.prepare_out_dir(out_dir)
     except P.ProjectError as e:
@@ -919,7 +922,8 @@ def _compile_paths(src: Path, out_dir: Path, opt: Options, o_name: str | None = 
             _err(f"kernel {opt.kernel!r} not found in any source under {src}; have {have}")
             rc = 1
         _print_summary(results, skipped, out_dir_abs)
-    return CompileResult(rc, out_dir_abs, built)
+    return CompileResult(rc, out_dir_abs, built,
+                         [so.src for so in results if not so.files and (so.error or so.failed)])
 
 
 def _print_summary(results: list[SourceOut], skipped: dict[str, int], out_dir: Path) -> None:

@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated": "2026-11-06",
+  "updated": "2026-11-07",
   "scope": "Current repository research and feature catalogue; one dossier per idea. Idea counts are not independent experiment counts.",
   "status_labels": {
     "implemented": "Validated within its stated contract and available in the current code",
@@ -157,11 +157,25 @@
       "summary": "Explicit mode improves tested MLP products but regresses on tall GEMM; legacy remains the default."
     },
     {
+      "id": "early-gemm-pointer-advance",
+      "title": "Earlier pointer advancement in tensor mainloops",
+      "status": "validated-not-integrated",
+      "path": "docs/research/ideas/early-gemm-pointer-advance.md",
+      "summary": "Legal pointer placement helps tested wide GEMMs but regresses tall controls; retained as an isolated conditional candidate."
+    },
+    {
       "id": "fused-adam-like-update",
       "title": "Fused Adam-like scalar update example",
       "status": "implemented",
       "path": "docs/research/ideas/fused-adam-like-update.md",
       "summary": "Fused example passes tolerance and beats the chosen eager expression; it is not complete AdamW or a tuned-optimizer comparison."
+    },
+    {
+      "id": "fused-backward-reductions",
+      "title": "Fused local dot products for backward row reductions",
+      "status": "validated-not-integrated",
+      "path": "docs/research/ideas/fused-backward-reductions.md",
+      "summary": "Explicit FMA improves selected native backward reductions; smaller cases can lose and same-source ptxas remains faster."
     },
     {
       "id": "fused-gemm-epilogues",
@@ -185,11 +199,25 @@
       "summary": "The phase-five study tested N-fast, grouped-M, Morton8 and Hilbert8 while retaining the physical HMMA/LDSM/LDGSTS words and controls."
     },
     {
+      "id": "inference-weight-packing-cache",
+      "title": "Immutable inference weight-packing cache",
+      "status": "validated-not-integrated",
+      "path": "docs/research/ideas/inference-weight-packing-cache.md",
+      "summary": "Versioned eager packing and immutable captured inference pass 26 method/network pairs; equally cached ptxas remains faster."
+    },
+    {
       "id": "joint-layout-register-search",
       "title": "Joint shared-layout and register-fragment search",
       "status": "untested-or-hardware-unavailable",
       "path": "docs/research/ideas/joint-layout-register-search.md",
       "summary": "Existing swizzle experiments largely held register organization fixed; fragment-window and tile experiments explored other dimensions separately."
+    },
+    {
+      "id": "joint-tensor-options",
+      "title": "Joint direct-pointer, traversal and epilogue options",
+      "status": "validated-not-integrated",
+      "path": "docs/research/ideas/joint-tensor-options.md",
+      "summary": "Joint combinations pass full correctness; direct-plus-fusion has narrow gains while direct-plus-Morton is mostly neutral or worse."
     },
     {
       "id": "l2-persistence",
@@ -231,7 +259,7 @@
       "title": "Morton8 logical CTA traversal",
       "status": "implemented",
       "path": "docs/research/ideas/morton-cta-order.md",
-      "summary": "Corrected 8×8 tile traversal helps tested tall grids; it is not an MMA storage layout or automatic policy."
+      "summary": "Corrected 8\u00d78 tile traversal helps tested tall grids; it is not an MMA storage layout or automatic policy."
     },
     {
       "id": "multi-precision-accumulation",
@@ -266,7 +294,14 @@
       "title": "Native SM80 tensor GEMM compiler and mainloop",
       "status": "implemented",
       "path": "docs/research/ideas/native-tensor-gemm.md",
-      "summary": "The production `gemm` path computes C=A@B.T with contiguous FP16/BF16 operands, FP32 accumulation/output, 128×128×64 CTA tiles, four 64×64 warp tiles, 128 threads and 64 KiB dynamic shared memory."
+      "summary": "The production `gemm` path computes C=A@B.T with contiguous FP16/BF16 operands, FP32 accumulation/output, 128\u00d7128\u00d764 CTA tiles, four 64\u00d764 warp tiles, 128 threads and 64 KiB dynamic shared memory."
+    },
+    {
+      "id": "nn-arithmetic-campaign",
+      "title": "Native NN arithmetic and composed-network campaign",
+      "status": "validated-not-integrated",
+      "path": "docs/research/ideas/nn-arithmetic-campaign.md",
+      "summary": "26 operator families and six custom NN configurations expose conditional gains and failed training gates; no general CUDA superiority."
     },
     {
       "id": "operand-reuse-hints",
@@ -308,7 +343,7 @@
       "title": "Software producer/consumer warp specialization",
       "status": "tested-not-selected",
       "path": "docs/research/ideas/producer-consumer-warps.md",
-      "summary": "The tested role-split variants passed four large-case A100 correctness checks but measured about 1.019–1.943 ms and lost to the unified-warp schedule."
+      "summary": "The tested role-split variants passed four large-case A100 correctness checks but measured about 1.019\u20131.943 ms and lost to the unified-warp schedule."
     },
     {
       "id": "ptx-native-frontend",
@@ -343,7 +378,7 @@
       "title": "Runtime-factor Triton low-rank lowering",
       "status": "tested-not-selected",
       "path": "docs/research/ideas/runtime-factor-low-rank-triton.md",
-      "summary": "The early A10040GB prototype was far slower: at 4096³ FP16, cuBLAS was about 0.511 ms, direct Triton 1.325 ms, Strassen 11.611 ms and AlphaTensor 13.041 ms."
+      "summary": "The early A10040GB prototype was far slower: at 4096\u00b3 FP16, cuBLAS was about 0.511 ms, direct Triton 1.325 ms, Strassen 11.611 ms and AlphaTensor 13.041 ms."
     },
     {
       "id": "sass-emulator-and-tensor-numerics",
@@ -423,6 +458,13 @@
       "summary": "Limited ptxas-built sparse probes ran on A100; native OA sparse code generation and speedup are not established."
     },
     {
+      "id": "stable-gelu-backward",
+      "title": "Stable analytic GELU backward",
+      "status": "validated-not-integrated",
+      "path": "docs/research/ideas/stable-gelu-backward.md",
+      "summary": "A stable exponential derivative passes the unchanged accuracy gate after the direct-tanh form fails; no ptxas speed win."
+    },
+    {
       "id": "stage-pair-specialization",
       "title": "Two-tile stage-pair specialization and peeled drain",
       "status": "implemented",
@@ -441,7 +483,7 @@
       "title": "Carry-linked pointer updates and folded shared addresses",
       "status": "implemented",
       "path": "docs/research/ideas/tensor-address-generation.md",
-      "summary": "The earlier address work reduced one selected kernel from 1,898 to 1,812 static non-NOP instructions; six same-worker cases improved about 0.9–5.4%."
+      "summary": "The earlier address work reduced one selected kernel from 1,898 to 1,812 static non-NOP instructions; six same-worker cases improved about 0.9\u20135.4%."
     },
     {
       "id": "tensor-counter-profiling",
@@ -455,7 +497,7 @@
       "title": "Clocked tensor probes and synchronization sweeps",
       "status": "validated-not-integrated",
       "path": "docs/research/ideas/tensor-timing-and-synchronization.md",
-      "summary": "Corrected exact-SASS probes measured an approximately eight-cycle-per-operation slope for the tested dependent HMMA sequence and about 41 cycles per iteration for LDSM→LOP3→IADD3."
+      "summary": "Corrected exact-SASS probes measured an approximately eight-cycle-per-operation slope for the tested dependent HMMA sequence and about 41 cycles per iteration for LDSM\u2192LOP3\u2192IADD3."
     },
     {
       "id": "vectorized-fp32-epilogue",

@@ -1,0 +1,1688 @@
+{
+  "schema": 1,
+  "source_record": "exp/nn_round2/runs/tensor-20261107T143201.758879Z.json",
+  "source_record_sha256": "25305e8b9c9b6cdfbf39b60b7b8ac48501cdb1ad7d737aedee47663748392c15",
+  "device": {
+    "name": "NVIDIA A100-SXM4-40GB",
+    "cc": "8.0",
+    "driver": 13030,
+    "sm_count": 108,
+    "clock_khz": 1410000,
+    "mem_bytes": 42429251584
+  },
+  "cases": 18,
+  "full_checks": 402,
+  "full_checks_passed": 402,
+  "full_output_elements_checked": 4505468928,
+  "graph_checks": 134,
+  "graph_checks_passed": 134,
+  "graph_output_elements_checked": 1501822976,
+  "worst_relative_l2_vs_fp64": 6.603475130059484e-06,
+  "worst_absolute_error_vs_fp64": 0.0032198719072766835,
+  "all_inputs_unchanged": true,
+  "interpretation": "ratios>1 favor native/candidate; tune once on round0, evaluate fixed methods on later within-process rounds; no independent-process replication or exhaustive CUDA tuning implied",
+  "results": [
+    {
+      "name": "smoke_f16",
+      "shape": [
+        128,
+        128,
+        128
+      ],
+      "dtype": "f16",
+      "comparisons": {
+        "direct_vs_legacy": {
+          "baseline": "oa_legacy",
+          "candidate": "oa_direct",
+          "holdout_round_ratios": [
+            1.0,
+            1.0
+          ],
+          "median_ratio": 1.0,
+          "greater_than_2pct_in_every_holdout_round": false
+        },
+        "direct_fused_vs_legacy_fused": {
+          "baseline": "oa_fused_relu",
+          "candidate": "exp_direct_fused_relu",
+          "holdout_round_ratios": [
+            1.0,
+            1.0
+          ],
+          "median_ratio": 1.0,
+          "greater_than_2pct_in_every_holdout_round": false
+        }
+      },
+      "selection": {
+        "bias_residual_relu": {
+          "selection_round": 0,
+          "fixed_methods": {
+            "native_oa": "oa_fused_relu",
+            "same_ptx_ptxas": "ptxas_m_fast_fused_relu",
+            "vendor_library": "cublas_gemmex_post_relu"
+          },
+          "holdout_ms": {
+            "native_oa": [
+              0.017407999932765962,
+              0.017407999932765962
+            ],
+            "same_ptx_ptxas": [
+              0.01228799968957901,
+              0.01228799968957901
+            ],
+            "vendor_library": [
+              0.011468800157308579,
+              0.011468800157308579
+            ]
+          },
+          "holdout_round_ratios": {
+            "same_ptx_ptxas_over_native": [
+              0.705882337835382,
+              0.705882337835382
+            ],
+            "vendor_library_over_native": [
+              0.6588235409928738,
+              0.6588235409928738
+            ]
+          }
+        },
+        "none": {
+          "selection_round": 0,
+          "fixed_methods": {
+            "native_oa": "oa_direct",
+            "same_ptx_ptxas": "ptxas_m_fast",
+            "vendor_library": "cublas_gemmex"
+          },
+          "holdout_ms": {
+            "native_oa": [
+              0.010444799810647965,
+              0.010444799810647965
+            ],
+            "same_ptx_ptxas": [
+              0.007987199723720551,
+              0.008191999793052674
+            ],
+            "vendor_library": [
+              0.004915200173854828,
+              0.005119999870657921
+            ]
+          },
+          "holdout_round_ratios": {
+            "same_ptx_ptxas_over_native": [
+              0.764705869764779,
+              0.7843137198954574
+            ],
+            "vendor_library_over_native": [
+              0.470588260470442,
+              0.49019607493466083
+            ]
+          }
+        }
+      },
+      "all_full_checks_passed": true,
+      "all_graph_checks_passed": true
+    },
+    {
+      "name": "smoke_bf16",
+      "shape": [
+        128,
+        128,
+        128
+      ],
+      "dtype": "bf16",
+      "comparisons": {
+        "direct_vs_legacy": {
+          "baseline": "oa_legacy",
+          "candidate": "oa_direct",
+          "holdout_round_ratios": [
+            1.0,
+            0.9803921498693217
+          ],
+          "median_ratio": 0.9901960749346608,
+          "greater_than_2pct_in_every_holdout_round": false
+        },
+        "direct_fused_vs_legacy_fused": {
+          "baseline": "oa_fused_relu",
+          "candidate": "exp_direct_fused_relu",
+          "holdout_round_ratios": [
+            1.0,
+            1.0
+          ],
+          "median_ratio": 1.0,
+          "greater_than_2pct_in_every_holdout_round": false
+        }
+      },
+      "selection": {
+        "bias_residual_relu": {
+          "selection_round": 0,
+          "fixed_methods": {
+            "native_oa": "oa_fused_relu",
+            "same_ptx_ptxas": "ptxas_m_fast_fused_relu",
+            "vendor_library": "cublas_gemmex_post_relu"
+          },
+          "holdout_ms": {
+            "native_oa": [
+              0.017407999932765962,
+              0.017407999932765962
+            ],
+            "same_ptx_ptxas": [
+              0.012083200365304947,
+              0.01228799968957901
+            ],
+            "vendor_library": [
+              0.011673600226640702,
+              0.011673600226640702
+            ]
+          },
+          "holdout_round_ratios": {
+            "same_ptx_ptxas_over_native": [
+              0.694117670724568,
+              0.705882337835382
+            ],
+            "vendor_library_over_native": [
+              0.6705882509034385,
+              0.6705882509034385
+            ]
+          }
+        },
+        "none": {
+          "selection_round": 0,
+          "fixed_methods": {
+            "native_oa": "oa_legacy",
+            "same_ptx_ptxas": "ptxas_m_fast",
+            "vendor_library": "cublas_gemmex"
+          },
+          "holdout_ms": {
+            "native_oa": [
+              0.010239999741315842,
+              0.010239999741315842
+            ],
+            "same_ptx_ptxas": [
+              0.007987199723720551,
+              0.007987199723720551
+            ],
+            "vendor_library": [
+              0.005119999870657921,
+              0.005119999870657921
+            ]
+          },
+          "holdout_round_ratios": {
+            "same_ptx_ptxas_over_native": [
+              0.7799999927240422,
+              0.7799999927240422
+            ],
+            "vendor_library_over_native": [
+              0.5,
+              0.5
+            ]
+          }
+        }
+      },
+      "all_full_checks_passed": true,
+      "all_graph_checks_passed": true
+    },
+    {
+      "name": "mlp_small_forward_f16",
+      "shape": [
+        512,
+        2048,
+        512
+      ],
+      "dtype": "f16",
+      "comparisons": {
+        "direct_vs_legacy": {
+          "baseline": "oa_legacy",
+          "candidate": "oa_direct",
+          "holdout_round_ratios": [
+            1.0288461639367017,
+            1.0288461639367017
+          ],
+          "median_ratio": 1.0288461639367017,
+          "greater_than_2pct_in_every_holdout_round": true
+        },
+        "direct_fused_vs_legacy_fused": {
+          "baseline": "oa_fused_relu",
+          "candidate": "exp_direct_fused_relu",
+          "holdout_round_ratios": [
+            1.0208332891217868,
+            1.0208332891217868
+          ],
+          "median_ratio": 1.0208332891217868,
+          "greater_than_2pct_in_every_holdout_round": true
+        }
+      },
+      "selection": {
+        "bias_residual_relu": {
+          "selection_round": 0,
+          "fixed_methods": {
+            "native_oa": "exp_direct_fused_relu",
+            "same_ptx_ptxas": "ptxas_m_fast_fused_relu",
+            "vendor_library": "cublas_gemmex_post_relu"
+          },
+          "holdout_ms": {
+            "native_oa": [
+              0.029491201043128967,
+              0.029491201043128967
+            ],
+            "same_ptx_ptxas": [
+              0.02088959962129593,
+              0.02109439969062805
+            ],
+            "vendor_library": [
+              0.04423680007457733,
+              0.04444159865379334
+            ]
+          },
+          "holdout_round_ratios": {
+            "same_ptx_ptxas_over_native": [
+              0.7083332954377222,
+              0.7152777419874783
+            ],
+            "vendor_library_over_native": [
+              1.4999999494725182,
+              1.506944345494793
+            ]
+          }
+        },
+        "none": {
+          "selection_round": 0,
+          "fixed_methods": {
+            "native_oa": "oa_direct",
+            "same_ptx_ptxas": "ptxas_m_fast",
+            "vendor_library": "cublas_gemmex"
+          },
+          "holdout_ms": {
+            "native_oa": [
+              0.021299199759960176,
+              0.021299199759960176
+            ],
+            "same_ptx_ptxas": [
+              0.015564799308776855,
+              0.015769599378108977
+            ],
+            "vendor_library": [
+              0.02744320034980774,
+              0.027647998929023743
+            ]
+          },
+          "holdout_round_ratios": {
+            "same_ptx_ptxas_over_native": [
+              0.7307692065519159,
+              0.7403845945308164
+            ],
+            "vendor_library_over_native": [
+              1.2884615694058852,
+              1.298076887423654
+            ]
+          }
+        }
+      },
+      "all_full_checks_passed": true,
+      "all_graph_checks_passed": true
+    },
+    {
+      "name": "mlp_small_forward_bf16",
+      "shape": [
+        512,
+        2048,
+        512
+      ],
+      "dtype": "bf16",
+      "comparisons": {
+        "direct_vs_legacy": {
+          "baseline": "oa_legacy",
+          "candidate": "oa_direct",
+          "holdout_round_ratios": [
+            1.0190476256471273,
+            1.0288461639367017
+          ],
+          "median_ratio": 1.0239468947919144,
+          "greater_than_2pct_in_every_holdout_round": false
+        },
+        "direct_fused_vs_legacy_fused": {
+          "baseline": "oa_fused_relu",
+          "candidate": "exp_direct_fused_relu",
+          "holdout_round_ratios": [
+            0.9932886371418399,
+            1.0137931082931466
+          ],
+          "median_ratio": 1.0035408727174933,
+          "greater_than_2pct_in_every_holdout_round": false
+        }
+      },
+      "selection": {
+        "bias_residual_relu": {
+          "selection_round": 0,
+          "fixed_methods": {
+            "native_oa": "exp_direct_fused_relu",
+            "same_ptx_ptxas": "ptxas_m_fast_fused_relu",
+            "vendor_library": "cublas_gemmex_post_relu"
+          },
+          "holdout_ms": {
+            "native_oa": [
+              0.03051519989967346,
+              0.02969599962234497
+            ],
+            "same_ptx_ptxas": [
+              0.020684799551963805,
+              0.02109439969062805
+            ],
+            "vendor_library": [
+              0.03461120128631592,
+              0.034406399726867674
+            ]
+          },
+          "holdout_round_ratios": {
+            "same_ptx_ptxas_over_native": [
+              0.6778523365395076,
+              0.710344826201958
+            ],
+            "vendor_library_over_native": [
+              1.134228233801814,
+              1.1586206951921676
+            ]
+          }
+        },
+        "none": {
+          "selection_round": 0,
+          "fixed_methods": {
+            "native_oa": "oa_direct",
+            "same_ptx_ptxas": "ptxas_m_fast",
+            "vendor_library": "cublas_gemmex"
+          },
+          "holdout_ms": {
+            "native_oa": [
+              0.021503999829292297,
+              0.021299199759960176
+            ],
+            "same_ptx_ptxas": [
+              0.015769599378108977,
+              0.015564799308776855
+            ],
+            "vendor_library": [
+              0.016998399794101716,
+              0.01679359972476959
+            ]
+          },
+          "holdout_round_ratios": {
+            "same_ptx_ptxas_over_native": [
+              0.733333310235055,
+              0.7307692065519159
+            ],
+            "vendor_library_over_native": [
+              0.7904761871764364,
+              0.7884615344253192
+            ]
+          }
+        }
+      },
+      "all_full_checks_passed": true,
+      "all_graph_checks_passed": true
+    },
+    {
+      "name": "mlp_small_dx_f16",
+      "shape": [
+        512,
+        512,
+        2048
+      ],
+      "dtype": "f16",
+      "comparisons": {
+        "direct_vs_legacy": {
+          "baseline": "oa_legacy",
+          "candidate": "oa_direct",
+          "holdout_round_ratios": [
+            1.0506756660426058,
+            1.0471381134563376
+          ],
+          "median_ratio": 1.0489068897494715,
+          "greater_than_2pct_in_every_holdout_round": true
+        }
+      },
+      "selection": {
+        "none": {
+          "selection_round": 0,
+          "fixed_methods": {
+            "native_oa": "oa_direct",
+            "same_ptx_ptxas": "ptxas_m_fast",
+            "vendor_library": "cublas_gemmex"
+          },
+          "holdout_ms": {
+            "native_oa": [
+              0.06062080264091492,
+              0.06082559823989868
+            ],
+            "same_ptx_ptxas": [
+              0.04505600035190582,
+              0.04505600035190582
+            ],
+            "vendor_library": [
+              0.01679359972476959,
+              0.016998399794101716
+            ]
+          },
+          "holdout_round_ratios": {
+            "same_ptx_ptxas_over_native": [
+              0.7432432166692574,
+              0.7407407679609347
+            ],
+            "vendor_library_over_native": [
+              0.2770270104182859,
+              0.27946128416294935
+            ]
+          }
+        }
+      },
+      "all_full_checks_passed": true,
+      "all_graph_checks_passed": true
+    },
+    {
+      "name": "mlp_small_dx_bf16",
+      "shape": [
+        512,
+        512,
+        2048
+      ],
+      "dtype": "bf16",
+      "comparisons": {
+        "direct_vs_legacy": {
+          "baseline": "oa_legacy",
+          "candidate": "oa_direct",
+          "holdout_round_ratios": [
+            1.0506756660426058,
+            1.0471381134563376
+          ],
+          "median_ratio": 1.0489068897494715,
+          "greater_than_2pct_in_every_holdout_round": true
+        }
+      },
+      "selection": {
+        "none": {
+          "selection_round": 0,
+          "fixed_methods": {
+            "native_oa": "oa_direct",
+            "same_ptx_ptxas": "ptxas_m_fast",
+            "vendor_library": "cublas_gemmex"
+          },
+          "holdout_ms": {
+            "native_oa": [
+              0.06062080264091492,
+              0.06082559823989868
+            ],
+            "same_ptx_ptxas": [
+              0.04485119879245758,
+              0.04485119879245758
+            ],
+            "vendor_library": [
+              0.016998399794101716,
+              0.016998399794101716
+            ]
+          },
+          "holdout_round_ratios": {
+            "same_ptx_ptxas_over_native": [
+              0.7398648127134178,
+              0.7373737388584752
+            ],
+            "vendor_library_over_native": [
+              0.2804053897931888,
+              0.27946128416294935
+            ]
+          }
+        }
+      },
+      "all_full_checks_passed": true,
+      "all_graph_checks_passed": true
+    },
+    {
+      "name": "mlp_small_dw_f16",
+      "shape": [
+        2048,
+        512,
+        512
+      ],
+      "dtype": "f16",
+      "comparisons": {
+        "direct_vs_legacy": {
+          "baseline": "oa_legacy",
+          "candidate": "oa_direct",
+          "holdout_round_ratios": [
+            1.0388349651728868,
+            1.0388349651728868
+          ],
+          "median_ratio": 1.0388349651728868,
+          "greater_than_2pct_in_every_holdout_round": true
+        }
+      },
+      "selection": {
+        "none": {
+          "selection_round": 0,
+          "fixed_methods": {
+            "native_oa": "oa_direct",
+            "same_ptx_ptxas": "ptxas_m_fast",
+            "vendor_library": "cublas_gemmex"
+          },
+          "holdout_ms": {
+            "native_oa": [
+              0.02109439969062805,
+              0.02109439969062805
+            ],
+            "same_ptx_ptxas": [
+              0.015360000729560851,
+              0.015360000729560851
+            ],
+            "vendor_library": [
+              0.02682879865169525,
+              0.026419198513031004
+            ]
+          },
+          "holdout_round_ratios": {
+            "same_ptx_ptxas_over_native": [
+              0.7281553850705259,
+              0.7281553850705259
+            ],
+            "vendor_library_over_native": [
+              1.271844614929474,
+              1.2524271323430307
+            ]
+          }
+        }
+      },
+      "all_full_checks_passed": true,
+      "all_graph_checks_passed": true
+    },
+    {
+      "name": "mlp_small_dw_bf16",
+      "shape": [
+        2048,
+        512,
+        512
+      ],
+      "dtype": "bf16",
+      "comparisons": {
+        "direct_vs_legacy": {
+          "baseline": "oa_legacy",
+          "candidate": "oa_direct",
+          "holdout_round_ratios": [
+            1.0388349651728868,
+            1.0388349651728868
+          ],
+          "median_ratio": 1.0388349651728868,
+          "greater_than_2pct_in_every_holdout_round": true
+        }
+      },
+      "selection": {
+        "none": {
+          "selection_round": 0,
+          "fixed_methods": {
+            "native_oa": "oa_direct",
+            "same_ptx_ptxas": "ptxas_m_fast",
+            "vendor_library": "cublas_gemmex"
+          },
+          "holdout_ms": {
+            "native_oa": [
+              0.02109439969062805,
+              0.02109439969062805
+            ],
+            "same_ptx_ptxas": [
+              0.015360000729560851,
+              0.015564799308776855
+            ],
+            "vendor_library": [
+              0.01679359972476959,
+              0.016998399794101716
+            ]
+          },
+          "holdout_round_ratios": {
+            "same_ptx_ptxas_over_native": [
+              0.7281553850705259,
+              0.7378640557233814
+            ],
+            "vendor_library_over_native": [
+              0.7961165034827113,
+              0.8058252447759331
+            ]
+          }
+        }
+      },
+      "all_full_checks_passed": true,
+      "all_graph_checks_passed": true
+    },
+    {
+      "name": "mlp_wide_forward_f16",
+      "shape": [
+        1024,
+        4096,
+        1024
+      ],
+      "dtype": "f16",
+      "comparisons": {
+        "direct_vs_legacy": {
+          "baseline": "oa_legacy",
+          "candidate": "oa_direct",
+          "holdout_round_ratios": [
+            1.101522802518619,
+            1.1221374475436774
+          ],
+          "median_ratio": 1.1118301250311482,
+          "greater_than_2pct_in_every_holdout_round": true
+        },
+        "morton_vs_mfast": {
+          "baseline": "oa_legacy",
+          "candidate": "oa_morton",
+          "holdout_round_ratios": [
+            0.9931349593205714,
+            1.0114679104237503
+          ],
+          "median_ratio": 1.0023014348721608,
+          "greater_than_2pct_in_every_holdout_round": false
+        },
+        "direct_morton_vs_direct": {
+          "baseline": "oa_direct",
+          "candidate": "exp_direct_morton",
+          "holdout_round_ratios": [
+            1.005102079832552,
+            1.002551039916276
+          ],
+          "median_ratio": 1.003826559874414,
+          "greater_than_2pct_in_every_holdout_round": false
+        },
+        "direct_morton_vs_morton": {
+          "baseline": "oa_morton",
+          "candidate": "exp_direct_morton",
+          "holdout_round_ratios": [
+            1.1147959795432734,
+            1.1122449396269973
+          ],
+          "median_ratio": 1.1135204595851353,
+          "greater_than_2pct_in_every_holdout_round": true
+        },
+        "direct_fused_vs_legacy_fused": {
+          "baseline": "oa_fused_relu",
+          "candidate": "exp_direct_fused_relu",
+          "holdout_round_ratios": [
+            1.0271493530477331,
+            1.0225225189793243
+          ],
+          "median_ratio": 1.0248359360135288,
+          "greater_than_2pct_in_every_holdout_round": true
+        }
+      },
+      "selection": {
+        "bias_residual_relu": {
+          "selection_round": 0,
+          "fixed_methods": {
+            "native_oa": "exp_direct_fused_relu",
+            "same_ptx_ptxas": "ptxas_m_fast_fused_relu",
+            "vendor_library": "cublas_gemmex_post_relu"
+          },
+          "holdout_ms": {
+            "native_oa": [
+              0.13578239679336548,
+              0.1363968014717102
+            ],
+            "same_ptx_ptxas": [
+              0.0851967990398407,
+              0.0851967990398407
+            ],
+            "vendor_library": [
+              0.11755520105361938,
+              0.11735039949417114
+            ]
+          },
+          "holdout_round_ratios": {
+            "same_ptx_ptxas_over_native": [
+              0.6274509881387182,
+              0.6246246108455205
+            ],
+            "vendor_library_over_native": [
+              0.8657617174965296,
+              0.8603603473686335
+            ]
+          }
+        },
+        "none": {
+          "selection_round": 0,
+          "fixed_methods": {
+            "native_oa": "oa_direct",
+            "same_ptx_ptxas": "ptxas_morton8",
+            "vendor_library": "cublas_gemmex"
+          },
+          "holdout_ms": {
+            "native_oa": [
+              0.08069120049476623,
+              0.08048639893531799
+            ],
+            "same_ptx_ptxas": [
+              0.06389759778976441,
+              0.06348800063133239
+            ],
+            "vendor_library": [
+              0.0626688003540039,
+              0.06287360191345215
+            ]
+          },
+          "holdout_round_ratios": {
+            "same_ptx_ptxas_over_native": [
+              0.7918781403420676,
+              0.788804089525161
+            ],
+            "vendor_library_over_native": [
+              0.776649745817931,
+              0.7811705175675685
+            ]
+          }
+        }
+      },
+      "all_full_checks_passed": true,
+      "all_graph_checks_passed": true
+    },
+    {
+      "name": "mlp_wide_forward_bf16",
+      "shape": [
+        1024,
+        4096,
+        1024
+      ],
+      "dtype": "bf16",
+      "comparisons": {
+        "direct_vs_legacy": {
+          "baseline": "oa_legacy",
+          "candidate": "oa_direct",
+          "holdout_round_ratios": [
+            1.0950820250922735,
+            1.1013071994886856
+          ],
+          "median_ratio": 1.0981946122904795,
+          "greater_than_2pct_in_every_holdout_round": true
+        },
+        "morton_vs_mfast": {
+          "baseline": "oa_legacy",
+          "candidate": "oa_morton",
+          "holdout_round_ratios": [
+            0.9794721555295015,
+            0.9882697909670758
+          ],
+          "median_ratio": 0.9838709732482886,
+          "greater_than_2pct_in_every_holdout_round": false
+        },
+        "direct_morton_vs_direct": {
+          "baseline": "oa_direct",
+          "candidate": "exp_direct_morton",
+          "holdout_round_ratios": [
+            0.9967320012782859,
+            0.9967426463059941
+          ],
+          "median_ratio": 0.99673732379214,
+          "greater_than_2pct_in_every_holdout_round": false
+        },
+        "direct_morton_vs_morton": {
+          "baseline": "oa_morton",
+          "candidate": "exp_direct_morton",
+          "holdout_round_ratios": [
+            1.1143790992649858,
+            1.1107491723894718
+          ],
+          "median_ratio": 1.112564135827229,
+          "greater_than_2pct_in_every_holdout_round": true
+        },
+        "direct_fused_vs_legacy_fused": {
+          "baseline": "oa_fused_relu",
+          "candidate": "exp_direct_fused_relu",
+          "holdout_round_ratios": [
+            1.0202205278514558,
+            1.0183485493850333
+          ],
+          "median_ratio": 1.0192845386182445,
+          "greater_than_2pct_in_every_holdout_round": false
+        }
+      },
+      "selection": {
+        "bias_residual_relu": {
+          "selection_round": 0,
+          "fixed_methods": {
+            "native_oa": "exp_direct_fused_relu",
+            "same_ptx_ptxas": "ptxas_m_fast_fused_relu",
+            "vendor_library": "cublas_gemmex_post_relu"
+          },
+          "holdout_ms": {
+            "native_oa": [
+              0.11141120195388794,
+              0.11161600351333618
+            ],
+            "same_ptx_ptxas": [
+              0.07065600156784058,
+              0.07065600156784058
+            ],
+            "vendor_library": [
+              0.1124351978302002,
+              0.11263999938964844
+            ]
+          },
+          "holdout_round_ratios": {
+            "same_ptx_ptxas_over_native": [
+              0.6341911794209386,
+              0.6330275170567131
+            ],
+            "vendor_library_over_native": [
+              1.0091911392961732,
+              1.0091742746925167
+            ]
+          }
+        },
+        "none": {
+          "selection_round": 0,
+          "fixed_methods": {
+            "native_oa": "oa_direct",
+            "same_ptx_ptxas": "ptxas_m_fast",
+            "vendor_library": "cublas_gemmex"
+          },
+          "holdout_ms": {
+            "native_oa": [
+              0.062463998794555664,
+              0.0626688003540039
+            ],
+            "same_ptx_ptxas": [
+              0.04997119903564453,
+              0.04997119903564453
+            ],
+            "vendor_library": [
+              0.06430720090866089,
+              0.06451200246810913
+            ]
+          },
+          "holdout_round_ratios": {
+            "same_ptx_ptxas_over_native": [
+              0.7999999999999999,
+              0.7973856010226287
+            ],
+            "vendor_library_over_native": [
+              1.0295082311359465,
+              1.029411798274314
+            ]
+          }
+        }
+      },
+      "all_full_checks_passed": true,
+      "all_graph_checks_passed": true
+    },
+    {
+      "name": "mlp_wide_dx_f16",
+      "shape": [
+        1024,
+        1024,
+        4096
+      ],
+      "dtype": "f16",
+      "comparisons": {
+        "direct_vs_legacy": {
+          "baseline": "oa_legacy",
+          "candidate": "oa_direct",
+          "holdout_round_ratios": [
+            1.0666667068098814,
+            1.0643678387013509
+          ],
+          "median_ratio": 1.0655172727556161,
+          "greater_than_2pct_in_every_holdout_round": true
+        },
+        "morton_vs_mfast": {
+          "baseline": "oa_legacy",
+          "candidate": "oa_morton",
+          "holdout_round_ratios": [
+            1.0021598436414008,
+            0.9978448112293614
+          ],
+          "median_ratio": 1.000002327435381,
+          "greater_than_2pct_in_every_holdout_round": false
+        },
+        "direct_morton_vs_direct": {
+          "baseline": "oa_direct",
+          "candidate": "exp_direct_morton",
+          "holdout_round_ratios": [
+            1.0,
+            1.0
+          ],
+          "median_ratio": 1.0,
+          "greater_than_2pct_in_every_holdout_round": false
+        },
+        "direct_morton_vs_morton": {
+          "baseline": "oa_morton",
+          "candidate": "exp_direct_morton",
+          "holdout_round_ratios": [
+            1.0643678387013509,
+            1.0666667068098814
+          ],
+          "median_ratio": 1.0655172727556161,
+          "greater_than_2pct_in_every_holdout_round": true
+        }
+      },
+      "selection": {
+        "none": {
+          "selection_round": 0,
+          "fixed_methods": {
+            "native_oa": "oa_direct",
+            "same_ptx_ptxas": "ptxas_m_fast",
+            "vendor_library": "cublas_gemmex"
+          },
+          "holdout_ms": {
+            "native_oa": [
+              0.08908799886703492,
+              0.08908799886703492
+            ],
+            "same_ptx_ptxas": [
+              0.06635519862174988,
+              0.06635519862174988
+            ],
+            "vendor_library": [
+              0.062054401636123656,
+              0.06225919723510742
+            ]
+          },
+          "holdout_round_ratios": {
+            "same_ptx_ptxas_over_native": [
+              0.744827580208485,
+              0.744827580208485
+            ],
+            "vendor_library_over_native": [
+              0.6965517513614905,
+              0.698850552564663
+            ]
+          }
+        }
+      },
+      "all_full_checks_passed": true,
+      "all_graph_checks_passed": true
+    },
+    {
+      "name": "mlp_wide_dx_bf16",
+      "shape": [
+        1024,
+        1024,
+        4096
+      ],
+      "dtype": "bf16",
+      "comparisons": {
+        "direct_vs_legacy": {
+          "baseline": "oa_legacy",
+          "candidate": "oa_direct",
+          "holdout_round_ratios": [
+            1.0642202049203362,
+            1.0642202049203362
+          ],
+          "median_ratio": 1.0642202049203362,
+          "greater_than_2pct_in_every_holdout_round": true
+        },
+        "morton_vs_mfast": {
+          "baseline": "oa_legacy",
+          "candidate": "oa_morton",
+          "holdout_round_ratios": [
+            1.0,
+            1.0
+          ],
+          "median_ratio": 1.0,
+          "greater_than_2pct_in_every_holdout_round": false
+        },
+        "direct_morton_vs_direct": {
+          "baseline": "oa_direct",
+          "candidate": "exp_direct_morton",
+          "holdout_round_ratios": [
+            1.0,
+            1.0022988681085307
+          ],
+          "median_ratio": 1.0011494340542653,
+          "greater_than_2pct_in_every_holdout_round": false
+        },
+        "direct_morton_vs_morton": {
+          "baseline": "oa_morton",
+          "candidate": "exp_direct_morton",
+          "holdout_round_ratios": [
+            1.0642202049203362,
+            1.0666667068098814
+          ],
+          "median_ratio": 1.065443455865109,
+          "greater_than_2pct_in_every_holdout_round": true
+        }
+      },
+      "selection": {
+        "none": {
+          "selection_round": 0,
+          "fixed_methods": {
+            "native_oa": "oa_direct",
+            "same_ptx_ptxas": "ptxas_m_fast",
+            "vendor_library": "cublas_gemmex"
+          },
+          "holdout_ms": {
+            "native_oa": [
+              0.08929280042648316,
+              0.08929280042648316
+            ],
+            "same_ptx_ptxas": [
+              0.06656000018119812,
+              0.06656000018119812
+            ],
+            "vendor_library": [
+              0.05529599785804749,
+              0.05550079941749573
+            ]
+          },
+          "holdout_round_ratios": {
+            "same_ptx_ptxas_over_native": [
+              0.7454128425056902,
+              0.7454128425056902
+            ],
+            "vendor_library_over_native": [
+              0.6192660281001486,
+              0.6215596235352796
+            ]
+          }
+        }
+      },
+      "all_full_checks_passed": true,
+      "all_graph_checks_passed": true
+    },
+    {
+      "name": "mlp_wide_dw_f16",
+      "shape": [
+        4096,
+        1024,
+        1024
+      ],
+      "dtype": "f16",
+      "comparisons": {
+        "direct_vs_legacy": {
+          "baseline": "oa_legacy",
+          "candidate": "oa_direct",
+          "holdout_round_ratios": [
+            1.1213115426748044,
+            1.124590160805823
+          ],
+          "median_ratio": 1.1229508517403137,
+          "greater_than_2pct_in_every_holdout_round": true
+        },
+        "morton_vs_mfast": {
+          "baseline": "oa_legacy",
+          "candidate": "oa_morton",
+          "holdout_round_ratios": [
+            0.9799427079854323,
+            1.0
+          ],
+          "median_ratio": 0.9899713539927162,
+          "greater_than_2pct_in_every_holdout_round": false
+        },
+        "direct_morton_vs_direct": {
+          "baseline": "oa_direct",
+          "candidate": "exp_direct_morton",
+          "holdout_round_ratios": [
+            0.9967320012782859,
+            0.9967320012782859
+          ],
+          "median_ratio": 0.9967320012782859,
+          "greater_than_2pct_in_every_holdout_round": false
+        },
+        "direct_morton_vs_morton": {
+          "baseline": "oa_morton",
+          "candidate": "exp_direct_morton",
+          "holdout_round_ratios": [
+            1.1405228988175855,
+            1.1209150015978573
+          ],
+          "median_ratio": 1.1307189502077213,
+          "greater_than_2pct_in_every_holdout_round": true
+        }
+      },
+      "selection": {
+        "none": {
+          "selection_round": 0,
+          "fixed_methods": {
+            "native_oa": "oa_direct",
+            "same_ptx_ptxas": "ptxas_m_fast",
+            "vendor_library": "cublas_gemmex"
+          },
+          "holdout_ms": {
+            "native_oa": [
+              0.062463998794555664,
+              0.062463998794555664
+            ],
+            "same_ptx_ptxas": [
+              0.04976640045642853,
+              0.04976640045642853
+            ],
+            "vendor_library": [
+              0.056524801254272464,
+              0.056729602813720706
+            ]
+          },
+          "holdout_round_ratios": {
+            "same_ptx_ptxas_over_native": [
+              0.7967213341577829,
+              0.7967213341577829
+            ],
+            "vendor_library_over_native": [
+              0.9049180703301234,
+              0.908196783883539
+            ]
+          }
+        }
+      },
+      "all_full_checks_passed": true,
+      "all_graph_checks_passed": true
+    },
+    {
+      "name": "mlp_wide_dw_bf16",
+      "shape": [
+        4096,
+        1024,
+        1024
+      ],
+      "dtype": "bf16",
+      "comparisons": {
+        "direct_vs_legacy": {
+          "baseline": "oa_legacy",
+          "candidate": "oa_direct",
+          "holdout_round_ratios": [
+            1.1241830003195714,
+            1.1111111005432717
+          ],
+          "median_ratio": 1.1176470504314215,
+          "greater_than_2pct_in_every_holdout_round": true
+        },
+        "morton_vs_mfast": {
+          "baseline": "oa_legacy",
+          "candidate": "oa_morton",
+          "holdout_round_ratios": [
+            1.002915474159107,
+            0.9855072207023556
+          ],
+          "median_ratio": 0.9942113474307314,
+          "greater_than_2pct_in_every_holdout_round": false
+        },
+        "direct_morton_vs_direct": {
+          "baseline": "oa_direct",
+          "candidate": "exp_direct_morton",
+          "holdout_round_ratios": [
+            0.9967426463059941,
+            0.9967426463059941
+          ],
+          "median_ratio": 0.9967426463059941,
+          "greater_than_2pct_in_every_holdout_round": false
+        },
+        "direct_morton_vs_morton": {
+          "baseline": "oa_morton",
+          "candidate": "exp_direct_morton",
+          "holdout_round_ratios": [
+            1.117263784976736,
+            1.1237784923647478
+          ],
+          "median_ratio": 1.1205211386707419,
+          "greater_than_2pct_in_every_holdout_round": true
+        }
+      },
+      "selection": {
+        "none": {
+          "selection_round": 0,
+          "fixed_methods": {
+            "native_oa": "oa_direct",
+            "same_ptx_ptxas": "ptxas_m_fast",
+            "vendor_library": "cublas_gemmex"
+          },
+          "holdout_ms": {
+            "native_oa": [
+              0.0626688003540039,
+              0.0626688003540039
+            ],
+            "same_ptx_ptxas": [
+              0.04976640045642853,
+              0.04976640045642853
+            ],
+            "vendor_library": [
+              0.06471679806709289,
+              0.06451200246810913
+            ]
+          },
+          "holdout_round_ratios": {
+            "same_ptx_ptxas_over_native": [
+              0.7941176498561928,
+              0.7941176498561928
+            ],
+            "vendor_library_over_native": [
+              1.0326797018854716,
+              1.029411798274314
+            ]
+          }
+        }
+      },
+      "all_full_checks_passed": true,
+      "all_graph_checks_passed": true
+    },
+    {
+      "name": "square_f16",
+      "shape": [
+        4096,
+        4096,
+        4096
+      ],
+      "dtype": "f16",
+      "comparisons": {
+        "direct_vs_legacy": {
+          "baseline": "oa_legacy",
+          "candidate": "oa_direct",
+          "holdout_round_ratios": [
+            1.0022328719449238,
+            1.0025212924837967
+          ],
+          "median_ratio": 1.0023770822143603,
+          "greater_than_2pct_in_every_holdout_round": false
+        },
+        "morton_vs_mfast": {
+          "baseline": "oa_legacy",
+          "candidate": "oa_morton",
+          "holdout_round_ratios": [
+            0.9980940134345057,
+            0.9959298376469206
+          ],
+          "median_ratio": 0.997011925540713,
+          "greater_than_2pct_in_every_holdout_round": false
+        },
+        "direct_morton_vs_direct": {
+          "baseline": "oa_direct",
+          "candidate": "exp_direct_morton",
+          "holdout_round_ratios": [
+            1.0,
+            0.9987409409861159
+          ],
+          "median_ratio": 0.9993704704930579,
+          "greater_than_2pct_in_every_holdout_round": false
+        },
+        "direct_morton_vs_morton": {
+          "baseline": "oa_morton",
+          "candidate": "exp_direct_morton",
+          "holdout_round_ratios": [
+            1.0041467621834301,
+            1.0053510008090076
+          ],
+          "median_ratio": 1.0047488814962189,
+          "greater_than_2pct_in_every_holdout_round": false
+        },
+        "direct_fused_vs_legacy_fused": {
+          "baseline": "oa_fused_relu",
+          "candidate": "exp_direct_fused_relu",
+          "holdout_round_ratios": [
+            1.0032885333749864,
+            0.9997298736871751
+          ],
+          "median_ratio": 1.0015092035310809,
+          "greater_than_2pct_in_every_holdout_round": false
+        }
+      },
+      "selection": {
+        "bias_residual_relu": {
+          "selection_round": 0,
+          "fixed_methods": {
+            "native_oa": "exp_direct_fused_relu",
+            "same_ptx_ptxas": "ptxas_m_fast_fused_relu",
+            "vendor_library": "cublas_gemmex_post_relu"
+          },
+          "holdout_ms": {
+            "native_oa": [
+              0.7473152160644532,
+              0.7581696033477783
+            ],
+            "same_ptx_ptxas": [
+              0.642252779006958,
+              0.6498303890228272
+            ],
+            "vendor_library": [
+              0.9259008407592774,
+              0.932863998413086
+            ]
+          },
+          "holdout_round_ratios": {
+            "same_ptx_ptxas_over_native": [
+              0.8594134913901794,
+              0.8571042497001096
+            ],
+            "vendor_library_over_native": [
+              1.238969608614823,
+              1.2304159838299058
+            ]
+          }
+        },
+        "none": {
+          "selection_round": 0,
+          "fixed_methods": {
+            "native_oa": "oa_direct",
+            "same_ptx_ptxas": "ptxas_morton8",
+            "vendor_library": "cublas_gemmex"
+          },
+          "holdout_ms": {
+            "native_oa": [
+              0.6420479774475097,
+              0.6498303890228272
+            ],
+            "same_ptx_ptxas": [
+              0.6064127922058106,
+              0.6139904022216797
+            ],
+            "vendor_library": [
+              0.5754879951477051,
+              0.5818367958068847
+            ]
+          },
+          "holdout_round_ratios": {
+            "same_ptx_ptxas_over_native": [
+              0.9444976286922226,
+              0.9448471671892086
+            ],
+            "vendor_library_over_native": [
+              0.8963317623639018,
+              0.8953671690882496
+            ]
+          }
+        }
+      },
+      "all_full_checks_passed": true,
+      "all_graph_checks_passed": true
+    },
+    {
+      "name": "square_bf16",
+      "shape": [
+        4096,
+        4096,
+        4096
+      ],
+      "dtype": "bf16",
+      "comparisons": {
+        "direct_vs_legacy": {
+          "baseline": "oa_legacy",
+          "candidate": "oa_direct",
+          "holdout_round_ratios": [
+            1.001631866186213,
+            1.0029363248082375
+          ],
+          "median_ratio": 1.0022840954972252,
+          "greater_than_2pct_in_every_holdout_round": false
+        },
+        "morton_vs_mfast": {
+          "baseline": "oa_legacy",
+          "candidate": "oa_morton",
+          "holdout_round_ratios": [
+            0.9977243755903555,
+            0.9983760837325256
+          ],
+          "median_ratio": 0.9980502296614406,
+          "greater_than_2pct_in_every_holdout_round": false
+        },
+        "direct_morton_vs_direct": {
+          "baseline": "oa_direct",
+          "candidate": "exp_direct_morton",
+          "holdout_round_ratios": [
+            0.9996737332474936,
+            0.9954531100699899
+          ],
+          "median_ratio": 0.9975634216587418,
+          "greater_than_2pct_in_every_holdout_round": false
+        },
+        "direct_morton_vs_morton": {
+          "baseline": "oa_morton",
+          "candidate": "exp_direct_morton",
+          "holdout_round_ratios": [
+            1.0035888583132502,
+            1.0
+          ],
+          "median_ratio": 1.0017944291566252,
+          "greater_than_2pct_in_every_holdout_round": false
+        },
+        "direct_fused_vs_legacy_fused": {
+          "baseline": "oa_fused_relu",
+          "candidate": "exp_direct_fused_relu",
+          "holdout_round_ratios": [
+            1.0041875715367594,
+            1.0039094872017267
+          ],
+          "median_ratio": 1.0040485293692432,
+          "greater_than_2pct_in_every_holdout_round": false
+        }
+      },
+      "selection": {
+        "bias_residual_relu": {
+          "selection_round": 0,
+          "fixed_methods": {
+            "native_oa": "exp_direct_fused_relu",
+            "same_ptx_ptxas": "ptxas_m_fast_fused_relu",
+            "vendor_library": "cublas_gemmex_post_relu"
+          },
+          "holdout_ms": {
+            "native_oa": [
+              0.7335936069488526,
+              0.7333888053894043
+            ],
+            "same_ptx_ptxas": [
+              0.6289408206939697,
+              0.6293504238128662
+            ],
+            "vendor_library": [
+              0.9035776138305665,
+              0.9039872169494629
+            ]
+          },
+          "holdout_round_ratios": {
+            "same_ptx_ptxas_over_native": [
+              0.8573422869780006,
+              0.8581402104695377
+            ],
+            "vendor_library_over_native": [
+              1.2317141333724375,
+              1.2326166015984887
+            ]
+          }
+        },
+        "none": {
+          "selection_round": 0,
+          "fixed_methods": {
+            "native_oa": "oa_direct",
+            "same_ptx_ptxas": "ptxas_morton8",
+            "vendor_library": "cublas_gemmex"
+          },
+          "holdout_ms": {
+            "native_oa": [
+              0.627507209777832,
+              0.6277120113372803
+            ],
+            "same_ptx_ptxas": [
+              0.59269118309021,
+              0.5933055877685547
+            ],
+            "vendor_library": [
+              0.5558271884918213,
+              0.5562367916107178
+            ]
+          },
+          "holdout_round_ratios": {
+            "same_ptx_ptxas_over_native": [
+              0.9445169296143249,
+              0.9451875654005314
+            ],
+            "vendor_library_over_native": [
+              0.8857702028453364,
+              0.8861337389827999
+            ]
+          }
+        }
+      },
+      "all_full_checks_passed": true,
+      "all_graph_checks_passed": true
+    },
+    {
+      "name": "tall_f16",
+      "shape": [
+        16384,
+        4096,
+        4096
+      ],
+      "dtype": "f16",
+      "comparisons": {
+        "direct_vs_legacy": {
+          "baseline": "oa_legacy",
+          "candidate": "oa_direct",
+          "holdout_round_ratios": [
+            0.9512720979938212,
+            0.9535901278873353
+          ],
+          "median_ratio": 0.9524311129405783,
+          "greater_than_2pct_in_every_holdout_round": false
+        },
+        "morton_vs_mfast": {
+          "baseline": "oa_legacy",
+          "candidate": "oa_morton",
+          "holdout_round_ratios": [
+            1.0678499484936168,
+            1.0646272390115197
+          ],
+          "median_ratio": 1.0662385937525682,
+          "greater_than_2pct_in_every_holdout_round": true
+        },
+        "direct_morton_vs_direct": {
+          "baseline": "oa_direct",
+          "candidate": "exp_direct_morton",
+          "holdout_round_ratios": [
+            1.1175006595403645,
+            1.1107481344980839
+          ],
+          "median_ratio": 1.114124397019224,
+          "greater_than_2pct_in_every_holdout_round": true
+        },
+        "direct_morton_vs_morton": {
+          "baseline": "oa_morton",
+          "candidate": "exp_direct_morton",
+          "holdout_round_ratios": [
+            0.9955024096878495,
+            0.9949007660278228
+          ],
+          "median_ratio": 0.9952015878578362,
+          "greater_than_2pct_in_every_holdout_round": false
+        }
+      },
+      "selection": {
+        "none": {
+          "selection_round": 0,
+          "fixed_methods": {
+            "native_oa": "oa_morton",
+            "same_ptx_ptxas": "ptxas_morton8",
+            "vendor_library": "cublas_gemmex"
+          },
+          "holdout_ms": {
+            "native_oa": [
+              2.5384960174560547,
+              2.5573375701904295
+            ],
+            "same_ptx_ptxas": [
+              2.3799808502197264,
+              2.390835189819336
+            ],
+            "vendor_library": [
+              2.3207935333251952,
+              2.3209983825683596
+            ]
+          },
+          "holdout_round_ratios": {
+            "same_ptx_ptxas_over_native": [
+              0.9375554792498025,
+              0.9348922948960957
+            ],
+            "vendor_library_over_native": [
+              0.9142395801948,
+              0.9075838910056481
+            ]
+          }
+        }
+      },
+      "all_full_checks_passed": true,
+      "all_graph_checks_passed": true
+    },
+    {
+      "name": "tall_bf16",
+      "shape": [
+        16384,
+        4096,
+        4096
+      ],
+      "dtype": "bf16",
+      "comparisons": {
+        "direct_vs_legacy": {
+          "baseline": "oa_legacy",
+          "candidate": "oa_direct",
+          "holdout_round_ratios": [
+            0.9405107558503092,
+            0.9335492964659226
+          ],
+          "median_ratio": 0.9370300261581159,
+          "greater_than_2pct_in_every_holdout_round": false
+        },
+        "morton_vs_mfast": {
+          "baseline": "oa_legacy",
+          "candidate": "oa_morton",
+          "holdout_round_ratios": [
+            1.0746911727329633,
+            1.074227432807212
+          ],
+          "median_ratio": 1.0744593027700877,
+          "greater_than_2pct_in_every_holdout_round": true
+        },
+        "direct_morton_vs_direct": {
+          "baseline": "oa_direct",
+          "candidate": "exp_direct_morton",
+          "holdout_round_ratios": [
+            1.1420049314571286,
+            1.1420819049276014
+          ],
+          "median_ratio": 1.1420434181923649,
+          "greater_than_2pct_in_every_holdout_round": true
+        },
+        "direct_morton_vs_morton": {
+          "baseline": "oa_morton",
+          "candidate": "exp_direct_morton",
+          "holdout_round_ratios": [
+            0.9994200645922737,
+            0.9925177167235578
+          ],
+          "median_ratio": 0.9959688906579158,
+          "greater_than_2pct_in_every_holdout_round": false
+        }
+      },
+      "selection": {
+        "none": {
+          "selection_round": 0,
+          "fixed_methods": {
+            "native_oa": "oa_morton",
+            "same_ptx_ptxas": "ptxas_morton8",
+            "vendor_library": "cublas_gemmex"
+          },
+          "holdout_ms": {
+            "native_oa": [
+              2.470502471923828,
+              2.472140884399414
+            ],
+            "same_ptx_ptxas": [
+              2.3164928436279295,
+              2.310348892211914
+            ],
+            "vendor_library": [
+              2.166169548034668,
+              2.1655551910400392
+            ]
+          },
+          "holdout_round_ratios": {
+            "same_ptx_ptxas_over_native": [
+              0.9376606054654265,
+              0.9345538948817611
+            ],
+            "vendor_library_over_native": [
+              0.8768133497748859,
+              0.8759837292064941
+            ]
+          }
+        }
+      },
+      "all_full_checks_passed": true,
+      "all_graph_checks_passed": true
+    }
+  ]
+}

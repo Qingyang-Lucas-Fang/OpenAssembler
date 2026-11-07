@@ -1,0 +1,237 @@
+{
+  "schema": 1,
+  "purpose": "Prospective coverage and admission contract for the second NN arithmetic campaign; not a record that every listed operation has been executed",
+  "target": "SM80 NVIDIA A100; record actual returned model, memory size, clocks, driver and toolkit per run",
+  "status": "planned",
+  "execution_record": "exp/nn_round2/coverage_execution_20261107.json",
+  "execution_record_note": "The prospective families and missing-native-implementation entries below are preserved. Actual tested, shared-runtime and uncovered coverage is recorded separately with immutable experiment references.",
+  "measurement_scopes": {
+    "native_kernel": "OpenAssembler-generated SASS versus ptxas on the identical generated PTX and launch contract",
+    "vendor_operator": "Matched PyTorch/ATen/cuBLAS CUDA operation; count all required launches, conversions, allocation and saved outputs",
+    "hybrid_workload": "Native OpenAssembler or same-PTX ptxas replaces explicitly enumerated operations; remaining CUDA operations are shared and attributed",
+    "compiled_application": "Existing OpenAssembler application capture uses AOTAutograd/Inductor/Triton; compare against both eager CUDA and direct stock compiled PyTorch, never attribute this route to native OA SASS"
+  },
+  "categories": [
+    {
+      "id": "dense_linear",
+      "arithmetic": ["GEMM", "bias", "alpha/beta scaling"],
+      "training_roles": ["forward", "input_gradient", "weight_gradient"],
+      "native_status": "Native FP16/BF16 contiguous-K full-tile C=A@B.T with FP32 accumulation/output; alpha/beta generally unsupported",
+      "candidate": "Per-shape choice of existing pointer homes, CTA traversal and legal fused epilogue",
+      "gate": "Complete finite outputs versus independent FP64 reference on rounded operands; exact same-PTX check separately; output guards",
+      "integration_costs": ["FP16/BF16 casts", "transposed contiguous packs", "saved operands", "launch dispatch"]
+    },
+    {
+      "id": "batched_attention_products",
+      "arithmetic": ["QK.T", "probability times V", "dQ", "dK", "dV"],
+      "training_roles": ["forward", "backward"],
+      "native_status": "No native batched/fused attention integration; explicit per-head GEMM composition requires padded full tiles and conversion",
+      "candidate": "Batch independent heads without silently dropping packing and host launch overhead",
+      "gate": "Complete attention outputs and all Q/K/V gradients; compare identical masks, scale and saved tensors",
+      "integration_costs": ["head split/merge", "padding", "probability precision conversion", "saved probabilities", "per-head launches"]
+    },
+    {
+      "id": "residual_bias_scale",
+      "arithmetic": ["add", "multiply", "broadcast bias", "residual"],
+      "training_roles": ["forward", "backward"],
+      "native_status": "Expressible scalar PTX; selected GEMM fused FP32 bias/residual epilogues exist",
+      "candidate": "Fuse identical elementary arithmetic or use two/four elements per thread with complete tails",
+      "gate": "Elementwise expected expression with declared contraction policy and all outputs poisoned before replay",
+      "integration_costs": ["broadcast indexing", "intermediate materialization"]
+    },
+    {
+      "id": "relu",
+      "arithmetic": ["max", "comparison", "masked gradient"],
+      "training_roles": ["forward", "backward"],
+      "native_status": "Forward scalar example validated; backward requires explicit experimental source",
+      "candidate": "Multiple contiguous elements per thread or bias/residual fusion",
+      "gate": "Elementwise exact check including zero, sign boundaries and tails",
+      "integration_costs": ["saved input or activation mask"]
+    },
+    {
+      "id": "gelu",
+      "arithmetic": ["tanh GELU", "GELU derivative"],
+      "training_roles": ["forward", "backward"],
+      "native_status": "Tanh-approximate scalar forward example validated; no native backward API",
+      "candidate": "Instruction-level parallelism and bounded fusion under an unchanged tanh-approximate mathematical contract",
+      "gate": "Independent high-precision tanh formula and analytic derivative; exact same-PTX check reported separately",
+      "integration_costs": ["saved preactivation", "derivative recomputation"]
+    },
+    {
+      "id": "silu_gate",
+      "arithmetic": ["sigmoid", "SiLU", "SwiGLU product", "derivatives"],
+      "training_roles": ["forward", "backward"],
+      "native_status": "No production fused SwiGLU operator; elementary expressions may compile in supported PTX subset",
+      "candidate": "Fuse sigmoid/gate multiplication and matched backward pointwise expressions",
+      "gate": "Independent FP64 formula over bounded inputs including saturation and zero",
+      "integration_costs": ["two branches of gate projection", "saved gate activations"]
+    },
+    {
+      "id": "softmax",
+      "arithmetic": ["row maximum", "max subtraction", "exp", "row sum", "division", "Jacobian-vector product"],
+      "training_roles": ["forward", "backward"],
+      "native_status": "Production cooperative forward FP32 y-only widths 1..1024; backward not implemented",
+      "candidate": "Warps per CTA, elements per lane, safe shuffle synchronization and fused scale/mask",
+      "gate": "Full rows versus FP64 reference, row sums, tails and bounded finite patterns; backward zero-sum and analytic reference",
+      "integration_costs": ["saved probabilities", "mask", "output dtype"]
+    },
+    {
+      "id": "layernorm",
+      "arithmetic": ["mean", "population variance", "rsqrt", "affine", "dX", "dGamma", "dBeta"],
+      "training_roles": ["forward", "backward"],
+      "native_status": "Production y-only non-affine FP32 forward width <=1024; no saved statistics/affine/backward",
+      "candidate": "Joint row mapping and live ranges; distinguish shifted two-pass variance from unstable sum-of-squares shortcuts",
+      "gate": "Full output and saved statistics versus stable FP64 population normalization; all gradients if implemented",
+      "integration_costs": ["saved mean/rstd", "affine output", "parameter gradient reductions"]
+    },
+    {
+      "id": "rmsnorm",
+      "arithmetic": ["sum of squares", "mean", "rsqrt", "affine", "backward reductions"],
+      "training_roles": ["forward", "backward"],
+      "native_status": "Existing transformer uses shared PyTorch/Inductor expressions; no native operator API",
+      "candidate": "Remove unnecessary mean subtraction and fuse row scaling with matched saved inverse RMS",
+      "gate": "FP64 formula, width tails and all gradients under fixed epsilon",
+      "integration_costs": ["saved inverse RMS", "dGamma reduction"]
+    },
+    {
+      "id": "bias_gradient",
+      "arithmetic": ["column reduction"],
+      "training_roles": ["backward"],
+      "native_status": "Shared CUDA runtime in existing MLP; no tuned native reduction API",
+      "candidate": "Cooperative two-stage reduction with explicit workspace and no omitted second stage",
+      "gate": "All columns against FP64 sum with declared FP32 accumulation tolerance",
+      "integration_costs": ["scratch storage", "second reduction launch"]
+    },
+    {
+      "id": "loss_mse",
+      "arithmetic": ["subtraction", "squared error", "mean reduction", "gradient scaling"],
+      "training_roles": ["forward", "backward"],
+      "native_status": "Shared CUDA in existing hybrid MLP",
+      "candidate": "Fuse pointwise derivative with fixed upstream scalar and reduction policy",
+      "gate": "Full derivative and scalar loss against FP64; reduction denominator unchanged",
+      "integration_costs": ["reduction workspace", "loss scalar dependency"]
+    },
+    {
+      "id": "loss_cross_entropy",
+      "arithmetic": ["logsumexp", "label gather", "probability-minus-label", "mean reduction"],
+      "training_roles": ["forward", "backward"],
+      "native_status": "Old scalar forward example failed byte-exact ptxas gate; no admitted production training loss",
+      "candidate": "Cooperative fused loss/gradient under declared new accuracy contract, retaining historical failure",
+      "gate": "Full per-row losses and all gradient entries with valid labels, extreme finite logits and denominator policy",
+      "integration_costs": ["global mean", "label reads", "saved logits or probabilities"]
+    },
+    {
+      "id": "gradient_clipping",
+      "arithmetic": ["global squared norm", "sqrt", "min", "rescale"],
+      "training_roles": ["optimizer"],
+      "native_status": "Shared PyTorch in transformer workflow; not native OA integrated",
+      "candidate": "Multi-tensor norm and scale with same overflow and epsilon semantics",
+      "gate": "All raw and clipped gradients plus global norm; policy never adjusted to admit faster results",
+      "integration_costs": ["cross-tensor reduction", "global scalar synchronization"]
+    },
+    {
+      "id": "adamw",
+      "arithmetic": ["moment updates", "square", "sqrt", "division", "bias correction", "decoupled weight decay"],
+      "training_roles": ["optimizer"],
+      "native_status": "Example fused Adam-like kernel is not AdamW: lacks bias correction and decoupled decay; whole workloads use shared Torch AdamW",
+      "candidate": "Fused exact policy update on independent tensors; immutable input buffers for isolated graph timing",
+      "gate": "All parameters, first/second moments, step counters and gradients for multiple updates with unchanged epsilon/decay/bias correction",
+      "integration_costs": ["multi-tensor launches", "step counter handling", "state initialization"]
+    },
+    {
+      "id": "sgd_momentum",
+      "arithmetic": ["momentum", "weight decay", "parameter update"],
+      "training_roles": ["optimizer"],
+      "native_status": "Scalar expressions can compile; no native multi-tensor optimizer integration",
+      "candidate": "Fuse momentum and parameter update with explicit policy and full state",
+      "gate": "All parameter/momentum tensors across several steps; not compared to AdamW as equivalent training",
+      "integration_costs": ["state reads/writes", "per-tensor launches"]
+    },
+    {
+      "id": "elementary_math",
+      "arithmetic": ["reciprocal", "division", "sqrt", "rsqrt", "exp", "log", "tanh", "FMA"],
+      "training_roles": ["forward", "backward", "optimizer"],
+      "native_status": "Recorded SM80 instruction sequences and approximate math exist; precise exceptional-value contracts differ by form",
+      "candidate": "Latency hiding across independent elements and equivalent address/instruction sequence selection",
+      "gate": "Domain declared per instruction, full FP64/bit-level checks, accuracy and throughput reported independently",
+      "integration_costs": ["conversion", "domain conditioning"]
+    },
+    {
+      "id": "integer_addressing",
+      "arithmetic": ["index div/rem", "integer multiply/add", "pointer formation", "bounds"],
+      "training_roles": ["forward", "backward", "optimizer"],
+      "native_status": "Native constant division/rem and pointer address generation implemented",
+      "candidate": "Compile-time divisor/index decomposition, fewer live address registers and legal strength reduction",
+      "gate": "Exact integer results including boundaries, signedness and overflow semantics; no guessed truncation",
+      "integration_costs": ["CTA mapping", "non-power-of-two dimensions"]
+    },
+    {
+      "id": "layout_and_cast",
+      "arithmetic": ["FP32-to-FP16/BF16 conversion", "transpose", "padding", "head reshape", "contiguous packing"],
+      "training_roles": ["forward", "backward"],
+      "native_status": "GEMM requires contiguous K and full tiles; surrounding conversions/packing are shared CUDA operations",
+      "candidate": "Reuse exact packed immutable weights in inference; fuse packing only if full lifetime/invalidation correct",
+      "gate": "All logical and padded elements, exact casts, guards and invalidation after parameter updates",
+      "integration_costs": ["pack once versus per call", "invalidating updated weights", "temporary allocation"]
+    },
+    {
+      "id": "masking_position",
+      "arithmetic": ["causal/padding mask", "attention scale", "RoPE sin/cos rotations", "mask backward"],
+      "training_roles": ["forward", "backward"],
+      "native_status": "Original model uses shared SDPA causal mask and learned position embeddings; no native RoPE API",
+      "candidate": "Fuse scale/mask into score staging or pointwise rotary operations without changing position convention",
+      "gate": "Full outputs/gradients, causal zeros and position offsets; fully masked-row policy fixed",
+      "integration_costs": ["position table", "mask broadcast"]
+    },
+    {
+      "id": "embedding_gather_scatter",
+      "arithmetic": ["embedding gather", "repeated-index gradient scatter-add"],
+      "training_roles": ["forward", "backward"],
+      "native_status": "Shared library path; no validated native embedding/scatter atomic implementation",
+      "candidate": "Coalesced gather or deterministic grouped gradient reduction needs separate future implementation",
+      "gate": "Full outputs and repeated-token gradients; duplicate-index accumulation and determinism contract",
+      "integration_costs": ["index validation", "scatter collisions", "vocabulary-sized gradient initialization"]
+    },
+    {
+      "id": "dropout_rng",
+      "arithmetic": ["RNG", "threshold", "rescale", "saved mask backward"],
+      "training_roles": ["forward", "backward"],
+      "native_status": "No native RNG/dropout integration; older transformer uses no dropout",
+      "candidate": "Counter-based RNG/fusion requires matching declared RNG semantics and should not be claimed from dropout-disabled tests",
+      "gate": "Saved mask/gradient consistency, seed/counter reproducibility and fixed dropout probability",
+      "integration_costs": ["RNG state", "mask storage or recomputation"]
+    },
+    {
+      "id": "convolution_pooling",
+      "arithmetic": ["convolution", "convolution backward", "pooling"],
+      "training_roles": ["forward", "backward"],
+      "native_status": "Outside current native transformer/MLP contract; no tuned convolution frontend/runtime",
+      "candidate": "Separate future implicit-GEMM or direct-convolution work, not inferred from dense GEMM timings",
+      "gate": "Padding/stride/dilation/group semantics, all outputs and gradients if expanded to CNNs",
+      "integration_costs": ["im2col or implicit address generation", "workspace"]
+    },
+    {
+      "id": "distributed_collectives",
+      "arithmetic": ["allreduce", "reduce-scatter", "allgather"],
+      "training_roles": ["backward", "optimizer"],
+      "native_status": "Single-GPU study only; no NCCL/native distributed stack claim",
+      "candidate": "Compute/communication overlap requires real multi-GPU measurements, not virtual A100 cluster assumptions",
+      "gate": "Global tensor correctness and synchronization across actual participating ranks",
+      "integration_costs": ["communication", "stream dependencies", "rank imbalance"]
+    }
+  ],
+  "workload_designs": [
+    {"id": "residual_mlp", "minimum_variants": 3, "description": "Small, medium and compute-heavy residual MLP; all forward/dX/dW GEMMs replaceable, all activation/loss/optimizer state checked"},
+    {"id": "attention_block", "minimum_variants": 2, "description": "Explicit scaled attention forward/backward plus MLP, rather than calling a score matrix complete attention; shared unsupported operators labelled"},
+    {"id": "decoder_transformer", "minimum_variants": 3, "description": "Tiny, long-context and wide/deep full forward/backward/optimizer cases using current application workflow; stock compiled PyTorch baseline needed for attribution"}
+  ],
+  "admission": {
+    "declare_before_gpu": ["shape and layout", "input/output/accumulation precision", "tolerances", "optimizer policy", "candidate set", "timing protocol", "primary comparison"],
+    "kernel_checks": ["all output elements, not samples", "independent mathematical reference where feasible", "same-source ptxas comparison", "output poisoned after CUDA graph capture", "canaries before and after outputs", "input nonmutation", "valid disassembly", "resources and launch dimensions", "source/PTX/cubin hashes"],
+    "workload_checks": ["complete outputs and loss", "input gradients", "all raw parameter gradients before clipping", "all clipped gradients if used", "all final parameters", "all optimizer tensors and step counters", "several deterministic updates", "identical initialization and data", "saved activations/statistics when API promises them"],
+    "timing": ["same-device matched comparisons", "warmup separated from measurement", "randomized or reversed paired order", "retain raw samples", "at least two independent process rounds for a promoted speed claim", "kernel graph and whole host-dispatched latency separate", "stage instrumentation separate from uninstrumented total", "compilation/startup separately reported", "all conversions and required runtime work inside whole boundary"],
+    "candidate_selection": "Report every attempted candidate and failure. A candidate selected on a tuning run needs fresh held-out timing before claiming a win; cannot select the minimum noisy sample.",
+    "failure": "Retain failed correctness/resource/build/timing rows with reasons. No timing admission for failed gates. No epsilon/tolerance/precision changes made merely to admit a candidate.",
+    "claim_boundary": "Coverage matrix is a map of tested and missing arithmetic, not a universal claim that all NN arithmetic has native OA implementations. CUDA API/library gains cannot establish native OA SASS scheduling superiority."
+  }
+}

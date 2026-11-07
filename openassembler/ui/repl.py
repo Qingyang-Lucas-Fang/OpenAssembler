@@ -21,9 +21,10 @@ Built-in shell commands (in addition to every CLI subcommand below):
 
 Type any openassembler subcommand without the leading "openassembler", e.g.:
   compile examples/div_by_const.ptx -o out --verify   # -> output/cubin/out.cubin, output/sass/out.sass
-  compile my_repo/                                     # every kernel in a repo, mirrored into output/
+  compile my_repo/ --backend modal                     # -> my_repo/output/{cubin,sass}
+  run my_repo/ --backend me@gpubox                     # reuse that repository's saved build
   run --backend modal --dry-run                        # ours vs ptxas on a GPU (nothing is sent)
-  cnr kernel.cu --backend me@gpubox                    # compile, then run what compiled
+  cnr my_repo/ --backend me@gpubox                     # compile and run on the same SSH host
   gemm --m 128 --n 128 --k 128                         # native A100 tensor GEMM
   run --application training --backend modal           # compiled PyTorch application
   status
