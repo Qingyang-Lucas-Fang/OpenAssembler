@@ -2,15 +2,12 @@
 
 # OpenAssembler
 
-OpenAssembler compiles supported Python GPU kernels, CUDA C/C++ kernels and PTX
-into native NVIDIA SASS and loadable CUDA binaries. Its own instruction selector,
-register allocator, scheduler and encoder target **A100 / SM80**.
 
-It uses NVIDIA tools as black-box encoding oracles, for CUDA C/C++ to PTX,
-for the cubin container and for reference disassembly. A separate configured
-PyTorch application workflow uses Dynamo/AOTAutograd and Inductor/Triton to
-capture and replay model graphs. That workflow does not automatically replace
-its kernels with the native OpenAssembler backend.
+**A from-scratch Python/CUDA to SASS/CUDA Binary compiler for your Neural Network training repo, built entirely by reverse-engineering nvidia tools as a black box and applying kernel optimizations to the compiler.**
+
+Do you always feel like when the newest nvidia GPU come out with unbearable high price while your existing older GPUs are making you left behind in model serving and training? 
+
+We provide a more efficient compiler eith optimization kernels that reduce the number of instruction down by up to ~12% comparing to the NVIDIA ptxas compiler, and reach an approximate 13% speed up in LLM inferencing and training comparing to using the SASS/cubin compiled by the nvidia compiler on various existing architectures (A100, H100 etc). Our goal is to create efficient and fast compiler and low level assembly language/binary file so that you can (without buying expensive frontier GPUs) with a ~10% speedup in training speed. OpenAssembler currently support compiling and executing whole NN training repo on your A100 GPU (including Python, CUDA C, CUDA C++ down to SASS and further down to CUDA Binary file, which is directly executable on your NVIDIA GPUs). We are currently working on more optimization kernels and wider hardware supports including V100 and H100. 
 
 [Architecture and status](docs/STATUS.md) · [All commands](docs/COMMANDS.md) ·
 [Research catalogue](docs/research/README.md) · [Development setup](docs/DEVELOPMENT.md)
@@ -98,3 +95,13 @@ flag. Actual research reproduction belongs to the
 - `exp/`: isolated experiment drivers and raw records; no production import dependency.
 
 The package is version **0.2.0**. See [LICENSE](LICENSE) and [NOTICE](NOTICE).
+
+## Star History
+
+<a href="https://www.star-history.com/?repos=qingyang-lucas-fang%2Fopenassembler&type=date&legend=top-left">
+ <picture>
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=qingyang-lucas-fang/openassembler&type=date&theme=dark&legend=top-left" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=qingyang-lucas-fang/openassembler&type=date&legend=top-left" />
+   <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=qingyang-lucas-fang/openassembler&type=date&legend=top-left" />
+ </picture>
+</a>
